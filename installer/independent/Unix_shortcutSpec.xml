@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<shortcuts>
+
+    <programGroup defaultName="XML Editor/XPontus" location="applications"/>
+   
+    <shortcut
+        name="XPontus XML Editor"
+        programGroup="yes"
+        desktop="yes"
+        applications="yes"
+        startMenu="yes"
+        startup="no"
+        target="java"
+        commandLine="-Dxpontus.home=&quot;$INSTALL_PATH&quot; -Dclassworlds.conf=&quot;$INSTALL_PATH/etc/xpontus.conf&quot; -cp &quot;$INSTALL_PATH/boot/classworlds-1.1.jar&quot; org.codehaus.classworlds.Launcher $*"
+        workingDirectory="" 
+        description="XPontus XML Editor"
+        iconFile="$INSTALL_PATH/bin/icons/logo.png"
+        iconIndex="0"
+        type="Application"
+        encoding="UTF-8"
+        terminal="false"
+        KdeSubstUID="false"
+        initialState="normal">
+        <createForPack name="Base"/>
+    </shortcut>
+   
+    <shortcut
+        name="XPontus Documentation"
+        programGroup="yes"
+        desktop="yes"
+        applications="yes"
+        startMenu="yes"
+        startup="no"
+        iconFile="$INSTALL_PATH/bin/icons/moz.png"
+        iconIndex="0"
+        target="firefox"
+        type="Application"
+        encoding="UTF-8"
+        terminal="false"
+        KdeSubstUID="false"
+        commandLine="&apos;$INSTALL_PATH/documentation/index.html&apos;"
+        description="This opens a WebBrowser to look into the XPontus user documentation">          
+        <createForPack name="Docs" />
+    </shortcut>
+  
+    <shortcut
+        name="XPontus API Documentation"
+        programGroup="yes"
+        desktop="yes"
+        applications="yes"
+        startMenu="yes"
+        startup="no"
+        iconFile="$INSTALL_PATH/bin/icons/moz.png"
+        iconIndex="0"
+        target="firefox"
+        type="Application"
+        encoding="UTF-8"
+        terminal="false"
+        KdeSubstUID="false"
+        commandLine="&apos;$INSTALL_PATH/javadoc/index.html&apos;"
+        description="This opens a WebBrowser to look into the XPontus API documentation">          
+        <createForPack name="ApiDocs" />
+    </shortcut>
+  
+    <shortcut
+        name="XPontus Uninstaller"
+        programGroup="yes"
+        desktop="yes"
+        applications="yes"
+        startMenu="yes"
+        startup="no"
+        target="java"
+        commandLine="-jar &quot;$INSTALL_PATH/Uninstaller/uninstaller.jar&quot;"
+        initialState="noShow"
+        iconIndex="0"
+        iconFile="$INSTALL_PATH/bin/icons/uninstaller.png"
+        workingDirectory=""
+        type="Application"
+        encoding="UTF-8"
+        description="XPontus uninstaller">
+        <createForPack name="Base" />
+    </shortcut>
+  
+</shortcuts>

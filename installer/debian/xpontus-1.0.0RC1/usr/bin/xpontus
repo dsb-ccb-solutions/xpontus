@@ -1,0 +1,2 @@
+#!/bin/bash
+java -Dxpontus.home="/usr/lib/xpontus" -Dclassworlds.conf="/usr/share/xpontus/conf/xpontus.conf" -cp "/usr/lib/xpontus/boot/classworlds-1.1.jar" org.codehaus.classworlds.Launcher $*;

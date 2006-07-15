@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faqs PUBLIC "-//APACHE//DTD FAQ V2.0//EN" "http://forrest.apache.org/dtd/faq-v20.dtd">
+<faqs>
+    <title>XPontus XML Editor- FAQs</title>
+    <authors>
+        <person name="Yves Zoundi" email="yveszoundi at users dot sf dot net"/>
+    </authors>
+    <faqsection>
+        <title>General</title>
+        <faq >
+            <question>How do i enable tag completion?</question>
+            <answer>
+                <p>Tag completion is planned for the second release which will be called XPontus
+                    1.0.1.</p>
+            </answer>
+        </faq>
+        <faq>
+            <question>Why did you created XPontus?</question>
+            <answer>
+                <p>I didn't find a nice and free alternative to edit XML files at the time.</p>
+            </answer>
+        </faq>
+        <faq>
+            <question>Is there a Mac OS X installer?</question>
+            <answer>It is planned...</answer>
+        </faq>
+        <faq >
+            <question>How do i download the code from cvs?</question>
+            <answer>
+                <p>Use a CVS client like <a class="fork" href="http://www.wincvs.org/">WinCVS</a>
+                    which is crossplatform.</p>
+            </answer>
+        </faq>
+    </faqsection>
+</faqs>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+
+
+<!--
+    Copyright 2002-2005 The Apache Software Foundation or its licensors,
+    as applicable.
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+    <header>
+        <title>Project information</title>
+        <meta name="keywords">XML Editor, XML, XSLT, XML IDE, DTD, XSLT Editor, XSL Editor, XPontus
+            XML Editor, Java based XML Editor</meta>
+        <meta name="description">XPontus XML Editor project information</meta>
+        <meta name="robots">index, follow</meta>
+    </header>
+    <body>
+        <section>
+            <title>Dependencies</title>
+
+
+            <table>
+                <tr>
+                    <th>Dependency</th>
+                    <th>URL</th>
+                </tr>
+                <tr>
+                    <td>commons-logging</td>
+                    <td>
+                        <a href="http://jakarta.apache.org/commons/logging/" class="fork"
+                            >commons-logging</a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>XStream</td>
+                    <td>
+                        <a class="fork" href="http://xstream.codehaus.org/"
+                            >http://xstream.codehaus.org/</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Batik </td>
+                    <td>
+                        <a class="fork" href="http://xmlgraphics.apache.org/batik/"
+                            >http://xmlgraphics.apache.org/batik/</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> JGoodies Looks</td>
+                    <td>
+                        <a class="fork" href="https://looks.dev.java.net/"
+                            >https://looks.dev.java.net/</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> MSV</td>
+                    <td>
+                        <a class="fork" href="https://msv.dev.java.net/"
+                        >https://msv.dev.java.net/</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Xalan</td>
+                    <td>
+                        <a class="fork" href="http://xalan.apache.org/">http://xalan.apache.org/</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>xml-apis</td>
+                    <td>
+                        <a href="http://xerces.apache.org/xerces2-j/" class="fork">xml-apis</a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>xercesImpl</td>
+                    <td>
+                        <a href="http://xerces.apache.org/xerces2-j/" class="fork">xercesImpl</a>
+                    </td>
+
+                </tr>
+            </table>
+
+        </section>
+
+        <section>
+            <title>Mailing lists</title>
+            <p>Mailing lists</p>
+        </section>
+
+        <section>
+            <title>Project team</title>
+            <table>
+                <tr>
+                    <th>Developer</th>
+                    <th>Role</th>
+                    <th>Organisation</th>
+                </tr>
+                <tr>
+                    <td>Yves Zoundi</td>
+                    <td>Main developer</td>
+                    <td>
+                        <a href="http://www.bibl.ulaval.ca">Universite Laval Library</a>
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+
+        <section>
+            <title>Source code repository</title>
+            <p>XPontus source code is actually in CVS. The CVS is not being updated anymore. As
+                SourceForge added support for SubVersion, il will use subversion.</p>
+        </section>
+
+        <section>
+            <title>Issue tracking</title>
+            <p>Issue tracking</p>
+        </section>
+
+
+    </body>
+</document>

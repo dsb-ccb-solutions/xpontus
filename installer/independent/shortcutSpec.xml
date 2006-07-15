@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shortcuts>
+    <skipIfNotSupported/>
+    <programGroup defaultName="XPontus" location="applications||startMenu"/>
+    <!-- xpontus launcher -->
+    <shortcut
+        name="XPontus XML Editor"
+        target="javaw"
+        commandLine="-Dxpontus.home=&quot;$INSTALL_PATH&quot; -Dclassworlds.conf=&quot;$INSTALL_PATH\etc\xpontus.conf&quot; -cp &quot;$INSTALL_PATH\boot\classworlds-1.1.jar&quot; org.codehaus.classworlds.Launcher $*"
+        workingDirectory=""
+        description="Starts XPontus XML Editor"
+        iconFile="$INSTALL_PATH\bin\icons\logo.ico"
+        iconIndex="0"
+        initialState="noShow||normal||maximized||minimized"
+        programGroup="yes"
+        desktop="yes"
+        applications="yes"
+        startMenu="yes||no"
+        startup="no">
+        <createForPack name="Base"/>
+    </shortcut>
+    <!-- xpontus documentation -->
+    <shortcut
+        name="XPontus Documentation"
+        programGroup="yes"
+        desktop="yes"
+        applications="yes"
+        startMenu="no"
+        startup="no"
+        target="C:\Program Files\Internet Explorer\iexplore.exe"
+        commandLine="$INSTALL_PATH\documentation\index.html"
+        description="This opens a WebBrowser to look into the XPontus user documentation">          
+        <createForPack name="Docs" />
+    </shortcut>
+    <!-- xpontus api documentation -->
+    <shortcut
+        name="XPontus API Documentation"
+        programGroup="yes"
+        desktop="yes"
+        applications="yes"
+        startMenu="no"
+        startup="no"
+        target="C:\Program Files\Internet Explorer\iexplore.exe"
+        commandLine="$INSTALL_PATH\javadoc\index.html"
+        description="This opens a WebBrowser to look into the XPontus API documentation">          
+        <createForPack name="ApiDocs" />
+    </shortcut>
+    <!-- xpontus uninstaller -->
+    <shortcut
+        name="XPontus Uninstaller"
+        programGroup="yes"
+        desktop="yes"
+        applications="yes"
+        startMenu="no"
+        startup="no"
+        target="java"
+        commandLine="-jar &quot;$INSTALL_PATH\Uninstaller\uninstaller.jar&quot;"
+        initialState="noShow"
+        iconIndex="0"
+        iconFile="$INSTALL_PATH\bin\icons\uninstaller.ico"
+        workingDirectory=""
+        description="XPontus uninstaller">
+        <createForPack name="Base" />
+    </shortcut>
+    
+</shortcuts>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-xpontus-installer" default="build-installer" basedir=".">
+ <taskdef name="izpack" classpath="/opt/izpack/lib/compiler.jar" classname="com.izforge.izpack.ant.IzPackTask"/>
+    <target name="build-installer">
+       <izpack input="independent/xpontus-install.xml"
+        output="output/xpontus-installer-1.0.0RC1.jar"
+        installerType="standard"
+        basedir="independent"
+        izPackDir="/opt/izpack/"/>
+    </target>
+</project>

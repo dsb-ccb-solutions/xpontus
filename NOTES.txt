@@ -1,0 +1,6 @@
+Release notes
+------------------------------------------------------------
+- Added a new template for Docbook XML documents
+- Added more documentation in the integrated help 
+- Added more comments in source code
+- Fixed a bug which caused XPontus to run at windows startup
