@@ -1,0 +1,1 @@
+ makeself installer XPontusInstaller.sh "XPontus XML Editor Installer" 'java -jar xpontus-installer.jar'

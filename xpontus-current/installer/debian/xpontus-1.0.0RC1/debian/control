@@ -1,0 +1,11 @@
+Package: xpontus
+Version: 1.0.0RC1
+Source: xpontus
+Section: editors
+Priority: optional
+Maintainer: yves <yveszoundi@users.sf.net>
+Architecture: all
+Depends: sun-java5-jre|j2re1.4|sun-j2re1.5|sun-j2re1.4,java-common
+Description: XPontus a free Java based XML Editor
+ XPontus is a free java based XML editor designed towards text editing. It aims to provide a free alternative to commercial XML Editors. As XPontus is written in Java it is available for all java enabled operating systems. It has been tested on Linux, Windows and FreeBSD.
+ 

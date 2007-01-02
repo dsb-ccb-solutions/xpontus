@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faqs PUBLIC "-//APACHE//DTD FAQ V2.0//EN" "http://forrest.apache.org/dtd/faq-v12.dtd">
+<faqs>
+        
+    <faq id="completion">
+        <question>How do i enable tag completion?</question>
+        <answer>
+            <p>Tag completion is planned for the second release which will be called XPontus
+            1.0.1.</p>
+        </answer>
+    </faq>
+    <faq id="features-menu">
+        <question>How to request/get some new features?</question>
+        <answer>
+            <p>You can contribute or request it at the forum pages.</p>
+            <p>As there is no stable release I am always developing, I code, I don't sleep :-).
+                Request something and I will reply as soon as I get time to do so..</p>
+        </answer>
+    </faq>
+
+    <faq id="why-menu">
+        <question>Why did you created XPontus?</question>
+        <answer>
+            <p>I didn't find a nice and free alternative to edit XML files at the time.</p>
+        </answer>
+    </faq>
+    <faq id="mac-menu">
+        <question>Is there a Mac OS X installer?</question>
+        <answer>
+            <p>It is planned... I don't own a Mac but I will find the time and the experts to help
+                build it.</p>
+        </answer>
+    </faq>
+    <faq id="src-roadmap">
+        <question>Where is the roadmap?</question>
+        <answer>
+            <p>The feedback is very important to me to improve the editor. I am trying to write a roadmap but without comments
+                I might forget obvious things.</p>
+        </answer>
+    </faq>
+    <faq id="src-undo">
+        <question>Can I undo changes after HTML cleaning?</question>
+        <answer>
+            <p>No. I didn't find a way to do it, I am still looking at the problem.</p>
+        </answer>
+    </faq>
+    <faq id="src-menu">
+        <question>How do i download only the source code?</question>
+        <answer>
+            <p>Go at the project download page and follow the instructions to get the code from the
+                SVN repository.</p>
+        </answer>
+    </faq>
+</faqs>

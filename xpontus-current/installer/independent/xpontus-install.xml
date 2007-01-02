@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<!-- 
+    XPontus XML Editor installation file for IzPack
+-->
+<installation version="1.0">
+    <!-- 
+    The info section.
+    The meaning of the tags should be natural ...
+    -->
+    <info>
+        <appname>XPontus</appname>
+        <appversion>1.0.0-rc1</appversion>
+        <authors>
+            <author name="Yves Zoundi" email="yveszoundi@users.sourceforge.net"/>
+        </authors>
+        <url>http://xpontus.sourceforge.net/</url>
+    </info>
+    <!-- 
+    The gui preferences indication.
+    Sets the installer window to 640x480. It will not be able to change the size.
+    -->
+    <guiprefs width="640" height="480" resizable="no">
+        <modifier key="useButtonIcons" value="no"/>
+        <modifier key="useLabelIcons" value="no"/>
+        <modifier key="useFlags" value="no"/>
+        <modifier key="langDisplayType" value="native"/>
+        <laf name="looks">
+            <os family="unix" />
+            <os family="windows" />	
+        </laf>
+    </guiprefs>
+    <!-- 
+    The locale section.
+    Asks here to include the English and French langpacks.
+    -->
+    <locale>
+        <langpack iso3="eng"/>
+        <langpack iso3="fra"/>
+    </locale>
+    
+    <native type="izpack" name="ShellLink.dll"/>
+    
+    <!-- 
+    The resources section.
+    The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+    -->
+    <resources>
+        <res src="shortcutSpec.xml" id="shortcutSpec.xml"/>
+        <res src="Unix_shortcutSpec.xml" id="Unix_shortcutSpec.xml"/>
+        <res src="custom.png" id="Installer.image"/>
+        <res id="LicencePanel.licence" src="LICENSE.txt"/>
+        <res id="InfoPanel.info" src="Readme.txt"/>
+    </resources>
+    <!-- 
+    The panels section.
+    We indicate here which panels we want to use. The order will be respected.
+    -->
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="PacksPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="ShortcutPanel"/>
+        <panel classname="FinishPanel"/>
+    </panels>
+    <!-- 
+    The packs section.
+    We specify here our packs.
+    -->
+    <packs>
+        <pack name="Base" required="yes">
+            <description>The base files</description>
+            <file src="Readme.txt" targetdir="$INSTALL_PATH"/>
+	    <file src="run.sh" targetdir="$INSTALL_PATH"/>
+	    <parsable targetfile="$INSTALL_PATH/run.sh" />
+            <executable targetfile="$INSTALL_PATH/run.sh"/>
+            <file src="LICENSE.txt" targetdir="$INSTALL_PATH"/>
+            <fileset dir="../../lib" targetdir="$INSTALL_PATH/lib"/>
+            <fileset dir="../../dist" targetdir="$INSTALL_PATH/lib">
+                <include name="*.jar"/>
+            </fileset>
+            <file src="bin" targetdir="$INSTALL_PATH"/>
+            <file src="etc" targetdir="$INSTALL_PATH"/>
+            <file src="boot" targetdir="$INSTALL_PATH"/>  
+        </pack>
+        <pack name="Docs" required="no">
+            <description>The documentation</description>
+            <file src="../../documentation" targetdir="$INSTALL_PATH"/>
+            <!-- Reccursive adding -->
+        </pack>
+        <pack name="Sources" required="no" preselected="no">
+            <description>The sources</description>
+            <file src="../../src" targetdir="$INSTALL_PATH"/>
+        </pack>
+        <pack name="ApiDocs" required="no">
+            <description>The API documentation</description>
+            <file src="../../dist/javadoc" targetdir="$INSTALL_PATH"/>
+        </pack>
+    </packs>
+</installation>

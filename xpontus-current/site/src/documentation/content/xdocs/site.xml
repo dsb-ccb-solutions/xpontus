@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright 2002-2005 The Apache Software Foundation or its licensors,
+  as applicable.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+Forrest site.xml
+
+This file contains an outline of the site's information content.  It is used to:
+- Generate the website menus (though these can be overridden - see docs)
+- Provide semantic, location-independent aliases for internal 'site:' URIs, eg
+<link href="site:changes"> links to changes.html (or ../changes.html if in
+  subdir).
+- Provide aliases for external URLs in the external-refs section.  Eg, <link
+  href="ext:cocoon"> links to http://cocoon.apache.org/ 
+
+See http://forrest.apache.org/docs/linking.html for more info
+-->
+<!-- The label attribute of the outer "site" element will only show
+  in the linkmap (linkmap.html).
+  Use elements project-name and group-name in skinconfig to change name of 
+  your site or project that is usually shown at the top of page.
+  No matter what you configure for the href attribute, Forrest will
+  always use index.html when you request http://yourHost/
+  See FAQ: "How can I use a start-up-page other than index.html?"
+-->
+<site xmlns="http://apache.org/forrest/linkmap/1.0" label="XPontus" href="" tab="">
+	<about label="About">
+		<index label="Index" href="index.html" description="XPontus, a free java based XML Editor"/>
+		<news label="News" href="news.html" description="News"/>
+		<changes label="Changes" href="changes.html" description="Changes"/>
+		<features label="Features" href="features/">
+			<index label="Features at glance" href="index.html"/>
+			<xsltscenarios label="XSLT scenarios" href="xsltscenario.html"/>
+			<xmlvalidation label="XML validation" href="xmlvalidation.html"/>
+			<externalschemavalidation label="External schema validation" href="schemavalidation.html"/>
+		</features>
+		<screenshots label="Screenshots" href="screenshots.html" description="XPontus screenshots"/>
+		<installation label="Installation" href="installation.html" description="XPontus installation"/>
+		<download label="Download" href="download.html" description="Download XPontus"/>
+		<license label="License" href="license.html" description="License"/>
+		<projectinfo label="Project information" href="projectDetails.html" description="Project information"/>
+		<todo label="Todo" href="todo.html" description="TODO"/>
+		<faqdocument label="FAQ" href="faq.html" description="Frequently asked questions"/>
+		<tools label="Tools used" href="tools.html" description="Tools used"/>
+		<projectstatus label = "Project status" href = "project-status.html" description = "Project status"/>
+		<externalinks label="External links" href="externallinks.html" description="External links"/>
+	        <aboutme label = "About me" href = "aboutme.html" description = "About me"/>
+	</about>
+</site>

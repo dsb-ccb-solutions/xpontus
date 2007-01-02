@@ -1,0 +1,104 @@
+JPF Application boot failed.
+Thu Dec 28 11:26:25 EST 2006
+
+-----------------------------------------------
+Exception details.
+
+Class: org.java.plugin.PluginLifecycleException
+Message: can't find plug-in class net.sf.xpontus.core.plugins.CoreGUIApplication
+
+Stack trace:
+
+org.java.plugin.standard.StandardPluginLifecycleHandler.createPluginInstance(Unknown Source)
+org.java.plugin.standard.StandardPluginManager.activatePlugin(Unknown Source)
+org.java.plugin.standard.StandardPluginManager.getPlugin(Unknown Source)
+org.java.plugin.boot.DefaultApplicationInitializer.initApplication(Unknown Source)
+org.java.plugin.boot.Boot.initApplication(Unknown Source)
+org.java.plugin.boot.Boot.boot(Unknown Source)
+org.java.plugin.boot.Boot.main(Unknown Source)
+net.sf.xpontus.core.controller.handlers.XPontusPluginLoader.boot(XPontusPluginLoader.java:23)
+net.sf.xpontus.controller.handlers.XPontusFormController.<init>(XPontusFormController.java:72)
+net.sf.xpontus.controller.handlers.XPontusFormController.main(XPontusFormController.java:94)
+
+Caused by java.lang.ClassNotFoundException: net.sf.xpontus.core.plugins.CoreGUIApplication
+
+org.java.plugin.standard.StandardPluginClassLoader.loadClass(Unknown Source)
+java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+org.java.plugin.standard.StandardPluginLifecycleHandler.createPluginInstance(Unknown Source)
+org.java.plugin.standard.StandardPluginManager.activatePlugin(Unknown Source)
+org.java.plugin.standard.StandardPluginManager.getPlugin(Unknown Source)
+org.java.plugin.boot.DefaultApplicationInitializer.initApplication(Unknown Source)
+org.java.plugin.boot.Boot.initApplication(Unknown Source)
+org.java.plugin.boot.Boot.boot(Unknown Source)
+org.java.plugin.boot.Boot.main(Unknown Source)
+net.sf.xpontus.core.controller.handlers.XPontusPluginLoader.boot(XPontusPluginLoader.java:23)
+net.sf.xpontus.controller.handlers.XPontusFormController.<init>(XPontusFormController.java:72)
+net.sf.xpontus.controller.handlers.XPontusFormController.main(XPontusFormController.java:94)
+
+-----------------------------------------------
+System properties:
+
+applicationRoot=/home/mrcheeks/.xpontus_1rc2/1.0.0
+file.encoding=ISO-8859-1
+file.encoding.pkg=sun.io
+file.separator=/
+java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment
+java.awt.printerjob=sun.print.PSPrinterJob
+java.class.path=/home/mrcheeks/Projects/xpontus-devel/build/classes:/home/mrcheeks/Projects/xpontus-devel/lib/avalon-framework-4.1.4.jar:/home/mrcheeks/Projects/xpontus-devel/lib/batik-1.5-fop-0.20-5.jar:/home/mrcheeks/Projects/xpontus-devel/lib/binding-1.1.1.jar:/home/mrcheeks/Projects/xpontus-devel/lib/commons-collections-3.2.jar:/home/mrcheeks/Projects/xpontus-devel/lib/commons-io-1.2.jar:/home/mrcheeks/Projects/xpontus-devel/lib/commons-logging-1.0.4.jar:/home/mrcheeks/Projects/xpontus-devel/lib/fop-0.20.5.jar:/home/mrcheeks/Projects/xpontus-devel/lib/icu4j_3_4_4.jar:/home/mrcheeks/Projects/xpontus-devel/lib/isorelax.jar:/home/mrcheeks/Projects/xpontus-devel/lib/jhall-2.0.2.jar:/home/mrcheeks/Projects/xpontus-devel/lib/msv.jar:/home/mrcheeks/Projects/xpontus-devel/lib/nekohtml-0.9.5.jar:/home/mrcheeks/Projects/xpontus-devel/lib/relaxngDatatype.jar:/home/mrcheeks/Projects/xpontus-devel/lib/saxon.jar:/home/mrcheeks/Projects/xpontus-devel/lib/saxon8.jar:/home/mrcheeks/Projects/xpontus-devel/lib/swing-layout-1.0.jar:/home/mrcheeks/Projects/xpontus-devel/lib/trang.jar:/home/mrcheeks/Projects/xpontus-devel/lib/trex.jar:/home/mrcheeks/Projects/xpontus-devel/lib/vldocking_2.0.5.jar:/home/mrcheeks/Projects/xpontus-devel/lib/xalan-2.7.0.jar:/home/mrcheeks/Projects/xpontus-devel/lib/xercesImpl.jar:/home/mrcheeks/Projects/xpontus-devel/lib/xml-apis.jar:/home/mrcheeks/Projects/xpontus-devel/lib/xsdlib.jar:/home/mrcheeks/Projects/xpontus-devel/lib/xstream-1.1.3.jar:/home/mrcheeks/Projects/xpontus-devel/lib/xml-resolver-1.2.jar:/home/mrcheeks/Projects/xpontus-devel/lib/commons-vfs-20061221.jar:/home/mrcheeks/Projects/xpontus-devel/lib/jpf-boot.jar:/home/mrcheeks/Projects/xpontus-devel/lib/jpf-tools.jar:/home/mrcheeks/Projects/xpontus-devel/lib/jpf.jar
+java.class.version=49.0
+java.endorsed.dirs=/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/endorsed
+java.ext.dirs=/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/ext
+java.home=/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre
+java.io.tmpdir=/tmp
+java.library.path=/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/i386/client:/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/i386:/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/../lib/i386
+java.runtime.name=Java(TM) 2 Runtime Environment, Standard Edition
+java.runtime.version=1.5.0_10-b03
+java.specification.name=Java Platform API Specification
+java.specification.vendor=Sun Microsystems Inc.
+java.specification.version=1.5
+java.vendor=Sun Microsystems Inc.
+java.vendor.url=http://java.sun.com/
+java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport.cgi
+java.version=1.5.0_10
+java.vm.info=mixed mode, sharing
+java.vm.name=Java HotSpot(TM) Client VM
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.specification.vendor=Sun Microsystems Inc.
+java.vm.specification.version=1.0
+java.vm.vendor=Sun Microsystems Inc.
+java.vm.version=1.5.0_10-b03
+javax.xml.transform.TransformerFactory=com.icl.saxon.TransformerFactoryImpl
+jpf.boot.config=/home/mrcheeks/.xpontus_1rc2/1.0.0/boot.properties
+jpf.boot.mode=shell
+line.separator=
+
+org.java.plugin.boot.pluginsRepositories=/home/mrcheeks/.xpontus_1rc2/1.0.0
+org.xml.sax.driver=org.apache.xerces.parsers.SAXParser
+os.arch=i386
+os.name=Linux
+os.version=2.6.18-3-686
+path.separator=:
+sun.arch.data.model=32
+sun.boot.class.path=/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/rt.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/i18n.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/jsse.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/jce.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/charsets.jar:/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/classes
+sun.boot.library.path=/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/jre/lib/i386
+sun.cpu.endian=little
+sun.cpu.isalist=
+sun.io.unicode.encoding=UnicodeLittle
+sun.jnu.encoding=ISO-8859-1
+sun.management.compiler=HotSpot Client Compiler
+sun.os.patch.level=unknown
+user.country=US
+user.dir=/home/mrcheeks/Projects/xpontus-devel
+user.home=/home/mrcheeks
+user.language=en
+user.name=mrcheeks
+user.timezone=America/New_York
+
+-----------------------------------------------
+Runtime info:
+
+Memory TOTAL / FREE / MAX: 2768896 / 296536 / 66650112
+Available processors: 1
+System class loader: sun.misc.Launcher$AppClassLoader@133056f
+Thread context class loader: sun.misc.Launcher$AppClassLoader@133056f
+Security manager: null
