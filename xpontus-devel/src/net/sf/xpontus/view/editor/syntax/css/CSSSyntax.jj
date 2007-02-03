@@ -1,0 +1,362 @@
+/*
+ * The contents of this file are subject to the terms of the Common Development
+ * and Distribution License (the License). You may not use this file except in
+ * compliance with the License.
+ *
+ * You can obtain a copy of the License at http://www.netbeans.org/cddl.html
+ * or http://www.netbeans.org/cddl.txt.
+ *
+ * When distributing Covered Code, include this CDDL Header Notice in each file
+ * and include the License file at http://www.netbeans.org/cddl.txt.
+ * If applicable, add the following below the CDDL Header, with the fields
+ * enclosed by brackets [] replaced by your own identifying information:
+ * "Portions Copyrighted [year] [name of copyright owner]"
+ *
+ * The Original Software is NetBeans. The Initial Developer of the Original
+ * Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
+ * Microsystems, Inc. All Rights Reserved.
+ */
+
+/**
+  CSS grammar suitable for syntax coloring. It must take care of
+  newlines (only "\n" may appear) to achieve proper functionality. Currently it
+  returns: selectors, properties, ... and comments.
+
+  <h3>Suggestion to JavaCC developers</h3>
+  JavaCC [Token Manager] would be improved in following areas:
+
+  <li>TOKENMGR_BEGIN/END instead of TOKEN_MGR_DECLS.
+  <ul>
+    <li>It would allow TokenManager be a subclass.
+    <li>It would lead to code reuse/space save.
+    <li>It would be helpfull it a application uses more than one JavaCC generated analyzers.
+  </ul>
+
+
+  <li>Intoduction of lookahead (LA as ANLTR calls it is better than long LOOKAHEAD)
+  at lexical rules.
+  
+  <li> Allow to return same token from more states. 
+  Construct that reclassifies returned token. E.g. It would generate 
+  <pre>
+  { matchedToken.kind = newKind; }
+  </pre>
+  Or allow non-unique token names. E.g. 
+  <SOFT_ERR: "?"> in default state and <SOFT_ERR: "--"> in comment state.
+
+  <li>ASCIICharStream etc. should be declared as LexerInputStream implementations
+
+  <p>NOTE: Remove UCode_LexerInputStream.java after javacc this source.
+
+  @author Petr Kuzel
+*/
+
+options {
+  JAVA_UNICODE_ESCAPE = true;
+  USER_CHAR_STREAM = true;
+  UNICODE_INPUT = true;
+  STATIC = false; 
+}
+
+
+PARSER_BEGIN(CSSParser)
+
+package net.sf.xpontus.view.editor.syntax.css;
+
+import java.io.*;
+import java.util.*;
+import net.sf.xpontus.view.editor.syntax.*;
+import net.sf.xpontus.view.editor.*;
+import javax.swing.text.Segment;
+
+/** This must be included for javacc joy. 
+ * We use just token manager.
+ */
+public class CSSParser implements ILexer{
+
+     public CSSParser(){
+    	this((LexerInputStream)null);	
+    }
+
+public void ReInit(java.io.Reader reader) {
+        ReInit(new LexerInputStream(reader));
+}
+ 
+
+private List tokens = new ArrayList();
+
+ public int getLastTokenTypeOnLine(Segment text, int initialTokenType)
+    {
+        getTokens(text, initialTokenType, 0);
+
+        return ((Token) tokens.get(tokens.size() - 1)).kind;
+    }
+
+public List getTokens(Segment text, int initialTokenType, int startOffset)
+    {
+        tokens.clear();
+
+        int state = DEFAULT;
+
+        switch (initialTokenType)
+        {
+
+        case COMMENT_START:
+            state = IN_COMMENT;
+
+            break;
+
+        case CCOMMENT_START:
+            state = IN_CCOMMENT;
+
+            break;
+
+        case CCOMMENT_IN_RULESET:
+            state = IN_CCOMMENT;
+
+            break;
+
+        case TEXT_IN_COMMENT:
+            state = IN_COMMENT;
+
+            break;
+
+        case TEXT_IN_CCOMMENT:
+            state = IN_CCOMMENT;
+
+            break;
+
+        default:
+            break;
+        }
+
+        try
+        {
+            ReInit(new LexerInputStream(
+                    new CharArrayReader(text.array, text.offset, text.count)));
+            this.token_source.SwitchTo(state);
+
+            Token currentToken = null;
+
+            while ((currentToken = getNextToken()).kind != CSSParserConstants.EOF)
+            {
+                tokens.add(currentToken);
+            }
+        }
+        catch (TokenMgrError err)
+        {
+            tokens.add(new Token(this.token_source.input_stream.GetImage(),
+                    initialTokenType));
+        }
+
+        if (tokens.size() == 0)
+        {
+            tokens.add(new Token("", initialTokenType));
+        }
+
+        return tokens;
+    }
+
+}
+
+PARSER_END(CSSParser)
+
+//!!! enter proper grammar
+
+/*##########################################################*/
+/*              LEXAN                                       */
+/*#########################################################3*/
+
+
+
+/** Syntax requires recognition of newlines in any context. */
+<*>
+TOKEN: 
+{
+  <CRLF: "\n" >
+}
+
+/** Initial state could be a switch allowing then guess 
+ * which token is just being recognized.
+ */
+TOKEN:
+{
+  <LCB: "{"> : IN_RULESET
+| <ERR_IN_DEFAULT: "}">
+| <COMMENT_START: "<!--"> : IN_COMMENT
+| <CCOMMENT_START: "/*">  : IN_CCOMMENT
+| <SELECTOR: (~["@", "}","{","<","/","\n"])+ | "<" | "/">
+| <MEDIA_DECL: "@media" ("\t" | " ")> : IN_MEDIA_DECL
+| <ATKW: "@" (~["\n"," ","\t"])*>
+}
+
+<IN_MEDIA_DECL>
+TOKEN:
+{
+  <RULESET_START: "{"> : DEFAULT
+| <TEXT_IN_MEDIA_DECL: (~["{","\n"])+ >
+}
+
+
+<IN_RULESET>
+TOKEN [IGNORE_CASE] :
+{ 
+  <PROP: ( 
+    "azimuth" 
+|   "background" (
+      "" | "-" (
+        "attachment" 
+        | "color" 
+        | "image" 
+        | "position" 
+        | "repeat" 
+      ) 
+    )
+|   "border" (
+      "" | "-" (
+        "collapse" |
+        "color" |
+        "spacing" |
+        "style" |
+        "top" |
+        "right" |
+        "bottom" |
+        "left" |
+        "top-color" |
+        "right-color" |
+        "bottom-color" |
+        "left-color" |
+        "top-style" |
+        "right-style" |
+        "bottom-style" |
+        "left-style" |
+        "width" 
+      )
+    )
+|   "bottom" |
+    "caption-side" |
+    "clear" |
+    "clip" |
+    "color" |
+    "content" |
+    "counter-increment" |
+    "counter-reset" |
+    "cue" |
+    "cue-after" |
+    "cue-before" |
+    "cursor" |
+    "direction" |
+    "display" |
+    "elevation" |
+    "empty-cells" |
+    "float" |
+    "font" (
+      "" | "-" (
+          "family" 
+        | "size" 
+        | "size-adjust" 
+        | "stretch" 
+        | "style" 
+        | "variant" 
+        | "weight" 
+      ) 
+    )
+|   "height" |
+    "left" |
+    "letter-spacing" |
+    "line-height" |
+    "list-style" |
+    "list-style-image" |
+    "list-style-position" |
+    "list-style-type" |
+    "margin" |
+    "margin-top" |
+    "margin-right" |
+    "margin-bottom" |
+    "margin-left" |
+    "marker-offset" |
+    "marks" |
+    "max-height" |
+    "max-width" |
+    "min-height" |
+    "min-width" |
+    "orphan" |
+    "outline" |
+    "outline-color" |
+    "outline-style" |
+    "outline-width" |
+    "overflow" |
+    "padding" |
+    "padding-top" |
+    "padding-right" |
+    "padding-bottom" |
+    "padding-left" |
+    "page" |
+    "page-break-after" |
+    "page-break-before" |
+    "page-break-inside" |
+    "pause" |
+    "pause-after" |
+    "pause-before" |
+    "pitch" |
+    "pitch-range" |
+    "play-during" |
+    "position" |
+    "quotes" |
+    "richness" |
+    "right" |
+    "size" |
+    "speak" |
+    "speak-header" |
+    "speak-numeral" |
+    "speak-punctuation" |
+    "speech-rate" |
+    "stress" |
+    "table-layout" |
+    "text-align" |
+    "text-decoration" |
+    "text-indent" |
+    "text-shadow" |
+    "text-transform" |
+    "top" |
+    "unicode-bidi" |
+    "vertical-align" |
+    "visibility" |
+    "voice-family" |
+    "volume" |
+    "white-space" |
+    "widows" |
+    "width" |
+    "word-spacing" |
+    "z-index" ) (":")?
+  > //~PROP
+}
+
+<IN_RULESET>
+TOKEN:
+{
+  <TEXT_IN_RULESET: (~["\n","}"," ","\t", "/", "<"])+ | " " | "/" | "<" | "\t">
+| <COMMENT_IN_RULESET: "<!--" >  : IN_COMMENT
+| <CCOMMENT_IN_RULESET: "/*" >  : IN_CCOMMENT
+| <RCB_IN_BLOCK: (" ")? "}"> : DEFAULT  
+}
+
+<IN_COMMENT>
+/* Comment is delimited by multiple character delimiter.
+   The comment end regular expressions must throw TokenMgrError 
+   to indicate that the lexer is in the middle of token at
+   buffer boundaries!
+*/
+TOKEN:
+{
+  <TEXT_IN_COMMENT: ( (~["-", "\n"])+ | ("-" ~["-", "\n"])+ )+  >
+| <ERR_IN_COMMENT: "--" ~[">","\n"] > 
+| <COMMENT_END: "-->" > : DEFAULT
+}
+
+<IN_CCOMMENT>
+TOKEN:
+{
+  <TEXT_IN_CCOMMENT: ( (~["\n","*"])+ | ("*" ~["\n","/"])+ )+ > 
+| <CCOMMENT_END: "*/" > : DEFAULT
+}

@@ -1,0 +1,58 @@
+-- If your plugin includes DTDs, feel free to add them here and send
+     me a patch. I would like the XML plugin to work out of the box with
+     any XML files other plugins might use. --
+
+SYSTEM "actions.dtd" "jeditresource:/org/gjt/sp/jedit/actions.dtd"
+SYSTEM "catalog.dtd" "jeditresource:/org/gjt/sp/jedit/catalog.dtd"
+SYSTEM "dockables.dtd" "jeditresource:/org/gjt/sp/jedit/dockables.dtd"
+SYSTEM "perspective.dtd" "jeditresource:/org/gjt/sp/jedit/perspective.dtd"
+SYSTEM "plugins.dtd" "jeditresource:/org/gjt/sp/jedit/pluginmgr/plugins.dtd"
+SYSTEM "recent.dtd" "jeditresource:/org/gjt/sp/jedit/recent.dtd"
+SYSTEM "registers.dtd" "jeditresource:/org/gjt/sp/jedit/registers.dtd"
+SYSTEM "services.dtd" "jeditresource:/org/gjt/sp/jedit/services.dtd"
+SYSTEM "xmode.dtd" "jeditresource:/org/gjt/sp/jedit/syntax/xmode.dtd"
+
+-- OASIS XML catalog DTD --
+
+PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN"
+	"oasis-catalog.dtd"
+
+-- XHTML 1.0 DTDs --
+
+PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "xhtml1-frameset.dtd"
+SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd" "xhtml1-frameset.dtd"
+
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "xhtml1-strict.dtd"
+SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" "xhtml1-strict.dtd"
+
+PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "xhtml1-transitional.dtd"
+SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" "xhtml1-transitional.dtd"
+
+PUBLIC "-//W3C//ENTITIES Latin 1 for XHTML//EN" "ent/xhtml-lat1.ent"
+SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent" "ent/xhtml-lat1.ent"
+
+PUBLIC "-//W3C//ENTITIES Special for XHTML//EN" "ent/xhtml-special.ent"
+SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent" "ent/xhtml-special.ent"
+
+PUBLIC "-//W3C//ENTITIES Symbols for XHTML//EN" "ent/xhtml-symbol.ent"
+SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent" "ent/xhtml-symbol.ent"
+
+-- XHTML 1.1 DTDs --
+
+PUBLIC "-//W3C//DTD XHTML 1.1//EN"                                "xhtml11-flat.dtd"
+
+PUBLIC "-//W3C//ENTITIES XHTML 1.1 Document Model 1.0//EN"        "xhtml11-model-1.mod"
+
+-- Plugin DTDs --
+
+SYSTEM "sqlServerType.dtd" "jeditresource:/SQL.jar!/sqlServerType.dtd"
+
+SYSTEM "commando.dtd" "jeditresource:/Console.jar!/console/commando/commando.dtd"
+
+SYSTEM "xml-completion-info.dtd" "xml-completion-info.dtd"
+
+-- DocBook DTDs --
+
+OVERRIDE YES
+
+CATALOG "docbook-catalog.xml"

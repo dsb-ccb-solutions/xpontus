@@ -1,0 +1,25 @@
+<!ELEMENT dtd (entity-list|element-list)*>
+<!ATTLIST dtd
+	extend CDATA #IMPLIED>
+
+<!ELEMENT entity-list (entity)+>
+
+<!ELEMENT entity EMPTY>
+<!ATTLIST entity
+	name CDATA #REQUIRED
+	value CDATA #REQUIRED>
+
+<!ELEMENT element-list (element)+>
+
+<!ELEMENT element (attribute)*>
+<!ATTLIST element
+	name CDATA #REQUIRED
+	content CDATA "EMPTY"
+	anywhere (true|false) "false">
+
+<!ELEMENT attribute EMPTY>
+<!ATTLIST attribute
+	name CDATA #REQUIRED
+	value CDATA #IMPLIED
+	type CDATA #REQUIRED
+	required (true|false) "false">

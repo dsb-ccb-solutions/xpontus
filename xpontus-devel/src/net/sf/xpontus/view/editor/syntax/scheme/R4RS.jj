@@ -1,0 +1,588 @@
+/*
+ * R4RS.jj
+ * =======
+ *
+ * This is a parser for scheme written for JavaCC.  It follows, almost
+ * exactly, the grammar given in "Revised^4 Report on the Algorithmic
+ * Language Scheme" (R4RS).  In order to avoid unnecessary lookahead
+ * statements, the production rules here are not identical to those
+ * given in R4RS, but they have the same effect.
+ *
+ * In three places, potentially unlimited syntactic lookaheads are
+ * used.  One of these could easily be avoided by rewriting the
+ * <sequence> production rule as follows:
+ *
+ *     <sequence> --> <expression>+
+ *
+ * The reason why I have chosen not to do so is that I want to be true
+ * to the grammar in R4RS.  If this is not important, short-cutting
+ * the <command> production rule is probably a good thing to do.
+ *
+ * The other two places with potentially unlimited syntactic
+ * lookaheads are related to definitions.  These two are necessary,
+ * since both a definition and an expression can begin with a sequence
+ * of arbitrary many "(" <BEGIN> pairs.  This should, however, not be
+ * a big problem, since most definitions in practice starts with a
+ * plain "(" <DEFINE> pair, which will only match for definitions.
+ *
+ * The non-context-free grammar for quasiquotations has been written
+ * with use of semantic lookahead to handle the <template 0>
+ * production rule.
+ *
+ * To anyone who reads or uses this code, note the following:
+ *  - The code is public domain.
+ *  - It has not been heavily tested and I leave no guarantees
+ *    whatsoever that it works properly.
+ *  - If you make any changes, or find it useful in any way, I
+ *    would very much appreaciate to hear from you.
+ *
+ * Author: Håkan L. Younes (lorens@acm.org)
+ *
+ * Version 1.1 (1999-04-03)
+ */
+
+options
+{
+  IGNORE_CASE = true;
+  DEBUG_PARSER = true;
+  DEBUG_LOOKAHEAD = false;
+  DEBUG_TOKEN_MANAGER = false;
+}
+
+
+PARSER_BEGIN(SchemeParser)
+
+  /**
+   * A parser for scheme.
+   *
+   * @author H&aring;kan L. Younes
+   * @version 1.1
+   */
+  public class SchemeParser extends Object {
+    /**
+     * Used for contex in the quasiquote template production rule.
+     */
+    private static int qqtDepth;
+
+    /**
+     * The parser program.
+     *
+     * @param args currently ignored.
+     */
+    public static void main(String[] args) {
+      SchemeParser parser = new SchemeParser(System.in);
+      try {
+	parser.Program();
+      } catch (ParseException e) {
+	System.err.println(e);
+      }
+    }
+  }
+
+PARSER_END(SchemeParser)
+
+
+/*
+ * Lexical structure
+ */
+
+TOKEN : /* whitespace */
+{
+  < WHITESPACE : [" ","\t","\f","\r","\n"] >
+}
+
+SPECIAL_TOKEN : /* comment */
+{
+  < COMMENT : ";" ( ~["\n","\r"] )* ( ["\r","\n"] | "\r\n" ) >
+}
+
+TOKEN : /* syntactic keywords */
+{
+  < ELSE : "else" >
+| < ARROW : "=>" >
+| < DEFINE : "define" >
+| < UNQUOTE : "unquote" >
+| < UNQUOTE_SPLICING : "unquote-splicing" >
+}
+
+TOKEN : /* expression keywords */
+{
+  < QUOTE : "quote" >
+| < LAMBDA : "lambda" >
+| < IF : "if" >
+| < SET : "set!" >
+| < BEGIN : "begin" >
+| < COND : "cond" >
+| < AND : "and" >
+| < OR : "or" >
+| < CASE : "case" >
+| < LET : "let" >
+| < LETSTAR : "let*" >
+| < LETREC : "letrec" >
+| < DO : "do" >
+| < DELAY : "delay" >
+| < QUASIQUOTE : "quasiquote" >
+}
+
+TOKEN : /* variable */
+{
+  < VARIABLE : <INITIAL> ( <SUBSEQUENT> )* | <PECULIAR_IDENTIFIER> >
+| < #INITIAL : <LETTER> | <SPECIAL_INITIAL> >
+| < #LETTER : ["a"-"z"] >
+| < #SPECIAL_INITIAL :
+      ["!","$","%","&","*","/",":","<","=",">","?","~","_","^"] >
+| < #SUBSEQUENT : <INITIAL> | <DIGIT> | <SPECIAL_SUBSEQUENT> >
+| < #DIGIT : ["0"-"9"] >
+| < #SPECIAL_SUBSEQUENT : [".","+","-"] >
+| < #PECULIAR_IDENTIFIER : ["+","-"] | "..." >
+}
+
+TOKEN : /* boolean */
+{
+  < BOOLEAN : "#" ["t","f"] >
+}
+
+TOKEN : /* character */
+{
+  < CHARACTER : "#\\" ~[" ","\n"] | "#\\" <CHARACTER_NAME> >
+| < #CHARACTER_NAME : "space" | "newline" >
+}
+
+TOKEN : /* string */
+{
+  < STRING : "\"" ( <STRING_ELEMENT> )* "\"" >
+| < #STRING_ELEMENT : ~["\"","\\"] | "\\" ["\"","\\"] >
+}
+
+TOKEN : /* number */
+{
+  < NUMBER : <NUM_2> | <NUM_8> | <NUM_10> | <NUM_16> >
+| < #NUM_2 : <PREFIX_2> <COMPLEX_2> >
+| < #NUM_8 : <PREFIX_8> <COMPLEX_8> >
+| < #NUM_10 : <PREFIX_10> <COMPLEX_10> >
+| < #NUM_16 : <PREFIX_16> <COMPLEX_16> >
+| < #COMPLEX_2 :
+    <REAL_2> ( "@" <REAL_2> )?
+  | ( <REAL_2> )? ["+","-"] ( <UREAL_2> )? "i" >
+| < #COMPLEX_8 :
+    <REAL_8> ( "@" <REAL_8> )?
+  | ( <REAL_8> )? ["+","-"] ( <UREAL_8> )? "i" >
+| < #COMPLEX_10 :
+    <REAL_10> ( "@" <REAL_10> )?
+  | ( <REAL_10> )? ["+","-"] ( <UREAL_10> )? "i" >
+| < #COMPLEX_16 :
+    <REAL_16> ( "@" <REAL_16> )?
+  | ( <REAL_16> )? ["+","-"] ( <UREAL_16> )? "i" >
+| < #REAL_2 : <SIGN> <UREAL_2> >
+| < #REAL_8 : <SIGN> <UREAL_8> >
+| < #REAL_10 : <SIGN> <UREAL_10> >
+| < #REAL_16 : <SIGN> <UREAL_16> >
+| < #UREAL_2 : <UINTEGER_2> ( "/" <UINTEGER_2> )? >
+| < #UREAL_8 : <UINTEGER_8> ( "/" <UINTEGER_8> )? >
+| < #UREAL_10 : <UINTEGER_10> ( "/" <UINTEGER_10> )? | <DECIMAL_10> >
+| < #UREAL_16 : <UINTEGER_16> ( "/" <UINTEGER_16> )? >
+| < #DECIMAL_10 :
+    ( <UINTEGER_10>
+    | "." ( <DIGIT_10> )+ ( "#" )*
+    | ( <DIGIT_10> )+ "." ( <DIGIT_10> )* ( "#" )*
+    | ( <DIGIT_10> )+ ( "#" )+ "." ( "#" )* ) <SUFFIX> >
+| < #UINTEGER_2 : ( <DIGIT_2> )+ ( "#" )* >
+| < #UINTEGER_8 : ( <DIGIT_8> )+ ( "#" )* >
+| < #UINTEGER_10 : ( <DIGIT_10> )+ ( "#" )* >
+| < #UINTEGER_16 : ( <DIGIT_16> )+ ( "#" )* >
+| < #PREFIX_2 : <RADIX_2> <EXACTNESS> | <EXACTNESS> <RADIX_2> >
+| < #PREFIX_8 : <RADIX_8> <EXACTNESS> | <EXACTNESS> <RADIX_8> >
+| < #PREFIX_10 : <RADIX_10> <EXACTNESS> | <EXACTNESS> <RADIX_10> >
+| < #PREFIX_16 : <RADIX_16> <EXACTNESS> | <EXACTNESS> <RADIX_16> >
+| <#SUFFIX : ( <EXPONENT_MARKER> <SIGN> ( <DIGIT> )+ )? >
+| <#EXPONENT_MARKER : ["e","s","f","d","l"] >
+| <#SIGN : ( ["+","-"] )? >
+| <#EXACTNESS : ( "#" ["i","e"] )? >
+| < #RADIX_2 : "#b" >
+| < #RADIX_8 : "#o" >
+| < #RADIX_10 : ( "#d" )? >
+| < #RADIX_16 : "#x" >
+| < #DIGIT_2 : ["0","1"] >
+| < #DIGIT_8 : ["0"-"7"] >
+| < #DIGIT_10 : ["0"-"9"] >
+| < #DIGIT_16 : <DIGIT_10> | ["a"-"f"] >
+}
+
+void Identifier() :
+{}
+{
+  SyntacticKeyword()
+| <VARIABLE>
+}
+
+void SyntacticKeyword() :
+{}
+{
+  ExpressionKeyword()
+| <ELSE>
+| <ARROW>
+| <DEFINE>
+| <UNQUOTE>
+| <UNQUOTE_SPLICING>
+}
+
+void ExpressionKeyword():
+{}
+{
+  <QUOTE>
+| <LAMBDA>
+| <IF>
+| <SET>
+| <BEGIN>
+| <COND>
+| <AND>
+| <OR>
+| <CASE>
+| <LET>
+| <LETSTAR>
+| <LETREC>
+| <DO>
+| <DELAY>
+| <QUASIQUOTE>
+}
+
+
+/*
+ * External representations
+ */
+
+void Datum() :
+{}
+{
+  SimpleDatum()
+| CompoundDatum()
+}
+
+void SimpleDatum() :
+{}
+{
+  <BOOLEAN>
+| <NUMBER>
+| <CHARACTER>
+| <STRING>
+| Symbol()
+}
+
+void Symbol() :
+{}
+{
+  Identifier()
+}
+
+void CompoundDatum() :
+{}
+{
+  List()
+| Vector()
+}
+
+void List() :
+{}
+{
+  "(" ( ( Datum() )+ ( "." Datum() )? )? ")"
+| Abbreviation()
+}
+
+void Abbreviation() :
+{}
+{
+  AbbrevPrefix() Datum()
+}
+
+void AbbrevPrefix() :
+{}
+{
+  "'"
+| "`"
+| ","
+| ",@"
+}
+
+void Vector() :
+{}
+{
+  "#(" ( Datum() )* ")"
+}
+
+
+/*
+ * Expressions
+ */
+
+void Expression() :
+{}
+{
+  <VARIABLE>
+| LOOKAHEAD(2) Literal()
+| LOOKAHEAD(2) LambdaExpression()
+| LOOKAHEAD(2) Conditional()
+| LOOKAHEAD(2) Assignment()
+| LOOKAHEAD(2) DerivedExpression()
+| ProcedureCall()
+}
+
+void Literal() :
+{}
+{
+  Quotation()
+| SelfEvaluating()
+}
+
+void SelfEvaluating() :
+{}
+{
+  <BOOLEAN>
+| <NUMBER>
+| <CHARACTER>
+| <STRING>
+}
+
+void Quotation() :
+{}
+{
+  "'" Datum()
+| "(" <QUOTE> Datum() ")"
+}
+
+void ProcedureCall() :
+{}
+{
+  "(" Operator() ( Operand() )* ")"
+}
+
+void Operator() :
+{}
+{
+  Expression()
+}
+
+void Operand() :
+{}
+{
+  Expression()
+}
+
+void LambdaExpression() :
+{}
+{
+  "(" <LAMBDA> Formals() Body() ")"
+}
+
+void Formals() :
+{}
+{
+  "(" ( ( <VARIABLE> )+ ( "." <VARIABLE> )? )? ")"
+| <VARIABLE>
+}
+
+void Body() :
+{}
+{
+  (LOOKAHEAD("(" <DEFINE> | "(" <BEGIN> ( Definition() )* ")") Definition() )*
+  Sequence()
+}
+
+void Sequence() :
+{}
+{
+  (LOOKAHEAD(Command() Expression()) Command() )* Expression()
+}
+
+void Command() :
+{}
+{
+  Expression()
+}
+
+void Conditional() :
+{}
+{
+  "(" <IF> Test() Consequent() Alternate() ")"
+}
+
+void Test() :
+{}
+{
+  Expression()
+}
+
+void Consequent() :
+{}
+{
+  Expression()
+}
+
+void Alternate() :
+{}
+{
+  ( Expression() )?
+}
+
+void Assignment() :
+{}
+{
+  "(" <SET> <VARIABLE> Expression() ")"
+}
+
+void DerivedExpression() :
+{}
+{
+  LOOKAHEAD(2) Quasiquotation()
+| "(" ( <COND> (LOOKAHEAD(2) "(" <ELSE> Sequence() ")"
+               | (LOOKAHEAD(2, CondClause()) CondClause() )+
+                 ( "(" <ELSE> Sequence() ")" )? )
+      | <CASE> Expression() (LOOKAHEAD(2) "(" <ELSE> Sequence() ")"
+                            | (LOOKAHEAD(2, CaseClause()) CaseClause() )+
+                              ( "(" <ELSE> Sequence() ")" )? )
+      | <AND> ( Test() )*
+      | <OR> ( Test() )*
+      | <LET> ( <VARIABLE> )? "(" ( BindingSpec() )* ")" Body()
+      | <LETSTAR> "(" ( BindingSpec() )* ")" Body()
+      | <LETREC> "(" ( BindingSpec() )* ")" Body()
+      | <BEGIN> Sequence()
+      | <DO> "(" ( IterationSpec() )* ")" "(" Test() Sequence() ")"
+        ( Command() )*
+      | <DELAY> Expression() ) ")"
+}
+
+void CondClause() :
+{}
+{
+  "(" Test() ( Sequence() | <ARROW> Recipient() )? ")"
+}
+
+void Recipient() :
+{}
+{
+  Expression()
+}
+
+void CaseClause() :
+{}
+{
+  "(" "(" ( Datum() )* ")" Sequence() ")"
+}
+
+void BindingSpec() :
+{}
+{
+  "(" <VARIABLE> Expression() ")"
+}
+
+void IterationSpec() :
+{}
+{
+  "(" <VARIABLE> Init() ( Step() )? ")"
+}
+
+void Init() :
+{}
+{
+  Expression()
+}
+
+void Step() :
+{}
+{
+  Expression()
+}
+
+
+/*
+ * Quasiquotations
+ */
+
+void Quasiquotation() :
+{}
+{
+  QuasiquotationD(1)
+}
+
+void Template(int d) :
+{ qqtDepth = d; }
+{
+  LOOKAHEAD({ qqtDepth == 0 }) Expression()
+| SimpleDatum()
+| VectorTemplate(d)
+| LOOKAHEAD(2) ListTemplate(d)
+| Unquotation(d)
+}
+
+void QuasiquotationD(int d) :
+{}
+{
+  "`" Template(d)
+| "(" <QUASIQUOTE> Template(d) ")"
+}
+
+void ListTemplate(int d) :
+{}
+{
+  "'" Template(d)
+| LOOKAHEAD(2) QuasiquotationD(d + 1)
+| "(" ( ( TemplateOrSplice(d) )+ ( "." Template(d) )? )? ")"
+}
+
+void VectorTemplate(int d) :
+{}
+{
+  "#(" ( TemplateOrSplice(d) )* ")"
+}
+
+void Unquotation(int d) :
+{}
+{
+  "," Template(d - 1)
+| "(" <UNQUOTE> Template(d - 1) ")"
+}
+
+void TemplateOrSplice(int d) :
+{}
+{
+  LOOKAHEAD(2) Template(d)
+| SplicingUnquotation(d)
+}
+
+void SplicingUnquotation(int d) :
+{}
+{
+  ",@" Template(d - 1)
+| "(" <UNQUOTE_SPLICING> Template(d - 1) ")"
+}
+
+
+/*
+ * Programs and definitions
+ */
+
+void Program() :
+{}
+{
+  ( CommandOrDefinition() )* <EOF>
+}
+
+void CommandOrDefinition() :
+{}
+{
+  LOOKAHEAD("(" <DEFINE> | "(" <BEGIN> ( Definition() )* ")") Definition()
+| Command()
+}
+
+void Definition() :
+{}
+{
+  "(" ( <DEFINE> ( <VARIABLE> Expression()
+                 | "(" <VARIABLE> DefFormals() ")" Body() )
+      | <BEGIN> ( Definition() )* ) ")"
+}
+
+void DefFormals() :
+{}
+{
+  ( ( <VARIABLE> )+ ( "." <VARIABLE> )? )?
+}
