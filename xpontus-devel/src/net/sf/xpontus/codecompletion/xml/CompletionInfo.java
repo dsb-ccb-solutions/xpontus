@@ -66,13 +66,7 @@ public class CompletionInfo
 
     static
     {
-        //TODO: Add built-in completion support for ant build files.
-        /*
-         TODO: Create a better way to support different types of XML documents
-               and allow support and completion info for other document types
-               to be added via plugins.
-        */
-
+         
         //1999 XML Schema
         completionInfoNamespaces.put("http://www.w3.org/1999/XMLSchema",
             "/net/sourceforge/jsxe/dom/completion/xsd-complete.xml");
@@ -233,12 +227,7 @@ public class CompletionInfo
 
         buf.append("\n</element-list>\n\n<entity-list>\n\n");
 
-        buf.append("<!-- not implemented yet -->\n");
-        /* for(int i = 0; i < entities.size(); i++)
-        {
-                buf.append(entities.get(i));
-                buf.append('\n');
-        } */
+        buf.append("<!-- not implemented yet -->\n"); 
         buf.append("\n</entity-list>");
 
         return buf.toString();
@@ -270,9 +259,7 @@ public class CompletionInfo
         if (info != null)
         {
             return info;
-        }
-
-        // Log.log(Log.NOTICE,CompletionInfo.class,"Loading " + resource);
+        } 
         CompletionInfoHandler handler = new CompletionInfoHandler();
 
         try
@@ -300,13 +287,10 @@ public class CompletionInfo
             if (e == null)
             {
                 e = se;
-            }
-
-            // Log.log(Log.ERROR,CompletionInfo.class,e);
+            } 
         }
         catch (Exception e)
-        {
-            //            Log.log(Log.ERROR,CompletionInfo.class,e);
+        { 
         }
 
         info = handler.getCompletionInfo();
@@ -478,126 +462,6 @@ public class CompletionInfo
 
         return info;
     } //}}}
-
-    //{{{ CompletionInfoHandler class
-    /**
-     * CompletionInfoHandler is used to create CompletionInfo objects from
-     * stored XML documents. These are used to add built in completion info
-     * for specific document types.
-     * @since jsXe 0.4 pre4
-     * @author Slava Pestov
-     * @author Ian Lewis (<a href="mailto:IanLewis@member.fsf.org">IanLewis@member.fsf.org</a>)
-     * @version $Id: CompletionInfo.java 840 2006-04-09 00:33:07Z ian_lewis $
-     */
-    private static class CompletionInfoHandler extends DefaultHandler
-    {
-        //{{{ Private Members
-        private CompletionInfo m_m_info;
-        private Locator m_m_loc;
-        private ElementDecl m_m_element;
-
-        //{{{ CompletionInfoHandler constructor
-        public CompletionInfoHandler()
-        {
-            m_m_info = new CompletionInfo();
-            m_m_info.addEntity(new EntityDecl(EntityDecl.INTERNAL, "lt", "<"));
-            m_m_info.addEntity(new EntityDecl(EntityDecl.INTERNAL, "gt", ">"));
-            m_m_info.addEntity(new EntityDecl(EntityDecl.INTERNAL, "amp", "&"));
-            m_m_info.addEntity(new EntityDecl(EntityDecl.INTERNAL, "quot", "\""));
-            m_m_info.addEntity(new EntityDecl(EntityDecl.INTERNAL, "apos", "'"));
-        } //}}}
-
-        //{{{ getCompletionInfo() method
-        public CompletionInfo getCompletionInfo()
-        {
-            return m_m_info;
-        } //}}}
-
-        //{{{ setDocumentLocator() method
-        public void setDocumentLocator(Locator loc)
-        {
-            m_m_loc = loc;
-        } //}}}
-
-        //{{{ resolveEntity() method
-        /*
-        public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
-            try {
-                return CatalogManager.resolve(loc.getSystemId(),publicId,systemId);
-            } catch(Exception e) {
-                throw new SAXException(e);
-            }
-        }*/
-
-        //}}}
-
-        //{{{ startElement() method
-        public void startElement(String namespaceURI, String sName, // simple name
-            String qName, // qualified name
-            Attributes attrs) throws SAXException
-        {
-            if (sName.equals("dtd"))
-            {
-                /*String extend = attrs.getValue("extend");
-                
-                if (extend != null) {
-                    String infoURI = jsXe.getProperty("mode."+extend+".xml.completion-info");
-                    if (infoURI != null) {
-                        CompletionInfo extendInfo = CompletionInfo.getCompletionInfoFromResource(infoURI);
-                        if (extendInfo != null)
-                            m_m_completionInfo = (CompletionInfo)extendInfo.clone();
-                    }
-                }*/
-            }
-            else if (sName.equals("entity"))
-            {
-                m_m_info.addEntity(new EntityDecl(EntityDecl.INTERNAL,
-                        attrs.getValue("name"), attrs.getValue("value")));
-            }
-            else if (sName.equals("element"))
-            {
-                m_m_element = new ElementDecl(m_m_info, attrs.getValue("name"),
-                        attrs.getValue("content"));
-
-                m_m_info.addElement(m_m_element);
-
-                if ("true".equals(attrs.getValue("anywhere")))
-                {
-                    m_m_info.elementsAllowedAnywhere.add(m_m_element);
-                }
-            }
-            else if (sName.equals("attribute"))
-            {
-                String name = attrs.getValue("name");
-                String value = attrs.getValue("value");
-                String type = attrs.getValue("type");
-
-                ArrayList values;
-
-                if (type.startsWith("("))
-                {
-                    values = new ArrayList();
-
-                    StringTokenizer st = new StringTokenizer(type.substring(1,
-                                type.length() - 1), "|");
-
-                    while (st.hasMoreTokens())
-                    {
-                        values.add(st.nextToken());
-                    }
-                }
-                else
-                {
-                    values = null;
-                }
-
-                boolean required = "true".equals(attrs.getValue("required"));
-
-                m_m_element.addAttribute(new AttributeDecl(name,
-                        value, values, type, required));
-            }
-        } //}}}
-
-        //}}}
-    } //}}}
+ 
+    
 }
