@@ -159,7 +159,7 @@ public class XMLSchemaHandler extends DefaultHandler implements DeclHandler
 
         boolean required = "#REQUIRED".equals(valueDefault);
 
-        element.addAttribute(new ElementDecl.AttributeDecl(aName, value,
+        element.addAttribute(new AttributeDecl(aName, value,
                 values, type, required));
     } //}}}
 

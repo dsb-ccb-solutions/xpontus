@@ -455,7 +455,7 @@ public class CompletionInfo
                     }
                 }
 
-                elementDecl.addAttribute(new ElementDecl.AttributeDecl(
+                elementDecl.addAttribute(new AttributeDecl(
                         attrName, value, values, type, required));
             }
         }
@@ -593,7 +593,7 @@ public class CompletionInfo
 
                 boolean required = "true".equals(attrs.getValue("required"));
 
-                m_m_element.addAttribute(new ElementDecl.AttributeDecl(name,
+                m_m_element.addAttribute(new AttributeDecl(name,
                         value, values, type, required));
             }
         } //}}}
