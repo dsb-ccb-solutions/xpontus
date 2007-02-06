@@ -6,10 +6,7 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-package net.sf.xpontus.codecompletion.xml;
-
- 
-
+package net.sf.xpontus.codecompletion.xml; 
 
 import org.apache.xerces.impl.xs.XSDDescription;
 import org.apache.xerces.util.XMLGrammarPoolImpl;

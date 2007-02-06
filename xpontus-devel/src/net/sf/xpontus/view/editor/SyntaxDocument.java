@@ -296,90 +296,13 @@ public class SyntaxDocument extends PlainDocument
     public void insertString(int off, String str, AttributeSet set)
         throws BadLocationException
     {
-        if (str.equals(">") && isCodeCompletion)
+        if(isCodeCompletion)
         {
-            int dot = editor.getCaret().getDot();
-
-            StringBuffer endTag = new StringBuffer(str);
-
-            String text = getText(0, off);
-            int startTag = text.lastIndexOf('<', off);
-            int prefEndTag = text.lastIndexOf('>', off);
-
-            // If there was a start tag and if the start tag is not empty
-            // and
-            // if the start-tag has not got an end-tag already.
-            if ((startTag > 0) && (startTag > prefEndTag) &&
-                    (startTag < (text.length() - 1)))
-            {
-                String tag = text.substring(startTag, text.length());
-                char first = tag.charAt(1);
-
-                if ((first != '/') && (first != '!') && (first != '?') &&
-                        !Character.isWhitespace(first))
-                {
-                    boolean finished = false;
-                    char previous = tag.charAt(tag.length() - 1);
-
-                    if ((previous != '/') && (previous != '-'))
-                    {
-                        endTag.append("</");
-
-                        for (int i = 1; (i < tag.length()) && !finished; i++)
-                        {
-                            char ch = tag.charAt(i);
-
-                            if (!Character.isWhitespace(ch))
-                            {
-                                endTag.append(ch);
-                            }
-                            else
-                            {
-                                finished = true;
-                            }
-                        }
-
-                        endTag.append(">");
-                    }
-                }
-            }
-
-            str = endTag.toString();
-
-            super.insertString(off, str, set);
-
-            editor.getCaret().setDot(dot + 1);
+             
         }
         else
         {
             super.insertString(off, str, set);
         }
-    }
-
-    // Tries to find out if the line finishes with an element start
-    private boolean isStartElement(String line)
-    {
-        boolean result = false;
-
-        int first = line.lastIndexOf("<");
-        int last = line.lastIndexOf(">");
-
-        if (last < first)
-        { // In the Tag
-            result = true;
-        }
-        else
-        {
-            int firstEnd = line.lastIndexOf("</");
-            int lastEnd = line.lastIndexOf("/>");
-
-            // Last Tag is not an End Tag
-            if ((firstEnd != first) && ((lastEnd + 1) != last))
-            {
-                result = true;
-            }
-        }
-
-        return result;
-    }
+    } 
 }
