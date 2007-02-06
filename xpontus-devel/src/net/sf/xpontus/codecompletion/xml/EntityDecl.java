@@ -9,6 +9,8 @@
 
 package net.sf.xpontus.codecompletion.xml;
 
+import java.util.Comparator;
+
 import net.sf.xpontus.utils.MiscUtilities;
 
 /**
@@ -57,7 +59,10 @@ public class EntityDecl
 	} //}}}
 
 	//{{{ Compare class
-	public static class Compare implements MiscUtilities.Compare
+	/*
+	 * Not sure this class is even needed ...
+	 */
+	public static class Compare implements Comparator
 	{
 		public int compare(Object obj1, Object obj2)
 		{
