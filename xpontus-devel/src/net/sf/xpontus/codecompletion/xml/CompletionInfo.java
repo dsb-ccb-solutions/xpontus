@@ -65,25 +65,13 @@ public class CompletionInfo
     private static HashMap completionInfoNamespaces = new HashMap();
 
     static
-    {
-         
+    {         
         //1999 XML Schema
         completionInfoNamespaces.put("http://www.w3.org/1999/XMLSchema",
-            "/net/sourceforge/jsxe/dom/completion/xsd-complete.xml");
+            "/net/sf/xpontus/codecompletion/xsd-complete.xml");
         //2001 XML Schema
         completionInfoNamespaces.put("http://www.w3.org/2001/XMLSchema",
-            "/net/sourceforge/jsxe/dom/completion/xsd-complete.xml");
-        //XSLT
-        completionInfoNamespaces.put("http://www.w3.org/1999/XSL/Transform",
-            "/net/sourceforge/jsxe/dom/completion/xsl-complete.xml");
-        //HTML + XHTML
-        completionInfoNamespaces.put("http://www.w3.org/TR/xhtml1/transitional",
-            "/net/sourceforge/jsxe/dom/completion/html-complete.xml");
-        completionInfoNamespaces.put("http://www.w3.org/1999/xhtml",
-            "/net/sourceforge/jsxe/dom/completion/html-complete.xml");
-        //XSL:FO
-        completionInfoNamespaces.put("http://www.w3.org/1999/XSL/Format",
-            "/net/sourceforge/jsxe/dom/completion/fo-complete.xml");
+            "/net/sf/xpontus/codecompletion/xsd-complete.xml"); 
     } //}}}
 
     protected ArrayList elements;
@@ -212,26 +200,7 @@ public class CompletionInfo
         }
     } //}}}
 
-    //{{{ toString() method
-    public String toString()
-    {
-        StringBuffer buf = new StringBuffer();
-
-        buf.append("<element-list>\n\n");
-
-        for (int i = 0; i < elements.size(); i++)
-        {
-            buf.append(elements.get(i));
-            buf.append('\n');
-        }
-
-        buf.append("\n</element-list>\n\n<entity-list>\n\n");
-
-        buf.append("<!-- not implemented yet -->\n"); 
-        buf.append("\n</entity-list>");
-
-        return buf.toString();
-    } //}}}
+     
 
     //{{{ getCompletionInfoForNamespace() method
     public static CompletionInfo getCompletionInfoForNamespace(String namespace)
@@ -297,17 +266,7 @@ public class CompletionInfo
         completionInfoResources.put(resource, info);
 
         return info;
-    } //}}}
-
-    //{{{ clone() method
-    //marked final since this violates standard contract for clone()
-    public final Object clone()
-    {
-        return new CompletionInfo((ArrayList) elements.clone(),
-            (HashMap) elementHash.clone(), (ArrayList) entities.clone(),
-            (HashMap) entityHash.clone(),
-            (ArrayList) elementsAllowedAnywhere.clone());
-    } //}}}
+    } //}}} 
 
     public static ElementDecl getElementDecl(String name)
     {
