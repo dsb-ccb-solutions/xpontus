@@ -8,9 +8,7 @@
  */
 package net.sf.xpontus.codecompletion.xml;
 
-import net.sf.xpontus.codecompletion.CompletionInfo;
-import net.sf.xpontus.codecompletion.ElementDecl;
-import net.sf.xpontus.codecompletion.EntityDecl;
+ 
 
 
 import org.apache.xerces.impl.xs.XSDDescription;
