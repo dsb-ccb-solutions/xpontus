@@ -65,6 +65,7 @@ public class EditorContainer implements Dockable
 
     public void completeSetup()
     {
+        key.setResizeWeight(0.7f);
         key.setIcon(IconUtils.getInstance().getIcon(image));
         key.setDockGroup(group);
         init();
