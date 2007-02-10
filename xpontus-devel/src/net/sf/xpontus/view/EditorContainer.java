@@ -15,7 +15,6 @@ import com.vlsolutions.swing.docking.*;
 import com.vlsolutions.swing.docking.DockKey;
 
 import net.sf.xpontus.controller.handlers.ModificationHandler;
-import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.model.options.EditorOptionModel;
 import net.sf.xpontus.view.editor.LineView;
@@ -28,6 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
 
@@ -66,6 +66,10 @@ public class EditorContainer implements Dockable
     public void completeSetup()
     {
         key.setResizeWeight(0.7f);
+
+        Dimension dim = new Dimension(600, 300);
+        this.getComponent().setMinimumSize(dim);
+        this.getComponent().setPreferredSize(dim);
         key.setIcon(IconUtils.getInstance().getIcon(image));
         key.setDockGroup(group);
         init();
