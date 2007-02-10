@@ -124,19 +124,21 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
             textboxes[i].setEditable(false);
             textboxes[i].setLineWrap(true);
             createMessagesPopupListener(textboxes[i]);
-            dockables[i] = new OutputWindowDockable(new JScrollPane(
-                        textboxes[i]), titles[i]);
+            dockables[i] = new OutputWindowDockable( 
+                        textboxes[i], titles[i]);
         }
 
         
-        dockables[2] = new OutputWindowDockable(new JScrollPane(
-                    xpathResultsTable), titles[2]);
+        dockables[2] = new OutputWindowDockable(
+                    new JScrollPane(xpathResultsTable), titles[2]);
  
  
         for (int i = 0; i < dockables.length; i++)
         {
-            desktop.registerDockable(dockables[i]);
+//            desktop.registerDockable(dockables[i]);
             this.addTab(titles[i], dockables[i].getComponent());
+//            this.addDockable(dockables[i], i);
+//            dockables[i].getDockKey().setDockableState(DockableState.STATE_DOCKED);
         }
     }
 
@@ -231,7 +233,7 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
 
         public Component getComponent()
         {
-            return comp;
+            return (Component)comp;
         }
     }
 

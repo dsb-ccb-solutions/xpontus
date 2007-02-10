@@ -68,7 +68,11 @@ public class EditorTabContainer
         };
     private DockingDesktop desktop;
     private JEditorPane currentEditor;
+private Dockable currentDockable;
 
+    public Dockable getCurrentDockable(){
+        return currentDockable;
+    }
     /** Creates a new instance of EditorTabContainer */
     public EditorTabContainer()
     {
@@ -85,6 +89,8 @@ public class EditorTabContainer
                     if (selectedDockable instanceof EditorContainer)
                     {
                         EditorContainer container = (EditorContainer) selectedDockable;
+                        currentDockable = selectedDockable;
+                        
                         currentEditor = container.getEditorComponent();
 
                         Document doc = currentEditor.getDocument();
@@ -145,6 +151,7 @@ public class EditorTabContainer
                             editors.remove(editor);
                         }
 
+                        currentDockable = null;
                         currentEditor = null;
                     }
                 }
@@ -224,6 +231,7 @@ public class EditorTabContainer
         }
 
         currentEditor = editor.getEditorComponent();
+        currentDockable = editor;
         currentEditor.addMouseListener(new PopupListener(popup));
         ((SyntaxDocument)editor.getEditorComponent().getDocument()).setLoading(false);
     }

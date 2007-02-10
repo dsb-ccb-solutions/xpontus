@@ -314,9 +314,7 @@ private OutlineViewDockable outlineDockable;
 
         JMenu viewMenu = new JMenu("View");
         viewMenu.add(new JCheckBoxMenuItem("Outline", true));
-        viewMenu.add(new JCheckBoxMenuItem("Messages", true));
-        viewMenu.add(new JCheckBoxMenuItem("XPath", true));
-        viewMenu.add(new JCheckBoxMenuItem("Errors", true));
+        viewMenu.add(new JCheckBoxMenuItem("Output", true)); 
         
         ActionListener dockListener = new ManageDockableAction();
         
@@ -380,6 +378,9 @@ private OutlineViewDockable outlineDockable;
         statusbar.setMessage(msg);
     }
 
+    public Dockable getCurrentDockable(){
+        return tabContainer.getCurrentDockable();
+    }
     /**
      *
      * @return
