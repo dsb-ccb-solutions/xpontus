@@ -16,19 +16,17 @@ import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
 import com.vlsolutions.swing.docking.DockingUtilities;
 import com.vlsolutions.swing.docking.TabbedDockableContainer;
-
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.MessageProvider;
 import net.sf.xpontus.utils.JTextComponentPrintStream;
-
 import java.awt.Component;
 import java.awt.Dimension;
-
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
@@ -51,8 +49,7 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
     static public final int ERRORS_WINDOW = 1;
     static public final int XPATH_WINDOW = 2;
     
-    private final DockKey outputKey = new DockKey("Output");
-    private Dockable[] dockables = new Dockable[3];
+    private final DockKey outputKey = new DockKey("Output"); 
     private DockGroup group = new DockGroup("outputWindow");
     public JTextArea[] textboxes = new JTextArea[2];
     private JTextComponentPrintStream[] printers = new JTextComponentPrintStream[2];
@@ -75,11 +72,7 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
         this.setPreferredSize(dim);
         initComponents();
     }
-
-    public Dockable[] getDockables()
-    {
-        return dockables;
-    }
+ 
 
     /**
      * @param model
@@ -124,22 +117,9 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
             textboxes[i].setEditable(false);
             textboxes[i].setLineWrap(true);
             createMessagesPopupListener(textboxes[i]);
-            dockables[i] = new OutputWindowDockable( 
-                        textboxes[i], titles[i]);
-        }
-
-        
-        dockables[2] = new OutputWindowDockable(
-                    new JScrollPane(xpathResultsTable), titles[2]);
- 
- 
-        for (int i = 0; i < dockables.length; i++)
-        {
-//            desktop.registerDockable(dockables[i]);
-            this.addTab(titles[i], dockables[i].getComponent());
-//            this.addDockable(dockables[i], i);
-//            dockables[i].getDockKey().setDockableState(DockableState.STATE_DOCKED);
-        }
+            this.addTab(titles[i], new JScrollPane(textboxes[i]));
+        } 
+        this.addTab(titles[2], new JScrollPane(xpathResultsTable));
     }
 
     /**
@@ -181,12 +161,7 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
      */
     public void setFocus(int i)
     {
-        TabbedDockableContainer container = DockingUtilities.findTabbedDockableContainer(this.getDockables()[i]);
-
-        if (container != null)
-        {
-            container.setSelectedDockable(this.getDockables()[i]);
-        }
+        this.setSelectedIndex(i);
     }
 
     /**
@@ -208,34 +183,7 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
         return this;
     }
 
-    class OutputWindowDockable implements Dockable
-    {
-        private JComponent comp;
-        private DockKey key;
-
-        public OutputWindowDockable(JComponent comp, String Mkey)
-        {
-            this.comp = comp;
-            key = new DockKey(Mkey);
-            key.setCloseEnabled(true);
-            //            key.setDockGroup(group);
-//            key.setResizeWeight(0.2f);
-//
-//            Dimension dim = new Dimension(600, 150);
-//            comp.setMinimumSize(dim);
-//            comp.setPreferredSize(dim);
-        }
-
-        public DockKey getDockKey()
-        {
-            return key;
-        }
-
-        public Component getComponent()
-        {
-            return (Component)comp;
-        }
-    }
+   
 
     private class RowSelectionListener implements ListSelectionListener
     {
