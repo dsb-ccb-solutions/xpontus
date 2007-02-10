@@ -59,10 +59,6 @@ public class SyntaxDocument extends PlainDocument
     private JPopupMenu completionMenu = new JPopupMenu();
     private JList completionList = new JList();
     private JScrollPane completionPane = new JScrollPane(completionList);
-    
-    public void setLoading(boolean b){
-        isLoading = b;
-    }
 
     //map of styles used to highlight text with
     private Map styleMap; //<TokenType, SimpleStyle>
@@ -97,6 +93,11 @@ public class SyntaxDocument extends PlainDocument
                     contentAssit = new XMLAssistProcessor();
                 }
             });
+    }
+
+    public void setLoading(boolean b)
+    {
+        isLoading = b;
     }
 
     /**
@@ -397,7 +398,6 @@ public class SyntaxDocument extends PlainDocument
         return bottomOfCaret;
     }
 
-    
     /**
      *
      * @param off
@@ -408,11 +408,15 @@ public class SyntaxDocument extends PlainDocument
     public void insertString(int off, String str, AttributeSet set)
         throws BadLocationException
     {
-        if(contentAssit == null){
-             super.insertString(off, str, set);
-             return;
+        if (contentAssit == null)
+        {
+            super.insertString(off, str, set);
+
+            return;
         }
-        if (contentAssit.isTrigger(str) && isCodeCompletion && !isLoading)
+
+        // removed the completion popup for the string trigger "<"
+        if (str.equals(">") && isCodeCompletion && !isLoading)
         {
             ContentAssistWindow.complete(editor, contentAssit.getTagList(),
                 off, str, set);
