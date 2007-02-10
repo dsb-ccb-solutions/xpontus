@@ -131,16 +131,16 @@ private OutlineViewDockable outlineDockable;
         outlineDockable = new OutlineViewDockable();
         
         desk.registerDockable(outlineDockable);
-       desk.registerDockable(console.getDockables()[0]);
+       desk.registerDockable(console);
         desk.split(pane, outlineDockable, DockingConstants.SPLIT_LEFT);
-        desk.split(pane, console.getDockables()[0],
+        desk.split(pane, console,
             DockingConstants.SPLIT_BOTTOM);
 
-        for (int i = 1; i < 3; i++) {
-        	desk.registerDockable(console.getDockables()[i-1]);
-            desk.createTab(console.getDockables()[i - 1],
-                console.getDockables()[i], i);
-        }
+//        for (int i = 1; i < 3; i++) {
+//        	desk.registerDockable(console.getDockables()[i-1]);
+//            desk.createTab(console.getDockables()[i - 1],
+//                console.getDockables()[i], i);
+//        }
 
         //  desk.addDockable(compound , new JTreeDockable()) ;
         frame.getContentPane().add(desk, BorderLayout.CENTER);
