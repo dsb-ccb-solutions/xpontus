@@ -133,7 +133,7 @@ private Dockable currentDockable;
                                   .setDockableState(DockableState.STATE_CLOSED);
 
                             PaneForm pane = XPontusWindow.getInstance().getPane();
-
+ 
                             desktop.replace(editor, pane);
 
                             pane.getDockKey()
@@ -209,6 +209,7 @@ private Dockable currentDockable;
             desk.registerDockable(editor);
 
             desk.replace(pane, editor);
+//            desk.r
 
             editor.getDockKey().setDockableState(DockableState.STATE_DOCKED);
 

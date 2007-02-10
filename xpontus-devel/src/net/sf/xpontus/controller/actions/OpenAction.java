@@ -22,7 +22,6 @@
 package net.sf.xpontus.controller.actions;
 
 import com.vlsolutions.swing.docking.DockableState;
-import com.vlsolutions.swing.docking.DockingContext;
 import com.vlsolutions.swing.docking.DockingDesktop;
 
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
