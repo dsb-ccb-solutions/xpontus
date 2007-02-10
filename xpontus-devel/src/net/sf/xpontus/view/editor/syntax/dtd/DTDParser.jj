@@ -1,0 +1,380 @@
+/**
+ * Redistribution and use of this software and associated documentation
+ * ("Software"), with or without modification, are permitted provided
+ * that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain copyright
+ *    statements and notices.  Redistributions must also contain a
+ *    copy of this document.
+ *
+ * 2. Redistributions in binary form must reproduce the
+ *    above copyright notice, this list of conditions and the
+ *    following disclaimer in the documentation and/or other
+ *    materials provided with the distribution.
+ *
+ * 3. The name "Exolab" must not be used to endorse or promote
+ *    products derived from this Software without prior written
+ *    permission of Intalio, Inc.  For written permission,
+ *    please contact info@exolab.org.
+ *
+ * 4. Products derived from this Software may not be called "Exolab"
+ *    nor may "Exolab" appear in their names without prior written
+ *    permission of Intalio, Inc. Exolab is a registered
+ *    trademark of Intalio, Inc.
+ *
+ * 5. Due credit should be given to the Exolab Project
+ *    (http://www.exolab.org/).
+ *
+ * THIS SOFTWARE IS PROVIDED BY EXOFFICE TECHNOLOGIES AND CONTRIBUTORS
+ * ``AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT
+ * NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL
+ * EXOFFICE TECHNOLOGIES OR ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * Copyright 2000 (C) Intalio Inc. All Rights Reserved.
+ *
+ * $Id: DTDParser.jj 3636 2003-03-03 07:05:44Z kvisco $
+ */
+
+options {
+   LOOKAHEAD = 3;
+   CHOICE_AMBIGUITY_CHECK = 2;
+   OTHER_AMBIGUITY_CHECK = 1;
+    UNICODE_INPUT = true;
+    USER_CHAR_STREAM = true;
+
+  STATIC = false;
+}
+
+PARSER_BEGIN(DTDParser)
+
+package net.sf.xpontus.view.editor.syntax.dtd;
+
+
+import java.io.*;
+import java.util.*;
+import net.sf.xpontus.view.editor.syntax.*;
+import net.sf.xpontus.view.editor.*;
+import javax.swing.text.Segment;
+
+public class DTDParser implements ILexer{
+	
+	public DTDParser(){
+		this((LexerInputStream)null);	
+	}
+	
+public DTDParser(java.io.Reader reader){
+	this(new LexerInputStream(reader));
+}
+
+public void ReInit(java.io.Reader reader) {
+        ReInit(new LexerInputStream(reader));
+}
+public void switchTo(int newState) {
+    this.token_source.SwitchTo(newState);
+
+} 
+
+private List tokens = new ArrayList();
+
+ public int getLastTokenTypeOnLine(Segment text, int initialTokenType)
+    {
+        getTokens(text, initialTokenType, 0);
+
+        return ((Token) tokens.get(tokens.size() - 1)).kind;
+    }
+
+  public List getTokens(Segment text, int initialTokenType, int startOffset)
+    {
+        tokens.clear();
+
+        int state = DEFAULT;
+
+        switch (initialTokenType)
+        {
+        case TEXT_IN_COMMENT:
+            state = IN_COMMENT;
+
+            break;
+
+        case COMMENT_START:
+            state = IN_COMMENT;
+
+            break;
+
+        default:
+            break;
+        }
+
+        try
+        {
+             ReInit(new LexerInputStream(
+                new CharArrayReader(text.array, text.offset, text.count)));
+     // this.switchTo(state);
+
+        Token currentToken = null;
+
+            while ((currentToken = getNextToken()).kind != DTDParserConstants.EOF)
+            {
+                tokens.add(currentToken);
+            }
+        }
+        catch (TokenMgrError err)
+        {
+           tokens.add(new Token(this.token_source.input_stream.GetImage(), initialTokenType));
+        }
+
+        if (tokens.size() == 0)
+        {
+
+            tokens.add(new Token(""  , initialTokenType));
+        }
+
+        return tokens;
+    }
+  }
+PARSER_END(DTDParser)
+
+/** Syntax requires recognition of newlines in any context. */
+<*>
+TOKEN: 
+{
+  <CRLF: "\n" >
+| /** global text matches all but following chars. 
+
+  ("<" | ">" | "'" | "\"" | "&" | "%"| ";" | "[" | "]" | "=" | "/" | "!" | "?")+
+*/
+  <#TEXT: (~[" ", "\t", "\n", "<", ">", "'", "\"", "&", "%", ";", "[", "]" , "=" , "/" , "!" , "?"])+>
+|
+  <#CONTENT: (~["\n","<",">","&"])+>
+| /** global white space. */
+  <#WS: (" " | "\t")+>
+}
+
+/** Initial state could be a switch allowing then guess 
+* which token is just recognized.
+*/
+<DEFAULT> //COMMENT //GREF //PREF //CREF
+TOKEN:
+{
+  <DECL_START: "<!"> : IN_DECL
+| <PI_START: "<?"> : IN_PI
+| <TEXT_IN_DEFAULT: "<" | " " | "\t">  //just being written
+| <COND_END_IN_DEFAULT: "]]>"> //little bit tricky - what it would be else?
+| <ERR_IN_DEFAULT: (~[" ", "\t", "\n", "]", "<", "&", "%"])+ >
+}
+
+
+
+/** <? ... ?> */
+<IN_PI>
+TOKEN:
+{
+
+  <XML_TARGET: "xml"> : IN_XML_DECL
+| <PI_TARGET: (<TEXT>)>
+| <ERR_IN_PI: ("<" | ">" | "'" | "\"" | "&" | "%"| ";" | "[" | "]" | "=" | "/" | "!" )+>
+| <PI_CONTENT_START: (<WS>) > : IN_PI_CONTENT
+| <PI_END: "?>"> : DEFAULT //be tolerant to missing <WS>
+}
+
+
+/** <?xml ... ?>
+*   just treat well known xml declaration "attributes" as keywords
+*/
+<IN_XML_DECL>
+TOKEN:
+{
+  <KW_IN_XML_DECL: "version" | "encoding" | "standalone" >
+| <TEXT_IN_XML_DECL: (~["\n", "\t", " ", "?", "="])+ >
+| <BR_IN_XML_DECL: ("\t" | " " | "=")+ >
+| <XML_DECL_END: "?>" > : DEFAULT
+| <Q_IN_XML_DECL: "?">
+}
+
+/** <? ... ?> */
+<IN_PI_CONTENT>
+TOKEN:
+{
+
+  <TEXT_IN_PI_CONTENT: (<TEXT> | <WS> | ( ">" | "&" | "%"| ";" | "[" | "]" | "=" | "/" | "!" | "\"" | "'" )+)+ >
+| <ERR_IN_PI_CONTENT: ("<")+>   
+| <PI_CONTENT_END: "?>"> : DEFAULT
+| <BR_IN_PI_CONTENT: "?">
+}
+
+
+/** declaration is <! ... */
+<IN_DECL> //GREF //PREF
+TOKEN:
+{
+  <ENTITY: "ENTITY"> : IN_ENTITY
+| <ATTLIST: "ATTLIST"> : IN_ATTLIST
+| <DOCTYPE: "DOCTYPE"> : IN_DOCTYPE
+| <ELEMENT: "ELEMENT"> : IN_ELEMENT
+| <NOTATION: "NOTATION"> : IN_NOTATION
+| <TEXT_IN_DECL: <TEXT> >
+| <WS_IN_DECL: <WS> >
+| <ERR_IN_DECL: ("<" | "'" | "\"" | ";" | "]" | "=" | "/" | "!" | "?")+>
+| <COND: "["> : IN_COND
+| <DECL_END: ">"> : DEFAULT  
+}
+
+<IN_ENTITY> //STRING //CHARS //PREF
+TOKEN:
+{
+  <KW_IN_ENTITY: "SYSTEM" | "NDATA" | "PUBLIC">
+| <BR_IN_ENTITY: (" " | "\t")+ >  //break token to recognize above
+| <TEXT_IN_ENTITY: (~["\n", " ", "\t", "%", ">", "\"", "'"])+  >
+| <ENTITY_END: ">" > : DEFAULT
+}
+
+<IN_ELEMENT> //PREF 
+TOKEN:
+{
+  <KW_IN_ELEMENT: "EMPTY" | "#PCDATA" | "ANY" >
+| <SYMBOL_IN_ELEMENT: ("," | "(" | "\t" | " " | ")" | "|" | "?" | "*" | "+")+ > //break token to recognize above
+| <TEXT_IN_ELEMENT: (~["\n", ",", "(", ")", "\t", " ", "%", ">", "|" , "?", "*" , "+"])+ >  
+| <ELEMENT_END: ">"> : DEFAULT
+}
+
+/** */
+<IN_NOTATION> //STRING //CHARS
+TOKEN:
+{
+  <KW_IN_NOTATION: ("SYSTEM" | "PUBLIC") >
+| <TEXT_IN_NOTATION: (~["\n", ">", " ", "\t", "\"", "'"])+ >
+| <BR_IN_NOTATION: (" " | "\t")+ >
+| <NOTATION_END: ">"> : DEFAULT
+}
+
+/** 
+* Conditional section "<![ ... [" declatation. Content of the section 
+* is treated by DEFAULT => the end delimiter too.
+* This code only tries to colorize "INCLUDE", "IGNORE" as kw.
+* PE as pe other as error
+*/
+<IN_COND> //PREF
+TOKEN:
+{
+  <KW_IN_COND: "I" ("NCLUDE" | "GNORE") >
+| <TEXT_IN_COND: (<WS>) >
+| <ERR_IN_COND: (<TEXT> | ("<" | ">" | "'" | "\"" | "&" | ";" | "]" | "!" | "/")+) >
+| <COND_END: "["> : DEFAULT
+}
+
+/** List of attribures */
+<IN_ATTLIST> //STRING //CHARS //PREF //CREF
+TOKEN:
+{
+  <ERR_IN_ATTLIST: ("<")+ >
+| <KW_IN_ATTLIST: 
+        ("#" ("REQUIRED"| "IMPLIED"| "FIXED" )) | ( "ID" ("REF")? ("S")? )
+        | "CDATA"| "ENTITY"| "ENTITIES"
+        | ( "NMTOKEN" ("S")? ) | "NOTATION"
+  >
+| <TEXT_IN_ATTLIST: (<WS> | <TEXT> | ( ";" | "[" | "]" | "=" | "!")+)>
+| <ATTLIST_END: ">"> : DEFAULT
+}
+
+/*########################################################*/
+// reused automatons
+
+/** REFERENCE is delimited by "%" | "&" ... ";" | <WS> 
+  It could be optimalized by introcusing just IN_REF state
+  shared by GREF & PREF because they can not be nested.
+*/
+<DEFAULT, IN_DECL, IN_ELEMENT, IN_COND, IN_ENTITY, IN_ATTLIST>
+TOKEN:
+{
+  <PREF_START: "%">  : IN_PREF
+}
+
+<IN_PREF>
+TOKEN:
+{
+  <TEXT_IN_PREF: (~[";", " ", "\t", "\n"])+ > 
+| <PREF_END: ";" | <WS> > 
+}
+
+
+/** CHARS delimited by "'" */
+<IN_TAG_ATTLIST, IN_ENTITY, IN_ATTLIST, IN_DOCTYPE, IN_NOTATION>
+TOKEN:
+{
+  <CHARS_START: "'">  : IN_CHARS
+}
+
+<IN_CHARS>
+TOKEN:
+{
+  <TEXT_IN_CHARS: (~["\n","'"])+>
+| <CHARS_END: "'"> 
+}
+
+/** delimited by "\"" */
+<IN_TAG_ATTLIST, IN_ENTITY, IN_ATTLIST, IN_DOCTYPE, IN_NOTATION>
+TOKEN:
+{
+  <STRING_START: "\"">  : IN_STRING
+}
+
+<IN_STRING>
+TOKEN:
+{
+  <TEXT_IN_STRING: ((~["\n","\""])+)>
+| <STRING_END: "\""> 
+
+}
+
+/** comment is delimited by "-->" */
+<DEFAULT>
+TOKEN:
+{
+  <COMMENT_START: "<!--">  : IN_COMMENT
+}
+
+<IN_COMMENT>
+/* Comment is delimited by multiple character delimiter.
+   The comment end regular expressions must throw TokenMgrError 
+   to indicate that the lexer is in the middle of token at
+   buffer boundaries!
+*/
+TOKEN:
+{
+  <TEXT_IN_COMMENT: ( (~["-", "\n"])+ | ("-" ~["-", "\n"])+ )+  >
+| <ERR_IN_COMMENT: "--" ~[">","\n"] > 
+| <COMMENT_END: "-->" > 
+}
+
+
+/** char ref delimited by &#[x] ... ; */
+<DEFAULT, IN_ATTLIST>
+TOKEN:
+{
+  <CHREF_START: "&#x">  : IN_CHREF
+| <CREF_START: "&#">  : IN_CREF
+}
+
+<IN_CREF>
+TOKEN:
+{
+  <TEXT_IN_CREF: (["0"-"9"])+ >
+| <CREF_END: ";" | <WS> > 
+| <ERR_IN_CREF: ~["\n"]>
+}
+
+<IN_CHREF>
+TOKEN:
+{
+  <TEXT_IN_CHREF: (["0"-"9"] | ["a"-"f"] | ["A"-"F"])+ >
+| <CHREF_END: ";" | <WS> > 
+| <ERR_IN_CHREF: ~["\n"]>
+}

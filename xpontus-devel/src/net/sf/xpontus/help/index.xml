@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : index.xml
+    Created on : 1 octobre 2005, 16:49
+    Author     : Yves Zoundi
+    Description: XPontus user manual
+  
+  
+  Copyright (C) 2005,2006  Yves Zoundi
+  Permission is granted to copy, distribute and/or modify this document
+  under the terms of the GNU Free Documentation License, Version 1.2
+  or any later version published by the Free Software Foundation;
+  with no Invariant Sections, no Front-Cover Texts, and no Back-Cover
+  Texts.  A copy of the license is included in the section entitled "GNU
+  Free Documentation License".
+-->
+<!DOCTYPE book  PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                  "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<book>
+  <bookinfo>
+    <title>XPontus XML Editor users's Manual</title>
+    <subtitle>The XPontus XML Editor user guide</subtitle>
+    <author>
+      <firstname>Yves</firstname>
+      <surname>Zoundi</surname>
+      <affiliation>
+        <address>
+          <email>yveszoundi at users dot sf dot net</email>
+        </address>
+      </affiliation>
+    </author>
+    <abstract>
+      <para lang="en">This is the XPontus XML Editor User Manual(mostly about the application
+        features).</para>
+      <para lang="fr">Ceci est le guide de l'utilisateur du logiciel XPontus XML Editor</para>
+    </abstract>
+    <legalnotice>
+      <para>Permission is granted to copy, distribute and/or modify this document under the terms of
+        the GNU Free Documentation License, Version 1.2 or any later version published by the Free
+        Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover
+        Texts. A copy of the license is included in the section entitled "GNU Free Documentation
+        License"(http://www.gnu.org/copyleft/fdl.html). </para>
+    </legalnotice>
+  </bookinfo>
+  <chapter>
+    <title><phrase lang="en">About XPontus</phrase>
+    <phrase lang="fr">A propos de XPontus</phrase>
+    </title>
+    <section>
+      <title>
+        <phrase lang="en">Why, When XPontus?</phrase>
+        <phrase lang="fr">Pourquoi , Quand XPontus?</phrase>
+      </title>
+      <para lang="en">2 years ago i was looking for a free XML Editor. I discovered Oxygen XML
+        Editor(http://oxygenxml.com) which wasn't that popular and liked it.</para>
+      <para>I decided to create a free XML editor for my daily work as i work a lot with XML related
+        technologies.</para>
+      <para lang="fr"></para>
+    </section>
+    <section>
+      <title>The programming language choice</title>
+      <para>I decided to use Java because it is cross-platform. I also work as a programmer analyst
+        and java is the primary development language.</para>
+      <para>It could have been written in any object oriented language easily. As i use linux a lot,
+        .Net didn't really cross my mind...</para>
+    </section>
+    <section>
+      <title>How i decided to design XPontus XML Editor architecture, to code ...</title>
+      <para>I needed to use a kind of MVC architecture to maintain easily the application. I decided
+        to create my own <quote>mini-object-container</quote> which configure actions, toolbar and
+        the menubar from a XML file.</para>
+      <para>I followed some patterns such as singleton pattern, observer pattern,etc.</para>
+      <para>I am using Netbeans to code most of the gui because it doesn't really affect the code
+        performance. When i first started i was using a kind of notepad but it was taking me too
+        much time to type :-)</para>
+      <para>Syntax highlighting in java is a real pain for one man, believe it, so i used the
+        modified jedit syntax package from bluej.</para>
+    </section>
+  </chapter>
+  <!-- XSLT SCENARIOS -->
+  <chapter>
+    <title>XSLT scenarios</title>
+    <!-- introduction -->
+    <section>
+      <title>Introduction</title>
+      <para>We can define XSLT scenarios as XSLT transformations</para>
+      <para>The user defines the following data : </para>
+      <itemizedlist>
+        <listitem>an XML input(a XML file)</listitem>
+        <listitem>an XSLT stylesheet which will be used to transform the XML file</listitem>
+        <listitem>the type of result expected (svg, html, pdf, text, xml)</listitem>
+        <listitem>the output file to store the result</listitem>
+      </itemizedlist>
+    </section>
+    <!-- adding a XSLT scenario -->
+    <section>
+      <title>Adding a XSLT Scenario</title>
+      <para>You can add/edit/remove a XSLT scenario by using the menu <menuchoice>
+          <guimenu>Tools</guimenu>
+          <guimenuitem>Manage XSLT scenarios</guimenuitem>
+          <guibutton>
+            <inlinegraphic fileref="images/setup16.gif" format="GIF"/>
+          </guibutton>
+        </menuchoice> .</para>
+    </section>
+    <!-- performing a XSLT scenario -->
+    <section>
+      <title>Executing a XSLT scenario</title>
+      <para>You can perform a XSLT scenario by using the menu <menuchoice>
+          <guimenu>Tools</guimenu>
+          <guimenuitem>Execute XML scenario XML</guimenuitem>
+          <guibutton>
+            <inlinegraphic fileref="images/play16.gif" format="GIF"/>
+          </guibutton>
+        </menuchoice> .</para>
+    </section>
+  </chapter>
+  <chapter>
+    <title>DTD Generation</title>
+    <para>You can generate a DTD from an XML document using the menu <menuchoice>
+        <guimenu>Tools</guimenu>
+        <guimenuitem>Generate DTD</guimenuitem>
+      </menuchoice>.</para>
+  </chapter>
+  <chapter>
+    <title>XMLDiff</title>
+    <para>You can use the menu <menuchoice>
+        <guimenu>Tools</guimenu>
+        <guimenuitem>Perform XMLDiff</guimenuitem>
+      </menuchoice>. For now, you cannot merge xml documents yet.</para>
+  </chapter>
+  <chapter>
+    <title>External against external schema</title>
+    <section>
+      <title>What is a schema?</title>
+      <para>You can see a schema(ie. a schema in general) as a set of rules which define the
+        structure of an XML document. You can find more information about XML Schema at <ulink
+          url="http://www.w3.org/TR/xmlschema-1/">http://www.w3.org/TR/xmlschema-1/</ulink></para>
+    </section>
+    <section>
+      <title>What kind of external schema can you use?</title>
+      <para>You can validate XML documents against several kinds of XML schemata. XPontus supports
+        RELAX NG, RELAX Namespace, RELAX Core, TREX, XML DTDs, and a subset of XML Schema Part
+      1.</para>
+    </section>
+    <section>
+      <title>Validating against external schema</title>
+      <para>You can convert HTML files to XHTML transitionnal using the tidy option in the menu <menuchoice>
+          <guimenu>Tools</guimenu>
+          <guimenuitem>Validate against external schema</guimenuitem>
+          <guibutton>
+            <inlinegraphic fileref="images/xsd16.gif" format="GIF"/>
+          </guibutton>
+        </menuchoice>.</para>
+    </section>
+  </chapter>
+  <!-- Convert HTML to XHTML -->
+  <chapter>
+    <title>Convert HTML to XHTML</title>
+    <section>
+      <title>Introduction</title>
+      <para>You can convert HTML files to XHTML transitionnal using the tidy option in the menu <menuchoice>
+          <guimenu>Format</guimenu>
+          <guimenuitem>Tidy HTML</guimenuitem>
+          <guibutton>
+            <inlinegraphic fileref="images/tidy16.gif" format="GIF"/>
+          </guibutton>
+        </menuchoice>. You can set JTidy options in the JTidy tab option of the menu <menuchoice>
+          <guimenu>Tools</guimenu>
+          <guimenuitem>Preferences</guimenuitem>
+        </menuchoice>
+      </para>
+    </section>
+    <section>
+      <title>About the Tidy HTML option</title>
+      <para>The Tidy HTML option uses <ulink url="http://jtidy.sf.net">JTidy</ulink>, a java
+        implementation of the <ulink url="http://www.w3.org/People/Raggett/tidy/">Tidy</ulink> tool
+        from the <ulink url="http://w3c.org">W3C</ulink>.</para>
+    </section>
+  </chapter>
+  <!-- XML VALIDATION -->
+  <chapter>
+    <title>XML Validation</title>
+    <!-- single file validation -->
+    <section>
+      <title>Single file validation</title>
+      <para>You have to open the file you want to validate and use the menu <menuchoice>
+          <guimenu>Tools</guimenu>
+          <guimenuitem>Validate XML</guimenuitem>
+          <guibutton>
+            <inlinegraphic fileref="images/validate16.gif" format="PNG"/>
+          </guibutton>
+        </menuchoice> .</para>
+    </section>
+    <!-- batch validation -->
+    <section>
+      <title>Using Batch Validation</title>
+      <para>You can validate a batch of XML files(and or directories) using XML Batch Validation.</para>
+      <para>The menu is <menuchoice>
+          <guimenu>Tools</guimenu>
+          <guimenuitem>XML Batch Validation</guimenuitem>
+        </menuchoice>.</para>
+      <para>By default, the Batch Validation will be performed on file which filenames end by
+        ".xml". You can choose to add or remove file patterns(<filename>*.svg,*.xsl,etc.</filename>)</para>
+      <para>If the option <emphasis>Look into sub-directories</emphasis> is selected, all the
+        subdirectories will be scanned according to the XML patterns(file extensions) you
+      specified.</para>
+    </section>
+  </chapter>
+</book>
