@@ -1,8 +1,0 @@
-[Desktop Entry]
-Exec="/usr/bin/xpontus"
-Terminal=0
-Type=Application
-Icon=/usr/share/xpontus/icons/xpontus.png
-Categories=Application;Development;Java;IDE;
-Name=XPontus XML Editor
-Comment=Launches XPontus XML Editor
