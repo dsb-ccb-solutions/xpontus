@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+
+
+<!--
+    Copyright 2002-2005 The Apache Software Foundation or its licensors,
+    as applicable.
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+    <header>
+        <title>External schema validation</title>
+        <meta name="keywords">XML Editor, XML, XSLT, XML IDE, DTD, DTD Editor, XSLT Editor, XSLT
+            Debugger, XSL Editor, XPontus XML Editor, Java based XML Editor</meta>
+        <meta name="description">XPontus XML Editor features - External schema validation</meta>
+        <meta name="robots">index, follow</meta>
+    </header>
+    <body>
+        <section>
+            <title>Overview</title>
+            <p>You can see a schema(ie. a schema in general) as a set of rules which define the
+                structure of an XML document. You can find more information about XML Schema at <a
+                    class="fork" href="http://www.w3.org/TR/xmlschema-1/"
+                    >http://www.w3.org/TR/xmlschema-1/</a></p>
+        </section>
+        <section>
+            <title>What kind of external schema can you use?</title>
+            <p>You can validate XML documents against several kinds of XML schemata. XPontus
+                supports </p>
+            <ul>
+                <li>RELAX NG</li>
+                <li>RELAX Namespace</li>
+                <li>RELAX Core</li>
+                <li>TREX</li>
+                <li>XML DTDs</li>
+                <li>a subset of XML Schema Part 1</li>
+            </ul>
+        </section>
+        <section>
+            <title>Validating against external schema</title>
+            <p>You can convert HTML files to XHTML transitionnal using the tidy option in the menu
+                Tools->Validate against external schema</p>
+        </section>
+    </body>
+</document>

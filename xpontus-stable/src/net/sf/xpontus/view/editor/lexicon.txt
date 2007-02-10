@@ -1,0 +1,13 @@
+xsl:include
+xsl:template
+xsl:key
+xsl:attribute
+xsl:element
+xsl:text
+xsl:message
+xsl:value-of
+xsl:number
+xsl:apply-templates
+xsl:apply-imports
+xsl:copy
+xsl:copy-of
