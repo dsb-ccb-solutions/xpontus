@@ -9,6 +9,7 @@
 package net.sf.xpontus.codecompletion.xml;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -19,6 +20,7 @@ import java.util.List;
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -29,29 +31,24 @@ import javax.swing.text.JTextComponent;
  *
  * @author Yves Zoundi
  */
-public class ContentAssistWindow
-{
+public class ContentAssistWindow {
     private static JList completionList;
     private static JPopupMenu completionMenu;
     private static String endTag = new String();
 
     public static void completeEndTag(JTextComponent editor, int off,
-        String str, AttributeSet set)
-    {
+        String str, AttributeSet set) {
         final Document doc = editor.getDocument();
 
-        int dot = editor.getCaret().getDot(); 
-        
-         endTag = new String(str);
+        int dot = editor.getCaret().getDot();
+
+        endTag = new String(str);
 
         String text = null;
 
-        try
-        {
+        try {
             text = doc.getText(0, off);
-        }
-        catch (BadLocationException ex)
-        {
+        } catch (BadLocationException ex) {
             ex.printStackTrace();
         }
 
@@ -62,48 +59,38 @@ public class ContentAssistWindow
         // and
         // if the start-tag has not got an end-tag already.
         if ((startTag > 0) && (startTag > prefEndTag) &&
-                (startTag < (text.length() - 1)))
-        {
+                (startTag < (text.length() - 1))) {
             String tag = text.substring(startTag, text.length());
             char first = tag.charAt(1);
 
             if ((first != '/') && (first != '!') && (first != '?') &&
-                    !Character.isWhitespace(first))
-            {
+                    !Character.isWhitespace(first)) {
                 boolean finished = false;
                 char previous = tag.charAt(tag.length() - 1);
 
-                if ((previous != '/') && (previous != '-'))
-                {
-                    endTag+=("</");
+                if ((previous != '/') && (previous != '-')) {
+                    endTag += ("</");
 
-                    for (int i = 1; (i < tag.length()) && !finished; i++)
-                    {
+                    for (int i = 1; (i < tag.length()) && !finished; i++) {
                         char ch = tag.charAt(i);
 
-                        if (!Character.isWhitespace(ch))
-                        {
-                            endTag+=(ch);
-                        }
-                        else
-                        {
+                        if (!Character.isWhitespace(ch)) {
+                            endTag += (ch);
+                        } else {
                             finished = true;
                         }
                     }
 
-                    endTag+=(">");
+                    endTag += (">");
                 }
             }
         }
 
         str = endTag;
 
-        try
-        {
+        try {
             doc.insertString(off, str, set);
-        }
-        catch (BadLocationException ex)
-        {
+        } catch (BadLocationException ex) {
             ex.printStackTrace();
         }
 
@@ -111,25 +98,20 @@ public class ContentAssistWindow
     }
 
     // Tries to find out if the line finishes with an element start
-    private static boolean isStartElement(String line)
-    {
+    private static boolean isStartElement(String line) {
         boolean result = false;
 
         int first = line.lastIndexOf("<");
         int last = line.lastIndexOf(">");
 
-        if (last < first)
-        { // In the Tag
+        if (last < first) { // In the Tag
             result = true;
-        }
-        else
-        {
+        } else {
             int firstEnd = line.lastIndexOf("</");
             int lastEnd = line.lastIndexOf("/>");
 
             // Last Tag is not an End Tag
-            if ((firstEnd != first) && ((lastEnd + 1) != last))
-            {
+            if ((firstEnd != first) && ((lastEnd + 1) != last)) {
                 result = true;
             }
         }
@@ -138,149 +120,90 @@ public class ContentAssistWindow
     }
 
     public static void complete(final JTextComponent editor,
-        List completionData, int off, String str, AttributeSet set)
-    {
+        final List completionData, int off, final String str,
+        final AttributeSet set) {
         final Document doc = editor.getDocument();
 
-        if (str.equals(">"))
-        {
+        if (str.equals(">")) {
             completeEndTag(editor, off, str, set);
-
-            return;
-        }
-
-        if (completionData.size() == 0)
-        {
-            try
-            {
-                doc.insertString(off, str, null);
-            }
-            catch (BadLocationException ex)
-            {
-                ex.printStackTrace();
+        } else {
+            if (completionData.size() == 0) {
+                return;
             }
 
-            return;
-        }
+            try {
+                completionList = new javax.swing.JList(completionData.toArray());
 
-        if (completionData.size() > 0)
-        {
-            completionList = new JList(completionData.toArray());
+                final int offset = off;
 
-            final int offset = off;
-
-            completionList.addMouseListener(new MouseAdapter()
-                {
-                    public void mouseReleased(MouseEvent e)
-                    {
-                        try
-                        {
-                            doc.insertString(editor.getCaretPosition(),
-                                completionList.getSelectedValue().toString(),
-                                null);
-                        }
-                        catch (BadLocationException ex)
-                        {
-                            ex.printStackTrace();
-                        }
-
-                        completionMenu.setVisible(false);
-                    }
-                });
-
-            completionList.addKeyListener(new KeyAdapter()
-                {
-                    public void keyReleased(KeyEvent e)
-                    {
-                        switch (e.getKeyCode())
-                        {
-                        case KeyEvent.VK_ENTER:
-
-                            try
-                            {
-                                doc.insertString((editor.getCaretPosition()),
-                                    completionList.getSelectedValue().toString(),
-                                    null);
-                                completionMenu.setVisible(false);
-                            }
-                            catch (BadLocationException ex)
-                            {
-                                ex.printStackTrace();
-                            }
-
-                            break;
-
-                        case KeyEvent.VK_ESCAPE:
-                            completionMenu.setVisible(false);
-
-                            break;
-
-                        case KeyEvent.VK_SPACE:
-                            completionMenu.setVisible(false);
-
-                            break;
-
-                        case 16:
-
-                            try
-                            {
+                completionList.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseReleased(java.awt.event.MouseEvent e) {
+                            try {
                                 doc.insertString(editor.getCaretPosition(),
-                                    "" + e.getKeyChar(), null);
-                            }
-                            catch (BadLocationException ex)
-                            {
+                                    completionList.getSelectedValue().toString(),
+                                    set);
+                            } catch (javax.swing.text.BadLocationException ex) {
                                 ex.printStackTrace();
                             }
 
-                            break;
-
-                        case KeyEvent.VK_BACK_SPACE:
-
-                           
-                                // recorder.deleteCharAt(recorder.length() - 1);
-                                try
-                                {
-                                    doc.remove(editor.getCaretPosition(), 1);
-                                }
-                                catch (BadLocationException ex)
-                                {
-                                    ex.printStackTrace();
-                                } 
-
-                            break;
-
-                        default: 
-
-                            try
-                            {
-                                if (Character.isLetter(e.getKeyChar()) ||
-                                        Character.isDigit(e.getKeyChar()))
-                                {
-                                    doc.insertString(editor.getCaretPosition(),
-                                        ("" + e.getKeyChar()), null);
-                                }
-                            }
-                            catch (BadLocationException ex)
-                            {
-                                ex.printStackTrace();
-                            }
-
-                            break;
+                            completionMenu.setVisible(false);
                         }
-                    }
-                });
-            completionList.setSelectedIndex(0);
+                    });
+                completionList.addKeyListener(new java.awt.event.KeyAdapter() {
+                        public void keyReleased(java.awt.event.KeyEvent e) {
+                            switch (e.getKeyCode()) {
+                            case KeyEvent.VK_SPACE:
+                                  completionMenu.setVisible(false);
+                                break;
+                                
+                            case KeyEvent.VK_BACK_SPACE:
+                                  completionMenu.setVisible(false);
+                                break;
+                                
+                            case KeyEvent.VK_ESCAPE:
+                                completionMenu.setVisible(false);
+                                break;
+                                
+                            case java.awt.event.KeyEvent.VK_ENTER:
 
-            JScrollPane completionPane = new JScrollPane(completionList);
-            completionMenu = new JPopupMenu();
-            completionMenu.add(completionPane);
+                                try {
+                                    doc.insertString(editor.getCaretPosition(),
+                                        completionList.getSelectedValue()
+                                                      .toString(), null);
 
-            Point point = editor.getCaret().getMagicCaretPosition();
-            
-            System.out.println("point not null:" + point!=null);
-            completionMenu.show(editor,
-                point.x, point.y);
-            completionList.grabFocus();
+                                    completionMenu.setVisible(false);
+                                } catch (javax.swing.text.BadLocationException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                                break;
+                                
+                                
+                            default:
+                                break;
+                            }
+                            
+                        }
+                    });
+                completionList.setSelectedIndex(0);
+
+                javax.swing.JScrollPane completionPane = new javax.swing.JScrollPane(completionList);
+
+                completionMenu = new javax.swing.JPopupMenu();
+                completionMenu.add(completionPane);
+
+                int dotPosition = editor.getCaretPosition();
+                Rectangle popupLocation = editor.modelToView(dotPosition);
+
+                completionList.setVisibleRowCount((completionData.size() > 10)
+                    ? 10 : completionData.size());
+                completionMenu.show(editor, popupLocation.x, popupLocation.y);
+                completionList.grabFocus();
+            } catch (Exception ex) {
+                java.util.logging.Logger.getLogger("global")
+                                        .log(java.util.logging.Level.SEVERE,
+                    ex.getMessage(), ex);
+            }
         }
     }
 }

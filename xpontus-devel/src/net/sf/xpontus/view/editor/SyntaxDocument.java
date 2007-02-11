@@ -46,8 +46,7 @@ import javax.swing.text.SimpleAttributeSet;
  *
  * @author Owner
  */
-public class SyntaxDocument extends PlainDocument
-{
+public class SyntaxDocument extends PlainDocument {
     // the lexer for the document
     private ILexer lexer;
     private boolean isCodeCompletion = false;
@@ -77,8 +76,7 @@ public class SyntaxDocument extends PlainDocument
      * @param editor
      * @param support
      */
-    public SyntaxDocument(JEditorPane editor, SyntaxSupport support)
-    {
+    public SyntaxDocument(JEditorPane editor, SyntaxSupport support) {
         this.styleMap = support.getColorProvider().getStyles();
         this.editor = editor;
         seg = new Segment();
@@ -86,17 +84,14 @@ public class SyntaxDocument extends PlainDocument
         this.lexer = support.getLexer();
         isCodeCompletion = (lexer.getClass() == XMLParser.class);
         endTokens = new DynamicIntArray(500);
-        SwingUtilities.invokeLater(new Runnable()
-            {
-                public void run()
-                {
+        SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
                     contentAssit = new XMLAssistProcessor();
                 }
             });
     }
 
-    public void setLoading(boolean b)
-    {
+    public void setLoading(boolean b) {
         isLoading = b;
     }
 
@@ -104,8 +99,7 @@ public class SyntaxDocument extends PlainDocument
      *
      * @return
      */
-    public ILexer getLexer()
-    {
+    public ILexer getLexer() {
         return lexer;
     }
 
@@ -113,8 +107,7 @@ public class SyntaxDocument extends PlainDocument
      *
      * @return
      */
-    public boolean isCodeCompletion()
-    {
+    public boolean isCodeCompletion() {
         return xmlCompletion;
     }
 
@@ -122,8 +115,7 @@ public class SyntaxDocument extends PlainDocument
      *
      * @return
      */
-    public Map getStyleMap()
-    {
+    public Map getStyleMap() {
         return styleMap;
     }
 
@@ -131,8 +123,7 @@ public class SyntaxDocument extends PlainDocument
      *
      * @param e
      */
-    protected void fireInsertUpdate(DocumentEvent e)
-    {
+    protected void fireInsertUpdate(DocumentEvent e) {
         Element lineMap = getDefaultRootElement();
         DocumentEvent.ElementChange change = e.getChange(lineMap);
         Element[] added = (change == null) ? null : change.getChildrenAdded();
@@ -144,15 +135,13 @@ public class SyntaxDocument extends PlainDocument
             ? endTokens.get(previousLine) : 0);
 
         // If entire lines were added...
-        if ((added != null) && (added.length > 0))
-        {
+        if ((added != null) && (added.length > 0)) {
             Element[] removed = change.getChildrenRemoved();
             int numRemoved = (removed != null) ? removed.length : 0;
 
             int endBefore = (line + added.length) - numRemoved;
 
-            for (int i = line; i < endBefore; i++)
-            {
+            for (int i = line; i < endBefore; i++) {
                 setSharedSegment(i); // Loads line i's text into s.
 
                 int tokenType = lexer.getLastTokenTypeOnLine(seg,
@@ -165,10 +154,8 @@ public class SyntaxDocument extends PlainDocument
             // Update last tokens for lines below until they stop changing.
             updateLastTokensBelow(endBefore, numLines, previousTokenType);
         }
-
         // Otherwise, text was inserted on a single line...
-        else
-        {
+        else {
             // Update last tokens for lines below until they stop changing.
             updateLastTokensBelow(line, numLines, previousTokenType);
         }
@@ -176,8 +163,7 @@ public class SyntaxDocument extends PlainDocument
         super.fireInsertUpdate(e);
     }
 
-    protected void fireRemoveUpdate(DocumentEvent chng)
-    {
+    protected void fireRemoveUpdate(DocumentEvent chng) {
         Element lineMap = getDefaultRootElement();
         int numLines = lineMap.getElementCount();
 
@@ -185,8 +171,7 @@ public class SyntaxDocument extends PlainDocument
         Element[] removed = (change == null) ? null : change.getChildrenRemoved();
 
         // If entire lines were removed...
-        if ((removed != null) && (removed.length > 0))
-        {
+        if ((removed != null) && (removed.length > 0)) {
             int line = change.getIndex(); // First line entirely removed.
             int previousLine = line - 1; // Line before that.
             int previousTokenType = ((previousLine > -1)
@@ -205,14 +190,11 @@ public class SyntaxDocument extends PlainDocument
             // Update last tokens for lines below until they've stopped changing.
             updateLastTokensBelow(line, numLines, previousTokenType);
         }
-
         // Otherwise, text was removed from just one line...
-        else
-        {
+        else {
             int line = lineMap.getElementIndex(chng.getOffset());
 
-            if (line >= endTokens.getSize())
-            {
+            if (line >= endTokens.getSize()) {
                 return; // If we're editing the
 
                 // last line in a
@@ -238,15 +220,13 @@ public class SyntaxDocument extends PlainDocument
      * @param line
      *          The line number you want to get.
      */
-    private final void setSharedSegment(int line)
-    {
+    private final void setSharedSegment(int line) {
         Element map = getDefaultRootElement();
         int numLines = map.getElementCount();
 
         Element element = map.getElement(line);
 
-        if (element == null)
-        {
+        if (element == null) {
             throw new InternalError("Invalid line number: " + line);
         }
 
@@ -254,12 +234,9 @@ public class SyntaxDocument extends PlainDocument
         int endOffset = ((line == (numLines - 1)) ? (element.getEndOffset() -
             1) : (element.getEndOffset() - 1));
 
-        try
-        {
+        try {
             getText(startOffset, endOffset - startOffset, seg);
-        }
-        catch (BadLocationException ble)
-        {
+        } catch (BadLocationException ble) {
             throw new InternalError("Text range not in document: " +
                 startOffset + "-" + endOffset);
         }
@@ -273,13 +250,11 @@ public class SyntaxDocument extends PlainDocument
      * @return
      */
     private int updateLastTokensBelow(int line, int numLines,
-        int previousTokenType)
-    {
+        int previousTokenType) {
         int firstLine = line;
         int end = numLines - 1;
 
-        while (line < end)
-        {
+        while (line < end) {
             setSharedSegment(line);
 
             int oldTokenType = endTokens.get(line);
@@ -290,8 +265,7 @@ public class SyntaxDocument extends PlainDocument
             // that we're saying this line needs repainting; this is because
             // the beginning of this line did indeed change color, but the
             // end didn't.
-            if (oldTokenType == newTokenType)
-            {
+            if (oldTokenType == newTokenType) {
                 damageRange(firstLine, line);
 
                 return line;
@@ -304,8 +278,7 @@ public class SyntaxDocument extends PlainDocument
             line++;
         }
 
-        if (line > firstLine)
-        {
+        if (line > firstLine) {
             damageRange(firstLine, line);
         }
 
@@ -317,8 +290,7 @@ public class SyntaxDocument extends PlainDocument
      * @param firstLine
      * @param lastLine
      */
-    private void damageRange(int firstLine, int lastLine)
-    {
+    private void damageRange(int firstLine, int lastLine) {
         Element f = getDefaultRootElement().getElement(firstLine);
         Element e = getDefaultRootElement().getElement(lastLine);
         editor.getUI().damageRange(editor, f.getStartOffset(), e.getEndOffset());
@@ -329,19 +301,15 @@ public class SyntaxDocument extends PlainDocument
      * @param line
      * @return
      */
-    public final List getTokenListForLine(int line)
-    {
+    public final List getTokenListForLine(int line) {
         Element map = getDefaultRootElement();
         Element elem = map.getElement(line);
         int startOffset = elem.getStartOffset();
         int endOffset = elem.getEndOffset() - 1;
 
-        try
-        {
+        try {
             getText(startOffset, endOffset - startOffset, seg);
-        }
-        catch (BadLocationException ble)
-        {
+        } catch (BadLocationException ble) {
             ble.printStackTrace();
 
             return null;
@@ -349,8 +317,7 @@ public class SyntaxDocument extends PlainDocument
 
         int initialTokenType = 0;
 
-        if (line > 0)
-        {
+        if (line > 0) {
             initialTokenType = endTokens.get(line - 1);
         }
 
@@ -362,42 +329,14 @@ public class SyntaxDocument extends PlainDocument
      * @param kind
      * @return
      */
-    public MutableAttributeSet getStyleForType(int kind)
-    {
+    public MutableAttributeSet getStyleForType(int kind) {
         Integer tokenId = new Integer(kind);
         Object tokenStyle = styleMap.get(tokenId);
 
         return (tokenStyle != null) ? (MutableAttributeSet) tokenStyle
                                     : DEFAULT_STYLE;
-    }
-
-    /**
-     *
-     * @return
-     */
-    private Point computeBottomOfCaratPositionOnScreen()
-    {
-        Graphics graphics = editor.getGraphics();
-        FontMetrics fontMetrics = graphics.getFontMetrics(editor.getFont());
-        int rowHeight = fontMetrics.getDescent() + fontMetrics.getAscent();
-        graphics.dispose();
-
-        Point magicCaretPosition = editor.getCaret().getMagicCaretPosition();
-
-        if (magicCaretPosition == null)
-        {
-            magicCaretPosition = new Point(0, 0);
-        }
-
-        Point locationOnScreen = editor.getLocationOnScreen();
-
-        Point bottomOfCaret = new Point(magicCaretPosition.x +
-                locationOnScreen.x,
-                magicCaretPosition.y + locationOnScreen.y + rowHeight);
-
-        return bottomOfCaret;
-    }
-
+    } 
+    
     /**
      *
      * @param off
@@ -406,24 +345,24 @@ public class SyntaxDocument extends PlainDocument
      * @throws javax.swing.text.BadLocationException
      */
     public void insertString(int off, String str, AttributeSet set)
-        throws BadLocationException
-    {
-        if (contentAssit == null)
-        {
-            super.insertString(off, str, set);
+        throws BadLocationException {
+       
 
-            return;
-        }
-
-        // removed the completion popup for the string trigger "<"
-        if (str.equals(">") && isCodeCompletion && !isLoading)
-        {
+        if (contentAssit == null) {
+             super.insertString(off, str, set);
+        } else if ((contentAssit != null) && str.equals(">") &&
+                isCodeCompletion && !isLoading) {
             ContentAssistWindow.complete(editor, contentAssit.getTagList(),
                 off, str, set);
         }
-        else
-        {
-            super.insertString(off, str, set);
+         else if ((contentAssit != null) && str.equals("<") &&
+                isCodeCompletion && !isLoading) {
+             super.insertString(off, str, set);
+            ContentAssistWindow.complete(editor, contentAssit.getTagList(),
+                off, str, set);
+        }
+        else{
+             super.insertString(off, str, set);
         }
     }
 }

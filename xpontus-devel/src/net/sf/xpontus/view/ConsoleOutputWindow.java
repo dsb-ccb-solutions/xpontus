@@ -67,6 +67,7 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
        
         // outputKey.setDockGroup(group);
         outputKey.setResizeWeight(0.2f);
+        outputKey.setCloseEnabled(false);
         Dimension dim = new Dimension(600, 150);
         this.setMinimumSize(dim);
         this.setPreferredSize(dim);

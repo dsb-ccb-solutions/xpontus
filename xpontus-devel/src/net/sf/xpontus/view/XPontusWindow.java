@@ -5,12 +5,10 @@
  */
 package net.sf.xpontus.view;
 
- 
 import com.vlsolutions.swing.docking.*;
 import com.vlsolutions.swing.toolbars.*;
 import com.vlsolutions.swing.toolbars.ToolBarPanel;
 import com.vlsolutions.swing.toolbars.VLToolBar;
-import java.awt.event.ActionListener;
 
 import net.sf.xpontus.constants.XPontusConstants;
 import net.sf.xpontus.controller.actions.dockables.ManageDockableAction;
@@ -23,6 +21,7 @@ import net.sf.xpontus.view.components.JStatusBar;
 import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionListener;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -51,8 +50,8 @@ import javax.swing.WindowConstants;
  */
 public class XPontusWindow {
     private static XPontusWindow _instance;
-    private EditorTabContainer tabContainer;
     public static boolean splashenabled = true;
+    private EditorTabContainer tabContainer;
     private SplashScreenView splash;
     private XPathToolBarComponent xpathTb;
     private Hashtable menuMap = new Hashtable();
@@ -71,22 +70,22 @@ public class XPontusWindow {
     private ToolBarContainer toolbar;
     private JMenu toolsMenu;
     private MessageProvider messageSource;
-    private ConsoleOutputWindow console; 
-private OutlineViewDockable outlineDockable;
+    private ConsoleOutputWindow console;
+    private OutlineViewDockable outlineDockable;
 
-
-	public OutlineViewDockable getOutlineDockable(){
-		return outlineDockable;
-	}
     /** Creates new XPontusWindow */
     private XPontusWindow() {
         if (messageSource == null) {
             messageSource = MessageProvider.getinstance();
         }
     }
-    
-    public EditorTabContainer getTabContainer(){
-    	return tabContainer;
+
+    public OutlineViewDockable getOutlineDockable() {
+        return outlineDockable;
+    }
+
+    public EditorTabContainer getTabContainer() {
+        return tabContainer;
     }
 
     public void maximizeDock(Dockable dockable) {
@@ -129,18 +128,17 @@ private OutlineViewDockable outlineDockable;
         desk.addDockable(pane);
 
         outlineDockable = new OutlineViewDockable();
-        
-        desk.registerDockable(outlineDockable);
-       desk.registerDockable(console);
-        desk.split(pane, outlineDockable, DockingConstants.SPLIT_LEFT);
-        desk.split(pane, console,
-            DockingConstants.SPLIT_BOTTOM);
 
-//        for (int i = 1; i < 3; i++) {
-//        	desk.registerDockable(console.getDockables()[i-1]);
-//            desk.createTab(console.getDockables()[i - 1],
-//                console.getDockables()[i], i);
-//        }
+        desk.registerDockable(outlineDockable);
+        desk.registerDockable(console);
+        desk.split(pane, outlineDockable, DockingConstants.SPLIT_LEFT);
+        desk.split(pane, console, DockingConstants.SPLIT_BOTTOM);
+
+        //        for (int i = 1; i < 3; i++) {
+        //        	desk.registerDockable(console.getDockables()[i-1]);
+        //            desk.createTab(console.getDockables()[i - 1],
+        //                console.getDockables()[i], i);
+        //        }
 
         //  desk.addDockable(compound , new JTreeDockable()) ;
         frame.getContentPane().add(desk, BorderLayout.CENTER);
@@ -247,7 +245,7 @@ private OutlineViewDockable outlineDockable;
      * @return
      */
     private VLToolBar createToolBar(String[] actions, String name) {
-        VLToolBar tb = new VLToolBar(name); 
+        VLToolBar tb = new VLToolBar(name);
 
         for (int i = 0; i < actions.length; i++) {
             if (actions[i].equals("-")) {
@@ -312,17 +310,8 @@ private OutlineViewDockable outlineDockable;
         formatMenu = new JMenu();
         helpMenu = new JMenu();
 
-        JMenu viewMenu = new JMenu("View");
-        viewMenu.add(new JCheckBoxMenuItem("Outline", true));
-        viewMenu.add(new JCheckBoxMenuItem("Output", true)); 
-        
-        ActionListener dockListener = new ManageDockableAction();
-        
-        for(int i=0;i<viewMenu.getItemCount();i++){
-            viewMenu.getItem(i).addActionListener(dockListener);
-        }
         pane = new PaneForm();
-        // scrollPane = new JScrollPane();
+
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
                 public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -335,8 +324,6 @@ private OutlineViewDockable outlineDockable;
 
         editMenu.setText(getI18nMessage("menu.edit.name"));
         menubar.add(editMenu);
-
-        menubar.add(viewMenu);
 
         toolsMenu.setText(getI18nMessage("menu.tools.name"));
         menubar.add(toolsMenu);
@@ -366,9 +353,10 @@ private OutlineViewDockable outlineDockable;
      *
      * @return The application's statusbar
      */
-//    public JComponent getStatusbar() {
-//        return statusbar;
-//    }
+
+    //    public JComponent getStatusbar() {
+    //        return statusbar;
+    //    }
 
     /**
      *
@@ -378,9 +366,10 @@ private OutlineViewDockable outlineDockable;
         statusbar.setMessage(msg);
     }
 
-    public Dockable getCurrentDockable(){
+    public Dockable getCurrentDockable() {
         return tabContainer.getCurrentDockable();
     }
+
     /**
      *
      * @return
