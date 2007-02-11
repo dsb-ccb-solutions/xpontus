@@ -223,6 +223,7 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
         private void gotoLine(int lineNumber)
         {
             JEditorPane edit = XPontusWindow.getInstance().getCurrentEditor();
+            edit.grabFocus();
             Element element = edit.getDocument().getDefaultRootElement();
 
             if (element.getElement(lineNumber - 1) == null)

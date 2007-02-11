@@ -348,21 +348,12 @@ public class SyntaxDocument extends PlainDocument {
         throws BadLocationException {
        
 
-        if (contentAssit == null) {
-             super.insertString(off, str, set);
-        } else if ((contentAssit != null) && str.equals(">") &&
+        super.insertString(off, str, set);
+        
+       if ((contentAssit != null) && contentAssit.isTrigger(str) &&
                 isCodeCompletion && !isLoading) {
             ContentAssistWindow.complete(editor, contentAssit.getTagList(),
                 off, str, set);
-        }
-         else if ((contentAssit != null) && str.equals("<") &&
-                isCodeCompletion && !isLoading) {
-             super.insertString(off, str, set);
-            ContentAssistWindow.complete(editor, contentAssit.getTagList(),
-                off, str, set);
-        }
-        else{
-             super.insertString(off, str, set);
-        }
+        } 
     }
 }

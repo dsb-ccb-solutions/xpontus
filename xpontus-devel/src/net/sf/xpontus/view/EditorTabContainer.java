@@ -9,29 +9,22 @@
 package net.sf.xpontus.view;
 
 import com.sun.java.help.impl.SwingWorker;
-
 import com.vlsolutions.swing.docking.Dockable;
-import com.vlsolutions.swing.docking.DockableContainer;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
-import com.vlsolutions.swing.docking.DockingUtilities;
 import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
 import com.vlsolutions.swing.docking.event.DockableSelectionListener;
-import com.vlsolutions.swing.docking.event.DockableStateChangeEvent;
-import com.vlsolutions.swing.docking.event.DockableStateChangeListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeListener;
-
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.BeanContainer;
-
 import java.util.Iterator;
 import java.util.Vector;
-
 import javax.swing.Action;
 import javax.swing.JEditorPane;
 import javax.swing.text.Document;
 import javax.swing.tree.DefaultMutableTreeNode;
+import net.sf.xpontus.controller.handlers.ModificationHandler;
 import net.sf.xpontus.view.editor.SyntaxDocument;
 
 
@@ -197,9 +190,13 @@ private Dockable currentDockable;
      */
     public void setupEditor(EditorContainer editor)
     {
+        SyntaxDocument doc = ((SyntaxDocument)editor.getEditorComponent().getDocument());
+        
         if (editors.size() == 0)
         {
-            ((SyntaxDocument)editor.getEditorComponent().getDocument()).setLoading(true);
+            
+            
+            doc.setLoading(true);
             PaneForm pane = XPontusWindow.getInstance().getPane();
 
             System.out.println("pane is not null:" + (pane != null));
@@ -231,10 +228,18 @@ private Dockable currentDockable;
             enableDocumentActions(true);
         }
 
-        currentEditor = editor.getEditorComponent();
+        currentEditor = editor.getEditorComponent(); 
         currentDockable = editor;
         currentEditor.addMouseListener(new PopupListener(popup));
-        ((SyntaxDocument)editor.getEditorComponent().getDocument()).setLoading(false);
+        doc.setLoading(false);
+        
+//        if(doc.isCodeCompletion()){
+            
+            ModificationHandler handler = (ModificationHandler) doc.getDocumentListeners()[0];
+           handler.parseDocument();
+//        }
+        
+        
     }
 
     /**

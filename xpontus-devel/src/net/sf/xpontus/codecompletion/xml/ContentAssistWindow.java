@@ -14,9 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import java.util.List;
-
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -38,6 +36,11 @@ public class ContentAssistWindow {
 
     public static void completeEndTag(JTextComponent editor, int off,
         String str, AttributeSet set) {
+        
+        final int offset = new Integer(off);
+        
+        final String insertString = new String(str);
+        
         final Document doc = editor.getDocument();
 
         int dot = editor.getCaret().getDot();
@@ -81,7 +84,7 @@ public class ContentAssistWindow {
                         }
                     }
 
-                    endTag += (">");
+//                    endTag += (">");
                 }
             }
         }
@@ -89,12 +92,17 @@ public class ContentAssistWindow {
         str = endTag;
 
         try {
+            if(str.equals(">")){
+                return;
+            }
             doc.insertString(off, str, set);
-        } catch (BadLocationException ex) {
-            ex.printStackTrace();
+            editor.getCaret().setDot(dot );
+        } catch (Exception ex) {
+           
+
         }
 
-        editor.getCaret().setDot(dot + 1);
+        
     }
 
     // Tries to find out if the line finishes with an element start
