@@ -71,6 +71,10 @@ public class SyntaxDocument extends PlainDocument {
     private boolean xmlCompletion = false;
     private XMLAssistProcessor contentAssit;
 
+    
+    public XMLAssistProcessor getContentAssist(){
+        return contentAssit;
+    }
     /**
      *
      * @param editor

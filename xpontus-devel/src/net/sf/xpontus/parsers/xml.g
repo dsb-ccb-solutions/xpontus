@@ -30,21 +30,53 @@ Complete revision: 16.01.2003 (01/16/03)
 Developed and testes with ANTLR 2.7.2
 */
 header {
-    // import org.xml.sax.helpers.*;
-    package org.happycomp.xmlparse;
+  package net.sf.xpontus.parsers;
 
-	import org.xml.sax.SAXException;    
-	import org.xml.sax.SAXParseException;
+import java.util.HashMap;
+import java.util.Stack;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import net.infonode.properties.propertymap.ref.ThisPropertyMapRef;
+
+import net.sf.xpontus.view.XPontusWindow;
+
+import org.xml.sax.ContentHandler;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
+import antlr.NoViableAltException;
+import antlr.ParserSharedInputState;
+import antlr.RecognitionException;
+import antlr.SemanticException;
+import antlr.Token;
+import antlr.TokenBuffer;
+import antlr.TokenStream;
+import antlr.TokenStreamException;
+import antlr.collections.impl.BitSet;
 }
 
 class XMLParser extends Parser;
 {
 	java.util.Stack stack = new java.util.Stack();
-
+ private DefaultMutableTreeNode current;
+    
+   	private DefaultMutableTreeNode root;
 	org.xml.sax.ContentHandler contentHandler;
 	org.xml.sax.ErrorHandler errorHandler;
 	
 	XMLParserLocator locator = new XMLParserLocator();
+
+public DefaultMutableTreeNode getRootNode() {
+		return root;
+	}
+
+	public XMLParser(TokenStream lexer) {
+		this(lexer, 1);
+		root = XPontusWindow.getInstance().getOutlineDockable().getRootNode();
+		root.removeAllChildren();
+		this.current = root;
+	}
 
 	java.util.HashMap elm2attributes = new java.util.HashMap();    
 
@@ -66,32 +98,45 @@ class XMLParser extends Parser;
 		return endTag.equals(peekName);
 	}
 	
-        
-	void startTag(Token token)  {
+        void startTag(Token token) {
 		try {
+
 			if (contentHandler != null) {
-				AttributesImpl attrs = (AttributesImpl)this.elm2attributes.get(token.getText());
-	    		contentHandler.startElement(null, token.getText(),token.getText(), attrs); 
+				AttributesImpl attrs = (AttributesImpl) this.elm2attributes
+						.get(token.getText());
+				contentHandler.startElement(null, token.getText(), token
+						.getText(), attrs);
 			}
+
 			stack.push(token.getText());
-		} catch(SAXException ex) {
+
+			DefaultMutableTreeNode element = new XmlNode(token);
+			current.add(element);
+			current = element;
+		} catch (SAXException ex) {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	void endTag(Token token) throws SemanticException {
 		try {
 			if (contentHandler != null) {
-    			contentHandler.endElement(null, token.getText(), token.getText()); 
+				contentHandler.endElement(null, token.getText(), token
+						.getText());
 			}
+
 			if (!correctEndTag(token.getText())) {
-				throw new SemanticException("expecting end tag '"+token.getText()+"'");
+				throw new SemanticException("expecting end tag '"
+						+ token.getText() + "'" + token.getLine());
 			}
+
 			stack.pop();
-		} catch(SAXException ex) {
+			current = (DefaultMutableTreeNode) current.getParent();
+		} catch (SAXException ex) {
 			ex.printStackTrace();
 		}
 	}
+
 	
 	
 	 public void reportError(RecognitionException arg0) {
@@ -212,6 +257,17 @@ tokens {
 
 java.util.HashMap elm2attributes = new java.util.HashMap();    
 
+private String dtdLocation = null;
+private String schemaLocation = null;
+
+public String getDTDLocation(){
+    return dtdLocation;
+}
+
+public String getSchemaLocation(){
+    return schemaLocation;
+}
+
 public String encoding = null;
 
 /** set tabs to 4, just round column up to next tab + 1
@@ -232,8 +288,8 @@ DOCTYPE!
         "<!DOCTYPE" WS rootElementName:NAME 
         WS
         ( 
-            ( "SYSTEM" WS sys1:STRING
-            | "PUBLIC" WS pub:STRING WS sys2:STRING
+            ( "SYSTEM" WS sys1:STRING {dtdLocation = sys1.getText();}
+            | "PUBLIC" WS pub:STRING WS sys2:STRING {dtdLocation = sys2.getText();}
             )
             ( WS )?
         )?
@@ -357,6 +413,10 @@ protected ATTR  [AttributesImpl attributes]
         
 		{ 
 			attributes.addAttribute(name.getText(),value.getText()); 
+                        if(name.getText().equals("xsi:noSchemaLocation") || name.getText().equals("xsi:schemaLocation")){
+                            schemaLocation =  value.getText();
+                        }
+                        
         }
         
        ;

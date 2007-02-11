@@ -45,7 +45,7 @@ public class DTDCompletionParser implements ICompletionParser
     private Map nsTagListMap = new HashMap();
 
     /** Creates a new instance of DTDCompletionParser */
-    public DTDCompletionParser(List tagList, Map nsTagListMap)
+    public DTDCompletionParser()
     {
         
     }
