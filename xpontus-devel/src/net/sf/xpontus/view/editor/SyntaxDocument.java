@@ -15,9 +15,7 @@ import net.sf.xpontus.view.XPontusWindow;
 import net.sf.xpontus.view.editor.syntax.ILexer;
 import net.sf.xpontus.view.editor.syntax.SyntaxSupport;
 import net.sf.xpontus.view.editor.syntax.xml.XMLParser;
-
 import test.completion.CalltipWindow;
-
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -27,10 +25,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.AttributeSet;
@@ -356,7 +352,7 @@ public class SyntaxDocument extends PlainDocument {
         
        if ((contentAssit != null) && contentAssit.isTrigger(str) &&
                 isCodeCompletion && !isLoading) {
-            ContentAssistWindow.complete(editor, contentAssit.getTagList(),
+            ContentAssistWindow.complete(editor, contentAssit.getCompletionList(),
                 off, str, set);
         } 
     }

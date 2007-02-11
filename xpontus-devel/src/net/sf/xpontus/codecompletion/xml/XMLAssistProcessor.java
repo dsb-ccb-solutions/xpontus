@@ -10,18 +10,14 @@ package net.sf.xpontus.codecompletion.xml;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.SwingUtilities;
 
 
@@ -29,7 +25,8 @@ import javax.swing.SwingUtilities;
  *
  * @author Yves Zoundi
  */
-public class XMLAssistProcessor {
+public class XMLAssistProcessor implements AssistProcessor
+{
     private Log logger = LogFactory.getLog(XMLAssistProcessor.class);
     private List tagList = new ArrayList();
     private boolean isDTDCompletion = false;
@@ -44,16 +41,21 @@ public class XMLAssistProcessor {
     /**
      * The constructor without DTD / XSD.
      */
-    public XMLAssistProcessor() {
+    public XMLAssistProcessor()
+    {
     }
 
-    public synchronized List getTagList() {
-        if(completionParser.getClass() == DTDCompletionParser.class){
-        return this.tagList;
+    public synchronized List getCompletionList()
+    {
+        if (completionParser.getClass() == DTDCompletionParser.class)
+        {
+            return this.tagList;
         }
-        else{
+        else
+        {
             String nm = nsTagListMap.keySet().iterator().next().toString();
-            return (List)nsTagListMap.get(nm);
+
+            return (List) nsTagListMap.get(nm);
         }
     }
 
@@ -61,47 +63,43 @@ public class XMLAssistProcessor {
      *
      * @param completionParser
      */
-    public void setCompletionParser(ICompletionParser completionParser) {
-        if (completionParser == null) {
+    public void setCompletionParser(ICompletionParser completionParser)
+    {
+        if (completionParser == null)
+        {
             this.completionParser = completionParser;
-        } else {
-            if (!(this.completionParser.getClass() == completionParser.getClass())) {
+        }
+        else
+        {
+            if (!(this.completionParser.getClass() == completionParser.getClass()))
+            {
                 this.completionParser = completionParser;
             }
         }
     }
 
-    /**
-     *
-     * @param uri
-     * @param r
-     */
-    private void updateAssistInfoRunnable(final String uri, final Reader r) {
-        parsingDone = false;
-        tagList.clear();
-        completionParser.init(this.tagList, this.nsTagListMap);
-        completionParser.updateCompletionInfo(uri, r);
-        parsingDone = true;
-    }
-
-    public void updateAssistInfo(final String uri, final Reader r) { 
-        
-        
+    public void updateAssistInfo(final String uri, final Reader r)
+    {
         if ((completionInformation == null) ||
-                !(completionInformation.equals(uri))) {
+                !(completionInformation.equals(uri)))
+        {
             completionInformation = uri;
-            SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        System.out.println("uri:" + uri);
-                        System.out.println("parsing schema/dtd");
-                        updateAssistInfoRunnable(uri, r);
-                        System.out.println("parsing done");
+            SwingUtilities.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        parsingDone = false;
+                        tagList.clear();
+                        completionParser.init(tagList, nsTagListMap);
+                        completionParser.updateCompletionInfo(uri, r);
+                        parsingDone = true;
                     }
                 });
         }
     }
 
-    public boolean isTrigger(String str) {
+    public boolean isTrigger(String str)
+    {
         return str.equals("<") || str.equals(">");
     }
 }
