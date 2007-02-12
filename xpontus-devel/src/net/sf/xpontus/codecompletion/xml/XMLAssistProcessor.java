@@ -10,14 +10,18 @@ package net.sf.xpontus.codecompletion.xml;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.SwingUtilities;
 
 
@@ -47,16 +51,16 @@ public class XMLAssistProcessor implements AssistProcessor
 
     public synchronized List getCompletionList()
     {
-        if (completionParser.getClass() == DTDCompletionParser.class)
-        {
-            return this.tagList;
-        }
-        else
-        {
-            String nm = nsTagListMap.keySet().iterator().next().toString();
+        List completionList = tagList;
 
-            return (List) nsTagListMap.get(nm);
+        if (!isDTDCompletion)
+        {
+            completionList = (List) nsTagListMap.get(nsTagListMap.keySet()
+                                                                 .iterator()
+                                                                 .next());
         }
+
+        return completionList;
     }
 
     /**
@@ -76,6 +80,8 @@ public class XMLAssistProcessor implements AssistProcessor
                 this.completionParser = completionParser;
             }
         }
+
+        this.isDTDCompletion = (completionParser.getClass() == DTDCompletionParser.class);
     }
 
     public void updateAssistInfo(final String uri, final Reader r)
@@ -88,11 +94,13 @@ public class XMLAssistProcessor implements AssistProcessor
                 {
                     public void run()
                     {
+                        logger.info("parsing dtd/schema...");
                         parsingDone = false;
                         tagList.clear();
                         completionParser.init(tagList, nsTagListMap);
                         completionParser.updateCompletionInfo(uri, r);
                         parsingDone = true;
+                        logger.info("parsing dtd/schema is done");
                     }
                 });
         }

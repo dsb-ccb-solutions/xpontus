@@ -14,6 +14,7 @@ package net.sf.xpontus.view;
  * @author mrcheeks
  */
 public interface EditorContainerConstants {
+    public static final String FILE_OBJECT = "FILE_OBJECT";
     public static final String FILE_MODIFIED = "FILE_MODIFIED";
     public static final String OUTLINE_VIEW_ENABLED = "OUTLINE_VIEW_ENABLED";
     public static final String FILE_INFORMATION = "FILE_INFORMATION";

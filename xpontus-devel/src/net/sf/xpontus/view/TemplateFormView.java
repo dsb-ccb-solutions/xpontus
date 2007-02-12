@@ -23,6 +23,7 @@
 package net.sf.xpontus.view;
 
 
+import java.net.URL;
 import org.apache.commons.io.FilenameUtils;
 //import org.syntax.jedit.tokenmarker.TokenMarker;
 
@@ -142,10 +143,9 @@ public class TemplateFormView extends javax.swing.JDialog {
             java.io.InputStream is;
             int index = templateList.getSelectedIndex();
             String tmpl = templates[index];
-            
-            is = getClass().getResourceAsStream("/net/sf/xpontus/templates/" + tmpl);
+            URL url = getClass().getResource("/net/sf/xpontus/templates/" + tmpl);
             String ext = FilenameUtils.getExtension(templates[templateList.getSelectedIndex()]);
-            XPontusWindow.getInstance().getTabContainer().createEditorFromStream(is, ext);
+            XPontusWindow.getInstance().getTabContainer().createEditorFromURL(url);
         } catch(Exception e){
             javax.swing.JOptionPane.showMessageDialog(
                     XPontusWindow.getInstance().getFrame(),

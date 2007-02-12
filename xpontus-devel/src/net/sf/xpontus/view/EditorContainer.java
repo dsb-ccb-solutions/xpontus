@@ -10,10 +10,8 @@ package net.sf.xpontus.view;
 
 import com.ibm.icu.text.CharsetDetector;
 import com.ibm.icu.text.CharsetMatch;
-
 import com.vlsolutions.swing.docking.*;
 import com.vlsolutions.swing.docking.DockKey;
-
 import net.sf.xpontus.controller.handlers.ModificationHandler;
 import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.model.options.EditorOptionModel;
@@ -21,22 +19,20 @@ import net.sf.xpontus.view.editor.LineView;
 import net.sf.xpontus.view.editor.SyntaxDocument;
 import net.sf.xpontus.view.editor.SyntaxEditorkit;
 import net.sf.xpontus.view.editor.syntax.xml.XMLParser;
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
-
 import java.io.*;
-
 import javax.swing.*;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.DefaultEditorKit;
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
 
 
 /**
@@ -82,8 +78,9 @@ public class EditorContainer implements Dockable
 
         try
         {
-            java.io.InputStream is = url.openStream();
-            setup(is, ext, null);
+            FileObject fo = VFS.getManager().resolveFile(url.toExternalForm());
+            editor.putClientProperty(EditorContainerConstants.FILE_OBJECT, fo);
+            setup(fo.getContent().getInputStream(), ext, null);
             doc.setLoading(false);
         }
         catch (IOException ex)
@@ -101,13 +98,16 @@ public class EditorContainer implements Dockable
     {
         try
         {
-            java.io.InputStream is = new FileInputStream(file);
+            FileObject fo = VFS.getManager().toFileObject(file);
+            
+            java.io.InputStream is = fo.getContent().getInputStream();
 
             String ext = FilenameUtils.getExtension(file.getName());
             setup(is, ext, file.getName());
+            editor.putClientProperty(EditorContainerConstants.FILE_OBJECT, fo);
             editor.setEditable(file.canWrite());
         }
-        catch (FileNotFoundException ex)
+        catch ( Exception ex)
         {
             ex.printStackTrace();
         }
@@ -130,19 +130,20 @@ public class EditorContainer implements Dockable
         {
             if (is != null)
             {
-                reader = new BufferedInputStream(is);
+//                reader = new BufferedInputStream(is);
+//
+//                CharsetDetector detector = new CharsetDetector();
+//                detector.setText(is);
 
-                CharsetDetector detector = new CharsetDetector();
-                detector.setText(reader);
+//                CharsetMatch match = detector.detect();
+//
+//                String ch = match.getName();
+//
+//                logger.info("using charset:" + ch);
 
-                CharsetMatch match = detector.detect();
+                editor.read(is, null);
 
-                String ch = match.getName();
-
-                logger.info("using charset:" + ch);
-
-                editor.read(reader, ch);
-
+                System.out.println("buffered?" + (is instanceof BufferedInputStream));
                 javax.swing.undo.UndoManager _undo = new javax.swing.undo.UndoManager();
                 editor.putClientProperty("UNDO_MANAGER", _undo);
 
