@@ -95,7 +95,7 @@ public interface XPontusConstants
     static final String[] toolsActions = new String[]
         {
             "action.checkxml", "action.validate", "action.tidy",
-            "action.validateschema", "-", "action.generatedtd",  "-" , "action.preferences"
+            "action.validateschema", "-", "action.generatedtd", "-", "action.xsltdoc",  "-" , "action.preferences"
         };
 
     /**
