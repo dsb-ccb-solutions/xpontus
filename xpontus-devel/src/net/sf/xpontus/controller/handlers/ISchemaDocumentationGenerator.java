@@ -6,35 +6,33 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package net.sf.xpontus.controller.handlers;
 
+
 /**
- *
- * @author Owner
+ * An interface to set the parameters of a schema documentation tool
+ * @author Yves Zoundi
  */
 public interface ISchemaDocumentationGenerator {
     
-    // set the css stylesheet to use to generate the documentation 
-    public void setCSS(String css);
+    /** set the footer */
+    public void setFooter(String footer); 
     
-    // set the title for the documentation
+    /** set the header */
+    public void setHeader(String header);
+        
+    /** set the output directory */
+    public void setOutputDirectory(String outputDirectory);
+     
+    /** set the title */
     public void setTitle(String title);
-    
-    // set the source directory
+     
+    /** set the css stylesheet */
+    public void setCss(String css);
+     
+    /** set the source directory */
     public void setSourceDirectory(String sourceDirectory);
     
-    // set the output directory
-    public void setOutputDirectory(String outputDirectory);
-    
-    // set the footer for the documentation
-    public void setFooter(String footer);
-    
-    // set the header for the documentation
-    public void setHeader(String header);
-    
-    
-    
-    
-    
+    /** generate the documentation */
+    public void run();
 }
