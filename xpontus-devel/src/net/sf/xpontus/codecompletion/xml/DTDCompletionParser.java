@@ -8,6 +8,7 @@
  */
 package net.sf.xpontus.codecompletion.xml;
 
+import DTDDoc.ExtendedDTD;
 import com.wutka.dtd.DTD;
 import com.wutka.dtd.DTDAttribute;
 import com.wutka.dtd.DTDChoice;
@@ -21,17 +22,16 @@ import com.wutka.dtd.DTDName;
 import com.wutka.dtd.DTDParseException;
 import com.wutka.dtd.DTDParser;
 import com.wutka.dtd.DTDSequence;
-
+import java.io.File;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import java.io.Reader;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.io.IOUtils;
 
 
 /**
@@ -71,8 +71,11 @@ public class DTDCompletionParser implements ICompletionParser
         //		root = null;
         try
         {
-            DTDParser parser = new DTDParser(in);
-            DTD dtd = parser.parse();
+            File tmp = File.createTempFile("dtdinfo", "tmp"); 
+            DTDParser parser = new DTDParser(in);  
+            
+            
+            DTD dtd = parser.parse(true);
             Object[] obj = dtd.getItems();
 
             for (int i = 0; i < obj.length; i++)

@@ -7,9 +7,7 @@
  * and open the template in the editor.
  */
 package net.sf.xpontus.view;
-
-import com.ibm.icu.text.CharsetDetector;
-import com.ibm.icu.text.CharsetMatch;
+ 
 import com.vlsolutions.swing.docking.*;
 import com.vlsolutions.swing.docking.DockKey;
 import net.sf.xpontus.controller.handlers.ModificationHandler;
@@ -31,6 +29,7 @@ import javax.swing.*;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.DefaultEditorKit;
+import net.sf.xpontus.io.SmartEncodingInputStream;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
 
@@ -72,16 +71,14 @@ public class EditorContainer implements Dockable
     }
 
     public void setup(java.net.URL url)
-    {
-        SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
+    { 
         String ext = FilenameUtils.getExtension(url.toExternalForm());
 
         try
         {
             FileObject fo = VFS.getManager().resolveFile(url.toExternalForm());
             editor.putClientProperty(EditorContainerConstants.FILE_OBJECT, fo);
-            setup(fo.getContent().getInputStream(), ext, null);
-            doc.setLoading(false);
+            setup(fo.getContent().getInputStream(), ext, null); 
         }
         catch (IOException ex)
         {
@@ -114,8 +111,7 @@ public class EditorContainer implements Dockable
     }
 
     public void setup(java.io.InputStream is, String ext, String fileinfo)
-    {
-        BufferedInputStream reader = null;
+    { 
 
         editor.setEditorKit(new SyntaxEditorkit(editor, ext));
 
@@ -130,20 +126,17 @@ public class EditorContainer implements Dockable
         {
             if (is != null)
             {
-//                reader = new BufferedInputStream(is);
-//
-//                CharsetDetector detector = new CharsetDetector();
-//                detector.setText(is);
 
-//                CharsetMatch match = detector.detect();
-//
-//                String ch = match.getName();
-//
-//                logger.info("using charset:" + ch);
-
-                editor.read(is, null);
-
-                System.out.println("buffered?" + (is instanceof BufferedInputStream));
+                SmartEncodingInputStream sei = new SmartEncodingInputStream(is); 
+                
+                Reader reader = sei.getReader();
+                
+                System.out.println("Encoding:" + sei.getEncoding());
+ 
+                Reader bufferedReader = new BufferedReader(reader);
+ 
+                editor.read(bufferedReader, null); 
+ 
                 javax.swing.undo.UndoManager _undo = new javax.swing.undo.UndoManager();
                 editor.putClientProperty("UNDO_MANAGER", _undo);
 

@@ -53,11 +53,11 @@ public class XMLAssistProcessor implements AssistProcessor
         if (!isDTDCompletion)
         {
             completionList = (List) nsTagListMap.get(nsTagListMap.keySet()
-                                                                 .iterator();
+                                                                 .iterator());
+        }
           
 
         return completionList; 
-    }
     }
 
     /**

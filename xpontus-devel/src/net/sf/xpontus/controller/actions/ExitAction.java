@@ -24,8 +24,11 @@ package net.sf.xpontus.controller.actions;
 import net.sf.xpontus.core.controller.actions.BaseAction;
 import net.sf.xpontus.model.options.GeneralOptionModel;
 import net.sf.xpontus.view.XPontusWindow;
-
 import javax.swing.JOptionPane;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.vfs.FileSystemException;
+import org.apache.commons.vfs.VFS;
 
 
 /**
@@ -34,6 +37,8 @@ import javax.swing.JOptionPane;
  */
 public class ExitAction extends BaseAction
   {
+    
+    private Log log = LogFactory.getLog(ExitAction.class);
     /** Creates a new instance of ExitAction */
     public ExitAction()
       {
@@ -74,6 +79,12 @@ public class ExitAction extends BaseAction
 
     public void doExit()
       {
-        System.exit(0);
-      }
+        try     {
+            VFS.getManager().getFilesCache().close();
+            java.lang.System.exit(0);
+        }
+        catch (FileSystemException ex) {
+            log.fatal(ex.getMessage());
+        }
+}
   }

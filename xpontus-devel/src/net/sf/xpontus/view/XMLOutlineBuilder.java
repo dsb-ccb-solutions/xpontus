@@ -16,12 +16,16 @@ import net.sf.xpontus.parsers.XMLLexer;
 import net.sf.xpontus.parsers.XMLParser;
 import net.sf.xpontus.parsers.XmlNode;
 import net.sf.xpontus.view.editor.SyntaxDocument;
+
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.Enumeration;
+
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -57,14 +61,13 @@ public class XMLOutlineBuilder {
      *            <code>String</code> path to XML document.
      */
     public void init(final javax.swing.text.Document doc) {
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run(){
-                init2(doc);
-            }
-        }
-                );
+        SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    init2(doc);
+                }
+            });
     }
+
     public void init2(javax.swing.text.Document doc) {
         String dtdLocation = null;
         XMLLexer lexer = null;
