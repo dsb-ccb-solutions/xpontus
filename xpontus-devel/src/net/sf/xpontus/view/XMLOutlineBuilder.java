@@ -68,62 +68,75 @@ public class XMLOutlineBuilder {
             });
     }
 
-    public void init2(javax.swing.text.Document doc) {
+    public void init2(final javax.swing.text.Document doc) {
         String dtdLocation = null;
         XMLLexer lexer = null;
         String schemaLocation = null;
 
-        try {
-            String mText = doc.getText(0, doc.getLength());
-            Reader mReader = new StringReader(mText);
-            lexer = new XMLLexer(mReader);
+        SyntaxDocument mDoc = (SyntaxDocument) doc;
 
-            XMLParser parser = new XMLParser(lexer);
-            parser.parse();
+        if (mDoc.getContentAssist()!=null ) {
+            try {
+                String mText = doc.getText(0, doc.getLength());
+                Reader mReader = new StringReader(mText);
+                lexer = new XMLLexer(mReader);
 
-            XmlNode child = (XmlNode) parser.getRootNode().getFirstChild();
+                //            lexer.consumeUntil(antlr.Token.EOF_TYPE);
 
-            XmlNode lexerNode = recursivelyCopyNodes(child);
-            doc.putProperty("OUTLINE_DATA", lexerNode);
-            XPontusWindow.getInstance().getOutlineDockable().updateAll();
-        } catch (Exception err) {
-        }
+                //            
+                //            // parse the document
+                XMLParser parser = new XMLParser(lexer);
+                parser.parse();
 
-        if (lexer != null) {
-            dtdLocation = lexer.getDTDLocation();
-            schemaLocation = lexer.getSchemaLocation();
-        }
-
-        try {
-            if (dtdLocation != null) {
-                dtdLocation = dtdLocation.substring(1, dtdLocation.length() -
-                        1);
-
-                SyntaxDocument mDoc = (SyntaxDocument) doc;
-                XMLAssistProcessor contentAssist = mDoc.getContentAssist();
-
-                if (contentAssist != null) {
-                    contentAssist.setCompletionParser(new net.sf.xpontus.codecompletion.xml.DTDCompletionParser());
-
-                    java.net.URL url = new java.net.URL(dtdLocation);
-                    java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
-
-                    contentAssist.updateAssistInfo(dtdLocation, dtdReader);
-                }
-            } else if (schemaLocation != null) {
-                SyntaxDocument mDoc = (SyntaxDocument) doc;
-                XMLAssistProcessor contentAssist = mDoc.getContentAssist();
-
-                if (contentAssist != null) {
-                    contentAssist.setCompletionParser(new XMLSchemaCompletionParser());
-
-                    java.net.URL url = new java.net.URL(schemaLocation);
-                    java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
-                    contentAssist.updateAssistInfo(schemaLocation, dtdReader);
-                }
+                //
+                //            final XmlNode child = (XmlNode) parser.getRootNode().getFirstChild();
+                //
+                //            SwingUtilities.invokeLater(new Runnable()
+                //            {
+                //                public void run(){
+                //                    XmlNode lexerNode = recursivelyCopyNodes(child);
+                //            doc.putProperty("OUTLINE_DATA", lexerNode);
+                //            XPontusWindow.getInstance().getOutlineDockable().updateAll();
+                //            }
+                //            }       
+                //            );
+            } catch (Exception err) {
             }
-        } catch (Exception err) {
-            err.printStackTrace();
+
+            if (lexer != null) {
+                dtdLocation = lexer.getDTDLocation();
+                schemaLocation = lexer.getSchemaLocation();
+            }
+
+            try {
+                if (dtdLocation != null) {
+                    dtdLocation = dtdLocation.substring(1,
+                            dtdLocation.length() - 1);
+
+                    XMLAssistProcessor contentAssist = mDoc.getContentAssist();
+
+                    if (contentAssist != null) {
+                        contentAssist.setCompletionParser(new net.sf.xpontus.codecompletion.xml.DTDCompletionParser());
+
+                        java.net.URL url = new java.net.URL(dtdLocation);
+                        java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
+
+                        contentAssist.updateAssistInfo(dtdLocation, dtdReader);
+                    }
+                } else if (schemaLocation != null) {
+                    XMLAssistProcessor contentAssist = mDoc.getContentAssist();
+
+                    if (contentAssist != null) {
+                        contentAssist.setCompletionParser(new XMLSchemaCompletionParser());
+
+                        java.net.URL url = new java.net.URL(schemaLocation);
+                        java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
+                        contentAssist.updateAssistInfo(schemaLocation, dtdReader);
+                    }
+                }
+            } catch (Exception err) {
+                err.printStackTrace();
+            }
         }
     }
 

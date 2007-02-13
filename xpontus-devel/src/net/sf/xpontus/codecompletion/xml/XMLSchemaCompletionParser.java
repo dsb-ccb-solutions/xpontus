@@ -10,7 +10,6 @@ package net.sf.xpontus.codecompletion.xml;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.xerces.impl.xs.SchemaGrammar;
 import org.apache.xerces.impl.xs.XMLSchemaLoader;
 import org.apache.xerces.xni.parser.XMLInputSource;
@@ -26,13 +25,13 @@ import org.apache.xerces.xs.XSObjectList;
 import org.apache.xerces.xs.XSParticle;
 import org.apache.xerces.xs.XSTerm;
 import org.apache.xerces.xs.XSTypeDefinition;
-
 import java.io.Reader;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.xerces.impl.dtd.DTDGrammar;
+import org.apache.xerces.xni.grammars.Grammar;
 
 
 /**
@@ -59,10 +58,13 @@ public class XMLSchemaCompletionParser  implements ICompletionParser
     {
         try
         {
-            SchemaGrammar grammer = (SchemaGrammar) new XMLSchemaLoader().loadGrammar(new XMLInputSource(
+             
+            
+                SchemaGrammar grammer = (SchemaGrammar) new XMLSchemaLoader().loadGrammar(new XMLInputSource(
                         null, null, null, in, null));
 
             // clear at first
+                
             String targetNS = grammer.getTargetNamespace();
             nsTagListMap.put(targetNS, new ArrayList());
 

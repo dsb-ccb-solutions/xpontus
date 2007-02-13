@@ -23,36 +23,11 @@
 
 package net.sf.xpontus.view;
 
-import com.ibm.icu.text.CharsetDetector;
-import com.ibm.icu.text.CharsetMatch;
-import com.sun.java.help.impl.SwingWorker;
 import com.vlsolutions.swing.docking.*;
 import java.awt.*;
-import java.awt.Event;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.io.BufferedInputStream;
-import javax.swing.Action;
 import javax.swing.*;
-import javax.swing.InputMap;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 import javax.swing.event.*;
-import javax.swing.event.UndoableEditListener;
-import javax.swing.text.DefaultEditorKit;
-import javax.swing.text.Element;
-import net.sf.xpontus.controller.actions.OpenAction;
-import net.sf.xpontus.controller.handlers.ModificationHandler;
-import net.sf.xpontus.core.controller.handlers.PopupListener;
-import net.sf.xpontus.core.utils.BeanContainer;
 import net.sf.xpontus.core.utils.IconUtils;
-import net.sf.xpontus.model.options.EditorOptionModel;
-import net.sf.xpontus.view.components.JStatusBar;
-import net.sf.xpontus.view.editor.LineView;
-import net.sf.xpontus.view.editor.SyntaxDocument;
-import net.sf.xpontus.view.editor.SyntaxEditorkit;
-import net.sf.xpontus.view.editor.syntax.xml.XMLParser;
-import org.apache.commons.io.FilenameUtils;
 import java.awt.event.*;
 
 /**

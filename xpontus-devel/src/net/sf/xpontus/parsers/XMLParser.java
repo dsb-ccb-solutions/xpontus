@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Stack;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import net.infonode.properties.propertymap.ref.ThisPropertyMapRef;
 
 import net.sf.xpontus.view.XPontusWindow;
 

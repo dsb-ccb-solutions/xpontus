@@ -56,7 +56,7 @@ public class XMLAssistProcessor implements AssistProcessor
                                                                  .iterator());
         }
           
-        System.out.println("completion size;" + completionList.size());
+//        System.out.println("completion size;" + completionList.size());
 
         return completionList; 
     }

@@ -544,3 +544,19 @@ TOKEN:
 | <ERR_IN_COMMENT: "--" ~[">"] > 
 | <COMMENT_END: "-->" > :DEFAULT
 }
+
+void start (LinkedList list)
+ :
+  {
+   Token tok;
+  }
+ {
+   (
+      ( tok = <TAG_START>    
+     | tok = <TAG_END>     
+     )
+     { 
+        list.add (tok.toString ());
+   }
+    )* <EOF>
+  }
