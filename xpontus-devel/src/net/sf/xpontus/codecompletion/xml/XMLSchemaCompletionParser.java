@@ -54,7 +54,7 @@ public class XMLSchemaCompletionParser  implements ICompletionParser
         this.nsTagListMap = nsTagListMap;
     }
 
-    public void updateCompletionInfo(String uri, Reader in)
+    public void updateCompletionInfo(String pubid, String uri, Reader in)
     {
         try
         {

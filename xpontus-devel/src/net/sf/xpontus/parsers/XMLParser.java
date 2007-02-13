@@ -5,7 +5,7 @@
 import java.util.HashMap;
 import java.util.Stack;
 
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultMutableTreeNode; 
 
 import net.sf.xpontus.view.XPontusWindow;
 
@@ -174,8 +174,8 @@ protected XMLParser(TokenStream lexer, int k) {
   super(lexer,k);
   tokenNames = _tokenNames;
 }
- 
 
+ 
 public XMLParser(ParserSharedInputState state) {
   super(state,1);
   tokenNames = _tokenNames;

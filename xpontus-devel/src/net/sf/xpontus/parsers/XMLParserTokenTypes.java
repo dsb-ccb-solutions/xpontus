@@ -2,10 +2,27 @@
 
   package net.sf.xpontus.parsers;
 
+import java.util.HashMap;
+import java.util.Stack;
 
+import javax.swing.tree.DefaultMutableTreeNode; 
 
+import net.sf.xpontus.view.XPontusWindow;
 
+import org.xml.sax.ContentHandler;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
+import antlr.NoViableAltException;
+import antlr.ParserSharedInputState;
+import antlr.RecognitionException;
+import antlr.SemanticException;
+import antlr.Token;
+import antlr.TokenBuffer;
+import antlr.TokenStream;
+import antlr.TokenStreamException;
+import antlr.collections.impl.BitSet;
 
 public interface XMLParserTokenTypes {
 	int EOF = 1;

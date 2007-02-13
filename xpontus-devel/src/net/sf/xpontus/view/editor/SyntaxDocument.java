@@ -83,12 +83,8 @@ public class SyntaxDocument extends PlainDocument {
         DEFAULT_STYLE = new SimpleAttributeSet();
         this.lexer = support.getLexer();
         isCodeCompletion = (lexer.getClass() == XMLParser.class);
-        endTokens = new DynamicIntArray(500);
-        SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    contentAssit = new XMLAssistProcessor();
-                }
-            });
+        endTokens = new DynamicIntArray(500); 
+                    contentAssit = new XMLAssistProcessor(); 
     }
 
     public void setLoading(boolean b) {

@@ -259,7 +259,7 @@ java.util.HashMap elm2attributes = new java.util.HashMap();
 
 private String dtdLocation = null;
 private String schemaLocation = null;
-
+private String dtdpubid = null;
 public String getDTDLocation(){
     return dtdLocation;
 }
@@ -281,14 +281,20 @@ public void tab() {
 	setColumn( nc );
 }
 
+public String getdtdPublicId(){
+    return dtdpubid;
 }
+
+}
+
+
 
 DOCTYPE!
     :
         "<!DOCTYPE" WS rootElementName:NAME 
         WS
         ( 
-            ( "SYSTEM" WS sys1:STRING {dtdLocation = sys1.getText();}
+            ( "SYSTEM" WS sys1:STRING {dtdLocation = sys1.getText(); dtdpubid = pub.getText();}
             | "PUBLIC" WS pub:STRING WS sys2:STRING {dtdLocation = sys2.getText();}
             )
             ( WS )?

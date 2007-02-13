@@ -43,6 +43,7 @@ import javax.swing.tree.TreeNode;
  */
 public class XMLOutlineBuilder {
     private DefaultTreeModel treeModel;
+    private XMLParser parser;
 
     /**
      * <p>
@@ -61,45 +62,24 @@ public class XMLOutlineBuilder {
      *            <code>String</code> path to XML document.
      */
     public void init(final javax.swing.text.Document doc) {
-        SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    init2(doc);
-                }
-            });
-    }
-
-    public void init2(final javax.swing.text.Document doc) {
         String dtdLocation = null;
         XMLLexer lexer = null;
         String schemaLocation = null;
 
         SyntaxDocument mDoc = (SyntaxDocument) doc;
 
-        if (mDoc.getContentAssist()!=null ) {
+        if (mDoc.getContentAssist() != null) {
             try {
                 String mText = doc.getText(0, doc.getLength());
                 Reader mReader = new StringReader(mText);
                 lexer = new XMLLexer(mReader);
 
-                //            lexer.consumeUntil(antlr.Token.EOF_TYPE);
-
                 //            
                 //            // parse the document
-                XMLParser parser = new XMLParser(lexer);
+                parser = new XMLParser(lexer);
                 parser.parse();
 
-                //
-                //            final XmlNode child = (XmlNode) parser.getRootNode().getFirstChild();
-                //
-                //            SwingUtilities.invokeLater(new Runnable()
-                //            {
-                //                public void run(){
-                //                    XmlNode lexerNode = recursivelyCopyNodes(child);
-                //            doc.putProperty("OUTLINE_DATA", lexerNode);
-                //            XPontusWindow.getInstance().getOutlineDockable().updateAll();
-                //            }
-                //            }       
-                //            );
+                //              
             } catch (Exception err) {
             }
 
@@ -121,7 +101,8 @@ public class XMLOutlineBuilder {
                         java.net.URL url = new java.net.URL(dtdLocation);
                         java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
 
-                        contentAssist.updateAssistInfo(dtdLocation, dtdReader);
+                        contentAssist.updateAssistInfo(lexer.getdtdPublicId(),
+                            dtdLocation, dtdReader);
                     }
                 } else if (schemaLocation != null) {
                     XMLAssistProcessor contentAssist = mDoc.getContentAssist();
@@ -131,13 +112,26 @@ public class XMLOutlineBuilder {
 
                         java.net.URL url = new java.net.URL(schemaLocation);
                         java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
-                        contentAssist.updateAssistInfo(schemaLocation, dtdReader);
+                        contentAssist.updateAssistInfo(lexer.getdtdPublicId(),
+                            schemaLocation, dtdReader);
                     }
                 }
             } catch (Exception err) {
                 err.printStackTrace();
             }
         }
+    }
+
+    public void updateOutline(final javax.swing.text.Document doc) {
+        SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    final XmlNode child = (XmlNode) parser.getRootNode()
+                                                          .getFirstChild();
+                    XmlNode lexerNode = recursivelyCopyNodes(child);
+                    doc.putProperty("OUTLINE_DATA", lexerNode);
+                    XPontusWindow.getInstance().getOutlineDockable().updateAll();
+                }
+            });
     }
 
     private XmlNode recursivelyCopyNodes(XmlNode aNode) {

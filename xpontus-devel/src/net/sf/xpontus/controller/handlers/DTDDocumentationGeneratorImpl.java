@@ -7,8 +7,7 @@
  * and open the template in the editor.
  */
 package net.sf.xpontus.controller.handlers;
-
-import DTDDoc.DTDDoc;
+ 
 
 
 /**
@@ -16,8 +15,7 @@ import DTDDoc.DTDDoc;
  * @author Owner
  */
 public class DTDDocumentationGeneratorImpl
-    implements ISchemaDocumentationGenerator {
-    private DTDDoc dtdDoc;
+    implements ISchemaDocumentationGenerator { 
     private String css;
     private String title;
     private String outputDirectory;

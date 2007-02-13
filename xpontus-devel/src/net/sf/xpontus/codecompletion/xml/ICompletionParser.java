@@ -20,6 +20,6 @@ import java.util.Map;
 public interface ICompletionParser {
     
     public void init(List tagList, Map nsTagListMap);
-    public void updateCompletionInfo(String uri, Reader in);
+    public void updateCompletionInfo(String pubid, String sysid, Reader in);
     
 }

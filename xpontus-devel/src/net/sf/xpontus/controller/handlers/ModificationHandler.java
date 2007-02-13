@@ -22,10 +22,15 @@
  */
 package net.sf.xpontus.controller.handlers;
 
-import java.io.IOException;
 import net.sf.xpontus.view.TextPosition;
 import net.sf.xpontus.view.XMLOutlineBuilder;
 import net.sf.xpontus.view.XPontusWindow;
+import net.sf.xpontus.view.editor.SyntaxDocument;
+
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
+import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 import javax.swing.event.CaretEvent;
@@ -33,102 +38,96 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Element;
+
 import javax.xml.parsers.ParserConfigurationException;
-import net.sf.xpontus.view.editor.SyntaxDocument;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 
 /**
  * Controller to handle document modifications
  * @author Yves Zoundi
  */
-public class ModificationHandler implements DocumentListener, CaretListener
-{
+public class ModificationHandler implements DocumentListener, CaretListener {
     private javax.swing.JEditorPane editor;
-    private boolean isCodeCompletion  = false;
+    private boolean isCodeCompletion = false;
     private XMLOutlineBuilder builder;
+
     /** Creates a new instance of ModificationHandler */
-    public ModificationHandler(javax.swing.JEditorPane editor)
-    {
+    public ModificationHandler(javax.swing.JEditorPane editor) {
         this.editor = editor;
-        SyntaxDocument doc = (SyntaxDocument)editor.getDocument();
+
+        SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
         doc.addDocumentListener(this);
         editor.addCaretListener(this);
         isCodeCompletion = true;
-        if(isCodeCompletion){
-        	builder = new XMLOutlineBuilder();
+
+        if (isCodeCompletion) {
+            builder = new XMLOutlineBuilder();
         }
     }
 
-    public void setModified()
-    {
+    public void setModified() {
         editor.putClientProperty("FILE_MODIFIED", Boolean.TRUE);
-        if(isCodeCompletion){
-        	SwingUtilities.invokeLater(new Runnable()
-            {
-            	public void run(){
-            		parseDocument(); 
-            	}
-            }
-            
-            ); 
+
+        if (isCodeCompletion) {
+            SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        parseDocument();
+                    }
+                });
         }
     }
 
-    public void setSaved()
-    {
+    public void setSaved() {
         editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
     }
 
     /** implements DocumentListener **/
-    public void changedUpdate(DocumentEvent e)
-    {
+    public void changedUpdate(DocumentEvent e) {
     }
 
-    public void updateLineInfo()
-    {
+    public void updateLineInfo() {
         XPontusWindow.getInstance().updateLineInfo(getTextPosition().toString());
     }
 
-    public TextPosition getTextPosition()
-    {
+    public TextPosition getTextPosition() {
         int caretPosition = editor.getCaretPosition();
         Element root = editor.getDocument().getDefaultRootElement();
         int line = root.getElementIndex(caretPosition);
-        int lineStart = root.getElement(line).getStartOffset(); 
+        int lineStart = root.getElement(line).getStartOffset();
         int lineNumber = line + 1;
         int columnNumber = caretPosition - lineStart + 1;
+
         return new TextPosition(lineNumber, columnNumber);
     }
 
     /** implements DocumentListener **/
-    public void insertUpdate(DocumentEvent e)
-    {
+    public void insertUpdate(DocumentEvent e) {
         setModified();
     }
 
     /** implements DocumentListener **/
-    public void removeUpdate(DocumentEvent e)
-    {
+    public void removeUpdate(DocumentEvent e) {
         setModified();
     }
 
-    public void caretUpdate(CaretEvent caretEvent)
-    {
-       
-        SwingUtilities.invokeLater(new Runnable()
-        {
-        	public void run(){
-        		updateLineInfo(); 
-        	}
-        }
-        
-        ); 
+    public void caretUpdate(CaretEvent caretEvent) {
+        Thread t = new Thread() {
+                public void run() {
+                    updateLineInfo();
+                }
+            };
+
+        t.start();
     }
 
     public void parseDocument() {
-    	builder.init(editor.getDocument()); 
-        
-    }//}}}
+        Thread t = new Thread() {
+                public void run() {
+                    builder.init(editor.getDocument());
+                    builder.updateOutline(editor.getDocument());
+                }
+            };
+
+        t.start();
+    } //}}}
 }

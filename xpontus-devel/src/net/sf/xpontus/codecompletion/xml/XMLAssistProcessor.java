@@ -55,8 +55,7 @@ public class XMLAssistProcessor implements AssistProcessor
             completionList = (List) nsTagListMap.get(nsTagListMap.keySet()
                                                                  .iterator());
         }
-          
-//        System.out.println("completion size;" + completionList.size());
+           
 
         return completionList; 
     }
@@ -83,26 +82,27 @@ public class XMLAssistProcessor implements AssistProcessor
         this.isDTDCompletion = (completionParser.getClass() == DTDCompletionParser.class);
     }
 
-    public void updateAssistInfo(final String uri, final Reader r)
+    public void updateAssistInfo(final String pubid, final String uri, final Reader r)
     {
         if ((completionInformation == null) ||
                 !(completionInformation.equals(uri)))
         {
             completionInformation = uri;
  
-            SwingUtilities.invokeLater(new Runnable()
-                {
+            Thread t = new Thread(){ 
                     public void run()
                     {
                         logger.info("parsing dtd/schema...");
                         parsingDone = false;
                         tagList.clear();
                         completionParser.init(tagList, nsTagListMap);
-                        completionParser.updateCompletionInfo(uri, r);
+                        completionParser.updateCompletionInfo(pubid, uri, r);
                         parsingDone = true;
                         logger.info("parsing dtd/schema is done"); 
                     }
-                });
+                };
+                t.start();
+                
         }
     }
 
