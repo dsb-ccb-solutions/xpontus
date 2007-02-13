@@ -69,11 +69,7 @@ public class ModificationHandler implements DocumentListener, CaretListener {
         editor.putClientProperty("FILE_MODIFIED", Boolean.TRUE);
 
         if (isCodeCompletion) {
-            SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        parseDocument();
-                    }
-                });
+            parseDocument();
         }
     }
 

@@ -15,7 +15,9 @@ import net.sf.xpontus.view.XPontusWindow;
 import net.sf.xpontus.view.editor.syntax.ILexer;
 import net.sf.xpontus.view.editor.syntax.SyntaxSupport;
 import net.sf.xpontus.view.editor.syntax.xml.XMLParser;
+
 import test.completion.CalltipWindow;
+
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -25,8 +27,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.AttributeSet;
@@ -67,10 +71,6 @@ public class SyntaxDocument extends PlainDocument {
     private boolean xmlCompletion = false;
     private XMLAssistProcessor contentAssit;
 
-    
-    public XMLAssistProcessor getContentAssist(){
-        return contentAssit;
-    }
     /**
      *
      * @param editor
@@ -83,8 +83,12 @@ public class SyntaxDocument extends PlainDocument {
         DEFAULT_STYLE = new SimpleAttributeSet();
         this.lexer = support.getLexer();
         isCodeCompletion = (lexer.getClass() == XMLParser.class);
-        endTokens = new DynamicIntArray(500); 
-                    contentAssit = new XMLAssistProcessor(); 
+        endTokens = new DynamicIntArray(500);
+        contentAssit = new XMLAssistProcessor();
+    }
+
+    public XMLAssistProcessor getContentAssist() {
+        return contentAssit;
     }
 
     public void setLoading(boolean b) {
@@ -331,8 +335,8 @@ public class SyntaxDocument extends PlainDocument {
 
         return (tokenStyle != null) ? (MutableAttributeSet) tokenStyle
                                     : DEFAULT_STYLE;
-    } 
-    
+    }
+
     /**
      *
      * @param off
@@ -342,14 +346,12 @@ public class SyntaxDocument extends PlainDocument {
      */
     public void insertString(int off, String str, AttributeSet set)
         throws BadLocationException {
-       
-
         super.insertString(off, str, set);
-        
-       if ((contentAssit != null) && contentAssit.isTrigger(str) &&
+
+        if ((contentAssit != null) && contentAssit.isTrigger(str) &&
                 isCodeCompletion && !isLoading) {
-            ContentAssistWindow.complete(editor, contentAssit.getCompletionList(),
-                off, str, set);
-        } 
+            ContentAssistWindow.complete(editor,
+                contentAssit.getCompletionList(), off, str, set);
+        }
     }
 }
