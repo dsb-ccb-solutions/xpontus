@@ -118,7 +118,7 @@ public class AboutFormView extends javax.swing.JDialog {
                 .add(authorLabel)
                 .add(19, 19, 19)
                 .add(homepageLabel)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         pane.addTab(XPontusWindow.getInstance().getI18nMessage("form.about.title"), informationPanel);
 
@@ -173,7 +173,7 @@ public class AboutFormView extends javax.swing.JDialog {
         componentsTable.setBackground(getBackground());
         componentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"VLDocking Framework","2.0.5"},
+                {"VLDocking Framework","2.1"},
                 {"JavaHelp", "2.0.2"},
                 {"Saxon", "6.5.5"},
                 {"Xalan", "2.7.0"},
