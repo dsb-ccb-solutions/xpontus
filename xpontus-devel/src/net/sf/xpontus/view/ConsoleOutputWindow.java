@@ -117,10 +117,19 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
             printers[i] = new JTextComponentPrintStream(textboxes[i]);
             textboxes[i].setEditable(false);
             textboxes[i].setLineWrap(true);
-            createMessagesPopupListener(textboxes[i]);
-            this.addTab(titles[i], new JScrollPane(textboxes[i]));
+            createMessagesPopupListener(textboxes[i]); 
+//            this.addTab(titles[i], new JScrollPane(textboxes[i]));
+            this.addDockable(new OutputDockable( (""  + i), new JScrollPane(textboxes[i])), i);
+            desktop.registerDockable(this.getDockableAt(i));
+            this.getDockableAt(i).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+            
+             System.out.println("state:" + DockableState.getStateName(this.getDockableAt(i).getDockKey().getDockableState()));
         } 
-        this.addTab(titles[2], new JScrollPane(xpathResultsTable));
+          this.addDockable(new OutputDockable( (""  + 2), new JScrollPane(xpathResultsTable)), 2);
+           desktop.registerDockable(this.getDockableAt(2));
+           
+          this.getDockableAt(2).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+//        this.addTab(titles[2], new JScrollPane(xpathResultsTable));
     }
 
     /**
@@ -184,7 +193,23 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
         return this;
     }
 
-   
+   class OutputDockable implements Dockable{
+       
+        private Component comp;
+        private String key;
+        
+        public OutputDockable(String key, Component comp){
+            this.key = key;
+            this.comp = comp;
+        }
+        public DockKey getDockKey() {
+         return new DockKey(key);
+        }
+
+        public Component getComponent() {
+            return comp;
+        }
+}
 
     private class RowSelectionListener implements ListSelectionListener
     {

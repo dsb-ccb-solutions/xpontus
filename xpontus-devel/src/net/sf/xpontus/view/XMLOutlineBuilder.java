@@ -125,10 +125,14 @@ public class XMLOutlineBuilder {
     public void updateOutline(final javax.swing.text.Document doc) {
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
+                    DefaultMutableTreeNode rootNode = parser.getRootNode();
+                    if(rootNode.getChildCount()>0){
                     final XmlNode child = (XmlNode) parser.getRootNode()
                                                           .getFirstChild();
-                    XmlNode lexerNode = recursivelyCopyNodes(child);
-                    doc.putProperty("OUTLINE_DATA", lexerNode);
+                        XmlNode lexerNode = recursivelyCopyNodes(child);
+                        doc.putProperty("OUTLINE_DATA", lexerNode);
+                    }
+                    
                     XPontusWindow.getInstance().getOutlineDockable().updateAll();
                 }
             });

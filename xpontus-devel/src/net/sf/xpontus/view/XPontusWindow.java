@@ -133,6 +133,14 @@ public class XPontusWindow {
         desk.registerDockable(console);
         desk.split(pane, outlineDockable, DockingConstants.SPLIT_LEFT);
         desk.split(pane, console, DockingConstants.SPLIT_BOTTOM);
+        
+        desk.registerDockable(console.getDockableAt(0));
+        desk.registerDockable(console.getDockableAt(1));
+        desk.registerDockable(console.getDockableAt(2));
+        console.getDockableAt(0).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+        console.getDockableAt(1).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+        console.getDockableAt(2).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+//        for(int i=0;i<pane.)
 
         //        for (int i = 1; i < 3; i++) {
         //        	desk.registerDockable(console.getDockables()[i-1]);

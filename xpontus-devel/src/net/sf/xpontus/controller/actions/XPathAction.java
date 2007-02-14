@@ -2,27 +2,21 @@ package net.sf.xpontus.controller.actions;
 
 import net.sf.saxon.Configuration;
 import net.sf.saxon.xpath.XPathEvaluator;
-
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
 import net.sf.xpontus.model.XPathResultsTableModel;
 import net.sf.xpontus.view.ConsoleOutputWindow;
 import net.sf.xpontus.view.XPontusWindow;
-
 import org.apache.commons.io.IOUtils;
-
 import org.xml.sax.InputSource;
-
 import java.io.Reader;
 import java.io.StringReader;
-
 import java.util.List;
-
 import javax.swing.Action;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
-
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
+import net.sf.saxon.om.NodeInfo;
 
 
 /**
@@ -66,16 +60,17 @@ public class XPathAction extends ThreadedAction
         try
           {
             Configuration config = new Configuration();
-            config.setLineNumbering(true);
-
+            config.setLineNumbering(true); 
             JEditorPane edit = XPontusWindow.getInstance().getCurrentEditor();
             XPathEvaluator xpath = new XPathEvaluator(config);
+            
             String mText = edit.getText();
             Reader mReader = new StringReader(mText);
+            
             InputSource mInputSource = new InputSource(mReader);
             Source mSource = new SAXSource(mInputSource);
-            xpath.setSource(mSource);
-
+             
+            NodeInfo info = xpath.setSource(mSource); 
             List list = xpath.evaluate(mExpression);
 
             console.setFocus(ConsoleOutputWindow.XPATH_WINDOW);

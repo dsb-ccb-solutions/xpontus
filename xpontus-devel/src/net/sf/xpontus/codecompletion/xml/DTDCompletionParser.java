@@ -50,7 +50,9 @@ public class DTDCompletionParser implements ICompletionParser {
                         org.apache.xerces.xni.Augmentations augs)
                         throws org.apache.xerces.xni.XNIException {
                         super.element(elementName, augs);
-                        tagList.add(elementName);
+                        if(!tagList.contains(elementName)){
+                            tagList.add(elementName);
+                        }
                     }
                 };
 

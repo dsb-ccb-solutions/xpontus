@@ -24,23 +24,19 @@ package net.sf.xpontus.controller.actions;
 
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
 import net.sf.xpontus.view.*;
-
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
-
 import org.w3c.dom.Document;
-
 import org.xml.sax.InputSource;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
-
+import javax.swing.text.AbstractDocument;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import net.sf.xpontus.view.editor.SyntaxDocument;
 
 
 /**
@@ -59,6 +55,8 @@ public class XMLIndentAction extends ThreadedAction
       {
         final javax.swing.JEditorPane edit = XPontusWindow.getInstance()
                                                           .getCurrentEditor();
+         
+        
         byte[] bt = edit.getText().getBytes();
         java.io.InputStream is = new java.io.ByteArrayInputStream(bt);
 
@@ -87,7 +85,8 @@ public class XMLIndentAction extends ThreadedAction
 
             InputStream iss = new java.io.ByteArrayInputStream(out.toByteArray());
             reader = new InputStreamReader(iss, "UTF-8");
-
+ 
+            
             javax.swing.text.Document _doc = edit.getDocument();
             _doc.remove(0, _doc.getLength());
             edit.read(reader, null);
@@ -122,6 +121,8 @@ public class XMLIndentAction extends ThreadedAction
                 e.getMessage());
             XPontusWindow.getInstance().getStatusBar()
                          .setNotificationMessage("Error see messages window!");
-          }
+            
+           
+          } 
       }
   }
