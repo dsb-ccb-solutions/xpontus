@@ -176,6 +176,7 @@ protected XMLParser(TokenStream lexer, int k) {
 }
 
  
+
 public XMLParser(ParserSharedInputState state) {
   super(state,1);
   tokenNames = _tokenNames;

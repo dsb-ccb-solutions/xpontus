@@ -35,8 +35,7 @@ header {
 import java.util.HashMap;
 import java.util.Stack;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import net.infonode.properties.propertymap.ref.ThisPropertyMapRef;
+import javax.swing.tree.DefaultMutableTreeNode; 
 
 import net.sf.xpontus.view.XPontusWindow;
 
@@ -295,7 +294,7 @@ DOCTYPE!
         WS
         ( 
             ( "SYSTEM" WS sys1:STRING {dtdLocation = sys1.getText(); dtdpubid = pub.getText();}
-            | "PUBLIC" WS pub:STRING WS sys2:STRING {dtdLocation = sys2.getText();}
+            | "PUBLIC" WS pub:STRING WS sys2:STRING {dtdpubid = pub.getText();dtdLocation = sys2.getText();}
             )
             ( WS )?
         )?

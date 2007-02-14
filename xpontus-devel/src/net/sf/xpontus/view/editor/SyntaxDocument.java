@@ -351,7 +351,7 @@ public class SyntaxDocument extends PlainDocument {
         if ((contentAssit != null) && contentAssit.isTrigger(str) &&
                 isCodeCompletion && !isLoading) {
             ContentAssistWindow.complete(editor,
-                contentAssit.getCompletionList(), off, str, set);
+                contentAssit , off, str, set);
         }
     }
 }

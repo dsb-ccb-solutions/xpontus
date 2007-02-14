@@ -22,7 +22,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
+import javax.swing.text.Segment;
+import net.sf.xpontus.view.editor.SyntaxDocument;
+import net.sf.xpontus.view.editor.syntax.ILexer;
+import net.sf.xpontus.view.editor.syntax.Token;
 
 
 /**
@@ -34,6 +39,10 @@ public class ContentAssistWindow {
     private static JPopupMenu completionMenu;
     private static String endTag = new String();
 
+    public static String isInsideTag(int offset){
+        return null;
+    }
+    
     public static void completeEndTag(JTextComponent editor, int off,
         String str, AttributeSet set) {
         
@@ -126,15 +135,57 @@ public class ContentAssistWindow {
 
         return result;
     }
+    
+    
+    public String tagInside(Document doc, int off){
+        SyntaxDocument mDoc = (SyntaxDocument)doc;
+        ILexer lexer = mDoc.getLexer();
+        
+        
+        Element root = mDoc.getDefaultRootElement();
+        
+        int lineIndex = root.getElementIndex(off);
+        Element lineElement = root.getElement(lineIndex);
+        
+        int startOffset = lineElement.getEndOffset();
+        int endOffset = off;
+        
+        List tokens = mDoc.getTokenListForLine(lineIndex);
+        
+        Token previousToken = null;
+        Token currentToken = null;
+        Token tagToken = null;
+        
+        for(int i=0;i<tokens.size();i++){
+            currentToken = (Token)tokens.get(i);
+            if(currentToken.endColumn > off){
+                break;
+            }
+            previousToken = currentToken;
+        }
+        
+        
+        return tagToken.image;
+    }
 
     public static void complete(final JTextComponent editor,
-        final List completionData, int off, final String str,
+        final XMLAssistProcessor contentAssist, int off, final String str,
         final AttributeSet set) {
+        
+        final List completionData = contentAssist.getCompletionList();
+        
         final Document doc = editor.getDocument();
 
         if (str.equals(">")) {
             completeEndTag(editor, off, str, set);
-        } else {
+        } 
+        else if(str.equals(" ")){
+            String tagCompletionName = isInsideTag(off);
+            if(tagCompletionName!=null){
+               List attributeCompletion =  contentAssist.getAttributesCompletionList(tagCompletionName);
+            }
+        }
+        else {
             if (completionData.size() == 0) {
                 return;
             }

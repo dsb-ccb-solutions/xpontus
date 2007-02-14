@@ -78,7 +78,7 @@ public class XMLSchemaCompletionParser implements ICompletionParser {
     }
 
     private void parseXSDElement(List tagList, XSElementDeclaration element) {
-        TagInfo tagInfo = new TagInfo(element.getName(), true);
+        TagInfo tagInfo = new TagInfo(element.getName(), true); 
 
         if (tagList.contains(tagInfo)) {
             return;
