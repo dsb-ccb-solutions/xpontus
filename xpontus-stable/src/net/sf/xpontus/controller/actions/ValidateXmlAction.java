@@ -21,13 +21,29 @@
  */
 package net.sf.xpontus.controller.actions;
 
+import com.ibm.icu.text.CharsetDetector;
+
+import net.sf.xpontus.constants.GrammarCachingPoolProvider;
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
+import net.sf.xpontus.utils.EncodingHelper;
 import net.sf.xpontus.utils.MsgUtils;
 import net.sf.xpontus.view.XPontusWindow;
 
 import org.apache.xerces.parsers.SAXParser;
+import org.apache.xerces.util.*;
+import org.apache.xerces.util.SymbolTable;
+import org.apache.xerces.xni.grammars.Grammar;
+import org.apache.xerces.xni.grammars.XMLGrammarDescription;
+import org.apache.xerces.xni.grammars.XMLGrammarPool;
+
+import org.syntax.jedit.SyntaxDocument;
 
 import org.xml.sax.InputSource;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 
 /**
@@ -39,7 +55,10 @@ public class ValidateXmlAction extends ThreadedAction {
 
     /** Creates a new instance of ValidateXmlAction */
     public ValidateXmlAction() {
-        parser = new SAXParser();
+        GrammarCachingPoolProvider provider = GrammarCachingPoolProvider.getInstance();
+
+        parser = new SAXParser(provider.getSymbolTable(),
+                provider.getGrammarPool());
     }
 
     public void execute() {
@@ -51,7 +70,8 @@ public class ValidateXmlAction extends ThreadedAction {
             buff.append(_msg.getString("msg.validating"));
 
             XPontusWindow.getInstance().append(buff.toString());
-            XPontusWindow.getInstance().getStatusBar().setOperationMessage(buff.toString());
+            XPontusWindow.getInstance().getStatusBar()
+                         .setOperationMessage(buff.toString());
             parser.setFeature("http://xml.org/sax/features/validation", true);
             parser.setFeature("http://xml.org/sax/features/namespaces", true);
             parser.setFeature("http://apache.org/xml/features/validation/schema",
@@ -61,15 +81,18 @@ public class ValidateXmlAction extends ThreadedAction {
 
             javax.swing.JEditorPane edit = XPontusWindow.getInstance()
                                                         .getCurrentEditor();
+
             byte[] bt = edit.getText().getBytes();
             java.io.InputStream is = new java.io.ByteArrayInputStream(bt);
-            parser.parse(new InputSource(is));
-            XPontusWindow.getInstance().append(_msg.getString(
-                    "msg.validationFinished"));
-            XPontusWindow.getInstance().getStatusBar().setOperationMessage(_msg.getString(
+            parser.parse(new InputSource(EncodingHelper.getReader(is)));
+            XPontusWindow.getInstance()
+                         .append(_msg.getString("msg.validationFinished"));
+            XPontusWindow.getInstance().getStatusBar()
+                         .setOperationMessage(_msg.getString(
                     "msg.validDocument"));
         } catch (Exception e) {
-            XPontusWindow.getInstance().getStatusBar().setNotificationMessage("Error see messages window!");
+            XPontusWindow.getInstance().getStatusBar()
+                         .setNotificationMessage("Error see messages window!");
             XPontusWindow.getInstance().append(e.getMessage());
         }
     }

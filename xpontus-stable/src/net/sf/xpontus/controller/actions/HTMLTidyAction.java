@@ -21,22 +21,23 @@
  */
 package net.sf.xpontus.controller.actions;
 
+import com.ibm.icu.text.CharsetDetector;
+import java.io.BufferedInputStream;
+import java.io.InputStreamReader;
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
 import net.sf.xpontus.model.options.JTidyOptionModel;
 import net.sf.xpontus.utils.MsgUtils;
 import net.sf.xpontus.view.XPontusWindow;
-
 import org.syntax.jedit.SyntaxDocument;
 import org.syntax.jedit.tokenmarker.HTMLTokenMarker;
 import org.syntax.jedit.tokenmarker.TokenMarker;
-
 import org.w3c.tidy.Tidy;
-
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.io.StringWriter;
-
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
+import org.omg.CORBA_2_3.portable.InputStream;
 
 
 /**
@@ -69,6 +70,8 @@ public class HTMLTidyAction extends ThreadedAction {
         tidy.setUpperCaseAttrs(obj.isUppercaseAttrOption());
     }
 
+     
+     
     /**
      *
      */
@@ -91,6 +94,10 @@ public class HTMLTidyAction extends ThreadedAction {
                     "msg.formatting"));
 
             byte[] bt = edit.getText().getBytes();
+            
+             SyntaxDocument _doc = (SyntaxDocument) edit.getDocument();
+             
+             _doc.readLock();
 
             java.io.InputStream in = new java.io.ByteArrayInputStream(bt);
             final java.io.InputStream _backup = new java.io.ByteArrayInputStream(bt);
@@ -98,6 +105,9 @@ public class HTMLTidyAction extends ThreadedAction {
             java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
             tidy.parse(in, out);
 
+            _doc.readUnlock();
+             
+            
             if (new String(out.toByteArray()).trim().equals("")) {
                 //                System.out.println("Restore");
                 edit.read(_backup, null);
@@ -106,12 +116,13 @@ public class HTMLTidyAction extends ThreadedAction {
                     null);
                 log = _msg.getString("msg.formattingDone");
             }
-
-            SyntaxDocument _doc = (SyntaxDocument) edit.getDocument();
+ 
             TokenMarker tk = new HTMLTokenMarker();
-            edit.putClientProperty("TOKEN_MARKER", tk);
-            _doc.setTokenMarker(tk);
+            ((SyntaxDocument) edit.getDocument()).setTokenMarker(tk);
 
+            
+            edit.putClientProperty("TOKEN_MARKER", tk);
+            
             edit.repaint();
             edit.putClientProperty("FILE_MODIFIED", Boolean.TRUE);
 

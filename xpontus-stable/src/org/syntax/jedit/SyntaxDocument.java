@@ -10,16 +10,18 @@ package org.syntax.jedit;
 
 import org.syntax.jedit.tokenmarker.Token;
 import org.syntax.jedit.tokenmarker.TokenMarker;
-
 import java.awt.Color;
-
+import javax.swing.JEditorPane;
 import javax.swing.event.DocumentEvent;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
 import javax.swing.text.PlainDocument;
 import javax.swing.text.Segment;
 import javax.swing.undo.UndoableEdit;
 import net.sf.xpontus.model.options.EditorOptionModel;
+import net.sf.xpontus.view.XPontusWindow;
+import org.syntax.jedit.tokenmarker.XMLTokenMarker;
 
 
 /**
@@ -214,4 +216,89 @@ public class SyntaxDocument extends PlainDocument {
         
         super.fireRemoveUpdate(evt);
     }
+    
+    /**
+     *
+     * @param off
+     * @param str
+     * @param set
+     * @throws javax.swing.text.BadLocationException
+     */
+  
+    public void insertString( int off, String str, AttributeSet set) throws BadLocationException {
+        if ( str.equals( ">") && tokenMarker!=null && tokenMarker.getClass() == XMLTokenMarker.class) {
+            final JEditorPane editor = XPontusWindow.getInstance().getCurrentEditor();
+            
+            int dot = editor.getCaret().getDot();
+            
+            StringBuffer endTag = new StringBuffer( str);
+    
+            String text = getText( 0, off);
+            int startTag = text.lastIndexOf( '<', off);
+            int prefEndTag = text.lastIndexOf( '>', off);
+    
+            // If there was a start tag and if the start tag is not empty
+            // and
+            // if the start-tag has not got an end-tag already.
+            if ( (startTag > 0) && (startTag > prefEndTag) && (startTag < text.length() - 1)) {
+                String tag = text.substring( startTag, text.length());
+                char first = tag.charAt( 1);
+    
+                if ( first != '/' && first != '!' && first != '?' && !Character.isWhitespace( first)) {
+                    boolean finished = false;
+                    char previous = tag.charAt( tag.length() - 1);
+    
+                    if ( previous != '/' && previous != '-') {
+    
+                        endTag.append( "</");
+    
+                        for ( int i = 1; (i < tag.length()) && !finished; i++) {
+                            char ch = tag.charAt( i);
+    
+                            if ( !Character.isWhitespace( ch)) {
+                                endTag.append( ch);
+                            } else {
+                                finished = true;
+                            }
+                        }
+    
+                        endTag.append( ">");
+                    }
+                }
+            }
+    
+            str = endTag.toString();
+    
+            super.insertString( off, str, set);
+    
+            editor.getCaret().setDot( dot + 1);
+        }  else {
+            super.insertString( off, str, set);
+        }
+    }
+
+    // Tries to find out if the line finishes with an element start
+    private boolean isStartElement( String line) {
+        boolean result = false;
+
+        int first = line.lastIndexOf( "<");
+        int last = line.lastIndexOf( ">");
+
+        if ( last < first) { // In the Tag
+            result = true;
+        } else {
+            int firstEnd = line.lastIndexOf( "</");
+            int lastEnd = line.lastIndexOf( "/>");
+
+            // Last Tag is not an End Tag
+            if ( (firstEnd != first) && ((lastEnd + 1) != last)) {
+                result = true;
+            }
+        }
+
+        return result;
+    }
+    
+    
+    
 }

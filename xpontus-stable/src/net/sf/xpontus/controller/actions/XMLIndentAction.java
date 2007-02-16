@@ -22,26 +22,22 @@
  */
 package net.sf.xpontus.controller.actions;
 
+import com.ibm.icu.text.CharsetDetector;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
 import net.sf.xpontus.utils.MsgUtils;
 import net.sf.xpontus.view.XPontusWindow;
-
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
-//
-//import org.syntax.jedit.SyntaxDocument;
-//import org.syntax.jedit.tokenmarker.XMLTokenMarker;
-
 import org.w3c.dom.Document;
-
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import net.sf.xpontus.utils.EncodingHelper;
 import org.syntax.jedit.SyntaxDocument;
 import org.syntax.jedit.tokenmarker.TokenMarker;
 import org.syntax.jedit.tokenmarker.XMLTokenMarker;
@@ -58,9 +54,11 @@ public class XMLIndentAction extends ThreadedAction {
     public XMLIndentAction() {
     }
     
+   
+     
     public void execute() {
         final javax.swing.JEditorPane edit = XPontusWindow.getInstance()
-        .getCurrentEditor();
+        .getCurrentEditor(); 
         byte[] bt = edit.getText().getBytes();
         java.io.InputStream is = new java.io.ByteArrayInputStream(bt);
         
@@ -71,8 +69,15 @@ public class XMLIndentAction extends ThreadedAction {
         XPontusWindow.getInstance().getStatusBar().setOperationMessage(buff.toString());
         
         try {
-            Reader reader = new InputStreamReader(is);
+            
+             SyntaxDocument mdoc = (SyntaxDocument)edit.getDocument();
+            
+            mdoc.readLock();
+            
+            Reader reader = EncodingHelper.getReader(is);
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            
+            
             InputSource src = new InputSource(reader);
             Document doc = builder.parse(src);
             OutputFormat formatter = new OutputFormat();
@@ -83,6 +88,7 @@ public class XMLIndentAction extends ThreadedAction {
             serializer.serialize(doc);
             InputStream iss = new java.io.ByteArrayInputStream(out.toByteArray());
             reader = new InputStreamReader(iss, "UTF-8");
+            mdoc.readUnlock();
             edit.read(reader, null);
             SyntaxDocument _doc = (SyntaxDocument) edit.getDocument();
             TokenMarker tk = new XMLTokenMarker();

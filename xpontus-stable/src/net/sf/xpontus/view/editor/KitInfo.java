@@ -22,6 +22,9 @@
 package net.sf.xpontus.view.editor;
 
 
+import java.io.File;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.syntax.jedit.tokenmarker.TokenMarker;
 
 
@@ -60,7 +63,10 @@ public class KitInfo {
             e.printStackTrace();
         }
     }
-    
+     public TokenMarker getTokenMarker(File ext) {
+       return getTokenMarker(getExtension(ext.getAbsolutePath()));
+    }
+     
      public TokenMarker getTokenMarker(String ext) {
         TokenMarker mk = null;
         
@@ -69,6 +75,7 @@ public class KitInfo {
         }
         
         if (props.getProperty(ext) == null) {
+            
             return mk;
         }
         
@@ -76,7 +83,9 @@ public class KitInfo {
             Object _instance = Class.forName(props.getProperty(ext))
             .newInstance();
             mk = (TokenMarker) _instance;
+            System.out.println("token marker class:" + mk.getClass().getName());
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
         return mk;
@@ -88,14 +97,7 @@ public class KitInfo {
      * @return The filename extension
      */
     public String getExtension(String filename) {
-        int len = filename.length();
-        int pos = filename.lastIndexOf(".") + 1;
-        
-        if (pos < 0) {
-            return null;
-        } else {
-            return filename.substring(pos, len);
-        }
+        return FilenameUtils.getExtension(filename);
     }
     
 }

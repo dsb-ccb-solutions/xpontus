@@ -24,13 +24,18 @@
 package net.sf.xpontus.view;
 
 
+import com.ibm.icu.text.CharsetDetector;
 import com.sun.java.help.impl.SwingWorker;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
@@ -43,6 +48,7 @@ import net.sf.xpontus.controller.handlers.ModificationHandler;
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.model.options.EditorOptionModel;
+import net.sf.xpontus.utils.EncodingHelper;
 import net.sf.xpontus.view.components.JStatusBar;
 import net.sf.xpontus.view.editor.KitInfo;
 import net.sf.xpontus.view.editor.LineView;
@@ -263,22 +269,21 @@ public class PaneForm extends javax.swing.JTabbedPane {
         }
         final javax.swing.JEditorPane editor;
         KitInfo kit = KitInfo.getInstance();
-        java.io.InputStreamReader reader = null;
+        Reader reader = null;
         boolean isEditable = true;
         
         try{
             is = new java.io.FileInputStream(file);
-            reader = new java.io.InputStreamReader(is);
-            is = new java.io.FileInputStream(file);
+             
+            reader = EncodingHelper.getReader(is);
             
             editor = new javax.swing.JEditorPane();
             isEditable = file.canWrite();
             
             editor.setEditable(isEditable);
             if(isEditable){
-                editor.setCaret(new XPontusCaret());
-                String ext = FilenameUtils.getExtension(file.getName());
-                TokenMarker tk = kit.getTokenMarker(ext);
+                editor.setCaret(new XPontusCaret()); 
+                TokenMarker tk = kit.getTokenMarker(file);
                 XPontusEditorKit ekit = new XPontusEditorKit();
                 editor.setEditorKit(ekit);
                 
@@ -327,12 +332,12 @@ public class PaneForm extends javax.swing.JTabbedPane {
             setSelectedIndex(getTabCount()-1);
             editor.requestFocusInWindow();
             handler.setSaved();
-//             System.out.println("filemodified:" + editor.getClientProperty("FILE_MODIFIED"));
         } catch(Exception e){
             e.printStackTrace();
         }
         
     }
+     
     
     /**
      *
@@ -343,12 +348,13 @@ public class PaneForm extends javax.swing.JTabbedPane {
         
         final javax.swing.JEditorPane editor;
         KitInfo kit = KitInfo.getInstance();
-        java.io.InputStreamReader reader = null;
+        Reader reader = null;
         boolean isEditable = true;
         untitledCounter++;
         
         try{
-            reader = new java.io.InputStreamReader(is);
+            
+            reader = EncodingHelper.getReader(is);
             editor = new javax.swing.JEditorPane();
             
             editor.setEditable(isEditable);

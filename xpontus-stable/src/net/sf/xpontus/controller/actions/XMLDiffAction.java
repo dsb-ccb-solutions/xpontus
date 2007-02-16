@@ -25,29 +25,22 @@ package net.sf.xpontus.controller.actions;
 import java.awt.FlowLayout;
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
 import net.sf.xpontus.view.XPontusWindow;
-
 import oracle.xml.differ.XMLDiff;
-
 import oracle.xml.parser.v2.DOMParser;
 import oracle.xml.parser.v2.XMLDocument;
 import oracle.xml.parser.v2.XMLParseException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.SAXException;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -55,6 +48,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
+import net.sf.xpontus.utils.EncodingHelper;
+import org.xml.sax.InputSource;
 
 
 /**
@@ -123,7 +118,7 @@ public class XMLDiffAction extends ThreadedAction {
         try {
             DOMParser parser = new DOMParser();
             InputStream is = new FileInputStream(file);
-            parser.parse(is);
+            parser.parse(new InputSource(EncodingHelper.getReader(is)));
             this.document1 = parser.getDocument();
             log.info("Preparing file " + file.getAbsolutePath() +
                     " For xmldiff");
@@ -144,7 +139,7 @@ public class XMLDiffAction extends ThreadedAction {
         try {
             DOMParser parser = new DOMParser();
             InputStream is = new FileInputStream(file);
-            parser.parse(is);
+            parser.parse(new InputSource(EncodingHelper.getReader(is)));
             this.document2 = parser.getDocument();
             log.info("Preparing file " + file.getAbsolutePath() +
                     " For xmldiff");

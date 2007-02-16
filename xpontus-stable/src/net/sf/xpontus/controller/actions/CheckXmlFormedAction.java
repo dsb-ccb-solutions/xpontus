@@ -21,18 +21,20 @@
  */
 package net.sf.xpontus.controller.actions;
 
+import com.ibm.icu.text.CharsetDetector;
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
 import net.sf.xpontus.utils.MsgUtils;
 import net.sf.xpontus.view.XPontusWindow;
-
 import org.apache.xerces.parsers.SAXParser;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
-
 import org.xml.sax.InputSource;
-
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Locale;
+import net.sf.xpontus.utils.EncodingHelper;
 
 
 /**
@@ -41,11 +43,12 @@ import java.util.Locale;
  */
 public class CheckXmlFormedAction extends ThreadedAction
     implements MessageSourceAware {
-    private MessageSource messageSource;
+    private MessageSource messageSource; 
 
     /** Creates a new instance of CheckXmlFormedAction */
     public CheckXmlFormedAction() {
     }
+ 
 
     /**
      * @see net.sf.xpontus.core.controller.actions#execute()
@@ -59,7 +62,8 @@ public class CheckXmlFormedAction extends ThreadedAction
 
             XPontusWindow.getInstance().append("\n" + message);
 
-            XPontusWindow.getInstance().getStatusBar().setOperationMessage(message);
+            XPontusWindow.getInstance().getStatusBar()
+                         .setOperationMessage(message);
 
             SAXParser parser = new SAXParser();
             parser.setFeature("http://xml.org/sax/features/validation", false);
@@ -68,15 +72,17 @@ public class CheckXmlFormedAction extends ThreadedAction
                                                         .getCurrentEditor();
             byte[] bt = edit.getText().getBytes();
             java.io.InputStream is = new java.io.ByteArrayInputStream(bt);
-            parser.parse(new InputSource(is));
+            parser.parse(new InputSource(EncodingHelper.getReader(is)));
 
             message = messageSource.getMessage("msg.documentWellFormed", null,
                     Locale.ENGLISH);
 
             XPontusWindow.getInstance().append(message);
-            XPontusWindow.getInstance().getStatusBar().setNotificationMessage(message);
+            XPontusWindow.getInstance().getStatusBar()
+                         .setNotificationMessage(message);
         } catch (Exception e) {
-            XPontusWindow.getInstance().getStatusBar().setNotificationMessage("Error see messages window!");
+            XPontusWindow.getInstance().getStatusBar()
+                         .setNotificationMessage("Error see messages window!");
             XPontusWindow.getInstance().append(e.getMessage());
         }
     }

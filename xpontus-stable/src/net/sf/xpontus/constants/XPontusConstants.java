@@ -42,7 +42,7 @@ public interface XPontusConstants {
     /**
      * The XPontus XML Editor's configuration directory
      */
-    static final File CONF_DIR = new File(new File(HOME, ".xpontus_1"), "1.0.0");
+    static final File CONF_DIR = new File(new File(HOME, ".xpontus_1"), "1.0.0rc2");
     static final File PREF_DIR = new File(CONF_DIR, "preferences");
     static final File GENERAL_PREF = new File(PREF_DIR, "general_preferences.xml");
     static final File JTIDY_PREF = new File(PREF_DIR, "jtidy_preferences.xml");

@@ -57,7 +57,7 @@ public class XPontusFormController {
     /** Creates a new instance of XPontusFormController */
     public XPontusFormController() {
         String i18nfile = "net.sf.xpontus.i18n.application";
-        
+         
         L10nHelper.registerLocalizationFile(i18nfile);
         
         
@@ -72,7 +72,7 @@ public class XPontusFormController {
         
         form.initActions();
         
-        form.getFrame().setTitle("XPontus XML Editor 1.0.0-rc1");
+        form.getFrame().setTitle("XPontus XML Editor 1.0.0-rc2");
         
         logger.info("building main window");
         

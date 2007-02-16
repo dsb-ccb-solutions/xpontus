@@ -21,16 +21,30 @@
  */
 package net.sf.xpontus.controller.handlers;
 
+import com.ibm.icu.text.CharsetDetector;
+
 import com.sun.java.help.impl.SwingWorker;
 
+import net.sf.xpontus.constants.GrammarCachingPoolProvider;
+import net.sf.xpontus.utils.EncodingHelper;
 import net.sf.xpontus.utils.MsgUtils;
 import net.sf.xpontus.view.XPontusWindow;
 
 import org.apache.xerces.parsers.SAXParser;
+import org.apache.xerces.util.*;
+import org.apache.xerces.util.SymbolTable;
+import org.apache.xerces.xni.grammars.Grammar;
+import org.apache.xerces.xni.grammars.XMLGrammarDescription;
+import org.apache.xerces.xni.grammars.XMLGrammarPool;
 
 import org.xml.sax.InputSource;
 
 import java.awt.Toolkit;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 import javax.swing.ProgressMonitor;
 import javax.swing.Timer;
@@ -152,7 +166,10 @@ public class BatchValidationHandler {
             SAXParser parser = null;
 
             try {
-                parser = new SAXParser();
+                GrammarCachingPoolProvider provider = GrammarCachingPoolProvider.getInstance();
+
+                parser = new SAXParser(provider.getSymbolTable(),
+                        provider.getGrammarPool());
                 parser.setFeature("http://xml.org/sax/features/validation", true);
                 parser.setFeature("http://xml.org/sax/features/namespaces", true);
                 parser.setFeature("http://apache.org/xml/features/validation/schema",
@@ -179,8 +196,8 @@ public class BatchValidationHandler {
                 java.io.File _file = (java.io.File) files.get(i);
 
                 try {
-                    parser.parse(new InputSource(
-                            new java.io.FileInputStream(_file)));
+                    parser.parse(new InputSource(EncodingHelper.getReader(
+                                new java.io.FileInputStream(_file))));
                     current = i;
                     statMessage = _file.getName();
                     progressMonitor.setNote(statMessage);

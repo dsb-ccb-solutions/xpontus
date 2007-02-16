@@ -11,11 +11,15 @@ import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockingConstants;
 import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.toolbars.ToolBarConstraints;
+import com.vlsolutions.swing.toolbars.ToolBarContainer;
+import com.vlsolutions.swing.toolbars.ToolBarPanel;
+import com.vlsolutions.swing.toolbars.VLToolBar;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.Locale;
 import javax.swing.Action;
-import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import net.sf.xpontus.constants.XPontusConstants;
 import net.sf.xpontus.core.controller.actions.BaseAction;
@@ -82,56 +86,73 @@ public class XPontusWindow implements ApplicationContextAware{
         configureMenu(formatMenu, XPontusConstants.formatActions);
         configureMenu(toolsMenu, XPontusConstants.toolsActions);
         
-        javax.swing.JPanel p1, p2;
-        p1 = new javax.swing.JPanel();
-        p2 = new javax.swing.JPanel();
+        toolbar = ToolBarContainer.createDefaultContainer(true, true, true, true);
         
-        toolbar.setLayout(new BoxLayout(toolbar, BoxLayout.Y_AXIS));
-        java.awt.LayoutManager l = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT);
+        frame.getContentPane().add(toolbar, BorderLayout.NORTH);
         
-        p1.setLayout(l);
-        p2.setLayout(l);
         
-        p1.add(createToolBar(new String[]{
+        ToolBarPanel tbPanel = toolbar.getToolBarPanelAt(BorderLayout.NORTH);
+        
+        VLToolBar tb = null;
+        
+        tb = createToolBar(new String[]{
             "action.new",
             "action.open",
             "action.openremote",
             "action.print",
             "action.save",
             "action.saveas",
-            "action.saveall"
-        }));
-        p1.add(createToolBar(new String[]{
+            "action.saveall"}
+        , "General");
+        toolbar.registerToolBar(tb);
+        tbPanel.add(tb, new ToolBarConstraints(0, 0));
+        
+        
+        tb = createToolBar(new String[]{
             "action.cut",
             "action.copy",
             "action.paste",
             "action.undo",
             "action.redo",
             "action.find",
-            "action.gotoline"
-        }));
-        p1.add(createToolBar(new String[]{
+            "action.gotoline"}
+        , "Edit");
+        toolbar.registerToolBar(tb);
+        tbPanel.add(tb, new ToolBarConstraints(0, 1));
+        
+        tb = createToolBar(new String[]{
             "action.preferences",
             "action.about",
-            "action.help"
-        }));
-        p2.add(createToolBar(new String[]{
+            "action.help"}
+        , "About");
+        toolbar.registerToolBar(tb);
+        tbPanel.add(tb, new ToolBarConstraints(0, 2));
+        
+        
+        tb = createToolBar(new String[]{
             "action.commentxml",
             "action.indentxml",
-            "action.tidy"
-        }));
-        p2.add(createToolBar(new String[]{
+            "action.tidy"}
+        , "Utilities");
+        toolbar.registerToolBar(tb);
+        tbPanel.add(tb, new ToolBarConstraints(1, 0));
+        
+        tb = createToolBar(new String[]{
             "action.checkxml",
             "action.validate",
-            "action.validateschema"
-        }));
-        p2.add(createToolBar(new String[]{
-            "action.list_scenarios",
-            "action.execute_scenarios"
-        }));
+            "action.validateschema"}
+        , "Validation");
+        toolbar.registerToolBar(tb);
+        tbPanel.add(tb, new ToolBarConstraints(1, 1));
         
-        toolbar.add(p1);
-        toolbar.add(p2);
+        
+        tb = createToolBar(new String[]{
+            "action.list_scenarios",
+            "action.execute_scenarios"}
+        , "Scenarios");
+        toolbar.registerToolBar(tb);
+        tbPanel.add(tb, new ToolBarConstraints(1, 2));
+        
         
         createMessagesPopupListener();
     }
@@ -161,23 +182,24 @@ public class XPontusWindow implements ApplicationContextAware{
         messagesTA.addMouseListener(listener);
     }
     
-    /**
-     *
-     * @param actions
-     * @return
-     */
-    private javax.swing.JToolBar createToolBar(String actions[]){
-        javax.swing.JToolBar tb = new javax.swing.JToolBar();
-        tb.setRollover(true);
-        for(int i=0;i<actions.length;i++){
-            if(actions[i].equals("-")){
+    private VLToolBar createToolBar(String[] actions, String name) {
+        VLToolBar tb = new VLToolBar(name);
+        
+        for (int i = 0; i < actions.length; i++) {
+            if (actions[i].equals("-")) {
                 tb.addSeparator();
-            } else{
-                tb.add((Action)applicationContext.getBean(actions[i]));
+            } else {
+                Object bean = applicationContext.getBean(actions[i]);
+                JButton button = new JButton((Action) bean);
+                button.setText(null);
+                tb.add(button);
             }
         }
+        
         return tb;
     }
+    
+    
     
     /**
      *
@@ -215,7 +237,6 @@ public class XPontusWindow implements ApplicationContextAware{
                 super.setVisible(b);
             }
         };
-        toolbar = new javax.swing.JPanel();
         statusbar = new net.sf.xpontus.view.components.JStatusBar();
         menubar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -233,8 +254,6 @@ public class XPontusWindow implements ApplicationContextAware{
                 onWindowClosing(evt);
             }
         });
-
-        frame.getContentPane().add(toolbar, java.awt.BorderLayout.NORTH);
 
         frame.getContentPane().add(statusbar, java.awt.BorderLayout.SOUTH);
 
@@ -409,8 +428,8 @@ public class XPontusWindow implements ApplicationContextAware{
     private javax.swing.JTabbedPane pane;
     private javax.swing.JScrollPane scrollPane;
     private net.sf.xpontus.view.components.JStatusBar statusbar;
-    private javax.swing.JPanel toolbar;
     private javax.swing.JMenu toolsMenu;
     // End of variables declaration//GEN-END:variables
     DockingDesktop desk = new DockingDesktop();
+    private ToolBarContainer toolbar;
 }
