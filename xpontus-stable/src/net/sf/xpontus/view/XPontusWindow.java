@@ -246,7 +246,12 @@ public class XPontusWindow implements ApplicationContextAware{
         helpMenu = new javax.swing.JMenu();
         pane = new DockablePaneForm();
         scrollPane = new DockableMessageWindow();
-        messagesTA = new javax.swing.JTextArea();
+        messagesTA = new javax.swing.JTextArea(){
+            public void append(String s){
+                super.append(s);
+                setCaretPosition(getDocument().getLength());
+            }
+        };
 
         frame.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {

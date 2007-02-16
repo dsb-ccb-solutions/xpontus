@@ -23,6 +23,7 @@
 package net.sf.xpontus.view;
 
 import com.sun.java.help.impl.SwingWorker;
+import com.sun.msv.verifier.ValidityViolation;
 import java.io.StringReader;
 import net.sf.xpontus.core.utils.L10nHelper;
 import org.iso_relax.verifier.Schema;
@@ -260,12 +261,36 @@ public class SchemaValidationView extends javax.swing.JDialog {
                 src = new InputSource(new java.io.FileInputStream(xmlFile));
             }
             
-            Verifier verifier = schema.newVerifier();
-            verifier.verify(src);
-            javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
+            Verifier verifier = schema.newVerifier(); 
+            boolean b = verifier.verify(src);
+            
+            System.out.println("valid:" + b);
+            
+            if(b){javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
             .getFrame(),
                     "The document is valid");
-        } catch (Exception e) {
+            }
+            else{
+                 javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
+            .getFrame(),
+                    "The document is invalid");
+            }
+        } 
+        catch(ValidityViolation e){
+            
+            StringBuffer msg = new StringBuffer();
+            msg.append("The document is invalid!");
+            msg.append("\n Error at line : " + e.getLineNumber() + ",column:" + e.getColumnNumber());
+            msg.append("\n" + e.getMessage());
+            XPontusWindow.getInstance().append(msg.toString());
+             javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
+            .getFrame(),
+                    "The document is invalid");
+            
+            
+        }
+        catch (Exception e) {
+            System.out.println("e:" + e.getClass().getName());
             javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
             .getFrame(),
                     "The document is invalid");

@@ -82,8 +82,7 @@ public class KitInfo {
         try {
             Object _instance = Class.forName(props.getProperty(ext))
             .newInstance();
-            mk = (TokenMarker) _instance;
-            System.out.println("token marker class:" + mk.getClass().getName());
+            mk = (TokenMarker) _instance; 
         } catch (Exception e) {
             e.printStackTrace();
         }
