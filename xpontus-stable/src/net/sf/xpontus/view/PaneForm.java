@@ -26,6 +26,8 @@ package net.sf.xpontus.view;
 
 import com.ibm.icu.text.CharsetDetector;
 import com.sun.java.help.impl.SwingWorker;
+import com.vlsolutions.swing.docking.DockableState;
+import com.vlsolutions.swing.docking.DockingDesktop;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -133,6 +135,20 @@ public class PaneForm extends javax.swing.JTabbedPane {
                         ((Action)applicationContext.getBean("action.closeothers")).setEnabled(c);
                         popup.show(PaneForm.this, e.getX(), e.getY());
                     }
+                }
+            } else{
+                if(e.getClickCount() == 2){
+                    DockingDesktop desktop = XPontusWindow.getInstance().getDesktop();
+                    
+                    XPontusWindow.DockablePaneForm paneForm = (XPontusWindow.DockablePaneForm)XPontusWindow.getInstance().getPane();
+                    
+                    int state = paneForm.getDockKey().getDockableState();
+                    
+                    if(state == DockableState.STATE_MAXIMIZED){
+                        desktop.restore(paneForm);
+                    } else{
+                        desktop.maximize(paneForm);
+                    } 
                 }
             }
         }
@@ -274,7 +290,7 @@ public class PaneForm extends javax.swing.JTabbedPane {
         
         try{
             is = new java.io.FileInputStream(file);
-             
+            
             reader = EncodingHelper.getReader(is);
             
             editor = new javax.swing.JEditorPane();
@@ -282,16 +298,16 @@ public class PaneForm extends javax.swing.JTabbedPane {
             
             editor.setEditable(isEditable);
             if(isEditable){
-                editor.setCaret(new XPontusCaret()); 
+                editor.setCaret(new XPontusCaret());
                 TokenMarker tk = kit.getTokenMarker(file);
                 XPontusEditorKit ekit = new XPontusEditorKit();
                 editor.setEditorKit(ekit);
                 
                 
                 editor.addMouseListener(new PopupListener(editorPopup));
-               
-            editor.read(reader, null);
-              
+                
+                editor.read(reader, null);
+                
                 ((SyntaxDocument) editor.getDocument()).setTokenMarker(tk);
                 editor.putClientProperty("TOKEN_MARKER", tk);
                 
@@ -337,7 +353,7 @@ public class PaneForm extends javax.swing.JTabbedPane {
         }
         
     }
-     
+    
     
     /**
      *

@@ -21,7 +21,7 @@ import java.io.File;
  * @author Yves Zoundi
  */
 public class XMLOptionModel extends ConfigurationModel {
-    private String xsltProcessor = "Saxon 6.5.4";
+    private String xsltProcessor = "Saxon 6.5.5";
     private String xmlEncoding = "UTF-8";
     private ExtendedPropertyChangeSupport changeSupport;
     
