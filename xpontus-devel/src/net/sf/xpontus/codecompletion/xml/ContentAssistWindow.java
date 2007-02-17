@@ -45,8 +45,7 @@ public class ContentAssistWindow {
     
     public static void completeEndTag(JTextComponent editor, int off,
         String str, AttributeSet set) {
-        
-        final int offset = new Integer(off);
+         
         
         final String insertString = new String(str);
         
@@ -174,8 +173,11 @@ public class ContentAssistWindow {
         
         final List completionData = contentAssist.getCompletionList();
         
+        
         final Document doc = editor.getDocument();
 
+        
+        
         if (str.equals(">")) {
             completeEndTag(editor, off, str, set);
         } 

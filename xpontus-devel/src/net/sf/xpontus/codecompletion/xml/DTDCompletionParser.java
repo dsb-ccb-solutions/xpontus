@@ -139,8 +139,7 @@ public class DTDCompletionParser implements ICompletionParser {
             Catalog catalog = manager.getCatalog();
             pubid = pubid.substring(1, pubid.length() - 1);
 
-            String s = manager.getCatalog().resolvePublic(pubid, uri);
-            manager.catalogFiles().addAll(tagList);
+            String s = manager.getCatalog().resolvePublic(pubid, uri); 
 
             s = s.substring(5, s.length());
 
