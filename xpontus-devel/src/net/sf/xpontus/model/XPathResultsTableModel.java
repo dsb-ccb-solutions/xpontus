@@ -34,9 +34,11 @@ public class XPathResultsTableModel extends AbstractTableModel
 
         for (int i = 0; i < mRows.length; i++)
           {
+            System.out.println(rows.get(i).toString());
             NodeInfo element = (NodeInfo) rows.get(i);
             StringBuffer buff = new StringBuffer();
             buff.append("line " + element.getLineNumber());
+            
             buff.append(", Element " + element.getDisplayName());
             data[i][0] = buff.toString();
           }

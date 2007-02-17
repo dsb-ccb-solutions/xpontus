@@ -235,8 +235,8 @@ private Dockable currentDockable;
         
 //        if(doc.isCodeCompletion()){
             
-            ModificationHandler handler = (ModificationHandler) doc.getDocumentListeners()[0];
-           handler.parseDocument();
+//            ModificationHandler handler = (ModificationHandler) doc.getDocumentListeners()[0];
+//           handler.parseDocument();
 //        }
         
         
