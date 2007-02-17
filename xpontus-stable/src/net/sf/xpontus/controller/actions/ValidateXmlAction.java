@@ -50,21 +50,25 @@ import java.io.Reader;
  * Action to validate an xml document
  * @author Yves Zoundi
  */
-public class ValidateXmlAction extends ThreadedAction {
+public class ValidateXmlAction extends ThreadedAction
+{
     private SAXParser parser;
 
     /** Creates a new instance of ValidateXmlAction */
-    public ValidateXmlAction() {
+    public ValidateXmlAction()
+    {
         GrammarCachingPoolProvider provider = GrammarCachingPoolProvider.getInstance();
 
         parser = new SAXParser(provider.getSymbolTable(),
                 provider.getGrammarPool());
     }
 
-    public void execute() {
+    public void execute()
+    {
         MsgUtils _msg = MsgUtils.getInstance();
 
-        try {
+        try
+        {
             StringBuffer buff = new StringBuffer();
             buff.append("\n");
             buff.append(_msg.getString("msg.validating"));
@@ -72,9 +76,15 @@ public class ValidateXmlAction extends ThreadedAction {
             XPontusWindow.getInstance().append(buff.toString());
             XPontusWindow.getInstance().getStatusBar()
                          .setOperationMessage(buff.toString());
+            parser.setFeature("http://xml.org/sax/features/use-entity-resolver2",
+                true);
             parser.setFeature("http://xml.org/sax/features/validation", true);
             parser.setFeature("http://xml.org/sax/features/namespaces", true);
             parser.setFeature("http://apache.org/xml/features/validation/schema",
+                true);
+            parser.setFeature("http://apache.org/xml/features/honour-all-schemaLocations",
+                true);
+            parser.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
                 true);
             parser.setFeature("http://apache.org/xml/features/validation/dynamic",
                 true);
@@ -90,7 +100,9 @@ public class ValidateXmlAction extends ThreadedAction {
             XPontusWindow.getInstance().getStatusBar()
                          .setOperationMessage(_msg.getString(
                     "msg.validDocument"));
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             XPontusWindow.getInstance().getStatusBar()
                          .setNotificationMessage("Error see messages window!");
             XPontusWindow.getInstance().append(e.getMessage());

@@ -35,6 +35,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Locale;
 import net.sf.xpontus.utils.EncodingHelper;
+import org.xml.sax.SAXParseException;
 
 
 /**
@@ -83,7 +84,13 @@ public class CheckXmlFormedAction extends ThreadedAction
         } catch (Exception e) {
             XPontusWindow.getInstance().getStatusBar()
                          .setNotificationMessage("Error see messages window!");
-            XPontusWindow.getInstance().append(e.getMessage());
+            StringBuffer errorMsg = new StringBuffer();
+            if(e instanceof SAXParseException){
+                SAXParseException spe = (SAXParseException)e;
+                errorMsg.append("Error, line:" + spe.getLineNumber() + ",column:" + spe.getColumnNumber() + "\n");
+            }
+            
+            XPontusWindow.getInstance().append(errorMsg.toString() + e.getMessage());
         }
     }
 

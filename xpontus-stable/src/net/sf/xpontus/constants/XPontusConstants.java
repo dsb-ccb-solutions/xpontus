@@ -48,7 +48,7 @@ public interface XPontusConstants {
     static final File JTIDY_PREF = new File(PREF_DIR, "jtidy_preferences.xml");
     static final File EDITOR_PREF = new File(PREF_DIR, "editor_preferences.xml");
     static final File XML_PREF = new File(PREF_DIR, "xml_preferences.xml");
-
+    static public final File COLOR_PREF = new File(PREF_DIR, "colors_preferences.xml");
     /**
      * the XPontus XML Editor's file to store users XSLT scenarios
      */
