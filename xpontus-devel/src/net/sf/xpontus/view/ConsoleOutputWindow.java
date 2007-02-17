@@ -118,18 +118,18 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
             textboxes[i].setEditable(false);
             textboxes[i].setLineWrap(true);
             createMessagesPopupListener(textboxes[i]); 
-//            this.addTab(titles[i], new JScrollPane(textboxes[i]));
-            this.addDockable(new OutputDockable( (""  + i), new JScrollPane(textboxes[i])), i);
-            desktop.registerDockable(this.getDockableAt(i));
-            this.getDockableAt(i).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+            this.addTab(titles[i], new JScrollPane(textboxes[i]));
+//            this.addDockable(new OutputDockable( (""  + i), new JScrollPane(textboxes[i])), i);
+//            desktop.registerDockable(this.getDockableAt(i));
+//            this.getDockableAt(i).getDockKey().setDockableState(DockableState.STATE_DOCKED);
             
-             System.out.println("state:" + DockableState.getStateName(this.getDockableAt(i).getDockKey().getDockableState()));
+//             System.out.println("state:" + DockableState.getStateName(this.getDockableAt(i).getDockKey().getDockableState()));
         } 
-          this.addDockable(new OutputDockable( (""  + 2), new JScrollPane(xpathResultsTable)), 2);
-           desktop.registerDockable(this.getDockableAt(2));
+//          this.addDockable(new OutputDockable( (""  + 2), new JScrollPane(xpathResultsTable)), 2);
+//           desktop.registerDockable(this.getDockableAt(2));
            
-          this.getDockableAt(2).getDockKey().setDockableState(DockableState.STATE_DOCKED);
-//        this.addTab(titles[2], new JScrollPane(xpathResultsTable));
+//          this.getDockableAt(2).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+        this.addTab(titles[2], new JScrollPane(xpathResultsTable));
     }
 
     /**
