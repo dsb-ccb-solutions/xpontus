@@ -58,6 +58,10 @@ public class XPontusWindow implements ApplicationContextAware{
         initDock();
     }
     
+    public DockingDesktop getDesktop(){
+        return desk;
+    }
+    
     public void initDock(){
         // set the initial dockable
         desk.addDockable((DockablePaneForm)pane);
@@ -369,7 +373,7 @@ public class XPontusWindow implements ApplicationContextAware{
         return frame;
     }
     
-    class DockablePaneForm extends PaneForm implements Dockable {
+    public class DockablePaneForm extends PaneForm implements Dockable {
         DockKey key = new DockKey("  ");
         
         public DockablePaneForm() {
