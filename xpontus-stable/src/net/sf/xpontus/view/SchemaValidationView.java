@@ -263,37 +263,26 @@ public class SchemaValidationView extends javax.swing.JDialog {
             
             Verifier verifier = schema.newVerifier(); 
             boolean b = verifier.verify(src);
+             
             
-            System.out.println("valid:" + b);
-            
-            if(b){javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
-            .getFrame(),
-                    "The document is valid");
-            }
-            else{
-                 javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
-            .getFrame(),
-                    "The document is invalid");
-            }
+            if(b){
+                
+                XPontusWindow.getInstance().getStatusBar().setOperationMessage("The document is valid!");
+            } 
         } 
         catch(ValidityViolation e){
-            
+            XPontusWindow.getInstance().getStatusBar().setOperationMessage("The document is invalid!");
             StringBuffer msg = new StringBuffer();
             msg.append("The document is invalid!");
             msg.append("\n Error at line : " + e.getLineNumber() + ",column:" + e.getColumnNumber());
             msg.append("\n" + e.getMessage());
             XPontusWindow.getInstance().append(msg.toString());
-             javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
-            .getFrame(),
-                    "The document is invalid");
+             
             
             
         }
         catch (Exception e) {
-            System.out.println("e:" + e.getClass().getName());
-            javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
-            .getFrame(),
-                    "The document is invalid");
+            XPontusWindow.getInstance().getStatusBar().setOperationMessage("Error:"); 
             XPontusWindow.getInstance().append(e.getMessage());
         }
     }
