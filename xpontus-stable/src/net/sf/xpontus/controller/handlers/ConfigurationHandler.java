@@ -27,6 +27,7 @@ import net.sf.xpontus.model.ScenarioListModel;
 import net.sf.xpontus.model.options.EditorOptionModel;
 import net.sf.xpontus.model.options.GeneralOptionModel;
 import net.sf.xpontus.model.options.JTidyOptionModel;
+import net.sf.xpontus.model.options.TokenColorsOptionModel;
 import net.sf.xpontus.model.options.XMLOptionModel;
 
 
@@ -79,6 +80,14 @@ public class ConfigurationHandler {
 
         if (!file.exists()) {
             model = new JTidyOptionModel();
+            model.save();
+        }
+        
+        // save jtidy default properties
+        file = XPontusConstants.COLOR_PREF;
+
+        if (!file.exists()) {
+            model = new TokenColorsOptionModel();
             model.save();
         }
 
