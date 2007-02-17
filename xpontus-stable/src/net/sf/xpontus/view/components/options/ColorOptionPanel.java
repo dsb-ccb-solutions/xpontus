@@ -1,5 +1,5 @@
 /*
- * TokenColorsPanel.java
+ * ColorOptionPanel.java
  *
  * Created on February 16, 2007, 8:56 PM
  *
@@ -33,11 +33,11 @@ import net.sf.xpontus.model.options.TokenColorsOptionModel;
 import org.syntax.jedit.tokenmarker.Token;
 
 
-public class TokenColorsPanel extends JScrollPane implements IOptionPanel{
+public class ColorOptionPanel extends JScrollPane implements IOptionPanel{
     private TokenColorsOptionModel colorModel = new TokenColorsOptionModel();
     private JTable table;
     
-    public TokenColorsPanel() {
+    public ColorOptionPanel() {
         
         table = new JTable(new MyTableModel());
         
@@ -211,7 +211,7 @@ class ColorRenderer extends JLabel
 
 /*
  * ColorEditor.java (compiles with releases 1.3 and 1.4) is used by
- * TokenColorsPanel.java.
+ * ColorOptionPanel.java.
  */
 
 class ColorEditor extends AbstractCellEditor
