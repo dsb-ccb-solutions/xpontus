@@ -76,6 +76,7 @@ public class PreferencesDialog extends javax.swing.JDialog {
             defaultPanel,
             new GeneralPanel(),
             new EditorPanel(),
+            new TokenColorsPanel(),
             new XMLPanel(),
             new JTidyPanel()
         };
