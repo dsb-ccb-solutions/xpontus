@@ -8,7 +8,6 @@
  */
 package org.syntax.jedit;
 
-import org.syntax.jedit.tokenmarker.Token;
 import org.syntax.jedit.tokenmarker.TokenMarker;
 import java.awt.Color;
 import javax.swing.JEditorPane;
@@ -20,6 +19,7 @@ import javax.swing.text.PlainDocument;
 import javax.swing.text.Segment;
 import javax.swing.undo.UndoableEdit;
 import net.sf.xpontus.model.options.EditorOptionModel;
+import net.sf.xpontus.model.options.TokenColorsOptionModel;
 import net.sf.xpontus.view.XPontusWindow;
 import org.syntax.jedit.tokenmarker.XMLTokenMarker;
 
@@ -53,6 +53,10 @@ public class SyntaxDocument extends PlainDocument {
         this.colors = colors;
     }
     
+    public void setColors(Color[] colors){
+        this.colors = colors;
+    }
+    
     /**
      * Returns the token marker that is to be used to split lines
      * of this document up into tokens. May return null if this
@@ -72,24 +76,8 @@ public class SyntaxDocument extends PlainDocument {
     
     private Color[] getUserColors() {
         if (colors == null) {
-            // Build colour table.
-            colors = new Color[Token.ID_COUNT];
-            
-            //colors[Token.COMMENT1] = new Color(Integer.parseInt("25554c", 16));
-            colors[Token.COMMENT1] = new Color(0, 102, 102);
-            colors[Token.COMMENT2] = new Color(Integer.parseInt("727675", 16));
-            colors[Token.COMMENT3] = new Color(Integer.parseInt("dd25af", 16));
-            colors[Token.KEYWORD1] = new Color(Integer.parseInt("1723aa", 16));
-            colors[Token.KEYWORD2] = new Color(0, 124, 0);
-            colors[Token.KEYWORD3] = Color.MAGENTA;
-            colors[Token.PRIMITIVE] = Color.blue;
-            colors[Token.LITERAL1] = new Color(153, 0, 107);
-            
-            //            colors[Token.LITERAL2] = Color.green;
-            // Leave remaining tokens as default.
-            colors[Token.LABEL] = new Color(0x990000);
-            colors[Token.OPERATOR] = new Color(0xcc9900);
-            colors[Token.INVALID] = new Color(0xff3300);
+            TokenColorsOptionModel model1 = (TokenColorsOptionModel)new TokenColorsOptionModel().load();
+            setColors(model1.getColors()); 
         }
         
         return colors;
