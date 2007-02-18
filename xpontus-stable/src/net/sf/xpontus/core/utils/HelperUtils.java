@@ -48,24 +48,24 @@ public class HelperUtils {
     }
 
     /**
-     *
-     * @return
+     * get the helpset url
+     * @return the helpset url
      */
     public URL getHelpURL() {
         return helpURL;
     }
 
     /**
-     *
-     * @param helpURL
+     *set the helpset url
+     * @param helpURL the helpset url
      */
     public void setHelpURL(URL helpURL) {
         this.helpURL = helpURL;
     }
 
     /**
-     *
-     * @return
+     * get a help window from a helpset
+     * @return a help window
      */
     public HelpBroker getHelpBroker() {
         HelpSet hs = null;

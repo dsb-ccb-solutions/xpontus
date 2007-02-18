@@ -37,8 +37,8 @@ public class L10nHelper {
     }
 
     /**
-     *
-     * @return
+     * singleton pattern
+     * @return the single instance of this class
      */
     public static L10nHelper getInstance() {
         if (_instance == null) {
@@ -49,17 +49,17 @@ public class L10nHelper {
     }
 
     /**
-     *
-     * @param key
-     * @return
+     * get a i18n message value
+     * @param key the i18n key
+     * @return the i18n key translation
      */
     public String getValue(String key) {
         return res.getObject(key).toString();
     }
 
     /**
-     *
-     * @param i18nfile
+     * register a i18n catalog
+     * @param i18nfile add a i18n file
      */
     public static void registerLocalizationFile(String i18nfile) {
         Locale locale = Locale.getDefault();

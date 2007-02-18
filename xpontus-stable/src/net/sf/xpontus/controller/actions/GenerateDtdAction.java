@@ -38,6 +38,9 @@ public class GenerateDtdAction extends BaseAction {
         generator = new DTDGenerator();
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         javax.swing.JEditorPane edit = XPontusWindow.getInstance()
                                                     .getCurrentEditor();

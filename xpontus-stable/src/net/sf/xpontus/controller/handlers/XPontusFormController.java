@@ -3,7 +3,7 @@
  *
  * Created on 18 juillet 2005, 02:29
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -20,9 +20,6 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.controller.handlers;
-
-import com.jtattoo.plaf.aero.AeroLookAndFeel;
-import com.jtattoo.plaf.smart.SmartLookAndFeel;
 
 import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.core.utils.L10nHelper;
@@ -119,13 +116,9 @@ public class XPontusFormController {
         String look = model1.getTheme();
 
         String lf = themeProperties.getProperty(look);
-        Properties props = new Properties();
-        props.put("logoString", "");
-        props.put("licenseKey", "pdgu-f9tx-q3a8-51z5");
-        SmartLookAndFeel.setCurrentTheme(props);
-        UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 
-        //        UIManager.setLookAndFeel(lf);
+        UIManager.setLookAndFeel(lf);
+
         EditorOptionModel em = new EditorOptionModel();
         EditorOptionModel emodel1 = (EditorOptionModel) em.load();
         String fontSize = emodel1.getFontSize();

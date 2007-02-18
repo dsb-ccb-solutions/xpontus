@@ -36,6 +36,8 @@ public class AboutFormView extends javax.swing.JDialog {
     
     /**
      * Creates new form AboutFormView
+     * @param parent the parent window
+     * @param modal modal dialog
      */
     public AboutFormView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

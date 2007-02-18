@@ -47,8 +47,8 @@ public class SaveAsAction extends BaseAction {
     }
 
     /**
-     *
-     * @param file
+     * save a document to a file
+     * @param file the file to save the document to
      */
     public void save(java.io.File file) {
         javax.swing.JEditorPane editor = XPontusWindow.getInstance()
@@ -92,6 +92,9 @@ public class SaveAsAction extends BaseAction {
         }
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         if (chooser.showSaveDialog(XPontusWindow.getInstance().getFrame()) == javax.swing.JFileChooser.APPROVE_OPTION) {
             java.io.File file = chooser.getSelectedFile();

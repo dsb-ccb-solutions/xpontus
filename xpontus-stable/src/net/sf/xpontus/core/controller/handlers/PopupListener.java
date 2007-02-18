@@ -49,8 +49,8 @@ public class PopupListener extends MouseAdapter {
     }
 
     /**
-     *
-     * @param e
+     * event triggered by a mouse release
+     * @param e a mouse event
      */
     public void mouseReleased(MouseEvent e) {
         if (e.isPopupTrigger() || (e.getButton() == 3)) {

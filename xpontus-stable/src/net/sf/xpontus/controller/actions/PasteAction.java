@@ -34,6 +34,9 @@ public class PasteAction extends BaseAction {
     public PasteAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         XPontusWindow.getInstance().getCurrentEditor().paste();
     }

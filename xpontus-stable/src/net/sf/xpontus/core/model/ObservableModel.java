@@ -32,13 +32,13 @@ import java.util.Observable;
  */
 public class ObservableModel extends Observable implements Serializable {
     /**
-     *
+     * default constructor
      */
     public ObservableModel() {
     }
 
     /**
-     *
+     * notify the observers that the model has changed
      */
     protected void updateView() {
         setChanged();

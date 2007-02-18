@@ -33,16 +33,24 @@ import javax.swing.event.DocumentListener;
 public class ModificationHandler implements DocumentListener {
     private javax.swing.JEditorPane editor;
 
-    /** Creates a new instance of ModificationHandler */
+    /** Creates a new instance of ModificationHandler
+     * @param editor the document container
+     */
     public ModificationHandler(javax.swing.JEditorPane editor) {
         this.editor = editor;
         editor.getDocument().addDocumentListener(this);
     }
 
+    /**
+     * put a modified flag on the document
+     */
     public void setModified() {
         editor.putClientProperty("FILE_MODIFIED", Boolean.TRUE);
     }
 
+    /**
+     * put a saved flag on the document
+     */
     public void setSaved() {
         editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
     }

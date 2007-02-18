@@ -32,6 +32,9 @@ public class SelectAllAction extends BaseAction {
     public SelectAllAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         XPontusWindow.getInstance().getCurrentEditor().selectAll();
     }

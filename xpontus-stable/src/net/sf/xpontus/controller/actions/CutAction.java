@@ -34,6 +34,9 @@ public class CutAction extends BaseAction {
     public CutAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         XPontusWindow.getInstance().getCurrentEditor().cut();
     }

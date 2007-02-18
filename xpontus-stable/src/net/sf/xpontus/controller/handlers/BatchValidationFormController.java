@@ -43,7 +43,7 @@ public class BatchValidationFormController extends BaseController {
     private MsgUtils _msg;
 
     /** Creates a new instance of BatchValidationFormController
-     * @param view
+     * @param view the window associated to this controller
      */
     public BatchValidationFormController(BatchValidationForm view) {
         this.view = view;
@@ -55,14 +55,14 @@ public class BatchValidationFormController extends BaseController {
     }
 
     /**
-     *
+     * close the view
      */
     public void cancel() {
         view.setVisible(false);
     }
 
     /**
-     *
+     * validate a set of xml documents
      */
     public void validate() {
         if (files == null) {
@@ -123,9 +123,9 @@ public class BatchValidationFormController extends BaseController {
     }
 
     /**
-     *
-     * @param ext
-     * @return
+     * check if the xml extension mapping has already been added
+     * @param ext the file extension
+     * @return if the extension already exists
      */
     public boolean extensionExiste(String ext) {
         javax.swing.DefaultComboBoxModel model = view.getModel();
@@ -140,7 +140,7 @@ public class BatchValidationFormController extends BaseController {
     }
 
     /**
-     *
+     * add a xml extension mapping
      */
     public void addExtension() {
         String ext = view.getExtensionTF().getText().trim();
@@ -163,7 +163,7 @@ public class BatchValidationFormController extends BaseController {
     }
 
     /**
-     *
+     * remove a xml extension mapping
      */
     public void removeExtension() {
         int i = view.getExtensionsList().getSelectedIndex();
@@ -183,7 +183,7 @@ public class BatchValidationFormController extends BaseController {
     }
 
     /**
-     *
+     * select a directory path
      */
     public void selectPath() {
         int answer = chooser.showOpenDialog(view);

@@ -55,7 +55,7 @@ public class MsgUtils {
     }
 
     /**
-     *
+     * get a i18n key value
      * @param msg The message key
      * @return The i18n value of the message key
      */

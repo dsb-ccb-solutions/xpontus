@@ -42,8 +42,8 @@ public class GotoLineFormController extends BaseController {
     }
 
     /**
-     *
-     * @param gotoLineView
+     * create a controller with a view
+     * @param gotoLineView the view of this controller
      */
     public GotoLineFormController(GotoLineFormView gotoLineView) {
         setGotoLineView(gotoLineView);
@@ -51,25 +51,31 @@ public class GotoLineFormController extends BaseController {
     }
 
     /**
-     *
-     * @return
+     * get a reference of the view of this controller
+     * @return the view of this controller
      */
     public GotoLineFormView getGotoLineView() {
         return gotoLineView;
     }
 
     /**
-     *
-     * @param gotoLineView
+     * set the view of this controller
+     * @param gotoLineView the view of this controller
      */
     public void setGotoLineView(GotoLineFormView gotoLineView) {
         this.gotoLineView = gotoLineView;
     }
 
+    /**
+     * close the view of this controller
+     */
     public void close() {
         gotoLineView.setVisible(false);
     }
 
+    /**
+     * go to a line
+     */
     public void gotoline() {
         javax.swing.JEditorPane edit = XPontusWindow.getInstance()
                                                     .getCurrentEditor();

@@ -35,13 +35,16 @@ public class SaveAllAction extends BaseAction {
     public SaveAllAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         // check files to save
         checkFilesToSave();
     }
 
     /**
-     *
+     * look for files to save
      */
     public void checkFilesToSave() {
         PaneForm pane = XPontusWindow.getInstance().getPane();

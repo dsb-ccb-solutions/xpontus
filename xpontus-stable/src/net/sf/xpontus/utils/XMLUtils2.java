@@ -57,8 +57,8 @@ public class XMLUtils2 extends XMLUtils {
     private Log logger = LogFactory.getLog(XMLUtils2.class);
 
     /**
-     *
-     * @return
+     * singleton pattern
+     * @return the single instance of this class
      */
     public static XMLUtils2 getInstance() {
         if (_instance == null) {

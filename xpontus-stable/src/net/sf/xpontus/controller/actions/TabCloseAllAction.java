@@ -34,6 +34,9 @@ public class TabCloseAllAction extends BaseAction {
     public TabCloseAllAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         net.sf.xpontus.view.PaneForm pane;
         pane = XPontusWindow.getInstance().getPane();
@@ -46,7 +49,7 @@ public class TabCloseAllAction extends BaseAction {
     }
 
     /**
-     *
+     * look for files to save
      */
     public void checkFilesToSave() {
         PaneForm pane = XPontusWindow.getInstance().getPane();

@@ -35,6 +35,9 @@ public class XMLCommentAction extends BaseAction {
     public XMLCommentAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         javax.swing.JEditorPane editor;
         editor = XPontusWindow.getInstance().getCurrentEditor();

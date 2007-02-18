@@ -53,7 +53,7 @@ public class HTMLTidyAction extends ThreadedAction {
     }
 
     /**
-     *
+     * initialize xml tidy according to the user's preferences
      */
     private void init() {
         tidy = new Tidy();
@@ -70,7 +70,7 @@ public class HTMLTidyAction extends ThreadedAction {
     }
 
     /**
-     *
+     * @see net.sf.xpontus.core.controller.actions#execute()
      */
     public void execute() {
         StringWriter sw = new StringWriter();

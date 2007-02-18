@@ -44,10 +44,17 @@ import javax.swing.Timer;
  * @author Yves Zoundi
  */
 public class BatchValidationHandler {
+    /**
+     *
+     */
     public final static int ONE_SECOND = 1000;
     private int lengthOfTask;
     private int current = 0;
     private boolean done = false;
+
+    /**
+     *
+     */
     public boolean canceled = false;
     private String statMessage = "Working...";
     private java.util.List files;
@@ -57,7 +64,7 @@ public class BatchValidationHandler {
     private MsgUtils _msg;
 
     /**
-     *
+     * create a validation handler with a list of files
      * @param files A file list
      */
     public BatchValidationHandler(java.util.List files) {
@@ -120,6 +127,9 @@ public class BatchValidationHandler {
         return current;
     }
 
+    /**
+     * stop the validation
+     */
     public void stop() {
         canceled = true;
         statMessage = null;
@@ -127,11 +137,16 @@ public class BatchValidationHandler {
 
     /**
      * Find out if the task has completed.
+     * @return if the validation is finised
      */
     public boolean isDone() {
         return done;
     }
 
+    /**
+     * check if the validation has been canceled
+     * @return if the validation is canceled
+     */
     public boolean isCanceled() {
         return canceled;
     }
@@ -139,6 +154,7 @@ public class BatchValidationHandler {
     /**
      * Returns the most recent status message, or null
      * if there is no current status message.
+     * @return the message of the task
      */
     public String getMessage() {
         return statMessage;

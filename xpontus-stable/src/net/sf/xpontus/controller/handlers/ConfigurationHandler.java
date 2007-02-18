@@ -45,10 +45,9 @@ public class ConfigurationHandler {
     public ConfigurationHandler() {
     }
 
-    public void init2() {
-        //        System.setProperty(TFACTORY, SAXON_IMPL);
-    }
-
+    /**
+     * init the configuration
+     */
     public void init() {
         System.setProperty(TFACTORY, SAXON_IMPL);
 

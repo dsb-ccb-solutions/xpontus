@@ -21,8 +21,6 @@
  */
 package net.sf.xpontus.controller.actions;
 
-import com.ibm.icu.text.CharsetDetector;
-
 import net.sf.xpontus.constants.GrammarCachingPoolProvider;
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
 import net.sf.xpontus.utils.EncodingHelper;
@@ -31,19 +29,8 @@ import net.sf.xpontus.view.XPontusWindow;
 
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.util.*;
-import org.apache.xerces.util.SymbolTable;
-import org.apache.xerces.xni.grammars.Grammar;
-import org.apache.xerces.xni.grammars.XMLGrammarDescription;
-import org.apache.xerces.xni.grammars.XMLGrammarPool;
-
-import org.syntax.jedit.SyntaxDocument;
 
 import org.xml.sax.InputSource;
-
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 
 /**
@@ -61,6 +48,9 @@ public class ValidateXmlAction extends ThreadedAction {
                 provider.getGrammarPool());
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         MsgUtils _msg = MsgUtils.getInstance();
 

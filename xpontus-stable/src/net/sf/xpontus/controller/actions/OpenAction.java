@@ -42,15 +42,15 @@ public class OpenAction extends ThreadedAction {
     }
 
     /**
-     *
-     * @param dir
+     * The initial directory to open
+     * @param dir the initial directory to open
      */
     public void setFileDir(String dir) {
         chooser.setCurrentDirectory(new File(dir));
     }
 
     /**
-     *
+     * @see net.sf.xpontus.core.controller.actions#execute()
      */
     public void execute() {
         int answer = chooser.showOpenDialog(XPontusWindow.getInstance()

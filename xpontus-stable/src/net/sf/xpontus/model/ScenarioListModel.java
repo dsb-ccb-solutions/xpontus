@@ -41,18 +41,32 @@ public class ScenarioListModel extends ConfigurationModel {
         scenarioList = new Vector();
     }
 
+    /**
+     * @return the destination file
+     */
     public File getFileToSaveTo() {
         return XPontusConstants.SCENARIO_FILE;
     }
 
+    /**
+        * @return a mapping url
+        */
     public String getMappingURL() {
         return "/net/sf/xpontus/model/mappings/ScenarioListModel.xml";
     }
 
+    /**
+     *  get the scenario list
+     * @return the scenario list
+     */
     public Vector getScenarioList() {
         return scenarioList;
     }
 
+    /**
+     * set the scenario list
+     * @param scenarioList
+     */
     public void setScenarioList(Vector scenarioList) {
         this.scenarioList = scenarioList;
     }

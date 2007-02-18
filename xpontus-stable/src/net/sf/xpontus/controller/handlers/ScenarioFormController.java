@@ -40,7 +40,9 @@ public class ScenarioFormController extends BaseController {
     private ScenarioFormView view;
     private MsgUtils _msg;
 
-    /** Creates a new instance of ScenarioFormController */
+    /** Creates a new instance of ScenarioFormController
+     * @param view the view of this controller
+     */
     public ScenarioFormController(ScenarioFormView view) {
         setView(view);
         setParent(view.parent);
@@ -48,10 +50,17 @@ public class ScenarioFormController extends BaseController {
         chooser = new javax.swing.JFileChooser();
     }
 
+    /**
+     * set the view's parent of this controller
+     * @param parent the view's parent of this controller
+     */
     public void setParent(ScenarioListView parent) {
         this.parent = parent;
     }
 
+    /**
+     * select an output file
+     */
     public void outputButton_Onclick() {
         int rep = chooser.showSaveDialog(view);
 
@@ -63,16 +72,25 @@ public class ScenarioFormController extends BaseController {
         }
     }
 
+    /**
+     * add a parameter
+     */
     public void add() {
         javax.swing.table.DefaultTableModel model;
         model = (javax.swing.table.DefaultTableModel) view.getTable().getModel();
         model.addRow(new Object[] { "", "" });
     }
 
+    /**
+     * close the view of this controller
+     */
     public void close() {
         view.setVisible(false);
     }
 
+    /**
+     * validate the scenario
+     */
     public void validate() {
         boolean isvalid = true;
 
@@ -142,6 +160,9 @@ public class ScenarioFormController extends BaseController {
         }
     }
 
+    /**
+     * remove a parameter
+     */
     public void remove() {
         javax.swing.table.DefaultTableModel model;
         model = (javax.swing.table.DefaultTableModel) view.getTable().getModel();
@@ -151,6 +172,9 @@ public class ScenarioFormController extends BaseController {
         }
     }
 
+    /**
+     * select a xml input file
+     */
     public void xml() {
         int rep = chooser.showOpenDialog(view);
 
@@ -161,6 +185,9 @@ public class ScenarioFormController extends BaseController {
         }
     }
 
+    /**
+     * select a xsl stylesheet
+     */
     public void xsl() {
         int rep = chooser.showOpenDialog(view);
 
@@ -172,16 +199,16 @@ public class ScenarioFormController extends BaseController {
     }
 
     /**
-     *
-     * @return
+     * return the view   of this controller
+     * @return the view   of this controller
      */
     public ScenarioFormView getView() {
         return view;
     }
 
     /**
-     *
-     * @param view
+     * set the view   of this controller
+     * @param view the view of this controller
      */
     public void setView(ScenarioFormView view) {
         this.view = view;

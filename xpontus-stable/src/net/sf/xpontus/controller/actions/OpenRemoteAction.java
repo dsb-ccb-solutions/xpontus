@@ -42,6 +42,9 @@ public class OpenRemoteAction extends ThreadedAction {
     public OpenRemoteAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         XPontusWindow form = XPontusWindow.getInstance();
 

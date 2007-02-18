@@ -41,10 +41,17 @@ public class FindFormController extends BaseController {
     public FindFormController() {
     }
 
+    /**
+     * create a controller with a search dialog
+     * @param searchForm the search dialog
+     */
     public FindFormController(SearchFormView searchForm) {
         setSearchForm(searchForm);
     }
 
+    /**
+     * find a string
+     */
     public void find() {
         if (searchForm.getFindString().equals("")) {
             MsgUtils msg = MsgUtils.getInstance();
@@ -62,11 +69,11 @@ public class FindFormController extends BaseController {
     }
 
     /**
-     *
-     * @param findString
-     * @param replaceString
-     * @param matchCase
-     * @param direction
+     * replace a string by another by looking in the whole document from the start
+     * @param findString the string to look for
+     * @param replaceString the string replacement
+     * @param matchCase a case sensitive search
+     * @param direction the search direction
      */
     public void replaceAll(String findString, String replaceString,
         boolean matchCase, boolean direction) {
@@ -88,6 +95,13 @@ public class FindFormController extends BaseController {
         edit.setCaretPosition(0);
     }
 
+    /**
+     * Find a string
+     * @param findString a string to look for
+     * @param matchCase a case sensitive search
+     * @param downDirection the direction of the search
+     * @return if the text has been found
+     */
     public boolean find(String findString, boolean matchCase,
         boolean downDirection) {
         boolean found = false;
@@ -139,6 +153,14 @@ public class FindFormController extends BaseController {
         return found;
     }
 
+    /**
+     * Replace a string
+     * @param findString  the string to look for
+     * @param replaceString the string replacement
+     * @param matchCase a case sensitive search
+     * @param direction  the search direction
+     * @return if the text has been found and replaced
+     */
     public boolean replace(String findString, String replaceString,
         boolean matchCase, boolean direction) {
         javax.swing.JEditorPane edit = XPontusWindow.getInstance()
@@ -155,6 +177,9 @@ public class FindFormController extends BaseController {
         return find(findString, matchCase, direction);
     }
 
+    /**
+     * replace a string
+     */
     public void replace() {
         if (searchForm.getFindString().equals("")) {
             MsgUtils msg = MsgUtils.getInstance();
@@ -171,6 +196,9 @@ public class FindFormController extends BaseController {
         }
     }
 
+    /**
+     * replace all in the document
+     */
     public void replaceall() {
         if (searchForm.getFindString().equals("")) {
             MsgUtils msg = MsgUtils.getInstance();
@@ -188,14 +216,25 @@ public class FindFormController extends BaseController {
         }
     }
 
+    /**
+     *  close the search dialog
+     */
     public void close() {
         searchForm.setVisible(false);
     }
 
+    /**
+     * get the view of this controller
+     * @return the view of this controller
+     */
     public SearchFormView getSearchForm() {
         return searchForm;
     }
 
+    /**
+     * set the view of this controller
+     * @param searchForm the view of this controller
+     */
     public void setSearchForm(SearchFormView searchForm) {
         this.searchForm = searchForm;
     }

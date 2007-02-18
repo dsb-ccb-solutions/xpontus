@@ -37,6 +37,9 @@ public class ExitAction extends BaseAction {
     public ExitAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         if (!XPontusWindow.getInstance().getPane().isEmpty()) {
             ((BaseAction) XPontusWindow.getInstance().getApplicationContext()

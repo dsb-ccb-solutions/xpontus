@@ -33,8 +33,8 @@ public class WindowUtilities {
     }
 
     /**
-     *
-     * @param window
+     * Center a window on the screen
+     * @param window a Window
      */
     public static final void centerOnScreen(Window window) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

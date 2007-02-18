@@ -48,9 +48,9 @@ public class SaveAction extends BaseAction {
     }
 
     /**
-     *
-     * @param editor
-     * @param ask
+     * save a document with or without user confirmation
+     * @param editor a document container
+     * @param ask ask for user confirmation
      * @throws java.lang.Exception
      */
     public void saveEditor(javax.swing.JEditorPane editor, boolean ask)
@@ -130,10 +130,10 @@ public class SaveAction extends BaseAction {
     }
 
     /**
-     *
-     * @param index
-     * @param ask
-     * @throws java.lang.Exception
+     * Save a document at an index in a tab container
+     * @param index the editor index in a tab container
+     * @param ask ask for user confirmation
+     * @throws java.lang.Exception an exception
      */
     public void save(int index, boolean ask) throws Exception {
         //        System.out.println("index " + index);
@@ -207,7 +207,7 @@ public class SaveAction extends BaseAction {
     }
 
     /**
-     *
+     * @see net.sf.xpontus.core.controller.actions#execute()
      */
     public void execute() {
         try {
@@ -220,8 +220,8 @@ public class SaveAction extends BaseAction {
     }
 
     /**
-     *
-     * @param file
+     * save the document to a file
+     * @param file the file to save
      */
     public void save(java.io.File file) {
         javax.swing.JEditorPane editor = XPontusWindow.getInstance()

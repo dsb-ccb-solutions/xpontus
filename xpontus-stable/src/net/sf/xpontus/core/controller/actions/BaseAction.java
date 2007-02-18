@@ -51,19 +51,22 @@ public abstract class BaseAction extends AbstractAction {
     public BaseAction() {
     }
 
+    /**
+     * a abstract method to execute an action
+     */
     public abstract void execute();
 
     /**
-     *
-     * @return
+     * set the action's name
+     * @return the action's name
      */
     public String getName() {
         return name;
     }
 
     /**
-     *
-     * @param name
+     * get the action's name
+     * @param name the action's name
      */
     public void setName(String name) {
         this.name = name;
@@ -71,25 +74,24 @@ public abstract class BaseAction extends AbstractAction {
     }
 
     /**
-     *
-     * @param event
-     */
+    * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+    */
     public void actionPerformed(ActionEvent event) {
         this.setEvent(event);
         execute();
     }
 
     /**
-     *
-     * @return
+     * return the action's command
+     * @return the action's command
      */
     public String getActionCommand() {
         return actionCommand;
     }
 
     /**
-     *
-     * @param actionCommand
+     * set the action's command
+     * @param actionCommand the action's command
      */
     public void setActionCommand(String actionCommand) {
         this.actionCommand = actionCommand;
@@ -97,16 +99,16 @@ public abstract class BaseAction extends AbstractAction {
     }
 
     /**
-     *
-     * @return
+     * return the action's icon path
+     * @return the action's icon path
      */
     public String getIcon() {
         return icon;
     }
 
     /**
-     *
-     * @param icon
+     * set  the action's icon path
+     * @param icon  the action's icon path
      */
     public void setIcon(String icon) {
         this.icon = icon;
@@ -116,16 +118,16 @@ public abstract class BaseAction extends AbstractAction {
     }
 
     /**
-     *
-     * @return
+     * get  the action's accelerator key
+     * @return  the action's accelerator key
      */
     public String getAccelerator() {
         return accelerator;
     }
 
     /**
-     *
-     * @param accelerator
+     * set  the action's accelerator key
+     * @param accelerator the action's accelerator key
      */
     public void setAccelerator(String accelerator) {
         this.accelerator = accelerator;
@@ -134,16 +136,16 @@ public abstract class BaseAction extends AbstractAction {
     }
 
     /**
-     *
-     * @return
+     * return  the action's description
+     * @return  the action's description
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     *
-     * @param description
+     * set  the action's description
+     * @param description  the action's description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -152,21 +154,25 @@ public abstract class BaseAction extends AbstractAction {
     }
 
     /**
-     *
-     * @return
+     * return the event triggering this action
+     * @return the event triggering this action
      */
     public ActionEvent getEvent() {
         return event;
     }
 
     /**
-     *
-     * @param event
+     * (should not be used) set the event triggering this action
+     * @param event the event triggering this action
      */
     public void setEvent(ActionEvent event) {
         this.event = event;
     }
 
+    /**
+     * show a warning message
+     * @param message a message to display
+     */
     public void warning(String message) {
         JOptionPane.showMessageDialog(XPontusWindow.getInstance().getFrame(),
             message, MsgUtils.getInstance().getString("msg.error"),

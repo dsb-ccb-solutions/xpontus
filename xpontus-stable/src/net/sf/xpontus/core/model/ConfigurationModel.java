@@ -58,8 +58,8 @@ public abstract class ConfigurationModel {
 
     /**
      *
-     * @param mappingURL
-     * @param location
+     *  save a configuration
+     *
      */
     public void save() {
         try {
@@ -73,10 +73,8 @@ public abstract class ConfigurationModel {
     }
 
     /**
-     *
-     * @param mappingURL
-     * @param location
-     * @return
+     * load a configuration
+     * @return the deserialized object loaded from a file
      */
     public Object load() {
         try {

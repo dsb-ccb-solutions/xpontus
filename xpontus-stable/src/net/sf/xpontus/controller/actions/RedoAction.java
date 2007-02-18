@@ -35,6 +35,9 @@ public class RedoAction extends BaseAction {
     public RedoAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         javax.swing.JEditorPane edit = XPontusWindow.getInstance()
                                                     .getCurrentEditor();

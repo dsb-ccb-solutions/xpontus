@@ -41,6 +41,7 @@ public class HelpAction extends BaseAction {
     public HelpAction() {
     }
 
+    /** initialize the help */
     private void init() {
         HelperUtils utils;
         utils = new HelperUtils();
@@ -96,6 +97,9 @@ public class HelpAction extends BaseAction {
         helpListener = new javax.help.CSH.DisplayHelpFromSource(broker);
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         if (broker == null) {
             init();

@@ -52,7 +52,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * get the output type for the transformation
      * @return The output type
      */
     public String getOutputType() {
@@ -60,7 +60,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * set the output type for the transformation
      * @param outputType The output type
      */
     public void setOutputType(String outputType) {
@@ -69,7 +69,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * check if the scenario is using an external xml file as input
      * @return The document is either an opened document or an external file
      */
     public boolean isExternal() {
@@ -77,7 +77,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * set whether or not the scenario is relative to the current opened document or an external file
      * @param external The document is either an opened document or an external file
      */
     public void setExternal(boolean external) {
@@ -86,7 +86,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * return the xml input document
      * @return The XML URI of the scenario
      */
     public String getXmlURI() {
@@ -94,7 +94,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * the the xml input document
      * @param xmlURI The XML URI of the scenario
      */
     public void setXmlURI(String xmlURI) {
@@ -103,7 +103,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * get the xsl stylesheet
      * @return The stylesheet URI of the scenario
      */
     public String getXslURI() {
@@ -111,7 +111,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * set the xsl stylesheet
      * @param xslURI The stylesheet URI of the scenario
      */
     public void setXslURI(String xslURI) {
@@ -120,7 +120,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * get the scenario's parameters
      * @return The scenario's parameters
      */
     public java.util.Hashtable getParams() {
@@ -128,7 +128,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * set the scenario's parameters
      * @param params The scenario's parameters
      */
     public void setParams(java.util.Hashtable params) {
@@ -137,7 +137,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * get the scenario's name
      * @return The scenario's name
      */
     public String getName() {
@@ -145,7 +145,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * set the scenario's name
      * @param name The scenario's name
      */
     public void setName(String name) {
@@ -154,7 +154,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * validate a scenario
      * @return The validity of the scenario
      */
     public boolean isValid() {
@@ -176,7 +176,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * get the output file
      * @return  The output file
      */
     public String getOutputFile() {
@@ -184,7 +184,7 @@ public class ScenarioModel extends ObservableModel {
     }
 
     /**
-     *
+     * set the output file
      * @param outputFile The output file
      */
     public void setOutputFile(String outputFile) {

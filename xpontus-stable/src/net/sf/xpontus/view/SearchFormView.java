@@ -2,9 +2,9 @@
  * SearchFormView.java
  *
  * Created on February 19, 2006, 12:09 PM
-*
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -33,7 +33,10 @@ import net.sf.xpontus.core.utils.L10nHelper;
  */
 public class SearchFormView extends javax.swing.JDialog implements java.awt.event.ActionListener{
     
-    /** Creates new form SearchFormView */
+    /** Creates new form SearchFormView 
+     * @param parent the parent
+     * @param modal modal dialog
+     */
     public SearchFormView(java.awt.Frame parent, boolean modal) {
        super(parent, modal);
         locale = L10nHelper.getInstance();
@@ -41,7 +44,7 @@ public class SearchFormView extends javax.swing.JDialog implements java.awt.even
         initListeners();
     }
     
-    /** */
+    /** default constructor*/
     public SearchFormView(){
         this(XPontusWindow.getInstance().getFrame(), false);
     }

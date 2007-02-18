@@ -58,6 +58,9 @@ public class XMLIndentAction extends ThreadedAction {
     public XMLIndentAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         final javax.swing.JEditorPane edit = XPontusWindow.getInstance()
                                                           .getCurrentEditor();

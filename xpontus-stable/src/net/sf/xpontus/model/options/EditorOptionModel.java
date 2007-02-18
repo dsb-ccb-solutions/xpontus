@@ -84,7 +84,7 @@ public class EditorOptionModel extends ConfigurationModel {
 
     /**
      *
-     * @param showSplashScreen
+     * @param newValue
      */
     public void setShowLineNumbers(boolean newValue) {
         boolean oldValue = showLineNumbers;
@@ -143,28 +143,52 @@ public class EditorOptionModel extends ConfigurationModel {
         changeSupport.firePropertyChange("tabSize", oldValue, newValue);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCursorRate() {
         return cursorRate;
     }
 
+    /**
+     *
+     * @param newValue
+     */
     public void setCursorRate(int newValue) {
         int oldValue = cursorRate;
         cursorRate = newValue;
         changeSupport.firePropertyChange("cursorRate", oldValue, newValue);
     }
 
+    /**
+     *
+     * @param x
+     */
     public void addPropertyChangeListener(PropertyChangeListener x) {
         changeSupport.addPropertyChangeListener(x);
     }
 
+    /**
+     *
+     * @param x
+     */
     public void removePropertyChangeListener(PropertyChangeListener x) {
         changeSupport.removePropertyChangeListener(x);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFontName() {
         return fontName;
     }
 
+    /**
+     *
+     * @param newValue
+     */
     public void setFontName(String newValue) {
         String oldValue = fontName;
         fontName = newValue;
@@ -175,6 +199,10 @@ public class EditorOptionModel extends ConfigurationModel {
         updateFont();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFontSize() {
         return fontSize;
     }
@@ -190,6 +218,10 @@ public class EditorOptionModel extends ConfigurationModel {
         }
     }
 
+    /**
+     *
+     * @param newValue
+     */
     public void setFontSize(String newValue) {
         String oldValue = fontSize;
         fontSize = newValue;

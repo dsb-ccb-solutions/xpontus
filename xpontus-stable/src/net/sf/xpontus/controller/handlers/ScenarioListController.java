@@ -48,8 +48,8 @@ public class ScenarioListController extends BaseController {
     }
 
     /**
-     *
-     * @param view
+     * create a controller with a view
+     * @param view the view   of this controller
      */
     public ScenarioListController(ScenarioListView view) {
         _msg = MsgUtils.getInstance();
@@ -63,6 +63,9 @@ public class ScenarioListController extends BaseController {
         scenarioForm.setParent(view);
     }
 
+    /**
+     * edit a scenario
+     */
     public void edit() {
         ListModel model = view.getList().getModel();
         int index = view.getList().getSelectedIndex();
@@ -82,6 +85,9 @@ public class ScenarioListController extends BaseController {
         }
     }
 
+    /**
+     * add a scenario
+     */
     public void addScenario() {
         ScenarioModel scenario = new ScenarioModel();
         scenarioForm.setScenario(scenario);
@@ -91,6 +97,9 @@ public class ScenarioListController extends BaseController {
         scenarioForm.setVisible(true);
     }
 
+    /**
+     * remove a scenario
+     */
     public void remove() {
         int index = view.getList().getSelectedIndex();
 
@@ -114,10 +123,16 @@ public class ScenarioListController extends BaseController {
         _m.save();
     }
 
+    /**
+     * close the view of this controller
+     */
     public void close() {
         view.setVisible(false);
     }
 
+    /**
+     * execute a scenario
+     */
     public void transform() {
         ListModel model = view.getList().getModel();
         int index = view.getList().getSelectedIndex();

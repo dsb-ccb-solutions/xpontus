@@ -55,40 +55,72 @@ public class GeneralOptionModel extends ConfigurationModel {
         return XPontusConstants.GENERAL_PREF;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isShowSplashScreen() {
         return showSplashScreen;
     }
 
+    /**
+     *
+     * @param newValue
+     */
     public void setShowSplashScreen(boolean newValue) {
         boolean oldValue = showSplashScreen;
         showSplashScreen = newValue;
         changeSupport.firePropertyChange("showSplashScreen", oldValue, newValue);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getIconSet() {
         return iconSet;
     }
 
+    /**
+     *
+     * @param newValue
+     */
     public void setIconSet(String newValue) {
         String oldValue = iconSet;
         iconSet = newValue;
         changeSupport.firePropertyChange("iconSet", oldValue, newValue);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTheme() {
         return theme;
     }
 
+    /**
+     *
+     * @param newValue
+     */
     public void setTheme(String newValue) {
         String oldValue = theme;
         theme = newValue;
         changeSupport.firePropertyChange("theme", oldValue, newValue);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isConfirmOnExitOption() {
         return confirmOnExitOption;
     }
 
+    /**
+     *
+     * @param newValue
+     */
     public void setConfirmOnExitOption(boolean newValue) {
         boolean oldValue = confirmOnExitOption;
         confirmOnExitOption = newValue;
@@ -96,10 +128,18 @@ public class GeneralOptionModel extends ConfigurationModel {
             newValue);
     }
 
+    /**
+     *
+     * @param x
+     */
     public void addPropertyChangeListener(PropertyChangeListener x) {
         changeSupport.addPropertyChangeListener(x);
     }
 
+    /**
+     *
+     * @param x
+     */
     public void removePropertyChangeListener(PropertyChangeListener x) {
         changeSupport.removePropertyChangeListener(x);
     }

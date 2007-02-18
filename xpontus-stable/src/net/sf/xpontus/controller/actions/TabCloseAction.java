@@ -34,6 +34,9 @@ public class TabCloseAction extends BaseAction {
     public TabCloseAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         net.sf.xpontus.view.PaneForm pane;
         SaveAction action;

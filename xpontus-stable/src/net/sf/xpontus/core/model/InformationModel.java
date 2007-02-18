@@ -35,22 +35,22 @@ public class InformationModel extends Properties {
     private InputStream inputStream;
 
     /**
-     *
+     * default constructor
      */
     public InformationModel() {
     }
 
     /**
-     *
-     * @return
+     * return the stream of the properties file
+     * @return the stream of the properties file
      */
     public InputStream getInputStream() {
         return inputStream;
     }
 
     /**
-     *
-     * @param inputStream
+     * set the stream of the properties file
+     * @param inputStream the stream of the properties file
      */
     public void setInputStream(InputStream inputStream) {
         this.inputStream = inputStream;

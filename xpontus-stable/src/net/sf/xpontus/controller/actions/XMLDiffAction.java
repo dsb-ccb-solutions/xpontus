@@ -72,7 +72,7 @@ public class XMLDiffAction extends ThreadedAction {
     }
 
     /**
-     *
+     * @see net.sf.xpontus.core.controller.actions#execute()
      */
     public void execute() {
         XMLDiff xmlDiff = new XMLDiff();
@@ -125,8 +125,8 @@ public class XMLDiffAction extends ThreadedAction {
     }
 
     /**
-     *
-     * @param file
+     * set the first input file
+     * @param file the first input file
      */
     public void setFile1(File file) {
         try {
@@ -150,8 +150,8 @@ public class XMLDiffAction extends ThreadedAction {
     }
 
     /**
-     *
-     * @param file
+     * set the second input file
+     * @param file the second input file
      */
     public void setFile2(File file) {
         try {
@@ -173,32 +173,32 @@ public class XMLDiffAction extends ThreadedAction {
     }
 
     /**
-     *
-     * @return
+     * returns a reference of the first xml document
+     * @return the first xml document
      */
     public XMLDocument getDocument1() {
         return document1;
     }
 
     /**
-     *
-     * @param document1
+     * set the first xml document
+     * @param document1 the first xml document
      */
     public void setDocument1(XMLDocument document1) {
         this.document1 = document1;
     }
 
     /**
-     *
-     * @return
+     * returns a reference of the second xml document
+     * @return the second xml document
      */
     public XMLDocument getDocument2() {
         return document2;
     }
 
     /**
-     *
-     * @param document2
+     * set the second xml document
+     * @param document2 the second xml document
      */
     public void setDocument2(XMLDocument document2) {
         this.document2 = document2;

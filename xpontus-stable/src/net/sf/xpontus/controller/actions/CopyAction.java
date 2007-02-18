@@ -34,6 +34,9 @@ public class CopyAction extends BaseAction {
     public CopyAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         XPontusWindow.getInstance().getCurrentEditor().copy();
     }

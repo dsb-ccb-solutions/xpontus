@@ -44,6 +44,9 @@ public class CloseOtherAction extends BaseAction {
     public CloseOtherAction() {
     }
 
+    /**
+     * @see net.sf.xpontus.core.controller.actions#execute()
+     */
     public void execute() {
         // check files to save
         checkFilesToSave();

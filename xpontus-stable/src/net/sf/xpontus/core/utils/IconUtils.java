@@ -36,8 +36,8 @@ public class IconUtils {
     }
 
     /**
-     *
-     * @param _style
+     * set the icon theme
+     * @param _style the icon theme
      *
      */
     public static void setStyle(String _style) {
@@ -45,8 +45,8 @@ public class IconUtils {
     }
 
     /**
-     *
-     * @return
+     * singleton pattern
+     * @return the single instance of this class
      */
     public static IconUtils getInstance() {
         if (iconUtils == null) {
@@ -57,9 +57,9 @@ public class IconUtils {
     }
 
     /**
-     *
-     * @param image
-     * @return
+     * get an icon from a path
+     * @param image a icon path
+     * @return an icon
      */
     public ImageIcon getIcon(String image) {
         String path = image.replaceFirst("_PATH_", style);

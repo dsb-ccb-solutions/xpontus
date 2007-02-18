@@ -3,7 +3,7 @@
  *
  * Created on 2 octobre 2005, 16:25
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -35,19 +35,26 @@ import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 
 
+/**
+ * a utility class for xml transformations
+ * @author Yves Zoundi
+ */
 public class XMLUtils {
     private String processor;
     private String encoding;
 
+    /**
+     * default constructor
+     */
     public XMLUtils() {
     }
 
     /**
-     *
-     * @param in
-     * @param out
-     * @param xsl
-     * @param params
+     * apply a xsl transformation to a document
+     * @param in the xml source
+     * @param out the output file
+     * @param xsl the xsl stylesheet
+     * @param params the stylesheet parameters
      */
     public void transform(Source in, File out, Source xsl, Hashtable params) {
         TransformerFactory _factory = null;
@@ -87,16 +94,16 @@ public class XMLUtils {
     }
 
     /**
-     *
-     * @param processor
+     * set  the xslt processor to use
+     * @param processor the xslt processor to use
      */
     public void setProcessor(String processor) {
         this.processor = processor;
     }
 
     /**
-     *
-     * @param encoding
+     * set  the xslt encoding to use
+     * @param encoding the default encoding to use
      */
     public void setEncoding(String encoding) {
         this.encoding = encoding;

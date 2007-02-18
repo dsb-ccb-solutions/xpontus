@@ -47,7 +47,7 @@ public class PrintAction extends BaseAction implements Printable {
     }
 
     /**
-     *
+     * @see net.sf.xpontus.core.controller.actions#execute()
      */
     public void execute() {
         componentToBePrinted = XPontusWindow.getInstance().getCurrentEditor();
@@ -55,7 +55,7 @@ public class PrintAction extends BaseAction implements Printable {
     }
 
     /**
-     *
+     * print the document
      */
     public void print() {
         PrinterJob printJob = PrinterJob.getPrinterJob();
@@ -71,11 +71,11 @@ public class PrintAction extends BaseAction implements Printable {
     }
 
     /**
-     *
-     * @param g
-     * @param pageFormat
-     * @param pageIndex
-     * @return
+     * Print a page
+     * @param g graphics
+     * @param pageFormat the page's format
+     * @param pageIndex the page index
+     * @return if the page exists
      */
     public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
         if (pageIndex > 0) {
@@ -92,8 +92,8 @@ public class PrintAction extends BaseAction implements Printable {
     }
 
     /**
-     *
-     * @param c
+     * Disable double buffering
+     * @param c a component
      */
     public static void disableDoubleBuffering(Component c) {
         RepaintManager currentManager = RepaintManager.currentManager(c);
@@ -101,8 +101,8 @@ public class PrintAction extends BaseAction implements Printable {
     }
 
     /**
-     *
-     * @param c
+     * enable double buffering
+     * @param c a component
      */
     public static void enableDoubleBuffering(Component c) {
         RepaintManager currentManager = RepaintManager.currentManager(c);
