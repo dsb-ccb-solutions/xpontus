@@ -3,7 +3,7 @@
  *
  * Created on 2 octobre 2005, 16:25
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -23,12 +23,9 @@ package net.sf.xpontus.controller.actions;
 
 import net.sf.xpontus.core.controller.actions.BaseAction;
 import net.sf.xpontus.core.utils.HelperUtils;
-import net.sf.xpontus.view.XPontusWindow;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.RenderingHints;
 
 

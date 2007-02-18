@@ -4,7 +4,7 @@
   *
  * Created on 1 août 2005, 17:46
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -42,14 +42,13 @@ public class ModificationHandler implements DocumentListener {
     public void setModified() {
         editor.putClientProperty("FILE_MODIFIED", Boolean.TRUE);
     }
-    
-    public void setSaved(){
+
+    public void setSaved() {
         editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
     }
 
     /** implements DocumentListener **/
     public void changedUpdate(DocumentEvent e) {
-        
     }
 
     /** implements DocumentListener **/

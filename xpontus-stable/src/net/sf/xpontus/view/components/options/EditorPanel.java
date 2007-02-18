@@ -2,6 +2,22 @@
  * EditorPanel.java
  *
  * Created on February 16, 2006, 8:06 PM
+ *
+ *  Copyright (C) 2005-2007 Yves Zoundi
+ *
+ *  This library is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published
+ *  by the Free Software Foundation; either version 2.1 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
 package net.sf.xpontus.view.components.options;
@@ -9,7 +25,6 @@ package net.sf.xpontus.view.components.options;
 import com.jgoodies.binding.adapter.Bindings;
 import com.jgoodies.binding.adapter.SpinnerAdapterFactory;
 import com.jgoodies.binding.beans.BeanAdapter;
-import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.text.NumberFormat;
 import javax.swing.JComponent;
@@ -21,8 +36,8 @@ import javax.swing.SpinnerModel;
 import net.sf.xpontus.model.options.EditorOptionModel;
 
 /**
- *
- * @author  Owner
+ * The panel for the editor preferences
+ * @author  Yves Zoundi
  */
 public class EditorPanel extends javax.swing.JPanel implements IOptionPanel{
     
@@ -187,7 +202,7 @@ public class EditorPanel extends javax.swing.JPanel implements IOptionPanel{
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-           
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cursorBlinkRateLabel;
     private javax.swing.JSpinner cursorRateValues;

@@ -41,6 +41,7 @@ public class XPontusWindow implements ApplicationContextAware{
     private static XPontusWindow _instance;
     private boolean splashenabled = true;
     private SplashScreen splash;
+    
     /** Creates new XPontusWindow */
     public XPontusWindow() {
         GeneralOptionModel model1 = (GeneralOptionModel)new GeneralOptionModel().load();
@@ -58,12 +59,18 @@ public class XPontusWindow implements ApplicationContextAware{
         initDock();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public DockingDesktop getDesktop(){
         return desk;
     }
     
-    public void initDock(){
-        // set the initial dockable
+    /**
+     * 
+     */
+    public void initDock(){ 
         desk.addDockable((DockablePaneForm)pane);
         desk.split((DockablePaneForm)pane, (DockableMessageWindow)scrollPane, DockingConstants.SPLIT_BOTTOM);
         frame.getContentPane().add(desk, BorderLayout.CENTER);
@@ -373,9 +380,15 @@ public class XPontusWindow implements ApplicationContextAware{
         return frame;
     }
     
+    /**
+     * 
+     */
     public class DockablePaneForm extends PaneForm implements Dockable {
         DockKey key = new DockKey("  ");
         
+        /**
+         * 
+         */
         public DockablePaneForm() {
             key.setCloseEnabled(false);
             key.setAutoHideEnabled(false);
@@ -420,6 +433,11 @@ public class XPontusWindow implements ApplicationContextAware{
     }
     
     
+    /**
+     * 
+     * @param key 
+     * @return 
+     */
     public String getI18nMessage(String key){
         MessageSource src = (MessageSource)applicationContext.getBean("messageSource");
         return src.getMessage(key, null, Locale.getDefault());

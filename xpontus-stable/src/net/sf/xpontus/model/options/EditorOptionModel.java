@@ -3,28 +3,46 @@
  *
  * Created on February 24, 2006, 10:43 PM
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ *  Copyright (C) 2005-2007 Yves Zoundi
+ *
+ *  This library is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published
+ *  by the Free Software Foundation; either version 2.1 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.model.options;
 
 import com.jgoodies.binding.beans.ExtendedPropertyChangeSupport;
+
 import com.sun.java.help.impl.SwingWorker;
-import java.awt.Font;
-import java.beans.PropertyChangeListener;
-import javax.swing.UIManager;
+
 import net.sf.xpontus.constants.XPontusConstants;
 import net.sf.xpontus.core.model.ConfigurationModel;
-
-import java.io.File;
-import javax.swing.JEditorPane;
 import net.sf.xpontus.view.PaneForm;
 import net.sf.xpontus.view.XPontusWindow;
 import net.sf.xpontus.view.editor.LineView;
 
+import java.awt.Font;
+
+import java.beans.PropertyChangeListener;
+
+import java.io.File;
+
+import javax.swing.JEditorPane;
+import javax.swing.UIManager;
+
 
 /**
- *
+ * The model for the editor's preferences
  * @author Yves Zoundi
  */
 public class EditorOptionModel extends ConfigurationModel {
@@ -34,7 +52,7 @@ public class EditorOptionModel extends ConfigurationModel {
     private String fontSize = 12 + "";
     private int cursorRate = 500;
     private ExtendedPropertyChangeSupport changeSupport;
-    
+
     /** Creates a new instance of EditorOptionModel */
     public EditorOptionModel() {
         changeSupport = new ExtendedPropertyChangeSupport(this);
@@ -72,33 +90,38 @@ public class EditorOptionModel extends ConfigurationModel {
         boolean oldValue = showLineNumbers;
         showLineNumbers = newValue;
         changeSupport.firePropertyChange("showLineNumbers", oldValue, newValue);
+
         final boolean b = newValue;
         final SwingWorker worker = new SwingWorker() {
-            public Object construct() {
-                PaneForm paneform = XPontusWindow.getInstance().getPane();
-                if(b){
-                    for(int i=0;i<paneform.getTabCount();i++){
-                        javax.swing.JScrollPane sp = (javax.swing.JScrollPane)paneform.getComponentAt(i);
-                        if(sp.getRowHeader()==null){
-                            javax.swing.JEditorPane edit = paneform.getEditorAt(i);
-                            sp.setRowHeaderView(new LineView(edit));
-                            sp.repaint();
-                        } else if(sp.getRowHeader().getComponentCount() == 0){
-                            javax.swing.JEditorPane edit = paneform.getEditorAt(i);
-                            sp.setRowHeaderView(new LineView(edit));
+                public Object construct() {
+                    PaneForm paneform = XPontusWindow.getInstance().getPane();
+
+                    if (b) {
+                        for (int i = 0; i < paneform.getTabCount(); i++) {
+                            javax.swing.JScrollPane sp = (javax.swing.JScrollPane) paneform.getComponentAt(i);
+
+                            if (sp.getRowHeader() == null) {
+                                javax.swing.JEditorPane edit = paneform.getEditorAt(i);
+                                sp.setRowHeaderView(new LineView(edit));
+                                sp.repaint();
+                            } else if (sp.getRowHeader().getComponentCount() == 0) {
+                                javax.swing.JEditorPane edit = paneform.getEditorAt(i);
+                                sp.setRowHeaderView(new LineView(edit));
+                                sp.repaint();
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < paneform.getTabCount(); i++) {
+                            javax.swing.JScrollPane sp = (javax.swing.JScrollPane) paneform.getComponentAt(i);
+                            sp.setRowHeaderView(null);
                             sp.repaint();
                         }
                     }
-                } else{
-                    for(int i=0;i<paneform.getTabCount();i++){
-                        javax.swing.JScrollPane sp = (javax.swing.JScrollPane)paneform.getComponentAt(i);
-                        sp.setRowHeaderView(null);
-                        sp.repaint();
-                    }
+
+                    return null;
                 }
-                return null;
-            }
-        };
+            };
+
         worker.start();
     }
 
@@ -120,7 +143,6 @@ public class EditorOptionModel extends ConfigurationModel {
         changeSupport.firePropertyChange("tabSize", oldValue, newValue);
     }
 
-
     public int getCursorRate() {
         return cursorRate;
     }
@@ -130,12 +152,11 @@ public class EditorOptionModel extends ConfigurationModel {
         cursorRate = newValue;
         changeSupport.firePropertyChange("cursorRate", oldValue, newValue);
     }
-    
-    
+
     public void addPropertyChangeListener(PropertyChangeListener x) {
         changeSupport.addPropertyChangeListener(x);
     }
-    
+
     public void removePropertyChangeListener(PropertyChangeListener x) {
         changeSupport.removePropertyChangeListener(x);
     }
@@ -148,8 +169,9 @@ public class EditorOptionModel extends ConfigurationModel {
         String oldValue = fontName;
         fontName = newValue;
         changeSupport.firePropertyChange("fontName", oldValue, newValue);
-        UIManager.put("EditorPane.font", new Font(fontName, Font.PLAIN, Integer.parseInt(fontSize)));
-        
+        UIManager.put("EditorPane.font",
+            new Font(fontName, Font.PLAIN, Integer.parseInt(fontSize)));
+
         updateFont();
     }
 
@@ -157,20 +179,23 @@ public class EditorOptionModel extends ConfigurationModel {
         return fontSize;
     }
 
-    private void updateFont(){
+    private void updateFont() {
         PaneForm pane = XPontusWindow.getInstance().getPane();
-        for(int i=0;i<pane.getTabCount();i++){
+
+        for (int i = 0; i < pane.getTabCount(); i++) {
             JEditorPane edit = pane.getEditorAt(i);
-            edit.setFont(new Font(fontName, Font.PLAIN, Integer.parseInt(fontSize)));
+            edit.setFont(new Font(fontName, Font.PLAIN,
+                    Integer.parseInt(fontSize)));
             edit.repaint();
         }
     }
-    
+
     public void setFontSize(String newValue) {
         String oldValue = fontSize;
         fontSize = newValue;
         changeSupport.firePropertyChange("fontSize", oldValue, newValue);
-        UIManager.put("EditorPane.font", new Font(fontName, Font.PLAIN, Integer.parseInt(fontSize)));
+        UIManager.put("EditorPane.font",
+            new Font(fontName, Font.PLAIN, Integer.parseInt(fontSize)));
         updateFont();
     }
 }

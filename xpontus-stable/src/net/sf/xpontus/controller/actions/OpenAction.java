@@ -3,7 +3,7 @@
  *
  * Created on 18 juillet 2005, 02:55
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -41,10 +41,17 @@ public class OpenAction extends ThreadedAction {
         chooser.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);
     }
 
+    /**
+     *
+     * @param dir
+     */
     public void setFileDir(String dir) {
         chooser.setCurrentDirectory(new File(dir));
     }
 
+    /**
+     *
+     */
     public void execute() {
         int answer = chooser.showOpenDialog(XPontusWindow.getInstance()
                                                          .getFrame());
@@ -53,7 +60,8 @@ public class OpenAction extends ThreadedAction {
             final java.io.File[] selectedFiles = chooser.getSelectedFiles();
 
             for (int i = 0; i < selectedFiles.length; i++) {
-                XPontusWindow.getInstance().getPane().createEditorFromFile(selectedFiles[i]);
+                XPontusWindow.getInstance().getPane()
+                             .createEditorFromFile(selectedFiles[i]);
             }
         }
     }

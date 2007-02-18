@@ -3,7 +3,7 @@
  *
  * Created on 1 octobre 2005, 12:14
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published

@@ -3,7 +3,7 @@
  *
  * Created on November 5, 2005, 4:11 PM
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -43,8 +43,7 @@ import javax.swing.Timer;
  * A class which handles batch validation
  * @author Yves Zoundi
  */
-public class BatchValidationHandler
-{
+public class BatchValidationHandler {
     public final static int ONE_SECOND = 1000;
     private int lengthOfTask;
     private int current = 0;
@@ -61,8 +60,7 @@ public class BatchValidationHandler
      *
      * @param files A file list
      */
-    public BatchValidationHandler(java.util.List files)
-    {
+    public BatchValidationHandler(java.util.List files) {
         this.files = files;
         _msg = MsgUtils.getInstance();
         this.lengthOfTask = files.size();
@@ -77,15 +75,11 @@ public class BatchValidationHandler
         go();
     }
 
-    private void initTimer()
-    {
+    private void initTimer() {
         timer = new Timer(ONE_SECOND,
-                new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        if (done || canceled)
-                        {
+                new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        if (done || canceled) {
                             Toolkit.getDefaultToolkit().beep();
                             progressMonitor.close();
                             timer.stop();
@@ -97,12 +91,9 @@ public class BatchValidationHandler
     /**
      * Start the task.
      */
-    public void go()
-    {
-        final SwingWorker worker = new SwingWorker()
-            {
-                public Object construct()
-                {
+    public void go() {
+        final SwingWorker worker = new SwingWorker() {
+                public Object construct() {
                     current = 0;
                     done = false;
                     canceled = false;
@@ -118,21 +109,18 @@ public class BatchValidationHandler
     /**
      * Find out how much work needs to be done.
      */
-    public int getLengthOfTask()
-    {
+    public int getLengthOfTask() {
         return lengthOfTask;
     }
 
     /**
      * Find out how much has been done.
      */
-    public int getCurrent()
-    {
+    public int getCurrent() {
         return current;
     }
 
-    public void stop()
-    {
+    public void stop() {
         canceled = true;
         statMessage = null;
     }
@@ -140,13 +128,11 @@ public class BatchValidationHandler
     /**
      * Find out if the task has completed.
      */
-    public boolean isDone()
-    {
+    public boolean isDone() {
         return done;
     }
 
-    public boolean isCanceled()
-    {
+    public boolean isCanceled() {
         return canceled;
     }
 
@@ -154,25 +140,21 @@ public class BatchValidationHandler
      * Returns the most recent status message, or null
      * if there is no current status message.
      */
-    public String getMessage()
-    {
+    public String getMessage() {
         return statMessage;
     }
 
     /**
      * The actual long running task.  This runs in a SwingWorker thread.
      */
-    class ActualTask
-    {
+    class ActualTask {
         boolean error = false;
         long invalid = 0;
 
-        ActualTask()
-        {
+        ActualTask() {
             SAXParser parser = null;
 
-            try
-            {
+            try {
                 GrammarCachingPoolProvider provider = GrammarCachingPoolProvider.getInstance();
 
                 parser = new SAXParser(provider.getSymbolTable(),
@@ -189,9 +171,7 @@ public class BatchValidationHandler
                     true);
                 parser.setFeature("http://apache.org/xml/features/validation/dynamic",
                     true);
-            }
-            catch (Exception ee)
-            {
+            } catch (Exception ee) {
                 ee.printStackTrace();
             }
 
@@ -201,10 +181,8 @@ public class BatchValidationHandler
             //making a random amount of progress every second.
             int i = 0;
 
-            for (; i < total; i++)
-            {
-                if (canceled || done)
-                {
+            for (; i < total; i++) {
+                if (canceled || done) {
                     dialog.setVisible(false);
 
                     return;
@@ -212,17 +190,14 @@ public class BatchValidationHandler
 
                 java.io.File _file = (java.io.File) files.get(i);
 
-                try
-                {
+                try {
                     parser.parse(new InputSource(EncodingHelper.getReader(
                                 new java.io.FileInputStream(_file))));
                     current = i;
                     statMessage = _file.getName();
                     progressMonitor.setNote(statMessage);
                     progressMonitor.setProgress(current);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     invalid++;
 
                     String filename = _file.toURI().toString();
@@ -233,8 +208,7 @@ public class BatchValidationHandler
 
                     StringBuffer errorMsg = new StringBuffer();
 
-                    if (e instanceof SAXParseException)
-                    {
+                    if (e instanceof SAXParseException) {
                         SAXParseException spe = (SAXParseException) e;
                         errorMsg.append("line:" + spe.getLineNumber() +
                             ",column:" + spe.getColumnNumber() + "\n");

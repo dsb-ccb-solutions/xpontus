@@ -3,7 +3,7 @@
  *
  * Created on 2 octobre 2005, 16:59
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -21,21 +21,19 @@
  */
 package net.sf.xpontus.controller.actions;
 
-import com.ibm.icu.text.CharsetDetector;
 import net.sf.xpontus.core.controller.actions.ThreadedAction;
-import net.sf.xpontus.utils.MsgUtils;
+import net.sf.xpontus.utils.EncodingHelper;
 import net.sf.xpontus.view.XPontusWindow;
+
 import org.apache.xerces.parsers.SAXParser;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
+
 import org.xml.sax.InputSource;
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Locale;
-import net.sf.xpontus.utils.EncodingHelper;
 import org.xml.sax.SAXParseException;
+
+import java.util.Locale;
 
 
 /**
@@ -44,12 +42,11 @@ import org.xml.sax.SAXParseException;
  */
 public class CheckXmlFormedAction extends ThreadedAction
     implements MessageSourceAware {
-    private MessageSource messageSource; 
+    private MessageSource messageSource;
 
     /** Creates a new instance of CheckXmlFormedAction */
     public CheckXmlFormedAction() {
     }
- 
 
     /**
      * @see net.sf.xpontus.core.controller.actions#execute()
@@ -84,19 +81,23 @@ public class CheckXmlFormedAction extends ThreadedAction
         } catch (Exception e) {
             XPontusWindow.getInstance().getStatusBar()
                          .setNotificationMessage("Error see messages window!");
+
             StringBuffer errorMsg = new StringBuffer();
-            if(e instanceof SAXParseException){
-                SAXParseException spe = (SAXParseException)e;
-                errorMsg.append("Error, line:" + spe.getLineNumber() + ",column:" + spe.getColumnNumber() + "\n");
+
+            if (e instanceof SAXParseException) {
+                SAXParseException spe = (SAXParseException) e;
+                errorMsg.append("Error, line:" + spe.getLineNumber() +
+                    ",column:" + spe.getColumnNumber() + "\n");
             }
-            
-            XPontusWindow.getInstance().append(errorMsg.toString() + e.getMessage());
+
+            XPontusWindow.getInstance()
+                         .append(errorMsg.toString() + e.getMessage());
         }
     }
 
     /**
-     *
-     * @param messageSource
+     * a i18n provider
+     * @param messageSource a i18n provider
      */
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;

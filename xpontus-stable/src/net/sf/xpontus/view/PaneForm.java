@@ -24,20 +24,13 @@
 package net.sf.xpontus.view;
 
 
-import com.ibm.icu.text.CharsetDetector;
 import com.sun.java.help.impl.SwingWorker;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.Charset;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
@@ -55,12 +48,9 @@ import net.sf.xpontus.view.components.JStatusBar;
 import net.sf.xpontus.view.editor.KitInfo;
 import net.sf.xpontus.view.editor.LineView;
 import net.sf.xpontus.view.editor.XPontusEditorKit;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.context.ApplicationContext;
 import org.syntax.jedit.SyntaxDocument;
 import org.syntax.jedit.tokenmarker.TokenMarker;
-import org.syntax.jedit.tokenmarker.XMLTokenMarker;
 /**
  * The container which stores document into tabs
  * @author  Yves Zoundi
@@ -264,7 +254,7 @@ public class PaneForm extends javax.swing.JTabbedPane {
             
             addTab(filename, ic, scrollPane, filename);
             setSelectedIndex(getTabCount()-1);
-            editor.requestFocusInWindow();
+            editor.grabFocus();
             untitledCounter++;
         } catch(Exception e){
             e.printStackTrace();
@@ -346,7 +336,7 @@ public class PaneForm extends javax.swing.JTabbedPane {
             addTab(filename, ic, scrollPane, tooltip);
             
             setSelectedIndex(getTabCount()-1);
-            editor.requestFocusInWindow();
+            editor.grabFocus();
             handler.setSaved();
         } catch(Exception e){
             e.printStackTrace();
@@ -416,7 +406,7 @@ public class PaneForm extends javax.swing.JTabbedPane {
             addTab(filename, ic, scrollPane, tooltip);
             ModificationHandler handler = new ModificationHandler(editor);
             setSelectedIndex(getTabCount()-1);
-            editor.requestFocusInWindow();
+            editor.grabFocus();
         } catch(Exception e){
             e.printStackTrace();
         }

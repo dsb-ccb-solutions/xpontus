@@ -3,7 +3,7 @@
  *
  * Created on November 23, 2005, 8:00 PM
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -25,7 +25,7 @@ import javax.swing.ImageIcon;
 
 
 /**
- * A class to describe user preferences
+ * A class for icons retrieval
  * @author Yves Zoundi
  */
 public class IconUtils {
@@ -37,7 +37,8 @@ public class IconUtils {
 
     /**
      *
-     * @param style
+     * @param _style
+     *
      */
     public static void setStyle(String _style) {
         style = _style;

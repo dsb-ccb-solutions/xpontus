@@ -239,8 +239,7 @@ loop:
                     backslash = false;
                     doKeyword(line, i, c);
 
-                    if ((length - i) > 1) 
-                    /*This is the same as if(length > i + 1) */ {
+                    if ((length - i) > 1)/*This is the same as if(length > i + 1) */  {
                         addToken(i - lastOffset, Token.KEYWORD3);
                         lastOffset = lastKeyword = i;
 

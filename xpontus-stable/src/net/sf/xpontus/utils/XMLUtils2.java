@@ -4,7 +4,7 @@
   *
  * Created on 1 août 2005, 17:46
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -56,9 +56,13 @@ public class XMLUtils2 extends XMLUtils {
     private int renderer;
     private Log logger = LogFactory.getLog(XMLUtils2.class);
 
+    /**
+     *
+     * @return
+     */
     public static XMLUtils2 getInstance() {
         if (_instance == null) {
-            _instance = new XMLUtils2();            
+            _instance = new XMLUtils2();
         }
 
         return _instance;
@@ -100,9 +104,6 @@ public class XMLUtils2 extends XMLUtils {
 
         if (output.equals("HTML") || output.equals("XML")) {
             transform(in, out, xsl, params);
-            
-            
-               
         } else {
             if (output.equals("PDF")) {
                 renderer = Driver.RENDER_PDF;
@@ -135,7 +136,7 @@ public class XMLUtils2 extends XMLUtils {
 
             logger.info("XSL transformation");
             logger.info("Input:" + in.getSystemId());
-            logger.info("Output:"+ out.getAbsolutePath());
+            logger.info("Output:" + out.getAbsolutePath());
             driver.setOutputStream(new java.io.FileOutputStream(out));
 
             Result res = new SAXResult(driver.getContentHandler());
@@ -155,10 +156,11 @@ public class XMLUtils2 extends XMLUtils {
             }
 
             transformer.transform(in, res);
-             String log = "XML/HTML Transformation finished";
+
+            String log = "XML/HTML Transformation finished";
             XPontusWindow.getInstance().getStatusBar().setOperationMessage(log);
         } catch (Exception e) {
-           String log = "Error" + e.getMessage();
+            String log = "Error" + e.getMessage();
             XPontusWindow.getInstance().getStatusBar().setOperationMessage(log);
         }
     }

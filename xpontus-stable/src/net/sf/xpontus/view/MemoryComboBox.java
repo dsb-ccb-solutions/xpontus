@@ -3,7 +3,7 @@
  *
  * Created on 30 juillet 2005, 19:19
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -30,6 +30,9 @@ public class MemoryComboBox extends javax.swing.JComboBox {
     
     private final int LIMIT = 10;
     
+    /**
+     * 
+     */
     public MemoryComboBox() {
         initComponents();
         java.awt.event.KeyAdapter adapter;
@@ -47,20 +50,36 @@ public class MemoryComboBox extends javax.swing.JComboBox {
         getEditor().getEditorComponent().addKeyListener(adapter);
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String getText() {
         Object str = getEditor().getItem();
         
         return (String) str;
     }
     
+    /**
+     * 
+     */
     public void update() {
         add(getText());
     }
     
+    /**
+     * 
+     * @param str 
+     */
     public void setText(String str) {
         getEditor().setItem(str);
     }
     
+    /**
+     * 
+     * @param obj 
+     * @return 
+     */
     public boolean isExisting(Object obj) {
         boolean exists = false;
         final int nb = getItemCount();
@@ -74,6 +93,10 @@ public class MemoryComboBox extends javax.swing.JComboBox {
         return exists;
     }
     
+    /**
+     * 
+     * @param item 
+     */
     public void add(String item) {
         removeItem(item);
         insertItemAt(item, 0);

@@ -4,8 +4,8 @@
  * configuration.xml
  *
  * Created on November 23, 2005, 8:00 PM
- *
- *  Copyright (C) 2005 Yves Zoundi
+ * 
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -20,6 +20,7 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
 -->
 <!--  Definition of actions for XPontus XML Editor -->
 <beans> 

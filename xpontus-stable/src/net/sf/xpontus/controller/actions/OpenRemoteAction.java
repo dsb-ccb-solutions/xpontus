@@ -3,7 +3,7 @@
  *
  * Created on November 8, 2005, 7:03 PM
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -25,10 +25,10 @@ import net.sf.xpontus.core.controller.actions.ThreadedAction;
 import net.sf.xpontus.view.XPontusWindow;
 import net.sf.xpontus.view.editor.KitInfo;
 
-//import org.syntax.jedit.tokenmarker.TokenMarker;
-
-import javax.swing.ProgressMonitorInputStream;
 import org.apache.commons.io.FilenameUtils;
+
+//import org.syntax.jedit.tokenmarker.TokenMarker;
+import javax.swing.ProgressMonitorInputStream;
 
 
 /**
@@ -60,7 +60,8 @@ public class OpenRemoteAction extends ThreadedAction {
                             "Opening ...", is);
                     KitInfo kit = KitInfo.getInstance();
                     String ext = FilenameUtils.getExtension(_url.getPath());
-                    XPontusWindow.getInstance().getPane().createEditorFromStream(progressIs, ext);
+                    XPontusWindow.getInstance().getPane()
+                                 .createEditorFromStream(progressIs, ext);
                     progressIs.close();
                     is.close();
                 } catch (Exception e) {

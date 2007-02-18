@@ -3,7 +3,7 @@
  *
  * Created on 2 octobre 2005, 16:25
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -27,16 +27,31 @@ import java.io.InputStream;
 import java.util.Properties;
 
 
+/**
+ * A class holding the information about the application
+ * @author Yves Zoundi
+ */
 public class InformationModel extends Properties {
     private InputStream inputStream;
 
+    /**
+     *
+     */
     public InformationModel() {
     }
 
+    /**
+     *
+     * @return
+     */
     public InputStream getInputStream() {
         return inputStream;
     }
 
+    /**
+     *
+     * @param inputStream
+     */
     public void setInputStream(InputStream inputStream) {
         this.inputStream = inputStream;
 

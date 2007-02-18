@@ -4,7 +4,7 @@
  *
  * Created on 1 août 2005, 17:46
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -60,10 +60,17 @@ public class ApplyScenarioView extends javax.swing.JDialog {
         }
     }
     
+    /**
+     * 
+     */
     public ApplyScenarioView(){
         this(XPontusWindow.getInstance().getFrame(),true);
     }
     
+    /**
+     * 
+     * @param b 
+     */
     public void setVisible(boolean b){
         ScenarioListModel obj = (ScenarioListModel)new ScenarioListModel().load();
         _list = obj.getScenarioList();

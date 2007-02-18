@@ -3,7 +3,7 @@
  *
  * Created on November 5, 2005, 3:17 PM
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -42,7 +42,9 @@ public class BatchValidationFormController extends BaseController {
     private BatchValidationForm view;
     private MsgUtils _msg;
 
-    /** Creates a new instance of BatchValidationFormController */
+    /** Creates a new instance of BatchValidationFormController
+     * @param view
+     */
     public BatchValidationFormController(BatchValidationForm view) {
         this.view = view;
         _msg = MsgUtils.getInstance();
@@ -52,10 +54,16 @@ public class BatchValidationFormController extends BaseController {
         chooser.setDialogTitle(_msg.getString("msg.batchvalidation"));
     }
 
+    /**
+     *
+     */
     public void cancel() {
         view.setVisible(false);
     }
 
+    /**
+     *
+     */
     public void validate() {
         if (files == null) {
             javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
@@ -105,15 +113,20 @@ public class BatchValidationFormController extends BaseController {
         view.setVisible(false);
         XPontusWindow.getInstance().append("-------------------");
         XPontusWindow.getInstance().append(_msg.getString("msg.validating"));
-        XPontusWindow.getInstance().append(_msg.getString("msg.thereAre") +
-            " " + fileList.size() + " " +
-            _msg.getString("msg.filesToValidate"));
+        XPontusWindow.getInstance()
+                     .append(_msg.getString("msg.thereAre") + " " +
+            fileList.size() + " " + _msg.getString("msg.filesToValidate"));
 
         BatchValidationHandler task = new BatchValidationHandler(fileList);
 
         //       task.go();
     }
 
+    /**
+     *
+     * @param ext
+     * @return
+     */
     public boolean extensionExiste(String ext) {
         javax.swing.DefaultComboBoxModel model = view.getModel();
 
@@ -126,6 +139,9 @@ public class BatchValidationFormController extends BaseController {
         return false;
     }
 
+    /**
+     *
+     */
     public void addExtension() {
         String ext = view.getExtensionTF().getText().trim();
 
@@ -146,6 +162,9 @@ public class BatchValidationFormController extends BaseController {
         }
     }
 
+    /**
+     *
+     */
     public void removeExtension() {
         int i = view.getExtensionsList().getSelectedIndex();
 
@@ -163,6 +182,9 @@ public class BatchValidationFormController extends BaseController {
         model.removeElementAt(i);
     }
 
+    /**
+     *
+     */
     public void selectPath() {
         int answer = chooser.showOpenDialog(view);
 

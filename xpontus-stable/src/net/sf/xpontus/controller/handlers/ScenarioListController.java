@@ -4,7 +4,7 @@
  *
  * Created on 1 août 2005, 17:46
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -22,7 +22,6 @@
  */
 package net.sf.xpontus.controller.handlers;
 
-import net.sf.xpontus.constants.XPontusConstants;
 import net.sf.xpontus.core.controller.handlers.BaseController;
 import net.sf.xpontus.model.ScenarioListModel;
 import net.sf.xpontus.model.ScenarioModel;
@@ -109,7 +108,7 @@ public class ScenarioListController extends BaseController {
 
         m = (javax.swing.DefaultComboBoxModel) view.getList().getModel();
         m.removeElementAt(index);
-        
+
         ScenarioListModel _m = new ScenarioListModel();
         _m.setScenarioList(view.getVector());
         _m.save();

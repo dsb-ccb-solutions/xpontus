@@ -3,7 +3,7 @@
  *
  * Created on 18 juillet 2005, 02:54
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -21,20 +21,17 @@
  */
 package net.sf.xpontus.controller.actions;
 
-
 import net.sf.xpontus.core.controller.actions.BaseAction;
 import net.sf.xpontus.model.options.XMLOptionModel;
 import net.sf.xpontus.view.PaneForm;
 import net.sf.xpontus.view.XPontusWindow;
 import net.sf.xpontus.view.editor.KitInfo;
+
 import org.apache.commons.io.FilenameUtils;
+
 import org.syntax.jedit.SyntaxDocument;
 import org.syntax.jedit.tokenmarker.TokenMarker;
 import org.syntax.jedit.tokenmarker.XMLTokenMarker;
-//
-//import org.syntax.jedit.SyntaxDocument;
-//import org.syntax.jedit.tokenmarker.TokenMarker;
-//import org.syntax.jedit.tokenmarker.XMLTokenMarker;
 
 
 /**
@@ -49,45 +46,47 @@ public class SaveAsAction extends BaseAction {
         chooser = new javax.swing.JFileChooser();
     }
 
-   public void save(java.io.File file) {
+    /**
+     *
+     * @param file
+     */
+    public void save(java.io.File file) {
         javax.swing.JEditorPane editor = XPontusWindow.getInstance()
-        .getCurrentEditor();
- 
+                                                      .getCurrentEditor();
+
         SyntaxDocument _doc = (SyntaxDocument) editor.getDocument();
-                TokenMarker tk1 = (TokenMarker) editor.getClientProperty("TOKEN_MARKER");
+        TokenMarker tk1 = (TokenMarker) editor.getClientProperty("TOKEN_MARKER");
+
         try {
-          if (tk1!=null ) {
-                if(tk1.getClass() == XMLTokenMarker.class){
-                XMLOptionModel m1 = new XMLOptionModel();
-                m1 = (XMLOptionModel) m1.load();
-                editor.write(new java.io.OutputStreamWriter(
-                        new java.io.FileOutputStream(file), m1.getXmlEncoding()));
-                }
-                else{
+            if (tk1 != null) {
+                if (tk1.getClass() == XMLTokenMarker.class) {
+                    XMLOptionModel m1 = new XMLOptionModel();
+                    m1 = (XMLOptionModel) m1.load();
+                    editor.write(new java.io.OutputStreamWriter(
+                            new java.io.FileOutputStream(file),
+                            m1.getXmlEncoding()));
+                } else {
                     editor.write(new java.io.FileWriter(file));
                 }
             } else {
                 editor.write(new java.io.FileWriter(file));
             }
-            
+
             editor.putClientProperty("FILE", file);
             editor.putClientProperty("FILE_PATH", file.getAbsolutePath());
             editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
             editor.putClientProperty("FILE_NEW", Boolean.FALSE);
-            String extension =FilenameUtils.getExtension(file.getName());
+
+            String extension = FilenameUtils.getExtension(file.getName());
             TokenMarker tk = KitInfo.getInstance().getTokenMarker(extension);
             editor.putClientProperty("TOKEN_MARKER", tk);
-           _doc.setTokenMarker(tk);
+            _doc.setTokenMarker(tk);
             XPontusWindow.getInstance().setMessage(file.getAbsolutePath());
-            
+
             int i = XPontusWindow.getInstance().getPane().getSelectedIndex();
-            XPontusWindow.getInstance().getPane().setToolTipTextAt(i,
-                    file.getAbsolutePath());
-            XPontusWindow.getInstance().getPane().setTitleAt(i,
-                    file.getName());
-            
-            
-            
+            XPontusWindow.getInstance().getPane()
+                         .setToolTipTextAt(i, file.getAbsolutePath());
+            XPontusWindow.getInstance().getPane().setTitleAt(i, file.getName());
         } catch (Exception e) {
             e.printStackTrace();
         }

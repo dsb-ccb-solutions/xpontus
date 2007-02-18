@@ -3,7 +3,7 @@
  *
  * Created on 6 septembre 2005, 22:49
  *
- * Copyright (C) 2005 Yves Zoundi
+*  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -21,11 +21,11 @@
  */
 package net.sf.xpontus.view.editor;
 
+import org.apache.commons.io.FilenameUtils;
+
+import org.syntax.jedit.tokenmarker.TokenMarker;
 
 import java.io.File;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
-import org.syntax.jedit.tokenmarker.TokenMarker;
 
 
 /**
@@ -35,11 +35,11 @@ import org.syntax.jedit.tokenmarker.TokenMarker;
 public class KitInfo {
     private static KitInfo _KitInfoInstance;
     java.util.Properties props;
-    
+
     private KitInfo() {
         init();
     }
-    
+
     /**
      *
      * @return the single instance of this class
@@ -48,48 +48,59 @@ public class KitInfo {
         if (_KitInfoInstance == null) {
             _KitInfoInstance = new KitInfo();
         }
-        
+
         return _KitInfoInstance;
     }
-    
+
     /** init the syntax properties*/
     private void init() {
         props = new java.util.Properties();
-        
+
         try {
-            java.io.InputStream is = getClass().getResourceAsStream("syntax.sr");
+            java.io.InputStream is = getClass()
+                                         .getResourceAsStream("syntax.sr");
             props.load(is);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-     public TokenMarker getTokenMarker(File ext) {
-       return getTokenMarker(getExtension(ext.getAbsolutePath()));
+
+    /**
+     *
+     * @param ext
+     * @return
+     */
+    public TokenMarker getTokenMarker(File ext) {
+        return getTokenMarker(getExtension(ext.getAbsolutePath()));
     }
-     
-     public TokenMarker getTokenMarker(String ext) {
+
+    /**
+     *
+     * @param ext
+     * @return
+     */
+    public TokenMarker getTokenMarker(String ext) {
         TokenMarker mk = null;
-        
+
         if (ext == null) {
             return mk;
         }
-        
+
         if (props.getProperty(ext) == null) {
-            
             return mk;
         }
-        
+
         try {
             Object _instance = Class.forName(props.getProperty(ext))
-            .newInstance();
-            mk = (TokenMarker) _instance; 
+                                    .newInstance();
+            mk = (TokenMarker) _instance;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return mk;
     }
-     
+
     /**
      *
      * @param filename A filename
@@ -98,5 +109,4 @@ public class KitInfo {
     public String getExtension(String filename) {
         return FilenameUtils.getExtension(filename);
     }
-    
 }

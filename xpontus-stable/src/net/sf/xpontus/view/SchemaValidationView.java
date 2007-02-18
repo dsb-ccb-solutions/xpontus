@@ -32,7 +32,7 @@ import org.iso_relax.verifier.VerifierFactory;
 import org.xml.sax.InputSource;
 
 /**
- *
+ * Validation of a XML document against a schema
  * @author  Yves Zoundi
  */
 public class SchemaValidationView extends javax.swing.JDialog {

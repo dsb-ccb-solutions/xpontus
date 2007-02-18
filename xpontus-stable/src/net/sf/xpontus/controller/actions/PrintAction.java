@@ -3,7 +3,7 @@
  *
  * Created on 18 juillet 2005, 02:53
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -46,11 +46,17 @@ public class PrintAction extends BaseAction implements Printable {
     public PrintAction() {
     }
 
+    /**
+     *
+     */
     public void execute() {
         componentToBePrinted = XPontusWindow.getInstance().getCurrentEditor();
         print();
     }
 
+    /**
+     *
+     */
     public void print() {
         PrinterJob printJob = PrinterJob.getPrinterJob();
         printJob.setPrintable(this);
@@ -64,6 +70,13 @@ public class PrintAction extends BaseAction implements Printable {
         }
     }
 
+    /**
+     *
+     * @param g
+     * @param pageFormat
+     * @param pageIndex
+     * @return
+     */
     public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
         if (pageIndex > 0) {
             return (NO_SUCH_PAGE);
@@ -78,11 +91,19 @@ public class PrintAction extends BaseAction implements Printable {
         }
     }
 
+    /**
+     *
+     * @param c
+     */
     public static void disableDoubleBuffering(Component c) {
         RepaintManager currentManager = RepaintManager.currentManager(c);
         currentManager.setDoubleBufferingEnabled(false);
     }
 
+    /**
+     *
+     * @param c
+     */
     public static void enableDoubleBuffering(Component c) {
         RepaintManager currentManager = RepaintManager.currentManager(c);
         currentManager.setDoubleBufferingEnabled(true);

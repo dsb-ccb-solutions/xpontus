@@ -3,8 +3,7 @@
  *
  * Created on February 11, 2006, 8:47 PM
  *
- *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published

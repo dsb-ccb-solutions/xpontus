@@ -3,7 +3,7 @@
  *
  * Created on 2 octobre 2005, 16:53
  *
- * Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -50,25 +50,21 @@ import java.io.Reader;
  * Action to validate an xml document
  * @author Yves Zoundi
  */
-public class ValidateXmlAction extends ThreadedAction
-{
+public class ValidateXmlAction extends ThreadedAction {
     private SAXParser parser;
 
     /** Creates a new instance of ValidateXmlAction */
-    public ValidateXmlAction()
-    {
+    public ValidateXmlAction() {
         GrammarCachingPoolProvider provider = GrammarCachingPoolProvider.getInstance();
 
         parser = new SAXParser(provider.getSymbolTable(),
                 provider.getGrammarPool());
     }
 
-    public void execute()
-    {
+    public void execute() {
         MsgUtils _msg = MsgUtils.getInstance();
 
-        try
-        {
+        try {
             StringBuffer buff = new StringBuffer();
             buff.append("\n");
             buff.append(_msg.getString("msg.validating"));
@@ -100,9 +96,7 @@ public class ValidateXmlAction extends ThreadedAction
             XPontusWindow.getInstance().getStatusBar()
                          .setOperationMessage(_msg.getString(
                     "msg.validDocument"));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             XPontusWindow.getInstance().getStatusBar()
                          .setNotificationMessage("Error see messages window!");
             XPontusWindow.getInstance().append(e.getMessage());

@@ -21,6 +21,11 @@
  */
 package net.sf.xpontus.core.utils;
 
+import net.sf.xpontus.view.XPontusWindow;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -28,18 +33,15 @@ import java.util.*;
 
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
-import net.sf.xpontus.view.XPontusWindow;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
 public class XMLUtils {
     private String processor;
     private String encoding;
-    
+
     public XMLUtils() {
     }
-    
+
     /**
      *
      * @param in
@@ -51,27 +53,31 @@ public class XMLUtils {
         TransformerFactory _factory = null;
         Transformer tf = null;
         Log logger = LogFactory.getLog(XMLUtils.class);
+
         try {
             _factory = TransformerFactory.newInstance();
             tf = _factory.newTransformer(xsl);
-            
+
             if (params.size() > 0) {
                 String cle;
                 String val;
-                
+
                 for (Iterator it = params.keySet().iterator(); it.hasNext();
-                tf.setParameter(cle, val)) {
+                        tf.setParameter(cle, val)) {
                     cle = (String) it.next();
                     val = params.get(cle).toString();
                 }
             }
+
             logger.info("XSL transformation");
             logger.info("Input:" + in.getSystemId());
-            logger.info("Output:"+ out.getAbsolutePath());
+            logger.info("Output:" + out.getAbsolutePath());
+
             FileOutputStream fos = new FileOutputStream(out);
             javax.xml.transform.Result res = new StreamResult(fos);
             tf.transform(in, res);
             fos.close();
+
             String log = "XML/HTML Transformation finished";
             XPontusWindow.getInstance().getStatusBar().setOperationMessage(log);
         } catch (Exception e) {
@@ -79,7 +85,7 @@ public class XMLUtils {
             XPontusWindow.getInstance().getStatusBar().setOperationMessage(log);
         }
     }
-    
+
     /**
      *
      * @param processor
@@ -87,7 +93,7 @@ public class XMLUtils {
     public void setProcessor(String processor) {
         this.processor = processor;
     }
-    
+
     /**
      *
      * @param encoding

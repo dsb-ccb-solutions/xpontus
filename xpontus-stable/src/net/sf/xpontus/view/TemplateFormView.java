@@ -23,7 +23,6 @@
 package net.sf.xpontus.view;
 
 import net.sf.xpontus.core.utils.L10nHelper;
-import net.sf.xpontus.view.editor.KitInfo;
 import org.apache.commons.io.FilenameUtils;
 //import org.syntax.jedit.tokenmarker.TokenMarker;
 

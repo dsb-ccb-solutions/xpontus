@@ -3,7 +3,7 @@
  *
  * Created on 2 octobre 2005, 16:25
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -60,7 +60,8 @@ public class BaseController {
             cls[j] = parameters[j].getClass();
 
         try {
-            Method aMethod = getClass().getDeclaredMethod(method, cls);
+            Method aMethod = getClass()
+                                 .getDeclaredMethod(method, cls);
             aMethod.invoke(this, parameters);
         } catch (Exception e) {
             e.printStackTrace();

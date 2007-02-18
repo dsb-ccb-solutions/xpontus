@@ -2,6 +2,22 @@
  * PreferencesDialog.java
  *
  * Created on February 16, 2006, 8:12 PM
+ *
+ *  Copyright (C) 2005-2007 Yves Zoundi
+ *
+ *  This library is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published
+ *  by the Free Software Foundation; either version 2.1 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
 package net.sf.xpontus.view.components.options;
@@ -21,8 +37,8 @@ import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.view.XPontusWindow;
 
 /**
- *
- * @author  Owner
+ * The preferences panel
+ * @author  Yves Zoundi
  */
 public class PreferencesDialog extends javax.swing.JDialog {
     
@@ -35,11 +51,17 @@ public class PreferencesDialog extends javax.swing.JDialog {
     private String loc = "/net/sf/xpontus/icons/_PATH_/icone.png";
     private DefaultTreeCellRenderer renderer;
     
+    /**
+     * The default constructor
+     */
     public PreferencesDialog(){
         this(XPontusWindow.getInstance().getFrame(), true);
     }
     
-    /** Creates new form PreferencesDialog */
+    /** Creates new form PreferencesDialog 
+     * @param parent 
+     * @param modal 
+     */
     public PreferencesDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         frameicon = IconUtils.getInstance().getIcon(loc);
@@ -188,21 +210,7 @@ public class PreferencesDialog extends javax.swing.JDialog {
         
         this.infoLabel.setText(c.getDisplayName());
     }//GEN-LAST:event_categoryTreeValueChanged
-    
-//    /**
-//     *
-//     * @param b
-//     */
-//    public void setVisible(boolean b){
-//        if(b){
-//            Iterator it = componentMap.values().iterator();
-//            while(it.hasNext()){
-//                IOptionPanel c = (IOptionPanel)it.next();
-//                c.read();
-//            }
-//        }
-//        super.setVisible(b);
-//    }
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonsPanel;
     private javax.swing.JTree categoryTree;

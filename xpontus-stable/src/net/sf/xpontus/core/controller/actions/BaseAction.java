@@ -3,7 +3,7 @@
  *
  * Created on November 23, 2005, 8:00 PM
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -36,7 +36,7 @@ import javax.swing.KeyStroke;
 
 
 /**
- *
+ * the base class of all the actions of XPontus XML Editor
  * @author Yves Zoundi
  */
 public abstract class BaseAction extends AbstractAction {

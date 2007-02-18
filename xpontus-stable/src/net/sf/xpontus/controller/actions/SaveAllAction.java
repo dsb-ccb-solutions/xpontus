@@ -3,7 +3,7 @@
  *
  * Created on 5 septembre 2005, 20:20
  *
- * Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -40,6 +40,9 @@ public class SaveAllAction extends BaseAction {
         checkFilesToSave();
     }
 
+    /**
+     *
+     */
     public void checkFilesToSave() {
         PaneForm pane = XPontusWindow.getInstance().getPane();
         final int openedFiles = pane.getTabCount();

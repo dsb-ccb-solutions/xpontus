@@ -30,7 +30,7 @@ import net.sf.xpontus.core.utils.L10nHelper;
 import net.sf.xpontus.model.ScenarioListModel;
 
 /**
- * XSL Scenarios list dialog
+ * XSLT Scenarios list dialog
  * @author Yves Zoundi
  */
 public class ScenarioListView extends javax.swing.JDialog  implements java.awt.event.ActionListener{

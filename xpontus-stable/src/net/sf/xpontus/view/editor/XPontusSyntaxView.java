@@ -101,7 +101,8 @@ public abstract class XPontusSyntaxView extends PlainView {
         Color def = getDefaultColor();
 
         try {
-            Element lineElement = getElement().getElement(lineIndex);
+            Element lineElement = getElement()
+                                      .getElement(lineIndex);
             int start = lineElement.getStartOffset();
             int end = lineElement.getEndOffset();
 

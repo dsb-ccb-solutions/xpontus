@@ -3,7 +3,7 @@
  *
  * Created on 2 octobre 2005, 16:25
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -20,8 +20,6 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.core.controller.actions;
-
-import net.sf.xpontus.view.XPontusWindow;
 
 import javax.swing.JDialog;
 

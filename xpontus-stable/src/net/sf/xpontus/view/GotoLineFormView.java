@@ -48,10 +48,17 @@ public class GotoLineFormView extends javax.swing.JDialog {
         lineTF.setText(new Integer(1) + "");
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int getLine(){
         return Integer.parseInt(lineTF.getText());
     }
     
+    /**
+     * 
+     */
     public GotoLineFormView(){
         this(XPontusWindow.getInstance().getFrame(), false);
     }

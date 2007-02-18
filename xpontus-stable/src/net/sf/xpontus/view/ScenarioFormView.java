@@ -3,7 +3,7 @@
  *
  * Created on 1 août 2005, 17:52
  *
- *  Copyright (C) 2005 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -53,20 +53,40 @@ public class ScenarioFormView extends javax.swing.JDialog implements java.awt.ev
         
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String getScenarioName(){
         return nameTF.getText();
     }
     
+    /**
+     * 
+     * @param parent 
+     */
     public void setParent( ScenarioListView parent){
         this.parent = parent;
     }
     
+    /**
+     * 
+     */
     public ScenarioListView parent;
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JButton getXmlButton(){
         return xmlButton;
     }
     
+    /**
+     * 
+     * @param obs 
+     * @param obj 
+     */
     public void update(java.util.Observable obs, Object obj){
         String name = scenario.getName();
         java.net.URI xmlURI = null;
@@ -105,6 +125,10 @@ public class ScenarioFormView extends javax.swing.JDialog implements java.awt.ev
     }
     
     
+    /**
+     * 
+     * @param params 
+     */
     public void resetParameters(java.util.Hashtable params){
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel)table.getModel();
         int taille = model.getRowCount();
@@ -137,6 +161,10 @@ public class ScenarioFormView extends javax.swing.JDialog implements java.awt.ev
         scenario.addObserver(this);
     }
     
+    /**
+     * 
+     * @param evt 
+     */
     public void actionPerformed(java.awt.event.ActionEvent evt){
         if(evt.getActionCommand().equals("validate")){
             scenario.setName(getScenarioName());
@@ -155,6 +183,10 @@ public class ScenarioFormView extends javax.swing.JDialog implements java.awt.ev
         xslButton.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param _scenario 
+     */
     public void setScenario(ScenarioModel _scenario){
         this.scenario = _scenario;
         String name = scenario.getName();
@@ -193,6 +225,10 @@ public class ScenarioFormView extends javax.swing.JDialog implements java.awt.ev
         resetParameters(params);
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean scenarioIsValid(){
         boolean _valid = true;
         StringBuffer errors = new StringBuffer();
@@ -212,14 +248,26 @@ public class ScenarioFormView extends javax.swing.JDialog implements java.awt.ev
         
     }
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JTable getTable(){
         return table;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public ScenarioModel getModel(){
         return scenario;
     }
     
+    /**
+     * 
+     * @param b 
+     */
     public void setNewScenario(boolean b){
         isnew = b;
     }
@@ -481,37 +529,72 @@ public class ScenarioFormView extends javax.swing.JDialog implements java.awt.ev
     // End of variables declaration//GEN-END:variables
     private BaseController controller;
     private ScenarioModel scenario;
+    /**
+     * 
+     */
     public boolean isnew = false;
     private L10nHelper locale;
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JTextField getNameTF() {
         return nameTF;
     }
     
+    /**
+     * 
+     * @param nameTF 
+     */
     public void setNameTF(javax.swing.JTextField nameTF) {
         this.nameTF = nameTF;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JTextField getXmlTF() {
         return xmlTF;
     }
     
+    /**
+     * 
+     * @param xmlTF 
+     */
     public void setXmlTF(javax.swing.JTextField xmlTF) {
         this.xmlTF = xmlTF;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JTextField getXslTF() {
         return xslTF;
     }
     
+    /**
+     * 
+     * @param xslTF 
+     */
     public void setXslTF(javax.swing.JTextField xslTF) {
         this.xslTF = xslTF;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JTextField getOutputTF() {
         return outputTF;
     }
     
+    /**
+     * 
+     * @param outputTF 
+     */
     public void setOutputTF(javax.swing.JTextField outputTF) {
         this.outputTF = outputTF;
     }

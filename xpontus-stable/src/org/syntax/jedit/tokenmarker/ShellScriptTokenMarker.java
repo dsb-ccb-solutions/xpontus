@@ -71,8 +71,7 @@ loop:
                 case ')':
                     backslash = false;
 
-                    if (cmdState == 1 
-                        /*insideCmd*/) {
+                    if (cmdState == 1/*insideCmd*/ ) {
                         addToken(i - lastOffset, Token.KEYWORD1);
                         lastOffset = i;
                         cmdState = 2;
@@ -85,8 +84,7 @@ loop:
                 case '=':
                     backslash = false;
 
-                    if (cmdState == 1 
-                        /*insideCmd*/) {
+                    if (cmdState == 1/*insideCmd*/ ) {
                         addToken(i - lastOffset, token);
                         lastOffset = i;
                         cmdState = 2;
@@ -209,8 +207,7 @@ loop:
                     backslash = false;
 
                     if (Character.isLetter(c)) {
-                        if (cmdState == 0 
-                            /*beforeCmd*/) {
+                        if (cmdState == 0/*beforeCmd*/ ) {
                             addToken(i - lastOffset, token);
                             lastOffset = i;
                             cmdState++;

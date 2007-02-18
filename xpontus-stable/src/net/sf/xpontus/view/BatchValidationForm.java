@@ -29,7 +29,7 @@ import net.sf.xpontus.core.controller.handlers.BaseController;
 import net.sf.xpontus.core.utils.L10nHelper;
 
 /**
- *
+ * Validate XML files
  * @author  Yves Zoundi
  */
 public class BatchValidationForm extends JDialog implements ActionListener{
