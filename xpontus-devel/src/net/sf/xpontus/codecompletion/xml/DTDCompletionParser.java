@@ -126,32 +126,32 @@ public class DTDCompletionParser implements ICompletionParser {
                     }
                 };
 
-            //            FileObject fo = VFS.getManager().resolveFile(uri);
-            //
-            //            DTDGrammar grammar = (DTDGrammar) loader.loadGrammar((new XMLInputSource(
-            //                        pubid, uri, fo.getURL().toExternalForm(), in, null)));
-            System.setProperty("xml.catalog.staticCatalog", "true");
-            System.setProperty("xml.catalog.files",
-                "C:\\tests\\docbook-xml-4.4\\docbook.cat");
-
-            CatalogManager manager = new CatalogManager();
-
-            Catalog catalog = manager.getCatalog();
-            pubid = pubid.substring(1, pubid.length() - 1);
-
-            String s = manager.getCatalog().resolvePublic(pubid, uri); 
-
-            s = s.substring(5, s.length());
-
-            InputSource is = new InputSource(new FileReader(s));
-
-            XMLResourceIdentifier identifier = new XMLResourceIdentifierImpl();
-            identifier.setPublicId(pubid);
-            identifier.setLiteralSystemId(s);
-            identifier.setBaseSystemId(s);
-
-            DTDGrammar grammar = (DTDGrammar) loader.loadGrammar(new XMLInputSource(
-                        identifier));
+                        FileObject fo = VFS.getManager().resolveFile(uri);
+            
+                        DTDGrammar grammar = (DTDGrammar) loader.loadGrammar((new XMLInputSource(
+                                    pubid, uri, fo.getURL().toExternalForm(), in, null)));
+//            System.setProperty("xml.catalog.staticCatalog", "true");
+//            System.setProperty("xml.catalog.files",
+//                "C:\\tests\\docbook-xml-4.4\\docbook.cat");
+//
+//            CatalogManager manager = new CatalogManager();
+//
+//            Catalog catalog = manager.getCatalog();
+//            pubid = pubid.substring(1, pubid.length() - 1);
+//
+//            String s = manager.getCatalog().resolvePublic(pubid, uri); 
+//
+//            s = s.substring(5, s.length());
+//
+//            InputSource is = new InputSource(new FileReader(s));
+//
+//            XMLResourceIdentifier identifier = new XMLResourceIdentifierImpl();
+//            identifier.setPublicId(pubid);
+//            identifier.setLiteralSystemId(s);
+//            identifier.setBaseSystemId(s);
+//
+//            DTDGrammar grammar = (DTDGrammar) loader.loadGrammar(new XMLInputSource(
+//                        identifier));
         } catch (Exception ex) {
             ex.printStackTrace();
             ;

@@ -8,7 +8,6 @@
  */
 package net.sf.xpontus.view;
 
-import net.sf.xpontus.codecompletion.xml.DTDCompletionParser;
 import net.sf.xpontus.codecompletion.xml.XMLAssistProcessor;
 import net.sf.xpontus.codecompletion.xml.XMLSchemaCompletionParser;
 import net.sf.xpontus.core.utils.BeanUtilities;
@@ -17,12 +16,9 @@ import net.sf.xpontus.parsers.XMLParser;
 import net.sf.xpontus.parsers.XmlNode;
 import net.sf.xpontus.view.editor.SyntaxDocument;
 
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import java.util.Enumeration;
 
@@ -32,7 +28,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.Element;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 
 
 // This is an XML book - no need for explicit Swing imports
@@ -58,8 +53,7 @@ public class XMLOutlineBuilder {
      * This will construct the tree using Swing.
      * </p>
      *
-     * @param filename
-     *            <code>String</code> path to XML document.
+     * @param doc  
      */
     public void init(final javax.swing.text.Document doc) {
         String dtdLocation = null;
@@ -72,14 +66,9 @@ public class XMLOutlineBuilder {
             try {
                 String mText = doc.getText(0, doc.getLength());
                 Reader mReader = new StringReader(mText);
-                lexer = new XMLLexer(mReader);
-
-                //            
-                //            // parse the document
+                lexer = new XMLLexer(mReader); 
                 parser = new XMLParser(lexer);
-                parser.parse();
-
-                //              
+                parser.parse(); 
             } catch (Exception err) {
             }
 
@@ -122,6 +111,10 @@ public class XMLOutlineBuilder {
         }
     }
 
+    /**
+     * 
+     * @param doc 
+     */
     public void updateOutline(final javax.swing.text.Document doc) {
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
@@ -138,6 +131,11 @@ public class XMLOutlineBuilder {
             });
     }
 
+    /**
+     * 
+     * @param doc 
+     * @return 
+     */
     private XmlNode recursivelyCopyNodes(XmlNode aNode) {
         XmlNode copy = new XmlNode(aNode.toString(), aNode.line, aNode.column);
         BeanUtilities.copyProperties(aNode, copy);
@@ -156,6 +154,11 @@ public class XMLOutlineBuilder {
         return copy;
     }
 
+    /**
+     * 
+     * @param line
+     * @param column
+     */
     private void gotoLine(int line, int column) {
         JEditorPane edit = XPontusWindow.getInstance().getCurrentEditor();
         Element element = edit.getDocument().getDefaultRootElement();

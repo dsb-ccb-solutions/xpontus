@@ -45,7 +45,7 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
         scrollPane = new JScrollPane(mTree);
         
         key.setResizeWeight(0.2f);
-        key.setCloseEnabled(false);
+//        key.setCloseEnabled(false);
         key.setDockGroup(new DockGroup("Outline"));
 
         Dimension dim = new Dimension(250, 200);

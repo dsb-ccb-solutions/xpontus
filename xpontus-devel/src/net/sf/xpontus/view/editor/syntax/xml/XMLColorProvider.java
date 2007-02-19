@@ -9,7 +9,14 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 
+/**
+ * 
+ * @author Yves Zoundi
+ */
 public class XMLColorProvider extends DefaultColorProvider {
+    /**
+     * 
+     */
     public XMLColorProvider() {
         MutableAttributeSet keyword = new SimpleAttributeSet();
         StyleConstants.setForeground(keyword, Color.BLUE);
@@ -56,11 +63,10 @@ public class XMLColorProvider extends DefaultColorProvider {
         };
         addAll(xmlDeclTokenIds, xmlDeclStyle);
         
-        MutableAttributeSet stringStyle = new SimpleAttributeSet();
-        //        StyleConstants.setBold(stringStyle, true);
+        MutableAttributeSet stringStyle = new SimpleAttributeSet(); 
         StyleConstants.setForeground(stringStyle, Color.RED);
         
-        int[] stringTokenIds = { XMLParserConstants.TEXT_IN_GREF_STRING };
+        int[] stringTokenIds = { XMLParserConstants.TEXT_IN_GREF_CHARS, XMLParserConstants.TEXT_IN_GREF_STRING };
         addAll(stringTokenIds, stringStyle);
         
         int[] c =

@@ -14,19 +14,15 @@ import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
-import com.vlsolutions.swing.docking.DockingUtilities;
-import com.vlsolutions.swing.docking.TabbedDockableContainer;
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.MessageProvider;
 import net.sf.xpontus.utils.JTextComponentPrintStream;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
@@ -45,14 +41,29 @@ import javax.swing.text.JTextComponent;
 public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
 {
     static private final long serialVersionUID = -3334686130847823494L;
+    /**
+     * 
+     */
     static public final int MESSAGES_WINDOW = 0;
+    /**
+     * 
+     */
     static public final int ERRORS_WINDOW = 1;
+    /**
+     * 
+     */
     static public final int XPATH_WINDOW = 2;
     
     private final DockKey outputKey = new DockKey("Output"); 
     private DockGroup group = new DockGroup("outputWindow");
+    /**
+     * 
+     */
     public JTextArea[] textboxes = new JTextArea[2];
     private JTextComponentPrintStream[] printers = new JTextComponentPrintStream[2];
+    /**
+     * 
+     */
     public String[] titles = 
         {
             MessageProvider.getinstance().getMessage("console.messages.key"),
@@ -67,7 +78,7 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
        
         // outputKey.setDockGroup(group);
         outputKey.setResizeWeight(0.2f);
-        outputKey.setCloseEnabled(false);
+//        outputKey.setCloseEnabled(false);
         Dimension dim = new Dimension(600, 150);
         this.setMinimumSize(dim);
         this.setPreferredSize(dim);
@@ -85,6 +96,11 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
         xpathResultsTable.repaint();
     }
 
+    /**
+     * 
+     * @param id 
+     * @return 
+     */
     public JTextComponentPrintStream getPrinter(int id)
     {
         return printers[id];
@@ -183,11 +199,19 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
         printers[textBoxId].println(msg);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public DockKey getDockKey()
     {
         return outputKey;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public Component getComponent()
     {
         return this;

@@ -17,17 +17,22 @@ import javax.swing.text.Segment;
  *
  * @author Yves Zoundi
  */
-public class TokenUtilities
-{
-    private TokenUtilities()
-    {
+public class TokenUtilities {
+    private TokenUtilities() {
     }
 
-    public static Token createToken( Token token, Segment text, int pos, int kind)
-    {
+    /**
+     * 
+     * @param token 
+     * @param text 
+     * @param pos 
+     * @param kind 
+     * @return 
+     */
+    public static Token createToken(Token token, Segment text, int pos, int kind) {
         int begin = token.beginColumn + 1;
-        
-         String image = new String(text.array, pos, text.count);
+
+        String image = new String(text.array, pos, text.count);
 
         return new Token(image, kind);
     }
