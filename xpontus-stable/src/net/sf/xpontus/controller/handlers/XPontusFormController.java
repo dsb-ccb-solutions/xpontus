@@ -21,6 +21,7 @@
  */
 package net.sf.xpontus.controller.handlers;
 
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.core.utils.L10nHelper;
 import net.sf.xpontus.core.utils.WindowUtilities;
@@ -28,19 +29,13 @@ import net.sf.xpontus.model.options.EditorOptionModel;
 import net.sf.xpontus.model.options.GeneralOptionModel;
 import net.sf.xpontus.model.options.XMLOptionModel;
 import net.sf.xpontus.view.XPontusWindow;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import java.awt.Font;
-
 import java.io.InputStream;
-
 import java.util.Properties;
-
 import javax.swing.UIManager;
 
 
@@ -55,6 +50,7 @@ public class XPontusFormController {
     static {
         System.setProperty("org.xml.sax.driver",
             "org.apache.xerces.parsers.SAXParser");
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
     }
 
     /** Creates a new instance of XPontusFormController */
@@ -117,7 +113,19 @@ public class XPontusFormController {
 
         String lf = themeProperties.getProperty(look);
 
-        UIManager.setLookAndFeel(lf);
+        if (lf == null) {
+            if (look.equals("Java")) { 
+                lf = UIManager.getCrossPlatformLookAndFeelClassName();
+            } else { 
+                lf = UIManager.getSystemLookAndFeelClassName();
+            }
+            UIManager.setLookAndFeel(lf);
+        }
+        else{
+            UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
+        }
+
+        
 
         EditorOptionModel em = new EditorOptionModel();
         EditorOptionModel emodel1 = (EditorOptionModel) em.load();

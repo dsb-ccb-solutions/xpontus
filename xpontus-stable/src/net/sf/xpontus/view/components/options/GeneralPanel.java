@@ -46,9 +46,10 @@ public class GeneralPanel extends javax.swing.JPanel implements IOptionPanel{
         
         ValueModel stringModel = adapter.getValueModel("theme");
         List possibleValues = new ArrayList();
+        
+        possibleValues.add("Platform default");
         possibleValues.add("Plastic");
-        possibleValues.add("Kunststoff");
-        possibleValues.add("LiquidLookAndFeel");
+        possibleValues.add("Java");         
         themeModel = new ComboBoxAdapter(possibleValues, stringModel);
         
         List iconValues = new ArrayList();
