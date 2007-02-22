@@ -22,6 +22,7 @@
 package net.sf.xpontus.controller.handlers;
 
 import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
+
 import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.core.utils.L10nHelper;
 import net.sf.xpontus.core.utils.WindowUtilities;
@@ -29,13 +30,21 @@ import net.sf.xpontus.model.options.EditorOptionModel;
 import net.sf.xpontus.model.options.GeneralOptionModel;
 import net.sf.xpontus.model.options.XMLOptionModel;
 import net.sf.xpontus.view.XPontusWindow;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.awt.Font;
+
+import java.io.File;
 import java.io.InputStream;
+
 import java.util.Properties;
+
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 
@@ -53,8 +62,10 @@ public class XPontusFormController {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
     }
 
-    /** Creates a new instance of XPontusFormController */
-    public XPontusFormController() {
+    /** Creates a new instance of XPontusFormController
+     * @param args
+     */
+    public XPontusFormController(final String[] args) {
         String i18nfile = "net.sf.xpontus.i18n.application";
 
         L10nHelper.registerLocalizationFile(i18nfile);
@@ -63,7 +74,7 @@ public class XPontusFormController {
 
         ApplicationContext context = new ClassPathXmlApplicationContext(conf);
 
-        XPontusWindow form = XPontusWindow.getInstance();
+        final XPontusWindow form = XPontusWindow.getInstance();
 
         form.setApplicationContext(context);
 
@@ -81,6 +92,20 @@ public class XPontusFormController {
         WindowUtilities.centerOnScreen(form.getFrame());
 
         form.getFrame().setVisible(true);
+
+        SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    if (args.length > 0) {
+                        for (int i = 0; i < args.length; i++) {
+                            File f = new File(args[i]);
+
+                            if (f.exists()) {
+                                form.getPane().createEditorFromFile(f);
+                            }
+                        }
+                    }
+                }
+            });
     }
 
     /**
@@ -114,18 +139,16 @@ public class XPontusFormController {
         String lf = themeProperties.getProperty(look);
 
         if (lf == null) {
-            if (look.equals("Java")) { 
+            if (look.equals("Java")) {
                 lf = UIManager.getCrossPlatformLookAndFeelClassName();
-            } else { 
+            } else {
                 lf = UIManager.getSystemLookAndFeelClassName();
             }
+
             UIManager.setLookAndFeel(lf);
-        }
-        else{
+        } else {
             UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
         }
-
-        
 
         EditorOptionModel em = new EditorOptionModel();
         EditorOptionModel emodel1 = (EditorOptionModel) em.load();
@@ -156,6 +179,6 @@ public class XPontusFormController {
         is.close();
         themeProperties = null;
 
-        new XPontusFormController();
+        new XPontusFormController(argv);
     }
 }

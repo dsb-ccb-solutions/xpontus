@@ -146,8 +146,7 @@ public class PaneForm extends CloseTabbedPane {
             if (index != -1) {
                 if(! ((Action)XPontusWindow.getInstance().getApplicationContext().getBean("action.copy")).isEnabled()){
                     enableDocumentActions(true);
-                }
-//                String t = (String)getCurrentEditor().getClientProperty("FILE_PATH");
+                } 
                 String tip = (String)getCurrentEditor().getClientProperty("FILE_PATH");
                 if (tip == null) {
                     tip = "untitled";
@@ -214,7 +213,8 @@ public class PaneForm extends CloseTabbedPane {
             
             addTab(filename, ic, scrollPane, filename);
             setSelectedIndex(getTabCount()-1);
-            editor.grabFocus();
+            
+            getCurrentEditor().grabFocus();
             untitledCounter++;
         } catch(Exception e){
             e.printStackTrace();
@@ -293,10 +293,10 @@ public class PaneForm extends CloseTabbedPane {
             String tooltip = file.getAbsolutePath();
             ModificationHandler handler = new ModificationHandler(editor);
             
-            addTab(filename, ic, scrollPane, tooltip);
+            addTab(filename, ic, scrollPane, tooltip); 
             
-            setSelectedIndex(getTabCount()-1);
-            editor.grabFocus();
+            setSelectedIndex(getTabCount()-1);            
+            getCurrentEditor().grabFocus();
             handler.setSaved();
         } catch(Exception e){
             e.printStackTrace();
@@ -363,10 +363,11 @@ public class PaneForm extends CloseTabbedPane {
             }
             String filename = "untitled" + untitledCounter;
             String tooltip = "untitled" + untitledCounter;
-            addTab(filename, ic, scrollPane, tooltip);
+            addTab(filename, ic, scrollPane, tooltip); 
+            
             ModificationHandler handler = new ModificationHandler(editor);
             setSelectedIndex(getTabCount()-1);
-            editor.grabFocus();
+           getCurrentEditor().grabFocus();
         } catch(Exception e){
             e.printStackTrace();
         }

@@ -5,7 +5,6 @@
  */
 package net.sf.xpontus.view.tabbedpane;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,7 +13,6 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Stroke;
 
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
