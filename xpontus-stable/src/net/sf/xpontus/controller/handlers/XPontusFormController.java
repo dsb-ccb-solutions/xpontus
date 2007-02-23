@@ -95,7 +95,8 @@ public class XPontusFormController {
 
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    if (args.length > 0) {
+
+                    try{if (args.length > 0) {
                         for (int i = 0; i < args.length; i++) {
                             File f = new File(args[i]);
 
@@ -104,6 +105,8 @@ public class XPontusFormController {
                             }
                         }
                     }
+                    }
+                    catch(Exception err){}
                 }
             });
     }
