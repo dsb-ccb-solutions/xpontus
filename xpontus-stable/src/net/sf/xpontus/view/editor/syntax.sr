@@ -1,4 +1,5 @@
 xml=org.syntax.jedit.tokenmarker.XMLTokenMarker
+xquery=org.syntax.jedit.tokenmarker.XQueryTokenMarker
 jnlp=org.syntax.jedit.tokenmarker.XMLTokenMarker
 fo=org.syntax.jedit.tokenmarker.XMLTokenMarker
 dtd=org.syntax.jedit.tokenmarker.XMLTokenMarker
