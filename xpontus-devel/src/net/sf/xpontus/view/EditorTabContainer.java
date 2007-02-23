@@ -9,6 +9,7 @@
 package net.sf.xpontus.view;
 
 import com.sun.java.help.impl.SwingWorker;
+
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
@@ -16,16 +17,19 @@ import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
 import com.vlsolutions.swing.docking.event.DockableSelectionListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeListener;
+
+import net.sf.xpontus.controller.handlers.ModificationHandler;
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.BeanContainer;
+import net.sf.xpontus.view.editor.SyntaxDocument;
+
 import java.util.Iterator;
 import java.util.Vector;
+
 import javax.swing.Action;
 import javax.swing.JEditorPane;
 import javax.swing.text.Document;
 import javax.swing.tree.DefaultMutableTreeNode;
-import net.sf.xpontus.controller.handlers.ModificationHandler;
-import net.sf.xpontus.view.editor.SyntaxDocument;
 
 
 /**
@@ -37,19 +41,16 @@ import net.sf.xpontus.view.editor.SyntaxDocument;
  * @author mrcheeks
  *
  */
-public class EditorTabContainer
-{
+public class EditorTabContainer {
     private javax.swing.JPopupMenu editorPopup;
     private Vector editors = new Vector();
     private boolean actionsEnabled = false;
     private javax.swing.JPopupMenu popup;
-    private final String[] ACTIONS = 
-        {
+    private final String[] ACTIONS = {
             "action.copy", "action.cut", "action.paste", "action.selectall"
         };
     private BeanContainer applicationContext;
-    private final String[] TEXT_ACTIONS = 
-        {
+    private final String[] TEXT_ACTIONS = {
             "action.print", "action.insertcomment", "action.insertcdatasection",
             "action.save", "action.saveas", "action.spellcheck",
             "action.saveall", "action.closetab", "action.closeothers",
@@ -61,72 +62,59 @@ public class EditorTabContainer
         };
     private DockingDesktop desktop;
     private JEditorPane currentEditor;
-private Dockable currentDockable;
+    private Dockable currentDockable;
 
-    public Dockable getCurrentDockable(){
-        return currentDockable;
-    }
     /** Creates a new instance of EditorTabContainer */
-    public EditorTabContainer()
-    {
+    public EditorTabContainer() {
         popup = new javax.swing.JPopupMenu();
         editorPopup = new javax.swing.JPopupMenu();
         desktop = XPontusWindow.getInstance().getDockingDesktop();
 
-        desktop.addDockableSelectionListener(new DockableSelectionListener()
-            {
-                public void selectionChanged(DockableSelectionEvent e)
-                {
+        desktop.addDockableSelectionListener(new DockableSelectionListener() {
+                public void selectionChanged(DockableSelectionEvent e) {
                     Dockable selectedDockable = e.getSelectedDockable();
 
-                    if (selectedDockable instanceof EditorContainer)
-                    {
+                    if (selectedDockable instanceof EditorContainer) {
                         EditorContainer container = (EditorContainer) selectedDockable;
                         currentDockable = selectedDockable;
-                        
+
                         currentEditor = container.getEditorComponent();
 
                         Document doc = currentEditor.getDocument();
                         Object outlineData = doc.getProperty("OUTLINE_DATA");
 
-                         XPontusWindow.getInstance()
-                                                                          .getOutlineDockable()
-                                                                          .getRootNode().removeAllChildren();
-                         
-                        if (outlineData != null)
-                        {
+                        XPontusWindow.getInstance().getOutlineDockable()
+                                     .getRootNode().removeAllChildren();
+
+                        if (outlineData != null) {
                             DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) outlineData;
                             DefaultMutableTreeNode oldNode = XPontusWindow.getInstance()
                                                                           .getOutlineDockable()
                                                                           .getRootNode();
                             oldNode.add(rootNode);
                         }
-                           
-                             XPontusWindow.getInstance().getOutlineDockable()
-                                         .updateAll(); 
+
+                        XPontusWindow.getInstance().getOutlineDockable()
+                                     .updateAll();
                     }
                 }
             });
-        desktop.addDockableStateWillChangeListener(new DockableStateWillChangeListener()
-            {
+        desktop.addDockableStateWillChangeListener(new DockableStateWillChangeListener() {
                 public void dockableStateWillChange(
-                    DockableStateWillChangeEvent event)
-                {
+                    DockableStateWillChangeEvent event) {
                     DockableState current = event.getCurrentState();
 
                     if ((current != null) &&
                             (current.getDockable() instanceof EditorContainer) &&
-                            event.getFutureState().isClosed())
-                    {
+                            event.getFutureState().isClosed()) {
                         EditorContainer editor = (EditorContainer) current.getDockable();
 
-                        if (editors.size() == 1)
-                        {
+                        if (editors.size() == 1) {
                             editor.getDockKey()
                                   .setDockableState(DockableState.STATE_CLOSED);
 
                             PaneForm pane = XPontusWindow.getInstance().getPane();
- 
+
                             desktop.replace(editor, pane);
 
                             pane.getDockKey()
@@ -138,25 +126,35 @@ private Dockable currentDockable;
                                          .getRootNode().removeAllChildren();
                             XPontusWindow.getInstance().getOutlineDockable()
                                          .updateAll();
-                        }
-                        else
-                        {
+                        } else {
                             editors.remove(editor);
                         }
 
                         currentDockable = null;
                         currentEditor = null;
+                    } else if ((current != null) &&
+                            (current.getDockable() instanceof OutlineViewDockable) &&
+                            event.getFutureState().isClosed()) {
+                        XPontusWindow.getInstance().getViewOutlineItem()
+                                     .setSelected(false);
+                    } else if ((current != null) &&
+                            (current.getDockable() instanceof ConsoleOutputWindow) &&
+                            event.getFutureState().isClosed()) {
+                        XPontusWindow.getInstance().getViewConsoleItem()
+                                     .setSelected(false);
                     }
                 }
             });
     }
 
-    private void createEditorPopup()
-    {
+    public Dockable getCurrentDockable() {
+        return currentDockable;
+    }
+
+    private void createEditorPopup() {
         popup = new javax.swing.JPopupMenu();
 
-        for (int i = 0; i < ACTIONS.length; i++)
-        {
+        for (int i = 0; i < ACTIONS.length; i++) {
             popup.add((Action) this.applicationContext.getBean(ACTIONS[i]));
         }
     }
@@ -164,23 +162,19 @@ private Dockable currentDockable;
     /**
      * @return
      */
-    public Iterator getEditorsIterator()
-    {
+    public Iterator getEditorsIterator() {
         return editors.iterator();
     }
 
     /**
     * @return
     */
-    public Vector getEditorsVector()
-    {
+    public Vector getEditorsVector() {
         return editors;
     }
 
-    private void configureEditorPopup()
-    {
-        for (int i = 0; i < ACTIONS.length; i++)
-        {
+    private void configureEditorPopup() {
+        for (int i = 0; i < ACTIONS.length; i++) {
             editorPopup.add((Action) applicationContext.getBean(ACTIONS[i]));
         }
     }
@@ -188,15 +182,13 @@ private Dockable currentDockable;
     /**
      * @param editor
      */
-    public void setupEditor(EditorContainer editor)
-    {
-        SyntaxDocument doc = ((SyntaxDocument)editor.getEditorComponent().getDocument());
-        
-        if (editors.size() == 0)
-        {
-            
-            
+    public void setupEditor(EditorContainer editor) {
+        SyntaxDocument doc = ((SyntaxDocument) editor.getEditorComponent()
+                                                     .getDocument());
+
+        if (editors.size() == 0) {
             doc.setLoading(true);
+
             PaneForm pane = XPontusWindow.getInstance().getPane();
 
             System.out.println("pane is not null:" + (pane != null));
@@ -206,14 +198,11 @@ private Dockable currentDockable;
             desk.registerDockable(editor);
 
             desk.replace(pane, editor);
-//            desk.r
-
+            //            desk.r
             editor.getDockKey().setDockableState(DockableState.STATE_DOCKED);
 
             editor.getEditorComponent().requestFocusInWindow();
-        }
-        else
-        {
+        } else {
             DockingDesktop desk = XPontusWindow.getInstance().getDockingDesktop();
 
             final int last = editors.size() - 1;
@@ -223,29 +212,22 @@ private Dockable currentDockable;
 
         editors.add(editor);
 
-        if (!actionsEnabled)
-        {
+        if (!actionsEnabled) {
             enableDocumentActions(true);
         }
 
-        currentEditor = editor.getEditorComponent(); 
+        currentEditor = editor.getEditorComponent();
         currentDockable = editor;
         currentEditor.addMouseListener(new PopupListener(popup));
         doc.setLoading(false);
-        
-        
-        XPontusWindow.getInstance().configureDragAndDrop(currentEditor);
-        
 
-        
-        
+        XPontusWindow.getInstance().configureDragAndDrop(currentEditor);
     }
 
     /**
      * @param file
      */
-    public void createEditorFromFile(java.io.File file)
-    {
+    public void createEditorFromFile(java.io.File file) {
         EditorContainer container = new EditorContainer();
         container.setup(file);
         container.completeSetup();
@@ -255,8 +237,7 @@ private Dockable currentDockable;
     /**
      * @param url
      */
-    public void createEditorFromURL(java.net.URL url)
-    {
+    public void createEditorFromURL(java.net.URL url) {
         EditorContainer container = new EditorContainer();
         container.setup(url);
         container.completeSetup();
@@ -268,8 +249,7 @@ private Dockable currentDockable;
      * @param is
      * @param tk
      */
-    public void createEditorFromStream(java.io.InputStream is, String ext)
-    {
+    public void createEditorFromStream(java.io.InputStream is, String ext) {
         EditorContainer container = new EditorContainer();
         container.setup(is, ext, null);
         container.completeSetup();
@@ -280,16 +260,12 @@ private Dockable currentDockable;
      *
      * @param b
      */
-    public void enableDocumentActions(final boolean b)
-    {
+    public void enableDocumentActions(final boolean b) {
         actionsEnabled = b;
 
-        final SwingWorker worker = new SwingWorker()
-            {
-                public Object construct()
-                {
-                    for (int i = 0; i < TEXT_ACTIONS.length; i++)
-                    {
+        final SwingWorker worker = new SwingWorker() {
+                public Object construct() {
+                    for (int i = 0; i < TEXT_ACTIONS.length; i++) {
                         ((Action) applicationContext.getBean(TEXT_ACTIONS[i])).setEnabled(b);
                     }
 
@@ -304,8 +280,7 @@ private Dockable currentDockable;
      *
      * @return
      */
-    public final BeanContainer getApplicationContext()
-    {
+    public final BeanContainer getApplicationContext() {
         return applicationContext;
     }
 
@@ -314,15 +289,13 @@ private Dockable currentDockable;
      *
      * @param applicationContext
      */
-    public final void setApplicationContext(BeanContainer applicationContext)
-    {
+    public final void setApplicationContext(BeanContainer applicationContext) {
         this.applicationContext = applicationContext;
         enableDocumentActions(false);
         createEditorPopup();
     }
 
-    public JEditorPane getCurrentEditor()
-    {
+    public JEditorPane getCurrentEditor() {
         return currentEditor;
     }
 }
