@@ -32,6 +32,7 @@ import java.io.Reader;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
+import javax.swing.JEditorPane;
 import javax.swing.KeyStroke;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
@@ -157,7 +158,7 @@ public class PaneForm extends CloseTabbedPane {
                     JStatusBar st = (JStatusBar)XPontusWindow.getInstance().getStatusbar();
                     st.setMessageWithTip(tip);
                 }
-                
+                getCurrentEditor().grabFocus();
                 
                 
             } else{
@@ -215,6 +216,7 @@ public class PaneForm extends CloseTabbedPane {
             setSelectedIndex(getTabCount()-1);
             
             getCurrentEditor().grabFocus();
+            configureEditor(editor);
             untitledCounter++;
         } catch(Exception e){
             e.printStackTrace();
@@ -222,6 +224,9 @@ public class PaneForm extends CloseTabbedPane {
         
     }
     
+    private void configureEditor(JEditorPane editor){
+        XPontusWindow.getInstance().configureDragAndDrop(editor);
+    }
     /**
      *
      * @param file
@@ -295,7 +300,8 @@ public class PaneForm extends CloseTabbedPane {
             
             addTab(filename, ic, scrollPane, tooltip); 
             
-            setSelectedIndex(getTabCount()-1);            
+            setSelectedIndex(getTabCount()-1);           
+            configureEditor(editor);
             getCurrentEditor().grabFocus();
             handler.setSaved();
         } catch(Exception e){
@@ -368,6 +374,7 @@ public class PaneForm extends CloseTabbedPane {
             ModificationHandler handler = new ModificationHandler(editor);
             setSelectedIndex(getTabCount()-1);
            getCurrentEditor().grabFocus();
+           configureEditor(editor);
         } catch(Exception e){
             e.printStackTrace();
         }

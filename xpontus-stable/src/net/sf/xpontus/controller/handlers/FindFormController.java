@@ -26,6 +26,8 @@ import net.sf.xpontus.utils.MsgUtils;
 import net.sf.xpontus.view.SearchFormView;
 import net.sf.xpontus.view.XPontusWindow;
 
+import java.awt.Toolkit;
+
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
@@ -140,6 +142,8 @@ public class FindFormController extends BaseController {
                 edit.moveCaretPosition(counter + len);
                 found = true;
 
+                Toolkit.getDefaultToolkit().beep();
+
                 return found;
             }
         }
@@ -149,6 +153,8 @@ public class FindFormController extends BaseController {
                                                                    .getFrame(),
                 MsgUtils.getInstance().getString("msg.textNotFound"));
         }
+
+        Toolkit.getDefaultToolkit().beep();
 
         return found;
     }

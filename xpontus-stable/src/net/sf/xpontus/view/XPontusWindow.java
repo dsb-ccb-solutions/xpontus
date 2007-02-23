@@ -17,6 +17,18 @@ import com.vlsolutions.swing.toolbars.ToolBarPanel;
 import com.vlsolutions.swing.toolbars.VLToolBar;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -28,6 +40,7 @@ import net.sf.xpontus.core.utils.L10nHelper;
 import net.sf.xpontus.core.utils.WindowUtilities;
 import net.sf.xpontus.model.options.GeneralOptionModel;
 import net.sf.xpontus.view.components.JStatusBar;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
@@ -60,17 +73,17 @@ public class XPontusWindow implements ApplicationContextAware{
     }
     
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public DockingDesktop getDesktop(){
         return desk;
     }
     
     /**
-     * 
+     *
      */
-    public void initDock(){ 
+    public void initDock(){
         desk.addDockable((DockablePaneForm)pane);
         desk.split((DockablePaneForm)pane, (DockableMessageWindow)scrollPane, DockingConstants.SPLIT_BOTTOM);
         frame.getContentPane().add(desk, BorderLayout.CENTER);
@@ -166,6 +179,114 @@ public class XPontusWindow implements ApplicationContextAware{
         
         
         createMessagesPopupListener();
+        
+        configureDragAndDrop(this.pane);
+        configureDragAndDrop(this.frame);
+        
+    }
+    
+    public void configureDragAndDrop(Component component){
+        new DropTarget(component, new DropTargetAdapter() {
+            public void drop(DropTargetDropEvent e) {
+                try {
+                    Transferable t = e.getTransferable();
+                    e.acceptDrop(e.getDropAction());
+                    
+                    DataFlavor []flavors = e.getCurrentDataFlavors();
+                    URL fileURL = null;
+                    java.util.List fileList = null;
+                    String  dndString = null;
+                    DataFlavor urlFlavor = null;
+                    DataFlavor listFlavor = null;
+                    DataFlavor stringFlavor = null;
+                    if(flavors != null){
+                        for(int i = 0; i < flavors.length; i++){
+                            // System.out.println(flavors[i]);
+                            if(flavors[i].getRepresentationClass() == java.net.URL.class){
+                                urlFlavor = flavors[i];
+                            }else if(flavors[i].getRepresentationClass() == java.util.List.class){
+                                listFlavor = flavors[i];
+                            }else if(flavors[i].getRepresentationClass() == java.lang.String.class){
+                                stringFlavor = flavors[i];
+                            }
+                        }
+                    }else{
+                        System.out.println("flavors == null");
+                        return;
+                    }
+                    if(stringFlavor != null){
+                        try{
+                            Object obj = e.getTransferable().getTransferData(stringFlavor);
+                            if(obj instanceof String){
+                                dndString = (String)obj;
+                            }
+                        }catch(Throwable tr){
+                        }
+                        if(dndString != null) {
+                            StringReader reader = new StringReader(dndString.trim());
+                            BufferedReader mReader = new BufferedReader(reader);
+                            
+                            String line = null;
+                            
+                            while( (line = mReader.readLine())!=null){
+                                URL url = new URL(line.trim());
+                                System.out.println("String");
+                                if(url.getProtocol().equals("file")){
+                                    ((DockablePaneForm)pane).createEditorFromFile(new File(url.getPath()));
+                                } else{
+                                    ((DockablePaneForm)pane).createEditorFromStream(url.openStream(), FilenameUtils.getExtension(dndString));
+                                }
+                            }
+                            
+                        }
+                    }
+                    try{
+                        Object obj = e.getTransferable().getTransferData(urlFlavor);
+                        if(obj instanceof URL){
+                            fileURL = (URL)obj;
+                        }
+                    }catch(Throwable tr){
+                    }
+                    if(fileURL != null) {
+                        URL url = fileURL;
+                        System.out.println("file");
+                        ((DockablePaneForm)pane).createEditorFromStream(url.openStream(), FilenameUtils.getExtension(dndString));
+                    }
+                    
+                    try{
+                        Object obj = e.getTransferable().getTransferData(listFlavor);
+                        if(obj instanceof java.util.List){
+                            fileList = (java.util.List)obj;
+                        }
+                    }catch(Throwable tr){
+                    }
+                    if(fileList != null){
+                        Iterator it = fileList.iterator();
+                        while(it.hasNext()){
+                            Object file = it.next();
+                            if(file instanceof File){
+                                ((DockablePaneForm)pane).createEditorFromFile((File)file);
+                            }
+                        }
+                    }
+                    try{
+                        e.dropComplete(true);
+                    }catch(Throwable tr){
+                        System.out.println("???? "+t);
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                } catch (Exception ex) {
+                    //                    ex.printStackTrace();
+                }
+            }
+        }
+        
+        );
     }
     
     private void createMessagesPopupListener() {
@@ -381,13 +502,13 @@ public class XPontusWindow implements ApplicationContextAware{
     }
     
     /**
-     * 
+     *
      */
     public class DockablePaneForm extends PaneForm implements Dockable {
         DockKey key = new DockKey("  ");
         
         /**
-         * 
+         *
          */
         public DockablePaneForm() {
             key.setCloseEnabled(false);
@@ -434,9 +555,9 @@ public class XPontusWindow implements ApplicationContextAware{
     
     
     /**
-     * 
-     * @param key 
-     * @return 
+     *
+     * @param key
+     * @return
      */
     public String getI18nMessage(String key){
         MessageSource src = (MessageSource)applicationContext.getBean("messageSource");

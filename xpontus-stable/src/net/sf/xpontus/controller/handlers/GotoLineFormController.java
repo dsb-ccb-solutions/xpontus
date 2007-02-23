@@ -26,6 +26,8 @@ import net.sf.xpontus.utils.MsgUtils;
 import net.sf.xpontus.view.GotoLineFormView;
 import net.sf.xpontus.view.XPontusWindow;
 
+import java.awt.Toolkit;
+
 import javax.swing.text.Element;
 
 
@@ -87,6 +89,7 @@ public class GotoLineFormController extends BaseController {
                                                                    .getFrame(),
                 _msg.getString("msg.noSuchLine"), _msg.getString("msg.error"),
                 javax.swing.JOptionPane.WARNING_MESSAGE);
+            Toolkit.getDefaultToolkit().beep();
 
             return;
         }
@@ -95,5 +98,6 @@ public class GotoLineFormController extends BaseController {
 
         int pos = element.getElement(lineNumber - 1).getStartOffset();
         edit.setCaretPosition(pos);
+        Toolkit.getDefaultToolkit().beep();
     }
 }
