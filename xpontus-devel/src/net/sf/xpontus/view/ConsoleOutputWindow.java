@@ -14,11 +14,14 @@ import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
+
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.MessageProvider;
 import net.sf.xpontus.utils.JTextComponentPrintStream;
+
 import java.awt.Component;
 import java.awt.Dimension;
+
 import javax.swing.AbstractAction;
 import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
@@ -38,34 +41,36 @@ import javax.swing.text.JTextComponent;
  *
  * @author mrcheeks
  */
-public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
-{
+public class ConsoleOutputWindow extends DockTabbedPane implements Dockable {
     static private final long serialVersionUID = -3334686130847823494L;
+
     /**
-     * 
+     *
      */
     static public final int MESSAGES_WINDOW = 0;
+
     /**
-     * 
+     *
      */
     static public final int ERRORS_WINDOW = 1;
+
     /**
-     * 
+     *
      */
     static public final int XPATH_WINDOW = 2;
-    
-    private final DockKey outputKey = new DockKey("Output"); 
+    private final DockKey outputKey = new DockKey("Output");
     private DockGroup group = new DockGroup("outputWindow");
+
     /**
-     * 
+     *
      */
     public JTextArea[] textboxes = new JTextArea[2];
     private JTextComponentPrintStream[] printers = new JTextComponentPrintStream[2];
+
     /**
-     * 
+     *
      */
-    public String[] titles = 
-        {
+    public String[] titles = {
             MessageProvider.getinstance().getMessage("console.messages.key"),
             MessageProvider.getinstance().getMessage("console.errors.key"),
             MessageProvider.getinstance().getMessage("console.xpath.key")
@@ -73,59 +78,51 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
     private JTable xpathResultsTable;
 
     /** Creates a new instance of OutputWindow */
-    public ConsoleOutputWindow()
-    {
-       
+    public ConsoleOutputWindow() {
         // outputKey.setDockGroup(group);
         outputKey.setResizeWeight(0.2f);
-//        outputKey.setCloseEnabled(false);
+
+        //        outputKey.setCloseEnabled(false);
         Dimension dim = new Dimension(600, 150);
         this.setMinimumSize(dim);
         this.setPreferredSize(dim);
         initComponents();
     }
- 
 
     /**
      * @param model
      */
-    public void setResultsModel(TableModel model)
-    {
+    public void setResultsModel(TableModel model) {
         xpathResultsTable.setModel(model);
         xpathResultsTable.revalidate();
         xpathResultsTable.repaint();
     }
 
     /**
-     * 
-     * @param id 
-     * @return 
+     *
+     * @param id
+     * @return
      */
-    public JTextComponentPrintStream getPrinter(int id)
-    {
+    public JTextComponentPrintStream getPrinter(int id) {
         return printers[id];
     }
 
     /**
      *
      */
-    private void initComponents()
-    {
+    private void initComponents() {
         DockingDesktop desktop = XPontusWindow.getInstance().getDockingDesktop();
         this.installDocking(desktop);
         this.getDockKey().setDockableState(DockableState.STATE_DOCKED);
-        
+
         xpathResultsTable = new JTable();
         xpathResultsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         xpathResultsTable.getSelectionModel()
                          .addListSelectionListener(new RowSelectionListener());
 
-        for (int i = 0; i < 2; i++)
-        {
-            textboxes[i] = new JTextArea()
-                    {
-                        public void append(String str)
-                        {
+        for (int i = 0; i < 2; i++) {
+            textboxes[i] = new JTextArea() {
+                        public void append(String str) {
                             super.append(str);
                             setCaretPosition(getDocument().getLength());
                         }
@@ -133,26 +130,27 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
             printers[i] = new JTextComponentPrintStream(textboxes[i]);
             textboxes[i].setEditable(false);
             textboxes[i].setLineWrap(true);
-            createMessagesPopupListener(textboxes[i]); 
+            createMessagesPopupListener(textboxes[i]);
             this.addTab(titles[i], new JScrollPane(textboxes[i]));
-//            this.addDockable(new OutputDockable( (""  + i), new JScrollPane(textboxes[i])), i);
-//            desktop.registerDockable(this.getDockableAt(i));
-//            this.getDockableAt(i).getDockKey().setDockableState(DockableState.STATE_DOCKED);
-            
-//             System.out.println("state:" + DockableState.getStateName(this.getDockableAt(i).getDockKey().getDockableState()));
-        } 
-//          this.addDockable(new OutputDockable( (""  + 2), new JScrollPane(xpathResultsTable)), 2);
-//           desktop.registerDockable(this.getDockableAt(2));
-           
-//          this.getDockableAt(2).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+
+            //            this.addDockable(new OutputDockable( (""  + i), new JScrollPane(textboxes[i])), i);
+            //            desktop.registerDockable(this.getDockableAt(i));
+            //            this.getDockableAt(i).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+
+            //             System.out.println("state:" + DockableState.getStateName(this.getDockableAt(i).getDockKey().getDockableState()));
+        }
+
+        //          this.addDockable(new OutputDockable( (""  + 2), new JScrollPane(xpathResultsTable)), 2);
+        //           desktop.registerDockable(this.getDockableAt(2));
+
+        //          this.getDockableAt(2).getDockKey().setDockableState(DockableState.STATE_DOCKED);
         this.addTab(titles[2], new JScrollPane(xpathResultsTable));
     }
 
     /**
      * @param messagesTA
      */
-    private void createMessagesPopupListener(final JTextComponent messagesTA)
-    {
+    private void createMessagesPopupListener(final JTextComponent messagesTA) {
         javax.swing.JPopupMenu popup = new javax.swing.JPopupMenu();
         javax.swing.Action action;
         javax.swing.ActionMap map = messagesTA.getActionMap();
@@ -169,10 +167,8 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
 
         XPontusWindow form = XPontusWindow.getInstance();
         String clearKey = form.getI18nMessage("clear.key");
-        action = new AbstractAction(clearKey)
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+        action = new AbstractAction(clearKey) {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         messagesTA.setText("");
                     }
                 };
@@ -185,8 +181,7 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
     /**
      * @param i
      */
-    public void setFocus(int i)
-    {
+    public void setFocus(int i) {
         this.setSelectedIndex(i);
     }
 
@@ -194,66 +189,58 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
      * @param textBoxId
      * @param msg
      */
-    public void println(int textBoxId, String msg)
-    {
+    public void println(int textBoxId, String msg) {
         printers[textBoxId].println(msg);
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public DockKey getDockKey()
-    {
+    public DockKey getDockKey() {
         return outputKey;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public Component getComponent()
-    {
+    public Component getComponent() {
         return this;
     }
 
-   class OutputDockable implements Dockable{
-       
+    class OutputDockable implements Dockable {
         private Component comp;
         private String key;
-        
-        public OutputDockable(String key, Component comp){
+
+        public OutputDockable(String key, Component comp) {
             this.key = key;
             this.comp = comp;
         }
+
         public DockKey getDockKey() {
-         return new DockKey(key);
+            return new DockKey(key);
         }
 
         public Component getComponent() {
             return comp;
         }
-}
+    }
 
-    private class RowSelectionListener implements ListSelectionListener
-    {
-        public void valueChanged(ListSelectionEvent e)
-        {
+    private class RowSelectionListener implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) {
             // Ignore extra messages.
-            if (e.getValueIsAdjusting())
-            {
+            if (e.getValueIsAdjusting()) {
                 return;
             }
 
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 
-            if (!lsm.isSelectionEmpty())
-            {
+            if (!lsm.isSelectionEmpty()) {
                 int selectedRow = lsm.getMinSelectionIndex();
                 String s = null;
 
-                for (int i = 0; i < xpathResultsTable.getColumnCount(); i++)
-                {
+                for (int i = 0; i < xpathResultsTable.getColumnCount(); i++) {
                     s = (xpathResultsTable.getValueAt(selectedRow, i)).toString();
 
                     String line = s.split(",")[0];
@@ -269,14 +256,12 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
         /**
          * @param lineNumber
          */
-        private void gotoLine(int lineNumber)
-        {
+        private void gotoLine(int lineNumber) {
             JEditorPane edit = XPontusWindow.getInstance().getCurrentEditor();
-            edit.grabFocus();
+
             Element element = edit.getDocument().getDefaultRootElement();
 
-            if (element.getElement(lineNumber - 1) == null)
-            {
+            if (element.getElement(lineNumber - 1) == null) {
                 JOptionPane.showMessageDialog(XPontusWindow.getInstance()
                                                            .getFrame(),
                     XPontusWindow.getInstance().getI18nMessage("msg.noSuchLine"),
@@ -287,9 +272,12 @@ public class ConsoleOutputWindow extends DockTabbedPane implements Dockable
             }
 
             int pos = element.getElement(lineNumber - 1).getStartOffset();
+            Element lineElement = element.getElement(lineNumber - 1);
+            int position = lineElement.getEndOffset() - 1;
+            edit.requestFocus();
+            edit.grabFocus();
             edit.setCaretPosition(pos);
-            edit.moveCaretPosition(element.getElement(lineNumber - 1)
-                                          .getEndOffset() - 1);
+            edit.moveCaretPosition(position);
         }
     }
 }

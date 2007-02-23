@@ -23,6 +23,7 @@
 package net.sf.xpontus.view;
 
 import com.sun.java.help.impl.SwingWorker;
+import com.sun.msv.verifier.ValidityViolation;
 import java.io.StringReader;
 import org.iso_relax.verifier.Schema;
 import org.iso_relax.verifier.Verifier;
@@ -233,8 +234,6 @@ public class SchemaValidationView extends javax.swing.JDialog {
         
         return valid;
     }
-    
-    
     public void validateSchema(){
         // create a RELAX NG validator
         try {
@@ -258,18 +257,31 @@ public class SchemaValidationView extends javax.swing.JDialog {
                 src = new InputSource(new java.io.FileInputStream(xmlFile));
             }
             
-            Verifier verifier = schema.newVerifier();
-            verifier.verify(src);
-            javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
-            .getFrame(),
-                    "The document is valid");
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(XPontusWindow.getInstance()
-            .getFrame(),
-                    "The document is invalid");
-            XPontusWindow.getInstance().append(ConsoleOutputWindow.ERRORS_WINDOW, e.getMessage());
+            Verifier verifier = schema.newVerifier(); 
+            boolean b = verifier.verify(src);
+             
+            
+            if(b){                
+                XPontusWindow.getInstance().getStatusBar().setOperationMessage("The document is valid!");
+            } 
+        } 
+        catch(ValidityViolation e){
+            XPontusWindow.getInstance().getStatusBar().setOperationMessage("The document is invalid!");
+            StringBuffer msg = new StringBuffer();
+            msg.append("The document is invalid!");
+            msg.append("\n Error at line : " + e.getLineNumber() + ",column:" + e.getColumnNumber());
+            msg.append("\n" + e.getMessage()); 
+            XPontusWindow.getInstance().getConsole().setFocus(ConsoleOutputWindow.ERRORS_WINDOW);
+              XPontusWindow.getInstance().append(ConsoleOutputWindow.ERRORS_WINDOW, msg.toString());
+            
+            
+        }
+        catch (Exception e) {
+            XPontusWindow.getInstance().getConsole().setFocus(ConsoleOutputWindow.ERRORS_WINDOW);
+           XPontusWindow.getInstance().append(ConsoleOutputWindow.ERRORS_WINDOW, e.getMessage());
         }
     }
+     
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

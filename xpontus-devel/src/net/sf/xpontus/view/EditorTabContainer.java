@@ -233,11 +233,10 @@ private Dockable currentDockable;
         currentEditor.addMouseListener(new PopupListener(popup));
         doc.setLoading(false);
         
-//        if(doc.isCodeCompletion()){
-            
-//            ModificationHandler handler = (ModificationHandler) doc.getDocumentListeners()[0];
-//           handler.parseDocument();
-//        }
+        
+        XPontusWindow.getInstance().configureDragAndDrop(currentEditor);
+        
+
         
         
     }

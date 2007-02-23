@@ -22,6 +22,7 @@
  */
 package net.sf.xpontus.controller.handlers;
 
+import javax.swing.text.PlainDocument;
 import net.sf.xpontus.view.TextPosition;
 import net.sf.xpontus.view.XMLOutlineBuilder;
 import net.sf.xpontus.view.XPontusWindow;
@@ -119,8 +120,9 @@ public class ModificationHandler implements DocumentListener, CaretListener {
     public void parseDocument() {
         Thread t = new Thread() {
                 public void run() {
-                    builder.init(editor.getDocument());
-                    builder.updateOutline(editor.getDocument());
+                    PlainDocument pd = (PlainDocument)editor.getDocument();
+                    builder.init(pd);
+                    builder.updateOutline(pd);
                 }
             };
 

@@ -29,25 +29,26 @@ import net.sf.xpontus.view.XPontusWindow;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.File;
+
+import javax.swing.SwingUtilities;
+
 
 /**
  * Main controller/Launcher of the application
  * @author Yves Zoundi
  */
-public class XPontusFormController
-  {
+public class XPontusFormController {
     private static String theme = null;
     private static Log logger = LogFactory.getLog(XPontusFormController.class);
 
-    static
-      {
+    static {
         System.setProperty("org.xml.sax.driver",
             "org.apache.xerces.parsers.SAXParser");
-      }
+    }
 
     /** Creates a new instance of XPontusFormController */
-    public XPontusFormController()
-      {
+    public XPontusFormController(final String[] args) {
         ConfigurationHandler.init();
 
         String conf = "/net/sf/xpontus/conf/xpontus.properties";
@@ -67,7 +68,7 @@ public class XPontusFormController
         form.initActions();
 
         form.getTabContainer().setApplicationContext(ctx);
-        
+
         form.getFrame().setTitle("XPontus XML Editor 1.0.0RC2");
 
         //        new XPontusPluginLoader().boot();
@@ -80,14 +81,30 @@ public class XPontusFormController
         WindowUtilities.centerOnScreen(form.getFrame());
 
         form.getFrame().setVisible(true);
-      }
+        SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    try {
+                        if (args.length > 0) {
+                            for (int i = 0; i < args.length; i++) {
+                                File f = new File(args[i]);
+
+                                if (f.exists()) {
+                                    XPontusWindow.getInstance().getTabContainer()
+                                                 .createEditorFromFile(f);
+                                }
+                            }
+                        }
+                    } catch (Exception err) {
+                    }
+                }
+            });
+    }
 
     /**
      * Main method of the class
      * @param argv Command line arguments
      */
-    public static void main(String[] argv) throws Exception
-      {
-        new XPontusFormController();
-      }
-  }
+    public static void main(String[] argv) throws Exception {
+        new XPontusFormController(argv);
+    }
+}

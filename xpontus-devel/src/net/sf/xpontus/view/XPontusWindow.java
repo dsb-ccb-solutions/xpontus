@@ -17,29 +17,28 @@ import net.sf.xpontus.core.utils.BeanContainer;
 import net.sf.xpontus.core.utils.MessageProvider;
 import net.sf.xpontus.core.utils.WindowUtilities;
 import net.sf.xpontus.view.components.JStatusBar;
-
-import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionListener;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.StringReader;
+import java.net.URL;
 
 import java.util.Hashtable;
+import java.util.Iterator;
 
 import javax.swing.*;
 import javax.swing.Action;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
@@ -58,6 +57,7 @@ public class XPontusWindow {
     private BeanContainer applicationContext;
     private DockingDesktop desk = new DockingDesktop();
     private JMenu editMenu;
+    private JMenu viewMenu;
     private JMenu fileMenu;
     private JMenu formatMenu;
     private JFrame frame;
@@ -133,14 +133,14 @@ public class XPontusWindow {
         desk.registerDockable(console);
         desk.split(pane, outlineDockable, DockingConstants.SPLIT_LEFT);
         desk.split(pane, console, DockingConstants.SPLIT_BOTTOM);
-        
-//        desk.registerDockable(console.getDockableAt(0));
-//        desk.registerDockable(console.getDockableAt(1));
-//        desk.registerDockable(console.getDockableAt(2));
-//        console.getDockableAt(0).getDockKey().setDockableState(DockableState.STATE_DOCKED);
-//        console.getDockableAt(1).getDockKey().setDockableState(DockableState.STATE_DOCKED);
-//        console.getDockableAt(2).getDockKey().setDockableState(DockableState.STATE_DOCKED);
-//        for(int i=0;i<pane.)
+
+        //        desk.registerDockable(console.getDockableAt(0));
+        //        desk.registerDockable(console.getDockableAt(1));
+        //        desk.registerDockable(console.getDockableAt(2));
+        //        console.getDockableAt(0).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+        //        console.getDockableAt(1).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+        //        console.getDockableAt(2).getDockKey().setDockableState(DockableState.STATE_DOCKED);
+        //        for(int i=0;i<pane.)
 
         //        for (int i = 1; i < 3; i++) {
         //        	desk.registerDockable(console.getDockables()[i-1]);
@@ -175,6 +175,7 @@ public class XPontusWindow {
      */
     public void initActions() {
         configureMenu(fileMenu, XPontusConstants.fileActions);
+
         configureMenu(editMenu, XPontusConstants.editActions);
         configureMenu(helpMenu, XPontusConstants.helpActions);
         configureMenu(formatMenu, XPontusConstants.formatActions);
@@ -330,6 +331,17 @@ public class XPontusWindow {
         fileMenu.setText(getI18nMessage("menu.file.name"));
         menubar.add(fileMenu);
 
+        viewMenu = new JMenu("View");
+
+        JCheckBoxMenuItem viewConsole = new JCheckBoxMenuItem("Output", true);
+        JCheckBoxMenuItem viewOutline = new JCheckBoxMenuItem("Outline", true);
+        ActionListener listener = new ManageDockableAction();
+        viewConsole.addActionListener(listener);
+        viewOutline.addActionListener(listener);
+        this.menubar.add(viewMenu);
+        viewMenu.add(viewConsole);
+        viewMenu.add(viewOutline);
+
         editMenu.setText(getI18nMessage("menu.edit.name"));
         menubar.add(editMenu);
 
@@ -343,9 +355,114 @@ public class XPontusWindow {
         menubar.add(helpMenu);
 
         frame.setJMenuBar(menubar);
-
-        // pane.setMinimumSize(new java.awt.Dimension(500, 350));
-        // pane.setPreferredSize(new java.awt.Dimension(500, 350));
+        
+        configureDragAndDrop(this.pane);
+//        configureDragAnddrop(this.getTabContainer());
+        configureDragAndDrop(this.frame);
+    }
+    
+    public void configureDragAndDrop(Component component){
+        new DropTarget(component, new DropTargetAdapter() {
+            public void drop(DropTargetDropEvent e) {
+                try {
+                    Transferable t = e.getTransferable();
+                    e.acceptDrop(e.getDropAction());
+                    
+                    DataFlavor []flavors = e.getCurrentDataFlavors();
+                    URL fileURL = null;
+                    java.util.List fileList = null;
+                    String  dndString = null;
+                    DataFlavor urlFlavor = null;
+                    DataFlavor listFlavor = null;
+                    DataFlavor stringFlavor = null;
+                    if(flavors != null){
+                        for(int i = 0; i < flavors.length; i++){
+                            // System.out.println(flavors[i]);
+                            if(flavors[i].getRepresentationClass() == java.net.URL.class){
+                                urlFlavor = flavors[i];
+                            }else if(flavors[i].getRepresentationClass() == java.util.List.class){
+                                listFlavor = flavors[i];
+                            }else if(flavors[i].getRepresentationClass() == java.lang.String.class){
+                                stringFlavor = flavors[i];
+                            }
+                        }
+                    }else{
+                        System.out.println("flavors == null");
+                        return;
+                    }
+                    if(stringFlavor != null){
+                        try{
+                            Object obj = e.getTransferable().getTransferData(stringFlavor);
+                            if(obj instanceof String){
+                                dndString = (String)obj;
+                            }
+                        }catch(Throwable tr){
+                        }
+                        if(dndString != null) {
+                            StringReader reader = new StringReader(dndString.trim());
+                            BufferedReader mReader = new BufferedReader(reader);
+                            
+                            String line = null;
+                            
+                            while( (line = mReader.readLine())!=null){
+                                URL url = new URL(line.trim());
+                                System.out.println("String");
+                                if(url.getProtocol().equals("file")){
+                                     getTabContainer().createEditorFromFile(new File(url.getPath()));
+                                } else{
+                                    getTabContainer().createEditorFromURL(url );
+                                }
+                            }
+                            
+                        }
+                    }
+                    try{
+                        Object obj = e.getTransferable().getTransferData(urlFlavor);
+                        if(obj instanceof URL){
+                            fileURL = (URL)obj;
+                        }
+                    }catch(Throwable tr){
+                    }
+                    if(fileURL != null) {
+                        URL url = fileURL;
+                        System.out.println("file");
+                       getTabContainer().createEditorFromURL(url);
+                    }
+                    
+                    try{
+                        Object obj = e.getTransferable().getTransferData(listFlavor);
+                        if(obj instanceof java.util.List){
+                            fileList = (java.util.List)obj;
+                        }
+                    }catch(Throwable tr){
+                    }
+                    if(fileList != null){
+                        Iterator it = fileList.iterator();
+                        while(it.hasNext()){
+                            Object file = it.next();
+                            if(file instanceof File){
+                                getTabContainer().createEditorFromFile((File)file);
+                            }
+                        }
+                    }
+                    try{
+                        e.dropComplete(true);
+                    }catch(Throwable tr){
+                        System.out.println("???? "+t);
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                } catch (Exception ex) {
+                    //                    ex.printStackTrace();
+                }
+            }
+        }
+        
+        );
     }
 
     /**
@@ -356,15 +473,6 @@ public class XPontusWindow {
     public PaneForm getPane() {
         return (PaneForm) this.pane;
     }
-
-    /**
-     *
-     * @return The application's statusbar
-     */
-
-    //    public JComponent getStatusbar() {
-    //        return statusbar;
-    //    }
 
     /**
      *
