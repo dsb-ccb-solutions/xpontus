@@ -95,18 +95,18 @@ public class XPontusFormController {
 
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
+                    try {
+                        if (args.length > 0) {
+                            for (int i = 0; i < args.length; i++) {
+                                File f = new File(args[i]);
 
-                    try{if (args.length > 0) {
-                        for (int i = 0; i < args.length; i++) {
-                            File f = new File(args[i]);
-
-                            if (f.exists()) {
-                                form.getPane().createEditorFromFile(f);
+                                if (f.exists()) {
+                                    form.getPane().createEditorFromFile(f);
+                                }
                             }
                         }
+                    } catch (Exception err) {
                     }
-                    }
-                    catch(Exception err){}
                 }
             });
     }
