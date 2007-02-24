@@ -45,7 +45,10 @@ public class SchemaGeneratorView extends javax.swing.JDialog{
     private ComboBoxAdapter inputTypeAdapter, outputTypeAdapter;
     private ValueModel m1, m2;
     
-    /** Creates new form SchemaGeneratorView */
+    /** Creates new form SchemaGeneratorView 
+     * @param parent 
+     * @param modal 
+     */
     public SchemaGeneratorView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);        
         controller = new SchemaGeneratorHandler(this); 
@@ -59,10 +62,17 @@ public class SchemaGeneratorView extends javax.swing.JDialog{
         this.openInEditorOption.setSelected(false);
     }
         
+    /**
+     * 
+     */
     public SchemaGeneratorView() {
         this(XPontusWindow.getInstance().getFrame(), true);
     }
     
+    /**
+     * 
+     * @return 
+     */
     public SchemaGenerationModel getModel(){
         return model;
     }
@@ -85,27 +95,51 @@ public class SchemaGeneratorView extends javax.swing.JDialog{
         outputTypeAdapter = new ComboBoxAdapter(outputValues, outputValueModel);
     }
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JButton getInputButton() {
         return inputButton;
     }
     
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JButton getOutputButton() {
         return outputButton;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JCheckBox getOpenInEditorOption() {
         return openInEditorOption;
     }
     
+    /**
+     * 
+     * @param openInEditorOption 
+     */
     public void setOpenInEditorOption(javax.swing.JCheckBox openInEditorOption) {
         this.openInEditorOption = openInEditorOption;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public javax.swing.JCheckBox getUseCurrentDocumentOption() {
         return useExternalDocumentOption;
     }
     
+    /**
+     * 
+     * @param useCurrentDocumentOption 
+     */
     public void setUseCurrentDocumentOption(javax.swing.JCheckBox useCurrentDocumentOption) {
         this.useExternalDocumentOption = useExternalDocumentOption;
     }

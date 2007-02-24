@@ -72,7 +72,7 @@
                   <Component id="generateButton" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="56" max="32767" attributes="0"/>
+              <EmptySpace pref="58" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -120,7 +120,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="inputButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="38" pref="38" max="-2" attributes="0"/>
-                          <Component id="inputTF" pref="383" max="32767" attributes="0"/>
+                          <Component id="inputTF" pref="385" max="32767" attributes="0"/>
                       </Group>
                       <Component id="useExternalDocumentOption" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>

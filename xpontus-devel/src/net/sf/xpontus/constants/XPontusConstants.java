@@ -28,8 +28,7 @@ import java.io.File;
  * Constants for the application
  * @author Yves Zoundi
  */
-public interface XPontusConstants
-  {
+public interface XPontusConstants {
     /**
      * The user home directory
      *
@@ -42,12 +41,8 @@ public interface XPontusConstants
      * The XPontus XML Editor's configuration directory
      */
     static final File CONF_DIR = new File(new File(HOME, ".xpontus_1rc2"),
-            
-            
             "1.0.0");
-    
     static final File CACHE_DIR = new File(CONF_DIR, "cache");
-    
     static final File PREF_DIR = new File(CONF_DIR, "preferences");
     static final File GENERAL_PREF = new File(PREF_DIR,
             "general_preferences.xml");
@@ -63,8 +58,7 @@ public interface XPontusConstants
     /**
      * File menu actions id
      */
-    static final String[] fileActions = new String[]
-        {
+    static final String[] fileActions = new String[] {
             "action.new", "action.open", "action.openremote", "-", "action.save",
             "action.saveas", "action.saveall", "-", "action.closetab",
             "action.closetaball", "-", "action.print", "action.exit"
@@ -73,8 +67,7 @@ public interface XPontusConstants
     /**
      * Edit menu actions id
      */
-    static final String[] editActions = new String[]
-        {
+    static final String[] editActions = new String[] {
             "action.undo", "action.redo", "-", "action.cut", "action.copy",
             "action.paste", "action.selectall", "-", "action.find",
             "action.gotoline", "-", "action.insertcomment",
@@ -84,25 +77,23 @@ public interface XPontusConstants
     /**
      * Help menu actions id
      */
-    static final String[] helpActions = new String[]
-        {
+    static final String[] helpActions = new String[] {
             "action.about", "action.help"
         };
 
     /**
      * Tools menu actions id
      */
-    static final String[] toolsActions = new String[]
-        {
+    static final String[] toolsActions = new String[] {
             "action.checkxml", "action.validate", "action.tidy", "-",
-            "action.validateschema", "action.generatedtd", "action.xsltdoc",  "-" , "action.preferences"
+            "action.templatemanager", "action.validateschema",
+            "action.generatedtd", "action.xsltdoc", "-", "action.preferences"
         };
 
     /**
      * Format menu actions id
      */
-    static final String[] formatActions = new String[]
-        {
+    static final String[] formatActions = new String[] {
             "action.commentxml", "action.indentxml", "action.tidy"
         };
     public static int MESSAGES_TEXTE = 0;
@@ -112,4 +103,4 @@ public interface XPontusConstants
     public static final String EDIT_MENU_ID = "EDIT_MENU_ID";
     public static final String TOOLS_MENU_ID = "TOOLS_MENU_ID";
     public static final String HELP_MENU_ID = "HELP_MENU_ID";
-  }
+}
