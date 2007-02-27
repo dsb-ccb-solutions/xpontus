@@ -138,7 +138,7 @@ public class EditorTabContainer {
                         XPontusWindow.getInstance().getViewOutlineItem()
                                      .setSelected(false);
                     } else if ((current != null) &&
-                            (current.getDockable() instanceof ConsoleOutputWindow.OutputDockable) &&
+                            (current.getDockable() instanceof OutputDockable) &&
                             event.getFutureState().isClosed()) {
                         ConsoleOutputWindow console = XPontusWindow.getInstance()
                                                                    .getConsole();

@@ -78,7 +78,15 @@ public class ShowHideDockableListener implements ActionListener {
                     desktop.split(paneDockable, dockable, DockingConstants.SPLIT_BOTTOM);
                 }
                 else{
-                    desktop.createTab(cons, dockable, ((OutputDockable)dockable).getId());
+                    int position = ((OutputDockable)dockable).getId();
+                    int _position = ((OutputDockable)cons).getId();
+                    if(position > _position){
+                        position = position - _position;
+                    }
+                    else{
+                        position = _position - position;
+                    }
+                    desktop.createTab(cons, dockable, position);
                 }
 
                 
