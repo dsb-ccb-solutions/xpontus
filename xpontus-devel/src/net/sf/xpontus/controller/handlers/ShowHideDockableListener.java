@@ -12,9 +12,6 @@ import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingConstants;
 import com.vlsolutions.swing.docking.DockingDesktop;
-import com.vlsolutions.swing.docking.DockingUtilities;
-import com.vlsolutions.swing.docking.SplitContainer;
-import javax.swing.JSplitPane;
 
 import net.sf.xpontus.view.ConsoleOutputWindow;
 import net.sf.xpontus.view.EditorTabContainer;
@@ -24,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBoxMenuItem;
+import net.sf.xpontus.view.OutputDockable;
 
 
 /**
@@ -80,7 +78,7 @@ public class ShowHideDockableListener implements ActionListener {
                     desktop.split(paneDockable, dockable, DockingConstants.SPLIT_BOTTOM);
                 }
                 else{
-                    desktop.createTab(cons, dockable, 0);
+                    desktop.createTab(cons, dockable, ((OutputDockable)dockable).getId());
                 }
 
                 

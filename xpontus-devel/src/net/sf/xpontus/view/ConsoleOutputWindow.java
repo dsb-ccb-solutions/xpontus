@@ -61,8 +61,9 @@ public class ConsoleOutputWindow {
      */
     static public final int XPATH_WINDOW = 2;
     private final DockKey outputKey = new DockKey("Output");
-    private DockGroup group = new DockGroup("outputWindow");
+    public static DockGroup group = new DockGroup("outputWindow");
     Dockable dockables[] = new Dockable[3];
+    
 
     /**
      *
@@ -138,22 +139,10 @@ public class ConsoleOutputWindow {
             textboxes[i].setEditable(false);
             textboxes[i].setLineWrap(true);
             createMessagesPopupListener(textboxes[i]);
-            dockables[i] = new OutputDockable(titles[i], new JScrollPane(textboxes[i]));
+            dockables[i] = new OutputDockable(i, titles[i], new JScrollPane(textboxes[i]));
         }
-//            this.addTab(titles[i], new JScrollPane(textboxes[i]));
-
-//                        this.addDockable(new OutputDockable( (""  + i), new JScrollPane(textboxes[i])), i);
-//                        desktop.registerDockable(this.getDockableAt(i));
-            //            this.getDockableAt(i).getDockKey().setDockableState(DockableState.STATE_DOCKED);
-
-            //             System.out.println("state:" + DockableState.getStateName(this.getDockableAt(i).getDockKey().getDockableState()));
-//        }
-
-                 dockables[2] = new OutputDockable( (titles[2]), new JScrollPane(xpathResultsTable));
-        //           desktop.registerDockable(this.getDockableAt(2));
-
-        //          this.getDockableAt(2).getDockKey().setDockableState(DockableState.STATE_DOCKED);
-//        this.addTab(titles[2], new JScrollPane(xpathResultsTable));
+  dockables[2] = new OutputDockable( 2, (titles[2]), new JScrollPane(xpathResultsTable));
+       
     }
 
     /**
@@ -219,27 +208,7 @@ public class ConsoleOutputWindow {
 //        return this;
 //    }
 
-    public class OutputDockable implements Dockable {
-        private Component comp;
-        private String key;
-        private DockKey _mkey;
-
-        public OutputDockable(String key, Component comp) {
-            this.key = key;
-            this.comp = comp;
-            _mkey = new DockKey(key);
-            _mkey.setDockGroup(group);
-            _mkey.setResizeWeight(0.1f);
-        }
-
-        public DockKey getDockKey() {
-            return _mkey;
-        }
-
-        public Component getComponent() {
-            return comp;
-        }
-    }
+    
 
     private class RowSelectionListener implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) {

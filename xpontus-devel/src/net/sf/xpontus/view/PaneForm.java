@@ -51,11 +51,10 @@ public class PaneForm extends JLabel implements Dockable {
 
 	/** Creates new form BeanForm */
 	public PaneForm() {
-		key.setCloseEnabled(false);
-
+		key.setCloseEnabled(false); 
 		key.setAutoHideEnabled(false);
 		key.setResizeWeight(0.7f);
-		Dimension dim = new Dimension(600, 300);
+		Dimension dim = new Dimension(600, 100);
 		this.setMinimumSize(dim);
 		this.setPreferredSize(dim);
 
