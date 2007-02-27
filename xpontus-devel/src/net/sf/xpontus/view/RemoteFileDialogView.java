@@ -35,7 +35,6 @@ public class RemoteFileDialogView extends javax.swing.JDialog {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         urlLabel = new javax.swing.JLabel();
         urlList = new MemoryComboBox();
         usernameLabel = new javax.swing.JLabel();
@@ -48,7 +47,7 @@ public class RemoteFileDialogView extends javax.swing.JDialog {
         cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
+        setTitle("Open a remote location");
         urlLabel.setText("URL");
 
         usernameLabel.setText("Username");
@@ -115,7 +114,6 @@ public class RemoteFileDialogView extends javax.swing.JDialog {
                     .add(okButton))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
      

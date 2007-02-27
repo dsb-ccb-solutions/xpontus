@@ -12,7 +12,11 @@ import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingConstants;
 import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.docking.DockingUtilities;
+import com.vlsolutions.swing.docking.SplitContainer;
+import javax.swing.JSplitPane;
 
+import net.sf.xpontus.view.ConsoleOutputWindow;
 import net.sf.xpontus.view.EditorTabContainer;
 import net.sf.xpontus.view.XPontusWindow;
 
@@ -26,56 +30,62 @@ import javax.swing.JCheckBoxMenuItem;
  *
  * @author YVZOU
  */
-public class ShowHideDockableListener implements ActionListener
-{
+public class ShowHideDockableListener implements ActionListener {
     /**
      * Creates a new instance of ShowHideDockableListener
      */
-    public ShowHideDockableListener()
-    {
+    public ShowHideDockableListener() {
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
         JCheckBoxMenuItem source = (JCheckBoxMenuItem) e.getSource();
 
         DockingDesktop desktop = XPontusWindow.getInstance().getDockingDesktop();
 
         Dockable dockable = null;
 
-        if (source.getText().equalsIgnoreCase("Outline"))
-        {
+        ConsoleOutputWindow console = XPontusWindow.getInstance().getConsole();
+
+        if (source.getText().equalsIgnoreCase("Outline")) {
             dockable = XPontusWindow.getInstance().getOutlineDockable();
-        }
-        else if (source.getText().equalsIgnoreCase("Output"))
-        {
-            dockable = XPontusWindow.getInstance().getConsole();
+        } else if (source.getText().equalsIgnoreCase("Messages")) {
+            dockable = console.getDockables()[0];
+        } else if (source.getText().equalsIgnoreCase("Errors")) {
+            dockable = console.getDockables()[1];
+        } else if (source.getText().equalsIgnoreCase("XPath")) {
+            dockable = console.getDockables()[2];
         }
 
-        if (desktop.getDockableState(dockable).getState() == DockableState.STATE_CLOSED)
-        {
+        if (desktop.getDockableState(dockable).getState() == DockableState.STATE_CLOSED) {
             EditorTabContainer tabContainer = XPontusWindow.getInstance()
                                                            .getTabContainer();
             Dockable paneDockable = tabContainer.getCurrentDockable();
 
-            if (paneDockable == null)
-            {
+            if (paneDockable == null) {
                 paneDockable = XPontusWindow.getInstance().getPane();
             }
 
-            if (source.getText().equalsIgnoreCase("Outline"))
-            {
+            if (source.getText().equalsIgnoreCase("Outline")) {
                 desktop.split(paneDockable, dockable,
                     DockingConstants.SPLIT_LEFT);
+            } else {
+                Dockable cons = null;
+                for(int i=0;i<console.getDockables().length;i++){
+                    if(console.getDockables()[i].getDockKey().getDockableState() == DockableState.STATE_DOCKED){
+                        cons = console.getDockables()[i];
+                        break;
+                    }
+                }
+                if(cons == null){
+                    desktop.split(paneDockable, dockable, DockingConstants.SPLIT_BOTTOM);
+                }
+                else{
+                    desktop.createTab(cons, dockable, 0);
+                }
+
+                
             }
-            else
-            {
-                desktop.split(paneDockable, dockable,
-                    DockingConstants.SPLIT_BOTTOM);
-            }
-        }
-        else
-        {
+        } else {
             desktop.close(dockable);
         }
     }

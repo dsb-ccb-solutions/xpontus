@@ -127,6 +127,7 @@ public class XMLAssistProcessor implements AssistProcessor {
                         completionParser.updateCompletionInfo(pubid, uri, r);
                         parsingDone = true;
                         logger.info("parsing dtd/schema is done");
+                        
                     }
                 };
 

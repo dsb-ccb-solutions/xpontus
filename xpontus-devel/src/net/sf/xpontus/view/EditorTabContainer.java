@@ -138,10 +138,20 @@ public class EditorTabContainer {
                         XPontusWindow.getInstance().getViewOutlineItem()
                                      .setSelected(false);
                     } else if ((current != null) &&
-                            (current.getDockable() instanceof ConsoleOutputWindow) &&
+                            (current.getDockable() instanceof ConsoleOutputWindow.OutputDockable) &&
                             event.getFutureState().isClosed()) {
-                        XPontusWindow.getInstance().getViewConsoleItem()
-                                     .setSelected(false);
+                        ConsoleOutputWindow console = XPontusWindow.getInstance()
+                                                                   .getConsole();
+
+                        if (current.getDockable()
+                                       .equals(console.getDockables()[0])) {
+                            XPontusWindow.getInstance().getViewMessages().setSelected(false);
+                        } else if (current.getDockable()
+                                              .equals(console.getDockables()[1])) {
+                            XPontusWindow.getInstance().getViewErrors().setSelected(false);
+                        } else {
+                            XPontusWindow.getInstance().getViewXPath().setSelected(false);
+                        }
                     }
                 }
             });

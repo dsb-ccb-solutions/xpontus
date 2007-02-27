@@ -75,7 +75,7 @@ public class XPontusWindow {
     private MessageProvider messageSource;
     private ConsoleOutputWindow console;
     private OutlineViewDockable outlineDockable;
-    private JCheckBoxMenuItem viewConsole;
+    private JCheckBoxMenuItem viewMessages, viewErrors, viewXPath;
     private JCheckBoxMenuItem viewOutline;
 
     /** Creates new XPontusWindow */
@@ -135,9 +135,21 @@ public class XPontusWindow {
         outlineDockable = new OutlineViewDockable();
 
         desk.registerDockable(outlineDockable);
-        desk.registerDockable(console);
+        
+        final int total = console.getDockables().length;
+        
+        for(int i=0;i<total;i++){
+            desk.registerDockable(console.getDockables()[i]);
+        }
+        
         desk.split(pane, outlineDockable, DockingConstants.SPLIT_LEFT);
-        desk.split(pane, console, DockingConstants.SPLIT_BOTTOM);
+        desk.split(pane, console.getDockables()[0], DockingConstants.SPLIT_BOTTOM);
+        
+         for(int i=1;i<total;i++){
+            desk.createTab(console.getDockables()[i - 1], console.getDockables()[i], i);
+        }
+        
+       
 
         //  desk.addDockable(compound , new JTreeDockable()) ;
         frame.getContentPane().add(desk, BorderLayout.CENTER);
@@ -261,8 +273,16 @@ public class XPontusWindow {
         return tb;
     }
 
-    public JCheckBoxMenuItem getViewConsoleItem() {
-        return viewConsole;
+    public JCheckBoxMenuItem getViewMessages() {
+        return viewMessages;
+    }
+    
+    public JCheckBoxMenuItem getViewXPath(){
+        return viewXPath;
+    }
+    
+    public JCheckBoxMenuItem getViewErrors(){
+        return viewErrors;
     }
 
     public JCheckBoxMenuItem getViewOutlineItem() {
@@ -310,8 +330,11 @@ public class XPontusWindow {
                     }
                 };
 
-        viewConsole = new JCheckBoxMenuItem("Output", true);
+        viewMessages = new JCheckBoxMenuItem("Messages", true);
+        viewErrors = new JCheckBoxMenuItem("Errors", true);
+        viewXPath = new JCheckBoxMenuItem("XPath", true);        
         viewOutline = new JCheckBoxMenuItem("Outline", true);
+        
         toolbar = ToolBarContainer.createDefaultContainer(true, true, true, true);
         statusbar = new net.sf.xpontus.view.components.JStatusBar();
         menubar = new JMenuBar();
@@ -336,11 +359,16 @@ public class XPontusWindow {
         viewMenu = new JMenu("View");
 
         ActionListener listener = new ShowHideDockableListener();
-        viewConsole.addActionListener(listener);
+        viewMessages.addActionListener(listener);
+        viewErrors.addActionListener(listener);
+        viewXPath.addActionListener(listener);
         viewOutline.addActionListener(listener);
         this.menubar.add(viewMenu);
-        viewMenu.add(viewConsole);
+        
         viewMenu.add(viewOutline);
+viewMenu.add(viewMessages);
+viewMenu.add(viewErrors);
+viewMenu.add(viewXPath);
 
         editMenu.setText(getI18nMessage("menu.edit.name"));
         menubar.add(editMenu);

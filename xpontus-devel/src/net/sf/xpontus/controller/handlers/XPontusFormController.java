@@ -43,8 +43,12 @@ public class XPontusFormController {
     private static Log logger = LogFactory.getLog(XPontusFormController.class);
 
     static {
+        // set the default parser
         System.setProperty("org.xml.sax.driver",
             "org.apache.xerces.parsers.SAXParser");
+        
+        // Apple plateform fix
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
     }
 
     /** Creates a new instance of XPontusFormController */

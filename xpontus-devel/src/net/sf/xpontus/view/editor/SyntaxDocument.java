@@ -15,8 +15,7 @@ import net.sf.xpontus.view.XPontusWindow;
 import net.sf.xpontus.view.editor.syntax.ILexer;
 import net.sf.xpontus.view.editor.syntax.SyntaxSupport;
 import net.sf.xpontus.view.editor.syntax.xml.XMLParser;
-
-import test.completion.CalltipWindow;
+ 
 
 import java.awt.FontMetrics;
 import java.awt.Graphics;

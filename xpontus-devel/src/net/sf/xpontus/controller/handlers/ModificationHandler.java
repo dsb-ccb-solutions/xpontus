@@ -120,6 +120,7 @@ public class ModificationHandler implements DocumentListener, CaretListener {
     public void parseDocument() {
         Thread t = new Thread() {
                 public void run() {
+                    System.out.println("parsing dtd schema");
                     PlainDocument pd = (PlainDocument)editor.getDocument();
                     builder.init(pd);
                     builder.updateOutline(pd);
