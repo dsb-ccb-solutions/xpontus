@@ -22,7 +22,6 @@
  */
 package net.sf.xpontus.controller.handlers;
 
-import javax.swing.text.PlainDocument;
 import net.sf.xpontus.view.TextPosition;
 import net.sf.xpontus.view.XMLOutlineBuilder;
 import net.sf.xpontus.view.XPontusWindow;
@@ -39,6 +38,7 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Element;
+import javax.swing.text.PlainDocument;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -108,25 +108,22 @@ public class ModificationHandler implements DocumentListener, CaretListener {
     }
 
     public void caretUpdate(CaretEvent caretEvent) {
-        Thread t = new Thread() {
+        SwingUtilities.invokeLater(new Thread() {
                 public void run() {
                     updateLineInfo();
                 }
-            };
-
-        t.start();
+            });
     }
 
     public void parseDocument() {
-        Thread t = new Thread() {
+        SwingUtilities.invokeLater(new Thread() {
                 public void run() {
                     System.out.println("parsing dtd schema");
-                    PlainDocument pd = (PlainDocument)editor.getDocument();
+
+                    PlainDocument pd = (PlainDocument) editor.getDocument();
                     builder.init(pd);
                     builder.updateOutline(pd);
                 }
-            };
-
-        t.start();
+            });
     } //}}}
 }

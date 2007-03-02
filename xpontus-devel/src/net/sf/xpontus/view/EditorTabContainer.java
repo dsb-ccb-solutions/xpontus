@@ -10,24 +10,31 @@ package net.sf.xpontus.view;
 
 import com.sun.java.help.impl.SwingWorker;
 
+import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.docking.DockingUtilities;
+import com.vlsolutions.swing.docking.TabbedDockableContainer;
 import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
 import com.vlsolutions.swing.docking.event.DockableSelectionListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeListener;
 
-import net.sf.xpontus.controller.handlers.ModificationHandler;
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.BeanContainer;
 import net.sf.xpontus.view.editor.SyntaxDocument;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.Action;
 import javax.swing.JEditorPane;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.text.Document;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -108,6 +115,7 @@ public class EditorTabContainer {
                             (current.getDockable() instanceof EditorContainer) &&
                             event.getFutureState().isClosed()) {
                         EditorContainer editor = (EditorContainer) current.getDockable();
+                        removeFromWindowsMenu(editor);
 
                         if (editors.size() == 1) {
                             editor.getDockKey()
@@ -145,16 +153,55 @@ public class EditorTabContainer {
 
                         if (current.getDockable()
                                        .equals(console.getDockables()[0])) {
-                            XPontusWindow.getInstance().getViewMessages().setSelected(false);
+                            XPontusWindow.getInstance().getViewMessages()
+                                         .setSelected(false);
                         } else if (current.getDockable()
                                               .equals(console.getDockables()[1])) {
-                            XPontusWindow.getInstance().getViewErrors().setSelected(false);
+                            XPontusWindow.getInstance().getViewErrors()
+                                         .setSelected(false);
                         } else {
-                            XPontusWindow.getInstance().getViewXPath().setSelected(false);
+                            XPontusWindow.getInstance().getViewXPath()
+                                         .setSelected(false);
                         }
                     }
                 }
             });
+    }
+
+    public void removeFromWindowsMenu(final Dockable dockable) {
+        JMenu menu = XPontusWindow.getInstance().getWindowsMenu();
+
+        DockKey m_key = dockable.getDockKey();
+
+        final int total = menu.getItemCount();
+
+        for (int i = 0; i < total; i++) {
+            JMenuItem item = menu.getItem(i);
+            DockKey key = (DockKey) item.getClientProperty("m_key");
+
+            if (key.equals(m_key)) {
+                menu.remove(i);
+
+                break;
+            }
+        }
+    }
+
+    public void addToWindowsMenu(final Dockable dockable) {
+        JMenu menu = XPontusWindow.getInstance().getWindowsMenu();
+
+        JMenuItem item = new JMenuItem(dockable.getDockKey().getKey());
+        item.putClientProperty("m_key", dockable.getDockKey());
+        item.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    TabbedDockableContainer container = DockingUtilities.findTabbedDockableContainer(dockable);
+
+                    if (container != null) {
+                        container.setSelectedDockable(dockable);
+                    }
+                }
+            });
+        menu.add(item);
     }
 
     public Dockable getCurrentDockable() {
@@ -228,6 +275,7 @@ public class EditorTabContainer {
 
         currentEditor = editor.getEditorComponent();
         currentDockable = editor;
+        addToWindowsMenu(currentDockable);
         currentEditor.addMouseListener(new PopupListener(popup));
         doc.setLoading(false);
 

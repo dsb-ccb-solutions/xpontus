@@ -72,6 +72,7 @@ public class XPontusWindow {
     private net.sf.xpontus.view.components.JStatusBar statusbar;
     private ToolBarContainer toolbar;
     private JMenu toolsMenu;
+    private JMenu windowsMenu;
     private MessageProvider messageSource;
     private ConsoleOutputWindow console;
     private OutlineViewDockable outlineDockable;
@@ -314,6 +315,10 @@ public class XPontusWindow {
         }
     }
 
+    public JMenu getWindowsMenu(){
+        return windowsMenu;
+    }
+    
     private void initComponents() {
         frame = new JFrame() {
                     public void setVisible(boolean b) {
@@ -332,6 +337,7 @@ public class XPontusWindow {
                     }
                 };
 
+                windowsMenu = new JMenu("Windows");
         viewMessages = new JCheckBoxMenuItem("Messages", true);
         viewErrors = new JCheckBoxMenuItem("Errors", true);
         viewXPath = new JCheckBoxMenuItem("XPath", true);
@@ -384,6 +390,8 @@ public class XPontusWindow {
         helpMenu.setText(getI18nMessage("menu.help.name"));
         menubar.add(helpMenu);
 
+        menubar.add(windowsMenu);
+        
         frame.setJMenuBar(menubar);
 
         configureDragAndDrop(this.pane);

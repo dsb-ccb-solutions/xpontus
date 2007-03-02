@@ -10,19 +10,13 @@ package net.sf.xpontus.view;
 
 import com.vlsolutions.swing.docking.DockGroup;
 import com.vlsolutions.swing.docking.DockKey;
-import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
-import com.vlsolutions.swing.docking.DockableContainer;
-import com.vlsolutions.swing.docking.DockableState;
-import com.vlsolutions.swing.docking.DockingDesktop;
 import com.vlsolutions.swing.docking.DockingUtilities;
+import com.vlsolutions.swing.docking.TabbedDockableContainer;
 
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.MessageProvider;
 import net.sf.xpontus.utils.JTextComponentPrintStream;
-
-import java.awt.Component;
-import java.awt.Dimension;
 
 import javax.swing.AbstractAction;
 import javax.swing.JEditorPane;
@@ -180,7 +174,10 @@ public class ConsoleOutputWindow {
      * @param i
      */
     public void setFocus(int i) {
-        DockableContainer container = DockingUtilities.findDockableContainer(dockables[i]); 
+        TabbedDockableContainer container = DockingUtilities.findTabbedDockableContainer(dockables[i]); 
+        
+        if(container!=null)
+            container.setSelectedDockable(dockables[i]); 
         dockables[i].getComponent().requestFocus();
     }
 
