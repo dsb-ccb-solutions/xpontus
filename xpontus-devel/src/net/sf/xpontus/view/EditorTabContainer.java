@@ -11,6 +11,7 @@ package net.sf.xpontus.view;
 import com.sun.java.help.impl.SwingWorker;
 
 import com.vlsolutions.swing.docking.DockKey;
+import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
@@ -35,6 +36,7 @@ import javax.swing.Action;
 import javax.swing.JEditorPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JTabbedPane;
 import javax.swing.text.Document;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -255,10 +257,15 @@ public class EditorTabContainer {
             desk.registerDockable(editor);
 
             desk.replace(pane, editor);
+            
+           
             //            desk.r
             editor.getDockKey().setDockableState(DockableState.STATE_DOCKED);
 
             editor.getEditorComponent().requestFocusInWindow();
+            
+            
+                    
         } else {
             DockingDesktop desk = XPontusWindow.getInstance().getDockingDesktop();
 
