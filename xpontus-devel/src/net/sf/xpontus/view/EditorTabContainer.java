@@ -257,9 +257,7 @@ public class EditorTabContainer {
             desk.registerDockable(editor);
 
             desk.replace(pane, editor);
-            
-           
-            //            desk.r
+             
             editor.getDockKey().setDockableState(DockableState.STATE_DOCKED);
 
             editor.getEditorComponent().requestFocusInWindow();

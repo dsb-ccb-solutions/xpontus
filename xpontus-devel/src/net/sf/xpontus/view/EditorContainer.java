@@ -118,9 +118,7 @@ public class EditorContainer implements Dockable {
             if (is != null) {
                 SmartEncodingInputStream sei = new SmartEncodingInputStream(is);
 
-                Reader reader = sei.getReader();
-
-                System.out.println("Encoding:" + sei.getEncoding());
+                Reader reader = sei.getReader(); 
 
                 Reader bufferedReader = new BufferedReader(reader);
 
