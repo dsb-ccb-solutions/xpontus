@@ -116,7 +116,7 @@ public class XMLOutlineBuilder {
      * @param doc 
      */
     public void updateOutline(final javax.swing.text.Document doc) {
-        SwingUtilities.invokeLater(new Runnable() {
+        Thread t = new Thread(){
                 public void run() {
                     DefaultMutableTreeNode rootNode = parser.getRootNode();
                     if(rootNode.getChildCount()>0){
@@ -128,7 +128,8 @@ public class XMLOutlineBuilder {
                     
                     XPontusWindow.getInstance().getOutlineDockable().updateAll();
                 }
-            });
+            };
+            t.start();
     }
 
     /**

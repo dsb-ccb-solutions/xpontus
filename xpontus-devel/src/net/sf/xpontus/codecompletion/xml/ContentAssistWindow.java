@@ -188,7 +188,7 @@ public class ContentAssistWindow {
             }
         }
         else {
-            if (completionData.size() == 0) {
+            if(completionData == null || completionData.size() == 0) {
                 return;
             }
 

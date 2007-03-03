@@ -108,15 +108,17 @@ public class ModificationHandler implements DocumentListener, CaretListener {
     }
 
     public void caretUpdate(CaretEvent caretEvent) {
-        SwingUtilities.invokeLater(new Thread() {
+        Thread worker = new Thread() {
                 public void run() {
                     updateLineInfo();
                 }
-            });
+            };
+
+        worker.start();
     }
 
     public void parseDocument() {
-        SwingUtilities.invokeLater(new Thread() {
+        Thread t = new Thread() {
                 public void run() {
                     System.out.println("parsing dtd schema");
 
@@ -124,6 +126,8 @@ public class ModificationHandler implements DocumentListener, CaretListener {
                     builder.init(pd);
                     builder.updateOutline(pd);
                 }
-            });
+            };
+
+        t.start();
     } //}}}
 }
