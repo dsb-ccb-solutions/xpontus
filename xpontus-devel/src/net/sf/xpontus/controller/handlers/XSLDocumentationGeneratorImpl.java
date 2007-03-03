@@ -1,7 +1,7 @@
 /*
- * DTDDocumentationGeneratorImpl.java
+ * XSLDocumentationGeneratorImpl.java
  *
- * Created on February 11, 2007, 9:33 PM
+ * Created on March 2, 2007, 7:45 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -11,9 +11,10 @@ package net.sf.xpontus.controller.handlers;
 
 /**
  *
- * @author Owner
+ * @author mrcheeks
  */
-public class DTDDocumentationGeneratorImpl implements ISchemaDocumentationGenerator {
+public class XSLDocumentationGeneratorImpl
+    implements ISchemaDocumentationGenerator {
     private String css;
     private String title;
     private String outputDirectory;
@@ -22,7 +23,7 @@ public class DTDDocumentationGeneratorImpl implements ISchemaDocumentationGenera
     private String header;
 
     /** Creates a new instance of DTDDocumentationGeneratorImpl */
-    public DTDDocumentationGeneratorImpl() {
+    public XSLDocumentationGeneratorImpl() {
     }
 
     public String getFooter() {

@@ -195,8 +195,7 @@ public class SchemaGeneratorHandler
             view.getModel()
                 .setInputURI(chooser.getSelectedFile().getAbsolutePath());
         }
-
-        System.out.println("uri:" + view.getModel().getInputURI());
+ 
     }
 
     public void output()
