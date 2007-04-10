@@ -2,7 +2,7 @@
  * PaneForm.java
  *
  *
- * Created on 1 août 2005, 17:45
+ * Created on 1 aoï¿½t 2005, 17:45
  *
  *
  *  Copyright (C) 2005-2007 Yves Zoundi
@@ -26,19 +26,25 @@ package net.sf.xpontus.view;
 
 
 import com.sun.java.help.impl.SwingWorker;
+import com.vlsolutions.swing.docking.DockableState;
+import com.vlsolutions.swing.docking.DockingDesktop;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.Reader;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JEditorPane;
+import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.DefaultEditorKit;
 import net.sf.xpontus.controller.actions.OpenAction;
 import net.sf.xpontus.controller.handlers.ModificationHandler;
+import net.sf.xpontus.core.controller.actions.BaseAction;
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.model.options.EditorOptionModel;
@@ -49,21 +55,102 @@ import net.sf.xpontus.view.editor.LineView;
 import net.sf.xpontus.view.editor.XPontusEditorKit;
 import org.springframework.context.ApplicationContext;
 import org.syntax.jedit.SyntaxDocument;
-import org.syntax.jedit.tokenmarker.TokenMarker; 
+import org.syntax.jedit.tokenmarker.TokenMarker;
 import net.sf.xpontus.view.tabbedpane.*;
 /**
  * The container which stores document into tabs
  * @author  Yves Zoundi
  */
-public class PaneForm extends CloseTabbedPane {
+public class PaneForm extends CloseableTabbedPane {
     
     final ImageIcon ic = IconUtils.getInstance().getIcon("/net/sf/xpontus/icons/_PATH_/file.gif");
     
     /** Creates new form BeanForm */
-    public PaneForm() { 
+    public PaneForm() {
         initComponents();
-        this.addCloseListener(new CloseListenerImpl());
-        this.addDoubleClickListener(new DoubleClickListenerImpl()); 
+//        this.addCloseListener(new CloseListenerImpl());
+//        this.addDoubleClickListener(new DoubleClickListenerImpl());
+//        this.addMouseListener(new PopupListener(editorPopup));
+       
+    }
+    
+    private class TabListener implements MouseListener {
+        private javax.swing.Action closeOthers;
+        public JPopupMenu popupmenu;
+        public TabListener() {
+            popupmenu = new JPopupMenu();
+            popupmenu.add((Action)applicationContext.getBean("action.closetab"));
+            closeOthers = (Action)applicationContext.getBean("action.closeothers");
+            popupmenu.add(closeOthers);
+            popupmenu.add((Action)applicationContext.getBean("action.closetaball"));
+        }
+        
+        /** This method will display the popup if the mouseevent is a popup event
+         *  and the event occurred over a tab
+         */
+        protected void checkPopup(MouseEvent e) {
+            if (e.isPopupTrigger() || e.getButton() == MouseEvent.BUTTON3) {
+                if(PaneForm.this.getTabCount()>0){
+                    int tab = PaneForm.this.getUI().tabForCoordinate(PaneForm.this, e.getX(), e.getY());
+                    if (tab != -1) {
+//                        boolean b = PaneForm.this.getTabCount()>0;
+//                        closeOthers.setEnabled(b);
+                        popupmenu.show(PaneForm.this, e.getX(), e.getY());
+                    }
+                }
+            }
+        }
+        
+        
+        public void mouseClicked(MouseEvent e) {
+            if(e.getClickCount() == 2){
+                if(PaneForm.this.getTabCount()>0){
+                    DockingDesktop desktop = XPontusWindow.getInstance().getDesktop();
+                    
+                    XPontusWindow.DockablePaneForm paneForm = (XPontusWindow.DockablePaneForm) XPontusWindow.getInstance()
+                    .getPane();
+                    
+                    int state = paneForm.getDockKey().getDockableState();
+                    
+                    if (state == DockableState.STATE_MAXIMIZED) {
+                        desktop.restore(paneForm);
+                    } else {
+                        desktop.maximize(paneForm);
+                    }
+                } else{
+                    checkPopup(e);
+                }
+            }
+        }
+        
+        public void mousePressed(MouseEvent e) {
+            
+            checkPopup(e);
+        }
+        
+        public void mouseReleased(MouseEvent e) {
+            if (e.isPopupTrigger() || e.getButton() == MouseEvent.BUTTON3) {
+                checkPopup(e);
+            } else{
+                int i = getSelectedIndex();
+                
+                // nothing selected
+                if (i == -1) {
+                    return;
+                }
+                
+                CloseableTabbedPane.WrapperIcon icon = (CloseableTabbedPane.WrapperIcon)getIconAt(i);
+                
+                // close tab, if icon was clicked
+                if (icon != null && icon.contains(e.getX(), e.getY())) {
+                     ((BaseAction)applicationContext.getBean("action.closetab")).execute();
+                }
+            }
+            
+        }
+        
+        public void mouseEntered(MouseEvent e) {}
+        public void mouseExited(MouseEvent e) {}
     }
     
     /**
@@ -104,7 +191,7 @@ public class PaneForm extends CloseTabbedPane {
         for(int i=0;i<ACTIONS.length;i++){
             editorPopup.add((Action)applicationContext.getBean(ACTIONS[i]));
         }
-    } 
+    }
     
     /**
      *
@@ -142,12 +229,12 @@ public class PaneForm extends CloseTabbedPane {
     
     private void tabChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabChanged
         int index = getSelectedIndex();
-         ((Action)applicationContext.getBean("action.closeothers")).setEnabled(getTabCount()>1);
+        ((Action)applicationContext.getBean("action.closeothers")).setEnabled(getTabCount()>1);
         if(!(isEmpty())){
             if (index != -1) {
                 if(! ((Action)XPontusWindow.getInstance().getApplicationContext().getBean("action.copy")).isEnabled()){
                     enableDocumentActions(true);
-                } 
+                }
                 String tip = (String)getCurrentEditor().getClientProperty("FILE_PATH");
                 if (tip == null) {
                     tip = "untitled";
@@ -212,8 +299,12 @@ public class PaneForm extends CloseTabbedPane {
                     Event.CTRL_MASK);
             inputMap.put(key, DefaultEditorKit.selectAllAction);
             
-            addTab(filename, ic, scrollPane, filename);
+            addTab(filename, scrollPane, ic, true );
+            
+            
             setSelectedIndex(getTabCount()-1);
+            
+            this.setToolTipTextAt(getTabCount() - 1, filename);
             
             getCurrentEditor().grabFocus();
             configureEditor(editor);
@@ -298,9 +389,17 @@ public class PaneForm extends CloseTabbedPane {
             String tooltip = file.getAbsolutePath();
             ModificationHandler handler = new ModificationHandler(editor);
             
-            addTab(filename, ic, scrollPane, tooltip); 
+            addTab(filename, scrollPane, ic, true );
             
-            setSelectedIndex(getTabCount()-1);           
+            
+            setSelectedIndex(getTabCount()-1);
+            
+            this.setToolTipTextAt(getTabCount() - 1, tooltip);
+            
+            
+//            addTab(filename, ic, scrollPane, tooltip);
+            
+            setSelectedIndex(getTabCount()-1);
             configureEditor(editor);
             getCurrentEditor().grabFocus();
             handler.setSaved();
@@ -369,12 +468,18 @@ public class PaneForm extends CloseTabbedPane {
             }
             String filename = "untitled" + untitledCounter;
             String tooltip = "untitled" + untitledCounter;
-            addTab(filename, ic, scrollPane, tooltip); 
+//            addTab(filename, ic, scrollPane, tooltip);
+            addTab(filename, scrollPane, ic, true );
+            
+            
+            setSelectedIndex(getTabCount()-1);
+            
+            this.setToolTipTextAt(getTabCount() - 1, tooltip);
             
             ModificationHandler handler = new ModificationHandler(editor);
             setSelectedIndex(getTabCount()-1);
-           getCurrentEditor().grabFocus();
-           configureEditor(editor);
+            getCurrentEditor().grabFocus();
+            configureEditor(editor);
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -413,8 +518,9 @@ public class PaneForm extends CloseTabbedPane {
      */
     public final void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
-        enableDocumentActions(false); 
+        enableDocumentActions(false);
         configureEditorPopup();
+         this.addMouseListener(new TabListener());
     }
     
     

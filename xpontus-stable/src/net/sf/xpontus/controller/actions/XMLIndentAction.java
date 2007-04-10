@@ -86,6 +86,8 @@ public class XMLIndentAction extends ThreadedAction {
 //                                                            .newDocumentBuilder();
 
             SAXReader sReader = new SAXReader();
+            sReader.setValidation(false);
+            sReader.setEntityResolver(null);
             org.dom4j.Document doc = sReader.read(reader);
             org.dom4j.io.OutputFormat format = org.dom4j.io.OutputFormat.createPrettyPrint();
             
