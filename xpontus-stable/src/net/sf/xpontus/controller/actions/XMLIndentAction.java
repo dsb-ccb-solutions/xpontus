@@ -28,6 +28,8 @@ import net.sf.xpontus.view.XPontusWindow;
 
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
 import org.syntax.jedit.SyntaxDocument;
 import org.syntax.jedit.tokenmarker.TokenMarker;
@@ -80,19 +82,30 @@ public class XMLIndentAction extends ThreadedAction {
             mdoc.readLock();
 
             Reader reader = EncodingHelper.getReader(is);
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-                                                            .newDocumentBuilder();
+//            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+//                                                            .newDocumentBuilder();
 
-            InputSource src = new InputSource(reader);
-            Document doc = builder.parse(src);
-            OutputFormat formatter = new OutputFormat();
-            formatter.setIndenting(true);
-            formatter.setEncoding("UTF-8");
+            SAXReader sReader = new SAXReader();
+            org.dom4j.Document doc = sReader.read(reader);
+            org.dom4j.io.OutputFormat format = org.dom4j.io.OutputFormat.createPrettyPrint();
+            
+            format.setEncoding("UTF-8");
+            format.setIndentSize(4);
+            
+            
+//            InputSource src = new InputSource(reader);
+//            Document doc = builder.parse(src);
+//            OutputFormat formatter = new OutputFormat();
+//            formatter.setIndenting(true);
+//            formatter.setEncoding("UTF-8");
 
             java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
-            XMLSerializer serializer = new XMLSerializer(out, formatter);
-            serializer.serialize(doc);
-
+            XMLWriter xmlWriter = new XMLWriter(out, format);
+            xmlWriter.write(doc);
+            
+//            XMLSerializer serializer = new XMLSerializer(out, formatter);
+//            serializer.serialize(doc);
+//
             InputStream iss = new java.io.ByteArrayInputStream(out.toByteArray());
             reader = new InputStreamReader(iss, "UTF-8");
             mdoc.readUnlock();
