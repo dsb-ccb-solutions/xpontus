@@ -550,6 +550,7 @@ public class PaneForm extends CloseableTabbedPane {
         "action.closetaball",
         "action.closeothers",
         "action.gotoline",
+        "action.reload",
         "action.selectall",
         "action.cut",
         "action.copy",

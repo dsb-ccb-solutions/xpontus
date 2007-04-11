@@ -1,7 +1,7 @@
 /*
  * XPontusConstants.java
  *
- * Created on 1 août 2005, 17:46
+ * Created on 1 aoï¿½t 2005, 17:46
  *
  *  Copyright (C) 2005-2007 Yves Zoundi
  *
@@ -64,7 +64,7 @@ public interface XPontusConstants {
 
     /** File menu actions id */
     static final String[] fileActions = new String[] {
-            "action.new", "action.open", "-", "action.save", "action.saveas",
+            "action.new", "action.open", "action.reload", "-", "action.save", "action.saveas",
             "action.saveall", "-", "action.closetab", "action.closeothers","action.closetaball", "-",
             "action.print", "-", "action.exit"
         };

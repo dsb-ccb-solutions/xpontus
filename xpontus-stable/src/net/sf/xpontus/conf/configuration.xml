@@ -30,6 +30,11 @@
             <value>net.sf.xpontus.i18n.textMessages,net.sf.xpontus.i18n.application</value>
         </property>
     </bean>        
+     <bean id = "action.reload" class = "net.sf.xpontus.controller.actions.ReloadAction">
+        <property name = "name" value = "action.reload.name"/>
+        <property name  = "actionCommand" value = "action.reload"/>
+        <property name = "description" value = "action.reload.description"/>        
+    </bean>
     <!-- ======================= General Actions ========================== -->
     <!-- action to display the about dialog -->
     <bean id="action.about" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
