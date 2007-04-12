@@ -1,7 +1,7 @@
 /*
  * TemplateFormView.java
  *
- * Created on 1 août 2005, 17:57
+ * Created on 1 aoï¿½t 2005, 17:57
  *
  *
  *  Copyright (C) 2005-2007 Yves Zoundi
@@ -23,6 +23,8 @@
 
 package net.sf.xpontus.view;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import net.sf.xpontus.core.utils.L10nHelper;
 import org.apache.commons.io.FilenameUtils;
 //import org.syntax.jedit.tokenmarker.TokenMarker;
@@ -40,6 +42,13 @@ public class TemplateFormView extends javax.swing.JDialog {
         locale = L10nHelper.getInstance();
         initComponents();
         templateList.setSelectedIndex(0);
+        templateList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e){
+                if(e.getClickCount() == 2){ 
+                     okButton_Onclick(null);
+                }
+            }
+        });
     }
     
     public TemplateFormView(){
