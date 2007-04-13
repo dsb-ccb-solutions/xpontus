@@ -72,6 +72,11 @@ public class ReloadAction extends BaseAction{
                     return;
                 }
             }
+            
+            // le system de documentation insertion de pages blanches et de nomencalture de documents et destertion de tous es autres aspects. 
+            /*
+             */ 
+            
             File fFile = new File(filePath);
 
             if (!fFile.exists()) {

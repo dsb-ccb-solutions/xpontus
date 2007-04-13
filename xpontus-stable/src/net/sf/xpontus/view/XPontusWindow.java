@@ -505,7 +505,7 @@ public class XPontusWindow implements ApplicationContextAware{
      *
      */
     public class DockablePaneForm extends PaneForm implements Dockable {
-        DockKey key = new DockKey("  ");
+        DockKey key = new DockKey("Editor window");
         
         /**
          *

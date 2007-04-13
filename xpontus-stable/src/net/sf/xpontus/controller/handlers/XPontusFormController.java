@@ -53,6 +53,9 @@ import javax.swing.UIManager;
  * @author Yves Zoundi
  */
 public class XPontusFormController {
+    
+    public static final int PORT = 10876;
+    
     private static String theme = null;
     private static Log logger = LogFactory.getLog(XPontusFormController.class);
 
@@ -61,6 +64,8 @@ public class XPontusFormController {
             "org.apache.xerces.parsers.SAXParser");
         System.setProperty("apple.laf.useScreenMenuBar", "true");
     }
+     
+    
 
     /** Creates a new instance of XPontusFormController
      * @param args
