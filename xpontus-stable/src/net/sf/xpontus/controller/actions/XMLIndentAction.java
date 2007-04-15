@@ -81,9 +81,7 @@ public class XMLIndentAction extends ThreadedAction {
 
             mdoc.readLock();
 
-            Reader reader = EncodingHelper.getReader(is);
-//            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-//                                                            .newDocumentBuilder();
+            Reader reader = EncodingHelper.getReader(is); 
 
             SAXReader sReader = new SAXReader();
             sReader.setValidation(false);
@@ -93,21 +91,12 @@ public class XMLIndentAction extends ThreadedAction {
             
             format.setEncoding("UTF-8");
             format.setIndentSize(4);
-            
-            
-//            InputSource src = new InputSource(reader);
-//            Document doc = builder.parse(src);
-//            OutputFormat formatter = new OutputFormat();
-//            formatter.setIndenting(true);
-//            formatter.setEncoding("UTF-8");
+             
 
             java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
             XMLWriter xmlWriter = new XMLWriter(out, format);
             xmlWriter.write(doc);
-            
-//            XMLSerializer serializer = new XMLSerializer(out, formatter);
-//            serializer.serialize(doc);
-//
+             
             InputStream iss = new java.io.ByteArrayInputStream(out.toByteArray());
             reader = new InputStreamReader(iss, "UTF-8");
             mdoc.readUnlock();

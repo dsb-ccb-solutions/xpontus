@@ -23,6 +23,8 @@
 
 package net.sf.xpontus.view;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import net.sf.xpontus.core.utils.L10nHelper;
@@ -44,8 +46,17 @@ public class TemplateFormView extends javax.swing.JDialog {
         templateList.setSelectedIndex(0);
         templateList.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
-                if(e.getClickCount() == 2){ 
-                     okButton_Onclick(null);
+                if(e.getClickCount() == 2){
+                    okButton_Onclick(null);
+                }
+            }
+        });
+        
+        
+        templateList.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e){
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    okButton_Onclick(null);
                 }
             }
         });
@@ -118,7 +129,7 @@ public class TemplateFormView extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButton_Onclick
     
     private void okButton_Onclick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButton_Onclick
-        try{            
+        try{
             setVisible(false);
             java.io.InputStream is;
             int index = templateList.getSelectedIndex();
@@ -128,7 +139,7 @@ public class TemplateFormView extends javax.swing.JDialog {
             } else{
                 is = getClass().getResourceAsStream("/net/sf/xpontus/templates/" + tmpl);
                 String ext = FilenameUtils.getExtension(templates[templateList.getSelectedIndex()]);
-                XPontusWindow.getInstance().getPane().createEditorFromStream(is, ext); 
+                XPontusWindow.getInstance().getPane().createEditorFromStream(is, ext);
             }
             
         } catch(Exception e){
