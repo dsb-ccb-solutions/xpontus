@@ -166,8 +166,7 @@ public class XPontusFormController
         }
         catch (Exception e)
         {
-            System.out.println("error in listen function");
-            e.printStackTrace();
+              
 
             try
             {
@@ -175,7 +174,7 @@ public class XPontusFormController
             }
             catch (IOException x)
             {
-                System.out.println("error in listen function");
+                 
             }
 
             server = null;
@@ -266,23 +265,7 @@ public class XPontusFormController
         }
 
         return true;
-    }
-
-    private void server(String[] args)
-    {
-        boolean show = true;
-
-        if (args != null)
-        {
-            for (int i = 0; i < args.length; i++)
-            {
-                if ("--hide".equals(args[i]))
-                {
-                    show = false;
-                }
-            }
-        }
-    }
+    } 
 
     public static void main(String[] args)
     {
