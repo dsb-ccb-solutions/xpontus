@@ -21,9 +21,21 @@
  */
 package net.sf.xpontus.controller.handlers;
 
-import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
+import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Properties;
 
-import com.sun.corba.se.spi.activation.Server;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.core.utils.L10nHelper;
@@ -35,28 +47,10 @@ import net.sf.xpontus.view.XPontusWindow;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.awt.Font;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
-import java.net.ServerSocket;
-import java.net.Socket;
-
-import java.util.Properties;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 
 
 /**

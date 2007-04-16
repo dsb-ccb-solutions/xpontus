@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package net.sf.xpontus.view.tabbedpane;
+package net.sf.xpontus.view;
 
 import java.awt.Component;
 import java.awt.Graphics;
@@ -52,7 +52,7 @@ public class CloseableTabbedPane extends JTabbedPane
      */
     public CloseableTabbedPane() 
     {
-        this(IconUtils.getInstance().getIcon("/net/sf/xpontus/icons/_PATH_/close16.gif"));
+        this(IconUtils.getInstance().getIcon("/net/sf/xpontus/icons/_PATH_/delete_edit.gif"));
 //		this(IconHelper.getTabTitleIcon("remove.png"));
     }
 
