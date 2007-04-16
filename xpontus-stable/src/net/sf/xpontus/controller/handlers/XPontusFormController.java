@@ -253,7 +253,8 @@ public class XPontusFormController
 
                 try
                 {
-                    initApp(args);
+                    initApp(args); 
+                    listen();
                 }
                 catch (Exception e)
                 {
@@ -410,6 +411,5 @@ public class XPontusFormController
                     }
                 }
             });
-        listen();
     }
 }
