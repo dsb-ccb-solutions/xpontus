@@ -56,7 +56,6 @@ import net.sf.xpontus.view.editor.XPontusEditorKit;
 import org.springframework.context.ApplicationContext;
 import org.syntax.jedit.SyntaxDocument;
 import org.syntax.jedit.tokenmarker.TokenMarker;
-import net.sf.xpontus.view.tabbedpane.*;
 /**
  * The container which stores document into tabs
  * @author  Yves Zoundi
