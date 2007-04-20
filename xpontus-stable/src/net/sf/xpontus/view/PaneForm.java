@@ -32,17 +32,20 @@ import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.Reader;
+import java.io.File;
+import java.io.Reader; 
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JEditorPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.DefaultEditorKit;
 import net.sf.xpontus.controller.actions.OpenAction;
+import net.sf.xpontus.controller.actions.ReloadAction;
 import net.sf.xpontus.controller.handlers.ModificationHandler;
 import net.sf.xpontus.core.controller.actions.BaseAction;
 import net.sf.xpontus.core.controller.handlers.PopupListener;
@@ -240,6 +243,20 @@ public class PaneForm extends CloseableTabbedPane {
                     XPontusWindow.getInstance().setMessage(tip);
                 }
                 if(!tip.equals("untitled")){
+                    File currentFile = new File(tip);
+                    if(currentFile.exists()){
+                        long lastModified = currentFile.lastModified();
+                        long m = Long.parseLong(getCurrentEditor().getClientProperty("LAST_MODIFIED").toString());
+                        if(m!=lastModified){
+                            JOptionPane.showMessageDialog(XPontusWindow.getInstance().getFrame(), "The file has been modified by another application or process ");
+                            String option = null;
+                           int rep = JOptionPane.showConfirmDialog(XPontusWindow.getInstance().getFrame(), "Reload the file(discarding any changes)?", "", JOptionPane.YES_NO_OPTION);
+                           if(rep == JOptionPane.YES_OPTION){
+                               ReloadAction action = (ReloadAction)this.applicationContext.getBean("action.reload");
+                               action.execute();
+                           }
+                        }
+                    }
                     ((OpenAction)applicationContext.getBean("action.open")).setFileDir(tip);
                     JStatusBar st = (JStatusBar)XPontusWindow.getInstance().getStatusbar();
                     st.setMessageWithTip(tip);
@@ -376,7 +393,7 @@ public class PaneForm extends CloseableTabbedPane {
                     Event.CTRL_MASK);
             inputMap.put(key, DefaultEditorKit.selectAllAction);
             editor.putClientProperty("FILE_PATH",file.getAbsolutePath());
-            
+            editor.putClientProperty("LAST_MODIFIED", file.lastModified() + "" );
             editor.putClientProperty("FILE", file);
             editor.putClientProperty("FILE_NEW", Boolean.FALSE);
             javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(editor);

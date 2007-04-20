@@ -249,7 +249,7 @@ public class SaveAction extends BaseAction {
             editor.putClientProperty("FILE_PATH", file.getAbsolutePath());
             editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
             editor.putClientProperty("FILE_NEW", Boolean.FALSE);
-
+    editor.putClientProperty("LAST_MODIFIED" , "" + file.lastModified());
             String extension = FilenameUtils.getExtension(file.getName());
             TokenMarker tk = KitInfo.getInstance().getTokenMarker(extension);
             editor.putClientProperty("TOKEN_MARKER", tk);
