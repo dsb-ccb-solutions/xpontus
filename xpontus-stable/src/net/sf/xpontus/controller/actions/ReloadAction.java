@@ -144,6 +144,8 @@ public class ReloadAction extends BaseAction{
             inputMap.put(key, DefaultEditorKit.selectAllAction);
 
             editor.putClientProperty("FILE_PATH", fFile.getAbsolutePath());
+            editor.putClientProperty("FILE_MODIFIED", "" + Boolean.FALSE);
+            editor.putClientProperty("LAST_MODIFIED", "" + fFile.lastModified());
 
             editor.putClientProperty("FILE", fFile);
             editor.putClientProperty("FILE_NEW", Boolean.FALSE);
