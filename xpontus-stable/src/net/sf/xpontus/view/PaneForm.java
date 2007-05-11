@@ -248,9 +248,8 @@ public class PaneForm extends CloseableTabbedPane {
                         long lastModified = currentFile.lastModified();
                         long m = Long.parseLong(getCurrentEditor().getClientProperty("LAST_MODIFIED").toString());
                         if(m!=lastModified){
-                            JOptionPane.showMessageDialog(XPontusWindow.getInstance().getFrame(), "The file has been modified by another application or process ");
-                            String option = null;
-                           int rep = JOptionPane.showConfirmDialog(XPontusWindow.getInstance().getFrame(), "Reload the file(discarding any changes)?", "", JOptionPane.YES_NO_OPTION);
+                            
+                           int rep = JOptionPane.showConfirmDialog(XPontusWindow.getInstance().getFrame(), "The file has been modified. Reload the file(discarding any changes)?", "", JOptionPane.YES_NO_OPTION);
                            if(rep == JOptionPane.YES_OPTION){
                                ReloadAction action = (ReloadAction)this.applicationContext.getBean("action.reload");
                                action.execute();

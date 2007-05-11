@@ -368,7 +368,7 @@ public class XPontusFormController
 
         INSTANCE.initActions();
 
-        INSTANCE.getFrame().setTitle("XPontus XML Editor 1.0.0-rc2");
+        INSTANCE.getFrame().setTitle("XPontus XML Editor 1.0.0-rc3");
 
         logger.info("building main window");
 
