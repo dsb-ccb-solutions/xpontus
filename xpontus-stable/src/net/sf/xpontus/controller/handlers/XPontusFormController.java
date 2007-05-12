@@ -21,21 +21,7 @@
  */
 package net.sf.xpontus.controller.handlers;
 
-import java.awt.Font;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Properties;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 
 import net.sf.xpontus.core.utils.IconUtils;
 import net.sf.xpontus.core.utils.L10nHelper;
@@ -47,10 +33,28 @@ import net.sf.xpontus.view.XPontusWindow;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
+import java.awt.Font;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import java.util.Properties;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 
 /**
@@ -160,15 +164,12 @@ public class XPontusFormController
         }
         catch (Exception e)
         {
-              
-
             try
             {
                 server.close();
             }
             catch (IOException x)
             {
-                 
             }
 
             server = null;
@@ -247,7 +248,7 @@ public class XPontusFormController
 
                 try
                 {
-                    initApp(args); 
+                    initApp(args);
                     listen();
                 }
                 catch (Exception e)
@@ -260,7 +261,7 @@ public class XPontusFormController
         }
 
         return true;
-    } 
+    }
 
     public static void main(String[] args)
     {
@@ -389,6 +390,7 @@ public class XPontusFormController
                     {
                         if (argv.length > 0)
                         {
+                            logger.info("Opening files!");
                             for (int i = 0; i < argv.length; i++)
                             {
                                 File f = new File(argv[i]);
