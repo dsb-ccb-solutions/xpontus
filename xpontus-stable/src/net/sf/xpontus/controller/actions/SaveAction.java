@@ -38,11 +38,13 @@ import org.syntax.jedit.tokenmarker.XMLTokenMarker;
  * Action to save a document
  * @author Yves Zoundi
  */
-public class SaveAction extends BaseAction {
+public class SaveAction extends BaseAction
+{
     javax.swing.JFileChooser chooser;
 
     /** Creates a new instance of SaveAction */
-    public SaveAction() {
+    public SaveAction()
+    {
         chooser = new javax.swing.JFileChooser();
         chooser.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);
     }
@@ -54,7 +56,8 @@ public class SaveAction extends BaseAction {
      * @throws java.lang.Exception
      */
     public void saveEditor(javax.swing.JEditorPane editor, boolean ask)
-        throws Exception {
+        throws Exception
+    {
         //        System.out.println("index " + index);
         PaneForm pane = XPontusWindow.getInstance().getPane();
 
@@ -63,19 +66,25 @@ public class SaveAction extends BaseAction {
         boolean modified = editor.getClientProperty("FILE_MODIFIED")
                                  .equals(Boolean.TRUE);
 
-        if (!filenew) {
+        if (!filenew)
+        {
             //            System.out.println("file is not new");
-            if (modified) {
+            if (modified)
+            {
                 //                System.out.println("file is modified");
-                if (ask) {
+                if (ask)
+                {
                     //                    System.out.println("asked to save");
                     java.io.File file = (java.io.File) editor.getClientProperty(
                             "FILE");
                     String str = null;
 
-                    if (file == null) {
+                    if (file == null)
+                    {
                         str = editor.getClientProperty("FILE_PATH").toString();
-                    } else {
+                    }
+                    else
+                    {
                         str = file.getName();
                     }
 
@@ -86,43 +95,56 @@ public class SaveAction extends BaseAction {
                             "Save " + file.getAbsolutePath() + "?", "Confirm",
                             javax.swing.JOptionPane.YES_NO_OPTION);
 
-                    if (rep == javax.swing.JOptionPane.YES_OPTION) {
+                    if (rep == javax.swing.JOptionPane.YES_OPTION)
+                    {
                         save(file);
                         editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
                     }
-                } else {
+                }
+                else
+                {
                     java.io.File file = (java.io.File) editor.getClientProperty(
                             "FILE");
                     save(file);
                     editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
                 }
             }
-        } else {
+        }
+        else
+        {
             //            System.out.println("file is  new");
             //                System.out.println("file is modified");
             chooser.setDialogTitle("Save new file " +
                 editor.getClientProperty("FILE_PATH") + "?");
 
-            if (chooser.showSaveDialog(XPontusWindow.getInstance().getFrame()) == javax.swing.JFileChooser.APPROVE_OPTION) {
+            if (chooser.showSaveDialog(XPontusWindow.getInstance().getFrame()) == javax.swing.JFileChooser.APPROVE_OPTION)
+            {
                 java.io.File file = chooser.getSelectedFile();
 
-                if (file.exists()) {
+                if (file.exists())
+                {
                     int answer = javax.swing.JOptionPane.showConfirmDialog(XPontusWindow.getInstance()
                                                                                         .getFrame(),
                             "Erase");
 
-                    if (answer == javax.swing.JOptionPane.YES_OPTION) {
+                    if (answer == javax.swing.JOptionPane.YES_OPTION)
+                    {
                         int ouvert = pane.isOpen(file);
 
-                        if (ouvert != -1) {
+                        if (ouvert != -1)
+                        {
                             pane.remove(ouvert);
                         }
 
                         save(file);
-                    } else {
+                    }
+                    else
+                    {
                         return;
                     }
-                } else {
+                }
+                else
+                {
                     save(file);
                 }
             }
@@ -135,7 +157,8 @@ public class SaveAction extends BaseAction {
      * @param ask ask for user confirmation
      * @throws java.lang.Exception an exception
      */
-    public void save(int index, boolean ask) throws Exception {
+    public void save(int index, boolean ask) throws Exception
+    {
         //        System.out.println("index " + index);
         javax.swing.JEditorPane editor;
         PaneForm pane = XPontusWindow.getInstance().getPane();
@@ -146,12 +169,15 @@ public class SaveAction extends BaseAction {
         boolean modified = editor.getClientProperty("FILE_MODIFIED")
                                  .equals(Boolean.TRUE);
 
-        if (!filenew) {
+        if (!filenew)
+        {
             //            System.out.println("file is not new");
-            if (modified) {
+            if (modified)
+            {
                 //                System.out.println("filemodified:" + editor.getClientProperty("FILE_MODIFIED"));
                 //                System.out.println("file is modified");
-                if (ask) {
+                if (ask)
+                {
                     //                    System.out.println("asked to save");
                     java.io.File file = (java.io.File) editor.getClientProperty(
                             "FILE");
@@ -162,44 +188,57 @@ public class SaveAction extends BaseAction {
                             "Save " + file.getAbsolutePath() + "?", "Confirm",
                             javax.swing.JOptionPane.YES_NO_OPTION);
 
-                    if (rep == javax.swing.JOptionPane.YES_OPTION) {
+                    if (rep == javax.swing.JOptionPane.YES_OPTION)
+                    {
                         save(file);
                         editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
                     }
-                } else {
+                }
+                else
+                {
                     java.io.File file = (java.io.File) editor.getClientProperty(
                             "FILE");
                     save(file);
                     editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
                 }
             }
-        } else {
+        }
+        else
+        {
             //              System.out.println("filenew");
             //            System.out.println("file is  new");
             //                System.out.println("file is modified");
             chooser.setDialogTitle("Save new file " +
                 pane.getToolTipTextAt(index) + "?");
 
-            if (chooser.showSaveDialog(XPontusWindow.getInstance().getFrame()) == javax.swing.JFileChooser.APPROVE_OPTION) {
+            if (chooser.showSaveDialog(XPontusWindow.getInstance().getFrame()) == javax.swing.JFileChooser.APPROVE_OPTION)
+            {
                 java.io.File file = chooser.getSelectedFile();
 
-                if (file.exists()) {
+                if (file.exists())
+                {
                     int answer = javax.swing.JOptionPane.showConfirmDialog(XPontusWindow.getInstance()
                                                                                         .getFrame(),
                             "Erase");
 
-                    if (answer == javax.swing.JOptionPane.YES_OPTION) {
+                    if (answer == javax.swing.JOptionPane.YES_OPTION)
+                    {
                         int ouvert = pane.isOpen(file);
 
-                        if (ouvert != -1) {
+                        if (ouvert != -1)
+                        {
                             pane.remove(ouvert);
                         }
 
                         save(file);
-                    } else {
+                    }
+                    else
+                    {
                         return;
                     }
-                } else {
+                }
+                else
+                {
                     save(file);
                 }
             }
@@ -209,12 +248,16 @@ public class SaveAction extends BaseAction {
     /**
      * @see net.sf.xpontus.core.controller.actions#execute()
      */
-    public void execute() {
-        try {
+    public void execute()
+    {
+        try
+        {
             PaneForm pane = XPontusWindow.getInstance().getPane();
             int index = pane.getSelectedIndex();
             save(index, false);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
@@ -223,25 +266,33 @@ public class SaveAction extends BaseAction {
      * save the document to a file
      * @param file the file to save
      */
-    public void save(java.io.File file) {
+    public void save(java.io.File file)
+    {
         javax.swing.JEditorPane editor = XPontusWindow.getInstance()
                                                       .getCurrentEditor();
 
         SyntaxDocument _doc = (SyntaxDocument) editor.getDocument();
         TokenMarker tk1 = (TokenMarker) editor.getClientProperty("TOKEN_MARKER");
 
-        try {
-            if (tk1 != null) {
-                if (tk1.getClass() == XMLTokenMarker.class) {
+        try
+        {
+            if (tk1 != null)
+            {
+                if (tk1.getClass() == XMLTokenMarker.class)
+                {
                     XMLOptionModel m1 = new XMLOptionModel();
                     m1 = (XMLOptionModel) m1.load();
                     editor.write(new java.io.OutputStreamWriter(
                             new java.io.FileOutputStream(file),
                             m1.getXmlEncoding()));
-                } else {
+                }
+                else
+                {
                     editor.write(new java.io.FileWriter(file));
                 }
-            } else {
+            }
+            else
+            {
                 editor.write(new java.io.FileWriter(file));
             }
 
@@ -249,7 +300,8 @@ public class SaveAction extends BaseAction {
             editor.putClientProperty("FILE_PATH", file.getAbsolutePath());
             editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
             editor.putClientProperty("FILE_NEW", Boolean.FALSE);
-    editor.putClientProperty("LAST_MODIFIED" , "" + file.lastModified());
+            editor.putClientProperty("LAST_MODIFIED", "" + file.lastModified());
+
             String extension = FilenameUtils.getExtension(file.getName());
             TokenMarker tk = KitInfo.getInstance().getTokenMarker(extension);
             editor.putClientProperty("TOKEN_MARKER", tk);
@@ -260,7 +312,9 @@ public class SaveAction extends BaseAction {
             XPontusWindow.getInstance().getPane()
                          .setToolTipTextAt(i, file.getAbsolutePath());
             XPontusWindow.getInstance().getPane().setTitleAt(i, file.getName());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }

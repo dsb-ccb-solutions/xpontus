@@ -204,7 +204,9 @@ public class PaneForm extends CloseableTabbedPane {
         String filename = file.getAbsolutePath();
         int openedFiles = getTabCount();
         for(int i=0;i<openedFiles;i++){
-            if(filename.equals(this.getToolTipTextAt(i))){
+            JEditorPane editor = getEditorAt(i);
+            boolean opened = editor.getClientProperty("FILE_PATH").equals(filename);
+            if(opened){
                 return i;
             }
         }
