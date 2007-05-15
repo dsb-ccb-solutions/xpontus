@@ -2,7 +2,7 @@
  * ModificationHandler.java
  *
   *
- * Created on 1 août 2005, 17:46
+ * Created on 1 aoï¿½t 2005, 17:46
  *
  *  Copyright (C) 2005-2007 Yves Zoundi
  *
@@ -24,6 +24,8 @@ package net.sf.xpontus.controller.handlers;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import net.sf.xpontus.view.PaneForm;
+import net.sf.xpontus.view.XPontusWindow;
 
 
 /**
@@ -46,13 +48,20 @@ public class ModificationHandler implements DocumentListener {
      */
     public void setModified() {
         editor.putClientProperty("FILE_MODIFIED", Boolean.TRUE);
+        PaneForm pane = XPontusWindow.getInstance().getPane();
+        String oldTitle = pane.getTitleAt(pane.getSelectedIndex()); 
+        System.out.println("old title:" + oldTitle);
+        System.out.println("index:" + pane.getSelectedIndex());
+        pane.setTitleAt(pane.getSelectedIndex(), oldTitle);
     }
 
     /**
      * put a saved flag on the document
      */
     public void setSaved() {
-        editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
+        editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);        
+        PaneForm pane = XPontusWindow.getInstance().getPane();
+        pane.setTitleAt(pane.getSelectedIndex(), pane.getTitleAt(pane.getSelectedIndex()).replaceAll("\\*", ""));
     }
 
     /** implements DocumentListener **/

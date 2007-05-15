@@ -209,6 +209,7 @@ public class CloseableTabbedPane extends JTabbedPane
 				 SwingUtilities.TRAILING,
 				 rect, iconRect, textRect,
 				 UIManager.getInt("TabbedPane.textIconGap"));
+                         
 
 			if (leftIcon != null) {
 				leftIcon.paintIcon(c, g, x, y + 1);

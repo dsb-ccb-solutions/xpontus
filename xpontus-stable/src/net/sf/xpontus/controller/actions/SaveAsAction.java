@@ -38,11 +38,13 @@ import org.syntax.jedit.tokenmarker.XMLTokenMarker;
  * Action to save a document under another name
  * @author Yves Zoundi
  */
-public class SaveAsAction extends BaseAction {
+public class SaveAsAction extends BaseAction
+{
     private javax.swing.JFileChooser chooser;
 
     /** Creates a new instance of SaveAsAction */
-    public SaveAsAction() {
+    public SaveAsAction()
+    {
         chooser = new javax.swing.JFileChooser();
     }
 
@@ -50,25 +52,33 @@ public class SaveAsAction extends BaseAction {
      * save a document to a file
      * @param file the file to save the document to
      */
-    public void save(java.io.File file) {
+    public void save(java.io.File file)
+    {
         javax.swing.JEditorPane editor = XPontusWindow.getInstance()
                                                       .getCurrentEditor();
 
         SyntaxDocument _doc = (SyntaxDocument) editor.getDocument();
         TokenMarker tk1 = (TokenMarker) editor.getClientProperty("TOKEN_MARKER");
 
-        try {
-            if (tk1 != null) {
-                if (tk1.getClass() == XMLTokenMarker.class) {
+        try
+        {
+            if (tk1 != null)
+            {
+                if (tk1.getClass() == XMLTokenMarker.class)
+                {
                     XMLOptionModel m1 = new XMLOptionModel();
                     m1 = (XMLOptionModel) m1.load();
                     editor.write(new java.io.OutputStreamWriter(
                             new java.io.FileOutputStream(file),
                             m1.getXmlEncoding()));
-                } else {
+                }
+                else
+                {
                     editor.write(new java.io.FileWriter(file));
                 }
-            } else {
+            }
+            else
+            {
                 editor.write(new java.io.FileWriter(file));
             }
 
@@ -76,7 +86,8 @@ public class SaveAsAction extends BaseAction {
             editor.putClientProperty("FILE_PATH", file.getAbsolutePath());
             editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);
             editor.putClientProperty("FILE_NEW", Boolean.FALSE);
-editor.putClientProperty("LAST_MODIFIED" , "" + file.lastModified());
+            editor.putClientProperty("LAST_MODIFIED", "" + file.lastModified());
+
             String extension = FilenameUtils.getExtension(file.getName());
             TokenMarker tk = KitInfo.getInstance().getTokenMarker(extension);
             editor.putClientProperty("TOKEN_MARKER", tk);
@@ -87,7 +98,9 @@ editor.putClientProperty("LAST_MODIFIED" , "" + file.lastModified());
             XPontusWindow.getInstance().getPane()
                          .setToolTipTextAt(i, file.getAbsolutePath());
             XPontusWindow.getInstance().getPane().setTitleAt(i, file.getName());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
@@ -95,29 +108,39 @@ editor.putClientProperty("LAST_MODIFIED" , "" + file.lastModified());
     /**
      * @see net.sf.xpontus.core.controller.actions#execute()
      */
-    public void execute() {
-        if (chooser.showSaveDialog(XPontusWindow.getInstance().getFrame()) == javax.swing.JFileChooser.APPROVE_OPTION) {
+    public void execute()
+    {
+        if (chooser.showSaveDialog(XPontusWindow.getInstance().getFrame()) == javax.swing.JFileChooser.APPROVE_OPTION)
+        {
             java.io.File file = chooser.getSelectedFile();
 
-            if (file.exists()) {
+            if (file.exists())
+            {
                 int answer = javax.swing.JOptionPane.showConfirmDialog(XPontusWindow.getInstance()
                                                                                     .getFrame(),
                         "Erase");
 
-                if (answer == javax.swing.JOptionPane.YES_OPTION) {
+                if (answer == javax.swing.JOptionPane.YES_OPTION)
+                {
                     PaneForm pane = XPontusWindow.getInstance().getPane();
                     int index = pane.getSelectedIndex();
                     int ouvert = pane.isOpen(file);
 
-                    if (ouvert != -1) {
+                    if (ouvert != -1)
+                    {
                         pane.remove(ouvert);
                     }
 
                     save(file);
-                } else {
+                    chooser.setCurrentDirectory(file.getParentFile());
+                }
+                else
+                {
                     return;
                 }
-            } else {
+            }
+            else
+            {
                 save(file);
             }
         }

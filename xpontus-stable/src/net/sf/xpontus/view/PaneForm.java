@@ -268,7 +268,7 @@ public class PaneForm extends CloseableTabbedPane {
             } else{
                 XPontusWindow.getInstance().setMessage("");
                 XPontusWindow.getInstance().getStatusBar().setNotificationMessage("");
-                enableDocumentActions(false);
+                enableDocumentActions(false); 
             }
         }
     }//GEN-LAST:event_tabChanged
