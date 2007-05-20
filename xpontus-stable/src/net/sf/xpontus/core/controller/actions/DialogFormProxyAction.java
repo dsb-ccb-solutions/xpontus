@@ -28,30 +28,36 @@ import javax.swing.JDialog;
  * Generic action to display a dialog
  * @author Yves Zoundi
  */
-public class DialogFormProxyAction extends BaseAction {
+public class DialogFormProxyAction extends BaseAction implements Runnable
+{
     private String dialogClassName;
     private Class dialogClass;
     private JDialog dialog;
 
     /** Creates a new instance of DialogFormProxyAction */
-    public DialogFormProxyAction() {
+    public DialogFormProxyAction()
+    {
     }
 
     /**
      * @see net.sf.xpontus.core.controller.actions#execute()
      *
      */
-    public void execute() {
-        init();
-        dialog.setLocationRelativeTo(dialog.getOwner());
-        dialog.setVisible(true);
+    public void execute()
+    {
+        run();
     }
 
-    private void init() {
-        if (dialog == null) {
-            try {
+    private void init()
+    {
+        if (dialog == null)
+        {
+            try
+            {
                 dialog = (JDialog) dialogClass.newInstance();
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }
@@ -61,7 +67,8 @@ public class DialogFormProxyAction extends BaseAction {
      *
      * @return the dialog class name
      */
-    public String getDialogClassName() {
+    public String getDialogClassName()
+    {
         return dialogClassName;
     }
 
@@ -69,12 +76,16 @@ public class DialogFormProxyAction extends BaseAction {
      * Set the dialog class name
      * @param dialogClassName Tje dialog class name
      */
-    public void setDialogClassName(String dialogClassName) {
+    public void setDialogClassName(String dialogClassName)
+    {
         this.dialogClassName = dialogClassName;
 
-        try {
+        try
+        {
             this.dialogClass = Class.forName(dialogClassName);
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             ex.printStackTrace();
         }
     }
@@ -83,7 +94,8 @@ public class DialogFormProxyAction extends BaseAction {
      * Return the dialog class
      * @return The dialog class
      */
-    public Class getDialogClass() {
+    public Class getDialogClass()
+    {
         return dialogClass;
     }
 
@@ -91,7 +103,8 @@ public class DialogFormProxyAction extends BaseAction {
      * Set the dialog class
      * @param dialogClass The dialog class
      */
-    public void setDialogClass(Class dialogClass) {
+    public void setDialogClass(Class dialogClass)
+    {
         this.dialogClass = dialogClass;
         this.dialogClassName = dialogClass.getName();
     }
@@ -100,7 +113,8 @@ public class DialogFormProxyAction extends BaseAction {
      * return the dialog to display
      * @return the dialog to display
      */
-    public JDialog getDialog() {
+    public JDialog getDialog()
+    {
         return dialog;
     }
 
@@ -108,7 +122,15 @@ public class DialogFormProxyAction extends BaseAction {
      * Set the dialog to display
      * @param dialog The dialog to display
      */
-    public void setDialog(JDialog dialog) {
+    public void setDialog(JDialog dialog)
+    {
         this.dialog = dialog;
+    }
+
+    public void run()
+    {
+        init();
+        dialog.setLocationRelativeTo(dialog.getOwner());
+        dialog.setVisible(true);
     }
 }

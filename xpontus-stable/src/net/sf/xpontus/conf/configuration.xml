@@ -35,6 +35,11 @@
         <property name  = "actionCommand" value = "action.reload"/>
         <property name = "description" value = "action.reload.description"/>        
     </bean>
+    <bean id = "action.recent" class= "net.sf.xpontus.controller.actions.RecentFileAction">
+        <property name = "name" value = "action.recent.name"/>
+        <property name = "actionCommand" value = "action.recent"/>
+        <property name = "description" value = "action.recent.description"/>
+    </bean>
     <!-- ======================= General Actions ========================== -->
     <!-- action to display the about dialog -->
     <bean id="action.about" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">

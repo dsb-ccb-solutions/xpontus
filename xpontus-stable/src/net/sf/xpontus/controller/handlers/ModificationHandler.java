@@ -40,6 +40,7 @@ public class ModificationHandler implements DocumentListener {
      */
     public ModificationHandler(javax.swing.JEditorPane editor) {
         this.editor = editor;
+        // add the document modification notifier to the current document
         editor.getDocument().addDocumentListener(this);
     }
 
@@ -47,21 +48,14 @@ public class ModificationHandler implements DocumentListener {
      * put a modified flag on the document
      */
     public void setModified() {
-        editor.putClientProperty("FILE_MODIFIED", Boolean.TRUE);
-        PaneForm pane = XPontusWindow.getInstance().getPane();
-        String oldTitle = pane.getTitleAt(pane.getSelectedIndex()); 
-        System.out.println("old title:" + oldTitle);
-        System.out.println("index:" + pane.getSelectedIndex());
-        pane.setTitleAt(pane.getSelectedIndex(), oldTitle);
+        editor.putClientProperty("FILE_MODIFIED", Boolean.TRUE); 
     }
 
     /**
      * put a saved flag on the document
      */
     public void setSaved() {
-        editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);        
-        PaneForm pane = XPontusWindow.getInstance().getPane();
-        pane.setTitleAt(pane.getSelectedIndex(), pane.getTitleAt(pane.getSelectedIndex()).replaceAll("\\*", ""));
+        editor.putClientProperty("FILE_MODIFIED", Boolean.FALSE);  
     }
 
     /** implements DocumentListener **/

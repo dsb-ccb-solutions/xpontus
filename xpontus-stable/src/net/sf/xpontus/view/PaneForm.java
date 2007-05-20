@@ -45,6 +45,7 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.DefaultEditorKit;
 import net.sf.xpontus.controller.actions.OpenAction;
+import net.sf.xpontus.controller.actions.RecentFileAction;
 import net.sf.xpontus.controller.actions.ReloadAction;
 import net.sf.xpontus.controller.handlers.ModificationHandler;
 import net.sf.xpontus.core.controller.actions.BaseAction;
@@ -420,6 +421,10 @@ public class PaneForm extends CloseableTabbedPane {
             configureEditor(editor);
             getCurrentEditor().grabFocus();
             handler.setSaved();
+            
+            
+            RecentFileAction mAction = (RecentFileAction)applicationContext.getBean("action.recent");
+            mAction.add(file);
         } catch(Exception e){
             e.printStackTrace();
         }
