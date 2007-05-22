@@ -30,11 +30,17 @@
             <value>net.sf.xpontus.i18n.textMessages,net.sf.xpontus.i18n.application</value>
         </property>
     </bean>        
+    
+    <!-- recent files listener -->
+    <bean id = "recentFilesListener" class = "net.sf.xpontus.controller.handlers.RecentFileListActionListener"/>
+    
+    <!-- action to reload a file -->
      <bean id = "action.reload" class = "net.sf.xpontus.controller.actions.ReloadAction">
         <property name = "name" value = "action.reload.name"/>
         <property name  = "actionCommand" value = "action.reload"/>
         <property name = "description" value = "action.reload.description"/>        
     </bean>
+    
     <bean id = "action.recent" class= "net.sf.xpontus.controller.actions.RecentFileAction">
         <property name = "name" value = "action.recent.name"/>
         <property name = "actionCommand" value = "action.recent"/>

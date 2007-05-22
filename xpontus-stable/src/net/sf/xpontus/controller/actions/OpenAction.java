@@ -25,6 +25,7 @@ import net.sf.xpontus.core.controller.actions.ThreadedAction;
 import net.sf.xpontus.view.XPontusWindow;
 
 import java.io.File;
+import net.sf.xpontus.controller.handlers.RecentFileListActionListener;
 
 
 /**
@@ -33,14 +34,14 @@ import java.io.File;
  */
 public class OpenAction extends ThreadedAction {
     private javax.swing.JFileChooser chooser;
-
+    
     /** Creates a new instance of OpenAction */
     public OpenAction() {
         chooser = new javax.swing.JFileChooser();
         chooser.setMultiSelectionEnabled(true);
         chooser.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);
     }
-
+    
     /**
      * The initial directory to open
      * @param dir the initial directory to open
@@ -48,20 +49,21 @@ public class OpenAction extends ThreadedAction {
     public void setFileDir(String dir) {
         chooser.setCurrentDirectory(new File(dir));
     }
-
+    
     /**
      * @see net.sf.xpontus.core.controller.actions#execute()
      */
     public void execute() {
         int answer = chooser.showOpenDialog(XPontusWindow.getInstance()
-                                                         .getFrame());
-
+        .getFrame());
+        
         if (answer == javax.swing.JFileChooser.APPROVE_OPTION) {
             final java.io.File[] selectedFiles = chooser.getSelectedFiles();
-
+            
             for (int i = 0; i < selectedFiles.length; i++) {
-                XPontusWindow.getInstance().getPane()
-                             .createEditorFromFile(selectedFiles[i]);
+                XPontusWindow.getInstance().getPane().createEditorFromFile(selectedFiles[i]);
+                RecentFileListActionListener listener = (RecentFileListActionListener)XPontusWindow.getInstance().getApplicationContext().getBean("recentFilesListener");
+                listener.addFile(selectedFiles[i]);
             }
         }
     }

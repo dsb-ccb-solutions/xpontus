@@ -24,16 +24,16 @@ import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JMenu;
 import javax.swing.JScrollPane;
 import net.sf.xpontus.constants.XPontusConstants;
+import net.sf.xpontus.controller.handlers.RecentFileListActionListener;
 import net.sf.xpontus.core.controller.actions.BaseAction;
 import net.sf.xpontus.core.controller.handlers.PopupListener;
 import net.sf.xpontus.core.utils.L10nHelper;
@@ -67,9 +67,16 @@ public class XPontusWindow implements ApplicationContextAware{
             WindowUtilities.centerOnScreen(splash);
             splash.setVisible(true);
         }
+        recentFileMenu = new JMenu("Recent files");
+        
         initComponents();
         
         initDock();
+    }
+    
+    // get the recent files opened in the editor
+    public JMenu getRecentFileMenu(){
+        return recentFileMenu;
     }
     
     /**
@@ -105,6 +112,14 @@ public class XPontusWindow implements ApplicationContextAware{
      */
     public void initActions(){
         configureMenu(fileMenu, XPontusConstants.fileActions);
+        fileMenu.add(recentFileMenu);
+        RecentFileListActionListener listener = (RecentFileListActionListener)XPontusWindow.getInstance().getApplicationContext().getBean("recentFilesListener");
+        try {
+            listener.loadList();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        configureMenu(fileMenu, XPontusConstants.fileActions2);
         configureMenu(editMenu, XPontusConstants.editActions);
         configureMenu(helpMenu, XPontusConstants.helpActions);
         configureMenu(formatMenu, XPontusConstants.formatActions);
@@ -564,6 +579,8 @@ public class XPontusWindow implements ApplicationContextAware{
         return src.getMessage(key, null, Locale.getDefault());
     }
     
+    
+    private JMenu recentFileMenu;
     private ApplicationContext applicationContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu editMenu;

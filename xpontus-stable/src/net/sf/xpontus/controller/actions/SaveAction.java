@@ -21,6 +21,7 @@
  */
 package net.sf.xpontus.controller.actions;
 
+import net.sf.xpontus.controller.handlers.RecentFileListActionListener;
 import net.sf.xpontus.core.controller.actions.BaseAction;
 import net.sf.xpontus.model.options.XMLOptionModel;
 import net.sf.xpontus.view.PaneForm;
@@ -312,6 +313,9 @@ public class SaveAction extends BaseAction
             XPontusWindow.getInstance().getPane()
                          .setToolTipTextAt(i, file.getAbsolutePath());
             XPontusWindow.getInstance().getPane().setTitleAt(i, file.getName());
+            
+            RecentFileListActionListener listener = (RecentFileListActionListener)XPontusWindow.getInstance().getApplicationContext().getBean("recentFilesListener");
+            listener.addFile(file);
         }
         catch (Exception e)
         {

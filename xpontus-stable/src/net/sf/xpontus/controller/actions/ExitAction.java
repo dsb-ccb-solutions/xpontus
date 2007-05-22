@@ -26,6 +26,7 @@ import net.sf.xpontus.model.options.GeneralOptionModel;
 import net.sf.xpontus.view.XPontusWindow;
 
 import javax.swing.JOptionPane;
+import net.sf.xpontus.controller.handlers.RecentFileListActionListener;
 
 
 /**
@@ -36,32 +37,44 @@ public class ExitAction extends BaseAction {
     /** Creates a new instance of ExitAction */
     public ExitAction() {
     }
-
+    
     /**
      * @see net.sf.xpontus.core.controller.actions#execute()
      */
     public void execute() {
         if (!XPontusWindow.getInstance().getPane().isEmpty()) {
             ((BaseAction) XPontusWindow.getInstance().getApplicationContext()
-                                       .getBean("action.closetaball")).execute();
+            .getBean("action.closetaball")).execute();
         }
-
+        
         GeneralOptionModel model1 = (GeneralOptionModel) new GeneralOptionModel().load();
-
+        
         if (model1 == null) {
             model1 = new GeneralOptionModel();
         }
-
+        
         if (model1.isConfirmOnExitOption()) {
             int answer = JOptionPane.showConfirmDialog(XPontusWindow.getInstance()
-                                                                    .getFrame(),
+            .getFrame(),
                     "Are you sure you want to quit?", "Exit the program",
                     JOptionPane.YES_NO_OPTION);
-
+            
             if (answer == JOptionPane.YES_OPTION) {
+                RecentFileListActionListener listener = (RecentFileListActionListener)XPontusWindow.getInstance().getApplicationContext().getBean("recentFilesListener");
+                try {
+                    listener.saveList();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
                 System.exit(0);
             }
         } else {
+            RecentFileListActionListener listener = (RecentFileListActionListener)XPontusWindow.getInstance().getApplicationContext().getBean("recentFilesListener");
+            try {
+                listener.saveList();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
             System.exit(0);
         }
     }

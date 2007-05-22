@@ -65,7 +65,12 @@ public interface XPontusConstants {
     /** File menu actions id */
     static final String[] fileActions = new String[] {
             "action.new", "action.open", "action.reload", "-", "action.save", "action.saveas", 
-            "action.saveall", "-", "action.recent", "-", "action.closetab", "action.closeothers","action.closetaball", "-",
+            "action.saveall", "-", 
+        };
+    
+    
+      static final String[] fileActions2 = new String[] {
+             "-", "action.closetab", "action.closeothers","action.closetaball", "-",
             "action.print", "-", "action.exit"
         };
 
