@@ -21,7 +21,9 @@
  */
 package net.sf.xpontus.core.controller.actions;
 
+import java.awt.EventQueue;
 import javax.swing.JDialog;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -45,7 +47,7 @@ public class DialogFormProxyAction extends BaseAction implements Runnable
      */
     public void execute()
     {
-        run();
+        EventQueue.invokeLater(this);
     }
 
     private void init()
