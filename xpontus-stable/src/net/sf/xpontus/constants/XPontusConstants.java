@@ -37,7 +37,7 @@ public interface XPontusConstants {
 
     /**  The XPontus XML Editor's configuration directory */
     static final File CONF_DIR = new File(new File(HOME, ".xpontus_1"),
-            "1.0.0rc2");
+            "1.0.0rc3");
 
     /** the preferences directory */
     static final File PREF_DIR = new File(CONF_DIR, "preferences");

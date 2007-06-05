@@ -8,6 +8,7 @@
  */
 package net.sf.xpontus.controller.actions;
 
+import javax.swing.JMenuBar;
 import net.sf.xpontus.core.controller.actions.BaseAction;
 
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import java.util.Vector;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.event.EventListenerList;
+import net.sf.xpontus.view.XPontusWindow;
 
 
 /**
@@ -92,8 +94,7 @@ public class RecentFileAction extends BaseAction
         System.out.println("fired action performed in recent files list action");
         System.out.println();
         
-        
-        
+         
     }
 
     public void execute()

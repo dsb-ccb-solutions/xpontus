@@ -31,6 +31,7 @@ import java.util.Locale;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 import net.sf.xpontus.constants.XPontusConstants;
 import net.sf.xpontus.controller.handlers.RecentFileListActionListener;
@@ -577,6 +578,10 @@ public class XPontusWindow implements ApplicationContextAware{
     public String getI18nMessage(String key){
         MessageSource src = (MessageSource)applicationContext.getBean("messageSource");
         return src.getMessage(key, null, Locale.getDefault());
+    }
+    
+    public JMenuBar getApplicationMenuBar(){
+        return this.menubar;
     }
     
     
