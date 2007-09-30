@@ -1,0 +1,49 @@
+<%
+// Placed in public domain by Dmitry Olshansky, 2006
+%>
+<html><body>
+<h1>Registry Change Report</h1>
+
+<h3>Added plug-ins</h3>
+<ul>
+<% for (String id : addedPlugins) { %>
+<li><a href="plugin:<%= id %>"><%= id %></a></li>
+<% } %>
+</ul>
+
+<h3>Removed plug-ins</h3>
+<ul>
+<% for (String id : removedPlugins) { %>
+<li><%= id %></li>
+<% } %>
+</ul>
+
+<h3>Modified plug-ins</h3>
+<ul>
+<% for (String id : modifiedPlugins) { %>
+<li><a href="plugin:<%= id %>"><%= id %></a></li>
+<% } %>
+</ul>
+
+<h3>Added extensions</h3>
+<ul>
+<% for (String id : addedExtensions) { %>
+<li><a href="ext:<%= id %>"><%= id %></a></li>
+<% } %>
+</ul>
+
+<h3>Removed extensions</h3>
+<ul>
+<% for (String id : removedExtensions) { %>
+<li><%= id %></li>
+<% } %>
+</ul>
+
+<h3>Modified extensions</h3>
+<ul>
+<% for (String id : modifiedExtensions) { %>
+<li><a href="ext:<%= id %>"><%= id %></a></li>
+<% } %>
+</ul>
+
+</body></html>

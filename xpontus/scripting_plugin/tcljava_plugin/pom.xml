@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <parent>
+    <artifactId>scripting_plugin</artifactId>
+    <groupId>net.sf.xpontus.plugins.scripting</groupId>
+    <version>1.0.0-pre1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.xpontus.plugins.scripting.tcljava</groupId>
+  <artifactId>tcljava_plugin</artifactId>
+  <name>TCL Java plugin</name>
+  <version>1.0.0-pre1</version>
+  <description>Plugin support for TCL/Java</description>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

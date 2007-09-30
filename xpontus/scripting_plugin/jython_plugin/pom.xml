@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <parent>
+    <artifactId>scripting_plugin</artifactId>
+    <groupId>net.sf.xpontus.plugins.scripting</groupId>
+    <version>1.0.0-pre1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.xpontus.plugins.jython</groupId>
+  <artifactId>jython_plugin</artifactId>
+  <name>Jython Plugin</name>
+  <version>1.0.0-pre1</version>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,59 @@
+<%
+// Placed in public domain by Dmitry Olshansky, 2006
+import java.text.*;
+import org.java.plugin.*;
+
+function void printDoc(Documentable obj) {
+	Documentation doc = obj.getDocumentation();
+	if (doc == null) {
+		return;
+	}
+	String docText = doc.getText().trim();
+	if (docText.length() == 0) {
+		return;
+	}
+	println("<h3>" + doc.getCaption() + "</h3>");
+	println("<p>" + docText + "</p>");
+}
+
+function void printAttr(PluginAttribute attr) {
+	println(attr.getId() + " [" + attr.getValue() + "]");
+	if (attr.getSubAttributes().isEmpty()) {
+		return;
+	}
+	println("<ul>");
+	for (PluginAttribute subAttr : attr.getSubAttributes()) {
+		println("<li>");
+		printAttr(subAttr);
+		println("</li>");
+	}
+	println("</ul>");
+}
+
+function void printParamDef(ExtensionPoint.ParameterDefinition def) {
+	println(def.getId() + " [" + def.getType() + "] [" + def.getMultiplicity()
+		+ "]");
+	if (def.getSubDefinitions().isEmpty()) {
+		return;
+	}
+	println("<ul>");
+	for (ExtensionPoint.ParameterDefinition subDef : def.getSubDefinitions()) {
+		println("<li>");
+		printParamDef(subDef);
+		println("</li>");
+	}
+}
+
+function void printParam(Extension.Parameter param) {
+	println(param.getId() + " [" + param.rawValue() + "]");
+	if (param.getSubParameters().isEmpty()) {
+		return;
+	}
+	println("<ul>");
+	for (Extension.Parameter subParam : param.getSubParameters()) {
+		println("<li>");
+		printParam(subParam);
+		println("</li>");
+	}
+}
+%>

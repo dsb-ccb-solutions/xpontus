@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="XPontus"> 
+   <skin>  
+    <groupId>org.apache.hivemind</groupId>  
+    <artifactId>maven-skin</artifactId>  
+    <version>2.0</version>  
+ </skin>  
+    <bannerLeft>
+        <name>Sourceforge</name>
+        <alt>Sourceforge</alt>
+        <src>logos/sflogo.gif</src>
+        <href>http://sourceforge.net/</href>
+    </bannerLeft>
+
+    <bannerRight>
+        <src>logos/logo.png</src>
+    </bannerRight>
+   
+    <body> 
+        <links>  
+            <item name = "XPontus on sourceforge" href="http://sourceforge.net/projects/xpontus"/>
+            <item name = "XPontus Homepage" href="http://xpontus.sourceforge.net/index.html"/>
+            <item name = "JXSLTDoc" href="http://jxsltdoc.sourceforge.net/"/>
+            <item name = "JHTMLCleaner" href="http://jhmlcleaner.berlios.de/"/> 
+        </links>        
+        <menu name="Index">
+            <item name = "Introduction" href="index.html" /> 
+            <item name = "Features" href = "features.html"/>
+            <item name = "Installation" href = "installation.html"/> 
+            <item name = "Screenshots" href = "screenshots.html"/>
+            <item name = "Downloads" href = "http://sourceforge.net/project/showfiles.php?group_id=118253"/>            
+        </menu>        
+        <menu name = "Project information"> 
+            <item name = "XPontus Team" href = "team-list.html"/>
+            <item name = "License" href = "license.html"/>
+            <item name = "Mailing lists" href = "mail-lists.html"/>
+            <item name = "FAQ" href = "faq.html"/>
+        </menu>
+        <menu name = "About me">
+            <item name = "Who am I?" href = "aboutme.html" />
+            <item name = "My Blog" class = "newWindow" target = "_blank" href = "http://yveszoundi.blogspot.com"/>
+            <item name = "My resume" class = "newWindow"  target = "_blank" href = "resume.html"/>
+        </menu>
+        ${modules} 
+    </body>
+</project>

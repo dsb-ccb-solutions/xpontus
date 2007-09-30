@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.xquery">
+<plugin id="plugin.lexer.xquery" version="0.0.1" class="net.sf.xpontus.plugins.lexer.xquery.XQueryLexerPlugin">
+    	<requires>
+		<import plugin-id="plugin.core.lexer" />
+	</requires>
+	<runtime> 
+		<library id="plugin.lexer.xquery.lib" path="lib/xquery_plugin-1.0.0-pre1.jar" type="code">
+			   <export prefix="*"/> 
+		</library>  
+	</runtime>
+	<extension plugin-id="plugin.core.lexer" point-id="lexerpluginif" id="plugin.lexer.xquery.extension">
+		<parameter id="class" value="net.sf.xpontus.plugins.lexer.xquery.XQueryParser" /> 
+	</extension>
+</plugin>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.core.menubar.simplexmlvalidationplugin" version="0.0.1" class="net.sf.xpontus.plugins.validation.simplexmlvalidation.SimpleValidationPlugin">      
+    <requires>
+        <import plugin-id="plugin.core.menubar" />
+    </requires>
+    <runtime> 
+        <library id="simplexmlvalidationplugin" path="lib/simplexmlvalidation_plugin-1.0.0-pre1.jar" type="code">
+            <export prefix="*"/> 
+        </library> 
+    </runtime>
+    <extension plugin-id="plugin.core.menubar" point-id="menubarpluginif" id="simplexmlvalidationplugin">
+        <parameter id="class" value="net.sf.xpontus.plugins.validation.simplexmlvalidation.SimpleValidationPluginImpl" /> 
+    </extension>
+</plugin>

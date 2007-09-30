@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <parent>
+    <artifactId>xpontus</artifactId>
+    <groupId>net.sf.xpontus</groupId>
+    <version>1.0.0-pre1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.xpontus.plugins.scripting</groupId>
+  <artifactId>scripting_plugin</artifactId>
+  <name>XPontus Scripting Plugin</name>
+  <packaging>pom</packaging>
+  <version>1.0.0-pre1</version> 
+  <description>Plugin support for scripting languages</description>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <modules>
+    <module>beanshell_plugin</module>
+    <module>groovy_plugin</module>
+    <module>tcljava_plugin</module>
+    <module>jython_plugin</module>
+  </modules>
+</project>

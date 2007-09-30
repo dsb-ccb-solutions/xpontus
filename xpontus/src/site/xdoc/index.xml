@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    
+    <properties>
+        <author email="yveszoundi AT users DOT sf DOT net">Yves Zoundi</author>
+        <title>Homepage</title>        
+    </properties>
+    
+    <meta name="keyword" content="XSL, java"/>
+    
+    <body> 
+        <section name ="Overview">
+            <p>XPontus XML Editor is a simple XML Editor with lots of features. It aims to become "the" free alternative to
+            commercial XML IDES such as XMLSPy or Oxygen XML Editor, or Exchanger XML Editor.</p>
+            <p>I focus the development on simplicity and speed. I try to optimize the code for low specs pcs. This is why most features will be available as modules.
+            The editor will never become a monster beast with 100mb to download at least for now :-0.</p> 
+        </section>
+        
+        <section name = "About the new branch">
+            <p>This is a complete rewrite of the previous beta and release candidates. Lots of new features
+                were requested again and again. It was very difficult to add new features in a modular 
+                manner without touching the code base. I learned a lot from my first coding attempts 
+                and I feel more experienced now. I hope that the brand new version will be great.
+            The latest news about XPontus development can be found on my <a target = "_blank" href = "http://yveszoundi.blogspot.com">blog</a>.</p>
+        </section> 
+        
+        <section name ="Features">
+            <p>XPontus tries to provide you the features you would expect in a real XML IDE in a familiar and conviviable manner.</p>
+            <p>I work on the usability and look at other applications to inspire myself when I design the application. So when
+            you choose to use XPontus XML Editor, you are not completely lost. </p>
+            <p>XPontus is not just an XML Editor no more, it is becoming a framework with pluggable modules. The plugin framework used
+            to create XPontus plugins is <a target = "_blank" href = "http://jpf.sf.net">JPF</a>.</p>
+        </section>
+        
+    </body>
+</document>

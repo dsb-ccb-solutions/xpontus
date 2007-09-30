@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    
+    <properties>
+        <author email="yveszoundi.AT.users.DOT.sf.DOT.net">Yves Zoundi</author>
+        <title>Installation</title>        
+    </properties> 
+    <meta name="keyword" content="XSL, java"/>
+    
+    <body> 
+        <section name ="Requirements">
+            <p>Java (only the runtime JRE) is necessary to run the editor. You can use a jdk 1.4.2 or later. I don't use
+            any java 1.5 or 1.6 features so if you don't want to upgrade your java version you can keep it as it is.</p>
+            
+        </section>
+        
+        <section name = "Installation on Windows">
+            <p>Double click on the installer and follow the instructions. It is pretty straightforward.</p>
+            <p><img src = "images/win-installer.png"/></p>
+        </section>
+        
+        <section name = "Installation on Linux">
+            <subsection name = "Debian/Ubuntu">
+                <p>If you have gdebi package installed or you are using Ubuntu, double click on the package. It will install all required dependencies.</p>
+                <p>Otherwise, run the following command as superuser</p>
+                <source>For Ubuntu : sudo dpkg -i xpontus-version.deb</source>
+                <source>For Debian : su root -c 'dpkg -i xpontus-version.deb'</source>                
+                <p>If you have <a href = "">Gdebi</a> installed, right click on the file and select "Open With GDebi installer".</p>                
+                <p><a class = "newWindow" href = "http://packages.debian.org/stable/admin/gdebi">Gdebi for Debian Stable</a>.</p>
+                <p><a class = "newWindow" href = "http://packages.ubuntu.com/feisty/admin/gdebi">Gdebi for Ubuntu Feisty</a>.</p>
+            </subsection>
+            
+            <subsection name = "Slackware">
+                <p>Run this command as super user</p>
+                <source>su root -c 'installpkg xpontus-version.tgz'</source>
+            </subsection>
+            
+            <subsection name = "Redhat/Fedora">
+                <p>Double click on the package or run this command as super user</p>
+                <source>su root -c 'rpm -ivh xpontus-version.rpm'</source>
+            </subsection> 
+        </section>
+        
+        <section name = "Installation on Unix">
+            <p>Run this command</p>
+            <source>chmod +x xpontus-version.sh &amp;&amp; ./xpontus-version.sh</source>
+        </section>
+        
+        <section name = "Installation on FreeBSD">
+            <p>Run this command as super suer</p>
+            <source>su root -c 'pkg_add xpontus-version.tbz'</source>
+        </section>
+        
+        <section name = "Installation on any platform">
+            <p>Run this command</p>
+            <source>java -jar xpontus-version.jar</source>
+            <p><img src = "images/xpontus-installer.png"/></p>
+        </section>
+        
+        <section name = "Java Web start">
+            <p>Java Web start is kind of a network installation of the application.
+            The files needed to run the program are downloaded and stored on the user
+            machine. When a modification is provided for the software, the user's copy
+            of the program is updated if there is an active internet connection.
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    
+    <properties>
+        <author email="yveszoundi.AT.users.DOT.sf.DOT.net">Yves Zoundi</author>
+        <title>Features</title>        
+    </properties>
+    
+    
+    <meta name="keyword" content="XSL, java"/>
+    
+    <body> 
+        <section name = "Validation">
+            <subsection name="Simple XML validation">
+                <p>You can validate a document in one click</p>
+            </subsection>
+            
+            <subsection name = "Batch XML Validation">
+                <p>You can validate a batch of xml files and/or directories and choose the extensions of the files you want to validate.</p>            
+            </subsection>
+            
+            <subsection name = "Validation against external schema">
+                <p>This validation allows you to validate a document against a schema which is not necessarily associated to a document.</p>
+                <p>Supported schemas are : </p>
+                <ul>
+                    <li>XML Schema</li>
+                    <li>Relax ng compact and normal grammars</li>
+                    <li>Trex schemas</li>
+                    <li>Schematron schemas</li>
+                </ul>
+            </subsection>
+        </section> 
+        
+        <section name = "Schema conversion or generation">
+            <p>You can convert or generate schema for the following formats</p>
+            <ul>
+                <li>XML</li>
+                <li>DTD</li>
+                <li>XML Schema</li>
+                <li>Relax NG</li>
+            </ul>
+        </section> 
+        
+        <section name = "Schema documentation">
+            <p>You can generate the documentation for DTDS or X</p>
+        </section> 
+        
+        <section name = "XSLT Transformations">
+            <p>You can transform XML format to HTML, XHTML, SVG, XSLFO, XML, TXT or PDF formats</p>
+            <p>Various XSLT Processors can be used such as Xalan, Saxon 6.5.x or Saxon 8.x</p>
+        </section> 
+        
+        
+        <section name = "Code indentation">
+            <p>Code indentation is supported for XML, XHTML and HTML documents.</p>            
+        </section>  
+        
+        
+        <section name = "Code completion">
+            <p>Code completion is enabled via modules</p>
+        </section> 
+        
+        <section name = "Multiple installers">
+            <p>Software installers are available for the following platforms:Windows, Linux, Unix, FreeBSD. 
+            There is also a cross-platform installer and a Java Web Start installer.</p>
+        </section>
+        
+        
+        <section name = "Plugin support">
+            <p>This new development branch of XPontus XML Editor is built around modules</p>
+            <p>This allows a shameless plug of new features without hardcoding stuff or lots of development and refractoring</p>            
+        </section>      
+        
+    </body>
+</document>

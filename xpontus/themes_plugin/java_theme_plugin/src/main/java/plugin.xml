@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.themes.java" version="0.0.1" class="net.sf.xpontus.plugins.themes.jgoodies.JavaThemePlugin">
+    	<requires>
+		<import plugin-id="plugin.core.themes" />
+	</requires>
+	<runtime> 
+		<library id="plugin.themes.java.core" path="lib/java_theme_plugin-1.0.0-pre1.jar" type="code">
+			   <export prefix="*"/> 
+		</library>  
+	</runtime>
+	<extension plugin-id="plugin.core.themes" point-id="themepluginif" id="plugin.themes.java">
+		<parameter id="class" value="net.sf.xpontus.plugins.themes.java.JavaThemePluginImpl" /> 
+	</extension>
+</plugin>

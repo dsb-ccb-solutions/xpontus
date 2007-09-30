@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <parent>
+    <artifactId>validation_plugin</artifactId>
+    <groupId>net.sf.xpontus.plugins.validation</groupId>
+    <version>1.0.0-pre1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.xpontus.plugins.validation.schemavalidation</groupId>
+  <artifactId>schemavalidation_plugin</artifactId>
+  <name>Schema Validation Plugin</name>
+  <version>1.0.0-pre1</version> 
+  <description>XPontus plugin for validation of files against schemas</description>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

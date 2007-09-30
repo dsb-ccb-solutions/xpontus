@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.lexer.xml" version="0.0.1" class="net.sf.xpontus.plugins.lexer.XMLLexerPlugin">
+    	<requires>
+		<import plugin-id="plugin.core.lexer" />
+	</requires>
+	<runtime> 
+		<library id="plugin.lexer.xml.lib" path="lib/xml_lexer_plugin-1.0-SNAPSHOT.jar" type="code">
+			   <export prefix="*"/> 
+		</library>  
+	</runtime>
+	<extension plugin-id="plugin.core.lexer" point-id="lexerpluginif" id="plugin.lexer.xml.extension">
+		<parameter id="class" value="net.sf.xpontus.plugins.lexer.XMLParser" /> 
+	</extension>
+</plugin>

@@ -1,0 +1,13 @@
+/net/sf/xpontus/plugins/i18n/
+/net/sf/xpontus/plugins/ioc/
+/net/sf/xpontus/plugins/indentation/
+/net/sf/xpontus/plugins/lexer/
+/net/sf/xpontus/plugins/actions/
+/net/sf/xpontus/plugins/themes/
+/net/sf/xpontus/plugins/indentation/
+/net/sf/xpontus/plugins/completion/
+/net/sf/xpontus/plugins/icons/
+/net/sf/xpontus/plugins/gui/toolbar/
+/net/sf/xpontus/plugins/gui/menubar/
+/net/sf/xpontus/plugins/gui/console/
+/net/sf/xpontus/plugins/gui/editor/

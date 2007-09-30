@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.ioc.spring" version="0.0.1" class="net.sf.xpontus.plugins.ioc.spring.SpringIOCPlugin">
+    	<requires>
+		<import plugin-id="plugin.core.ioc" />
+	</requires>
+	<runtime> 
+		<library id="spring" path="lib/spring-2.0.jar" type="code">
+			   <export prefix="*"/> 
+		</library> 
+                <library id="springplugin" path="lib/spring_plugin-1.0.0-pre1.jar" type="code">
+			   <export prefix="*"/> 
+		</library> 
+	</runtime>
+	<extension plugin-id="plugin.core.ioc" point-id="iocpluginif" id="spring.ioc.plugin">
+		<parameter id="class" value="net.sf.xpontus.plugins.ioc.spring.SpringIOCModuleImpl" /> 
+	</extension>
+</plugin>

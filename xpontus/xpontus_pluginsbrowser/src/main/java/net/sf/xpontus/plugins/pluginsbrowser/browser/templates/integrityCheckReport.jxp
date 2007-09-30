@@ -1,0 +1,30 @@
+<%
+// Placed in public domain by Dmitry Olshansky, 2006
+import org.java.plugin.*;
+
+function String getColor(IntegrityCheckReport.ReportItem item) {
+	return (item.getSeverity() == item.SEVERITY_ERROR) ? "red"
+		: ((item.getSeverity() == item.SEVERITY_WARNING) ? "green" : "black");
+}
+%>
+<html><body>
+
+<h1>Integrity Check Report</h1>
+
+<p>Errors: <b><%= report.countErrors() %></b> Warnings: <b><%= report.countWarnings() %></b></p>
+<table border="1" cellspacing="0" cellpadding="0">
+<tr>
+	<th>Code</th>
+	<th>Message</th>
+	<th>Data</th>
+</tr>
+<% for(IntegrityCheckReport.ReportItem item : report.getItems()) { %>
+<tr color="<%= getColor(item) %>">
+	<td valign="top"><%= item.getCode() %></td>
+	<td valign="top"><%= item.getMessage() %></td>
+	<td valign="top"><%= item.getSource() %></td>
+</tr>
+<% } %>
+</table>
+
+</body></html>
