@@ -26,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 
 /**
@@ -35,6 +36,16 @@ import javax.swing.SwingUtilities;
 public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
     implements Runnable {
     private String dialogClassName;
+    private ClassLoader windowClassLoader;
+
+    public ClassLoader getWindowClassLoader() {
+        return windowClassLoader;
+    }
+
+    public void setWindowClassLoader(ClassLoader windowClassLoader) {
+        this.windowClassLoader = windowClassLoader;
+    }
+    
     private JDialog dialog;
     private Log log = LogFactory.getLog(XPontusDialogActionImpl.class);
 
@@ -49,14 +60,20 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
      */
     public void execute() {
         initComponents();
-        dialog.setLocationRelativeTo(dialog.getOwner());
+        dialog.setLocationRelativeTo(DefaultXPontusWindowImpl.getInstance().getDisplayComponent());
         SwingUtilities.invokeLater(this);
     }
 
     private void initComponents() {
         if (dialog == null) {
             try {
-                dialog = (JDialog) Class.forName(dialogClassName).newInstance();
+                 if(windowClassLoader!=null){
+                     dialog = (JDialog) Class.forName(dialogClassName, true, windowClassLoader).newInstance();
+                 }
+                 else{
+                     dialog = (JDialog) Class.forName(dialogClassName).newInstance();
+                 }
+                
                 log.info("Created dialog for class:" + this.dialogClassName);
             } catch (Exception ex) {
                 log.error(ex.getMessage());

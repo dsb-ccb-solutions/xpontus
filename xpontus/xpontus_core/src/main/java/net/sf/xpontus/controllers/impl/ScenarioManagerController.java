@@ -25,11 +25,38 @@
 package net.sf.xpontus.controllers.impl;
 
 /**
- * Class description
+ * Class to manage the scenario manager form
  * @author Yves Zoundi
+ * @version 0.0.1
  */
 public class ScenarioManagerController {
 
+    
+    public static final String NEW_SCENARIO_METHOD = "addNewScenario";
+    
     public ScenarioManagerController() {
     }
+    
+    /**
+     * Method to delete a scenario
+     */
+    public void deleteScenario(){
+        
+    }
+    
+    /**
+     * Method to add a new scenario
+     * 
+     */
+    public void addNewScenario(){
+        
+    }
+    
+    /**
+     * Method to edit a scenario
+     */
+    public void editScenario(){
+        
+    }
+    
 }

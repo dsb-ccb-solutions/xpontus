@@ -27,7 +27,6 @@ import com.ibm.icu.text.CharsetDetector;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
-import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -70,7 +69,6 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
         chd.setText(jtc.getText().getBytes());
 
         Reader reader = chd.detect().getReader();
-        XPontusComponentsUtils.showInformationMessage("starting indentation");
 
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance()
@@ -87,18 +85,14 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
 
             byte[] b = out.toByteArray();
 
-            if (b.length > 0) {
-                System.out.println("Ok");
+            if (b.length > 0) { 
                 jtc.getDocument().remove(0, jtc.getDocument().getLength());
                 jtc.getDocument().insertString(0, new String(b), null);
-                XPontusComponentsUtils.showInformationMessage(
-                    "Indentation done");
             } else {
-                XPontusComponentsUtils.showInformationMessage("parsing error");
+                
             }
         } catch (Exception e) {
-            XPontusComponentsUtils.showInformationMessage("stactrace error");
-            e.printStackTrace();
+             e.printStackTrace();
         }
     }
 }

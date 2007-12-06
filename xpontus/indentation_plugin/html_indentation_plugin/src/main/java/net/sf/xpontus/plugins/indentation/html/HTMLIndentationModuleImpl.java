@@ -108,6 +108,7 @@ public class HTMLIndentationModuleImpl implements IndentationPluginIF
 
             Document htmlD = parser.getDocument();
             OutputFormat format = new OutputFormat(htmlD, "UTF-8", true);
+            format.setOmitXMLDeclaration(true);
 
             XMLSerializer serial = new XMLSerializer(out, format);
             serial.serialize(htmlD);

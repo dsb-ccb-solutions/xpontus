@@ -30,7 +30,15 @@ import javax.swing.text.Document;
  * @author Yves Zoundi
  */
 public interface OutlinePluginIF {
+    /**
+     * 
+     * @return 
+     */
     String getContentType();
 
+    /**
+     * 
+     * @param doc 
+     */
     void updateOutline(Document doc);
 }

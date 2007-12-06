@@ -94,5 +94,6 @@
     <module>quicktoolbar_plugin</module>
     <module>preview_plugin</module>
     <module>scripting_plugin</module>
+    <module>outline_plugin</module>
   </modules>   
 </project>
