@@ -9,8 +9,7 @@
     
     <body> 
         <section name ="Requirements">
-            <p>Java (only the runtime JRE) is necessary to run the editor. You can use a jdk 1.4.2 or later. I don't use
-            any java 1.5 or 1.6 features so if you don't want to upgrade your java version you can keep it as it is.</p>
+            <p>Java (only the runtime JRE) 1.5+ is required to run the software.</p>
             
         </section>
         

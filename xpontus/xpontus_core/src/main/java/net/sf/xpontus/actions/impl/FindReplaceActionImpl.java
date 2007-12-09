@@ -36,7 +36,8 @@ public class FindReplaceActionImpl extends AbstractXPontusActionImpl{
     }
 
     public void execute() {
-       FindReplaceDialog.showFindReplace();
+       FindReplaceDialog d = new FindReplaceDialog();
+       d.setVisible(true);
     }
 
 }

@@ -24,6 +24,8 @@
 
 package net.sf.xpontus.controllers.impl;
 
+import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
+
 /**
  * Class to manage the scenario manager form
  * @author Yves Zoundi
@@ -33,6 +35,23 @@ public class ScenarioManagerController {
 
     
     public static final String NEW_SCENARIO_METHOD = "addNewScenario";
+    private ScenarioManagerView view;
+
+    public ScenarioManagerView getView() {
+        return view;
+    }
+
+    public void setView(ScenarioManagerView view) {
+        this.view = view;
+    }
+    
+    /**
+     * 
+     * @param view
+     */
+    public ScenarioManagerController(ScenarioManagerView view) {
+        setView(view);
+    }
     
     public ScenarioManagerController() {
     }

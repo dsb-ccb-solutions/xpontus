@@ -20,12 +20,14 @@
  */
 package net.sf.xpontus.syntax;
 
+import java.awt.Font;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
+import net.sf.xpontus.modules.gui.components.XPontusCaret;
 
 
 /**
@@ -48,10 +50,13 @@ public class SyntaxEditorkit extends DefaultEditorKit implements ViewFactory {
      *
      */
     public SyntaxEditorkit(JTextComponent editor, String mode) {
+        editor.setFont(new Font("Monospaced", Font.PLAIN, 13) );        
+        editor.setCaretPosition(0);
+        editor.setCaret(new XPontusCaret());
         this.syntaxSupport = SyntaxSupportFactory.getSyntax(mode);
         doc = new SyntaxDocument(editor, syntaxSupport);
         ((SyntaxDocument) doc).setLoading(true);
-        editor.setDocument(doc);
+        editor.setDocument(doc);  
     }
 
     /**

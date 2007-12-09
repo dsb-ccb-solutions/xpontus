@@ -35,6 +35,13 @@ public class SyntaxView extends PlainView {
         doc = (SyntaxDocument) getDocument();
     }
 
+    /**
+     * 
+     * @param lineIndex
+     * @param g
+     * @param x
+     * @param y
+     */
     protected void drawLine(int lineIndex, Graphics g, int x, int y) {
         JTextComponent editor = (JTextComponent) getContainer();
         List tokens = doc.getTokenListForLine(lineIndex);
@@ -46,6 +53,16 @@ public class SyntaxView extends PlainView {
         }
     }
 
+    /**
+     * .
+     * @param token
+     * @param g
+     * @param x
+     * @param y
+     * @param editor
+     * @param e
+     * @return
+     */
     public float paint(Token token, Graphics2D g, float x, float y,
         JTextComponent editor, TabExpander e) {
         MutableAttributeSet style = doc.getStyleForType(token.kind);

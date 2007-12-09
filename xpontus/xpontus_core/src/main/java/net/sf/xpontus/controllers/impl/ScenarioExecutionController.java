@@ -1,6 +1,6 @@
 /*
  * ScenarioExecutionController.java
- * 
+ *
  * Created on Aug 26, 2007, 9:34:46 AM
  *
  * Copyright (C) 2005-2008 Yves Zoundi
@@ -19,18 +19,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.controllers.impl;
+
 
 /**
  * Controller for scenario execution form
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ScenarioExecutionController {
- 
-    
     public ScenarioExecutionController() {
     }
-
 }

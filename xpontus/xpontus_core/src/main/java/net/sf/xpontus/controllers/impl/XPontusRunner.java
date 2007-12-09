@@ -142,8 +142,9 @@ public class XPontusRunner
      */
     public static void main(String[] args) throws Exception
     {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
+        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+ 
+        
         XPontusPluginManager controller = new XPontusPluginManager();
         controller.startApplication();
 

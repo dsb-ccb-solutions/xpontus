@@ -23,14 +23,26 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import net.sf.xpontus.utils.XPontusComponentsUtils;
-
+import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.SwingUtilities;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.JTextComponent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 
 /**
@@ -38,383 +50,424 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class FindReplaceDialog extends javax.swing.JDialog {
-    private static FindReplaceDialog findReplaceDialog = null;
-    private JTextComponent textArea = null;
-    private javax.swing.JRadioButton backwardsRadio;
-    private javax.swing.JPanel buttonPanel;
-    private javax.swing.JCheckBox caseSensitiveBox;
-    private javax.swing.JButton closeButton;
-    private javax.swing.ButtonGroup directionButtonGroup;
-    private javax.swing.JPanel directionPanel;
-    private javax.swing.JButton findButton;
-    private javax.swing.JLabel findLabel;
-    private javax.swing.JTextField findText;
-    private javax.swing.JRadioButton forwardsRadio;
-    private javax.swing.JButton replaceButton;
-    private javax.swing.JPanel mainPanel;
-    private javax.swing.JPanel optionsPanel;
-    private javax.swing.JButton replaceAllButton;
-    private javax.swing.JButton replaceFindButton;
-    private javax.swing.JLabel replaceLabel;
-    private javax.swing.JTextField replaceText;
-    private javax.swing.JCheckBox wrapSearchBox;
-
-    /** Creates new form FindReplaceDialog
-     * @param parent
-     */
-    public FindReplaceDialog(Frame parent) {
-        super(parent);
-        initComponents();
-    }
+public class FindReplaceDialog extends JDialog implements ActionListener {
+    private JTextField findField;
+    private JTextField replaceField;
+    private JButton findNextButton;
+    private JButton replaceButton;
+    private JButton replaceAllButton;
+    private JButton toggleReplaceButton;
+    private JButton closeButton;
+    private JCheckBox caseSensitiveCheckBox;
+    private JCheckBox wholeWordCheckBox;
+    private JRadioButton regexButton;
+    private JRadioButton wildCardsButton;
+    private JRadioButton literalButton;
+    private JLabel findLabel;
+    private JLabel replaceLabel;
+    private boolean initLoc;
 
     public FindReplaceDialog() {
-        this((Frame) XPontusComponentsUtils.getTopComponent()
-                                           .getDisplayComponent());
+        super((Frame) DefaultXPontusWindowImpl.getInstance()
+                                              .getDisplayComponent(), true);
+
+        JPanel bigPanel = new JPanel();
+
+        bigPanel.setLayout(new BoxLayout(bigPanel, BoxLayout.X_AXIS));
+
+        JPanel leftPanel = new JPanel();
+
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+
+        JPanel findReplacePanel = new JPanel();
+
+        findReplacePanel.setLayout(new BoxLayout(findReplacePanel,
+                BoxLayout.X_AXIS));
+
+        JPanel labelsPanel = new JPanel();
+
+        labelsPanel.setLayout(new BoxLayout(labelsPanel, BoxLayout.Y_AXIS));
+        labelsPanel.add(getFindLabel());
+        labelsPanel.add(getReplaceLabel());
+        findReplacePanel.add(labelsPanel);
+
+        JPanel fieldsPanel = new JPanel();
+
+        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.Y_AXIS));
+        fieldsPanel.add(getFindField());
+        fieldsPanel.add(getReplaceField());
+        findReplacePanel.add(fieldsPanel);
+        leftPanel.add(findReplacePanel);
+
+        JPanel optionsPanel = new JPanel();
+
+        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.X_AXIS));
+
+        JPanel checkboxPanel = new JPanel();
+
+        checkboxPanel.setLayout(new BoxLayout(checkboxPanel, BoxLayout.Y_AXIS));
+        checkboxPanel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Options"));
+        checkboxPanel.add(getCaseSensitiveCheckBox());
+        checkboxPanel.add(getWholeWordCheckBox());
+        checkboxPanel.setAlignmentY(TOP_ALIGNMENT);
+        optionsPanel.add(checkboxPanel);
+
+        JPanel radioPanel = new JPanel();
+
+        radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
+        radioPanel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Use:"));
+        radioPanel.add(getLiteralButton());
+        radioPanel.add(getWildCardsButton());
+        radioPanel.add(getRegexButton());
+        radioPanel.setAlignmentY(TOP_ALIGNMENT);
+
+        ButtonGroup buttonGroup = new ButtonGroup();
+
+        buttonGroup.add(getLiteralButton());
+        buttonGroup.add(getWildCardsButton());
+        buttonGroup.add(getRegexButton());
+        optionsPanel.add(radioPanel);
+        leftPanel.add(optionsPanel);
+        leftPanel.setAlignmentY(TOP_ALIGNMENT);
+        bigPanel.add(leftPanel);
+
+        JPanel buttonPanel = new JPanel();
+
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.add(getFindNextButton());
+        buttonPanel.add(getToggleReplaceButton());
+        buttonPanel.add(getReplaceButton());
+        buttonPanel.add(getReplaceAllButton());
+        buttonPanel.add(getCloseButton());
+        buttonPanel.setAlignmentY(TOP_ALIGNMENT);
+        bigPanel.add(buttonPanel);
+        setContentPane(bigPanel);
     }
 
-    public static void showFindReplace() {
-        JTextComponent textComponent = DefaultXPontusWindowImpl.getInstance()
-                                                               .getDocumentTabContainer()
-                                                               .getCurrentEditor();
-
-        if (findReplaceDialog == null) {
-            Frame root = (Frame) SwingUtilities.getRoot(textComponent);
-            findReplaceDialog = new FindReplaceDialog(root);
-            findReplaceDialog.setLocationRelativeTo(root);
+    public void setVisible(boolean b) {
+        if (b) {
+            showDialog(b);
         }
 
-        findReplaceDialog.setTextArea(textComponent);
-
-        textComponent.requestFocus();
-
-        String selectedText = textComponent.getSelectedText();
-
-        if (selectedText != null) {
-            findReplaceDialog.setInititalSearchText(selectedText);
-        }
-
-        findReplaceDialog.setVisible(true);
+        super.setVisible(b);
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
+    public void showDialog(boolean showReplace) {
+        getReplaceLabel().setVisible(showReplace);
+        getReplaceField().setVisible(showReplace);
+        getReplaceButton().setVisible(showReplace);
+        getReplaceAllButton().setVisible(showReplace);
 
-        directionButtonGroup = new javax.swing.ButtonGroup();
-        mainPanel = new javax.swing.JPanel();
-        findLabel = new javax.swing.JLabel();
-        findText = new javax.swing.JTextField();
-        replaceLabel = new javax.swing.JLabel();
-        replaceText = new javax.swing.JTextField();
-        directionPanel = new javax.swing.JPanel();
-        forwardsRadio = new javax.swing.JRadioButton();
-        backwardsRadio = new javax.swing.JRadioButton();
-        optionsPanel = new javax.swing.JPanel();
-        wrapSearchBox = new javax.swing.JCheckBox();
-        caseSensitiveBox = new javax.swing.JCheckBox();
-        buttonPanel = new javax.swing.JPanel();
-        findButton = new javax.swing.JButton();
-        replaceFindButton = new javax.swing.JButton();
-        replaceButton = new javax.swing.JButton();
-        replaceAllButton = new javax.swing.JButton();
-        closeButton = new javax.swing.JButton();
-
-        setTitle("Find and Replace");
-        setName("Find and Replace");
-        setResizable(false);
-        mainPanel.setLayout(new java.awt.GridBagLayout());
-
-        mainPanel.setBorder(new javax.swing.border.EmptyBorder(
-                new java.awt.Insets(5, 5, 5, 5)));
-        findLabel.setText("Find:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 5);
-        mainPanel.add(findLabel, gridBagConstraints);
-
-        findText.setPreferredSize(new java.awt.Dimension(200, 19));
-        findText.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    findTextActionPerformed(evt);
-                }
-            });
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
-        mainPanel.add(findText, gridBagConstraints);
-
-        replaceLabel.setText("Replace:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 5);
-        mainPanel.add(replaceLabel, gridBagConstraints);
-
-        replaceText.setPreferredSize(new java.awt.Dimension(200, 19));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
-        mainPanel.add(replaceText, gridBagConstraints);
-
-        directionPanel.setLayout(new java.awt.GridLayout(2, 0));
-
-        directionPanel.setBorder(new javax.swing.border.TitledBorder(
-                "Direction"));
-        directionButtonGroup.add(forwardsRadio);
-        forwardsRadio.setSelected(true);
-        forwardsRadio.setText("Forwards");
-        directionPanel.add(forwardsRadio);
-
-        directionButtonGroup.add(backwardsRadio);
-        backwardsRadio.setText("Backwards");
-        directionPanel.add(backwardsRadio);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
-        mainPanel.add(directionPanel, gridBagConstraints);
-
-        optionsPanel.setLayout(new java.awt.GridLayout(2, 0));
-
-        optionsPanel.setBorder(new javax.swing.border.TitledBorder("Options"));
-        wrapSearchBox.setSelected(true);
-        wrapSearchBox.setText("Wrap Search");
-        optionsPanel.add(wrapSearchBox);
-
-        caseSensitiveBox.setText("Case Sensitive");
-        optionsPanel.add(caseSensitiveBox);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
-        mainPanel.add(optionsPanel, gridBagConstraints);
-
-        buttonPanel.setLayout(new java.awt.GridLayout(2, 0));
-
-        findButton.setText("Find");
-        findButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    findText(evt);
-                }
-            });
-
-        buttonPanel.add(findButton);
-
-        replaceFindButton.setText("Replace and Find");
-        replaceFindButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    replaceAndFind(evt);
-                }
-            });
-
-        buttonPanel.add(replaceFindButton);
-
-        replaceButton.setText("Replace");
-        replaceButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    replaceText(evt);
-                }
-            });
-
-        buttonPanel.add(replaceButton);
-
-        replaceAllButton.setText("Replace All");
-        replaceAllButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    replaceAll(evt);
-                }
-            });
-
-        buttonPanel.add(replaceAllButton);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
-        mainPanel.add(buttonPanel, gridBagConstraints);
-
-        closeButton.setText("Close");
-        closeButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    closeFindReplaceDialog(evt);
-                }
-            });
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        mainPanel.add(closeButton, gridBagConstraints);
-
-        getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
+        if (showReplace) {
+            setTitle("Replace");
+            getRootPane().setDefaultButton(getReplaceButton());
+            getToggleReplaceButton().setText("Find...");
+            getToggleReplaceButton().setMnemonic('d');
+            getToggleReplaceButton().setDisplayedMnemonicIndex(3);
+        } else {
+            setTitle("Find");
+            getRootPane().setDefaultButton(getFindNextButton());
+            getToggleReplaceButton().setText("Replace...");
+            getToggleReplaceButton().setMnemonic('R');
+            getToggleReplaceButton().setDisplayedMnemonicIndex(0);
+        }
 
         pack();
+
+        if (!initLoc) {
+            Rectangle bounds = ((Frame) DefaultXPontusWindowImpl.getInstance()
+                                                                .getDisplayComponent()).getBounds();
+            Dimension size = getSize();
+
+            setLocation((int) (bounds.getX() +
+                ((bounds.getWidth() - size.getWidth()) / 2)),
+                (int) (bounds.getY() +
+                ((bounds.getHeight() - size.getHeight()) / 2)));
+            initLoc = true;
+        }
     }
 
-    private void findTextActionPerformed(java.awt.event.ActionEvent evt) {
-        findText(null);
-    }
-
-    private void closeFindReplaceDialog(java.awt.event.ActionEvent evt) {
-        this.setVisible(false);
-    }
-
-    private int findText(java.awt.event.ActionEvent evt) {
-        String searchText = findText.getText();
-
-        if ((textArea == null) || (searchText.length() == 0)) {
-            return -1;
+    public JLabel getFindLabel() {
+        if (findLabel == null) {
+            findLabel = new JLabel();
+            findLabel.setText(" Find:");
+            findLabel.setDisplayedMnemonicIndex(3);
         }
 
-        String text = textArea.getText();
+        return findLabel;
+    }
 
-        if (!caseSensitiveBox.isSelected()) {
-            searchText = searchText.toLowerCase();
-            text = text.toLowerCase();
+    public JLabel getReplaceLabel() {
+        if (replaceLabel == null) {
+            replaceLabel = new JLabel();
+            replaceLabel.setText(" Replace:");
+            replaceLabel.setDisplayedMnemonicIndex(3);
         }
 
-        int startIndex = textArea.getCaretPosition();
+        return replaceLabel;
+    }
 
-        if (forwardsRadio.isSelected()) {
-            int start = textArea.getSelectionStart();
-            int end = textArea.getSelectionEnd();
+    public JTextField getFindField() {
+        if (findField == null) {
+            findField = new JTextField();
+            findField.setFocusAccelerator('n');
+            findField.addActionListener(this);
+        }
 
-            if (start != end) {
-                startIndex = end;
-            }
+        return findField;
+    }
 
-            int index = text.indexOf(searchText, startIndex);
+    public JTextField getReplaceField() {
+        if (replaceField == null) {
+            replaceField = new JTextField();
+            replaceField.setFocusAccelerator('p');
+            replaceField.addActionListener(this);
+        }
 
-            if (index == -1) {
-                if (wrapSearchBox.isSelected()) {
-                    startIndex = 0;
-                    index = text.indexOf(searchText);
-                } else {
-                    return -1;
+        return replaceField;
+    }
+
+    public JButton getFindNextButton() {
+        if (findNextButton == null) {
+            findNextButton = new JButton();
+            findNextButton.setText("Find Next");
+            findNextButton.setMnemonic('F');
+            findNextButton.setDisplayedMnemonicIndex(0);
+            findNextButton.setDefaultCapable(true);
+            findNextButton.addActionListener(this);
+        }
+
+        return findNextButton;
+    }
+
+    public JButton getReplaceButton() {
+        if (replaceButton == null) {
+            replaceButton = new JButton();
+            replaceButton.setText("Replace");
+            replaceButton.setMnemonic('R');
+            replaceButton.setDisplayedMnemonicIndex(0);
+            replaceButton.setDefaultCapable(true);
+            replaceButton.addActionListener(this);
+        }
+
+        return replaceButton;
+    }
+
+    public JButton getReplaceAllButton() {
+        if (replaceAllButton == null) {
+            replaceAllButton = new JButton();
+            replaceAllButton.setText("Replace All");
+            replaceAllButton.setMnemonic('A');
+            replaceAllButton.setDisplayedMnemonicIndex(8);
+            replaceAllButton.addActionListener(this);
+        }
+
+        return replaceAllButton;
+    }
+
+    public JButton getToggleReplaceButton() {
+        if (toggleReplaceButton == null) {
+            toggleReplaceButton = new JButton();
+            toggleReplaceButton.addActionListener(this);
+        }
+
+        return toggleReplaceButton;
+    }
+
+    public JButton getCloseButton() {
+        if (closeButton == null) {
+            closeButton = new JButton();
+            closeButton.setText("Close");
+            closeButton.setMnemonic('e');
+            closeButton.setDisplayedMnemonicIndex(4);
+            closeButton.addActionListener(this);
+        }
+
+        return closeButton;
+    }
+
+    public JCheckBox getCaseSensitiveCheckBox() {
+        if (caseSensitiveCheckBox == null) {
+            caseSensitiveCheckBox = new JCheckBox();
+            caseSensitiveCheckBox.setText("Case Sensitive");
+            caseSensitiveCheckBox.setMnemonic('C');
+            caseSensitiveCheckBox.setDisplayedMnemonicIndex(0);
+            caseSensitiveCheckBox.addActionListener(this);
+        }
+
+        return caseSensitiveCheckBox;
+    }
+
+    public JCheckBox getWholeWordCheckBox() {
+        if (wholeWordCheckBox == null) {
+            wholeWordCheckBox = new JCheckBox();
+            wholeWordCheckBox.setText("Whole Word");
+            wholeWordCheckBox.setMnemonic('W');
+            wholeWordCheckBox.setDisplayedMnemonicIndex(0);
+            wholeWordCheckBox.addActionListener(this);
+        }
+
+        return wholeWordCheckBox;
+    }
+
+    public JRadioButton getLiteralButton() {
+        if (literalButton == null) {
+            literalButton = new JRadioButton();
+            literalButton.setText("Literal");
+            literalButton.setMnemonic('L');
+            literalButton.setSelected(true);
+            literalButton.setDisplayedMnemonicIndex(0);
+            literalButton.addActionListener(this);
+        }
+
+        return literalButton;
+    }
+
+    public JRadioButton getWildCardsButton() {
+        if (wildCardsButton == null) {
+            wildCardsButton = new JRadioButton();
+            wildCardsButton.setText("Wild Cards");
+            wildCardsButton.setMnemonic('i');
+            wildCardsButton.setDisplayedMnemonicIndex(1);
+            wildCardsButton.addActionListener(this);
+        }
+
+        return wildCardsButton;
+    }
+
+    public JRadioButton getRegexButton() {
+        if (regexButton == null) {
+            regexButton = new JRadioButton();
+            regexButton.setText("Regular Expressions");
+            regexButton.setMnemonic('x');
+            regexButton.setDisplayedMnemonicIndex(9);
+            regexButton.addActionListener(this);
+        }
+
+        return regexButton;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+
+        if (source == getFindNextButton()) {
+            findNext();
+        } else if (source == getReplaceButton()) {
+            doReplacement();
+            findNext();
+        } else if (source == getReplaceAllButton()) {
+            doReplaceAll();
+        } else if (source == getCloseButton()) {
+            setVisible(false);
+        } else if (source == getToggleReplaceButton()) {
+            showDialog(!getReplaceButton().isVisible());
+        } else if (source instanceof JTextField) {
+            getRootPane().getDefaultButton().doClick();
+        }
+    }
+
+    private Pattern getCurrentPattern() {
+        String pattern = getFindField().getText();
+        int flags = Pattern.DOTALL;
+
+        if (!getRegexButton().isSelected()) {
+            String newpattern = "";
+
+            // 'quote' the pattern
+            for (int i = 0; i < pattern.length(); i++) {
+                if ("\\[]^$&|().*+?{}".indexOf(pattern.charAt(i)) >= 0) {
+                    newpattern += '\\';
                 }
+
+                newpattern += pattern.charAt(i);
             }
 
-            if (index >= startIndex) {
-                textArea.setCaretPosition(index);
-                textArea.select(index, index + searchText.length());
-
-                return index;
-            }
-        } else if (backwardsRadio.isSelected()) {
-            int start = textArea.getSelectionStart();
-            int end = textArea.getSelectionEnd();
-
-            if (start != end) {
-                startIndex = start;
+            // make "*" .* and "?" .
+            if (getWildCardsButton().isSelected()) {
+                newpattern = newpattern.replaceAll("\\\\\\*", ".+?");
+                newpattern = newpattern.replaceAll("\\\\\\?", ".");
             }
 
-            int index = text.substring(0, startIndex).lastIndexOf(searchText);
-
-            if (index == -1) {
-                if (wrapSearchBox.isSelected()) {
-                    startIndex = text.length();
-                    index = text.lastIndexOf(searchText);
-                } else {
-                    return -1;
-                }
-            }
-
-            if ((index <= startIndex) && (index != -1)) {
-                textArea.setCaretPosition(index);
-                textArea.select(index, index + searchText.length());
-
-                return index;
-            }
+            pattern = newpattern;
         }
 
-        return -1;
+        if (!getCaseSensitiveCheckBox().isSelected()) {
+            flags |= Pattern.CASE_INSENSITIVE;
+        }
+
+        if (getWholeWordCheckBox().isSelected()) {
+            pattern = "\\b" + pattern + "\\b";
+        }
+
+        return Pattern.compile(pattern, flags);
     }
 
-    private boolean replaceText(java.awt.event.ActionEvent evt) {
-        String searchText = findText.getText();
+    public void findNext() {
+        //		EditWindow currentWindow = window.getActiveWindow();
+        //
+        //		if (currentWindow == null || getFindField().getText().length() == 0) {
+        //			// launch error dialog?
+        //			return;
+        //		}
+        Pattern p = getCurrentPattern();
+        JEditorPane editorPane = (JEditorPane) DefaultXPontusWindowImpl.getInstance()
+                                                                       .getDocumentTabContainer()
+                                                                       .getCurrentEditor();
 
-        if ((textArea == null) || (searchText.length() == 0)) {
-            return false;
+        // for some reason, getText() trims off \r but the indexes in
+        // the editor pane don't.
+        String text = editorPane.getText().replaceAll("\\r", "");
+        Matcher m = p.matcher(text);
+        int index = editorPane.getSelectionEnd();
+
+        if (!m.find(index)) {
+            if (!m.find()) {
+                // No match found
+                return;
+            }
         }
 
-        String selectedText = textArea.getSelectedText();
-
-        if (selectedText == null) {
-            return false;
-        }
-
-        int start = textArea.getSelectionStart();
-        int end = textArea.getSelectionEnd();
-
-        Document doc = textArea.getDocument();
-
-        String replacementText = replaceText.getText();
-
-        try {
-            doc.remove(start, end - start);
-            doc.insertString(start, replacementText, null);
-        } catch (BadLocationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        textArea.select(start, start + replacementText.length());
-
-        return true;
+        editorPane.setSelectionStart(m.start());
+        editorPane.setSelectionEnd(m.end());
     }
 
-    private void replaceAll(java.awt.event.ActionEvent evt) {
-        int startVal = findText(null);
+    public void doReplacement() {
+        JEditorPane editorPane = (JEditorPane) DefaultXPontusWindowImpl.getInstance()
+                                                                       .getDocumentTabContainer()
+                                                                       .getCurrentEditor();
 
-        if (startVal != -1) {
-            replaceText(null);
+        String text = editorPane.getSelectedText();
+
+        if (text == null) {
+            // no selection
+            return;
         }
 
-        int start = 0;
-        int index;
+        Matcher m = getCurrentPattern().matcher(text);
 
-        int charDiff = replaceText.getText().length() -
-            findText.getText().length();
+        if (m.matches()) {
+            String replacement = getReplaceField().getText();
 
-        while (((index = findText(null)) != -1) &&
-                (index != (start + startVal))) {
-            replaceText(null);
-
-            if (index < startVal) {
-                start += charDiff;
+            if (getRegexButton().isSelected()) {
+                replacement = m.replaceFirst(replacement);
             }
+
+            editorPane.replaceSelection(replacement);
         }
     }
 
-    private void replaceAndFind(java.awt.event.ActionEvent evt) {
-        if (replaceText(null)) {
-            findText(null);
-        }
-    }
+    public void doReplaceAll() {
+        JEditorPane editorPane = (JEditorPane) DefaultXPontusWindowImpl.getInstance()
+                                                                       .getDocumentTabContainer()
+                                                                       .getCurrentEditor();
 
-    public JTextComponent getTextArea() {
-        return textArea;
-    }
+        String text = editorPane.getText();
 
-    public void setTextArea(JTextComponent textArea) {
-        this.textArea = textArea;
-    }
+        String replacement = getReplaceField().getText();
 
-    public void setInititalSearchText(String text) {
-        findText.setText(text);
+        editorPane.setText(getCurrentPattern().matcher(text)
+                               .replaceAll(replacement));
     }
 }

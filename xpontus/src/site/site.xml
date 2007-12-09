@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="XPontus"> 
-   <skin>  
+<!--   <skin>  
     <groupId>org.apache.hivemind</groupId>  
     <artifactId>maven-skin</artifactId>  
     <version>2.0</version>  
- </skin>  
+ </skin>  -->
+ <skin>  
+    <groupId>org.abstracthorizon</groupId>
+<artifactId>abstracthorizon</artifactId>
+<version>1.0-SNAPSHOT</version>
+ </skin> 
+ 
     <bannerLeft>
         <name>Sourceforge</name>
         <alt>Sourceforge</alt>

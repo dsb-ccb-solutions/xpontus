@@ -21,13 +21,16 @@
  */
 package net.sf.xpontus.plugins.validation.simplexmlvalidation;
 
-
+ 
 import net.sf.xpontus.actions.impl.XPontusThreadedActionImpl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import java.net.URL;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.text.JTextComponent;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -43,6 +46,8 @@ public class SimpleValidationAction extends XPontusThreadedActionImpl {
     public SimpleValidationAction() {
         setName("Validate XML");
         setDescription("XML Validation");
+        URL url = getClass().getResource("validate16.gif");
+        this.putValue(Action.SMALL_ICON, new ImageIcon(url));
     }
 
     public void run() {

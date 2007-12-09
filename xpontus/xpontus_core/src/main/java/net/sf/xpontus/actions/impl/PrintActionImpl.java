@@ -21,18 +21,12 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import javax.swing.JEditorPane;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 
-import javax.swing.RepaintManager;
+import net.sf.xpontus.utils.PrintUtilities;
 
 
 /**
@@ -40,9 +34,8 @@ import javax.swing.RepaintManager;
  * @author Yves Zoundi
  */
 public class PrintActionImpl extends XPontusThreadedActionImpl
-    implements Printable {
-    public static final String BEAN_ALIAS = "action.print";
-    private Component componentToBePrinted;
+      {
+    public static final String BEAN_ALIAS = "action.print"; 
 
     /** Creates a new instance of PrintAction */
     public PrintActionImpl() {
@@ -53,62 +46,7 @@ public class PrintActionImpl extends XPontusThreadedActionImpl
      */
     public void run() {
         DefaultXPontusWindowImpl frame = (DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent();
-        componentToBePrinted = frame.getDocumentTabContainer().getCurrentEditor();
-        print();
+        new PrintUtilities().print((JEditorPane)frame.getDocumentTabContainer().getCurrentEditor()); 
     }
-
-    /**
-     * show the print dialog
-     */
-    public void print() {
-        PrinterJob printJob = PrinterJob.getPrinterJob();
-        printJob.setPrintable(this);
-
-        if (printJob.printDialog()) {
-            try {
-                printJob.print();
-            } catch (PrinterException pe) {
-                getLogger().info("Error printing: " + pe.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Print a page
-     * @param g The graphics
-     * @param pageFormat The page format
-     * @param pageIndex The page index
-     * @return whether the page exists
-     */
-    public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
-        if (pageIndex > 0) {
-            return (NO_SUCH_PAGE);
-        } else {
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-            disableDoubleBuffering(componentToBePrinted);
-            componentToBePrinted.paint(g2d);
-            enableDoubleBuffering(componentToBePrinted);
-
-            return (PAGE_EXISTS);
-        }
-    }
-
-    /**
-     *
-     * @param c
-     */
-    public static void disableDoubleBuffering(Component c) {
-        RepaintManager currentManager = RepaintManager.currentManager(c);
-        currentManager.setDoubleBufferingEnabled(false);
-    }
-
-    /**
-     *
-     * @param c
-     */
-    public static void enableDoubleBuffering(Component c) {
-        RepaintManager currentManager = RepaintManager.currentManager(c);
-        currentManager.setDoubleBufferingEnabled(true);
-    }
+ 
 }
