@@ -61,7 +61,7 @@ public class ConsoleOutputWindow {
     /**
      *
      */
-    public JTextArea[] textboxes = new JTextArea[2];
+    public final JTextArea[] textboxes = new JTextArea[2];
 
     /**
      *
@@ -90,6 +90,7 @@ public class ConsoleOutputWindow {
      */
     private void initComponents() {
         for (int i = 0; i < 2; i++) {
+            final int pos = i;
             textboxes[i] = new JTextArea() {
                         public void append(String str) {
                             super.append(str);
@@ -101,7 +102,13 @@ public class ConsoleOutputWindow {
             textboxes[i].setWrapStyleWord(true);
 
             addDockable(new OutputDockable(i, titles[i],
-                    new JScrollPane(textboxes[i])));
+                    new JScrollPane(textboxes[i])){
+                
+                public void println(String msg){
+                    textboxes[pos].append(msg + "\n");
+                }
+                
+            });
         }
     }
 

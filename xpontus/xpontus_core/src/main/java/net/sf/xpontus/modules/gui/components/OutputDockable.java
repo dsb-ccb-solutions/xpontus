@@ -31,7 +31,7 @@ import java.awt.Component;
  *
  * @author Yves Zoundi
  */
-public class OutputDockable implements Dockable {
+public abstract class OutputDockable implements Dockable {
     private Component m_component;
     private DockKey m_key;
     private int id;
@@ -49,6 +49,8 @@ public class OutputDockable implements Dockable {
         m_key.setDockGroup(ConsoleOutputWindow.group);
         m_key.setResizeWeight(0.1f);
     }
+    
+    public abstract void println(String message);
 
     /**
      *
@@ -73,4 +75,6 @@ public class OutputDockable implements Dockable {
     public Component getComponent() {
         return m_component;
     }
+    
+    
 }

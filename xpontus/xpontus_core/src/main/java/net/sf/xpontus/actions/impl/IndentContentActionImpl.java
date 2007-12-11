@@ -82,8 +82,7 @@ public class IndentContentActionImpl extends XPontusThreadedActionImpl {
 
             return;
         }
-
-        System.out.println("content type:" + contentType);
+ 
         
         if (ht.containsKey(contentType)) {
             try {
