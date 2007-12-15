@@ -60,18 +60,25 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
      */
     public void execute() {
         initComponents();
+        System.out.print("dialog not null:" + (dialog!=null));
+          System.out.print("frame not null:" + (DefaultXPontusWindowImpl.getInstance().getDisplayComponent()!=null));
         dialog.setLocationRelativeTo(DefaultXPontusWindowImpl.getInstance().getDisplayComponent());
         SwingUtilities.invokeLater(this);
     }
 
     private void initComponents() {
+//        System.out.println("init components");
         if (dialog == null) {
             try {
                  if(windowClassLoader!=null){
+//                     System.out.println("classloader");
                      dialog = (JDialog) Class.forName(dialogClassName, true, windowClassLoader).newInstance();
                  }
                  else{
+//                     System.out.println("no classloader");
+//                     System.out.println(dialogClassName);
                      dialog = (JDialog) Class.forName(dialogClassName).newInstance();
+                    
                  }
                 
                 log.info("Created dialog for class:" + this.dialogClassName);

@@ -33,6 +33,24 @@ import java.util.Hashtable;
 public class ScenarioModel {
     private String input;
     private boolean externalDocument;
+    private String controllerClass;
+
+    public String getControllerClass() {
+        return controllerClass;
+    }
+
+    public void setControllerClass(String controllerClass) {
+        this.controllerClass = controllerClass;
+    }
+
+    public String getControllerClassLoader() {
+        return controllerClassLoader;
+    }
+
+    public void setControllerClassLoader(String controllerClassLoader) {
+        this.controllerClassLoader = controllerClassLoader;
+    }
+    private String controllerClassLoader;
     private String output;
     private String type;
     private String xsl;

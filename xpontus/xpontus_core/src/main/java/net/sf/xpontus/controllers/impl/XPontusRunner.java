@@ -196,7 +196,7 @@ public class XPontusRunner
                 SelectAllActionImpl.BEAN_ALIAS, CopyActionImpl.BEAN_ALIAS,
                 CutActionImpl.BEAN_ALIAS, PasteActionImpl.BEAN_ALIAS,
                 UndoActionImpl.BEAN_ALIAS, RedoActionImpl.BEAN_ALIAS,
-                "action.findreplace"
+                "action.findreplace", "action.gotoline"
             };
 
         final String[] toolsActions = { IndentContentActionImpl.BEAN_ALIAS };

@@ -32,6 +32,7 @@ import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import net.sf.xpontus.controllers.impl.PopupHandler;
 
 
 /**
@@ -100,6 +101,7 @@ public class ConsoleOutputWindow {
             textboxes[i].setEditable(false);
             textboxes[i].setLineWrap(true);
             textboxes[i].setWrapStyleWord(true);
+            textboxes[i].addMouseListener(new PopupHandler());
 
             addDockable(new OutputDockable(i, titles[i],
                     new JScrollPane(textboxes[i])){

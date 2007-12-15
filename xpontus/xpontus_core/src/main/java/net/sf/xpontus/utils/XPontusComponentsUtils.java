@@ -28,6 +28,7 @@ import java.awt.Component;
 import java.lang.reflect.Method;
 
 import javax.swing.JOptionPane;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 
 /**
@@ -88,21 +89,6 @@ public class XPontusComponentsUtils {
      * @return
      */
     public static XPontusTopComponentIF getTopComponent() {
-        if (m_obj != null) {
-            return (XPontusTopComponentIF) m_obj;
-        } else {
-            String topCompClassName = System.getProperty(XPontusTopComponentIF.TOP_COMPONENT_KEY);
-
-            try {
-                Class m_class = Class.forName(topCompClassName);
-                Method m_method = m_class.getMethod(TOP_COMPONENT_FACTORY_METHOD,
-                        new Class[] {  });
-                m_obj = m_method.invoke(null, new Object[] {  });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return (XPontusTopComponentIF) m_obj;
-        }
+        return DefaultXPontusWindowImpl.getInstance();
     }
 }
