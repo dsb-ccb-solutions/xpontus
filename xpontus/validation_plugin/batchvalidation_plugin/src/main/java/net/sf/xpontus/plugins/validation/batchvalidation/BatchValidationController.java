@@ -30,6 +30,8 @@ import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.parsers.XIncludeAwareParserConfiguration;
@@ -53,8 +55,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.ProgressMonitor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -230,7 +230,6 @@ public class BatchValidationController {
 
         for (int i = 0; i < paths; i++) {
             File filePath = new File(m.getElementAt(i).toString());
-            System.out.println("path:" + filePath.getAbsolutePath());
 
             if (filePath.isDirectory()) {
                 if (recurse) {
@@ -260,7 +259,7 @@ public class BatchValidationController {
         }
 
         log.info("There are " + nbFiles + " to validate");
-        
+
         final ProgressMonitor pm = new ProgressMonitor(view, "Progression", "",
                 0, nbFiles);
         pm.setMillisToDecideToPopup(1000);
@@ -291,15 +290,14 @@ public class BatchValidationController {
         } catch (Exception err) {
             log.fatal(err.getMessage());
         }
- 
 
         for (int i = 0; i < nbFiles; i++) {
             final File m_file = (File) files.get(i);
             current_file = m_file;
- 
+
             final int pos = i;
 
-            pm.setProgress(pos+1);
+            pm.setProgress(pos + 1);
             pm.setNote(m_file.getName());
 
             String message = m_file.getName() + " is valid";
