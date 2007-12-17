@@ -142,7 +142,7 @@ public class XPontusRunner
      */
     public static void main(String[] args) throws Exception
     {
-        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
  
         
         XPontusPluginManager controller = new XPontusPluginManager();
@@ -199,7 +199,7 @@ public class XPontusRunner
                 "action.findreplace", "action.gotoline"
             };
 
-        final String[] toolsActions = { IndentContentActionImpl.BEAN_ALIAS };
+        final String[] toolsActions = { IndentContentActionImpl.BEAN_ALIAS, "action.docgen" };
 
         final String[] helpActions = { "action.about", "action.help" };
         final Object[] helpActionsList = new Object[helpActions.length];

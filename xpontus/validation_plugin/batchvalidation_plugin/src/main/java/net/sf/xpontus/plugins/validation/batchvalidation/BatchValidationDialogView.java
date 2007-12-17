@@ -75,28 +75,103 @@ public class BatchValidationDialogView extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        extensionsListScrollPane = new javax.swing.JScrollPane();
-        extensionsList = new javax.swing.JList();
-        extensionsListLabel = new javax.swing.JLabel();
-        addExtensionButton = new javax.swing.JButton();
-        editExtensionsButton = new javax.swing.JButton();
-        extensionTF = new javax.swing.JTextField();
-        fileExtensionTF = new javax.swing.JLabel();
         recurseOption = new javax.swing.JCheckBox();
-        addPathButton = new javax.swing.JButton();
-        pathListScrollPane = new javax.swing.JScrollPane();
-        pathList = new javax.swing.JList();
-        removePathButton = new javax.swing.JButton();
-        removeExtensionButton = new javax.swing.JButton();
+        bottomPanel = new javax.swing.JPanel();
         validateButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
+        inputPanel = new javax.swing.JPanel();
+        addPathButton = new javax.swing.JButton();
+        removePathButton = new javax.swing.JButton();
+        pathListScrollPane = new javax.swing.JScrollPane();
+        pathList = new javax.swing.JList();
+        extensionsSettingsPanel = new javax.swing.JPanel();
+        extensionTF = new javax.swing.JTextField();
+        extensionsListLabel = new javax.swing.JLabel();
+        removeExtensionButton = new javax.swing.JButton();
+        addExtensionButton = new javax.swing.JButton();
+        editExtensionsButton = new javax.swing.JButton();
+        fileExtensionTF = new javax.swing.JLabel();
+        extensionsListScrollPane = new javax.swing.JScrollPane();
+        extensionsList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        extensionsList.setModel(new DefaultComboBoxModel());
-        extensionsListScrollPane.setViewportView(extensionsList);
+        recurseOption.setText("Directory recursion");
+
+        validateButton.setText("Validate");
+        validateButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                BatchValidationController.VALIDATE_FILES_METHOD)
+        );
+        bottomPanel.add(validateButton);
+
+        closeButton.setText("Cancel");
+        closeButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                BatchValidationController.CLOSE_WINDOW_METHOD)
+        );
+        bottomPanel.add(closeButton);
+
+        inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input settings"));
+
+        addPathButton.setText("Add files/folders");
+        addPathButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                BatchValidationController.ADD_FILE_METHOD)
+        );
+
+        removePathButton.setText("Remove");
+        removePathButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                BatchValidationController.REMOVE_FILE_METHOD)
+        );
+
+        pathList.setModel(new DefaultComboBoxModel());
+        pathListScrollPane.setViewportView(pathList);
+
+        org.jdesktop.layout.GroupLayout inputPanelLayout = new org.jdesktop.layout.GroupLayout(inputPanel);
+        inputPanel.setLayout(inputPanelLayout);
+        inputPanelLayout.setHorizontalGroup(
+            inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(inputPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(addPathButton)
+                .add(59, 59, 59)
+                .add(pathListScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 214, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(removePathButton)
+                .addContainerGap())
+        );
+        inputPanelLayout.setVerticalGroup(
+            inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(inputPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(addPathButton)
+                    .add(pathListScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(removePathButton))
+                .addContainerGap())
+        );
+
+        extensionsSettingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Extensions settings"));
 
         extensionsListLabel.setText("Extensions list");
+
+        removeExtensionButton.setText("Remove");
+        removeExtensionButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                BatchValidationController.REMOVE_EXTENSION_METHOD)
+        );
 
         addExtensionButton.setText("Add");
         addExtensionButton.addActionListener(
@@ -110,49 +185,55 @@ public class BatchValidationDialogView extends javax.swing.JDialog {
 
         fileExtensionTF.setText("File extension to add");
 
-        recurseOption.setText("Directory recursion");
+        extensionsList.setModel(new DefaultComboBoxModel());
+        extensionsListScrollPane.setViewportView(extensionsList);
 
-        addPathButton.setText("Add files/folders");
-        addPathButton.addActionListener(
-            (ActionListener)EventHandler.create(
-                ActionListener.class,
-                controller,
-                BatchValidationController.ADD_FILE_METHOD)
+        org.jdesktop.layout.GroupLayout extensionsSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(extensionsSettingsPanel);
+        extensionsSettingsPanel.setLayout(extensionsSettingsPanelLayout);
+        extensionsSettingsPanelLayout.setHorizontalGroup(
+            extensionsSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(extensionsSettingsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(extensionsSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(extensionsListLabel)
+                    .add(extensionsSettingsPanelLayout.createSequentialGroup()
+                        .add(extensionsListScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(extensionsSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(editExtensionsButton)
+                            .add(removeExtensionButton))
+                        .add(84, 84, 84)
+                        .add(extensionsSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(fileExtensionTF)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, extensionsSettingsPanelLayout.createSequentialGroup()
+                                .add(extensionTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 27, Short.MAX_VALUE)
+                                .add(addExtensionButton)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))))
+                .addContainerGap(21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
-        pathList.setModel(new DefaultComboBoxModel());
-        pathListScrollPane.setViewportView(pathList);
+        extensionsSettingsPanelLayout.linkSize(new java.awt.Component[] {editExtensionsButton, removeExtensionButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
-        removePathButton.setText("Remove");
-        removePathButton.addActionListener(
-            (ActionListener)EventHandler.create(
-                ActionListener.class,
-                controller,
-                BatchValidationController.REMOVE_FILE_METHOD)
-        );
-
-        removeExtensionButton.setText("Remove");
-        removeExtensionButton.addActionListener(
-            (ActionListener)EventHandler.create(
-                ActionListener.class,
-                controller,
-                BatchValidationController.REMOVE_EXTENSION_METHOD)
-        );
-
-        validateButton.setText("Validate");
-        validateButton.addActionListener(
-            (ActionListener)EventHandler.create(
-                ActionListener.class,
-                controller,
-                BatchValidationController.VALIDATE_FILES_METHOD)
-        );
-
-        closeButton.setText("Cancel");
-        closeButton.addActionListener(
-            (ActionListener)EventHandler.create(
-                ActionListener.class,
-                controller,
-                BatchValidationController.CLOSE_WINDOW_METHOD)
+        extensionsSettingsPanelLayout.setVerticalGroup(
+            extensionsSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(extensionsSettingsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(extensionsListLabel)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(extensionsSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(extensionsSettingsPanelLayout.createSequentialGroup()
+                        .add(fileExtensionTF)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(extensionsSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(addExtensionButton)
+                            .add(extensionTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(extensionsSettingsPanelLayout.createSequentialGroup()
+                        .add(editExtensionsButton)
+                        .add(20, 20, 20)
+                        .add(removeExtensionButton))
+                    .add(extensionsListScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -162,77 +243,25 @@ public class BatchValidationDialogView extends javax.swing.JDialog {
             .add(layout.createSequentialGroup()
                 .add(20, 20, 20)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(recurseOption)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 356, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
-                        .add(extensionsListLabel)
-                        .add(366, 366, 366))
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                            .add(extensionsListScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(editExtensionsButton)
-                                .add(removeExtensionButton))
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 154, Short.MAX_VALUE)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(layout.createSequentialGroup()
-                                    .add(extensionTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 73, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(27, 27, 27)
-                                    .add(addExtensionButton))
-                                .add(fileExtensionTF)))
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                            .add(addPathButton)
-                            .add(59, 59, 59)
-                            .add(pathListScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 214, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(removePathButton))))
-                .add(47, 47, 47))
-            .add(layout.createSequentialGroup()
-                .add(136, 136, 136)
-                .add(validateButton)
-                .add(91, 91, 91)
-                .add(closeButton)
-                .addContainerGap(212, Short.MAX_VALUE))
+                    .add(recurseOption)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, bottomPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, extensionsSettingsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, inputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .add(21, 21, 21))
         );
-
-        layout.linkSize(new java.awt.Component[] {editExtensionsButton, removeExtensionButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
-
-        layout.linkSize(new java.awt.Component[] {closeButton, validateButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
-
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(addPathButton)
-                    .add(pathListScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(removePathButton))
+                .add(inputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 183, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(extensionsListLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(editExtensionsButton)
-                                .add(20, 20, 20)
-                                .add(removeExtensionButton))
-                            .add(extensionsListScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(recurseOption))
-                    .add(layout.createSequentialGroup()
-                        .add(fileExtensionTF)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(extensionTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(addExtensionButton))))
-                .add(27, 27, 27)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(validateButton)
-                    .add(closeButton))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .add(extensionsSettingsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(4, 4, 4)
+                .add(recurseOption)
+                .add(12, 12, 12)
+                .add(bottomPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -240,13 +269,16 @@ public class BatchValidationDialogView extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addExtensionButton;
     private javax.swing.JButton addPathButton;
+    private javax.swing.JPanel bottomPanel;
     private javax.swing.JButton closeButton;
     private javax.swing.JButton editExtensionsButton;
     private javax.swing.JTextField extensionTF;
     private javax.swing.JList extensionsList;
     private javax.swing.JLabel extensionsListLabel;
     private javax.swing.JScrollPane extensionsListScrollPane;
+    private javax.swing.JPanel extensionsSettingsPanel;
     private javax.swing.JLabel fileExtensionTF;
+    private javax.swing.JPanel inputPanel;
     private javax.swing.JList pathList;
     private javax.swing.JScrollPane pathListScrollPane;
     private javax.swing.JCheckBox recurseOption;

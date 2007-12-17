@@ -23,6 +23,9 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
+import java.awt.event.ActionListener;
+import java.beans.EventHandler;
+import javax.swing.JTable;
 import net.sf.xpontus.controllers.impl.ScenarioEditorController;
 
 /**
@@ -42,6 +45,11 @@ public class ScenarioEditorView extends javax.swing.JDialog {
         controller = new ScenarioEditorController(this);
         initComponents();
     }
+
+    public JTable getParamsTable() {
+        return paramsTable;
+    }
+ 
 
     public ScenarioEditorView(javax.swing.JDialog parent) {
         this(parent, true);
@@ -85,33 +93,43 @@ public class ScenarioEditorView extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add a new transformation");
 
-        nameLabel.setText("Name");
+        nameLabel.setText("  Name");
 
         okButton.setText("OK");
+        okButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                ScenarioEditorController.SAVE_METHOD)
+        );
 
         closeButton.setText("Close");
+        closeButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                ScenarioEditorController.CLOSE_WINDOW_METHOD)
+        );
 
         org.jdesktop.layout.GroupLayout bottomPanelLayout = new org.jdesktop.layout.GroupLayout(bottomPanel);
         bottomPanel.setLayout(bottomPanelLayout);
         bottomPanelLayout.setHorizontalGroup(
             bottomPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(bottomPanelLayout.createSequentialGroup()
-                .add(216, 216, 216)
+                .add(218, 218, 218)
                 .add(okButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 59, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(5, 5, 5)
-                .add(closeButton))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(closeButton)
+                .addContainerGap(230, Short.MAX_VALUE))
         );
 
         bottomPanelLayout.linkSize(new java.awt.Component[] {closeButton, okButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
         bottomPanelLayout.setVerticalGroup(
             bottomPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(bottomPanelLayout.createSequentialGroup()
-                .add(5, 5, 5)
-                .add(bottomPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(closeButton)
-                    .add(okButton))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(bottomPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(closeButton)
+                .add(okButton))
         );
 
         parametersPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder("Parameters"), javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2)));
@@ -130,9 +148,21 @@ public class ScenarioEditorView extends javax.swing.JDialog {
         parametersPanel.add(paramsScrollPane, java.awt.BorderLayout.CENTER);
 
         addParameterButton.setText("Add");
+        addParameterButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                ScenarioEditorController.ADD_PARAMETER_METHOD)
+        );
         paramsButtonPanel.add(addParameterButton);
 
         removeParameterButton.setText("Remove");
+        removeParameterButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                ScenarioEditorController.REMOVE_PARAMETER_METHOD)
+        );
         paramsButtonPanel.add(removeParameterButton);
 
         parametersPanel.add(paramsButtonPanel, java.awt.BorderLayout.SOUTH);
@@ -143,6 +173,12 @@ public class ScenarioEditorView extends javax.swing.JDialog {
         useCurrentDocumentOption.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         inputButton.setText("Input document...");
+        inputButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                ScenarioEditorController.INPUT_METHOD)
+        );
 
         useExternalDocumentOption.setText("Use external document");
         useExternalDocumentOption.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -154,26 +190,25 @@ public class ScenarioEditorView extends javax.swing.JDialog {
             .add(inputPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(useCurrentDocumentOption)
-                    .add(inputButton))
+                    .add(inputButton)
+                    .add(useCurrentDocumentOption))
                 .add(33, 33, 33)
                 .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(inputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                    .add(useExternalDocumentOption))
+                    .add(useExternalDocumentOption)
+                    .add(inputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
                 .addContainerGap())
         );
         inputPanelLayout.setVerticalGroup(
             inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(inputPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(inputButton)
                     .add(inputTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(29, 29, 29)
+                .add(20, 20, 20)
                 .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(useCurrentDocumentOption)
                     .add(useExternalDocumentOption))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         outputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output options"));
@@ -181,6 +216,12 @@ public class ScenarioEditorView extends javax.swing.JDialog {
         outputTypeLabel.setText("Output type");
 
         outputButton.setText("Output file ...");
+        outputButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                ScenarioEditorController.OUTPUT_METHOD)
+        );
 
         outputTypeList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "XML", "HTML" }));
 
@@ -205,20 +246,25 @@ public class ScenarioEditorView extends javax.swing.JDialog {
         outputPanelLayout.setVerticalGroup(
             outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, outputPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(outputButton)
                     .add(outputTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(outputTypeLabel)
-                    .add(outputTypeList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .add(outputTypeList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
 
         transPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Transformation options"));
 
         scriptButton.setText("Script/Stylesheet...");
+        scriptButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                ScenarioEditorController.SCRIPT_METHOD)
+        );
 
         processorLabel.setText("Processor");
 
@@ -230,15 +276,13 @@ public class ScenarioEditorView extends javax.swing.JDialog {
             transPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(transPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(transPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(transPanelLayout.createSequentialGroup()
-                        .add(scriptButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(scriptTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE))
-                    .add(transPanelLayout.createSequentialGroup()
-                        .add(processorLabel)
-                        .add(76, 76, 76)
-                        .add(processorsList, 0, 397, Short.MAX_VALUE)))
+                .add(transPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(processorLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(scriptButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(transPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(processorsList, 0, 391, Short.MAX_VALUE)
+                    .add(scriptTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
                 .addContainerGap())
         );
         transPanelLayout.setVerticalGroup(
@@ -262,15 +306,15 @@ public class ScenarioEditorView extends javax.swing.JDialog {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(transPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(parametersPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
-                    .add(inputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
                         .add(nameLabel)
                         .add(113, 113, 113)
-                        .add(nameTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE))
+                        .add(nameTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, bottomPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(transPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(parametersPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                     .add(outputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(bottomPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
+                    .add(inputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -280,9 +324,9 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(nameLabel)
                     .add(nameTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 15, Short.MAX_VALUE)
                 .add(inputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(parametersPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 135, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -290,7 +334,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                 .add(transPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 137, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(bottomPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();

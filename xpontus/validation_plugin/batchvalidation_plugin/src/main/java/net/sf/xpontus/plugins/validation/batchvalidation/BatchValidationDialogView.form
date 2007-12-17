@@ -24,49 +24,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="recurseOption" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="356" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="extensionsListLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="366" pref="366" max="366" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="extensionsListScrollPane" min="-2" pref="139" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="editExtensionsButton" linkSize="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="removeExtensionButton" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="154" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="extensionTF" min="-2" pref="73" max="-2" attributes="0"/>
-                                  <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
-                                  <Component id="addExtensionButton" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="fileExtensionTF" min="-2" max="-2" attributes="1"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="addPathButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                          <Component id="pathListScrollPane" min="-2" pref="214" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="removePathButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Component id="recurseOption" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="bottomPanel" alignment="0" max="32767" attributes="1"/>
+                      <Component id="extensionsSettingsPanel" alignment="0" max="32767" attributes="1"/>
+                      <Component id="inputPanel" alignment="0" max="32767" attributes="1"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
-              <Component id="validateButton" linkSize="2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-              <Component id="closeButton" linkSize="2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="212" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,148 +39,235 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="addPathButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="pathListScrollPane" min="-2" max="-2" attributes="0"/>
-                  <Component id="removePathButton" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="inputPanel" min="-2" pref="183" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="extensionsListLabel" min="-2" max="-2" attributes="0"/>
+              <Component id="extensionsSettingsPanel" min="-2" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+              <Component id="recurseOption" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Component id="bottomPanel" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="editExtensionsButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="removeExtensionButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="extensionsListScrollPane" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="recurseOption" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="fileExtensionTF" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="extensionTF" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="addExtensionButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="validateButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="closeButton" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="extensionsListScrollPane">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JList" name="extensionsList">
-          <Properties>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new DefaultComboBoxModel()" type="code"/>
-            </Property>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Component class="javax.swing.JLabel" name="extensionsListLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Extensions list"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="addExtensionButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Add"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="addExtensionButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.ADD_EXTENSION_METHOD)&#xa;        );"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="editExtensionsButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Edit"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="extensionTF">
-    </Component>
-    <Component class="javax.swing.JLabel" name="fileExtensionTF">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="File extension to add"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JCheckBox" name="recurseOption">
       <Properties>
         <Property name="text" type="java.lang.String" value="Directory recursion"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="addPathButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Add files/folders"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="addPathButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.ADD_FILE_METHOD)&#xa;        );"/>
-      </AuxValues>
-    </Component>
-    <Container class="javax.swing.JScrollPane" name="pathListScrollPane">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
+    <Container class="javax.swing.JPanel" name="bottomPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="pathList">
+        <Component class="javax.swing.JButton" name="validateButton">
           <Properties>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new DefaultComboBoxModel()" type="code"/>
-            </Property>
+            <Property name="text" type="java.lang.String" value="Validate"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="validateButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.VALIDATE_FILES_METHOD)&#xa;        );"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="closeButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="closeButton.addActionListener(&#xa;      (ActionListener)EventHandler.create(&#xa;        ActionListener.class,&#xa;&#x9;controller,&#xa;&#x9;BatchValidationController.CLOSE_WINDOW_METHOD)&#xa;    );"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="removePathButton">
+    <Container class="javax.swing.JPanel" name="inputPanel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Remove"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Input settings"/>
+          </Border>
+        </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="removePathButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.REMOVE_FILE_METHOD)&#xa;        );"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="removeExtensionButton">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="addPathButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                  <Component id="pathListScrollPane" min="-2" pref="214" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="removePathButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="addPathButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="pathListScrollPane" min="-2" max="-2" attributes="0"/>
+                      <Component id="removePathButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="addPathButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add files/folders"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="addPathButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.ADD_FILE_METHOD)&#xa;        );"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="removePathButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Remove"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="removePathButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.REMOVE_FILE_METHOD)&#xa;        );"/>
+          </AuxValues>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="pathListScrollPane">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="pathList">
+              <Properties>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new DefaultComboBoxModel()" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="extensionsSettingsPanel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Remove"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Extensions settings"/>
+          </Border>
+        </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="removeExtensionButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.REMOVE_EXTENSION_METHOD)&#xa;        );"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="validateButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Validate"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="validateButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.VALIDATE_FILES_METHOD)&#xa;        );"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="closeButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cancel"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="closeButton.addActionListener(&#xa;      (ActionListener)EventHandler.create(&#xa;        ActionListener.class,&#xa;&#x9;controller,&#xa;&#x9;BatchValidationController.CLOSE_WINDOW_METHOD)&#xa;    );"/>
-      </AuxValues>
-    </Component>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="extensionsListLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="extensionsListScrollPane" min="-2" pref="139" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="editExtensionsButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="removeExtensionButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="fileExtensionTF" min="-2" max="-2" attributes="1"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="extensionTF" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                                  <Component id="addExtensionButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="21" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="extensionsListLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="fileExtensionTF" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="addExtensionButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="extensionTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="editExtensionsButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="removeExtensionButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="extensionsListScrollPane" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JTextField" name="extensionTF">
+        </Component>
+        <Component class="javax.swing.JLabel" name="extensionsListLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Extensions list"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="removeExtensionButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Remove"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="removeExtensionButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.REMOVE_EXTENSION_METHOD)&#xa;        );"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="addExtensionButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="addExtensionButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                BatchValidationController.ADD_EXTENSION_METHOD)&#xa;        );"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="editExtensionsButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Edit"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="fileExtensionTF">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="File extension to add"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="extensionsListScrollPane">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="extensionsList">
+              <Properties>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new DefaultComboBoxModel()" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

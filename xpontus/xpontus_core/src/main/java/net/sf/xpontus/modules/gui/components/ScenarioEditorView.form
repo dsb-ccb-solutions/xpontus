@@ -23,34 +23,34 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="transPanel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="parametersPanel" alignment="0" pref="572" max="32767" attributes="1"/>
-                  <Component id="inputPanel" alignment="0" max="32767" attributes="2"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-                      <Component id="nameTF" pref="420" max="32767" attributes="0"/>
+                      <Component id="nameTF" pref="412" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="bottomPanel" alignment="1" max="32767" attributes="1"/>
+                  <Component id="transPanel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="parametersPanel" alignment="0" pref="572" max="32767" attributes="1"/>
                   <Component id="outputPanel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="bottomPanel" alignment="0" pref="572" max="32767" attributes="1"/>
+                  <Component id="inputPanel" alignment="0" max="32767" attributes="2"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="nameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="nameTF" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
               <Component id="inputPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="outputPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="parametersPanel" min="-2" pref="135" max="-2" attributes="0"/>
@@ -58,7 +58,7 @@
               <Component id="transPanel" min="-2" pref="137" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="bottomPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,7 +66,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="nameLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Name"/>
+        <Property name="text" type="java.lang.String" value="  Name"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="nameTF">
@@ -76,23 +76,20 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="218" max="-2" attributes="0"/>
                   <Component id="okButton" linkSize="6" min="-2" pref="59" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="closeButton" linkSize="6" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="230" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="closeButton" min="-2" max="-2" attributes="0"/>
-                      <Component id="okButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="closeButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="okButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -102,11 +99,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="OK"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="okButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                ScenarioEditorController.SAVE_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="closeButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Close"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="closeButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                ScenarioEditorController.CLOSE_WINDOW_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -165,11 +168,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="addParameterButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                ScenarioEditorController.ADD_PARAMETER_METHOD)&#xa;        );"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="removeParameterButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Remove"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="removeParameterButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                ScenarioEditorController.REMOVE_PARAMETER_METHOD)&#xa;        );"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -190,13 +199,13 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="useCurrentDocumentOption" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="inputButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="useCurrentDocumentOption" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="inputTF" alignment="0" pref="338" max="32767" attributes="1"/>
                       <Component id="useExternalDocumentOption" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="inputTF" alignment="0" pref="338" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -205,17 +214,16 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="inputButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="inputTF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="useCurrentDocumentOption" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="useExternalDocumentOption" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -235,6 +243,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Input document..."/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="inputButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                ScenarioEditorController.INPUT_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="inputTF">
         </Component>
@@ -285,7 +296,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="outputButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="outputTF" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -295,7 +306,6 @@
                       <Component id="outputTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="outputTypeList" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="35" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -310,6 +320,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Output file ..."/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="outputButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                ScenarioEditorController.OUTPUT_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="outputTF">
         </Component>
@@ -339,17 +352,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="scriptButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scriptTF" pref="397" max="32767" attributes="1"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="processorLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                          <Component id="processorsList" pref="397" max="32767" attributes="1"/>
-                      </Group>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="processorLabel" alignment="0" max="32767" attributes="1"/>
+                      <Component id="scriptButton" alignment="0" max="32767" attributes="1"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="processorsList" pref="391" max="32767" attributes="1"/>
+                      <Component id="scriptTF" alignment="1" pref="391" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -378,6 +388,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Script/Stylesheet..."/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="scriptButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                ScenarioEditorController.SCRIPT_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="scriptTF">
         </Component>

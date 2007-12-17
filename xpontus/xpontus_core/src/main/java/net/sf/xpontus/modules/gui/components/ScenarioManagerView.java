@@ -56,6 +56,10 @@ public class ScenarioManagerView extends javax.swing.JDialog {
         this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
     }
 
+    /**
+     * 
+     * @return
+     */
     public JList getScenariosList() {
         return scenariosList;
     }
