@@ -30,13 +30,7 @@ public class SchemaValidationView extends javax.swing.JDialog {
     public SchemaValidationView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         model = new SchemaValidationModel();
-        adapter = new BeanAdapter(model, true);
-        ArrayList strings = new ArrayList();
-        strings.add("XML Schema");
-        strings.add("DTD");
-        strings.add("Relax NG"); 
-         ValueModel selectionHolder = new ValueHolder("Selecta schema type");
-        typeAdapter = new ComboBoxAdapter(strings, selectionHolder);
+        adapter = new BeanAdapter(model, true); 
         controller = new SchemaValidationController(this);
         initComponents();
     }
@@ -70,8 +64,6 @@ public class SchemaValidationView extends javax.swing.JDialog {
         schemaPanel = new javax.swing.JPanel();
         schemaButton = new javax.swing.JButton();
         schemaTF = new javax.swing.JTextField();
-        schemaLabel = new javax.swing.JLabel();
-        schemaTypeList = new javax.swing.JComboBox();
         bottomPanel = new javax.swing.JPanel();
         validateButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
@@ -149,23 +141,15 @@ public class SchemaValidationView extends javax.swing.JDialog {
 
         Bindings.bind(schemaTF, adapter.getValueModel("schema"));
 
-        schemaLabel.setText("Schema type");
-
-        schemaTypeList.setModel(typeAdapter);
-
         javax.swing.GroupLayout schemaPanelLayout = new javax.swing.GroupLayout(schemaPanel);
         schemaPanel.setLayout(schemaPanelLayout);
         schemaPanelLayout.setHorizontalGroup(
             schemaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schemaPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(schemaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(schemaButton)
-                    .addComponent(schemaLabel))
+                .addComponent(schemaButton)
                 .addGap(51, 51, 51)
-                .addGroup(schemaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(schemaTF, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                    .addComponent(schemaTypeList, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(schemaTF, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addContainerGap())
         );
         schemaPanelLayout.setVerticalGroup(
@@ -174,11 +158,7 @@ public class SchemaValidationView extends javax.swing.JDialog {
                 .addGroup(schemaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(schemaButton)
                     .addComponent(schemaTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(schemaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(schemaLabel)
-                    .addComponent(schemaTypeList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
 
         validateButton.setText("Validate");
@@ -205,12 +185,11 @@ public class SchemaValidationView extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bottomPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(schemaPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inputPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(schemaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,10 +197,10 @@ public class SchemaValidationView extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(schemaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(schemaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(bottomPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -243,16 +222,13 @@ public class SchemaValidationView extends javax.swing.JDialog {
     private javax.swing.JPanel inputPanel;
     private javax.swing.JTextField inputTF;
     private javax.swing.JButton schemaButton;
-    private javax.swing.JLabel schemaLabel;
     private javax.swing.JPanel schemaPanel;
     private javax.swing.JTextField schemaTF;
-    private javax.swing.JComboBox schemaTypeList;
     private javax.swing.JRadioButton useCurrentDocumentOption;
     private javax.swing.JRadioButton useExternalDocumentOption;
     private javax.swing.JButton validateButton;
     // End of variables declaration//GEN-END:variables
     private SchemaValidationModel model;
-    private BeanAdapter adapter;
-    private ComboBoxAdapter typeAdapter;
+    private BeanAdapter adapter; 
     private SchemaValidationController controller;
 }

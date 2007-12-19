@@ -17,6 +17,25 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+            <groupId>net.sf.xpontus</groupId>
+            <artifactId>xpontus_core</artifactId>
+            <version>1.0.0-pre1</version>
+            <scope>compile</scope>
+        </dependency>
+    <dependency>
+            <groupId>net.sf.dtddoc</groupId>
+            <artifactId>DTDDoc</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+    <dependency>
+            <groupId>net.sf.dtddoc</groupId>
+            <artifactId>dtdparser</artifactId>
+            <version>1.20-dtddoc</version>
+            <scope>compile</scope>
+        </dependency>
+    
   </dependencies> 
   <description>Documentation generation for DTD files</description>
 </project>

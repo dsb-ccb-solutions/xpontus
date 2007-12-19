@@ -3,28 +3,49 @@
  *
  * Created on February 11, 2007, 9:08 PM
  */
-
 package net.sf.xpontus.modules.gui.components;
 
+import com.jgoodies.binding.adapter.Bindings;
+import com.jgoodies.binding.adapter.ComboBoxAdapter;
+import com.jgoodies.binding.beans.BeanAdapter;
+import com.jgoodies.binding.value.ValueModel;
 import java.awt.Frame;
+import java.awt.event.ActionListener;
+import java.beans.EventHandler;
+import net.sf.xpontus.controllers.impl.DocumentationControllerImpl;
+import net.sf.xpontus.model.DocumentationModel;
+import net.sf.xpontus.plugins.gendoc.DocConfiguration;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
-
 
 /**
  *
  * @author  Owner
  */
 public class DocumentationView extends javax.swing.JDialog {
-    
-    /** Creates new form DocumentationView */
+
+    /** Creates new form DocumentationView
+     * @param parent
+     * @param modal 
+     */
     public DocumentationView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        controller = new DocumentationControllerImpl(this);
+        model = new DocumentationModel();
+        adapter = new BeanAdapter(model, true);
+        
+        ValueModel vm = adapter.getValueModel("type");
+        typeAdapter = new ComboBoxAdapter(DocConfiguration.getInstane().getEnginesNames(), vm);
         initComponents();
     }
-    
-    public DocumentationView(){
-        this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(),true);
+
+    public DocumentationView() {
+        this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
     }
+
+    public DocumentationModel getModel() {
+        return model;
+    }
+
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -34,184 +55,202 @@ public class DocumentationView extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        mainPanel = new javax.swing.JPanel();
+        docTitleTF = new javax.swing.JTextField();
+        docTitleLabel = new javax.swing.JLabel();
+        srcButton = new javax.swing.JButton();
+        srcTF = new javax.swing.JTextField();
+        destButton = new javax.swing.JButton();
+        destTF = new javax.swing.JTextField();
+        headerTF = new javax.swing.JTextField();
+        footerTF = new javax.swing.JTextField();
+        cssButton = new javax.swing.JButton();
+        cssTF = new javax.swing.JTextField();
+        docTypeLabel = new javax.swing.JLabel();
+        docTypeList = new javax.swing.JComboBox();
+        noticeTF = new javax.swing.JLabel();
+        headerLabel = new javax.swing.JLabel();
+        footerLabel = new javax.swing.JLabel();
+        buttonsPanel = new javax.swing.JPanel();
+        generateButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Documentation generator");
 
-        jLabel1.setText("Documentation title");
+        Bindings.bind(docTitleTF, adapter.getValueModel("title"));
 
-        jButton1.setText("Source directory ...");
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        docTitleLabel.setText("Documentation title");
 
-        jTextField2.setEditable(false);
+        srcButton.setText("Source directory ...");
+        srcButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        srcButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                DocumentationControllerImpl.INPUT_METHOD)
+        );
 
-        jButton2.setText("Destination directory ...");
-        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        srcTF.setEditable(false);
+        Bindings.bind(srcTF, adapter.getValueModel("input"));
 
-        jTextField3.setEditable(false);
+        destButton.setText("Destination directory ...");
+        destButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        destButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                DocumentationControllerImpl.OUTPUT_METHOD)
+        );
 
-        jButton3.setText("Header ...");
-        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        destTF.setEditable(false);
+        Bindings.bind(destTF, adapter.getValueModel("output"));
 
-        jButton4.setText("Footer ...");
-        jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Bindings.bind(headerTF, adapter.getValueModel("header"));
 
-        jTextField4.setEditable(false);
+        Bindings.bind(footerTF, adapter.getValueModel("footer"));
 
-        jTextField5.setEditable(false);
+        cssButton.setText("CSS stylesheet ...");
+        cssButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        cssButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                DocumentationControllerImpl.CSS_METHOD)
+        );
 
-        jButton5.setText("CSS stylesheet ...");
-        jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        cssTF.setEditable(false);
+        Bindings.bind(cssTF, adapter.getValueModel("css"));
 
-        jTextField6.setEditable(false);
+        docTypeLabel.setText("Documentation type");
 
-        jLabel2.setText("Documentation type");
+        docTypeList.setModel(typeAdapter);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DTD", "XML Schema" }));
+        noticeTF.setFont(new java.awt.Font("Dialog", 1, 10));
+        noticeTF.setForeground(new java.awt.Color(0, 0, 204));
+        noticeTF.setText("* The parameters header, footer, and css stylesheet are mandatories");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 10));
-        jLabel3.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel3.setText("* The parameters header, footer, and css stylesheet are mandatories");
+        headerLabel.setText("Header");
 
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+        footerLabel.setText("Footer");
+
+        org.jdesktop.layout.GroupLayout mainPanelLayout = new org.jdesktop.layout.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(jButton4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(jButton5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(jLabel2))
-                            .add(jButton2)
-                            .add(jButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel1)
-                            .add(jButton1))
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(mainPanelLayout.createSequentialGroup()
+                        .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(cssButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(docTypeLabel))
+                            .add(destButton)
+                            .add(docTitleLabel)
+                            .add(srcButton)
+                            .add(headerLabel)
+                            .add(footerLabel))
                         .add(54, 54, 54)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .add(jTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .add(jTextField4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 270, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jTextField6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 133, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 461, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(docTitleTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                            .add(srcTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                            .add(destTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                            .add(headerTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                            .add(footerTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 270, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(cssTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                            .add(docTypeList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 133, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(noticeTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 461, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+        mainPanelLayout.linkSize(new java.awt.Component[] {cssButton, destButton, srcButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
-        jPanel1Layout.linkSize(new java.awt.Component[] {jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+        mainPanelLayout.linkSize(new java.awt.Component[] {cssTF, destTF, docTitleTF, footerTF, headerTF, srcTF}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(docTypeLabel)
+                    .add(docTypeList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(29, 29, 29)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(docTitleLabel)
+                    .add(docTitleTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(17, 17, 17)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton1))
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(srcTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(srcButton))
                 .add(27, 27, 27)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton2))
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(destTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(destButton))
                 .add(29, 29, 29)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton3))
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(headerTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(headerLabel))
                 .add(34, 34, 34)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton4)
-                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(footerTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(footerLabel))
                 .add(24, 24, 24)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jButton5)
-                    .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(cssButton)
+                    .add(cssTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(17, 17, 17)
-                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(noticeTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
 
-        jButton7.setText("Generate");
-        jPanel2.add(jButton7);
+        generateButton.setText("Generate");
+        generateButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                DocumentationControllerImpl.HANDLE_METHOD)
+        );
+        buttonsPanel.add(generateButton);
 
-        jButton6.setText("Cancel");
-        jPanel2.add(jButton6);
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                DocumentationControllerImpl.CLOSE_METHOD)
+        );
+        buttonsPanel.add(cancelButton);
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(buttonsPanel, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DocumentationView dialog = new DocumentationView(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JPanel buttonsPanel;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton cssButton;
+    private javax.swing.JTextField cssTF;
+    private javax.swing.JButton destButton;
+    private javax.swing.JTextField destTF;
+    private javax.swing.JLabel docTitleLabel;
+    private javax.swing.JTextField docTitleTF;
+    private javax.swing.JLabel docTypeLabel;
+    private javax.swing.JComboBox docTypeList;
+    private javax.swing.JLabel footerLabel;
+    private javax.swing.JTextField footerTF;
+    private javax.swing.JButton generateButton;
+    private javax.swing.JLabel headerLabel;
+    private javax.swing.JTextField headerTF;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel noticeTF;
+    private javax.swing.JButton srcButton;
+    private javax.swing.JTextField srcTF;
     // End of variables declaration//GEN-END:variables
-    
+    private ComboBoxAdapter typeAdapter;
+    private DocumentationControllerImpl controller;
+    private DocumentationModel model;
+    private BeanAdapter adapter;
 }

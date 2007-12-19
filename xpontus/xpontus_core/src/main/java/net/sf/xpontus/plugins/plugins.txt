@@ -11,3 +11,4 @@
 /net/sf/xpontus/plugins/gui/menubar/
 /net/sf/xpontus/plugins/gui/console/
 /net/sf/xpontus/plugins/gui/editor/
+/net/sf/xpontus/plugins/gendoc/

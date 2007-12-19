@@ -60,9 +60,7 @@ public class LexerPlugin extends XPontusPlugin {
      * @param loader
      */
     private void addLexer(LexerPluginIF lexer, ClassLoader loader) {
-        Hashtable t = new Hashtable();
-
-        System.out.println("Lexer:" + lexer.getClass().getName());
+        Hashtable t = new Hashtable(); 
         
         t.put(LexerPropertiesConstantsIF.CLASS_LOADER, loader);
         t.put(LexerPropertiesConstantsIF.LEXER_CLASSNAME,
@@ -75,15 +73,12 @@ public class LexerPlugin extends XPontusPlugin {
         lexerMap.put(lexer.getMimeType(), t);
 
         String[] extensions = null;
-        try{
-            System.out.println("lexer:::" + (lexer.getName()));
+        try{ 
             extensions = lexer.getSupportedExtensions();
         }
-        catch(Exception e){
-            System.out.println("lexer:"  + lexer.getName());
+        catch(Exception e){ 
             e.printStackTrace();
-        }
-        System.out.println("ext:" + Arrays.asList(extensions));
+        } 
         
         String mime = lexer.getMimeType();
         String mime_types = createMimeTypes(mime, extensions);

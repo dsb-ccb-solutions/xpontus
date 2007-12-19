@@ -22,16 +22,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="schemaPanel" alignment="0" max="32767" attributes="1"/>
+                  <Component id="inputPanel" alignment="0" min="-2" max="-2" attributes="1"/>
                   <Component id="bottomPanel" alignment="0" pref="452" max="32767" attributes="1"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="schemaPanel" alignment="0" max="32767" attributes="1"/>
-                      <Component id="inputPanel" alignment="0" max="32767" attributes="1"/>
-                  </Group>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,10 +39,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="inputPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="schemaPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="schemaPanel" min="-2" pref="79" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="bottomPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -150,15 +148,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="schemaButton" min="-2" max="-2" attributes="0"/>
-                      <Component id="schemaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="schemaButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="schemaTF" pref="278" max="32767" attributes="0"/>
-                      <Component id="schemaTypeList" min="-2" pref="155" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="schemaTF" pref="278" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -170,12 +162,7 @@
                       <Component id="schemaButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="schemaTF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="schemaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="schemaTypeList" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -193,18 +180,6 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(schemaTF, adapter.getValueModel(&quot;schema&quot;));"/>
           </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="schemaLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Schema type"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="schemaTypeList">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="typeAdapter" type="code"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -9,6 +9,7 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
   <AuxValues>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="2"/>
@@ -20,7 +21,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="mainPanel">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="Center"/>
@@ -36,27 +37,27 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton4" linkSize="1" max="32767" attributes="1"/>
-                                  <Component id="jButton5" linkSize="1" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cssButton" linkSize="1" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="docTypeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jButton2" linkSize="1" alignment="0" min="-2" max="-2" attributes="1"/>
-                              <Component id="jButton3" linkSize="1" alignment="0" min="-2" pref="109" max="-2" attributes="1"/>
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" linkSize="1" alignment="0" min="-2" max="-2" attributes="1"/>
+                              <Component id="destButton" linkSize="1" alignment="0" min="-2" max="-2" attributes="1"/>
+                              <Component id="docTitleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="srcButton" linkSize="1" alignment="0" min="-2" max="-2" attributes="1"/>
+                              <Component id="headerLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="footerLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextField1" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
-                              <Component id="jTextField2" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
-                              <Component id="jTextField3" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
-                              <Component id="jTextField4" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
-                              <Component id="jTextField5" linkSize="2" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
-                              <Component id="jTextField6" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
-                              <Component id="jComboBox1" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
+                              <Component id="docTitleTF" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
+                              <Component id="srcTF" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
+                              <Component id="destTF" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
+                              <Component id="headerTF" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
+                              <Component id="footerTF" linkSize="2" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
+                              <Component id="cssTF" linkSize="2" alignment="0" pref="270" max="32767" attributes="1"/>
+                              <Component id="docTypeList" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jLabel3" alignment="0" min="-2" pref="461" max="-2" attributes="0"/>
+                      <Component id="noticeTF" alignment="0" min="-2" pref="461" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -67,125 +68,131 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="docTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="docTypeList" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="docTitleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="docTitleTF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="srcTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="srcButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="destTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="destButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="headerTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="headerLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="footerTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="footerLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButton5" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField6" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="cssButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="cssTF" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" pref="26" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="noticeTF" min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace pref="26" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="docTitleTF">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(docTitleTF, adapter.getValueModel(&quot;title&quot;));"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="docTitleLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Documentation title"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="srcButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Source directory ..."/>
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="srcButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                DocumentationControllerImpl.INPUT_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="srcTF">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(srcTF, adapter.getValueModel(&quot;input&quot;));"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="destButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Destination directory ..."/>
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="destButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                DocumentationControllerImpl.OUTPUT_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="destTF">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(destTF, adapter.getValueModel(&quot;output&quot;));"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Header ..."/>
-            <Property name="horizontalAlignment" type="int" value="2"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="headerTF">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(headerTF, adapter.getValueModel(&quot;header&quot;));"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Footer ..."/>
-            <Property name="horizontalAlignment" type="int" value="2"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="footerTF">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(footerTF, adapter.getValueModel(&quot;footer&quot;));"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField4">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextField5">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="cssButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="CSS stylesheet ..."/>
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="cssButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                DocumentationControllerImpl.CSS_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField6">
+        <Component class="javax.swing.JTextField" name="cssTF">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(cssTF, adapter.getValueModel(&quot;css&quot;));"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="docTypeLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Documentation type"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="docTypeList">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="DTD"/>
-                <StringItem index="1" value="XML Schema"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="typeAdapter" type="code"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="noticeTF">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="10" style="1"/>
@@ -196,9 +203,19 @@
             <Property name="text" type="java.lang.String" value="* The parameters header, footer, and css stylesheet are mandatories"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="headerLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Header"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="footerLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Footer"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="buttonsPanel">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="South"/>
@@ -207,15 +224,21 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton7">
+        <Component class="javax.swing.JButton" name="generateButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Generate"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="generateButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                DocumentationControllerImpl.HANDLE_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton6">
+        <Component class="javax.swing.JButton" name="cancelButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="cancelButton.addActionListener(&#xa;            (ActionListener)EventHandler.create(&#xa;                ActionListener.class,&#xa;                controller,&#xa;                DocumentationControllerImpl.CLOSE_METHOD)&#xa;        );"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

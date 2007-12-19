@@ -58,6 +58,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.UIManager;
+import net.sf.xpontus.plugins.gendoc.DocumentationPlugin;
 
 
 /**
@@ -142,7 +143,7 @@ public class XPontusRunner
      */
     public static void main(String[] args) throws Exception
     {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
  
         
         XPontusPluginManager controller = new XPontusPluginManager();
@@ -155,7 +156,7 @@ public class XPontusRunner
                 IOCPlugin.PLUGIN_IDENTIFIER, ThemePlugin.PLUGIN_IDENTIFIER,
                 MenuBarPlugin.PLUGIN_IDENTIFIER, LexerPlugin.PLUGIN_IDENTIFIER,
                 ToolBarPlugin.PLUGIN_IDENTIFIER,
-                IndentationPlugin.PLUGIN_IDENTIFIER
+                IndentationPlugin.PLUGIN_IDENTIFIER, DocumentationPlugin.PLUGIN_IDENTIFIER
             };
 
         // init plugins

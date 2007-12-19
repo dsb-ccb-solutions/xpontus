@@ -20,22 +20,46 @@
  */
 package net.sf.xpontus.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DocumentationModel {
-    private String type;
-    private String title;
-    private String input;
-    private String output;
-    private String header;
-    private String footer;
-    private String css;
+    private PropertyChangeSupport pcs;
+    private String type ;
+    private String title = "";
+    private String input = "";
+    private String output = "";
+    private String header = "";
+    private String footer = "";
+    private String css = "";
+
+    public DocumentationModel() {
+        this.pcs = new PropertyChangeSupport(this);
+    }
 
     /**
-     * 
+     *
+     * @param x
+     */
+    public void addPropertyChangeListener(PropertyChangeListener x) {
+        pcs.addPropertyChangeListener(x);
+    }
+
+    /**
+     *
+     * @param x
+     */
+    public void removePropertyChangeListener(PropertyChangeListener x) {
+        pcs.removePropertyChangeListener(x);
+    }
+
+    /**
+     *
      * @return
      */
     public String getCss() {
@@ -43,15 +67,17 @@ public class DocumentationModel {
     }
 
     /**
-     * 
-     * @param css
+     *
+     * @param newValue
      */
-    public void setCss(String css) {
-        this.css = css;
+    public void setCss(String newValue) {
+        String oldValue = this.css;
+        this.css = newValue;
+        pcs.firePropertyChange("css", oldValue, newValue);
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getFooter() {
@@ -59,15 +85,17 @@ public class DocumentationModel {
     }
 
     /**
-     * 
-     * @param footer
+     *
+     * @param newValue
      */
-    public void setFooter(String footer) {
-        this.footer = footer;
+    public void setFooter(String newValue) {
+        String oldValue = this.footer;
+        this.footer = newValue;
+        pcs.firePropertyChange("footer", oldValue, newValue);
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getHeader() {
@@ -75,15 +103,17 @@ public class DocumentationModel {
     }
 
     /**
-     * 
-     * @param header
+     *
+     * @param newValue
      */
-    public void setHeader(String header) {
-        this.header = header;
+    public void setHeader(String newValue) {
+        String oldValue = this.header;
+        this.header = newValue;
+        pcs.firePropertyChange("header", oldValue, newValue);
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getInput() {
@@ -91,15 +121,17 @@ public class DocumentationModel {
     }
 
     /**
-     * 
-     * @param input
+     *
+     * @param newValue
      */
-    public void setInput(String input) {
-        this.input = input;
+    public void setInput(String newValue) {
+        String oldValue = this.input;
+        this.input = newValue;
+        pcs.firePropertyChange("input", oldValue, newValue);
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getOutput() {
@@ -107,15 +139,17 @@ public class DocumentationModel {
     }
 
     /**
-     * 
-     * @param output
+     *
+     * @param newValue
      */
-    public void setOutput(String output) {
-        this.output = output;
+    public void setOutput(String newValue) {
+        String oldValue = this.output;
+        this.output = newValue;
+        pcs.firePropertyChange("output", oldValue, newValue);
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getTitle() {
@@ -123,15 +157,17 @@ public class DocumentationModel {
     }
 
     /**
-     * 
-     * @param title
+     *
+     * @param newValue
      */
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String newValue) {
+        String oldValue = this.title;
+        this.title = newValue;
+        pcs.firePropertyChange("title", oldValue, newValue);
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getType() {
@@ -139,10 +175,12 @@ public class DocumentationModel {
     }
 
     /**
-     * 
-     * @param type
+     *
+     * @param newValue
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String newValue) {
+        String oldValue = this.type;
+        this.type = newValue;
+        pcs.firePropertyChange("type", oldValue, newValue);
     }
 }

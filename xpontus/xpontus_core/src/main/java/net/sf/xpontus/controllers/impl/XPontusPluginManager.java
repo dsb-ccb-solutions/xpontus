@@ -191,8 +191,14 @@ public class XPontusPluginManager implements XPontusControllerIF {
     public PluginLocation getPluginLocation(String context) {
         URL u_context = getClass().getResource(context);
         URL u_manifest = getClass().getResource(context + "plugin.xml");
-        System.out.println("context:" + context);
-        PluginLocation loc = new StandardPluginLocation(u_context, u_manifest);
+
+        PluginLocation loc = null;
+
+        try {
+            loc = new StandardPluginLocation(u_context, u_manifest);
+        } catch (Exception e) {
+            System.out.println("context:" + context);
+        }
 
         return loc;
     }

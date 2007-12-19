@@ -33,7 +33,6 @@ public class SchemaValidationModel {
     private boolean useCurrentDocument = true;
     private String input = "";
     private String schema = "";
-    private String type = "DTD";
 
     public SchemaValidationModel() {
         this.pcs = new PropertyChangeSupport(this);
@@ -95,31 +94,13 @@ public class SchemaValidationModel {
      *
      * @return
      */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     *
-     * @param newValue
-     */
-    public void setType(String newValue) {
-        String oldValue = this.type;
-        type = newValue;
-        pcs.firePropertyChange("type", oldValue, newValue);
-    }
-
-    /**
-     *
-     * @return
-     */
     public boolean isUseCurrentDocument() {
         return useCurrentDocument;
     }
 
     /**
      *
-     * @param newValue 
+     * @param newValue
      */
     public void setUseCurrentDocument(boolean newValue) {
         boolean oldValue = this.useCurrentDocument;

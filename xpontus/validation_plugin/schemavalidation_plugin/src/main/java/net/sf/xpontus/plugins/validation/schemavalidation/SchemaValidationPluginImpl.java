@@ -42,6 +42,7 @@ public class SchemaValidationPluginImpl implements MenuBarPluginIF{
 
         List actions = new ArrayList();
         actions.add(new SchemaValidationAction());
+        
         actionMap.put(XPontusMenuConstantsIF.TOOLS_MENU_ID, actions);
     }
 
