@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.gendoc.xsddoc" version="0.0.1" class="net.sf.xpontus.plugins.gendoc.xsddoc.XSDDocPlugin">      
+    <requires>
+        <import plugin-id="plugin.core.gendoc" />
+    </requires>
+    <runtime> 
+        <library id="xsddocplugin" path="lib/xsddoc_plugin-1.0.0-pre1.jar" type="code">
+            <export prefix="*"/> 
+        </library> 
+        <library id="xsddoc" path="lib/xsddoc-1.0.jar" type="code">
+            <export prefix="*"/> 
+        </library>  
+    </runtime>
+    <extension plugin-id="plugin.core.gendoc" point-id="gendocpluginif" id="xsddocplugin">
+        <parameter id="class" value="net.sf.xpontus.plugins.gendoc.xsddoc.XSDDocPluginImpl" /> 
+    </extension>
+</plugin>
