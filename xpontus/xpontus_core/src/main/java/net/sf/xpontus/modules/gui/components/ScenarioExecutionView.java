@@ -19,11 +19,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.modules.gui.components;
 
 import java.awt.Frame;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import net.sf.xpontus.model.ScenarioModel;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -48,15 +48,20 @@ public class ScenarioExecutionView extends javax.swing.JDialog {
      * 
      * @return 
      */
-    public DefaultListModel getScenarioListModel(){
+    public DefaultListModel getScenarioListModel() {
         return scenarioListModel;
     }
 
+    public JList getScenarioList() {
+        return scenarioList;
+    }
+
+    
     /**
      * Default constructor
      */
-    public ScenarioExecutionView(){
-        this((Frame)XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
+    public ScenarioExecutionView() {
+        this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
     }
 
     /** This method is called from within the constructor to
@@ -133,11 +138,7 @@ private void runButton_onClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:even
     }
     else{
         XPontusComponentsUtils.showErrorMessage("Please select a scenario");
-    }
-    
-    
-    
-    
+    } 
 }//GEN-LAST:event_runButton_onClick
 
     private void closeButton_onClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButton_onClick

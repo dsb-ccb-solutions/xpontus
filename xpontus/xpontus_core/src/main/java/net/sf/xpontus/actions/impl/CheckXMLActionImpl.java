@@ -22,20 +22,21 @@
  */
 package net.sf.xpontus.actions.impl;
 
-import com.ibm.icu.text.CharsetDetector;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 
-import org.apache.commons.io.IOUtils;
 
-import org.apache.xerces.parsers.SAXParser;
 
-import org.xml.sax.InputSource;
 
-import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
+import net.sf.xpontus.modules.gui.components.DocumentContainer;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
 
 
 /**
@@ -43,35 +44,49 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi
  */
 public class CheckXMLActionImpl extends XPontusThreadedActionImpl {
+    
+    public static final String BEAN_ALIAS = "action.checkxml";
+    
     public CheckXMLActionImpl() {
     }
 
-    public void run() {
-        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                           .getDocumentTabContainer();
-        JTextComponent jtc = dtc.getCurrentEditor();
-
+     public void run() {
         try {
-            // create and configure a new sax parser
-            SAXParser parser = new SAXParser();
-            
-            // encoding detection of the input text
-            CharsetDetector detect = new CharsetDetector();
-            
-            // deprecated method but whatever
-            detect.setText(IOUtils.toByteArray(jtc.getText()));
+            JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
+                                                         .getDocumentTabContainer()
+                                                         .getCurrentEditor();
 
-            Reader reader = detect.detect().getReader();
+            InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
 
-            // parse the XML document
-            parser.parse(new InputSource(reader));
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-            DefaultXPontusWindowImpl.getInstance().getStatusBar()
-                                    .setMessage("XML document is well formed!");
+            dbf.setValidating(false);
+
+            DocumentBuilder db = dbf.newDocumentBuilder();
+
+            db.parse(is);
+
+            is.close();
+
+            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                  .getConsole();
+            OutputDockable odk = (OutputDockable) console.getDockables()
+                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
+            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+                                                                                      .getDocumentTabContainer()
+                                                                                      .getCurrentDockable();
+            container.getStatusBar().setMessage("Document  well formed");
+            odk.println("Document  well formed");
         } catch (Exception e) {
-            DefaultXPontusWindowImpl.getInstance().getStatusBar()
-                                    .setMessage("Error checking XML...!");
-            getLogger().error(e.getMessage());
+            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                  .getConsole();
+            OutputDockable odk = (OutputDockable) console.getDockables()
+                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
+            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+                                                                                      .getDocumentTabContainer()
+                                                                                      .getCurrentDockable();
+            container.getStatusBar().setMessage("Document not well formed");
+            odk.println(e.getMessage());
         }
     }
 }

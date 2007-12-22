@@ -33,7 +33,7 @@ public class SchemaGenerationAction extends XPontusDialogActionImpl {
      */
     public SchemaGenerationAction() {
         setName("Schema converter");
-        setDialogClassName(SchemaGeneratorView.class.getName());
-        setWindowClassLoader(this.getClass().getClassLoader());
+        setDialogClassName(SchemaGeneratorView.class.getName()); 
+        this.setWindowClassLoader(this.getClass().getClassLoader());
     }
 }

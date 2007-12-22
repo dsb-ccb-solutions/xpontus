@@ -23,6 +23,9 @@
  */
 package net.sf.xpontus.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import java.util.Hashtable;
 
 
@@ -31,35 +34,21 @@ import java.util.Hashtable;
  * @author Yves Zoundi
  */
 public class ScenarioModel {
-    private String input;
-    private boolean externalDocument;
-    private String controllerClass;
-
-    public String getControllerClass() {
-        return controllerClass;
-    }
-
-    public void setControllerClass(String controllerClass) {
-        this.controllerClass = controllerClass;
-    }
-
-    public String getControllerClassLoader() {
-        return controllerClassLoader;
-    }
-
-    public void setControllerClassLoader(String controllerClassLoader) {
-        this.controllerClassLoader = controllerClassLoader;
-    }
-    private String controllerClassLoader;
-    private String output;
-    private String type;
-    private String xsl;
-    private String processor;
-    private String name;
-    private Hashtable parameters;
+    public boolean isNew = true;
+    private PropertyChangeSupport pcs;
+    private String input = "";
+    private boolean externalDocument = false;    
+    private String output = ""; 
+    private String xsl = "";
+    private String processor = "";
+    private String name = "";
+    private Hashtable parameters = new Hashtable();
 
     public ScenarioModel() {
+        pcs = new PropertyChangeSupport(this);
     }
+
+    
 
     /**
      * Returns the scenario's name
@@ -69,12 +58,31 @@ public class ScenarioModel {
         return name;
     }
 
+    
+    /**
+     *
+     * @param x
+     */
+    public void addPropertyChangeListener(PropertyChangeListener x) {
+        pcs.addPropertyChangeListener(x);
+    }
+
+    /**
+     *
+     * @param x
+     */
+    public void removePropertyChangeListener(PropertyChangeListener x) {
+        pcs.removePropertyChangeListener(x);
+    }
+    
     /**
      * The scenario's name
-     * @param name The scenario's name
+     * @param newValue The scenario's name
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String newValue) {
+        String oldValue = this.name;
+        this.name = newValue;
+        pcs.firePropertyChange("name", oldValue, newValue);
     }
 
     /**
@@ -87,10 +95,12 @@ public class ScenarioModel {
 
     /**
      * whether the document is an external document or the current document
-     * @param externalDocument whether the document is an external document or the current document
+     * @param newValue whether the document is an external document or the current document
      */
-    public void setExternalDocument(boolean externalDocument) {
-        this.externalDocument = externalDocument;
+    public void setExternalDocument(boolean newValue) {
+        boolean oldValue = this.externalDocument;
+        this.externalDocument = newValue;
+        pcs.firePropertyChange("externalDocument", oldValue, newValue);
     }
 
     /**
@@ -103,10 +113,12 @@ public class ScenarioModel {
 
     /**
      * The input document
-     * @param input The input document
+     * @param newValue The input document
      */
-    public void setInput(String input) {
-        this.input = input;
+    public void setInput(String newValue) {
+        String oldValue = this.input;
+        this.input = newValue;
+        pcs.firePropertyChange("input", oldValue, newValue);
     }
 
     /**
@@ -119,10 +131,12 @@ public class ScenarioModel {
 
     /**
      * The output file
-     * @param output The output file
+     * @param newValue The output file
      */
-    public void setOutput(String output) {
-        this.output = output;
+    public void setOutput(String newValue) {
+        String oldValue = this.output;
+        this.output = newValue;
+        pcs.firePropertyChange("output", oldValue, newValue);
     }
 
     /**
@@ -135,10 +149,12 @@ public class ScenarioModel {
 
     /**
      * The processor parameters
-     * @param parameters The processor parameters
+     * @param newValue The processor parameters
      */
-    public void setParameters(Hashtable parameters) {
-        this.parameters = parameters;
+    public void setParameters(Hashtable newValue) {
+        Hashtable oldValue = this.parameters;
+        this.parameters = newValue;
+        pcs.firePropertyChange("parameters", oldValue, newValue);
     }
 
     /**
@@ -151,28 +167,15 @@ public class ScenarioModel {
 
     /**
      * The XSLT processor name
-     * @param processor The XSLT processor name
+     * @param newValue The XSLT processor name
      */
-    public void setProcessor(String processor) {
-        this.processor = processor;
+    public void setProcessor(String newValue) {
+        String oldValue = this.processor;
+        this.processor = newValue;
+        pcs.firePropertyChange("processor", oldValue, newValue);
     }
 
-    /**
-     * The scenario output type(XML, XSLT, TEXT, PDF, ETC.)
-     * @return The scenario output type(XML, XSLT, TEXT, PDF, ETC.)
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * The scenario output type(XML, XSLT, TEXT, PDF, ETC.)
-     * @param type The scenario output type(XML, XSLT, TEXT, PDF, ETC.)
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    
     /**
      * The XSL stylesheet for the transformation
      * @return The XSL stylesheet for the transformation
@@ -183,9 +186,15 @@ public class ScenarioModel {
 
     /**
      * The XSL stylesheet for the transformation
-     * @param xsl The XSL stylesheet for the transformation
+     * @param newValue The XSL stylesheet for the transformation
      */
-    public void setXsl(String xsl) {
-        this.xsl = xsl;
+    public void setXsl(String newValue) {
+        String oldValue = this.xsl;
+        this.xsl = newValue;
+        pcs.firePropertyChange("xsl", oldValue, newValue);
+    }
+    
+    public String toString(){
+        return this.name;
     }
 }

@@ -21,19 +21,41 @@
  */
 package net.sf.xpontus.plugins.settings;
 
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+
+import com.db4o.config.Configuration;
+
 import net.sf.xpontus.constants.XPontusConstantsIF;
 
 
 /**
  *
  *
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DefaultSettingsModuleImpl implements SettingsModuleIF {
+    private static DefaultSettingsModuleImpl INSTANCE;
+    private ObjectContainer container;
     private String dbFile;
 
     /** Creates a new instance of DefaultSettingsModuleImpl */
-    public DefaultSettingsModuleImpl() {
+    private DefaultSettingsModuleImpl() {
+        dbFile = XPontusConstantsIF.XPONTUS_DATABASE_FILE.getAbsolutePath();
+        start();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static DefaultSettingsModuleImpl getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new DefaultSettingsModuleImpl();
+        }
+
+        return INSTANCE;
     }
 
     public void init() {
@@ -44,9 +66,15 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     }
 
     public void start() {
+        Configuration config = Db4o.newConfiguration();
+        config.lockDatabaseFile(false);
+        config.unicode(true);
+
+        container = Db4o.openFile(config, dbFile);
     }
 
     public void shutdown() {
+        container.close();
     }
 
     /**
@@ -54,6 +82,19 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
      * @param bean
      */
     public void save(Object bean) {
+        container.set(bean);
+        container.commit();
+    }
+    
+    public void remove(Object bean){
+        container.delete(bean);
+        container.commit();
+    }
+
+    public ObjectSet getObjectList(Class beanClass) {
+        ObjectSet o = container.get(beanClass);
+
+        return o;
     }
 
     /**
@@ -61,7 +102,13 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
      * @param beanClass
      * @return
      */
-    public Object get(Class beanClass) {
-        return null;
+    public Object getSingleObject(Class beanClass) {
+        ObjectSet o = container.get(beanClass);
+
+        if (o != null) {
+            return o.next();
+        } else {
+            return null;
+        }
     }
 }

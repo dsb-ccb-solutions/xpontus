@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
+
 
 /**
  * Action to terminate the program
@@ -51,6 +53,8 @@ public class ExitActionImpl extends AbstractXPontusActionImpl {
          * All the pending operations must terminate
          *
          */
+        DefaultSettingsModuleImpl.getInstance().shutdown();
+        
         System.exit(0);
     }
 }

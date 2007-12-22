@@ -23,12 +23,15 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
+import com.db4o.ObjectSet;
 import java.awt.Frame;
 import java.awt.event.ActionListener;
 import java.beans.EventHandler;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
 import net.sf.xpontus.controllers.impl.ScenarioManagerController;
+import net.sf.xpontus.model.ScenarioModel;
+import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**
@@ -46,7 +49,20 @@ public class ScenarioManagerView extends javax.swing.JDialog {
         super(parent, modal);
         controller = new ScenarioManagerController(this);
         initComponents();
-        
+
+        DefaultComboBoxModel dcb = (DefaultComboBoxModel) this.getScenariosList().getModel();
+
+        try {
+            ObjectSet set = DefaultSettingsModuleImpl.getInstance().getObjectList(ScenarioModel.class);
+            if (set != null) {
+                while (set.hasNext()) {
+                    dcb.addElement(set.next());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -83,6 +99,7 @@ public class ScenarioManagerView extends javax.swing.JDialog {
         setTitle("Manage scenarios");
 
         scenariosList.setModel(new DefaultComboBoxModel());
+        scenariosList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPane.setViewportView(scenariosList);
 
         newButton.setText("New");

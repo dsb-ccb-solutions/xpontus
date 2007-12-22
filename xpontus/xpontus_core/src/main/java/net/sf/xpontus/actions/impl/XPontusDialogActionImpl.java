@@ -21,12 +21,13 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 
 /**
@@ -37,15 +38,6 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
     implements Runnable {
     private String dialogClassName;
     private ClassLoader windowClassLoader;
-
-    public ClassLoader getWindowClassLoader() {
-        return windowClassLoader;
-    }
-
-    public void setWindowClassLoader(ClassLoader windowClassLoader) {
-        this.windowClassLoader = windowClassLoader;
-    }
-    
     private JDialog dialog;
     private Log log = LogFactory.getLog(XPontusDialogActionImpl.class);
 
@@ -55,32 +47,39 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
     public XPontusDialogActionImpl() {
     }
 
+    public ClassLoader getWindowClassLoader() {
+        return windowClassLoader;
+    }
+
+    public void setWindowClassLoader(ClassLoader windowClassLoader) {
+        this.windowClassLoader = windowClassLoader;
+    }
+
     /**
      * Create a dialog and display it
      */
     public void execute() {
         initComponents();
-        System.out.print("dialog not null:" + (dialog!=null));
-          System.out.print("frame not null:" + (DefaultXPontusWindowImpl.getInstance().getDisplayComponent()!=null));
-        dialog.setLocationRelativeTo(DefaultXPontusWindowImpl.getInstance().getDisplayComponent());
+        dialog.setLocationRelativeTo(DefaultXPontusWindowImpl.getInstance()
+                                                             .getDisplayComponent());
         SwingUtilities.invokeLater(this);
     }
 
     private void initComponents() {
-//        System.out.println("init components");
+        //        System.out.println("init components");
         if (dialog == null) {
             try {
-                 if(windowClassLoader!=null){
-//                     System.out.println("classloader");
-                     dialog = (JDialog) Class.forName(dialogClassName, true, windowClassLoader).newInstance();
-                 }
-                 else{
-//                     System.out.println("no classloader");
-//                     System.out.println(dialogClassName);
-                     dialog = (JDialog) Class.forName(dialogClassName).newInstance();
-                    
-                 }
-                
+                if (windowClassLoader != null) {
+                    //                     System.out.println("classloader");
+                    dialog = (JDialog) Class.forName(dialogClassName, true,
+                            windowClassLoader).newInstance();
+                } else {
+                    //                     System.out.println("no classloader");
+                    //                     System.out.println(dialogClassName);
+                    dialog = (JDialog) Class.forName(dialogClassName)
+                                            .newInstance();
+                }
+
                 log.info("Created dialog for class:" + this.dialogClassName);
             } catch (Exception ex) {
                 log.error(ex.getMessage());

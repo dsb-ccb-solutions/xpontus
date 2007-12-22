@@ -21,13 +21,47 @@
  */
 package net.sf.xpontus.controllers.impl;
 
+import net.sf.xpontus.modules.gui.components.ScenarioExecutionView;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
+
 
 /**
- * Controller for scenario execution form
+ * Controller to handle scenario profile execution
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ScenarioExecutionController {
-    public ScenarioExecutionController() {
+    public static final String CLOSE_METHOD = "closeWindow";
+    public static final String EXECUTE_METHOD = "execute";
+    private ScenarioExecutionView view;
+
+    /**
+     *
+     * @param view
+     */
+    public ScenarioExecutionController(ScenarioExecutionView view) {
+        this.view = view;
+    }
+
+    /**
+     *
+     */
+    public void closeWindow() {
+        view.setVisible(false);
+    }
+
+    /**
+     *
+     */
+    public void execute() {
+        if (view.getScenarioListModel().size() == 0) {
+            XPontusComponentsUtils.showWarningMessage(
+                "No transformation profile to run");
+        } else if (view.getScenarioList().getSelectedIndex() == -1) {
+            XPontusComponentsUtils.showWarningMessage(
+                "Please select a transformation profile to run");
+        } else {
+            XPontusComponentsUtils.showInformationMessage("Not implemented");
+        }
     }
 }

@@ -25,8 +25,6 @@ package net.sf.xpontus.plugins.scenarios;
 
 import net.sf.xpontus.model.ScenarioModel;
 
-import java.util.List;
-
 
 /**
  * Scenario plugin interface
@@ -38,7 +36,7 @@ public interface ScenarioPluginIF {
      *
      * @return
      */
-    public Object getName();
+    public String getName();
 
     /**
      *
@@ -56,18 +54,25 @@ public interface ScenarioPluginIF {
      *
      * @return
      */
-    public List getOutputTypes();
+    public String[] getOutputTypes();
+
+    /**
+     *
+     */
+    public void setSystemProperties();
 
     /**
      *
      * @param model
+     * @throws java.lang.Exception
      */
-    void handleScenario(ScenarioModel model);
+    void handleScenario(ScenarioModel model) throws Exception;
 
     /**
      *
      * @param model
      * @return
+     * @throws java.lang.Exception
      */
-    public boolean isValidModel(ScenarioModel model);
+    public boolean isValidModel(ScenarioModel model) ;
 }

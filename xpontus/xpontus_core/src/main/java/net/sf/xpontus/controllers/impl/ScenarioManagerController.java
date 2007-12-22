@@ -23,7 +23,12 @@
  */
 package net.sf.xpontus.controllers.impl;
 
+import com.db4o.ObjectSet;
+
+import net.sf.xpontus.model.ScenarioModel;
+import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
 import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
+import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.util.List;
@@ -31,7 +36,6 @@ import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
-import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
 
 
 /**
@@ -45,7 +49,6 @@ public class ScenarioManagerController {
     public static final String EDIT_SCENARIO_METHOD = "editScenario";
     public static final String REMOVE_SCENARIO_METHOD = "deleteScenario";
     private ScenarioEditorView child;
-    
     private ScenarioManagerView view;
 
     /**
@@ -67,11 +70,6 @@ public class ScenarioManagerController {
         this.view = view;
     }
 
-    private void init(){
-        if(child == null){
-            child = new ScenarioEditorView(view, true);
-        }
-    }
     /**
      * Method to delete a scenario
      */
@@ -100,19 +98,79 @@ public class ScenarioManagerController {
      *
      */
     public void addNewScenario() {
-       init();
-       child.setLocationRelativeTo(view);
-       child.setVisible(true);
+        ScenarioModel scm = new ScenarioModel();
+        scm.isNew = true;
+
+        if (child == null) {
+            child = new ScenarioEditorView(view, scm);
+        } else {
+            child.setModel(scm);
+            child.validate();
+            child.repaint();
+        }
+
+        child.original = null;
+
+        child.setScenarioName("");
+        child.setLocationRelativeTo(view);
+        child.setVisible(true);
     }
 
     /**
      * Method to edit a scenario
      */
     public void editScenario() {
-        addNewScenario();
+        int index = view.getScenariosList().getSelectedIndex();
+
+        if (index == -1) {
+            XPontusComponentsUtils.showErrorMessage("No scenario selected");
+
+            return;
+        } else {
+            System.out.println("index:" + index);
+        }
+
+        ScenarioModel scm = (ScenarioModel) view.getScenariosList().getModel()
+                                                .getElementAt(index);
+        scm.isNew = false;
+
+        if (child == null) {
+            child = new ScenarioEditorView(view, scm);
+        } else {
+            child.setModel(scm);
+            child.validate();
+            child.repaint();
+        }
+
+        child.original = null;
+        child.original = new String(scm.getName());
+
+        child.setScenarioName(scm.getName());
+        
+        child.setLocationRelativeTo(view);
+        
+        child.setVisible(true);
     }
-    
-    public void closeWindow(){
+
+    public void closeWindow() {
+        DefaultSettingsModuleImpl db = DefaultSettingsModuleImpl.getInstance();
+
+        ObjectSet scenarios = db.getObjectList(ScenarioModel.class);
+
+        if (scenarios != null) {
+            while (scenarios.hasNext()) {
+                db.remove(scenarios.next());
+            }
+        }
+
+        DefaultComboBoxModel cbo = (DefaultComboBoxModel) view.getScenariosList()
+                                                              .getModel();
+
+        for (int i = 0; i < cbo.getSize(); i++) {
+            ScenarioModel scm = (ScenarioModel) cbo.getElementAt(i);
+            db.save(scm);
+        }
+
         view.setVisible(false);
     }
 }

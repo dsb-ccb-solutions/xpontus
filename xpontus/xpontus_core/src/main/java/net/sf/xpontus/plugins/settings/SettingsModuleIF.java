@@ -47,11 +47,18 @@ public interface SettingsModuleIF {
      * @param bean
      */
     public void save(Object bean);
+    
+    
+    /**
+     * 
+     * @param bean
+     */
+    public void remove(Object bean);
 
     /**
      *
      * @param beanClass
      * @return
      */
-    public Object get(Class beanClass);
+    public Object getSingleObject(Class beanClass);
 }

@@ -28,8 +28,6 @@ import net.sf.xpontus.plugins.XPontusPlugin;
 
 import java.util.Hashtable;
 import java.util.Iterator;
-import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
-import net.sf.xpontus.properties.PropertiesHolder;
 import org.java.plugin.PluginManager;
 import org.java.plugin.registry.Extension;
 import org.java.plugin.registry.ExtensionPoint;
@@ -44,8 +42,7 @@ import org.java.plugin.registry.PluginRegistry;
  */
 public class ScenarioPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "scenariopluginif";
-    public static final String PLUGIN_IDENTIFIER = "plugin.core.scenarios";
-    private Hashtable scenarioEngines;
+    public static final String PLUGIN_IDENTIFIER = "plugin.core.scenarios"; 
 
     public ScenarioPlugin() {
     }
@@ -59,33 +56,27 @@ public class ScenarioPlugin extends XPontusPlugin {
 
         Collection plugins = scenarioPluginExtPoint.getConnectedExtensions();
 
+        ScenarioPluginsConfiguration.getInstance().addEngine(new DefaultScenarioPluginImpl());
+        
         for (Iterator it = plugins.iterator(); it.hasNext();) {
             Extension ext = (Extension) it.next();
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
             Class cl = classLoader.loadClass(className);
-            ScenarioPluginIF m_plugin = (ScenarioPluginIF) cl.newInstance();
-            initExtension(m_plugin);
+            ScenarioPluginIF m_plugin = (ScenarioPluginIF) cl.newInstance(); 
+            ScenarioPluginsConfiguration.getInstance().addEngine(m_plugin);
         }
         
-        PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.SCENARIO_ENGINES, scenarioEngines);
+       
     }
 
     protected void doStart() throws Exception {
-        scenarioEngines = new Hashtable();
+         
     }
 
     protected void doStop() throws Exception {
-        scenarioEngines.clear();
+         
     }
-
-    private void initExtension(ScenarioPluginIF m_plugin) {
-        ClassLoader cl = m_plugin.getClass().getClassLoader();
-        String name = null;
-        
-        Hashtable t = new Hashtable();
-        
-        scenarioEngines.put(XPontusPropertiesConstantsIF.SCENARIO_ENGINES, t);
-    }
+ 
 }

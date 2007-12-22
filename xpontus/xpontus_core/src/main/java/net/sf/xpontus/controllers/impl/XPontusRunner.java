@@ -40,6 +40,7 @@ import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.XPontusTopComponentIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
+import net.sf.xpontus.plugins.gendoc.DocumentationPlugin;
 import net.sf.xpontus.plugins.gui.menubar.MenuBarPlugin;
 import net.sf.xpontus.plugins.gui.menubar.MenuBarPluginIF;
 import net.sf.xpontus.plugins.gui.toolbar.ToolBarPlugin;
@@ -47,6 +48,7 @@ import net.sf.xpontus.plugins.gui.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.plugins.indentation.IndentationPlugin;
 import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.plugins.lexer.LexerPlugin;
+import net.sf.xpontus.plugins.scenarios.ScenarioPlugin;
 import net.sf.xpontus.plugins.themes.ThemePlugin;
 
 import java.io.File;
@@ -58,51 +60,41 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.UIManager;
-import net.sf.xpontus.plugins.gendoc.DocumentationPlugin;
+import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 
 
 /**
  * Main class of the program
  * @author Yves Zoundi
  */
-public class XPontusRunner
-{
+public class XPontusRunner {
     private DefaultXPontusWindowImpl m_window;
 
-    private XPontusRunner()
-    {
+    private XPontusRunner() {
     }
 
-    public DefaultXPontusWindowImpl getMainWindow()
-    {
+    public DefaultXPontusWindowImpl getMainWindow() {
         return m_window;
     }
 
-    public void handleArgs(String[] args)
-    {
-        for (int i = 0; i < args.length; i++)
-        {
+    public void handleArgs(String[] args) {
+        for (int i = 0; i < args.length; i++) {
             File f = new File(args[i]);
 
-            if (f.exists())
-            {
+            if (f.exists()) {
                 m_window.getDocumentTabContainer().createEditorFromFile(f);
             }
         }
     }
 
     public static MenuBarPluginIF createMenuExtension(final String menu,
-        final Object[] actions)
-    {
-        MenuBarPluginIF plugin = new MenuBarPluginIF()
-            {
-                public List getMenuNames()
-                {
+        final Object[] actions) {
+        MenuBarPluginIF plugin = new MenuBarPluginIF() {
+                public List getMenuNames() {
                     return Arrays.asList(new String[] { menu });
                 }
 
-                public Map getActionMap()
-                {
+                public Map getActionMap() {
                     Map m = new HashMap();
                     m.put(menu, Arrays.asList(actions));
 
@@ -114,18 +106,14 @@ public class XPontusRunner
     }
 
     public static ToolBarPluginIF createToolbarExtension(final String tb,
-        final Object[] actions)
-    {
+        final Object[] actions) {
         // the toolbar extension
-        ToolBarPluginIF toolbar = new ToolBarPluginIF()
-            {
-                public String[] getToolBarNames()
-                {
+        ToolBarPluginIF toolbar = new ToolBarPluginIF() {
+                public String[] getToolBarNames() {
                     return new String[] { tb };
                 }
 
-                public Map getActions()
-                {
+                public Map getActions() {
                     Map m = new HashMap();
                     m.put(tb, Arrays.asList(actions));
 
@@ -141,27 +129,25 @@ public class XPontusRunner
      * @param args  command line arguments
      * @throws java.lang.Exception An exception
      */
-    public static void main(String[] args) throws Exception
-    {
-        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
- 
-        
+    public static void main(String[] args) throws Exception {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
         XPontusPluginManager controller = new XPontusPluginManager();
         controller.startApplication();
 
         XPontusTopComponentIF window = DefaultXPontusWindowImpl.getInstance();
 
-        String[] identifiers = 
-            {
+        String[] identifiers = {
                 IOCPlugin.PLUGIN_IDENTIFIER, ThemePlugin.PLUGIN_IDENTIFIER,
                 MenuBarPlugin.PLUGIN_IDENTIFIER, LexerPlugin.PLUGIN_IDENTIFIER,
                 ToolBarPlugin.PLUGIN_IDENTIFIER,
-                IndentationPlugin.PLUGIN_IDENTIFIER, DocumentationPlugin.PLUGIN_IDENTIFIER
+                IndentationPlugin.PLUGIN_IDENTIFIER,
+                DocumentationPlugin.PLUGIN_IDENTIFIER,
+                ScenarioPlugin.PLUGIN_IDENTIFIER
             };
 
         // init plugins
-        for (int i = 0; i < identifiers.length; i++)
-        {
+        for (int i = 0; i < identifiers.length; i++) {
             XPontusPlugin plugin = (XPontusPlugin) controller.getPluginManager()
                                                              .getPlugin(identifiers[i]);
             plugin.init();
@@ -177,135 +163,123 @@ public class XPontusRunner
         final IOCPlugin iocPlugin = (IOCPlugin) controller.getPluginManager()
                                                           .getPlugin(IOCPlugin.PLUGIN_IDENTIFIER);
 
-        if(iocPlugin.getContainer() != null){ 
-        final String[] actions = 
-            {
-                OpenActionImpl.BEAN_ALIAS, SaveActionImpl.BEAN_ALIAS,
-                SaveAsActionImpl.BEAN_ALIAS, PrintActionImpl.BEAN_ALIAS,
-                ExitActionImpl.BEAN_ALIAS
-            };
+        if (iocPlugin.getContainer() != null) {
+            final String[] actions = {
+                    OpenActionImpl.BEAN_ALIAS, SaveActionImpl.BEAN_ALIAS,
+                    SaveAsActionImpl.BEAN_ALIAS, PrintActionImpl.BEAN_ALIAS,
+                    ExitActionImpl.BEAN_ALIAS
+                };
 
-        final Object[] actionsList = new Object[actions.length];
+            final Object[] actionsList = new Object[actions.length];
 
-        for (int j = 0; j < actions.length; j++)
-        {
-            actionsList[j] = iocPlugin.getBean(actions[j]);
-        }
+            for (int j = 0; j < actions.length; j++) {
+                actionsList[j] = iocPlugin.getBean(actions[j]);
+            }
 
-        final String[] editActions = 
-            {
-                SelectAllActionImpl.BEAN_ALIAS, CopyActionImpl.BEAN_ALIAS,
-                CutActionImpl.BEAN_ALIAS, PasteActionImpl.BEAN_ALIAS,
-                UndoActionImpl.BEAN_ALIAS, RedoActionImpl.BEAN_ALIAS,
-                "action.findreplace", "action.gotoline"
-            };
+            final String[] editActions = {
+                    SelectAllActionImpl.BEAN_ALIAS, CopyActionImpl.BEAN_ALIAS,
+                    CutActionImpl.BEAN_ALIAS, PasteActionImpl.BEAN_ALIAS,
+                    UndoActionImpl.BEAN_ALIAS, RedoActionImpl.BEAN_ALIAS,
+                    "action.findreplace", "action.gotoline"
+                };
 
-        final String[] toolsActions = { IndentContentActionImpl.BEAN_ALIAS, "action.docgen" };
+            final String[] toolsActions = {
+                   CheckXMLActionImpl.BEAN_ALIAS, IndentContentActionImpl.BEAN_ALIAS, "action.docgen"
+                };
 
-        final String[] helpActions = { "action.about", "action.help" };
-        final Object[] helpActionsList = new Object[helpActions.length];
+            final String[] helpActions = { "action.about", "action.help" };
+            final Object[] helpActionsList = new Object[helpActions.length];
 
-        for (int i = 0; i < helpActions.length; i++)
-        {
-            helpActionsList[i] = iocPlugin.getBean(helpActions[i]);
-        }
+            for (int i = 0; i < helpActions.length; i++) {
+                helpActionsList[i] = iocPlugin.getBean(helpActions[i]);
+            }
 
-        final String[] scenariosActions = 
-            {
-                "action.scenariomanager", "action.scenariorunner"
-            };
-        final Object[] scenariosActionsList = new Object[scenariosActions.length];
+            final String[] scenariosActions = {
+                    "action.scenariomanager", "action.scenariorunner"
+                };
+            final Object[] scenariosActionsList = new Object[scenariosActions.length];
 
-        for (int i = 0; i < scenariosActionsList.length; i++)
-        {
-            scenariosActionsList[i] = iocPlugin.getBean(scenariosActions[i]);
-        }
+            for (int i = 0; i < scenariosActionsList.length; i++) {
+                scenariosActionsList[i] = iocPlugin.getBean(scenariosActions[i]);
+            }
 
-        final Object[] toolsActionsList = new Object[toolsActions.length];
+            final Object[] toolsActionsList = new Object[toolsActions.length];
 
-        for (int i = 0; i < toolsActionsList.length; i++)
-        {
-            toolsActionsList[i] = iocPlugin.getBean(toolsActions[i]);
-        }
+            for (int i = 0; i < toolsActionsList.length; i++) {
+                toolsActionsList[i] = iocPlugin.getBean(toolsActions[i]);
+            }
 
-        final Object[] editActionsList = new Object[editActions.length];
+            final Object[] editActionsList = new Object[editActions.length];
 
-        for (int j = 0; j < editActions.length; j++)
-        {
-            editActionsList[j] = iocPlugin.getBean(editActions[j]);
-        }
+            for (int j = 0; j < editActions.length; j++) {
+                editActionsList[j] = iocPlugin.getBean(editActions[j]);
+            }
 
-        // the menu extension
-        MenuBarPluginIF fileMenuExt = createMenuExtension(XPontusMenuConstantsIF.FILE_MENU_ID,
-                actionsList);
+            // the menu extension
+            MenuBarPluginIF fileMenuExt = createMenuExtension(XPontusMenuConstantsIF.FILE_MENU_ID,
+                    actionsList);
 
-        MenuBarPluginIF editMenuExt = createMenuExtension(XPontusMenuConstantsIF.EDIT_MENU_ID,
-                editActionsList);
+            MenuBarPluginIF editMenuExt = createMenuExtension(XPontusMenuConstantsIF.EDIT_MENU_ID,
+                    editActionsList);
 
-        MenuBarPluginIF toolMenuExt = new MenuBarPluginIF()
-            {
-                public List getMenuNames()
-                {
-                    return Arrays.asList(new String[]
-                        {
-                            XPontusMenuConstantsIF.TOOLS_MENU_ID
-                        });
-                }
-
-                public Map getActionMap()
-                {
-                    Map m = new HashMap();
-                    String id = XPontusMenuConstantsIF.TOOLS_MENU_ID;
-                    List li = new Vector();
-
-                    for (int j = 0; j < toolsActionsList.length; j++)
-                    {
-                        li.add(toolsActionsList[j]);
+            MenuBarPluginIF toolMenuExt = new MenuBarPluginIF() {
+                    public List getMenuNames() {
+                        return Arrays.asList(new String[] {
+                                XPontusMenuConstantsIF.TOOLS_MENU_ID
+                            });
                     }
 
-                    for (int j = 0; j < scenariosActionsList.length; j++)
-                    {
-                        li.add(scenariosActionsList[j]);
+                    public Map getActionMap() {
+                        Map m = new HashMap();
+                        String id = XPontusMenuConstantsIF.TOOLS_MENU_ID;
+                        List li = new Vector();
+
+                        for (int j = 0; j < toolsActionsList.length; j++) {
+                            li.add(toolsActionsList[j]);
+                        }
+
+                        for (int j = 0; j < scenariosActionsList.length; j++) {
+                            li.add(scenariosActionsList[j]);
+                        }
+
+                        m.put(id, li);
+
+                        return m;
                     }
+                };
 
-                    m.put(id, li);
+            // the menu extension
+            MenuBarPluginIF helpMenuExt = createMenuExtension(XPontusMenuConstantsIF.HELP_MENU_ID,
+                    helpActionsList);
 
-                    return m;
-                }
-            };
+            menubarPlugin.initExtension(fileMenuExt);
+            menubarPlugin.initExtension(helpMenuExt);
+            menubarPlugin.initExtension(toolMenuExt);
+            menubarPlugin.initExtension(editMenuExt);
 
-        // the menu extension
-        MenuBarPluginIF helpMenuExt = createMenuExtension(XPontusMenuConstantsIF.HELP_MENU_ID,
-                helpActionsList);
+            // the toolbar extension
+            ToolBarPluginIF fileToolBarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_GENERAL,
+                    actionsList);
 
-        menubarPlugin.initExtension(fileMenuExt);
-        menubarPlugin.initExtension(helpMenuExt);
-        menubarPlugin.initExtension(toolMenuExt);
-        menubarPlugin.initExtension(editMenuExt);
+            ToolBarPluginIF editToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_EDIT,
+                    editActionsList);
 
-        // the toolbar extension
-        ToolBarPluginIF fileToolBarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_GENERAL,
-                actionsList);
+            ToolBarPluginIF toolsToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_TOOLS,
+                    toolsActionsList);
 
-        ToolBarPluginIF editToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_EDIT,
-                editActionsList);
+            ToolBarPluginIF scenariosToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_SCENARIOS,
+                    scenariosActionsList);
 
-        ToolBarPluginIF toolsToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_TOOLS,
-                toolsActionsList);
+            ToolBarPluginIF helpToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_HELP,
+                    helpActionsList);
 
-        ToolBarPluginIF scenariosToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_SCENARIOS,
-                scenariosActionsList);
-
-        ToolBarPluginIF helpToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_HELP,
-                helpActionsList);
-
-        toolbarPlugin.initExtension(fileToolBarExt);
-        toolbarPlugin.initExtension(toolsToolbarExt);
-        toolbarPlugin.initExtension(editToolbarExt);
-        toolbarPlugin.initExtension(helpToolbarExt);
-        toolbarPlugin.initExtension(scenariosToolbarExt);
-
+            toolbarPlugin.initExtension(fileToolBarExt);
+            toolbarPlugin.initExtension(toolsToolbarExt);
+            toolbarPlugin.initExtension(editToolbarExt);
+            toolbarPlugin.initExtension(helpToolbarExt);
+            toolbarPlugin.initExtension(scenariosToolbarExt);
         }
+
         window.activateComponent();
     }
 }

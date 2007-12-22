@@ -22,6 +22,7 @@
 package net.sf.xpontus.plugins.validation.simplexmlvalidation;
 
  
+import com.ibm.icu.text.CharsetDetector;
 import net.sf.xpontus.actions.impl.XPontusThreadedActionImpl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
@@ -33,8 +34,13 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.text.JTextComponent;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
+import net.sf.xpontus.modules.gui.components.DocumentContainer;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
+import org.apache.xerces.parsers.SAXParser;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 
 /**
@@ -58,16 +64,56 @@ public class SimpleValidationAction extends XPontusThreadedActionImpl {
 
             InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
 
-            DocumentBuilder db = DocumentBuilderFactory.newInstance()
-                                                       .newDocumentBuilder();
-
-            db.parse(is);
+            SAXParser parser = new SAXParser();
+            parser.setFeature("http://xml.org/sax/features/use-entity-resolver2",
+                true);
+            parser.setFeature("http://xml.org/sax/features/validation", true);
+            parser.setFeature("http://xml.org/sax/features/namespaces", true);
+            parser.setFeature("http://apache.org/xml/features/validation/schema",
+                true);
+            parser.setFeature("http://apache.org/xml/features/honour-all-schemaLocations",
+                true);
+            parser.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
+                true);
+            parser.setFeature("http://apache.org/xml/features/validation/dynamic",
+                true);
+            
+            CharsetDetector detector = new CharsetDetector();
+            detector.setText(is);
+            parser.parse(new InputSource(detector.detect().getReader()));
 
             is.close();
+           ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                  .getConsole();
+            OutputDockable odk = (OutputDockable) console.getDockables()
+                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
+            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+                                                                                      .getDocumentTabContainer()
+                                                                                      .getCurrentDockable();
+            container.getStatusBar().setMessage("Document is valid!");
+            odk.println("Document is valid!");
+        } catch (Exception e) {
             
-            DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("The document is valid!!");
-        } catch (Exception ex) {
-             DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage(ex.getMessage());
+            StringBuffer details = new StringBuffer();
+            
+            if(e instanceof SAXParseException){
+                SAXParseException err = (SAXParseException)e;
+                int column = err.getColumnNumber();
+                int line = err.getLineNumber();
+                details.append("Error occurred around line:" + line + ",column:" + column);
+            }
+            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                  .getConsole();
+            OutputDockable odk = (OutputDockable) console.getDockables()
+                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
+            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+                                                                                      .getDocumentTabContainer()
+                                                                                      .getCurrentDockable();
+            container.getStatusBar().setMessage("Document is invalid!");
+            
+            String error = "" + details.toString() + "\n";
+            
+            odk.println(error + e.getMessage());
         }
     }
 }

@@ -26,12 +26,16 @@ import com.vlsolutions.swing.docking.DockingConstants;
 import com.vlsolutions.swing.docking.DockingDesktop;
 import com.vlsolutions.swing.toolbars.ToolBarContainer;
 
+import net.sf.xpontus.actions.impl.ExitActionImpl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 
 import org.apache.commons.lang.text.StrBuilder;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -59,7 +63,12 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
     private DefaultXPontusWindowImpl() {
         super();
         frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent arg0) {
+                    new ExitActionImpl().execute();
+                }
+            });
 
         StrBuilder b = new StrBuilder();
         b.append(XPontusConstantsIF.APPLICATION_NAME);
