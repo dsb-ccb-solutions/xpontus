@@ -21,9 +21,16 @@
  */
 package net.sf.xpontus.plugins.codecompletion.xml;
 
-import net.sf.xpontus.plugins.completion.CodeCompletionIF;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+import java.io.Reader;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -31,25 +38,108 @@ import java.util.List;
  * @version
  * @author Yves Zoundi
  */
-public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
-    private List completionList;
+public class XMLCodeCompletionPluginImpl {
+    private Log logger = LogFactory.getLog(XMLCodeCompletionPluginImpl.class);
+    private List tagList = new ArrayList();
+    private boolean isDTDCompletion = false;
+    private boolean isSchemaCompletion = false;
+    private Map nsTagListMap = new HashMap();
+    private String completionInformation;
+    private boolean parsingDone = false;
 
+    // interface to parse DTD or completion and store the completion information
+    private ICompletionParser completionParser = new DTDCompletionParser();
+
+    /**
+     * The constructor without DTD / XSD.
+     */
     public XMLCodeCompletionPluginImpl() {
+    }
+
+    protected TagInfo getTagInfo(String name) {
+        TagInfo info = null;
+
+        for (int i = 0; i < tagList.size(); i++) {
+            info = (TagInfo) tagList.get(i);
+
+            if (info.getTagName().equals(name)) {
+                break;
+            }
+        }
+
+        return info;
+    }
+
+    public synchronized List getAttributesCompletionList(String tagName) {
+        List completionList = getCompletionList();
+
+        TagInfo tagInfo = getTagInfo(tagName);
+
+        final List emptyList = new ArrayList();
+
+        if (tagInfo == null) {
+            return emptyList;
+        }
+
+        if (tagInfo.getAttributeInfo() != null) {
+            return Arrays.asList(tagInfo.getAttributeInfo());
+        } else {
+            return emptyList;
+        }
+    }
+
+    public synchronized List getCompletionList() {
+        List completionList = tagList;
+
+        if (!isDTDCompletion) {
+            completionList = (List) nsTagListMap.get(nsTagListMap.keySet()
+                                                                 .iterator());
+        }
+
+        return completionList;
     }
 
     /**
      *
-     * @return
+     * @param completionParser
      */
-    public List getCompletionList() {
-        return completionList;
+    public void setCompletionParser(ICompletionParser completionParser) {
+        if (completionParser == null) {
+            this.completionParser = completionParser;
+        } else {
+            if (!(this.completionParser.getClass() == completionParser.getClass())) {
+                this.completionParser = completionParser;
+            }
+        }
+
+        this.isDTDCompletion = (completionParser.getClass() == DTDCompletionParser.class);
     }
 
-    public String getMimeType() {
-        return "text/xml";
+    public void updateAssistInfo(final String pubid, final String uri,
+        final Reader r) {
+        System.out.println("updating pubid with:" + pubid);
+
+        if ((completionInformation == null) ||
+                !(completionInformation.equals(uri))) {
+            completionInformation = uri;
+
+            Thread t = new Thread() {
+                    public void run() {
+                        logger.info("parsing dtd/schema...");
+                        parsingDone = false;
+                        tagList.clear();
+                        completionParser.init(tagList, nsTagListMap);
+                        completionParser.updateCompletionInfo(pubid, uri, r);
+                        parsingDone = true;
+                        logger.info("parsing dtd/schema is done");
+                    }
+                };
+
+            t.start();
+        }
     }
 
-    public String getFileMode() {
-        return "generic";
+    public boolean isTrigger(String str) {
+        return str.equals("<") || str.equals(">");
     }
 }

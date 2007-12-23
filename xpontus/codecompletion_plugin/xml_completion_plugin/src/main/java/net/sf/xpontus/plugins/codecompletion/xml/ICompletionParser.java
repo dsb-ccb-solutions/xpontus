@@ -1,9 +1,8 @@
 /*
- * XMLCodeCompletionPlugin.java
  *
- * Created on 2007-09-22, 20:45:54
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ *
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -21,18 +20,18 @@
  */
 package net.sf.xpontus.plugins.codecompletion.xml;
 
-import org.java.plugin.Plugin;
+import java.io.Reader;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
- * Code completion plugin
- * @version 0.0.1
- * @author Yves Zoundi
+ *
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XMLCodeCompletionPlugin extends Plugin {
-    protected void doStart() throws Exception {
-    }
+public interface ICompletionParser {
+    public void init(List tagList, Map nsTagListMap);
 
-    protected void doStop() throws Exception {
-    }
+    public void updateCompletionInfo(String pubid, String sysid, Reader in);
 }
