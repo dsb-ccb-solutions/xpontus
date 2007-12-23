@@ -35,6 +35,8 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.utils.DocumentAwareComponentHolder;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 
 /**
@@ -59,6 +61,7 @@ public class DocumentTabContainer {
                     Dockable selectedDockable = e.getSelectedDockable();
 
                     if (selectedDockable == null) {
+                          
                         return;
                     }
 
@@ -67,6 +70,7 @@ public class DocumentTabContainer {
                         currentDockable = selectedDockable;
 
                         currentEditor = container.getEditorComponent();
+                        DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(container));
                     }
                 }
             });
@@ -90,9 +94,11 @@ public class DocumentTabContainer {
 
                             pane.getDockKey()
                                 .setDockableState(DockableState.STATE_DOCKED);
+                            DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(null));
                             //event.cancel(); 
                             editors.remove(editor);
                         } else {
+                            DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(editor));
                             editors.remove(editor);
                         }
 
@@ -117,6 +123,7 @@ public class DocumentTabContainer {
                     }
                 }
             });
+           
     }
 
     /**
@@ -200,6 +207,8 @@ public class DocumentTabContainer {
 
         currentEditor = editor.getEditorComponent();
         currentDockable = editor;
+        
+        DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(editor));
     }
 
     /**
@@ -211,6 +220,14 @@ public class DocumentTabContainer {
         container.completeSetup();
         setupEditor(container);
     }
+    
+    public void createEditorForNewFile() {
+        DocumentContainer container = new DocumentContainer();
+        container.setup();
+        container.completeSetup();
+        setupEditor(container);
+    }
+
 
     /**
      * @param url

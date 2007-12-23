@@ -23,21 +23,22 @@ package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 
 /**
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class CutActionImpl extends AbstractXPontusActionImpl {
+public class CutActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.cut";
 
     public CutActionImpl() {
     }
 
-    public void execute() {
+    public void run() {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
         dtc.getCurrentEditor().cut();
-    }
+    } 
 }

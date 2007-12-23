@@ -33,7 +33,7 @@ import net.sf.xpontus.utils.PrintUtilities;
  * Action to print a document
  * @author Yves Zoundi
  */
-public class PrintActionImpl extends XPontusThreadedActionImpl
+public class PrintActionImpl extends DefaultDocumentAwareActionImpl
       {
     public static final String BEAN_ALIAS = "action.print"; 
 
@@ -47,6 +47,6 @@ public class PrintActionImpl extends XPontusThreadedActionImpl
     public void run() {
         DefaultXPontusWindowImpl frame = (DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent();
         new PrintUtilities().print((JEditorPane)frame.getDocumentTabContainer().getCurrentEditor()); 
-    }
+    } 
  
 }

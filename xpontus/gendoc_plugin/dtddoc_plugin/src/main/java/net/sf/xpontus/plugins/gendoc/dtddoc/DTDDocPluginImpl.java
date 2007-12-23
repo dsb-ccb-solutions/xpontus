@@ -25,13 +25,10 @@ import DTDDoc.*;
 import net.sf.xpontus.model.DocumentationModel;
 import net.sf.xpontus.plugins.gendoc.IDocumentationPluginIF;
 
-import org.apache.commons.io.filefilter.SuffixFileFilter;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 

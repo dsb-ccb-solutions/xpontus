@@ -24,20 +24,19 @@
 
 package net.sf.xpontus.actions.impl;
 
-import net.sf.xpontus.modules.gui.components.FindReplaceDialog;
+import net.sf.xpontus.modules.gui.components.FindReplaceUtility;
 
 /**
  * Class description
  * @author Yves Zoundi
  */
-public class FindReplaceActionImpl extends AbstractXPontusActionImpl{
+public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl{
 
     public FindReplaceActionImpl() {
     }
 
-    public void execute() {
-       FindReplaceDialog d = new FindReplaceDialog();
-       d.setVisible(true);
+    public void run() {
+       FindReplaceUtility.showDialog(true);
     }
 
 }

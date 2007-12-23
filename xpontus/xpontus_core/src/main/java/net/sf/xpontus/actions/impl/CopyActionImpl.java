@@ -23,6 +23,7 @@ package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 
 /**
@@ -30,15 +31,18 @@ import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class CopyActionImpl extends AbstractXPontusActionImpl {
+public class CopyActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.copy";
 
     public CopyActionImpl() {
     }
 
-    public void execute() {
-        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
+    
+
+    public void run() {
+         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
         dtc.getCurrentEditor().copy();
     }
+ 
 }

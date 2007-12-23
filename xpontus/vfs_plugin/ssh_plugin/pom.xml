@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.vfs.ssh</groupId>
   <artifactId>ssh_plugin</artifactId>
-  <name>SSH Plugin</name>
+  <name>SSH support</name>
   <version>1.0.0-pre1</version> 
   <description>SSH file system support</description>
   <dependencies>

@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.lexer.xquery</groupId>
   <artifactId>xquery_plugin</artifactId>
-  <name>XPontus XQuery Lexer</name>
+  <name>XQuery Lexer</name>
   <version>1.0.0-pre1</version> 
   <description>Lexer support for XQuery files</description>
   <dependencies>

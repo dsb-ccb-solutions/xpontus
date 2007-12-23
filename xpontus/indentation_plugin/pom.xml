@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.indentation</groupId>
   <artifactId>indentation_plugin</artifactId>
-  <name>XPontus Indentation Plugin</name>
+  <name>Code indentation</name>
   <packaging>pom</packaging>
   <version>1.0.0-pre1</version> 
   <description>XPontus plugin for document formatting</description>

@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.icons.java</groupId>
   <artifactId>java_icons_plugin</artifactId>
-  <name>Java icons set plugin</name>
+  <name>Sun icons</name>
   <version>1.0.0-pre1</version> 
   <description>Java icons set plugin</description>
   <dependencies>

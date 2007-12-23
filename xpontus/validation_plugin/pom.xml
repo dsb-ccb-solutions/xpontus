@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.validation</groupId>
   <artifactId>validation_plugin</artifactId>
-  <name>XPontus Validation Plugin</name>
+  <name>Validation</name>
   <packaging>pom</packaging>
   <version>1.0.0-pre1</version> 
   <description>XPontus plugin for validation of XML files</description>

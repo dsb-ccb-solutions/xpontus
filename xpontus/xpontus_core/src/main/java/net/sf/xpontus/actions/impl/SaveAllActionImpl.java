@@ -45,7 +45,7 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class SaveAllActionImpl extends XPontusThreadedActionImpl {
+public class SaveAllActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.saveas";
     private JFileChooser chooser = null;
 
@@ -70,7 +70,7 @@ public class SaveAllActionImpl extends XPontusThreadedActionImpl {
                     JTextComponent jtc = document.getEditorComponent();
                     FileObject fo = null;
                     OutputStream bos = fo.getContent().getOutputStream();
-                    Writer writer = new FileWriter("C:\\test.txt");
+                    Writer writer = new FileWriter("/home/mrcheeks/test.txt");
                     jtc.write(new OutputStreamWriter(bos));
                     IOUtils.closeQuietly(writer);
                     IOUtils.closeQuietly(bos);

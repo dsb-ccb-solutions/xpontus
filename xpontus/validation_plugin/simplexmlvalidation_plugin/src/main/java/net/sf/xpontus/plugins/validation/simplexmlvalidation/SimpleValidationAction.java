@@ -23,7 +23,6 @@ package net.sf.xpontus.plugins.validation.simplexmlvalidation;
 
  
 import com.ibm.icu.text.CharsetDetector;
-import net.sf.xpontus.actions.impl.XPontusThreadedActionImpl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 import java.io.ByteArrayInputStream;
@@ -34,12 +33,12 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.text.JTextComponent;
 
+import net.sf.xpontus.actions.impl.DefaultDocumentAwareActionImpl;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import org.apache.xerces.parsers.SAXParser;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 
@@ -48,7 +47,10 @@ import org.xml.sax.SAXParseException;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  * @version 0.0.1
  */
-public class SimpleValidationAction extends XPontusThreadedActionImpl {
+public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
+    /**
+     * 
+     */
     public SimpleValidationAction() {
         setName("Validate XML");
         setDescription("XML Validation");

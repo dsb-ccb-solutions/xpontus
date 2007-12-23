@@ -206,7 +206,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                 .addContainerGap()
                 .add(outputButton)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(outputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                .add(outputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                 .addContainerGap())
         );
         outputPanelLayout.setVerticalGroup(
@@ -252,7 +252,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                 .add(33, 33, 33)
                 .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(useExternalDocumentOption)
-                    .add(inputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+                    .add(inputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
                 .addContainerGap())
         );
         inputPanelLayout.setVerticalGroup(
@@ -278,7 +278,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                     .add(firstPanelLayout.createSequentialGroup()
                         .add(nameLabel)
                         .add(113, 113, 113)
-                        .add(nameTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                        .add(nameTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))
                     .add(inputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(outputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -294,7 +294,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                 .add(inputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         m_pane.addTab("General options", firstPanel);
@@ -364,8 +364,8 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                     .add(scriptButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(transPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(processorsList, 0, 246, Short.MAX_VALUE)
-                    .add(scriptTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                    .add(processorsList, 0, 471, Short.MAX_VALUE)
+                    .add(scriptTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
                 .addContainerGap())
         );
         transPanelLayout.setVerticalGroup(
@@ -388,7 +388,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
             thirdPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(thirdPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(parametersPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                .add(parametersPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
                 .addContainerGap())
             .add(thirdPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(thirdPanelLayout.createSequentialGroup()
@@ -399,7 +399,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
         thirdPanelLayout.setVerticalGroup(
             thirdPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, thirdPanelLayout.createSequentialGroup()
-                .addContainerGap(149, Short.MAX_VALUE)
+                .addContainerGap(211, Short.MAX_VALUE)
                 .add(parametersPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .add(thirdPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -419,7 +419,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(m_pane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(bottomPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE))
+                    .add(bottomPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

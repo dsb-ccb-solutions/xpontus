@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.scenario</groupId>
   <artifactId>scenario_plugin</artifactId>
-  <name>XPontus scenarios plugin</name>
+  <name>Transformations</name>
   <packaging>pom</packaging>
   <version>1.0.0-pre1</version>
   <description>XPontus plugin for user transformations (HTML, PDF, etc.)</description>

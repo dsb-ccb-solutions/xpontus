@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.validation.batchvalidation</groupId>
   <artifactId>batchvalidation_plugin</artifactId>
-  <name>Batch Validation Plugin</name>
+  <name>Batch Validation</name>
   <version>1.0.0-pre1</version> 
   <description>Plugin to validate a set of XML files</description>
   <dependencies>

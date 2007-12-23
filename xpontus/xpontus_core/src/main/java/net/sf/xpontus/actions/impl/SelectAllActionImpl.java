@@ -29,13 +29,13 @@ import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
  *
  * @author Yves Zoundi
  */
-public class SelectAllActionImpl extends AbstractXPontusActionImpl {
+public class SelectAllActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.selectall";
 
     public SelectAllActionImpl() {
     }
 
-    public void execute() {
+    public void run() {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
         dtc.getCurrentEditor().selectAll();

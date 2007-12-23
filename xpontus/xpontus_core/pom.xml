@@ -5,7 +5,7 @@
     <artifactId>xpontus_core</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0-pre1</version>
-    <name>XPontus Core</name>
+    <name>Core</name>
     <description>XPontus Core API</description> 
     <parent>
         <groupId>net.sf.xpontus</groupId>
@@ -218,9 +218,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>jgoodies</groupId>
+            <groupId>com.jgoodies</groupId>
             <artifactId>binding</artifactId>
-            <version>1.0</version>
+            <version>1.4.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

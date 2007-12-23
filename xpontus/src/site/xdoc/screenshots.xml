@@ -4,15 +4,11 @@
     <properties>
         <author email="yveszoundi.AT.users.DOT.sf.DOT.net">Yves Zoundi</author>
         <title>Screenshots</title>        
-    </properties> 
-    <meta name="keyword" content="XSL, java"/>
+    </properties>  
     
     <body> 
-        <section name = "Windows XP screenshot">
-            <p><img src = "images/xpontusdevel.png" alt = "Windows"/></p>
-        </section> 
-           <section name = "FreeBSD screenshot">
-            <p><img src = "images/freebsd_screenshot.png" alt = "FreeBSD"/></p>
-        </section> 
+        <section name = "Snapshot version screenshot">
+            <p><img src = "images/Screenshot.png" alt = "Ubuntu Gutsy"/></p>
+        </section>  
     </body>
 </document>

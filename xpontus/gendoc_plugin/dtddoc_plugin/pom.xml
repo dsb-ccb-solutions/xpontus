@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.gendoc.dtddoc</groupId>
   <artifactId>dtddoc_plugin</artifactId>
-  <name>DTD documentation plugin</name>
+  <name>DTD support</name>
   <version>1.0.0-pre1</version> 
   <dependencies>
     <dependency>

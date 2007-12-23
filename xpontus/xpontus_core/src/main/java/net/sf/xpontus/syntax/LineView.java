@@ -62,6 +62,9 @@ public class LineView extends JComponent {
         text.addPropertyChangeListener(handler);
         text.addComponentListener(handler);
 
+        setBackground(new Color(245, 245, 245));
+        setForeground(Color.BLACK);
+
         setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, BORDER_COLOR));
     }
 

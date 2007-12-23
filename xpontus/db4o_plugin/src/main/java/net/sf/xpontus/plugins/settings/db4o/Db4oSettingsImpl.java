@@ -70,4 +70,12 @@ public class Db4oSettingsImpl implements SettingsModuleIF {
             db.delete(result.next());
         }
     }
+
+    public void remove(Object bean) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Object getSingleObject(Class beanClass) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.i18n</groupId>
   <artifactId>i18n_plugin</artifactId>
-  <name>XPontus i18n plugin</name>
+  <name>I18n</name>
   <version>1.0.0-pre1</version> 
   <dependencies>
     <dependency>

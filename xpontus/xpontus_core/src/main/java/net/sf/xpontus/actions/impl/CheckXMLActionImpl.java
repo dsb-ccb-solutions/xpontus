@@ -43,7 +43,7 @@ import net.sf.xpontus.modules.gui.components.OutputDockable;
  * Check if the XML document is well-formed
  * @author Yves Zoundi
  */
-public class CheckXMLActionImpl extends XPontusThreadedActionImpl {
+public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
     
     public static final String BEAN_ALIAS = "action.checkxml";
     

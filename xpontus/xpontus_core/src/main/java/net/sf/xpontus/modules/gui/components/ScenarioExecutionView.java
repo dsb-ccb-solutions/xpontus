@@ -43,6 +43,13 @@ public class ScenarioExecutionView extends javax.swing.JDialog {
         scenarioListModel = new DefaultListModel();
         initComponents();
     }
+    
+    public void setVisible(boolean b){
+        if(b){
+            this.runButton.setEnabled(this.scenarioList.getModel().getSize() > 0);
+        }
+        super.setVisible(b);
+    }
 
     /**
      * 

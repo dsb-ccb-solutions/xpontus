@@ -40,7 +40,7 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class IndentContentActionImpl extends XPontusThreadedActionImpl {
+public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
     /**
      * The alias of this class in the IOC container
      */

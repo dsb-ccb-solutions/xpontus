@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.icons.eclipse</groupId>
   <artifactId>eclipse_icons_plugin</artifactId>
-  <name>Eclipse icons set plugin</name>
+  <name>Eclipse icons</name>
   <version>1.0.0-pre1</version> 
   <description>Eclipse icons set plugin</description>
   <dependencies>

@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.plugins.gendoc.xsd</groupId>
   <artifactId>xsddoc_plugin</artifactId>
-  <name>Schema documentation plugin</name>
+  <name>Schema documentation</name>
   <version>1.0.0-pre1</version> 
   <description>Documentation generation for XML Schema</description>
   <dependencies>

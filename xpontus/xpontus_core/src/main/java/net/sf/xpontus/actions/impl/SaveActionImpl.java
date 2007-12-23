@@ -34,7 +34,7 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class SaveActionImpl extends AbstractXPontusActionImpl {
+public class SaveActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.save";
     private JFileChooser chooser = null;
 
@@ -47,7 +47,7 @@ public class SaveActionImpl extends AbstractXPontusActionImpl {
     /**
      *  Save the document
      */
-    public void execute() {
+    public void run() {
         JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
                                                         .getDocumentTabContainer()
                                                         .getCurrentEditor();

@@ -44,6 +44,7 @@ import java.util.Map;
 
 import javax.swing.Action;
 import javax.swing.JButton;
+import net.sf.xpontus.plugins.evaluator.ExpressionEvaluatorPanel;
 
 
 /**
@@ -159,6 +160,8 @@ public class ToolBarPlugin extends XPontusPlugin {
             ToolBarPluginIF mPlugin = (ToolBarPluginIF) cl.newInstance();
             initExtension(mPlugin);
         }
+        
+       
     }
 
     private void incrementPositions() {

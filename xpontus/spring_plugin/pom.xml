@@ -10,7 +10,7 @@
     </parent>
     <packaging>jar</packaging>
     <version>1.0.0-pre1</version>
-    <name>XPontus Spring Container</name>
+    <name>IOC</name>
     <description>XPontus default IOC container plugin</description> 
     <dependencies>       
         <dependency>

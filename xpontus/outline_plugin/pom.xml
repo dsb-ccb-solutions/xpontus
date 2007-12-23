@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.outline</groupId>
   <artifactId>outline_plugin</artifactId>
-  <name>Outline plugin</name>
+  <name>Outline</name>
   <packaging>pom</packaging>
   <version>1.0.0-pre1</version>  
   <dependencies>
@@ -19,7 +19,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>  
-  <description>Outline plugin</description>
+  <description>Plugin to display document structure in a docked window</description>
   <modules>
     <module>xmloutline_plugin</module>
   </modules>

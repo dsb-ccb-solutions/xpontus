@@ -44,8 +44,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.swing.Action;
@@ -87,35 +89,35 @@ public class DocumentContainer implements Dockable {
 
         scrollPane = new JScrollPane(editor);
         scrollPane.setRowHeaderView(new LineView(editor));
-        
+
         documentPanel.add(scrollPane, BorderLayout.CENTER);
         documentPanel.add(status, BorderLayout.SOUTH);
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public JStatusBar getStatusBar() {
         return status;
     }
 
     /**
-     * 
+     *
      */
     public void completeSetup() {
         Dimension dim = new Dimension(600, 400);
         this.getComponent().setMinimumSize(dim);
         this.getComponent().setPreferredSize(dim);
-        
+
         key.setResizeWeight(0.7f);
         key.setDockGroup(group);
 
         ImageIcon icon = new ImageIcon(getClass().getResource(image));
         key.setIcon(icon);
-        
+
         init();
-        
+
         new ModificationHandler(this);
         editor.addMouseListener(new PopupHandler());
     }
@@ -134,6 +136,45 @@ public class DocumentContainer implements Dockable {
     }
 
     public void setup() {
+        String mm = MimeTypesProvider.getInstance().getMimeType("file.xml");
+
+        editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
+
+        editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, null);
+
+        editor.setUI(new XPontusEditorUI(editor, "file.xml"));
+
+        SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
+        doc.setLoading(true);
+
+        key = new DockKey("Untitled" + this.hashCode() + "");
+
+        try {
+            CharsetDetector detector = new CharsetDetector();
+            InputStream is = getClass()
+                                 .getResourceAsStream("/net/sf/xpontus/templates/template.xml");
+            detector.setText(new BufferedInputStream(is));
+
+            try {
+                editor.read(detector.detect().getReader(), null);
+            } catch (Exception ioe) {
+                editor.read(new InputStreamReader(is), null);
+            }
+
+            javax.swing.undo.UndoManager _undo = new javax.swing.undo.UndoManager();
+            editor.putClientProperty(XPontusConstantsIF.UNDO_MANAGER, _undo);
+
+            editor.getDocument().addUndoableEditListener(new UndoableEditListener() {
+                    public void undoableEditHappened(UndoableEditEvent event) {
+                        ((javax.swing.undo.UndoManager) editor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER)).addEdit(event.getEdit());
+                    }
+                });
+
+            editor.putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
+                Boolean.FALSE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

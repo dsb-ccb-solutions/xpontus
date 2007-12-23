@@ -27,6 +27,7 @@ import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import javax.swing.text.JTextComponent;
 import javax.swing.undo.UndoManager;
 import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 
 /**
@@ -34,13 +35,13 @@ import net.sf.xpontus.constants.XPontusConstantsIF;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class RedoActionImpl extends AbstractXPontusActionImpl {
+public class RedoActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.redo";
 
     public RedoActionImpl() {
     }
 
-    public void execute() {
+    public void run() {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
         JTextComponent jtc = dtc.getCurrentEditor();
@@ -50,4 +51,7 @@ public class RedoActionImpl extends AbstractXPontusActionImpl {
             redo.redo();
         }
     }
+    
+    
+    
 }

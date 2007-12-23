@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.scripting.groovy</groupId>
   <artifactId>groovy_plugin</artifactId>
-  <name>Groovy Plugin</name>
+  <name>Groovy</name>
   <version>1.0.0-pre1</version>
   <description>Plugin support for groovy</description>
   <dependencies>

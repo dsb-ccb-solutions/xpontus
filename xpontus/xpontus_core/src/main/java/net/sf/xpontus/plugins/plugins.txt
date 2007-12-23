@@ -13,3 +13,4 @@
 /net/sf/xpontus/plugins/gui/editor/
 /net/sf/xpontus/plugins/gendoc/
 /net/sf/xpontus/plugins/scenarios/
+/net/sf/xpontus/plugins/evaluator/

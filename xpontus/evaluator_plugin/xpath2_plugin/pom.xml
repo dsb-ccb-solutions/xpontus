@@ -1,4 +1,5 @@
-<?xml version="1.0"?><project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
   <parent>
     <artifactId>evaluator_plugin</artifactId>
     <groupId>net.sf.xpontus.plugins.evaluator</groupId>
@@ -7,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.evaluator.xpath2</groupId>
   <artifactId>xpath2_plugin</artifactId>
-  <name>xpath2_plugin</name>
+  <name>XPath2</name>
   <version>1.0.0-pre1</version> 
   <dependencies>
     <dependency>
@@ -16,5 +17,35 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+            <groupId>net.sf.xpontus</groupId>
+            <artifactId>xpontus_core</artifactId>
+            <version>1.0.0-pre1</version>
+            <scope>compile</scope>
+        </dependency>
+    <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon</artifactId>
+            <version>8.7</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon-xom</artifactId>
+            <version>8.7</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon-xpath</artifactId>
+            <version>8.7</version>
+            <scope>compile</scope>
+        </dependency>
+         <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon-dom</artifactId>
+            <version>8.7</version>
+            <scope>compile</scope>
+        </dependency>
   </dependencies>
 </project>

@@ -34,13 +34,13 @@ import net.sf.xpontus.constants.XPontusConstantsIF;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class UndoActionImpl extends AbstractXPontusActionImpl {
+public class UndoActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.undo";
 
     public UndoActionImpl() {
     }
 
-    public void execute() {
+    public void run() {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
         JTextComponent jtc = dtc.getCurrentEditor();

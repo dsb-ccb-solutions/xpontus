@@ -27,12 +27,15 @@ import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockingUtilities;
 import com.vlsolutions.swing.docking.TabbedDockableContainer;
 
+import net.sf.xpontus.controllers.impl.PopupHandler;
+import net.sf.xpontus.plugins.evaluator.XPathResultsDockable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
-import net.sf.xpontus.controllers.impl.PopupHandler;
 
 
 /**
@@ -104,14 +107,16 @@ public class ConsoleOutputWindow {
             textboxes[i].addMouseListener(new PopupHandler());
 
             addDockable(new OutputDockable(i, titles[i],
-                    new JScrollPane(textboxes[i])){
-                
-                public void println(String msg){
-                    textboxes[pos].append(msg + "\n");
-                }
-                
-            });
+                    new JScrollPane(textboxes[i])) {
+                    public void println(String msg) {
+                        textboxes[pos].append(msg + "\n");
+                    }
+                });
         }
+
+        int pos2 = dockables.size();
+
+        addDockable(new XPathResultsDockable(pos2, "XPath", new JTable()));
     }
 
     /**

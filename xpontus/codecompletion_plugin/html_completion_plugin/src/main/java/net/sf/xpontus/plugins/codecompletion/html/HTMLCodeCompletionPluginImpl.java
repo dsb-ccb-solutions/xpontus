@@ -9,11 +9,12 @@
 
 package net.sf.xpontus.plugins.codecompletion.html;
 
+import java.util.List;
 import net.sf.xpontus.plugins.completion.CodeCompletionIF;
 
 /**
  *
- * @author Propriétaire
+ * @author Propriï¿½taire
  */
 public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF{
 
@@ -23,6 +24,10 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF{
 
     public String getFileMode() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List getCompletionList() {
+        return null;
     }
 
 }

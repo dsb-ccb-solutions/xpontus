@@ -36,6 +36,8 @@ public class DocumentationView extends javax.swing.JDialog {
         ValueModel vm = adapter.getValueModel("type");
         typeAdapter = new ComboBoxAdapter(DocConfiguration.getInstane().getEnginesNames(), vm);
         initComponents();
+        
+        this.docTypeList.setSelectedIndex(0);
     }
 
     public DocumentationView() {

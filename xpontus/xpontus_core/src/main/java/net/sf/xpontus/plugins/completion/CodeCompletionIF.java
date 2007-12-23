@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.plugins.completion;
 
+import java.util.List;
+
 
 /**
  * Code completion interface to implement
@@ -29,15 +31,20 @@ package net.sf.xpontus.plugins.completion;
  */
 public interface CodeCompletionIF {
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     String getMimeType();
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     String getFileMode();
-    
-    
+
+    /**
+     * 
+     * @return
+     */
+    public List getCompletionList();
 }

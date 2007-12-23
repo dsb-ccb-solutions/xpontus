@@ -23,7 +23,9 @@
  */
 package net.sf.xpontus.controllers.impl;
 
+import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 import net.sf.xpontus.actions.impl.CopyActionImpl;
+import net.sf.xpontus.actions.impl.CreateNewFileActionImpl;
 import net.sf.xpontus.actions.impl.CutActionImpl;
 import net.sf.xpontus.actions.impl.ExitActionImpl;
 import net.sf.xpontus.actions.impl.IndentContentActionImpl;
@@ -40,6 +42,8 @@ import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.XPontusTopComponentIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
+import net.sf.xpontus.plugins.evaluator.EvaluatorPlugin;
+import net.sf.xpontus.plugins.evaluator.ExpressionEvaluatorPanel;
 import net.sf.xpontus.plugins.gendoc.DocumentationPlugin;
 import net.sf.xpontus.plugins.gui.menubar.MenuBarPlugin;
 import net.sf.xpontus.plugins.gui.menubar.MenuBarPluginIF;
@@ -50,6 +54,8 @@ import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.plugins.lexer.LexerPlugin;
 import net.sf.xpontus.plugins.scenarios.ScenarioPlugin;
 import net.sf.xpontus.plugins.themes.ThemePlugin;
+import net.sf.xpontus.utils.DocumentAwareComponentHolder;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 import java.io.File;
 
@@ -60,7 +66,6 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.UIManager;
-import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 
 
 /**
@@ -143,7 +148,8 @@ public class XPontusRunner {
                 ToolBarPlugin.PLUGIN_IDENTIFIER,
                 IndentationPlugin.PLUGIN_IDENTIFIER,
                 DocumentationPlugin.PLUGIN_IDENTIFIER,
-                ScenarioPlugin.PLUGIN_IDENTIFIER
+                ScenarioPlugin.PLUGIN_IDENTIFIER,
+                EvaluatorPlugin.PLUGIN_IDENTIFIER
             };
 
         // init plugins
@@ -165,6 +171,7 @@ public class XPontusRunner {
 
         if (iocPlugin.getContainer() != null) {
             final String[] actions = {
+                    CreateNewFileActionImpl.BEAN_ALIAS,
                     OpenActionImpl.BEAN_ALIAS, SaveActionImpl.BEAN_ALIAS,
                     SaveAsActionImpl.BEAN_ALIAS, PrintActionImpl.BEAN_ALIAS,
                     ExitActionImpl.BEAN_ALIAS
@@ -184,7 +191,8 @@ public class XPontusRunner {
                 };
 
             final String[] toolsActions = {
-                   CheckXMLActionImpl.BEAN_ALIAS, IndentContentActionImpl.BEAN_ALIAS, "action.docgen"
+                    CheckXMLActionImpl.BEAN_ALIAS,
+                    IndentContentActionImpl.BEAN_ALIAS, "action.docgen"
                 };
 
             final String[] helpActions = { "action.about", "action.help" };
@@ -278,7 +286,13 @@ public class XPontusRunner {
             toolbarPlugin.initExtension(editToolbarExt);
             toolbarPlugin.initExtension(helpToolbarExt);
             toolbarPlugin.initExtension(scenariosToolbarExt);
+            toolbarPlugin.getOrCreateToolBar("xpath")
+                         .add(new ExpressionEvaluatorPanel());
         }
+
+        DocumentAwareComponentHolder.getInstance()
+                                    .notifyComponents(new DocumentContainerChangeEvent(
+                null));
 
         window.activateComponent();
     }

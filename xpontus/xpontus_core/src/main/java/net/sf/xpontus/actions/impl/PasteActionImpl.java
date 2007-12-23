@@ -29,13 +29,13 @@ import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class PasteActionImpl extends AbstractXPontusActionImpl {
+public class PasteActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.paste";
 
     public PasteActionImpl() {
     }
 
-    public void execute() {
+    public void run() {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
         dtc.getCurrentEditor().paste();

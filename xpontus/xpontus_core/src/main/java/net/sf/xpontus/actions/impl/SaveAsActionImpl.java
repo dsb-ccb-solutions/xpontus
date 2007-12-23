@@ -29,7 +29,7 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class SaveAsActionImpl extends AbstractXPontusActionImpl {
+public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.saveas";
 
     /** Creates a new instance of SaveAsActionImpl */
@@ -40,7 +40,7 @@ public class SaveAsActionImpl extends AbstractXPontusActionImpl {
      *
      * Save the document under a new name
      */
-    public void execute() {
+    public void run() {
         XPontusComponentsUtils.showInformationMessage("not implemented!!!");
     }
 }

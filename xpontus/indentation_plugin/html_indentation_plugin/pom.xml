@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.indentation.html</groupId>
   <artifactId>html_indentation_plugin</artifactId>
-  <name>HTML Indentation Plugin</name>
+  <name>HTML support</name>
   <version>1.0.0-pre1</version> 
   <description>Code formatting support for HTML files</description>
   <dependencies>

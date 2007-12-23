@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.themes.jgoodies</groupId>
   <artifactId>jgoodies_theme_plugin</artifactId>
-  <name>JGoodies Theme Plugin</name>
+  <name>JGoodies theme</name>
   <version>1.0.0-pre1</version> 
   <dependencies>
     <dependency>

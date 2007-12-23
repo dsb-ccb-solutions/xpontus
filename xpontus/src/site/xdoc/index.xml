@@ -5,10 +5,13 @@
         <author email="yveszoundi AT users DOT sf DOT net">Yves Zoundi</author>
         <title>Homepage</title>        
     </properties>
-    
-    <meta name="keyword" content="XSL, java"/>
+     
     
     <body> 
+       <section name = "Information">
+            <p>I plan to release a snapshot version of XPontus 1.0.0-pre1 before 2008. It will a Java Web Start only release with as less bugs as possible. It will allow me to get a quick feedback before the official release.</p>
+        </section>
+        
         <section name ="Overview">
             <p>XPontus XML Editor is a simple XML Editor with lots of features. It aims to become "the" free alternative to
             commercial XML IDES such as XMLSPy or Oxygen XML Editor, or Exchanger XML Editor.</p>

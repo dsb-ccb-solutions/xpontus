@@ -64,10 +64,10 @@ public class ModificationHandler implements DocumentListener, CaretListener {
                           .putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
                         Boolean.valueOf(modified));
 
-                    String msg = "Document modified";
+                    String msg = "Document modified"+ (modified);
 
                     if (!modified) {
-                        msg = "Document saved";
+                        msg = "Document modified:" + (modified);
                     }
 
                     editor.getStatusBar().setMessage(msg);

@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.lexer.html</groupId>
   <artifactId>html_lexer_plugin</artifactId>
-  <name>XPontus HTML Lexer</name>
+  <name>HTML lexer</name>
   <version>1.0.0-pre1</version> 
   <description>XPontus HTML lexer plugin</description>
   <dependencies>

@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.icons</groupId>
   <artifactId>icons_plugin</artifactId>
-  <name>XPontus Icons Set plugin</name>
+  <name>Icons Set</name>
   <packaging>pom</packaging>
   <version>1.0.0-pre1</version> 
   <description>Icon sets plugin</description>

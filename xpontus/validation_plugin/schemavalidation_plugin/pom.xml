@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.validation.schemavalidation</groupId>
   <artifactId>schemavalidation_plugin</artifactId>
-  <name>Schema Validation Plugin</name>
+  <name>Schema Validation</name>
   <version>1.0.0-pre1</version> 
   <description>XPontus plugin for validation of files against schemas</description>
   <dependencies>

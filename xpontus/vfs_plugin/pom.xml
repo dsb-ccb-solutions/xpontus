@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sf.xpontus.plugins.vfs</groupId>
     <artifactId>vfs_plugin</artifactId>
-    <name>XPontus Virtual file system plugin</name>
+    <name>Virtual file system</name>
     <packaging>pom</packaging>
     <version>1.0.0-pre1</version> 
     <description>Virtual file system support</description>
