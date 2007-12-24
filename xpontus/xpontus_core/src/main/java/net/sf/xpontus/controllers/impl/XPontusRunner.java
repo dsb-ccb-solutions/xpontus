@@ -40,8 +40,10 @@ import net.sf.xpontus.actions.impl.UndoActionImpl;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.SplashScreen;
 import net.sf.xpontus.modules.gui.components.XPontusTopComponentIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
+import net.sf.xpontus.plugins.completion.CodeCompletionPlugin;
 import net.sf.xpontus.plugins.evaluator.EvaluatorPlugin;
 import net.sf.xpontus.plugins.evaluator.ExpressionEvaluatorPanel;
 import net.sf.xpontus.plugins.gendoc.DocumentationPlugin;
@@ -65,8 +67,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import net.sf.xpontus.plugins.completion.CodeCompletionPlugin;
 
 
 /**
@@ -136,10 +139,17 @@ public class XPontusRunner {
      * @throws java.lang.Exception An exception
      */
     public static void main(String[] args) throws Exception {
-        
         System.setProperty("java.security.manager", "");
-        
+
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+        final JWindow splash = new SplashScreen();
+        new Thread(new Runnable() {
+                public void run() {
+                    splash.setLocationRelativeTo(splash.getOwner());
+                    splash.setVisible(true);
+                }
+            }).start();
 
         XPontusPluginManager controller = new XPontusPluginManager();
         controller.startApplication();
@@ -299,6 +309,11 @@ public class XPontusRunner {
                                     .notifyComponents(new DocumentContainerChangeEvent(
                 null));
 
+        SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    splash.dispose();
+                }
+            });
         window.activateComponent();
     }
 }

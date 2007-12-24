@@ -35,10 +35,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
 
@@ -57,11 +57,16 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
     private JFrame frame;
     private Dockable pane;
     private ConsoleOutputWindow console;
-    private String WINDOW_TITLE;
+    private String WINDOW_TITLE; 
+    
 
     /** Creates a new instance of DefaultXPontusWindowImpl */
     private DefaultXPontusWindowImpl() {
         super();
+        
+        
+        
+        
         frame = new JFrame();
 
         frame.addWindowListener(new WindowAdapter() {
