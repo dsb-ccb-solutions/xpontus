@@ -1,7 +1,7 @@
 /*
  * CheckXMLActionImpl.java
  *
- * Created on 19-Aug-2007, 9:34:47 AM 
+ * Created on 19-Aug-2007, 9:34:47 AM
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
@@ -22,21 +22,19 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.DocumentContainer;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-
-
-
-
 
 import javax.swing.text.JTextComponent;
+import javax.swing.text.PlainDocument;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
-import net.sf.xpontus.modules.gui.components.OutputDockable;
 
 
 /**
@@ -44,17 +42,18 @@ import net.sf.xpontus.modules.gui.components.OutputDockable;
  * @author Yves Zoundi
  */
 public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
-    
     public static final String BEAN_ALIAS = "action.checkxml";
-    
+
     public CheckXMLActionImpl() {
     }
 
-     public void run() {
+    public void run() {
+        JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
+                                                     .getDocumentTabContainer()
+                                                     .getCurrentEditor();
+
         try {
-            JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
-                                                         .getDocumentTabContainer()
-                                                         .getCurrentEditor();
+            ((PlainDocument) jtc.getDocument()).readLock();
 
             InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
 
@@ -87,6 +86,8 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
                                                                                       .getCurrentDockable();
             container.getStatusBar().setMessage("Document not well formed");
             odk.println(e.getMessage());
+        } finally {
+            ((PlainDocument) jtc.getDocument()).readLock();
         }
     }
 }

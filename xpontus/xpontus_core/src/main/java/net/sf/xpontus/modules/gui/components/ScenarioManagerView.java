@@ -59,6 +59,7 @@ public class ScenarioManagerView extends javax.swing.JDialog {
                     dcb.addElement(set.next());
                 }
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,8 +96,13 @@ public class ScenarioManagerView extends javax.swing.JDialog {
         deleteButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Manage scenarios");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                onWindowClosing(evt);
+            }
+        });
 
         scenariosList.setModel(new DefaultComboBoxModel());
         scenariosList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -172,6 +178,11 @@ public class ScenarioManagerView extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void onWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onWindowClosing
+        controller.closeWindow();
+}//GEN-LAST:event_onWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
     private javax.swing.JButton deleteButton;

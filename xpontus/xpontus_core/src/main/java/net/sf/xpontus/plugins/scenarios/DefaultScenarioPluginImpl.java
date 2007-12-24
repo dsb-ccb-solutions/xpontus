@@ -49,6 +49,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+import org.apache.commons.io.IOUtils;
 
 
 /**
@@ -85,6 +86,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
      */
     public void setParameters(Transformer tf, Hashtable parameters) {
         if (parameters != null) {
+            // Create an iterator for the parameters keys
             Iterator it = parameters.keySet().iterator();
 
             while (it.hasNext()) {
@@ -121,16 +123,20 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     }
 
     public void handleScenario(ScenarioModel model) throws Exception {
+        // set the processor properties for JAXP
         setSystemProperties();
         
+        // initialize the xslt processor
         TransformerFactory tff = TransformerFactory.newInstance();
 
         Transformer tf = tff.newTransformer();
 
+        // create an input source to process
         Reader m_reader = getReader(model);
 
         Source src = new StreamSource(m_reader);
 
+        // create the output result
         File output = new File(model.getOutput());
 
         OutputStream bos = FileUtils.openOutputStream(output);
@@ -139,9 +145,16 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
 
         Result res = new StreamResult(m_writer);
 
+        // add the xsl parameters
         setParameters(tf, model.getParameters());
 
+        // transform the input file
         tf.transform(src, res);
+        
+        // close any open streams
+        IOUtils.closeQuietly(m_writer);
+        
+        IOUtils.closeQuietly(bos);
     }
 
     /**
@@ -211,6 +224,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     }
 
     public void setSystemProperties() {
+        // the default processor to use is xalan        
         System.setProperty("org.xml.sax.parser",
             "org.apache.xerces.parsers.SAXParser");
         System.setProperty("javax.xml.parsers.SAXParserFactory",

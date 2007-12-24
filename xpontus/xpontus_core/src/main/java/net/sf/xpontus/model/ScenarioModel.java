@@ -23,8 +23,8 @@
  */
 package net.sf.xpontus.model;
 
+import com.jgoodies.binding.beans.ExtendedPropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import java.util.Hashtable;
 
@@ -33,9 +33,8 @@ import java.util.Hashtable;
  * Scenario model for user transformations
  * @author Yves Zoundi
  */
-public class ScenarioModel {
-    public boolean isNew = true;
-    private PropertyChangeSupport pcs;
+public class ScenarioModel { 
+    private ExtendedPropertyChangeSupport pcs;
     private String input = "";
     private boolean externalDocument = false;    
     private String output = ""; 
@@ -45,7 +44,7 @@ public class ScenarioModel {
     private Hashtable parameters = new Hashtable();
 
     public ScenarioModel() {
-        pcs = new PropertyChangeSupport(this);
+        pcs = new ExtendedPropertyChangeSupport(this);
     }
 
     

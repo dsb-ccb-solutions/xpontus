@@ -89,7 +89,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-                              <Component id="nameTF" pref="492" max="32767" attributes="0"/>
+                              <Component id="nameTF" pref="511" max="32767" attributes="0"/>
                           </Group>
                           <Component id="inputPanel" alignment="0" max="32767" attributes="2"/>
                           <Component id="outputPanel" alignment="0" max="32767" attributes="0"/>
@@ -110,7 +110,7 @@
                       <Component id="inputPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="outputPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="86" max="32767" attributes="0"/>
+                      <EmptySpace pref="104" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -175,6 +175,9 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JTextField" name="nameTF">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(nameTF, adapter.getValueModel(&quot;name&quot;));"/>
+              </AuxValues>
             </Component>
             <Container class="javax.swing.JPanel" name="inputPanel">
               <Properties>
@@ -197,7 +200,7 @@
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="useExternalDocumentOption" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="inputTF" alignment="0" pref="418" max="32767" attributes="1"/>
+                              <Component id="inputTF" alignment="0" pref="465" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -281,7 +284,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="parametersPanel" pref="652" max="32767" attributes="1"/>
+                      <Component id="parametersPanel" pref="657" max="32767" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -410,8 +413,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="processorsList" pref="471" max="32767" attributes="1"/>
-                              <Component id="scriptTF" alignment="1" pref="471" max="32767" attributes="1"/>
+                              <Component id="processorsList" pref="488" max="32767" attributes="1"/>
+                              <Component id="scriptTF" alignment="1" pref="488" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>

@@ -66,6 +66,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.UIManager;
+import net.sf.xpontus.plugins.completion.CodeCompletionPlugin;
 
 
 /**
@@ -135,6 +136,9 @@ public class XPontusRunner {
      * @throws java.lang.Exception An exception
      */
     public static void main(String[] args) throws Exception {
+        
+        System.setProperty("java.security.manager", "");
+        
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         XPontusPluginManager controller = new XPontusPluginManager();
@@ -149,7 +153,8 @@ public class XPontusRunner {
                 IndentationPlugin.PLUGIN_IDENTIFIER,
                 DocumentationPlugin.PLUGIN_IDENTIFIER,
                 ScenarioPlugin.PLUGIN_IDENTIFIER,
-                EvaluatorPlugin.PLUGIN_IDENTIFIER
+                EvaluatorPlugin.PLUGIN_IDENTIFIER,
+                CodeCompletionPlugin.PLUGIN_IDENTIFIER
             };
 
         // init plugins

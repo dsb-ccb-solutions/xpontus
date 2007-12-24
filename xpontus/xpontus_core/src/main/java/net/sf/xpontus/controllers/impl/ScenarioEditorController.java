@@ -25,16 +25,12 @@ import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
 import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
 import net.sf.xpontus.plugins.scenarios.ParameterModel;
 import net.sf.xpontus.plugins.scenarios.ParameterModelEditor;
-import net.sf.xpontus.plugins.scenarios.ScenarioPluginIF;
-import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
-import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.springframework.beans.BeanUtils;
 
 import java.awt.Component;
 
-import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -112,26 +108,16 @@ public class ScenarioEditorController {
         return false;
     }
 
-    private boolean openedDialog() {
-        boolean answer = false;
-
+    /**
+     *
+     */
+    public void selectInput() {
         Component c = XPontusComponentsUtils.getTopComponent()
                                             .getDisplayComponent();
 
         int rep = chooser.showOpenDialog(c);
 
         if (rep == JFileChooser.APPROVE_OPTION) {
-            answer = true;
-        }
-
-        return answer;
-    }
-
-    /**
-     *
-     */
-    public void selectInput() {
-        if (openedDialog()) {
             String path = chooser.getSelectedFile().getAbsolutePath();
             view.getModel().setInput(path);
         }
@@ -141,7 +127,12 @@ public class ScenarioEditorController {
      *
      */
     public void selectOutput() {
-        if (openedDialog()) {
+        Component c = XPontusComponentsUtils.getTopComponent()
+                                            .getDisplayComponent();
+
+        int rep = chooser.showOpenDialog(c);
+
+        if (rep == JFileChooser.APPROVE_OPTION) {
             String path = chooser.getSelectedFile().getAbsolutePath();
             view.getModel().setOutput(path);
         }
@@ -151,7 +142,12 @@ public class ScenarioEditorController {
      *
      */
     public void selectScript() {
-        if (openedDialog()) {
+        Component c = XPontusComponentsUtils.getTopComponent()
+                                            .getDisplayComponent();
+
+        int rep = chooser.showOpenDialog(c);
+
+        if (rep == JFileChooser.APPROVE_OPTION) {
             String path = chooser.getSelectedFile().getAbsolutePath();
             view.getModel().setXsl(path);
         }
@@ -161,90 +157,41 @@ public class ScenarioEditorController {
      *
      */
     public void updateScenario() {
+        boolean notNew = false;
+
+        // the user transformation profile
         ScenarioModel model = view.getModel();
-        
-        
 
-        String processor = model.getProcessor();
+        // validate the model
 
-        List controllers = ScenarioPluginsConfiguration.getInstance()
-                                                       .getEngines();
+        // if the model is new check if the transformation profile already exist for that name
 
-        ScenarioPluginIF plugin = null;
+        // save the scenario
+        ScenarioManagerView parent = (ScenarioManagerView) view.getParent();
 
-        boolean found = false;
+        DefaultComboBoxModel dcbm = (DefaultComboBoxModel) parent.getScenariosList()
+                                                                 .getModel();
 
-        for (int i = 0; i < controllers.size(); i++) {
-            ScenarioPluginIF sp = (ScenarioPluginIF) controllers.get(i);
-
-            for (int j = 0; j < sp.getProcessors().length; j++) {
-                if (sp.getProcessors()[j].equals(processor)) {
-                    plugin = sp;
-                    found = true;
-
-                    break;
-                }
-
-                if (found) {
-                    break;
-                }
-            }
-
-            if (found) {
-                break;
-            }
-        }
-
-        if (plugin == null) {
-            // this should not happen unless a transformation engine is remove from the plugins list
-            XPontusComponentsUtils.showErrorMessage(
-                "No processor supported for your configuration");
-
-            return;
-        }
-
-        if (!plugin.isValidModel(model)) {
-            return;
-        }
-
-        // the profile is not new
-        if (!model.isNew) {
-            ScenarioManagerView m_parent = (ScenarioManagerView) view.getParent();
-             DefaultComboBoxModel dcm = (DefaultComboBoxModel) m_parent.getScenariosList()
-                                                                      .getModel();
-             
-            String m_name = ((ScenarioModel)dcm.getSelectedItem()).getName();
-            if (!view.getScenarioName().equals( m_name)) {
-                if (existsScenario(model.getName())) {
-                    XPontusComponentsUtils.showErrorMessage(
-                        "There is already a scenario with that name NOT NEW");
-
+        if (notNew) {
+            // we are editing a transformation profile
+            // if name different than original check if it exists
+            if (model.getName() != null) {
+                if(true){
                     return;
                 }
             }
 
-            
-           
-
-            BeanUtils.copyProperties(model, dcm.getSelectedItem());
-            ((ScenarioModel)dcm.getSelectedItem()).setName(view.getScenarioName());
-            m_parent.getScenariosList().revalidate();
-            m_parent.getScenariosList().repaint();
+            ScenarioModel editingModel = (ScenarioModel) dcbm.getSelectedItem();
+            BeanUtils.copyProperties(model, editingModel);
         } else {
-            if (existsScenario(view.getScenarioName())) {
-                XPontusComponentsUtils.showErrorMessage(
-                    "There is already a scenario with that name NEW SCENARIO");
-
+            // the scenario is new
+            
+            // check if there is already a scenario with that name
+            if(existsScenario(model.getName())){
+                XPontusComponentsUtils.showErrorMessage("A scenario with that name already exists.");
                 return;
             }
-
-            ScenarioManagerView m_parent = (ScenarioManagerView) view.getParent();
-            DefaultComboBoxModel parent_model = (DefaultComboBoxModel) m_parent.getScenariosList()
-                                       
-                    .getModel();
-            
-            model.setName(view.getScenarioName());
-            parent_model.addElement(model);
+            dcbm.addElement(model);
         }
 
         view.setVisible(false);

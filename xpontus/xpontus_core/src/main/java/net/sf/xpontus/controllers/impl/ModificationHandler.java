@@ -26,6 +26,7 @@ package net.sf.xpontus.controllers.impl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
+import net.sf.xpontus.syntax.SyntaxDocument;
 
 import javax.swing.SwingUtilities;
 import javax.swing.event.CaretEvent;
@@ -33,6 +34,7 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Element;
+import javax.swing.text.JTextComponent;
 
 
 /**
@@ -58,19 +60,37 @@ public class ModificationHandler implements DocumentListener, CaretListener {
      * @param modified
      */
     public void setModified(final boolean modified) {
+        JTextComponent jtc = editor.getEditorComponent();
+        Object locked = jtc.getClientProperty(XPontusFileConstantsIF.FILE_LOCKED);
+
+        if (locked != null) {
+            return;
+        }
+
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     editor.getEditorComponent()
                           .putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
                         Boolean.valueOf(modified));
 
-                    String msg = "Document modified"+ (modified);
+                    String msg = "Document modified" + (modified);
 
                     if (!modified) {
                         msg = "Document modified:" + (modified);
                     }
 
                     editor.getStatusBar().setMessage(msg);
+
+                    final SyntaxDocument mDoc = (SyntaxDocument) editor.getEditorComponent()
+                                                                       .getDocument();
+
+                    System.out.println("parsing for completion");
+                    new Thread() {
+                            public void run() {
+                                mDoc.getCodeCompletion().init(mDoc);
+                            }
+                        }.start();
+                    System.out.println("parsing for completion done");
                 }
             });
     }
@@ -104,6 +124,14 @@ public class ModificationHandler implements DocumentListener, CaretListener {
      */
     public void caretUpdate(CaretEvent e) {
         final CaretEvent evt = e;
+
+        JTextComponent jtc = editor.getEditorComponent();
+        Object locked = jtc.getClientProperty(XPontusFileConstantsIF.FILE_LOCKED);
+
+        if (locked != null) {
+            return;
+        }
+
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     int caretPosition = editor.getEditorComponent()

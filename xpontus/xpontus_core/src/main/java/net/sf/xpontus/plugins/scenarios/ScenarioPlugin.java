@@ -26,7 +26,6 @@ package net.sf.xpontus.plugins.scenarios;
 import java.util.Collection;
 import net.sf.xpontus.plugins.XPontusPlugin;
 
-import java.util.Hashtable;
 import java.util.Iterator;
 import org.java.plugin.PluginManager;
 import org.java.plugin.registry.Extension;

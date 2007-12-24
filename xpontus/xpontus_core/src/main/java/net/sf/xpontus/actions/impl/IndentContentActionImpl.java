@@ -33,6 +33,8 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.swing.text.JTextComponent;
+import javax.swing.text.PlainDocument;
+import net.sf.xpontus.constants.XPontusFileConstantsIF;
 
 
 /**
@@ -83,6 +85,9 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
             return;
         }
  
+        jtc.putClientProperty(XPontusFileConstantsIF.FILE_LOCKED, Boolean.TRUE);
+        
+        ((PlainDocument)jtc.getDocument()).readLock();
         
         if (ht.containsKey(contentType)) {
             try {
@@ -101,7 +106,11 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
                     indenter = (IndentationPluginIF) table.get(contentType);
                 }
 
+                ((PlainDocument)jtc.getDocument()).readUnlock();
                 indenter.run();
+                jtc.putClientProperty(XPontusFileConstantsIF.FILE_LOCKED, null);
+                
+                
             } catch (Exception ex) {
                 getLogger().error(ex.getLocalizedMessage());
             }

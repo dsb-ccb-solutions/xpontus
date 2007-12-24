@@ -36,6 +36,7 @@ import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
+import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
 
 
 /**
@@ -79,18 +80,31 @@ public class ScenarioManagerController {
 
         if (indexes.length == 0) {
             XPontusComponentsUtils.showErrorMessage("Please select a scenario");
-        } else {
-            DefaultComboBoxModel m = (DefaultComboBoxModel) li.getModel();
-            List rm = new Vector();
 
-            for (int i = 0; i < indexes.length; i++) {
-                rm.add(m.getElementAt(i));
-            }
-
-            for (int i = 0; i < rm.size(); i++) {
-                m.removeElement(m.getElementAt(i));
-            }
+            return;
         }
+
+        DefaultComboBoxModel m = (DefaultComboBoxModel) li.getModel();
+        List rm = new Vector();
+
+        for (int i = 0; i < indexes.length; i++) {
+            rm.add(m.getElementAt(i));
+        }
+
+        for (int i = 0; i < rm.size(); i++) {
+            m.removeElement(m.getElementAt(i));
+        }
+
+        li.setSelectedIndex(li.getModel().getSize() - 1);
+    }
+
+    private void initScenarioEditor(ScenarioModel model) {
+        child = new ScenarioEditorView(this.view, model);
+    }
+
+    private void showEditorDialog() {
+        child.setLocationRelativeTo(view);
+        child.setVisible(true);
     }
 
     /**
@@ -99,21 +113,9 @@ public class ScenarioManagerController {
      */
     public void addNewScenario() {
         ScenarioModel scm = new ScenarioModel();
-        scm.isNew = true;
-
-        if (child == null) {
-            child = new ScenarioEditorView(view, scm);
-        } else {
-            child.setModel(scm);
-            child.validate();
-            child.repaint();
-        }
-
-        child.original = null;
-
-        child.setScenarioName("");
-        child.setLocationRelativeTo(view);
-        child.setVisible(true);
+        scm.setProcessor(ScenarioPluginsConfiguration.getInstance().getProcessorList().get(0).toString());
+        initScenarioEditor(scm);
+        showEditorDialog();
     }
 
     /**
@@ -126,30 +128,12 @@ public class ScenarioManagerController {
             XPontusComponentsUtils.showErrorMessage("No scenario selected");
 
             return;
-        } else {
-            System.out.println("index:" + index);
         }
 
         ScenarioModel scm = (ScenarioModel) view.getScenariosList().getModel()
                                                 .getElementAt(index);
-        scm.isNew = false;
-
-        if (child == null) {
-            child = new ScenarioEditorView(view, scm);
-        } else {
-            child.setModel(scm);
-            child.validate();
-            child.repaint();
-        }
-
-        child.original = null;
-        child.original = new String(scm.getName());
-
-        child.setScenarioName(scm.getName());
-        
-        child.setLocationRelativeTo(view);
-        
-        child.setVisible(true);
+        initScenarioEditor(scm);
+        showEditorDialog();
     }
 
     public void closeWindow() {

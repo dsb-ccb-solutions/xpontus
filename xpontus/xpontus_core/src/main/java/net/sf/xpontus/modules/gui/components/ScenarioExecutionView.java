@@ -141,7 +141,7 @@ private void runButton_onClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:even
     int index = scenarioList.getSelectedIndex();
     if(scenarioListModel.size() > 0 && index!= -1){
        ScenarioModel scenario = (ScenarioModel) scenarioListModel.get(index);
-       closeButton_onClick(evt);
+        XPontusComponentsUtils.showInformationMessage("Not implemented yet");
     }
     else{
         XPontusComponentsUtils.showErrorMessage("Please select a scenario");

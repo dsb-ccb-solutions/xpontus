@@ -30,15 +30,14 @@ import com.jgoodies.binding.beans.BeanAdapter;
 import com.jgoodies.binding.value.ValueModel;
 import java.awt.event.ActionListener;
 import java.beans.EventHandler;
-import java.lang.reflect.InvocationTargetException;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import net.sf.xpontus.controllers.impl.ScenarioEditorController;
 import net.sf.xpontus.model.ScenarioModel;
 import net.sf.xpontus.plugins.scenarios.ParametersPresentationModel;
 import net.sf.xpontus.plugins.scenarios.ParametersPresentationModel;
-import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration; 
-import org.apache.commons.beanutils.BeanUtils;
+import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
+import org.springframework.beans.BeanUtils;
 
 /**
  * Add or edit a scenario
@@ -54,44 +53,27 @@ public class ScenarioEditorView extends javax.swing.JDialog {
      */
     public ScenarioEditorView(javax.swing.JDialog parent, ScenarioModel model) {
         super(parent, true);
-        this.model = model;
-        
-        paramModel = new ParametersPresentationModel( model.getParameters());
-        adapter = new BeanAdapter(model, true);
+        paramModel = new ParametersPresentationModel(model.getParameters());
+
+        originalModel = model;
+        modifiedModel = new ScenarioModel(); // Create a copy
+        BeanUtils.copyProperties(originalModel, modifiedModel);
+
+        adapter = new BeanAdapter(modifiedModel, true);
         controller = new ScenarioEditorController(this);
 
-         
-       ValueModel vm = adapter.getValueModel("processor");
+        ValueModel vm = adapter.getValueModel("processor");
         processorAdapter = new ComboBoxAdapter(ScenarioPluginsConfiguration.getInstance().getProcessorList(), vm);
 
         initComponents();
-        
-        this.processorsList.setSelectedIndex(0); 
     }
 
     public JTable getParamsTable() {
         return paramsTable;
-    } 
-
-    public ScenarioModel getModel() {
-        return model;
     }
 
-    public void setModel(ScenarioModel model) {
-//        try {
-//            BeanUtils.copyProperties(model, this.model);
-//        } catch (IllegalAccessException ex) {
-//            ex.printStackTrace();
-//        } catch (InvocationTargetException ex) {
-//            ex.printStackTrace();
-//        }
-        this.model.setExternalDocument(model.isNew);
-        this.model.setInput(model.getInput());
-        this.model.setName(model.getName());
-        this.model.setOutput(model.getOutput());
-        this.model.setParameters(model.getParameters());
-        this.model.setProcessor(model.getProcessor());
-        this.model.setXsl(model.getXsl());
+    public ScenarioModel getModel() {
+        return modifiedModel;
     }
 
     public JRadioButton getUseCurrentDocumentOption() {
@@ -114,17 +96,6 @@ public class ScenarioEditorView extends javax.swing.JDialog {
         return paramModel;
     }
 
-    public String getScenarioName(){
-        System.out.println("name:" + this.nameTF.getText());
-        
-        return this.nameTF.getText();
-    }
-    
-    public void setScenarioName(String nameVal){
-        nameTF.setText(nameVal);
-    }
-    
-    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -219,6 +190,8 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
+        Bindings.bind(nameTF, adapter.getValueModel("name"));
+
         inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input options"));
 
         useCurrentDocumentOption.setText("Use current document");
@@ -252,7 +225,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                 .add(33, 33, 33)
                 .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(useExternalDocumentOption)
-                    .add(inputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
+                    .add(inputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
                 .addContainerGap())
         );
         inputPanelLayout.setVerticalGroup(
@@ -278,7 +251,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                     .add(firstPanelLayout.createSequentialGroup()
                         .add(nameLabel)
                         .add(113, 113, 113)
-                        .add(nameTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))
+                        .add(nameTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
                     .add(inputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(outputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -294,7 +267,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                 .add(inputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
                 .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         m_pane.addTab("General options", firstPanel);
@@ -364,8 +337,8 @@ public class ScenarioEditorView extends javax.swing.JDialog {
                     .add(scriptButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(transPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(processorsList, 0, 471, Short.MAX_VALUE)
-                    .add(scriptTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                    .add(processorsList, 0, 488, Short.MAX_VALUE)
+                    .add(scriptTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
                 .addContainerGap())
         );
         transPanelLayout.setVerticalGroup(
@@ -388,7 +361,7 @@ public class ScenarioEditorView extends javax.swing.JDialog {
             thirdPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(thirdPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(parametersPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
+                .add(parametersPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
                 .addContainerGap())
             .add(thirdPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(thirdPanelLayout.createSequentialGroup()
@@ -466,8 +439,8 @@ public class ScenarioEditorView extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private ScenarioEditorController controller;
     private BeanAdapter adapter;
-    private ScenarioModel model = new ScenarioModel();
-    private ComboBoxAdapter typeAdapter, processorAdapter;
+    private ScenarioModel originalModel,  modifiedModel;
+    private ComboBoxAdapter processorAdapter;
     private ParametersPresentationModel paramModel;
     public String original;
 }
