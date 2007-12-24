@@ -10,6 +10,7 @@
 package net.sf.xpontus.plugins.codecompletion.html;
 
 import java.util.List;
+import javax.swing.text.Document;
 import net.sf.xpontus.plugins.completion.CodeCompletionIF;
 
 /**
@@ -28,6 +29,18 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF{
 
     public List getCompletionList() {
         return null;
+    }
+
+    public List getAttributesCompletionList(String tagCompletionName) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean isTrigger(String str) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void init(Document doc) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
