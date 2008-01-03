@@ -21,10 +21,15 @@
  */
 package net.sf.xpontus.plugins.codecompletion.xml;
 
+import net.sf.xpontus.parsers.*;
+import net.sf.xpontus.plugins.completion.CodeCompletionIF;
+import net.sf.xpontus.syntax.SyntaxDocument;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.Reader;
+import java.io.StringReader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,10 +40,11 @@ import java.util.Map;
 
 /**
  * Code completion plugin for XML files
- * @version
- * @author Yves Zoundi
+ *
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @version 0.0.1
  */
-public class XMLCodeCompletionPluginImpl {
+public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     private Log logger = LogFactory.getLog(XMLCodeCompletionPluginImpl.class);
     private List tagList = new ArrayList();
     private boolean isDTDCompletion = false;
@@ -136,10 +142,76 @@ public class XMLCodeCompletionPluginImpl {
                 };
 
             t.start();
+        } else {
+            System.out.println("The completion database is up to date");
         }
     }
 
     public boolean isTrigger(String str) {
         return str.equals("<") || str.equals(">");
     }
+
+    public String getMimeType() {
+        return "text/xml";
+    }
+
+    public String getFileMode() {
+        return "xml";
+    }
+
+    public void init(final javax.swing.text.Document doc) {
+        String dtdLocation = null;
+        XMLLexer lexer = null;
+        XMLParser parser = null;
+        String schemaLocation = null;
+
+        SyntaxDocument mDoc = (SyntaxDocument) doc;
+
+        try {
+            System.out.print("XML CODE COMPLETION PARSING...");
+
+            String mText = doc.getText(0, doc.getLength());
+            Reader mReader = new StringReader(mText);
+            lexer = new XMLLexer(mReader);
+            parser = new XMLParser(lexer);
+            parser.parse();
+            System.out.println("parser end call");
+        } catch (Exception err) {
+        }
+
+        if (lexer != null) {
+            dtdLocation = lexer.getDTDLocation();
+            schemaLocation = lexer.getSchemaLocation();
+
+            System.out.println("dtd:" + dtdLocation);
+        }
+
+        try {
+            if (dtdLocation != null) {
+                dtdLocation = dtdLocation.substring(1, dtdLocation.length() -
+                        1);
+                setCompletionParser(new DTDCompletionParser());
+
+                java.net.URL url = new java.net.URL(dtdLocation);
+                java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
+
+                updateAssistInfo(lexer.getdtdPublicId(), dtdLocation, dtdReader);
+                System.out.println("parsing dtd");
+            } else if (schemaLocation != null) {
+                setCompletionParser(new XMLSchemaCompletionParser());
+
+                java.net.URL url = new java.net.URL(schemaLocation);
+                java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
+                updateAssistInfo(lexer.getdtdPublicId(), schemaLocation,
+                    dtdReader);
+            }
+        } catch (Exception err) {
+            if (err instanceof java.net.UnknownHostException) {
+                logger.warn("Unable to resolve remote DTD location");
+            } else {
+                logger.fatal(err.getMessage());
+            }
+        }
+    }
 }
+

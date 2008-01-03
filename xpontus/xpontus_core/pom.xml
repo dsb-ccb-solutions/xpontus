@@ -23,6 +23,7 @@
             </activation>
             <build>
                 <plugins>
+
                     <plugin>
                         <artifactId>maven-jar-plugin</artifactId>
                         <configuration>
@@ -322,6 +323,20 @@
                     <target>1.4</target>   
                 </configuration>
             </plugin> 
+<plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>exec-maven-plugin</artifactId>
+<executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions> 
+      <configuration>       
+        <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
+      </configuration>
+    </plugin> 
         </plugins>
     </build>    
 </project>

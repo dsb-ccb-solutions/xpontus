@@ -22,6 +22,7 @@
 package net.sf.xpontus.plugins.completion;
 
 import java.util.List;
+import javax.swing.text.Document;
 
 
 /**
@@ -30,6 +31,10 @@ import java.util.List;
  * @author Yves Zoundi
  */
 public interface CodeCompletionIF {
+
+    public List getAttributesCompletionList(String tagCompletionName);
+
+    public boolean isTrigger(String str);
     /**
      *
      * @return
@@ -47,4 +52,6 @@ public interface CodeCompletionIF {
      * @return
      */
     public List getCompletionList();
+
+    public void init(final Document doc);
 }

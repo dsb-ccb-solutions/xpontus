@@ -1,3 +1,4 @@
+
 /*
  * ScenarioManagerController.java
  *
@@ -28,6 +29,7 @@ import com.db4o.ObjectSet;
 import net.sf.xpontus.model.ScenarioModel;
 import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
 import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
+import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
 import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -36,8 +38,6 @@ import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
-import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
-
 
 /**
  * Class to manage the scenario manager form
@@ -45,6 +45,7 @@ import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
  * @version 0.0.1
  */
 public class ScenarioManagerController {
+
     public static final String NEW_SCENARIO_METHOD = "addNewScenario";
     public static final String CLOSE_WINDOW_METHOD = "closeWindow";
     public static final String EDIT_SCENARIO_METHOD = "editScenario";
@@ -99,7 +100,10 @@ public class ScenarioManagerController {
     }
 
     private void initScenarioEditor(ScenarioModel model) {
-        child = new ScenarioEditorView(this.view, model);
+        if (child == null) {
+            child = new ScenarioEditorView(view);
+        }
+        child.setModel(model);
     }
 
     private void showEditorDialog() {
@@ -130,8 +134,7 @@ public class ScenarioManagerController {
             return;
         }
 
-        ScenarioModel scm = (ScenarioModel) view.getScenariosList().getModel()
-                                                .getElementAt(index);
+        ScenarioModel scm = (ScenarioModel) view.getScenariosList().getModel().getElementAt(index);
         initScenarioEditor(scm);
         showEditorDialog();
     }
@@ -147,8 +150,7 @@ public class ScenarioManagerController {
             }
         }
 
-        DefaultComboBoxModel cbo = (DefaultComboBoxModel) view.getScenariosList()
-                                                              .getModel();
+        DefaultComboBoxModel cbo = (DefaultComboBoxModel) view.getScenariosList().getModel();
 
         for (int i = 0; i < cbo.getSize(); i++) {
             ScenarioModel scm = (ScenarioModel) cbo.getElementAt(i);
@@ -158,3 +160,4 @@ public class ScenarioManagerController {
         view.setVisible(false);
     }
 }
+

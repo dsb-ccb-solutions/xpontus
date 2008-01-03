@@ -40,7 +40,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
-
+import javax.swing.ImageIcon;
 
 /**
  * The default main component of XPontus XML Editor
@@ -68,6 +68,10 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         
         
         frame = new JFrame();
+
+	java.net.URL url = getClass().getResource("/net/sf/xpontus/icons/frame_logo.png");
+	ImageIcon m_icon = new ImageIcon(url);
+	frame.setIconImage(m_icon.getImage());
 
         frame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent arg0) {

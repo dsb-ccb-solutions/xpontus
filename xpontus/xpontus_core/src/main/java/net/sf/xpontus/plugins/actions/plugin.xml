@@ -1,7 +1,11 @@
 <?xml version="1.0" ?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
 <plugin id="plugin.core.actions" version="0.0.1" class="net.sf.xpontus.plugins.actions.ActionPlugin"> 
-    <runtime>
+    <attributes>
+		<attribute id = "Category" value="Actions"/>
+		<attribute id = "Built-in" value = "true"/>
+	</attributes>
+        <runtime>
         <library type="code" path="." id="plugin.core.actions"> 
             <export prefix="*"/> 
         </library>

@@ -74,5 +74,5 @@ public interface ScenarioPluginIF {
      * @return
      * @throws java.lang.Exception
      */
-    public boolean isValidModel(ScenarioModel model) ;
+    public boolean isValidModel(ScenarioModel model, boolean b) ;
 }

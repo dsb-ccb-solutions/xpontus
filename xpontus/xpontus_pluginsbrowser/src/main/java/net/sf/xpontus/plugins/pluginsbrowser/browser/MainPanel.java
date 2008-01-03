@@ -51,6 +51,18 @@ final class MainPanel extends JPanel
     MainPanel()
     {
         super();
+        Collection descriptors = registry.getPluginDescriptors();
+        Object m_d[] = descriptors.toArray();
+        
+        for(int i=0;i<m_d.length;i++){
+            PluginDescriptor pds = (PluginDescriptor)m_d[i];
+            String id = pds.getId();
+            String proto = pds.getLocation().getProtocol();
+            pds.getVersion();
+             
+            System.out.println("id:" + id + ",proto:" + proto);
+        }
+       
         initialize();
 
         String templatesPath = this.getClass().getName()

@@ -23,10 +23,11 @@
  */
 package net.sf.xpontus.model;
 
-import com.jgoodies.binding.beans.ExtendedPropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
-import java.util.Hashtable;
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,30 +35,43 @@ import java.util.Hashtable;
  * @author Yves Zoundi
  */
 public class ScenarioModel { 
-    private ExtendedPropertyChangeSupport pcs;
+    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private String input = "";
     private boolean externalDocument = false;    
     private String output = ""; 
     private String xsl = "";
     private String processor = "";
-    private String name = "";
-    private Hashtable parameters = new Hashtable();
-
-    public ScenarioModel() {
-        pcs = new ExtendedPropertyChangeSupport(this);
-    }
-
+    private String alias = "";
+    private List parameters = new ArrayList();
     
+
+   
+    /**
+     * Gets the value of alias
+     *
+     * @return the value of alias
+     */
+    public String getAlias() {
+	return this.alias;
+    }
 
     /**
-     * Returns the scenario's name
-     * @return The scenario's name
+     * Sets the value of alias
+     *
+     * @param newCalue Value to assign to this.alias
      */
-    public String getName() {
-        return name;
+    public void setAlias(String newValue) {
+	String oldValue = this.alias;
+	this.alias = newValue;
+	pcs.firePropertyChange("alias", oldValue, newValue);
     }
 
-    
+
+    public ScenarioModel() {
+        
+    }
+
+       
     /**
      *
      * @param x
@@ -74,16 +88,7 @@ public class ScenarioModel {
         pcs.removePropertyChangeListener(x);
     }
     
-    /**
-     * The scenario's name
-     * @param newValue The scenario's name
-     */
-    public void setName(String newValue) {
-        String oldValue = this.name;
-        this.name = newValue;
-        pcs.firePropertyChange("name", oldValue, newValue);
-    }
-
+    
     /**
      * whether the document is an external document or the current document
      * @return whether the document is an external document or the current document
@@ -142,7 +147,7 @@ public class ScenarioModel {
      * Return the processor parameters
      * @return The processor parameters
      */
-    public Hashtable getParameters() {
+    public List getParameters() {
         return parameters;
     }
 
@@ -150,8 +155,8 @@ public class ScenarioModel {
      * The processor parameters
      * @param newValue The processor parameters
      */
-    public void setParameters(Hashtable newValue) {
-        Hashtable oldValue = this.parameters;
+    public void setParameters(List newValue) {
+        List oldValue = this.parameters;
         this.parameters = newValue;
         pcs.firePropertyChange("parameters", oldValue, newValue);
     }
@@ -194,6 +199,6 @@ public class ScenarioModel {
     }
     
     public String toString(){
-        return this.name;
+        return this.alias;
     }
 }

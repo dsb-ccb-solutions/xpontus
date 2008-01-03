@@ -71,10 +71,15 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
         Reader reader = chd.detect().getReader();
 
         try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-                                                            .newDocumentBuilder();
+            DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+            fact.setValidating(false);
+
+            DocumentBuilder builder = fact.newDocumentBuilder();
+            builder.setEntityResolver(null);
+
             InputSource src = new InputSource(reader);
             Document doc = builder.parse(src);
+
             OutputFormat formatter = new OutputFormat();
             formatter.setIndenting(true);
             formatter.setEncoding("UTF-8");
@@ -85,14 +90,14 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
 
             byte[] b = out.toByteArray();
 
-            if (b.length > 0) { 
+            if (b.length > 0) {
                 jtc.getDocument().remove(0, jtc.getDocument().getLength());
                 jtc.getDocument().insertString(0, new String(b), null);
             } else {
-                
             }
         } catch (Exception e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }
+

@@ -26,8 +26,7 @@ import com.jgoodies.binding.list.SelectionInList;
 import com.jgoodies.binding.value.ValueHolder;
 import com.jgoodies.binding.value.ValueModel;
 
-import java.util.Hashtable;
-import java.util.Iterator;
+import java.util.*;
 
 import javax.swing.ListModel;
 import javax.swing.table.AbstractTableModel;
@@ -39,37 +38,31 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ParametersPresentationModel {
     private static final String[] COLUMNS = new String[] { "Name", "Value" };
-    private LinkedListModel parametersListModel;
+    private LinkedListModel parametersListModel = new LinkedListModel();
     private ValueModel parameterSelectionHolder;
     private SelectionInList parameterSelectionInList;
-    private Hashtable parameters;
-    private AbstractTableModel tableModel;
+    private List parameters = new Vector();
+    private AbstractTableModel tableModel = new ParametersTableModel();
 
-    /**
-     *
-     * @param parameters
-     */
-    public ParametersPresentationModel(Hashtable parameters) {
+    public ParametersPresentationModel() {
+    }
+
+    public void setParameters(List parameters) {
+        this.parameters.clear();
+        parametersListModel.clear();
         this.parameters = parameters;
-        parametersListModel = new LinkedListModel();
         retrieveData();
         parameterSelectionHolder = new ValueHolder();
 
-        ListModel lm = (ListModel) parametersListModel;
-        
-        parameterSelectionInList = new SelectionInList(lm,
+        parameterSelectionInList = new SelectionInList((ListModel) parametersListModel,
                 parameterSelectionHolder);
-        
-        tableModel = new ParametersTableModel();
+
+        tableModel.fireTableDataChanged();
     }
 
     private void retrieveData() {
-        Iterator it = parameters.keySet().iterator();
-
-        while (it.hasNext()) {
-            String name = it.next().toString();
-            String value = parameters.get(name).toString();
-            parametersListModel.add(new ParameterModel(name, value));
+        for (int i = 0; i < parameters.size(); i++) {
+            parametersListModel.add(parameters.get(i));
         }
     }
 
@@ -95,6 +88,10 @@ public class ParametersPresentationModel {
      */
     public LinkedListModel getParametersListModel() {
         return parametersListModel;
+    }
+
+    public List getParameters() {
+        return parameters;
     }
 
     /**
@@ -137,3 +134,4 @@ public class ParametersPresentationModel {
         }
     }
 }
+

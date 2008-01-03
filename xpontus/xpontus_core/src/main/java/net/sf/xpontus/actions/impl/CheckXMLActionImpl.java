@@ -83,7 +83,12 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
                                                          .get(ConsoleOutputWindow.MESSAGES_WINDOW);
             DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                       .getDocumentTabContainer()
-                                                                                      .getCurrentDockable();
+
+		.getCurrentDockable();
+
+
+	    System.out.println("Test");
+
             container.getStatusBar().setMessage("Document not well formed");
             odk.println(e.getMessage());
         } finally {

@@ -73,10 +73,10 @@ public class ModificationHandler implements DocumentListener, CaretListener {
                           .putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
                         Boolean.valueOf(modified));
 
-                    String msg = "Document modified" + (modified);
+                    String msg = "Document modified";
 
                     if (!modified) {
-                        msg = "Document modified:" + (modified);
+                        msg = "Document saved";
                     }
 
                     editor.getStatusBar().setMessage(msg);
@@ -84,13 +84,15 @@ public class ModificationHandler implements DocumentListener, CaretListener {
                     final SyntaxDocument mDoc = (SyntaxDocument) editor.getEditorComponent()
                                                                        .getDocument();
 
-                    System.out.println("parsing for completion");
+			if(mDoc.getCodeCompletion()!=null){
+                  //   System.out.println("parsing for completion");
                     new Thread() {
                             public void run() {
-                                mDoc.getCodeCompletion().init(mDoc);
+                               mDoc.getCodeCompletion().init(mDoc);
                             }
                         }.start();
-                    System.out.println("parsing for completion done");
+                   //  System.out.println("parsing for completion done");
+}
                 }
             });
     }

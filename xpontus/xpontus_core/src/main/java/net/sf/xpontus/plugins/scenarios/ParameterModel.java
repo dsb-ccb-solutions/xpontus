@@ -61,9 +61,5 @@ public class ParameterModel extends Model {
         this.value = value;
         this.firePropertyChange("value", old, this.value);
     }
-
-    public void copyTo(ParameterModel m_model) {
-        m_model.setName(this.name);
-        m_model.setValue(this.value);
-    }
+ 
 }

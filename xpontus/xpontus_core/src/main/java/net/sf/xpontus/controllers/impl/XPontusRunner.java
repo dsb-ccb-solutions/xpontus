@@ -59,6 +59,9 @@ import net.sf.xpontus.plugins.themes.ThemePlugin;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
+import java.awt.*;
+
+import java.io.*;
 import java.io.File;
 
 import java.util.Arrays;
@@ -89,7 +92,6 @@ public class XPontusRunner {
     public void handleArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
             File f = new File(args[i]);
-
             if (f.exists()) {
                 m_window.getDocumentTabContainer().createEditorFromFile(f);
             }
@@ -152,6 +154,7 @@ public class XPontusRunner {
             }).start();
 
         XPontusPluginManager controller = new XPontusPluginManager();
+
         controller.startApplication();
 
         XPontusTopComponentIF window = DefaultXPontusWindowImpl.getInstance();
@@ -309,11 +312,14 @@ public class XPontusRunner {
                                     .notifyComponents(new DocumentContainerChangeEvent(
                 null));
 
-        SwingUtilities.invokeLater(new Runnable() {
+        new Thread(new Runnable() {
                 public void run() {
                     splash.dispose();
                 }
-            });
+            }).start();
+        System.out.println("Activating the main window");
         window.activateComponent();
+        System.out.println("Done activating the main window");
     }
 }
+

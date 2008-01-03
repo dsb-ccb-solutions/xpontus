@@ -11,6 +11,7 @@ import com.jgoodies.binding.list.LinkedListModel;
 import javax.swing.JDialog;
 import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+import org.springframework.beans.BeanUtils;
 
 /**
  *
@@ -29,7 +30,7 @@ public class ParameterModelEditor extends javax.swing.JDialog {
 
         originalParameter = model;
         modifiedParameter = new ParameterModel(); // Create a copy
-        originalParameter.copyTo(modifiedParameter);
+        BeanUtils.copyProperties(originalParameter, modifiedParameter);
 
         parameterModelBeanAdapter = new BeanAdapter(modifiedParameter, true);
 
@@ -159,7 +160,7 @@ public class ParameterModelEditor extends javax.swing.JDialog {
             return;
         } 
         
-        modifiedParameter.copyTo(originalParameter);
+        BeanUtils.copyProperties(modifiedParameter, originalParameter);
         buttonPressed = BUTTON_OK;
         setVisible(false);
 

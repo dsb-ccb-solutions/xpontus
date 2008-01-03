@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * /ScenarioExecutionView.java
@@ -26,8 +27,10 @@ import com.ibm.icu.text.CharsetDetector;
 
 import net.sf.xpontus.model.ScenarioModel;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -39,8 +42,8 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -48,8 +51,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import net.sf.xpontus.utils.XPontusComponentsUtils;
-import org.apache.commons.io.IOUtils;
 
 
 /**
@@ -57,12 +58,11 @@ import org.apache.commons.io.IOUtils;
  * @author Yves Zoundi <yveszoundit at users dot sf dot net>
  */
 public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
-    
     /**
-     * 
+     *
      */
     public static final String SIMPLE_JAXP_TRANSFORMATION = "Output type (XML, HTML, Text)";
-    
+
     public String getName() {
         return SIMPLE_JAXP_TRANSFORMATION;
     }
@@ -80,25 +80,19 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     }
 
     /**
-     * 
+     *
      * @param tf
      * @param parameters
      */
-    public void setParameters(Transformer tf, Hashtable parameters) {
-        if (parameters != null) {
-            // Create an iterator for the parameters keys
-            Iterator it = parameters.keySet().iterator();
-
-            while (it.hasNext()) {
-                String m_key = it.next().toString();
-                Object m_value = parameters.get(m_key);
-                tf.setParameter(m_key, m_value);
-            }
+    public void setParameters(Transformer tf, List parameters) {
+        for (int i = 0; i < parameters.size(); i++) {
+            ParameterModel parameter = (ParameterModel) parameters.get(i);
+            tf.setParameter(parameter.getName(), parameter.getValue());
         }
     }
 
     /**
-     * 
+     *
      * @param model
      * @return
      * @throws java.lang.Exception
@@ -125,7 +119,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     public void handleScenario(ScenarioModel model) throws Exception {
         // set the processor properties for JAXP
         setSystemProperties();
-        
+
         // initialize the xslt processor
         TransformerFactory tff = TransformerFactory.newInstance();
 
@@ -150,15 +144,15 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
 
         // transform the input file
         tf.transform(src, res);
-        
+
         // close any open streams
         IOUtils.closeQuietly(m_writer);
-        
+
         IOUtils.closeQuietly(bos);
     }
 
     /**
-     * 
+     *
      * @param type
      * @param table
      * @return
@@ -174,7 +168,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     }
 
     /**
-     * 
+     *
      * @param table
      * @return
      */
@@ -192,12 +186,19 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         return sb.toString();
     }
 
-    public boolean isValidModel(ScenarioModel model)  { 
-         
+    public boolean isValidModel(ScenarioModel model, boolean transformationMode) {
         StringBuffer errors = new StringBuffer();
- 
-        if(model.getOutput().trim().equals("")){
+
+        if (model.getOutput().trim().equals("")) {
+            errors.append("The scenario name has not been specified\n");
+        }
+
+        if (model.getOutput().trim().equals("")) {
             errors.append("The output file has not been specified\n");
+        }
+
+        if (model.getXsl().trim().equals("")) {
+            errors.append("The script/stylesheet file has not been specified\n");
         }
 
         if (model.isExternalDocument()) {
@@ -206,18 +207,28 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
                 errors.append("The input document is invalid\n");
             }
         } else {
-            if (DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer()
-                                            .getCurrentEditor() == null) {
-                errors.append(
-                    "You want to run the scenario against the current\n");
-                errors.append(
-                    "opened document and theres is no document opened");
+            if (transformationMode) {
+                if (DefaultXPontusWindowImpl.getInstance()
+                                                .getDocumentTabContainer()
+                                                .getCurrentEditor() == null) {
+                    errors.append(
+                        "You want to run the scenario against the current\n");
+                    errors.append(
+                        "opened document and theres is no document opened");
+                }
             }
         }
-        
-        if(errors.length() > 0){
-             XPontusComponentsUtils.showErrorMessage(errors.toString());
-             return false;
+
+        if (!ScenarioPluginsConfiguration.getInstance().getProcessorList()
+                                             .contains(model.getProcessor())) {
+            errors.append(
+                "The processor for this transformation is not found\n");
+        }
+
+        if (errors.length() > 0) {
+            XPontusComponentsUtils.showErrorMessage(errors.toString());
+
+            return false;
         }
 
         return true;
@@ -235,3 +246,4 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
             "org.apache.xalan.processor.TransformerFactoryImpl");
     }
 }
+
