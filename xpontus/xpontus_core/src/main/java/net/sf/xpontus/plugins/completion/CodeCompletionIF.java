@@ -32,8 +32,18 @@ import javax.swing.text.Document;
  */
 public interface CodeCompletionIF {
 
+    /**
+     * 
+     * @param tagCompletionName
+     * @return
+     */
     public List getAttributesCompletionList(String tagCompletionName);
 
+    /**
+     * 
+     * @param str
+     * @return
+     */
     public boolean isTrigger(String str);
     /**
      *
@@ -53,5 +63,9 @@ public interface CodeCompletionIF {
      */
     public List getCompletionList();
 
+    /**
+     * 
+     * @param doc
+     */
     public void init(final Document doc);
 }
