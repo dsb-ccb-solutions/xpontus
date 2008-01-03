@@ -69,9 +69,7 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         
         frame = new JFrame();
 
-	java.net.URL url = getClass().getResource("/net/sf/xpontus/icons/frame_logo.png");
-	ImageIcon m_icon = new ImageIcon(url);
-	frame.setIconImage(m_icon.getImage());
+ 
 
         frame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent arg0) {
