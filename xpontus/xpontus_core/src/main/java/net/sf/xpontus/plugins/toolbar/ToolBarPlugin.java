@@ -19,7 +19,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-package net.sf.xpontus.plugins.gui.toolbar;
+package net.sf.xpontus.plugins.toolbar;
 
 import com.vlsolutions.swing.toolbars.ToolBarConstraints;
 import com.vlsolutions.swing.toolbars.ToolBarContainer;

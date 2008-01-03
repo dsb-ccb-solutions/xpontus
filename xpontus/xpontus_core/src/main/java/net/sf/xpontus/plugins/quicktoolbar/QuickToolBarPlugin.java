@@ -22,7 +22,7 @@
  * 
  */
 
-package net.sf.xpontus.plugins.gui.quicktoolbar;
+package net.sf.xpontus.plugins.quicktoolbar;
 
 import java.util.HashMap;
 import java.util.Map;

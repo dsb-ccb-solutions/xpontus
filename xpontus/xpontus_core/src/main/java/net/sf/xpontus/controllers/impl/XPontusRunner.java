@@ -47,10 +47,10 @@ import net.sf.xpontus.plugins.completion.CodeCompletionPlugin;
 import net.sf.xpontus.plugins.evaluator.EvaluatorPlugin;
 import net.sf.xpontus.plugins.evaluator.ExpressionEvaluatorPanel;
 import net.sf.xpontus.plugins.gendoc.DocumentationPlugin;
-import net.sf.xpontus.plugins.gui.menubar.MenuBarPlugin;
-import net.sf.xpontus.plugins.gui.menubar.MenuBarPluginIF;
-import net.sf.xpontus.plugins.gui.toolbar.ToolBarPlugin;
-import net.sf.xpontus.plugins.gui.toolbar.ToolBarPluginIF;
+import net.sf.xpontus.plugins.menubar.MenuBarPlugin;
+import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
+import net.sf.xpontus.plugins.toolbar.ToolBarPlugin;
+import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.plugins.indentation.IndentationPlugin;
 import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.plugins.lexer.LexerPlugin;
@@ -316,10 +316,13 @@ public class XPontusRunner {
                 public void run() {
                     splash.dispose();
                 }
-            }).start();
-        System.out.println("Activating the main window");
-        window.activateComponent();
-        System.out.println("Done activating the main window");
+            }).start(); 
+            
+            
+            
+        window.activateComponent(); 
+        
+        
     }
 }
 

@@ -1,7 +1,7 @@
 /*
- * TextEditorPlugin.java
+ * OutlinePlugin.java
  *
- * Created on Jul 29, 2007, 8:56:53 AM
+ * Created on 2007-08-08, 14:56:58
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
@@ -19,9 +19,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-package net.sf.xpontus.plugins.gui.editor;
+package net.sf.xpontus.plugins.outline;
 
-import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
 import net.sf.xpontus.properties.PropertiesHolder;
@@ -38,47 +37,29 @@ import java.util.Iterator;
 
 
 /**
- * Text editor plugin
+ * Plugin for outline views
+ * @version 0.0.1
  * @author Yves Zoundi
  */
-public class TextEditorPlugin extends XPontusPlugin {
-    public static final String EXTENSION_POINT_NAME = "texteditormoduleif";
-    public static final String PLUGIN_IDENTIFIER = "plugin.core.editor";
-    private Hashtable h_plugins;
+public class OutlinePlugin extends XPontusPlugin {
+    public static final String EXTENSION_POINT_NAME = "outlinepluginif";
+    public static final String PLUGIN_IDENTIFIER = "plugin.core.outline";
+    private Hashtable outliners;
 
-    /**
-     * 
-     */
-    public TextEditorPlugin() {
-    }
-
-    /**
-     *
-     * @param m_plugin
-     */
-    public void initExtension(TextEditorPluginIF m_plugin) {
-        ClassLoader loader = m_plugin.getClass().getClassLoader();
-        String m_plugin_name = m_plugin.getClass().getName();
-
-        Hashtable m_plugin_table = new Hashtable();
-
-        m_plugin_table.put(XPontusConstantsIF.CLASS_LOADER, loader);
-        m_plugin_table.put(XPontusConstantsIF.OBJECT_CLASSNAME, m_plugin_name);
-
-        h_plugins.put(m_plugin_name, m_plugin_table);
+    public OutlinePlugin() {
     }
 
     public void init() throws Exception {
+        PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_OUTLINE_ENGINES,
+            outliners);
+
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
-        ExtensionPoint iocPluginExtPoint = registry.getExtensionPoint(getDescriptor()
-                                                                          .getId(),
+        ExtensionPoint outlineExtPoint = registry.getExtensionPoint(getDescriptor()
+                                                                        .getId(),
                 EXTENSION_POINT_NAME);
 
-        PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_TEXTEDITORS_PLUGINS_PROPERTY,
-            h_plugins);
-
-        Collection plugins = iocPluginExtPoint.getConnectedExtensions();
+        Collection plugins = outlineExtPoint.getConnectedExtensions();
 
         for (Iterator it = plugins.iterator(); it.hasNext();) {
             Extension ext = (Extension) it.next();
@@ -87,15 +68,23 @@ public class TextEditorPlugin extends XPontusPlugin {
             String className = ext.getParameter("class").valueAsString();
 
             Class cl = classLoader.loadClass(className);
-            TextEditorPluginIF mPlugin = (TextEditorPluginIF) cl.newInstance();
+            OutlinePluginIF m_outliner = (OutlinePluginIF) cl.newInstance();
+            initExtension(m_outliner);
         }
     }
 
     protected void doStart() throws Exception {
-        h_plugins = new Hashtable();
+        outliners = new Hashtable();
     }
 
     protected void doStop() throws Exception {
-        h_plugins.clear();
+        outliners.clear();
+    }
+
+    private void initExtension(OutlinePluginIF m_outliner) {
+        String m_class = m_outliner.getClass().getName();
+        String m_mime = m_outliner.getContentType();
+
+        outliners.put(m_mime, m_class);
     }
 }

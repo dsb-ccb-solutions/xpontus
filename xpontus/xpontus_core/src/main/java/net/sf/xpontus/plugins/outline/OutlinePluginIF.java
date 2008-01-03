@@ -1,7 +1,7 @@
 /*
- * ConsolePluginIF.java
+ * OutlinePluginIF.java
  *
- * Created on 20-Jul-2007, 2:32:46 PM
+ * Created on 2007-08-08, 14:57:07
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
@@ -19,19 +19,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-package net.sf.xpontus.plugins.gui.console;
+package net.sf.xpontus.plugins.outline;
 
-import java.awt.Component;
+import javax.swing.text.Document;
 
 
 /**
- * Plugin for console tabbed windows
+ * Plugin interface for outline builders
+ * @version 0.0.1
  * @author Yves Zoundi
  */
-public interface ConsolePluginIF {
-    String getName();
+public interface OutlinePluginIF {
+    /**
+     * 
+     * @return 
+     */
+    String getContentType();
 
-    Component getComponent();
-
-    void handleData(Object data);
+    /**
+     * 
+     * @param doc 
+     */
+    void updateOutline(Document doc);
 }

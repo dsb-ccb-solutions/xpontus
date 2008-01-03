@@ -20,7 +20,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
  */
-package net.sf.xpontus.plugins.gui.editor;
+package net.sf.xpontus.plugins.editor;
 
 import javax.swing.event.CaretEvent;
 import javax.swing.event.DocumentEvent;
