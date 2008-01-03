@@ -7,10 +7,10 @@
 /net/sf/xpontus/plugins/indentation/
 /net/sf/xpontus/plugins/completion/
 /net/sf/xpontus/plugins/icons/
-/net/sf/xpontus/plugins/gui/toolbar/
-/net/sf/xpontus/plugins/gui/menubar/
-/net/sf/xpontus/plugins/gui/console/
-/net/sf/xpontus/plugins/gui/editor/
+/net/sf/xpontus/plugins/toolbar/
+/net/sf/xpontus/plugins/menubar/
+/net/sf/xpontus/plugins/console/
+/net/sf/xpontus/plugins/editor/
 /net/sf/xpontus/plugins/gendoc/
 /net/sf/xpontus/plugins/scenarios/
 /net/sf/xpontus/plugins/evaluator/

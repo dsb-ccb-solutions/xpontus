@@ -169,6 +169,9 @@ public class XPontusRunner {
                 EvaluatorPlugin.PLUGIN_IDENTIFIER,
                 CodeCompletionPlugin.PLUGIN_IDENTIFIER
             };
+        
+        
+      //  Package
 
         // init plugins
         for (int i = 0; i < identifiers.length; i++) {

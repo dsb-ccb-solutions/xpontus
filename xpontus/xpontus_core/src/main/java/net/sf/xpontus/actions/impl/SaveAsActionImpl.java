@@ -21,26 +21,108 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+
+import org.apache.commons.vfs.FileContent;
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
+
+import java.io.File;
+import java.io.OutputStream;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.text.JTextComponent;
+import net.sf.xpontus.controllers.impl.ModificationHandler;
 
 
 /**
  * Action to save a document under a new name
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
+public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl
+{
     public static final String BEAN_ALIAS = "action.saveas";
+    private JFileChooser chooser;
 
     /** Creates a new instance of SaveAsActionImpl */
-    public SaveAsActionImpl() {
+    public SaveAsActionImpl()
+    {
     }
 
     /**
      *
      * Save the document under a new name
      */
-    public void run() {
-        XPontusComponentsUtils.showInformationMessage("not implemented!!!");
+    public void run()
+    {
+        if (chooser == null)
+        {
+            chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        }
+
+        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
+                                                                  .getDisplayComponent());
+
+        if (answer == JFileChooser.APPROVE_OPTION)
+        {
+            try
+            {
+                File dest = chooser.getSelectedFile();
+
+                if (dest.exists())
+                {
+                    int rep = JOptionPane.showConfirmDialog(chooser,
+                            "Erase the file?", "The file exists!",
+                            JOptionPane.YES_NO_OPTION);
+
+                    if (rep == JOptionPane.YES_OPTION)
+                    {
+                        save(dest);
+                    }
+                }
+                else
+                {
+                    save(dest);
+                }
+            }
+            catch (Exception e)
+            {
+            }
+        }
+    }
+
+    public void save(File output) throws Exception
+    {
+        // get an outputstream to save the document using Apache Commons VFS
+        FileObject fo = VFS.getManager().toFileObject(output);
+        FileContent content = fo.getContent();
+        OutputStream bos = content.getOutputStream();
+        
+        // get the current document
+        JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
+                                                        .getDocumentTabContainer()
+                                                        .getCurrentEditor();
+        bos.write(editor.getText().getBytes());
+        bos.flush();
+        bos.close();
+
+        // dummy mime type detection
+        String mm = MimeTypesProvider.getInstance().getMimeType(output.getName());
+
+        // add the mime type
+        editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
+
+        // add information about the file location
+        editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo);
+
+        // removed the modified flag
+        ModificationHandler handler = (ModificationHandler) editor.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);
+        handler.setModified(false);
     }
 }

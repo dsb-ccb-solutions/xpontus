@@ -86,7 +86,7 @@ public class DocumentContainer implements Dockable {
         documentPanel.setLayout(new BorderLayout());
         editor = new JEditorPane();
         status = new JStatusBar();
-
+        
         scrollPane = new JScrollPane(editor);
         scrollPane.setRowHeaderView(new LineView(editor));
 
@@ -186,6 +186,7 @@ public class DocumentContainer implements Dockable {
             FileObject fo = VFS.getManager().toFileObject(file);
             setup(fo, file.getAbsolutePath(), file.getName());
             editor.setEditable(file.canWrite());
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -249,6 +250,8 @@ public class DocumentContainer implements Dockable {
 
             editor.putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
                 Boolean.FALSE);
+            
+            editor.setCaretPosition(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

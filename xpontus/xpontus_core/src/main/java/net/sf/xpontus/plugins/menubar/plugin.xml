@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.core.menubar" version="0.0.1" class="net.sf.xpontus.plugins.gui.menubar.MenuBarPlugin"> 
+<plugin id="plugin.core.menubar" version="0.0.1" class="net.sf.xpontus.plugins.menubar.MenuBarPlugin"> 
    <attributes>
 		<attribute id = "Category" value="Menubar"/>
 		<attribute id = "Built-in" value = "true"/>
