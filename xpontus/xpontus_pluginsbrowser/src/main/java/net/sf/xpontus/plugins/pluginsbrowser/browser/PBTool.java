@@ -1,14 +1,14 @@
 // Placed in public domain by Dmitry Olshansky, 2006
 package net.sf.xpontus.plugins.pluginsbrowser.browser;
 
-import net.sf.xpontus.constants.XPontusMenuConstantsIF;
-import net.sf.xpontus.plugins.gui.menubar.MenuBarPluginIF;
+import net.sf.xpontus.constants.XPontusMenuConstantsIF; 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
 
 
 /**

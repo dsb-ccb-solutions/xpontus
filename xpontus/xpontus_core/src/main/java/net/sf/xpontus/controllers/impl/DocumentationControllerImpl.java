@@ -127,6 +127,12 @@ public class DocumentationControllerImpl {
      */
     public void handle() {
         String type = view.getModel().getType();
+        
+        if(type == null || type.trim().equals("")){
+            XPontusComponentsUtils.showErrorMessage("Please install some plugins");
+            return;
+        }
+        
         Hashtable t = (Hashtable) DocConfiguration.getInstane().getEngines()
                                                   .get(type);
         ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);

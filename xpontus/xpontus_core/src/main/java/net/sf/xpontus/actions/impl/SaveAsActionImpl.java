@@ -22,21 +22,20 @@
 package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import org.apache.commons.vfs.FileContent;
-import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.VFS;
-
+import org.apache.commons.vfs.*;
+import org.apache.commons.vfs.impl.*;
+import org.apache.commons.vfs.provider.*;
 import java.io.File;
 import java.io.OutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.controllers.impl.ModificationHandler;
 
 
 /**
@@ -44,66 +43,68 @@ import net.sf.xpontus.controllers.impl.ModificationHandler;
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl
-{
+public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.saveas";
     private JFileChooser chooser;
 
     /** Creates a new instance of SaveAsActionImpl */
-    public SaveAsActionImpl()
-    {
+    public SaveAsActionImpl() {
     }
 
     /**
      *
      * Save the document under a new name
      */
-    public void run()
-    {
-        if (chooser == null)
-        {
+    public void run() {
+        if (chooser == null) {
             chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         }
 
-        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
+        int answer = chooser.showSaveDialog(XPontusComponentsUtils.getTopComponent()
                                                                   .getDisplayComponent());
 
-        if (answer == JFileChooser.APPROVE_OPTION)
-        {
-            try
-            {
+        if (answer == JFileChooser.APPROVE_OPTION) {
+            try {
                 File dest = chooser.getSelectedFile();
 
-                if (dest.exists())
-                {
+                if (dest.exists()) {
                     int rep = JOptionPane.showConfirmDialog(chooser,
                             "Erase the file?", "The file exists!",
                             JOptionPane.YES_NO_OPTION);
 
-                    if (rep == JOptionPane.YES_OPTION)
-                    {
+                    if (rep == JOptionPane.YES_OPTION) {
                         save(dest);
                     }
-                }
-                else
-                {
+                } else {
                     save(dest);
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
-    public void save(File output) throws Exception
-    {
+    public void save(File output) throws Exception {
         // get an outputstream to save the document using Apache Commons VFS
-        FileObject fo = VFS.getManager().toFileObject(output);
-        FileContent content = fo.getContent();
-        OutputStream bos = content.getOutputStream();
         
+
+        AbstractFileObject fo = (AbstractFileObject) VFS.getManager().toFileObject(output);
+
+         
+
+        //        FileObject fo = fsm.resolveFile(output.toURL().toExternalForm());
+
+        //        if (!fo.exists()) {
+        //            fo.createFile();
+        //            String s[] = fsm.getSchemes();
+        //            for(int i=0;i<s.length;i++){
+        //                System.out.println(s[i]);
+        //            }
+        //                    return;
+        //        } 
+        OutputStream bos = fo.getOutputStream(false);
+
         // get the current document
         JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
                                                         .getDocumentTabContainer()

@@ -21,14 +21,14 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.plugins.validation.batchvalidation;
-
-import net.sf.xpontus.constants.XPontusMenuConstantsIF;
-import net.sf.xpontus.plugins.gui.menubar.MenuBarPluginIF;
+ 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.sf.xpontus.constants.XPontusMenuConstantsIF;
+import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
 
 
 /**

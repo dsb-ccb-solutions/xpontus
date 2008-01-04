@@ -24,17 +24,18 @@
 package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
 import net.sf.xpontus.properties.PropertiesHolder;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.swing.text.JTextComponent;
 import javax.swing.text.PlainDocument;
-import net.sf.xpontus.constants.XPontusFileConstantsIF;
 
 
 /**
@@ -75,8 +76,11 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
         Hashtable ht = (Hashtable) PropertiesHolder.getPropertyValue(XPontusConstantsIF.XPONTUS_INDENTATION_ENGINES);
 
         if ((ht == null) || (ht.size() == 0)) {
-            getLogger()
-                .info("Did you forget to call the init method of the indentationplugin??");
+            String msg = "Did you installed some plugins in the category (Indentation)?";
+
+            getLogger().info(msg);
+
+            XPontusComponentsUtils.showWarningMessage(msg);
             hasplugins = false;
             setEnabled(false);
             this.setDescription(
@@ -84,11 +88,11 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
 
             return;
         }
- 
+
         jtc.putClientProperty(XPontusFileConstantsIF.FILE_LOCKED, Boolean.TRUE);
-        
-        ((PlainDocument)jtc.getDocument()).readLock();
-        
+
+        ((PlainDocument) jtc.getDocument()).readLock();
+
         if (ht.containsKey(contentType)) {
             try {
                 Hashtable m_ht = (Hashtable) ht.get(contentType);
@@ -106,17 +110,15 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
                     indenter = (IndentationPluginIF) table.get(contentType);
                 }
 
-                ((PlainDocument)jtc.getDocument()).readUnlock();
+                ((PlainDocument) jtc.getDocument()).readUnlock();
                 indenter.run();
                 jtc.putClientProperty(XPontusFileConstantsIF.FILE_LOCKED, null);
-                
-                
             } catch (Exception ex) {
                 getLogger().error(ex.getLocalizedMessage());
             }
-        }
-        else{
-            System.out.println("no indenter engine for content type:" + contentType);
+        } else {
+            System.out.println("no indenter engine for content type:" +
+                contentType);
         }
     }
 }

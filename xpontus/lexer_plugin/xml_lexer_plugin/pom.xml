@@ -9,7 +9,7 @@
   <groupId>net.sf.xpontus.plugins.lexer</groupId>
   <artifactId>xml_lexer_plugin</artifactId>
   <name>XML lexer</name>
-  <version>1.0-SNAPSHOT</version> 
+  <version>1.0.0-pre1</version> 
   <description>XPontus XML lexer plugin</description>
   <dependencies>
     <dependency>

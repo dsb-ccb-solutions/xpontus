@@ -62,7 +62,13 @@ public class InstalledPluginsPanel extends javax.swing.JPanel {
         rows[2, i] = builtin;*/
         }
 
-        tableModel = new DefaultTableModel(rows, columns);
+        tableModel = new DefaultTableModel(rows, columns) {
+
+            public boolean isCellEditable(int row,
+                    int column) {
+                return false;
+            }
+        };
 
         initComponents();
 
