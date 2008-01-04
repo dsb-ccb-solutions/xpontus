@@ -89,21 +89,16 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
         // get an outputstream to save the document using Apache Commons VFS
         
 
-        AbstractFileObject fo = (AbstractFileObject) VFS.getManager().toFileObject(output);
-
+        FileSystemManager fsm = VFS.getManager();
          
-
-        //        FileObject fo = fsm.resolveFile(output.toURL().toExternalForm());
-
-        //        if (!fo.exists()) {
-        //            fo.createFile();
-        //            String s[] = fsm.getSchemes();
-        //            for(int i=0;i<s.length;i++){
-        //                System.out.println(s[i]);
-        //            }
-        //                    return;
-        //        } 
-        OutputStream bos = fo.getOutputStream(false);
+        
+        FileObject fo = fsm.resolveFile(output.getAbsolutePath());
+        
+        if(!fo.exists()){
+            fo.createFile();
+        }
+         
+        OutputStream bos = fo.getContent().getOutputStream();
 
         // get the current document
         JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
