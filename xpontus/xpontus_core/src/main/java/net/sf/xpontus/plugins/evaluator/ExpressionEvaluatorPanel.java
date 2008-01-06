@@ -26,22 +26,15 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
         initComponents();
         DefaultComboBoxModel mm = (DefaultComboBoxModel) this.engineList.getModel();
         String engines[] = EvaluatorPluginConfiguration.getInstane().getEnginesNames();
-        
-        for(int i=0;i<engines.length;i++){
-            mm.addElement(engines[i]);;
-        } 
-        if(mm.getSize() > 0){
+
+        for (int i = 0; i < engines.length; i++) {
+            mm.addElement(engines[i]);
+        }
+        if (mm.getSize() > 0) {
             this.engineList.setSelectedIndex(0);
         }
-    }
-
-//    public void setVisible(boolean b) {
-//        if (b) {
-//           
-//
-//        }
-//        super.setVisible(b);
-//    }
+    } 
+    
     public String getExpression() {
         return this.expressionList.getSelectedItem().toString();
     }
@@ -95,31 +88,32 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     private void evaluateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluateButtonActionPerformed
-    
+
         Hashtable t = (Hashtable) EvaluatorPluginConfiguration.getInstane().getEngines().get(this.engineList.getSelectedItem());
 
-        if(t==null){
+        if (t == null) {
             XPontusComponentsUtils.showErrorMessage("No plugins installed for that action");
+            this.evaluateButton.setEnabled(false);
+            this.engineList.setEnabled(false);
+            this.expressionList.setEnabled(false);
             return;
         }
-        
+
         ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
         String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME).toString();
-        try{
-        EvaluatorPluginIF plugin = (EvaluatorPluginIF) Class.forName(classname, true, loader).newInstance();
-       Object[] li = plugin.handle(getExpression()); 
-       if(li != null){
-           NodeList nl = (NodeList) li[0];
-           DOMAddLines dm = (DOMAddLines) li[1];
-            XPathResultsDockable dockable = (XPathResultsDockable) DefaultXPontusWindowImpl.getInstance().getConsole().getDockables().get(ConsoleOutputWindow.XPATH_WINDOW);
-           dockable.setResultsModel(new XPathResultsTableModel(nl, dm));
-           
-       } 
-       else{
-           XPontusComponentsUtils.showErrorMessage("No results");
-       }
-        }
-        catch(Exception e){
+        try {
+            EvaluatorPluginIF plugin = (EvaluatorPluginIF) Class.forName(classname, true, loader).newInstance();
+            Object[] li = plugin.handle(getExpression());
+            if (li != null) {
+                NodeList nl = (NodeList) li[0];
+                DOMAddLines dm = (DOMAddLines) li[1];
+                XPathResultsDockable dockable = (XPathResultsDockable) DefaultXPontusWindowImpl.getInstance().getConsole().getDockables().get(ConsoleOutputWindow.XPATH_WINDOW);
+                dockable.setResultsModel(new XPathResultsTableModel(nl, dm));
+
+            } else {
+                XPontusComponentsUtils.showErrorMessage("No results");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_evaluateButtonActionPerformed
