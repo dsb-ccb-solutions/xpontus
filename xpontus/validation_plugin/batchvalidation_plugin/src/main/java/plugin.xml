@@ -6,14 +6,14 @@
         <attribute id = "Built-in" value = "false"/>
     </attributes>
     <requires>
-        <import plugin-id="plugin.core.menubar" />
+        <import plugin-id="plugin.core.actions" />
     </requires>
     <runtime> 
         <library id="batchvalidationplugin" path="lib/batchvalidation_plugin-1.0.0-pre1.jar" type="code">
             <export prefix="*"/> 
         </library> 
     </runtime>
-    <extension plugin-id="plugin.core.menubar" point-id="menubarpluginif" id="batchvalidationplugin">
+    <extension plugin-id="plugin.core.actions" point-id="actionpluginif" id="batchvalidationplugin">
         <parameter id="class" value="net.sf.xpontus.plugins.validation.batchvalidation.BatchValidationPluginImpl" /> 
     </extension>
 </plugin>

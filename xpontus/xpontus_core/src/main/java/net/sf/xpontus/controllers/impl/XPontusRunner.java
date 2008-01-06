@@ -61,11 +61,7 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 import org.apache.commons.vfs.FilesCache;
 import org.apache.commons.vfs.VFS;
-import org.apache.commons.vfs.cache.SoftRefFilesCache;
-
-import java.awt.*;
-
-import java.io.*;
+ 
 import java.io.File;
 
 import java.util.Arrays;
@@ -76,6 +72,7 @@ import java.util.Vector;
 
 import javax.swing.JWindow;
 import javax.swing.UIManager;
+import net.sf.xpontus.plugins.actions.ActionPlugin;
 import org.apache.commons.vfs.cache.LRUFilesCache;
 
 
@@ -174,6 +171,7 @@ public class XPontusRunner {
                 IOCPlugin.PLUGIN_IDENTIFIER, ThemePlugin.PLUGIN_IDENTIFIER,
                 MenuBarPlugin.PLUGIN_IDENTIFIER, LexerPlugin.PLUGIN_IDENTIFIER,
                 ToolBarPlugin.PLUGIN_IDENTIFIER,
+                ActionPlugin.PLUGIN_IDENTIFIER,
                 IndentationPlugin.PLUGIN_IDENTIFIER,
                 DocumentationPlugin.PLUGIN_IDENTIFIER,
                 ScenarioPlugin.PLUGIN_IDENTIFIER,

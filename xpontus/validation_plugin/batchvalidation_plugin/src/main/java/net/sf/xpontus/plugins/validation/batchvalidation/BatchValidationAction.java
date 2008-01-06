@@ -31,7 +31,8 @@ public class BatchValidationAction extends XPontusDialogActionImpl {
      * Default constructor
      */
     public BatchValidationAction(){
-        setName("Batch Validation (XML)");
+        setName("Batch Validation");
+        setDescription("Batch Validation (XML)");
         setDialogClassName(BatchValidationDialogView.class.getName());
         setWindowClassLoader(this.getClass().getClassLoader());
     } 

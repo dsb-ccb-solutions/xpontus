@@ -22,6 +22,9 @@
 package net.sf.xpontus.plugins.actions;
 
 import net.sf.xpontus.plugins.XPontusPlugin;
+import net.sf.xpontus.plugins.menubar.MenuBarPlugin;
+import net.sf.xpontus.plugins.popupcontext.PopupContextPlugin;
+import net.sf.xpontus.plugins.toolbar.ToolBarPlugin;
 
 import org.java.plugin.PluginManager;
 import org.java.plugin.registry.Extension;
@@ -31,7 +34,6 @@ import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
 
 
 /**
@@ -58,13 +60,28 @@ public class ActionPlugin extends XPontusPlugin {
     protected void doStop() throws Exception {
     }
 
-    public void initExtension(ActionPluginIF module) {
-        Map menuActions = module.getMenuActions();
+    /**
+     *
+     * @param plugin
+     */
+    public void initExtension(ActionPluginIF plugin) {
+        try {
+            
+            System.out.println("ZOUNDI:"  + plugin.getClass().getName());
+            
+            ToolBarPlugin toolbarPlugin = (ToolBarPlugin) getManager()
+                                                              .getPlugin(ToolBarPlugin.PLUGIN_IDENTIFIER);
+            MenuBarPlugin menubarPlugin = (MenuBarPlugin) getManager()
+                                                              .getPlugin(MenuBarPlugin.PLUGIN_IDENTIFIER);
+            PopupContextPlugin popupPlugin = (PopupContextPlugin) getManager()
+                                                                      .getPlugin(PopupContextPlugin.PLUGIN_IDENTIFIER);
 
-        Map tbActions = module.getToolBarActions();
-
-        // we should have the menubar plugin 
-        // and the toolbar plugins initialized first
+            toolbarPlugin.initExtension(plugin);
+            menubarPlugin.initExtension(plugin);
+            popupPlugin.initExtension(plugin);
+        } catch (Exception e) {
+            log.fatal(e.getMessage());
+        }
     }
 
     /**
@@ -86,6 +103,7 @@ public class ActionPlugin extends XPontusPlugin {
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
             Class cl = classLoader.loadClass(className);
+            initExtension((ActionPluginIF) cl.newInstance());
         }
     }
 }

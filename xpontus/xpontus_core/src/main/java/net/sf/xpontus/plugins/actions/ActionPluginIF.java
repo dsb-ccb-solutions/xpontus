@@ -21,30 +21,15 @@
  */
 package net.sf.xpontus.plugins.actions;
 
-import java.util.Map;
+import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
+import net.sf.xpontus.plugins.popupcontext.PopupContextPluginImpl;
+import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 
 
 /**
  * Plugin interface for actions
  * @author Yves Zoundi
  */
-public interface ActionPluginIF {
-    /**
-     *
-     * @return
-     */
-    public Map getMenuActions();
-
-    /**
-     *
-     * @return
-     */
-    public Map getToolBarActions();
-
-    
-    /**
-     * 
-     * @return 
-     */
-    public Map getEditorContextMenuActions();
+public interface ActionPluginIF extends MenuBarPluginIF, ToolBarPluginIF, PopupContextPluginImpl{
+   
 }
