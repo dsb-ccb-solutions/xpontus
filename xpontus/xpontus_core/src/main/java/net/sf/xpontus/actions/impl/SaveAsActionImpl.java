@@ -21,6 +21,10 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import com.vlsolutions.swing.docking.Dockable;
+
+import com.vlsolutions.swing.docking.DockableContainer;
+import com.vlsolutions.swing.docking.DockingUtilities;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -124,6 +128,16 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
 
         // add information about the file location
         editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo);
+
+        Dockable dc = DefaultXPontusWindowImpl.getInstance()
+                                              .getDocumentTabContainer()
+                                              .getCurrentDockable();
+        dc.getDockKey().setTooltip(fo.getURL().toExternalForm());
+        dc.getDockKey().setName(fo.getName().getBaseName());
+        
+        DockableContainer dcp = DockingUtilities.findDockableContainer(dc);
+        
+        System.out.println("Parent:" + (dcp.getClass().getName()));
 
         // removed the modified flag
         ModificationHandler handler = (ModificationHandler) editor.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);

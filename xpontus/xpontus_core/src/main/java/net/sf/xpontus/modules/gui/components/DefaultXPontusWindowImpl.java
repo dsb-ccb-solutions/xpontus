@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
+import com.vlsolutions.swing.docking.DockKey;
+import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockingConstants;
 import com.vlsolutions.swing.docking.DockingDesktop;
@@ -33,14 +35,13 @@ import org.apache.commons.lang.text.StrBuilder;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
-import javax.swing.ImageIcon;
 
 /**
  * The default main component of XPontus XML Editor
@@ -158,9 +159,16 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         // create the menubar
         menubar = new JMenuBar();
 
-        pane = new DefaultPane();
+//        pane = new DefaultPane();
         toolbar = ToolBarContainer.createDefaultContainer(true, true, true, true);
 
+        final DockTabbedPane dtp = new DockTabbedPane();
+        Dimension dim = new Dimension(600, 400);
+        dtp.setMinimumSize(dim);
+       dtp.setPreferredSize(dim);
+
+       pane = new DefaultPane();
+         
         // add the pane to the desktop
         desktop.addDockable(pane);
 
@@ -168,6 +176,7 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         desktop.registerDockable(outlineDockable);
 
         desktop.split(pane, outlineDockable, DockingConstants.SPLIT_LEFT);
+        
 
         console = new ConsoleOutputWindow();
 

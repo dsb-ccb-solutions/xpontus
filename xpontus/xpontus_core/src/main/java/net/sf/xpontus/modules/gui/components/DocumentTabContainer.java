@@ -33,10 +33,11 @@ import com.vlsolutions.swing.docking.event.DockableSelectionListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeListener;
 
-import java.awt.Component;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+
+import java.awt.Component;
 
 import java.util.Iterator;
 import java.util.Vector;
@@ -168,8 +169,6 @@ public class DocumentTabContainer {
     public Vector getEditorsAsVector() {
         return editors;
     }
-    
-     
 
     /**
      * @param editor
@@ -195,8 +194,6 @@ public class DocumentTabContainer {
                 editor.getDockKey().setDockableState(DockableState.STATE_DOCKED);
             }
 
-            
-
             editor.getEditorComponent().requestFocusInWindow();
         } else {
             final int last = editors.size() - 1;
@@ -218,7 +215,7 @@ public class DocumentTabContainer {
         if (!actionsEnabled) {
             enableDocumentActions(true);
         }
-            
+
         currentEditor = editor.getEditorComponent();
         currentDockable = editor;
 

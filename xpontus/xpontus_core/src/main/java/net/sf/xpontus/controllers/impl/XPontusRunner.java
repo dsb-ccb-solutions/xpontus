@@ -84,12 +84,7 @@ public class XPontusRunner {
     private DefaultXPontusWindowImpl m_window;
 
     private XPontusRunner() {
-        try {
-            FilesCache fc = VFS.getManager().getFilesCache();
-            fc = new LRUFilesCache();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+       
     }
 
     public DefaultXPontusWindowImpl getMainWindow() {

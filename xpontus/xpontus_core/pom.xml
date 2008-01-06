@@ -182,7 +182,7 @@
             <version>2.1.4</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
+         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2</version>
@@ -235,7 +235,8 @@
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
             <scope>compile</scope>
-        </dependency> 
+        </dependency>
+         
     </dependencies>
     <reporting>
         <plugins>

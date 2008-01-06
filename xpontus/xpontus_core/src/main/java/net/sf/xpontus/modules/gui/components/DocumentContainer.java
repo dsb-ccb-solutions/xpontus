@@ -148,7 +148,8 @@ public class DocumentContainer implements Dockable {
         SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
         doc.setLoading(true);
 
-        key = new DockKey("Untitled" + this.hashCode() + "");
+        key = new DockKey("Untitled" + this.hashCode() + "",
+                "Untitled" + this.hashCode() + "");
 
         try {
             CharsetDetector detector = new CharsetDetector();
@@ -220,8 +221,12 @@ public class DocumentContainer implements Dockable {
         SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
         doc.setLoading(true);
 
-        key = new DockKey(((fileinfo != null) && !fileinfo.trim().equals(""))
-                ? fileinfo : ("Untitled" + this.hashCode() + ""));
+        if ((fileinfo != null) && !fileinfo.trim().equals("")) {
+            key = new DockKey(this.hashCode() + "", fo.getName().getBaseName());
+        } else {
+            key = new DockKey("Untitled" + this.hashCode() + "",
+                    "Untitled" + this.hashCode() + "");
+        }
 
         if (fo != null) {
             try {

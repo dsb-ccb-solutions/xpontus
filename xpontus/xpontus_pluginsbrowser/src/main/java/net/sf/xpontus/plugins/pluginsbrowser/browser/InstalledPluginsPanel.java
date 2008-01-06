@@ -9,13 +9,13 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
-import org.java.plugin.registry.PluginDescriptor;
-
+import org.java.plugin.registry.PluginDescriptor; 
 /**
  *
  * @author  mrcheeks
  */
 public class InstalledPluginsPanel extends javax.swing.JPanel {
+    private DefaultTableModel tableModel;
 
     /** Creates new form InstalledPluginsPanel */
     public InstalledPluginsPanel() {
@@ -47,7 +47,7 @@ public class InstalledPluginsPanel extends javax.swing.JPanel {
         for (int i = 0; i < descriptors.length; i++) {
             PluginDescriptor pds = (PluginDescriptor) descriptors[i];
             String id = pds.getId().toString();
-            System.out.println("Id:" + id);
+//            System.out.println("Id:" + id);
             String category = pds.getAttribute("Category").getValue().toString();
             String builtin = pds.getAttribute("Built-in").getValue().toString();
 
@@ -103,6 +103,7 @@ public class InstalledPluginsPanel extends javax.swing.JPanel {
 
         add(sPanel, java.awt.BorderLayout.EAST);
 
+//        ((VLJTable)jTable1).installFilter(0, new RegExpFilter(true)); 
     //	 System.out.println("nb plugins:" + tableModel.getRowCount());
 
 
@@ -122,26 +123,12 @@ public class InstalledPluginsPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jTable1.setModel(tableModel);
-
-	/*	new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Identifier", "Category", "Built-in?"
-            }
-	    ));*/
         jScrollPane1.setViewportView(jTable1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-	 
-	
-
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private DefaultTableModel tableModel;
     // End of variables declaration//GEN-END:variables
 }

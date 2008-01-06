@@ -76,9 +76,10 @@ public class ActionPlugin extends XPontusPlugin {
             PopupContextPlugin popupPlugin = (PopupContextPlugin) getManager()
                                                                       .getPlugin(PopupContextPlugin.PLUGIN_IDENTIFIER);
 
-            toolbarPlugin.initExtension(plugin);
             menubarPlugin.initExtension(plugin);
             popupPlugin.initExtension(plugin);
+            
+            toolbarPlugin.initExtension(plugin);
         } catch (Exception e) {
             log.fatal(e.getMessage());
         }
