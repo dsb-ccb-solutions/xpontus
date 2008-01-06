@@ -24,6 +24,7 @@ package net.sf.xpontus.actions.impl;
 
 import com.ibm.icu.text.CharsetDetector;
 
+import java.io.Reader;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
@@ -34,14 +35,8 @@ import org.apache.xerces.parsers.SAXParser;
 
 import org.xml.sax.InputSource;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import javax.swing.text.JTextComponent;
-import javax.swing.text.PlainDocument;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import org.xml.sax.SAXParseException;
 
 
 /**
@@ -60,16 +55,21 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
                                                      .getCurrentEditor();
 
         try {
-            ((PlainDocument) jtc.getDocument()).readLock();
+            //            ((PlainDocument) jtc.getDocument()).readLock();
+
+            //            parser.setFeature("http://xml.org/sax/features/namespaces", true);
+            CharsetDetector d = new CharsetDetector();
+            d.setText(jtc.getText().getBytes());
 
             SAXParser parser = new SAXParser();
 
             parser.setFeature("http://xml.org/sax/features/validation", false);
-            parser.setFeature("http://xml.org/sax/features/namespaces", true);
 
-            CharsetDetector d = new CharsetDetector();
-            d.setText(jtc.getText().getBytes());
-            parser.parse(new InputSource(d.detect().getReader()));
+            Reader m_reader = d.detect().getReader();
+            
+            parser.parse(new InputSource(m_reader));
+            
+            m_reader.close();
 
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                                   .getConsole();
@@ -78,8 +78,8 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
             DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                       .getDocumentTabContainer()
                                                                                       .getCurrentDockable();
-            container.getStatusBar().setMessage("Document  well formed");
-            odk.println("Document  well formed");
+            container.getStatusBar().setMessage("Document well formed");
+            odk.println("Document well formed");
         } catch (Exception e) {
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                                   .getConsole();
@@ -88,13 +88,18 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
             DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                       .getDocumentTabContainer()
                                                                                       .getCurrentDockable();
+ 
 
-            System.out.println("Test");
-
+            StringBuffer err = new StringBuffer();
+            
+            if(e instanceof SAXParseException){
+                SAXParseException spe = (SAXParseException) e;
+                err.append( "Line:" + spe.getLineNumber() + ",Column:" + spe.getColumnNumber() + "\n");
+            }
             container.getStatusBar().setMessage("Document not well formed");
-            odk.println(e.getMessage());
+            odk.println("Error:\n" + err.toString() + e.getMessage());
         } finally {
-            ((PlainDocument) jtc.getDocument()).readUnlock();
+            //            ((PlainDocument) jtc.getDocument()).readUnlock();
         }
     }
 

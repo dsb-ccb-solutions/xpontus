@@ -1,5 +1,3 @@
-
-
 /*
  *
  *
@@ -70,7 +68,13 @@ public class GotoLineController {
         }
 
         int pos = element.getElement(lineNumber - 1).getStartOffset();
-        edit.setCaretPosition(pos);
+        int end = element.getElement(lineNumber - 1).getEndOffset();
+        int loc = (pos + view.getColumn()) - 1;
+
+        if (loc > end) {
+            loc = pos;
+        }
+
+        edit.setCaretPosition(loc);
     }
 }
-

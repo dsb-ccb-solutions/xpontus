@@ -46,10 +46,15 @@ public class GotoLineView extends javax.swing.JDialog {
         initComponents();
         
         this.lineNumberTF.setValue(new Integer(1));
+        this.columnNumberTF.setValue(new Integer(1));
     }
 
     public int getLine(){
         return Integer.parseInt(this.lineNumberTF.getValue().toString());
+    }
+    
+    public int getColumn(){
+        return Integer.parseInt(this.columnNumberTF.getValue().toString());
     }
     
     public GotoLineView() {
@@ -68,6 +73,8 @@ public class GotoLineView extends javax.swing.JDialog {
         lineNumberTF = new javax.swing.JFormattedTextField();
         bottomPanel = new javax.swing.JPanel();
         closeButton = new javax.swing.JButton();
+        columnLabel = new javax.swing.JLabel();
+        columnNumberTF = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Go to line");
@@ -80,6 +87,8 @@ public class GotoLineView extends javax.swing.JDialog {
                 GotoLineController.GOTO_LINE_METHOD)
         );
 
+        lineNumberTF.setToolTipText("The line number");
+
         closeButton.setText("Close");
         closeButton.addActionListener(
             (ActionListener)EventHandler.create(
@@ -89,29 +98,41 @@ public class GotoLineView extends javax.swing.JDialog {
         );
         bottomPanel.add(closeButton);
 
+        columnLabel.setText("  Column");
+
+        columnNumberTF.setToolTipText("The column is mandatory, if not found it will be reset to 1");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(bottomPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, bottomPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
-                        .add(findButton)
-                        .add(18, 18, 18)
-                        .add(lineNumberTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 114, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(findButton)
+                            .add(columnLabel))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lineNumberTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                            .add(columnNumberTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))))
+                .add(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(findButton)
                     .add(lineNumberTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 19, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
-                .add(bottomPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(columnLabel)
+                    .add(columnNumberTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(bottomPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,6 +140,8 @@ public class GotoLineView extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bottomPanel;
     private javax.swing.JButton closeButton;
+    private javax.swing.JLabel columnLabel;
+    private javax.swing.JFormattedTextField columnNumberTF;
     private javax.swing.JButton findButton;
     private javax.swing.JFormattedTextField lineNumberTF;
     // End of variables declaration//GEN-END:variables
