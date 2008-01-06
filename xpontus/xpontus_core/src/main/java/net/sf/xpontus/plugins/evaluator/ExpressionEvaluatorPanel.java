@@ -97,6 +97,12 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
     private void evaluateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluateButtonActionPerformed
     
         Hashtable t = (Hashtable) EvaluatorPluginConfiguration.getInstane().getEngines().get(this.engineList.getSelectedItem());
+
+        if(t==null){
+            XPontusComponentsUtils.showErrorMessage("No plugins installed for that action");
+            return;
+        }
+        
         ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
         String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME).toString();
         try{
