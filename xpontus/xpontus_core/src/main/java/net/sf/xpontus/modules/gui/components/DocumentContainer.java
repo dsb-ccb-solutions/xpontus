@@ -38,6 +38,7 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
 
 import java.awt.BorderLayout;
@@ -86,7 +87,7 @@ public class DocumentContainer implements Dockable {
         documentPanel.setLayout(new BorderLayout());
         editor = new JEditorPane();
         status = new JStatusBar();
-        
+
         scrollPane = new JScrollPane(editor);
         scrollPane.setRowHeaderView(new LineView(editor));
 
@@ -186,7 +187,6 @@ public class DocumentContainer implements Dockable {
             FileObject fo = VFS.getManager().toFileObject(file);
             setup(fo, file.getAbsolutePath(), file.getName());
             editor.setEditable(file.canWrite());
-            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -223,6 +223,14 @@ public class DocumentContainer implements Dockable {
         key = new DockKey(((fileinfo != null) && !fileinfo.trim().equals(""))
                 ? fileinfo : ("Untitled" + this.hashCode() + ""));
 
+        if (fo != null) {
+            try {
+                key.setTooltip(fo.getURL().toExternalForm());
+            } catch (FileSystemException ex) {
+                ex.printStackTrace();
+            }
+        }
+
         try {
             if (fo != null) {
                 CharsetDetector detector = new CharsetDetector();
@@ -250,7 +258,7 @@ public class DocumentContainer implements Dockable {
 
             editor.putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
                 Boolean.FALSE);
-            
+
             editor.setCaretPosition(0);
         } catch (Exception e) {
             e.printStackTrace();

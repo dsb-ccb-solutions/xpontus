@@ -21,22 +21,27 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
+import com.vlsolutions.swing.docking.DockKey;
+import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.docking.DockingUtilities;
+import com.vlsolutions.swing.docking.TabbedDockableContainer;
 import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
 import com.vlsolutions.swing.docking.event.DockableSelectionListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeListener;
 
+import java.awt.Component;
+import net.sf.xpontus.utils.DocumentAwareComponentHolder;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.utils.DocumentAwareComponentHolder;
-import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 
 /**
@@ -61,16 +66,18 @@ public class DocumentTabContainer {
                     Dockable selectedDockable = e.getSelectedDockable();
 
                     if (selectedDockable == null) {
-                          
                         return;
                     }
 
                     if (selectedDockable instanceof DocumentContainer) {
                         DocumentContainer container = (DocumentContainer) selectedDockable;
+
                         currentDockable = selectedDockable;
 
                         currentEditor = container.getEditorComponent();
-                        DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(container));
+                        DocumentAwareComponentHolder.getInstance()
+                                                    .notifyComponents(new DocumentContainerChangeEvent(
+                                container));
                     }
                 }
             });
@@ -94,11 +101,15 @@ public class DocumentTabContainer {
 
                             pane.getDockKey()
                                 .setDockableState(DockableState.STATE_DOCKED);
-                            DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(null));
+                            DocumentAwareComponentHolder.getInstance()
+                                                        .notifyComponents(new DocumentContainerChangeEvent(
+                                    null));
                             //event.cancel(); 
                             editors.remove(editor);
                         } else {
-                            DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(editor));
+                            DocumentAwareComponentHolder.getInstance()
+                                                        .notifyComponents(new DocumentContainerChangeEvent(
+                                    editor));
                             editors.remove(editor);
                         }
 
@@ -123,7 +134,6 @@ public class DocumentTabContainer {
                     }
                 }
             });
-           
     }
 
     /**
@@ -158,6 +168,8 @@ public class DocumentTabContainer {
     public Vector getEditorsAsVector() {
         return editors;
     }
+    
+     
 
     /**
      * @param editor
@@ -183,6 +195,8 @@ public class DocumentTabContainer {
                 editor.getDockKey().setDockableState(DockableState.STATE_DOCKED);
             }
 
+            
+
             editor.getEditorComponent().requestFocusInWindow();
         } else {
             final int last = editors.size() - 1;
@@ -204,11 +218,13 @@ public class DocumentTabContainer {
         if (!actionsEnabled) {
             enableDocumentActions(true);
         }
-
+            
         currentEditor = editor.getEditorComponent();
         currentDockable = editor;
-        
-        DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(editor));
+
+        DocumentAwareComponentHolder.getInstance()
+                                    .notifyComponents(new DocumentContainerChangeEvent(
+                editor));
     }
 
     /**
@@ -220,14 +236,13 @@ public class DocumentTabContainer {
         container.completeSetup();
         setupEditor(container);
     }
-    
+
     public void createEditorForNewFile() {
         DocumentContainer container = new DocumentContainer();
         container.setup();
         container.completeSetup();
         setupEditor(container);
     }
-
 
     /**
      * @param url

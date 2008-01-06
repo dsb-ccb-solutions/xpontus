@@ -126,6 +126,7 @@ public class ConsoleOutputWindow {
         Dockable dockable = (Dockable) dockables.get(i);
         TabbedDockableContainer container = DockingUtilities.findTabbedDockableContainer(dockable);
 
+         
         if (container != null) {
             container.setSelectedDockable(dockable);
             dockable.getComponent().requestFocus();

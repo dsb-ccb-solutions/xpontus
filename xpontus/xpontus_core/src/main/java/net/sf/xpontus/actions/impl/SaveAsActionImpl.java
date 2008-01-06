@@ -27,9 +27,12 @@ import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import org.apache.commons.vfs.*;
-import org.apache.commons.vfs.impl.*;
-import org.apache.commons.vfs.provider.*;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.FileSystemManager;
+import org.apache.commons.vfs.VFS;
+import org.apache.commons.vfs.provider.local.LocalFile;
+
 import java.io.File;
 import java.io.OutputStream;
 
@@ -86,24 +89,25 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
     }
 
     public void save(File output) throws Exception {
-        // get an outputstream to save the document using Apache Commons VFS
-        
-
-        FileSystemManager fsm = VFS.getManager();
-         
-        
-        FileObject fo = fsm.resolveFile(output.getAbsolutePath());
-        
-        if(!fo.exists()){
-            fo.createFile();
-        }
-         
-        OutputStream bos = fo.getContent().getOutputStream();
-
         // get the current document
         JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
                                                         .getDocumentTabContainer()
                                                         .getCurrentEditor();
+
+        // get an outputstream to save the document using Apache Commons VFS
+        FileSystemManager fsm = VFS.getManager();
+        OutputStream bos = null;
+        FileObject fo = fsm.resolveFile(output.getAbsolutePath());
+
+        boolean local = false;
+
+        if (fo instanceof LocalFile) {
+            bos = FileUtils.openOutputStream(output);
+            local = true;
+        } else {
+            bos = fo.getContent().getOutputStream();
+        }
+
         bos.write(editor.getText().getBytes());
         bos.flush();
         bos.close();
@@ -113,6 +117,10 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
 
         // add the mime type
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
+
+        if (local) {
+            fo = fsm.toFileObject(output);
+        }
 
         // add information about the file location
         editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo);

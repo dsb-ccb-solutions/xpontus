@@ -22,10 +22,17 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import com.ibm.icu.text.CharsetDetector;
+
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
+
+import org.apache.xerces.parsers.SAXParser;
+
+import org.xml.sax.InputSource;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -41,7 +48,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * Check if the XML document is well-formed
  * @author Yves Zoundi
  */
-public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
+public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
     public static final String BEAN_ALIAS = "action.checkxml";
 
     public CheckXMLActionImpl() {
@@ -55,17 +62,14 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
         try {
             ((PlainDocument) jtc.getDocument()).readLock();
 
-            InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
+            SAXParser parser = new SAXParser();
 
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            parser.setFeature("http://xml.org/sax/features/validation", false);
+            parser.setFeature("http://xml.org/sax/features/namespaces", true);
 
-            dbf.setValidating(false);
-
-            DocumentBuilder db = dbf.newDocumentBuilder();
-
-            db.parse(is);
-
-            is.close();
+            CharsetDetector d = new CharsetDetector();
+            d.setText(jtc.getText().getBytes());
+            parser.parse(new InputSource(d.detect().getReader()));
 
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                                   .getConsole();
@@ -83,16 +87,18 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
                                                          .get(ConsoleOutputWindow.MESSAGES_WINDOW);
             DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                       .getDocumentTabContainer()
+                                                                                      .getCurrentDockable();
 
-		.getCurrentDockable();
-
-
-	    System.out.println("Test");
+            System.out.println("Test");
 
             container.getStatusBar().setMessage("Document not well formed");
             odk.println(e.getMessage());
         } finally {
-            ((PlainDocument) jtc.getDocument()).readLock();
+            ((PlainDocument) jtc.getDocument()).readUnlock();
         }
+    }
+
+    public void onNotify(DocumentContainerChangeEvent evt) {
+        setEnabled(evt != null);
     }
 }

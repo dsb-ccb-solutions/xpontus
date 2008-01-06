@@ -47,17 +47,21 @@ import net.sf.xpontus.plugins.completion.CodeCompletionPlugin;
 import net.sf.xpontus.plugins.evaluator.EvaluatorPlugin;
 import net.sf.xpontus.plugins.evaluator.ExpressionEvaluatorPanel;
 import net.sf.xpontus.plugins.gendoc.DocumentationPlugin;
-import net.sf.xpontus.plugins.menubar.MenuBarPlugin;
-import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
-import net.sf.xpontus.plugins.toolbar.ToolBarPlugin;
-import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.plugins.indentation.IndentationPlugin;
 import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.plugins.lexer.LexerPlugin;
+import net.sf.xpontus.plugins.menubar.MenuBarPlugin;
+import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
 import net.sf.xpontus.plugins.scenarios.ScenarioPlugin;
 import net.sf.xpontus.plugins.themes.ThemePlugin;
+import net.sf.xpontus.plugins.toolbar.ToolBarPlugin;
+import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
+
+import org.apache.commons.vfs.FilesCache;
+import org.apache.commons.vfs.VFS;
+import org.apache.commons.vfs.cache.SoftRefFilesCache;
 
 import java.awt.*;
 
@@ -71,8 +75,8 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JWindow;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import org.apache.commons.vfs.cache.LRUFilesCache;
 
 
 /**
@@ -83,6 +87,12 @@ public class XPontusRunner {
     private DefaultXPontusWindowImpl m_window;
 
     private XPontusRunner() {
+        try {
+            FilesCache fc = VFS.getManager().getFilesCache();
+            fc = new LRUFilesCache();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public DefaultXPontusWindowImpl getMainWindow() {
@@ -92,6 +102,7 @@ public class XPontusRunner {
     public void handleArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
             File f = new File(args[i]);
+
             if (f.exists()) {
                 m_window.getDocumentTabContainer().createEditorFromFile(f);
             }
@@ -169,9 +180,8 @@ public class XPontusRunner {
                 EvaluatorPlugin.PLUGIN_IDENTIFIER,
                 CodeCompletionPlugin.PLUGIN_IDENTIFIER
             };
-        
-        
-      //  Package
+
+        //  Package
 
         // init plugins
         for (int i = 0; i < identifiers.length; i++) {
@@ -319,13 +329,8 @@ public class XPontusRunner {
                 public void run() {
                     splash.dispose();
                 }
-            }).start(); 
-            
-            
-            
-        window.activateComponent(); 
-        
-        
+            }).start();
+
+        window.activateComponent();
     }
 }
-
