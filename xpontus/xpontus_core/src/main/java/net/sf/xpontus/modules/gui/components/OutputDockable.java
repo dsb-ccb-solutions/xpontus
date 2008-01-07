@@ -21,10 +21,13 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.Dockable;
 
-import java.awt.Component;
+import java.awt.Color;
+
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 
 
 /**
@@ -32,49 +35,50 @@ import java.awt.Component;
  * @author Yves Zoundi
  */
 public abstract class OutputDockable implements Dockable {
-    private Component m_component;
-    private DockKey m_key;
-    private int id;
+    public static final int BLUE_STYLE = 1;
+    public static final int RED_STYLE = 2;
+    public static final int BLACK_STYLE = 0;
+    private MutableAttributeSet redStyle;
+    private MutableAttributeSet blackStyle;
+    private MutableAttributeSet blueStyle;
 
-    /**
-     *
-     * @param id
-     * @param key
-     * @param comp
-     */
-    public OutputDockable(int id, String key, Component comp) {
-        this.id = id;
-        this.m_component = comp;
-        m_key = new DockKey(key);
-        m_key.setDockGroup(ConsoleOutputWindow.group);
-        m_key.setResizeWeight(0.1f);
+    public OutputDockable() {
+        redStyle = new SimpleAttributeSet();
+        blackStyle = new SimpleAttributeSet();
+        blueStyle = new SimpleAttributeSet();
+
+        StyleConstants.setForeground(redStyle, Color.RED);
+        StyleConstants.setForeground(blueStyle, Color.BLUE);
+        StyleConstants.setForeground(blackStyle, Color.BLACK);
     }
     
-    public abstract void println(String message);
+    public abstract String getId();
 
-    /**
-     *
-     * @return
-     */
-    public int getId() {
-        return id;
+    public MutableAttributeSet getBlackStyle() {
+        return blackStyle;
     }
 
-    /**
-     *
-     * @return
-     */
-    public DockKey getDockKey() {
-        return m_key;
+    public void setBlackStyle(MutableAttributeSet blackStyle) {
+        this.blackStyle = blackStyle;
     }
 
-    /**
-     *
-     * @return
-     */
-    public Component getComponent() {
-        return m_component;
+    public MutableAttributeSet getBlueStyle() {
+        return blueStyle;
     }
-    
-    
+
+    public void setBlueStyle(MutableAttributeSet blueStyle) {
+        this.blueStyle = blueStyle;
+    }
+
+    public MutableAttributeSet getRedStyle() {
+        return redStyle;
+    }
+
+    public void setRedStyle(MutableAttributeSet redStyle) {
+        this.redStyle = redStyle;
+    }
+
+    public abstract void println(final String message);
+
+    public abstract void println(final String message, final int style);
 }

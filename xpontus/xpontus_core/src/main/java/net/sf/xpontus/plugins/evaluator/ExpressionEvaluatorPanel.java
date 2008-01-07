@@ -7,7 +7,6 @@ package net.sf.xpontus.plugins.evaluator;
 
 import java.util.Hashtable;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -107,7 +106,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
             if (li != null) {
                 NodeList nl = (NodeList) li[0];
                 DOMAddLines dm = (DOMAddLines) li[1];
-                XPathResultsDockable dockable = (XPathResultsDockable) DefaultXPontusWindowImpl.getInstance().getConsole().getDockables().get(ConsoleOutputWindow.XPATH_WINDOW);
+                XPathResultsDockable dockable = (XPathResultsDockable) DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(XPathResultsDockable.DOCKABLE_ID);
                 dockable.setResultsModel(new XPathResultsTableModel(nl, dm));
 
             } else {

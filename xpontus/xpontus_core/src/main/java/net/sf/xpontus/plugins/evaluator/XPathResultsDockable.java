@@ -20,6 +20,8 @@
  */
 package net.sf.xpontus.plugins.evaluator;
 
+import com.vlsolutions.swing.docking.DockKey;
+
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -28,10 +30,9 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
@@ -42,16 +43,22 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class XPathResultsDockable extends OutputDockable {
+    public static final String DOCKABLE_ID = "XPATH_WINDOW";
+    private DockKey m_key;
+    private JScrollPane scrollPane;
     private JTable xpathResultsTable;
 
-    public XPathResultsDockable(int id, String key, Component comp) {
-        super(id, key, comp);
+    public XPathResultsDockable() {
+        super();
+        xpathResultsTable = new JTable();
 
-        xpathResultsTable = (JTable) getComponent();
+        m_key = new DockKey(DOCKABLE_ID, "XPath");
+        m_key.setResizeWeight(0.1f);
+
+        scrollPane = new JScrollPane(xpathResultsTable);
 
         xpathResultsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //        xpathResultsTable.getSelectionModel()
-        //                         .addListSelectionListener(new RowSelectionListener());
+
         xpathResultsTable.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) {
@@ -66,9 +73,6 @@ public class XPathResultsDockable extends OutputDockable {
                                 s = (xpathResultsTable.getValueAt(selectedRow, i)).toString();
 
                                 String[] lineinfo = s.split(",")[0].split(":");
-                                //                    int pos = "line ".length();
-                                //                    int lineNumber = Integer.parseInt(line.substring(pos,
-                                //                                line.length()));
                                 gotoLine(lineinfo);
                             }
                         }
@@ -104,8 +108,7 @@ public class XPathResultsDockable extends OutputDockable {
         }
 
         int pos = element.getElement(lineNumber - 1).getStartOffset();
-        //            Element lineElement = element.getElement(lineNumber - 1);
-        //            int position = lineElement.getEndOffset() - 1;
+
         edit.requestFocus();
         edit.grabFocus();
         edit.setCaretPosition(pos);
@@ -113,33 +116,20 @@ public class XPathResultsDockable extends OutputDockable {
     }
 
     public void println(String message) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    //    private class RowSelectionListener implements ListSelectionListener {
-    //        public void valueChanged(ListSelectionEvent e) {
-    //            // Ignore extra messages.
-    //            if (e.getValueIsAdjusting()) {
-    //                return;
-    //            }
-    //
-    //            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-    //
-    //            if (!lsm.isSelectionEmpty()) {
-    //                int selectedRow = lsm.getMinSelectionIndex();
-    //                String s = null;
-    //
-    //                for (int i = 0; i < xpathResultsTable.getColumnCount(); i++) {
-    //                    s = (xpathResultsTable.getValueAt(selectedRow, i)).toString();
-    //
-    //                    String[] lineinfo = s.split(",")[0].split(":");
-    //                    //                    int pos = "line ".length();
-    //                    //                    int lineNumber = Integer.parseInt(line.substring(pos,
-    //                    //                                line.length()));
-    //                    gotoLine(lineinfo);
-    //                }
-    //            }
-    //        }
+    public String getId() {
+        return DOCKABLE_ID;
+    }
 
-    //    }
+    public void println(String message, int style) {
+    }
+
+    public DockKey getDockKey() {
+        return m_key;
+    }
+
+    public Component getComponent() {
+        return scrollPane;
+    }
 }

@@ -24,19 +24,21 @@ package net.sf.xpontus.actions.impl;
 
 import com.ibm.icu.text.CharsetDetector;
 
-import java.io.Reader;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 import org.apache.xerces.parsers.SAXParser;
 
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXParseException;
+
+import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
-import org.xml.sax.SAXParseException;
 
 
 /**
@@ -54,10 +56,16 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
                                                      .getDocumentTabContainer()
                                                      .getCurrentEditor();
 
-        try {
-            //            ((PlainDocument) jtc.getDocument()).readLock();
+        ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                              .getConsole();
 
-            //            parser.setFeature("http://xml.org/sax/features/namespaces", true);
+        OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
+
+        DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+                                                                                  .getDocumentTabContainer()
+                                                                                  .getCurrentDockable();
+
+        try {
             CharsetDetector d = new CharsetDetector();
             d.setText(jtc.getText().getBytes());
 
@@ -66,40 +74,25 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
             parser.setFeature("http://xml.org/sax/features/validation", false);
 
             Reader m_reader = d.detect().getReader();
-            
+
             parser.parse(new InputSource(m_reader));
-            
+
             m_reader.close();
 
-            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
-                                                                  .getConsole();
-            OutputDockable odk = (OutputDockable) console.getDockables()
-                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
-            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
-                                                                                      .getDocumentTabContainer()
-                                                                                      .getCurrentDockable();
             container.getStatusBar().setMessage("Document well formed");
             odk.println("Document well formed");
         } catch (Exception e) {
-            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
-                                                                  .getConsole();
-            OutputDockable odk = (OutputDockable) console.getDockables()
-                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
-            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
-                                                                                      .getDocumentTabContainer()
-                                                                                      .getCurrentDockable();
- 
-
             StringBuffer err = new StringBuffer();
-            
-            if(e instanceof SAXParseException){
+
+            if (e instanceof SAXParseException) {
                 SAXParseException spe = (SAXParseException) e;
-                err.append( "Line:" + spe.getLineNumber() + ",Column:" + spe.getColumnNumber() + "\n");
+                err.append("Error at line:" + spe.getLineNumber() + ",column:" +
+                    spe.getColumnNumber() + "\n");
             }
+
             container.getStatusBar().setMessage("Document not well formed");
-            odk.println("Error:\n" + err.toString() + e.getMessage());
-        } finally {
-            //            ((PlainDocument) jtc.getDocument()).readUnlock();
+            odk.println(err.toString() + e.getMessage(),
+                OutputDockable.RED_STYLE);
         }
     }
 

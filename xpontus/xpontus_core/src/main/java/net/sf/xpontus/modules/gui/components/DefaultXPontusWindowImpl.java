@@ -21,7 +21,6 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockingConstants;
