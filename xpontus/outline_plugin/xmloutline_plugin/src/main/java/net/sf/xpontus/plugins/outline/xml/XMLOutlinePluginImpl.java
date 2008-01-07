@@ -22,8 +22,8 @@
 
 package net.sf.xpontus.plugins.outline.xml;
 
-import javax.swing.text.Document;
-import net.sf.xpontus.plugins.gui.outline.OutlinePluginIF;
+import javax.swing.text.Document; 
+import net.sf.xpontus.plugins.outline.OutlinePluginIF;
 
 /**
  *

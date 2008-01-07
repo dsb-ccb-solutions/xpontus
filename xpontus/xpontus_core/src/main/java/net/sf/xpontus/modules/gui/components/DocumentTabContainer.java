@@ -21,13 +21,9 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.vlsolutions.swing.docking.DockKey;
-import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
-import com.vlsolutions.swing.docking.DockingUtilities;
-import com.vlsolutions.swing.docking.TabbedDockableContainer;
 import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
 import com.vlsolutions.swing.docking.event.DockableSelectionListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
@@ -37,7 +33,6 @@ import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import java.awt.Component;
 
 import java.util.Iterator;
 import java.util.Vector;
@@ -228,6 +223,9 @@ public class DocumentTabContainer {
      * @param file
      */
     public void createEditorFromFile(java.io.File file) {
+        if(!file.exists()){
+            return;
+        }
         DocumentContainer container = new DocumentContainer();
         container.setup(file);
         container.completeSetup();

@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.sf.xpontus.constants.XPontusMenuConstantsIF;
-import net.sf.xpontus.plugins.gui.menubar.MenuBarPluginIF;
+import net.sf.xpontus.constants.XPontusMenuConstantsIF; 
+import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
 
 /**
  * Schema validation plugin implementation
