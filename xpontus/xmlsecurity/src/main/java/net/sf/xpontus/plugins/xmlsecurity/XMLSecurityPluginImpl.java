@@ -5,10 +5,30 @@
 
 package net.sf.xpontus.plugins.xmlsecurity;
 
+import java.util.List;
+import java.util.Map;
+import net.sf.xpontus.plugins.actions.ActionPluginIF;
+
 /**
  *
  * @author Propriétaire
  */
-public interface XMLSecurityPluginImpl {
+public class XMLSecurityPluginImpl implements ActionPluginIF{
+
+    public List getMenuNames() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Map getActionMap() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String[] getToolBarNames() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Map getActions() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

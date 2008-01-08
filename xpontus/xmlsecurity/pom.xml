@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.xmlsecurity</groupId>
   <artifactId>xmlsecurity</artifactId>
-  <name>xmlsecurity</name>
+  <name>XML Security</name>
   <version>1.0.0-pre1</version>
   <dependencies>
     <dependency>
@@ -24,4 +24,5 @@
             <scope>compile</scope>
         </dependency>
   </dependencies>
+  <description>XML security module</description>
 </project>

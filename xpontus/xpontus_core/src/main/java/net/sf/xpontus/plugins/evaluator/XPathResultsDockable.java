@@ -27,6 +27,7 @@ import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -51,6 +52,9 @@ public class XPathResultsDockable extends OutputDockable {
     public XPathResultsDockable() {
         super();
         xpathResultsTable = new JTable();
+        
+        Dimension m_dimension = new Dimension(300, 100);
+        xpathResultsTable.setPreferredScrollableViewportSize(m_dimension);
 
         m_key = new DockKey(DOCKABLE_ID, "XPath");
         m_key.setResizeWeight(0.1f);

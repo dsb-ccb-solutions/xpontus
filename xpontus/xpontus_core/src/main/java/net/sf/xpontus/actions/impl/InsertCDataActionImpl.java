@@ -1,7 +1,4 @@
 /*
- * CopyActionImpl.java
- *
- * Created on 2007-08-13, 14:47:17
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
@@ -24,21 +21,34 @@ package net.sf.xpontus.actions.impl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 
+import javax.swing.text.Document;
+import javax.swing.text.JTextComponent;
+
 
 /**
- * Action to copy some text
+ * Insert a CDATA section
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  * @version 0.0.1
- * @author Yves Zoundi
  */
-public class CopyActionImpl extends DefaultDocumentAwareActionImpl {
-    public static final String BEAN_ALIAS = "action.copy";
+public class InsertCDataActionImpl extends DefaultDocumentAwareActionImpl {
+    public static final String BEAN_ALIAS = "action.commentxml";
 
-    public CopyActionImpl() {
+    public InsertCDataActionImpl() {
     }
 
     public void run() {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
-        dtc.getCurrentEditor().copy();
+
+        JTextComponent editor = dtc.getCurrentEditor();
+        Document doc = editor.getDocument();
+        int pos = editor.getSelectionStart();
+
+        try {
+            editor.getDocument().insertString(pos, "<![CDATA[  ]]>", null);
+            editor.setCaretPosition(pos + 10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
