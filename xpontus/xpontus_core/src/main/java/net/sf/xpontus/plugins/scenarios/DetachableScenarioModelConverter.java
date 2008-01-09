@@ -27,6 +27,11 @@ public class DetachableScenarioModelConverter {
         this.model = model;
     }
 
+    /**
+     * 
+     * @param scm
+     * @return
+     */
     public DetachableScenarioModel toSimpleModel(ScenarioModel scm){
        DetachableScenarioModel m = new DetachableScenarioModel(); 
        m.setAlias(scm.getAlias());
@@ -39,6 +44,10 @@ public class DetachableScenarioModelConverter {
        return m;
     }
     
+    /**
+     * 
+     * @return
+     */
     public ScenarioModel toScenarioModel() {
         ScenarioModel m = new ScenarioModel();
         m.setAlias(model.getAlias());
