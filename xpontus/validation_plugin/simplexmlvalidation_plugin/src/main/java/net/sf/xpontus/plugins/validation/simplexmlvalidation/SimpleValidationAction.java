@@ -30,6 +30,9 @@ import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 
 import org.apache.xerces.parsers.SAXParser;
+import org.apache.xerces.util.SymbolTable;
+import org.apache.xerces.util.XMLGrammarPoolImpl;
+import org.apache.xerces.xni.grammars.XMLGrammarPool;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -75,7 +78,9 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
             InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
 
             if (parser == null) {
-                parser = new SAXParser();
+                XMLGrammarPool pool = new XMLGrammarPoolImpl();
+                SymbolTable table = new SymbolTable();
+                parser = new SAXParser(table, pool);
                 parser.setFeature("http://xml.org/sax/features/use-entity-resolver2",
                     true);
                 parser.setFeature("http://apache.org/xml/features/validation/schema",
