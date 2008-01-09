@@ -36,9 +36,14 @@ import org.apache.xerces.parsers.SAXParser;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
+import org.apache.commons.io.IOUtils;
 
 
 /**
@@ -66,21 +71,28 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
                                                                                   .getCurrentDockable();
 
         try {
+            // read the document
             CharsetDetector d = new CharsetDetector();
-            d.setText(jtc.getText().getBytes());
 
+            InputStream is = new BufferedInputStream(new ByteArrayInputStream(
+                        jtc.getText().getBytes()));
+            d.setText(is);
+
+            Reader m_reader = d.detect().getReader();
+
+            // parse the document
             SAXParser parser = new SAXParser();
 
             parser.setFeature("http://xml.org/sax/features/validation", false);
 
-            Reader m_reader = d.detect().getReader();
-
             parser.parse(new InputSource(m_reader));
+            
+            // close the streams
+            IOUtils.closeQuietly(m_reader);
+            IOUtils.closeQuietly(is);
 
-            m_reader.close();
-
-            container.getStatusBar().setMessage("Document well formed");
-            odk.println("Document well formed");
+            container.getStatusBar().setMessage("The document is well formed");
+            odk.println("The document is well formed");
         } catch (Exception e) {
             StringBuffer err = new StringBuffer();
 

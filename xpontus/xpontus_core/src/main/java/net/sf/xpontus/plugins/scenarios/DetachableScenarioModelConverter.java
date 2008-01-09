@@ -32,6 +32,7 @@ public class DetachableScenarioModelConverter {
        m.setAlias(scm.getAlias());
        m.setExternalDocument(scm.isExternalDocument());
        m.setParameters(scm.getParameters());
+       m.setProcessor(scm.getProcessor());
        m.setInput(scm.getInput());
        m.setOutput(scm.getOutput());
        m.setXsl(scm.getXsl());
