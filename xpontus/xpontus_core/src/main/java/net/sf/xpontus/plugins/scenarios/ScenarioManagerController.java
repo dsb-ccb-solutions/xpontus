@@ -24,15 +24,9 @@
 package net.sf.xpontus.plugins.scenarios;
 
 import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
-import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
-import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
-import net.sf.xpontus.plugins.scenarios.ScenarioModel;
-import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
-import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
+import net.sf.xpontus.modules.gui.components.ScenarioManagerView; 
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import java.util.List;
-import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
@@ -101,6 +95,7 @@ public class ScenarioManagerController {
         }
 
         child.setModel(model);
+        
     }
 
     private void showEditorDialog() {
@@ -117,6 +112,8 @@ public class ScenarioManagerController {
         scm.setProcessor(ScenarioPluginsConfiguration.getInstance()
                                                      .getProcessorList().get(0)
                                                      .toString());
+        System.out.println("Processor:" + scm.getProcessor());
+        
         initScenarioEditor(scm);
         child.isnew = true;
         child.setTitle("Create a new transformation profile");
@@ -135,9 +132,10 @@ public class ScenarioManagerController {
             return;
         }
 
-        ScenarioModel scm = (ScenarioModel) view.getScenariosList().getModel()
+        DetachableScenarioModel scm = (DetachableScenarioModel) view.getScenariosList().getModel()
                                                 .getElementAt(index);
-        initScenarioEditor(scm);
+        DetachableScenarioModelConverter dsmc = new DetachableScenarioModelConverter(scm);
+        initScenarioEditor(dsmc.toScenarioModel());
 
         child.isnew = false;
         child.setTitle("Editing scenario : " + scm.getAlias());

@@ -54,7 +54,7 @@ public class ScenarioExecutionController {
      *
      */
     public void execute() {
-        if (view.getScenarioListModel().size() == 0) {
+        if (view.getScenarioListModel().getSize() == 0) {
             XPontusComponentsUtils.showWarningMessage(
                 "No transformation profile to run");
         } else if (view.getScenarioList().getSelectedIndex() == -1) {

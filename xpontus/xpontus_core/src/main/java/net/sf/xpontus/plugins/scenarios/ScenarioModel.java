@@ -26,6 +26,7 @@ package net.sf.xpontus.plugins.scenarios;
 import net.sf.xpontus.model.ObservableModel;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 
@@ -40,7 +41,7 @@ public class ScenarioModel extends ObservableModel {
     private String xsl = "";
     private String processor = "";
     private String alias = "";
-    private List parameters = new ArrayList();
+    private Hashtable parameters = new Hashtable();
 
     public ScenarioModel() {
     }
@@ -119,7 +120,7 @@ public class ScenarioModel extends ObservableModel {
      * Return the processor parameters
      * @return The processor parameters
      */
-    public List getParameters() {
+    public Hashtable getParameters() {
         return parameters;
     }
 
@@ -127,7 +128,7 @@ public class ScenarioModel extends ObservableModel {
      * The processor parameters
      * @param newValue The processor parameters
      */
-    public void setParameters(List newValue) {
+    public void setParameters(Hashtable newValue) {
         this.parameters = newValue;
         updateView();
     }

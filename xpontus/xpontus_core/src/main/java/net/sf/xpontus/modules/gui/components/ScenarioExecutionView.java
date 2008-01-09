@@ -22,8 +22,14 @@
 package net.sf.xpontus.modules.gui.components;
 
 import java.awt.Frame;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import net.sf.xpontus.plugins.scenarios.DetachableScenarioModel;
+import net.sf.xpontus.plugins.scenarios.DetachableScenarioModelConverter;
+import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioModel;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -40,12 +46,19 @@ public class ScenarioExecutionView extends javax.swing.JDialog {
      */
     public ScenarioExecutionView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        scenarioListModel = new DefaultListModel();
+        scenarioListModel = new DefaultComboBoxModel();
         initComponents();
     }
-    
-    public void setVisible(boolean b){
-        if(b){
+
+    public void setVisible(boolean b) {
+        if (b) { 
+            ScenarioListModel sl = new ScenarioListModel();
+            sl.loadScenarios();
+            List vector = sl.getScenarioList();
+            scenarioListModel = new DefaultComboBoxModel((Vector) vector);
+            scenarioList.setModel(scenarioListModel);
+            scenarioList.revalidate();
+            scenarioList.setSelectedIndex(vector.size() - 1);
             this.runButton.setEnabled(this.scenarioList.getModel().getSize() > 0);
         }
         super.setVisible(b);
@@ -55,7 +68,7 @@ public class ScenarioExecutionView extends javax.swing.JDialog {
      * 
      * @return 
      */
-    public DefaultListModel getScenarioListModel() {
+    public DefaultComboBoxModel getScenarioListModel() {
         return scenarioListModel;
     }
 
@@ -63,7 +76,6 @@ public class ScenarioExecutionView extends javax.swing.JDialog {
         return scenarioList;
     }
 
-    
     /**
      * Default constructor
      */
@@ -139,8 +151,11 @@ public class ScenarioExecutionView extends javax.swing.JDialog {
 
 private void runButton_onClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runButton_onClick
     int index = scenarioList.getSelectedIndex();
-    if(scenarioListModel.size() > 0 && index!= -1){
-       ScenarioModel scenario = (ScenarioModel) scenarioListModel.get(index);
+    if(scenarioListModel.getSize() > 0 && index!= -1){
+        DetachableScenarioModel dsm = (DetachableScenarioModel) scenarioListModel.getElementAt(index);
+        DetachableScenarioModelConverter dsmc = new DetachableScenarioModelConverter(dsm);
+        
+       ScenarioModel scenario = dsmc.toScenarioModel();
         XPontusComponentsUtils.showInformationMessage("Not implemented yet");
     }
     else{
@@ -160,5 +175,5 @@ private void runButton_onClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:even
     private javax.swing.JList scenarioList;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
-    private DefaultListModel scenarioListModel;
+    private DefaultComboBoxModel scenarioListModel;
 }

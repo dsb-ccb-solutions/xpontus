@@ -57,7 +57,7 @@ public abstract class ConfigurationModel {
         try {
             XStream xstream = new XStream(new DomDriver());
             InputStream is = new FileInputStream(getFileToSaveTo());
-            Reader reader = new InputStreamReader(is);
+            Reader reader = new InputStreamReader(is, "UTF-8");
 
             return xstream.fromXML(reader);
         } catch (Exception ex) {

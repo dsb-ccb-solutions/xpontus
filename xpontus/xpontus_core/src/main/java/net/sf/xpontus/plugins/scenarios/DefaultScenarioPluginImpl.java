@@ -42,9 +42,9 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-import java.util.Iterator;
-import java.util.List;
 
+import java.util.Hashtable;
+import java.util.Iterator;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -84,11 +84,15 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
      * @param tf
      * @param parameters
      */
-    public void setParameters(Transformer tf, List parameters) {
-        for (int i = 0; i < parameters.size(); i++) {
-            ParameterModel parameter = (ParameterModel) parameters.get(i);
-            tf.setParameter(parameter.getName(), parameter.getValue());
-        }
+    public void setParameters(Transformer tf, Hashtable parameters) {
+        if(parameters!=null){
+            Iterator it = parameters.keySet().iterator();
+            while(it.hasNext()){
+                String m_key = it.next().toString();
+                Object m_value = parameters.get(m_key);
+                tf.setParameter(m_key, m_value);
+            }
+        } 
     }
 
     /**

@@ -51,7 +51,7 @@ public class ScenarioManagerView extends javax.swing.JDialog {
  
 
         scenarioListModel = new ScenarioListModel();
-        scenarioListModel = (ScenarioListModel) scenarioListModel.load();
+        scenarioListModel.loadScenarios();
         vector = scenarioListModel.getScenarioList();
         lmodel = new DefaultComboBoxModel((Vector) vector);
 

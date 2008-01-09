@@ -23,24 +23,18 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.jgoodies.binding.adapter.Bindings;
-import com.jgoodies.binding.adapter.ComboBoxAdapter;
-import com.jgoodies.binding.adapter.SingleListSelectionAdapter;
-import com.jgoodies.binding.beans.BeanAdapter;
-import com.jgoodies.binding.value.ValueModel;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.beans.EventHandler;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioEditorController;
-import net.sf.xpontus.plugins.scenarios.ScenarioModel;
-import net.sf.xpontus.plugins.scenarios.ParametersPresentationModel;
-import net.sf.xpontus.plugins.scenarios.ParametersPresentationModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioModel; 
 import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
 
 /**
@@ -57,35 +51,63 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
      */
     public ScenarioEditorView(javax.swing.JDialog parent) {
         super(parent, true);
-        paramModel = new ParametersPresentationModel();
+        //paramModel = new ParametersPresentationModel();
 
 //        originalModel = new ScenarioModel();
 //        modifiedModel = new ScenarioModel(); // Create a copy
 //        BeanUtils.copyProperties(originalModel, modifiedModel);
 //
 //        adapter = new BeanAdapter(modifiedModel, true);
-//        controller = new ScenarioEditorController(this);
+        controller = new ScenarioEditorController(this);
 //        
 //        paramModel.setParameters(modifiedModel.getParameters());
 
-        ValueModel vm = adapter.getValueModel("processor");
-        processorAdapter = new ComboBoxAdapter(ScenarioPluginsConfiguration.getInstance().getProcessorList(), vm);
+//        ValueModel vm = adapter.getValueModel("processor");
+        processorAdapter = new DefaultComboBoxModel(new Vector(ScenarioPluginsConfiguration.getInstance().getProcessorList()));
 
         initComponents();
+
+        paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        scenario = new ScenarioModel();
+        scenario.addObserver(this);
     }
 
-    public void setModel(ScenarioModel model) {
-//        BeanUtils.copyProperties(model, this.originalModel);       
-//        originalModel.setParameters(new ArrayList(model.getParameters()));
-//         
-//        BeanUtils.copyProperties(originalModel, this.modifiedModel);  
-//        modifiedModel.setParameters(new ArrayList(model.getParameters()));
-//        
-//        paramModel.setParameters(modifiedModel.getParameters()); 
-//        
-//        this.paramsTable.revalidate();
-//        this.paramsTable.repaint(); 
+    public String getScenarioName() {
+        return nameTF.getText();
+    }
 
+    public void setModel(ScenarioModel _scenario) {
+        String name = _scenario.getAlias();
+        String xmlURI = _scenario.getInput();
+        String xslURI = _scenario.getXsl();
+        String output = _scenario.getProcessor();
+
+        this.scenario.setAlias(name);
+        this.scenario.setInput(xmlURI);
+        this.scenario.setXsl(xslURI);
+        this.scenario.setOutput(_scenario.getOutput());
+        this.scenario.setParameters(_scenario.getParameters());
+        this.scenario.setProcessor(output);
+ 
+        
+        outputTF.setText(scenario.getOutput());
+
+        this.nameTF.setText(name);
+
+        this.inputTF.setText(xmlURI);
+
+        this.scriptTF.setText(xslURI);
+
+        this.inputButton.setEnabled(scenario.isExternalDocument());
+
+        this.useExternalDocumentOption.setSelected(scenario.isExternalDocument());
+
+        this.processorsList.setSelectedItem(output);
+    }
+
+    public ScenarioEditorController getController() {
+        return controller;
     }
 
     public JTable getParamsTable() {
@@ -98,7 +120,7 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
     }
 
     public ScenarioModel getModel() {
-        return null;//  return modifiedModel;
+        return scenario;//  return modifiedModel;
     }
 
     public JRadioButton getUseCurrentDocumentOption() {
@@ -116,29 +138,31 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
     public void setUseExternalDocumentOption(JRadioButton useExternalDocumentOption) {
         this.useExternalDocumentOption = useExternalDocumentOption;
     }
-
-    public ParametersPresentationModel getParamModel() {
-        return paramModel;
-    }
+ 
 
     public void update(Observable arg0, Object arg1) {
         String name = scenario.getAlias();
-        java.net.URI xmlURI = null;
-        java.net.URI xslURI = null;
-        try {
-            if (scenario.getInput() != null) {
-                xmlURI = new URI(scenario.getInput());
-            }
-            if (scenario.getOutput() != null) {
-                xslURI = new URI(scenario.getOutput());
-            }
-        } catch (URISyntaxException ex) {
-            ex.printStackTrace();
+        String xmlURI = null;
+        String xslURI = null;
+
+         if (scenario.getInput() != null) {
+            xmlURI = scenario.getInput();
         }
-        List params = scenario.getParameters();
+        if (scenario.getOutput() != null) {
+            xslURI = scenario.getOutput();
+        }
+
+        scriptTF.setText(scenario.getXsl());
+
+//        List params = scenario.getParameters();
         String output = scenario.getProcessor();
+
+        outputTF.setText(scenario.getOutput());
+        
+        processorsList.setSelectedItem(scenario.getProcessor());
+        
         if (scenario.getAlias().equals("")) {
-            this.nameTF.setText("");
+            this.nameTF.setText(getScenarioName());
         } else {
             this.nameTF.setText(name);
         }
@@ -147,11 +171,7 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         } else {
             this.inputTF.setText(xmlURI.toString());
         }
-        if (xslURI == null) {
-            this.scriptTF.setText("");
-        } else {
-            this.scriptTF.setText(xslURI.toString());
-        }
+
     }
 
     /** This method is called from within the constructor to
@@ -162,6 +182,7 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         bottomPanel = new javax.swing.JPanel();
         okButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
@@ -183,7 +204,6 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         paramsTable = new javax.swing.JTable();
         paramsButtonPanel = new javax.swing.JPanel();
         addParameterButton = new javax.swing.JButton();
-        editButton = new javax.swing.JButton();
         removeParameterButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         processorsList = new javax.swing.JComboBox();
@@ -225,7 +245,6 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         );
 
         outputTF.setEditable(false);
-        Bindings.bind(outputTF, adapter.getValueModel("output"));
 
         org.jdesktop.layout.GroupLayout outputPanelLayout = new org.jdesktop.layout.GroupLayout(outputPanel);
         outputPanel.setLayout(outputPanelLayout);
@@ -248,15 +267,20 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        Bindings.bind(nameTF, adapter.getValueModel("alias"));
-
         inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input options"));
 
+        buttonGroup1.add(useCurrentDocumentOption);
+        useCurrentDocumentOption.setSelected(true);
         useCurrentDocumentOption.setText("Use current document");
         useCurrentDocumentOption.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        Bindings.bind(useCurrentDocumentOption, adapter.getValueModel("externalDocument"), Boolean.FALSE);
+        useCurrentDocumentOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useCurrentDocumentOptionActionPerformed(evt);
+            }
+        });
 
         inputButton.setText("Input document...");
+        inputButton.setEnabled(false);
         inputButton.addActionListener(
             (ActionListener)EventHandler.create(
                 ActionListener.class,
@@ -265,11 +289,15 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         );
 
         inputTF.setEditable(false);
-        Bindings.bind(inputTF, adapter.getValueModel("input"));
 
+        buttonGroup1.add(useExternalDocumentOption);
         useExternalDocumentOption.setText("Use external document");
         useExternalDocumentOption.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        Bindings.bind(useExternalDocumentOption, adapter.getValueModel("externalDocument"), Boolean.TRUE);
+        useExternalDocumentOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useExternalDocumentOptionActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout inputPanelLayout = new org.jdesktop.layout.GroupLayout(inputPanel);
         inputPanel.setLayout(inputPanelLayout);
@@ -335,10 +363,16 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         parametersPanel.setPreferredSize(new java.awt.Dimension(213, 60));
         parametersPanel.setLayout(new java.awt.BorderLayout());
 
-        paramsTable.setModel(paramModel.getTableModel());
+        paramsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Value"
+            }
+        ));
         paramsTable.setMinimumSize(new java.awt.Dimension(300, 90));
         paramsTable.setPreferredSize(new java.awt.Dimension(300, 90));
-        paramsTable.setSelectionModel(new SingleListSelectionAdapter(paramModel.getParameterSelectionInList().getSelectionIndexHolder()));
         paramsScrollPane.setViewportView(paramsTable);
 
         parametersPanel.add(paramsScrollPane, java.awt.BorderLayout.CENTER);
@@ -351,15 +385,6 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
                 ScenarioEditorController.ADD_PARAMETER_METHOD)
         );
         paramsButtonPanel.add(addParameterButton);
-
-        editButton.setText("Edit");
-        editButton.addActionListener(
-            (ActionListener)EventHandler.create(
-                ActionListener.class,
-                controller,
-                ScenarioEditorController.EDIT_PARAMETER_METHOD)
-        );
-        paramsButtonPanel.add(editButton);
 
         removeParameterButton.setText("Remove");
         removeParameterButton.addActionListener(
@@ -375,10 +400,14 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Processor options"));
 
         processorsList.setModel(processorAdapter);
+        processorsList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                processorsListItemStateChanged(evt);
+            }
+        });
 
         scriptTF.setColumns(6);
         scriptTF.setEditable(false);
-        Bindings.bind(scriptTF, adapter.getValueModel("xsl"));
 
         scriptButton.setText("Script/Stylesheet...");
         scriptButton.addActionListener(
@@ -465,11 +494,32 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void useCurrentDocumentOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useCurrentDocumentOptionActionPerformed
+        scenario.setExternalDocument(false);
+        inputButton.setEnabled(false);
+        scenario.setInput("");
+        inputTF.setText("");
+    }//GEN-LAST:event_useCurrentDocumentOptionActionPerformed
+
+    private void useExternalDocumentOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useExternalDocumentOptionActionPerformed
+        scenario.setExternalDocument(true);
+        inputButton.setEnabled(true);
+    }//GEN-LAST:event_useExternalDocumentOptionActionPerformed
+
+    private void processorsListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_processorsListItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            scenario.setProcessor(this.processorsList.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_processorsListItemStateChanged
+
+    public String getSelectedProcessor(){
+        return this.processorsList.getSelectedItem().toString();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addParameterButton;
     private javax.swing.JPanel bottomPanel;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton closeButton;
-    private javax.swing.JButton editButton;
     private javax.swing.JPanel firstPanel;
     private javax.swing.JButton inputButton;
     private javax.swing.JPanel inputPanel;
@@ -496,9 +546,7 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
     private javax.swing.JRadioButton useExternalDocumentOption;
     // End of variables declaration//GEN-END:variables
     private ScenarioEditorController controller;
-    private BeanAdapter adapter;
     private ScenarioModel scenario;
-    private ComboBoxAdapter processorAdapter;
-    private ParametersPresentationModel paramModel;
+    private DefaultComboBoxModel processorAdapter;
     public boolean isnew = false;
 }
