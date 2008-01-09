@@ -24,7 +24,7 @@ package net.sf.xpontus.modules.gui.components;
 import java.awt.Frame;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import net.sf.xpontus.model.ScenarioModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioModel;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**

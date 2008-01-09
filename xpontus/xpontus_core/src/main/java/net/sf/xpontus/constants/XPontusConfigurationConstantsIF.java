@@ -55,6 +55,8 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus preferences directory
      */
     File XPONTUS_PREFERENCES_DIR = new File(XPONTUS_HOME_DIR, "preferences");
+    
+    File XPONTUS_SCENARIOS_FILE = new File(XPONTUS_PREFERENCES_DIR, "scenarios.xml");
 
     /**
      * XPontus data directory for plugins

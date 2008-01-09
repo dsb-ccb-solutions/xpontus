@@ -24,7 +24,7 @@
 
 package net.sf.xpontus.controllers.impl;
 
-import net.sf.xpontus.model.ScenarioModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioModel;
 
 /**
  *

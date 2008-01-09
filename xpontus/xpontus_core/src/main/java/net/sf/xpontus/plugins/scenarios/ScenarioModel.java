@@ -21,11 +21,10 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
  */
-package net.sf.xpontus.model;
+package net.sf.xpontus.plugins.scenarios;
 
-import java.beans.PropertyChangeListener;
+import net.sf.xpontus.model.ObservableModel;
 
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,61 +33,37 @@ import java.util.List;
  * Scenario model for user transformations
  * @author Yves Zoundi
  */
-public class ScenarioModel { 
-    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+public class ScenarioModel extends ObservableModel {
     private String input = "";
-    private boolean externalDocument = false;    
-    private String output = ""; 
+    private boolean externalDocument = false;
+    private String output = "";
     private String xsl = "";
     private String processor = "";
     private String alias = "";
     private List parameters = new ArrayList();
-    
 
-   
+    public ScenarioModel() {
+    }
+
     /**
      * Gets the value of alias
      *
      * @return the value of alias
      */
     public String getAlias() {
-	return this.alias;
+        return this.alias;
     }
 
     /**
      * Sets the value of alias
      *
-     * @param newCalue Value to assign to this.alias
+     * @param newValue Value to assign to this.alias
      */
     public void setAlias(String newValue) {
-	String oldValue = this.alias;
-	this.alias = newValue;
-	pcs.firePropertyChange("alias", oldValue, newValue);
+        this.alias = newValue;
+        updateView();
     }
 
-
-    public ScenarioModel() {
-        
-    }
-
-       
-    /**
-     *
-     * @param x
-     */
-    public void addPropertyChangeListener(PropertyChangeListener x) {
-        pcs.addPropertyChangeListener(x);
-    }
-
-    /**
-     *
-     * @param x
-     */
-    public void removePropertyChangeListener(PropertyChangeListener x) {
-        pcs.removePropertyChangeListener(x);
-    }
-    
-    
     /**
      * whether the document is an external document or the current document
      * @return whether the document is an external document or the current document
@@ -102,9 +77,8 @@ public class ScenarioModel {
      * @param newValue whether the document is an external document or the current document
      */
     public void setExternalDocument(boolean newValue) {
-        boolean oldValue = this.externalDocument;
         this.externalDocument = newValue;
-        pcs.firePropertyChange("externalDocument", oldValue, newValue);
+        updateView();
     }
 
     /**
@@ -120,9 +94,8 @@ public class ScenarioModel {
      * @param newValue The input document
      */
     public void setInput(String newValue) {
-        String oldValue = this.input;
         this.input = newValue;
-        pcs.firePropertyChange("input", oldValue, newValue);
+        updateView();
     }
 
     /**
@@ -138,9 +111,8 @@ public class ScenarioModel {
      * @param newValue The output file
      */
     public void setOutput(String newValue) {
-        String oldValue = this.output;
         this.output = newValue;
-        pcs.firePropertyChange("output", oldValue, newValue);
+        updateView();
     }
 
     /**
@@ -156,9 +128,8 @@ public class ScenarioModel {
      * @param newValue The processor parameters
      */
     public void setParameters(List newValue) {
-        List oldValue = this.parameters;
         this.parameters = newValue;
-        pcs.firePropertyChange("parameters", oldValue, newValue);
+        updateView();
     }
 
     /**
@@ -174,12 +145,10 @@ public class ScenarioModel {
      * @param newValue The XSLT processor name
      */
     public void setProcessor(String newValue) {
-        String oldValue = this.processor;
         this.processor = newValue;
-        pcs.firePropertyChange("processor", oldValue, newValue);
+        updateView();
     }
 
-    
     /**
      * The XSL stylesheet for the transformation
      * @return The XSL stylesheet for the transformation
@@ -193,12 +162,11 @@ public class ScenarioModel {
      * @param newValue The XSL stylesheet for the transformation
      */
     public void setXsl(String newValue) {
-        String oldValue = this.xsl;
         this.xsl = newValue;
-        pcs.firePropertyChange("xsl", oldValue, newValue);
+        updateView();
     }
-    
-    public String toString(){
+
+    public String toString() {
         return this.alias;
     }
 }

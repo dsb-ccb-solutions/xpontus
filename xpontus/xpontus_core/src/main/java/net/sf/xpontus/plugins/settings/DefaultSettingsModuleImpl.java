@@ -21,13 +21,19 @@
  */
 package net.sf.xpontus.plugins.settings;
 
-import com.db4o.Db4o;
-import com.db4o.ObjectContainer;
-import com.db4o.ObjectSet;
-
-import com.db4o.config.Configuration;
-
 import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.model.ConfigurationModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
+
+//import com.db4o.Db4o;
+//import com.db4o.ObjectContainer;
+//import com.db4o.ObjectSet;
+//
+//import com.db4o.config.Configuration;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.xpontus.properties.PropertiesHolder;
 
 
 /**
@@ -36,8 +42,11 @@ import net.sf.xpontus.constants.XPontusConstantsIF;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DefaultSettingsModuleImpl implements SettingsModuleIF {
+    public static final String ROLE = DefaultSettingsModuleImpl.class.getName() +
+        ".ROLE";
     private static DefaultSettingsModuleImpl INSTANCE;
-    private ObjectContainer container;
+
+    //    private ObjectContainer container;
     private String dbFile;
 
     /** Creates a new instance of DefaultSettingsModuleImpl */
@@ -59,42 +68,41 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     }
 
     public void init() {
-        XPontusConstantsIF.XPONTUS_PLUGINS_DATA_DIR.mkdirs();
-        XPontusConstantsIF.XPONTUS_PREFERENCES_DIR.mkdirs();
-        XPontusConstantsIF.XPONTUS_DATABASE_CONFIG_DIR.mkdirs();
-        XPontusConstantsIF.XPONTUS_PLUGINS_DIR.mkdirs();
+        File[] configsDirectories = {
+                XPontusConstantsIF.XPONTUS_PLUGINS_DATA_DIR,
+                XPontusConstantsIF.XPONTUS_PREFERENCES_DIR,
+                XPontusConstantsIF.XPONTUS_DATABASE_CONFIG_DIR,
+                XPontusConstantsIF.XPONTUS_PLUGINS_DIR
+            };
+
+        for (int i = 0; i < configsDirectories.length; i++) {
+            if (!configsDirectories[i].exists()) {
+                configsDirectories[i].mkdirs();
+            }
+        }
+        
+        Map map = new HashMap();
+        map.put(ROLE, this);
+        PropertiesHolder.registerProperty(XPontusSettings.KEY, map);
     }
 
     public void start() {
-        Configuration config = Db4o.newConfiguration();
-        config.lockDatabaseFile(false);
-        config.unicode(true);
+        ScenarioListModel slm = new ScenarioListModel();
 
-        container = Db4o.openFile(config, dbFile);
+        if (!slm.getFileToSaveTo().exists()) {
+            slm.save();
+        }
     }
 
     public void shutdown() {
-        container.close();
     }
 
     /**
      *
      * @param bean
      */
-    public void save(Object bean) {
-        container.set(bean);
-        container.commit();
-    }
-    
-    public void remove(Object bean){
-        container.delete(bean);
-        container.commit();
-    }
-
-    public ObjectSet getObjectList(Class beanClass) {
-        ObjectSet o = container.get(beanClass);
-
-        return o;
+    public void save(ConfigurationModel bean) {
+        bean.save();
     }
 
     /**
@@ -102,13 +110,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
      * @param beanClass
      * @return
      */
-    public Object getSingleObject(Class beanClass) {
-        ObjectSet o = container.get(beanClass);
-
-        if (o != null) {
-            return o.next();
-        } else {
-            return null;
-        }
+    public Object load(ConfigurationModel bean) {
+        return bean.load();
     }
 }

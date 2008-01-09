@@ -1,4 +1,3 @@
-
 /*
  * ScenarioManagerController.java
  *
@@ -22,13 +21,12 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
  */
-package net.sf.xpontus.controllers.impl;
+package net.sf.xpontus.plugins.scenarios;
 
-import com.db4o.ObjectSet;
-
-import net.sf.xpontus.model.ScenarioModel;
 import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
 import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
+import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
 import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -39,13 +37,13 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
 
+
 /**
  * Class to manage the scenario manager form
  * @author Yves Zoundi
  * @version 0.0.1
  */
 public class ScenarioManagerController {
-
     public static final String NEW_SCENARIO_METHOD = "addNewScenario";
     public static final String CLOSE_WINDOW_METHOD = "closeWindow";
     public static final String EDIT_SCENARIO_METHOD = "editScenario";
@@ -77,32 +75,31 @@ public class ScenarioManagerController {
      */
     public void deleteScenario() {
         JList li = view.getScenariosList();
-        int[] indexes = li.getSelectedIndices();
 
-        if (indexes.length == 0) {
+        int index = li.getSelectedIndex();
+
+        if (index == -1) {
             XPontusComponentsUtils.showErrorMessage("Please select a scenario");
 
             return;
         }
 
         DefaultComboBoxModel m = (DefaultComboBoxModel) li.getModel();
-        List rm = new Vector();
 
-        for (int i = 0; i < indexes.length; i++) {
-            rm.add(m.getElementAt(i));
-        }
-
-        for (int i = 0; i < rm.size(); i++) {
-            m.removeElement(m.getElementAt(i));
-        }
+        m.removeElement(m.getElementAt(index));
 
         li.setSelectedIndex(li.getModel().getSize() - 1);
+
+        ScenarioListModel _m = new ScenarioListModel();
+        _m.setScenarioList(view.getVector());
+        _m.save();
     }
 
     private void initScenarioEditor(ScenarioModel model) {
         if (child == null) {
             child = new ScenarioEditorView(view);
         }
+
         child.setModel(model);
     }
 
@@ -117,8 +114,12 @@ public class ScenarioManagerController {
      */
     public void addNewScenario() {
         ScenarioModel scm = new ScenarioModel();
-        scm.setProcessor(ScenarioPluginsConfiguration.getInstance().getProcessorList().get(0).toString());
+        scm.setProcessor(ScenarioPluginsConfiguration.getInstance()
+                                                     .getProcessorList().get(0)
+                                                     .toString());
         initScenarioEditor(scm);
+        child.isnew = true;
+        child.setTitle("Create a new transformation profile");
         showEditorDialog();
     }
 
@@ -134,30 +135,17 @@ public class ScenarioManagerController {
             return;
         }
 
-        ScenarioModel scm = (ScenarioModel) view.getScenariosList().getModel().getElementAt(index);
+        ScenarioModel scm = (ScenarioModel) view.getScenariosList().getModel()
+                                                .getElementAt(index);
         initScenarioEditor(scm);
+
+        child.isnew = false;
+        child.setTitle("Editing scenario : " + scm.getAlias());
+
         showEditorDialog();
     }
 
     public void closeWindow() {
-        DefaultSettingsModuleImpl db = DefaultSettingsModuleImpl.getInstance();
-
-        ObjectSet scenarios = db.getObjectList(ScenarioModel.class);
-
-        if (scenarios != null) {
-            while (scenarios.hasNext()) {
-                db.remove(scenarios.next());
-            }
-        }
-
-        DefaultComboBoxModel cbo = (DefaultComboBoxModel) view.getScenariosList().getModel();
-
-        for (int i = 0; i < cbo.getSize(); i++) {
-            ScenarioModel scm = (ScenarioModel) cbo.getElementAt(i);
-            db.save(scm);
-        }
-
         view.setVisible(false);
     }
 }
-

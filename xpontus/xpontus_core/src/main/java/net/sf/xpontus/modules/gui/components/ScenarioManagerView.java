@@ -23,15 +23,15 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.db4o.ObjectSet;
 import java.awt.Frame;
 import java.awt.event.ActionListener;
 import java.beans.EventHandler;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
-import net.sf.xpontus.controllers.impl.ScenarioManagerController;
-import net.sf.xpontus.model.ScenarioModel;
-import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
+import javax.swing.ListModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioManagerController;
+import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**
@@ -48,22 +48,29 @@ public class ScenarioManagerView extends javax.swing.JDialog {
     public ScenarioManagerView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         controller = new ScenarioManagerController(this);
+ 
+
+        scenarioListModel = new ScenarioListModel();
+        scenarioListModel = (ScenarioListModel) scenarioListModel.load();
+        vector = scenarioListModel.getScenarioList();
+        lmodel = new DefaultComboBoxModel((Vector) vector);
+
         initComponents();
 
-        DefaultComboBoxModel dcb = (DefaultComboBoxModel) this.getScenariosList().getModel();
-
-        try {
-            ObjectSet set = DefaultSettingsModuleImpl.getInstance().getObjectList(ScenarioModel.class);
-            if (set != null) {
-                while (set.hasNext()) {
-                    dcb.addElement(set.next());
-                }
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (vector.size() > 0) {
+            scenariosList.setSelectedIndex(0);
         }
 
+    }
+
+    public boolean scenarioExist(String _name) {
+        ListModel _model = scenariosList.getModel();
+        for (int i = 0; i < _model.getSize(); i++) {
+            if (_model.getElementAt(i).toString().equals(_name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -71,6 +78,14 @@ public class ScenarioManagerView extends javax.swing.JDialog {
      */
     public ScenarioManagerView() {
         this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
+    }
+
+    /**
+     * Return the XSLT scenarios vector
+     * @return The XSLT scenarios vector
+     */
+    public java.util.List getVector() {
+        return vector;
     }
 
     /**
@@ -104,7 +119,7 @@ public class ScenarioManagerView extends javax.swing.JDialog {
             }
         });
 
-        scenariosList.setModel(new DefaultComboBoxModel());
+        scenariosList.setModel(lmodel);
         scenariosList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPane.setViewportView(scenariosList);
 
@@ -178,7 +193,6 @@ public class ScenarioManagerView extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void onWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onWindowClosing
         controller.closeWindow();
 }//GEN-LAST:event_onWindowClosing
@@ -192,4 +206,7 @@ public class ScenarioManagerView extends javax.swing.JDialog {
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
     private ScenarioManagerController controller;
+    private java.util.List vector;
+    private ScenarioListModel scenarioListModel;
+    private javax.swing.DefaultComboBoxModel lmodel;
 }

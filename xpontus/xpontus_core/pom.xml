@@ -225,17 +225,18 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.db4o</groupId>
-            <artifactId>db4o</artifactId>
-            <version>6.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        
          
     </dependencies>
     <reporting>

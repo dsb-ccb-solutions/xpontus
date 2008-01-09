@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.plugins.settings;
 
+import net.sf.xpontus.model.ConfigurationModel;
+
 
 /**
  *
@@ -46,19 +48,14 @@ public interface SettingsModuleIF {
      *
      * @param bean
      */
-    public void save(Object bean);
+    public void save(ConfigurationModel bean);
     
     
     /**
      * 
      * @param bean
      */
-    public void remove(Object bean);
+    public Object load(ConfigurationModel bean); 
 
-    /**
-     *
-     * @param beanClass
-     * @return
-     */
-    public Object getSingleObject(Class beanClass);
+     
 }

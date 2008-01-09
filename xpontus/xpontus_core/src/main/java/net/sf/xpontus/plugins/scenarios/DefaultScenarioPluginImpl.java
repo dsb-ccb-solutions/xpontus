@@ -25,7 +25,7 @@ package net.sf.xpontus.plugins.scenarios;
 
 import com.ibm.icu.text.CharsetDetector;
 
-import net.sf.xpontus.model.ScenarioModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioModel;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 

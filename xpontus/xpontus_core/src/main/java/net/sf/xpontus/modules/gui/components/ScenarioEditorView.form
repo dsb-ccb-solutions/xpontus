@@ -22,7 +22,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="m_pane" alignment="0" min="-2" pref="547" max="-2" attributes="1"/>
@@ -34,11 +34,12 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="m_pane" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="m_pane" min="-2" pref="346" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="bottomPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -82,18 +83,18 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="inputPanel" alignment="0" max="32767" attributes="3"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-                              <Component id="nameTF" max="32767" attributes="0"/>
+                              <Component id="nameTF" pref="376" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="inputPanel" alignment="0" max="32767" attributes="3"/>
                           <Component id="outputPanel" alignment="0" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace pref="71" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -109,7 +110,7 @@
                       <Component id="inputPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="outputPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="173" max="32767" attributes="0"/>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -136,8 +137,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="outputButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="outputTF" min="-2" pref="297" max="-2" attributes="1"/>
-                          <EmptySpace pref="31" max="32767" attributes="0"/>
+                          <Component id="outputTF" pref="381" max="32767" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -199,9 +200,9 @@
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="useExternalDocumentOption" min="-2" max="-2" attributes="0"/>
-                              <Component id="inputTF" min="-2" pref="240" max="-2" attributes="1"/>
+                              <Component id="inputTF" pref="330" max="32767" attributes="1"/>
                           </Group>
-                          <EmptySpace pref="27" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -281,11 +282,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="parametersPanel" alignment="0" pref="511" max="32767" attributes="1"/>
                           <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
-                          <Component id="parametersPanel" alignment="0" pref="519" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
@@ -295,10 +296,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="jPanel1" min="-2" max="32767" attributes="0"/>
+                      <Component id="jPanel1" min="-2" pref="133" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="parametersPanel" min="-2" pref="245" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="parametersPanel" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -317,6 +318,12 @@
                       </Border>
                     </CompoundBorder>
                   </Border>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[213, 60]"/>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[213, 60]"/>
                 </Property>
               </Properties>
 
@@ -340,10 +347,10 @@
                           <Connection code="paramModel.getTableModel()" type="code"/>
                         </Property>
                         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[300, 150]"/>
+                          <Dimension value="[300, 90]"/>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[300, 150]"/>
+                          <Dimension value="[300, 90]"/>
                         </Property>
                         <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="new SingleListSelectionAdapter(paramModel.getParameterSelectionInList().getSelectionIndexHolder())" type="code"/>
@@ -409,8 +416,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="processorsList" pref="315" max="32767" attributes="1"/>
-                              <Component id="scriptTF" alignment="0" pref="315" max="32767" attributes="1"/>
+                              <Component id="processorsList" pref="312" max="32767" attributes="1"/>
+                              <Component id="scriptTF" alignment="0" pref="312" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>

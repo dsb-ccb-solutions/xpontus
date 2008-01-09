@@ -73,6 +73,8 @@ import java.util.Vector;
 import javax.swing.JWindow;
 import javax.swing.UIManager;
 import net.sf.xpontus.plugins.actions.ActionPlugin;
+import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
+import net.sf.xpontus.plugins.settings.SettingsModuleIF;
 import org.apache.commons.vfs.cache.LRUFilesCache;
 
 
@@ -144,6 +146,10 @@ public class XPontusRunner {
      * @throws java.lang.Exception An exception
      */
     public static void main(String[] args) throws Exception {
+        SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();
+        settings.init();
+        settings.start();
+        
         System.setProperty("java.security.manager", "");
 
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

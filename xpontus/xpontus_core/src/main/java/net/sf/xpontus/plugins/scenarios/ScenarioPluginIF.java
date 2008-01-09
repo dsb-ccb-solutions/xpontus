@@ -23,7 +23,7 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
-import net.sf.xpontus.model.ScenarioModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioModel;
 
 
 /**

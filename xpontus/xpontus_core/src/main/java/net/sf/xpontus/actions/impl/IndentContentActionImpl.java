@@ -25,11 +25,14 @@ package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
+import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
 import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+
+import java.awt.Toolkit;
 
 import java.util.Hashtable;
 import java.util.Vector;
@@ -39,9 +42,9 @@ import javax.swing.text.PlainDocument;
 
 
 /**
- * Class description
+ * Format a document
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
     /**
@@ -113,12 +116,16 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
                 ((PlainDocument) jtc.getDocument()).readUnlock();
                 indenter.run();
                 jtc.putClientProperty(XPontusFileConstantsIF.FILE_LOCKED, null);
+
+                ModificationHandler handler = (ModificationHandler) jtc.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);
+                handler.setModified(true);
+                Toolkit.getDefaultToolkit().beep();
             } catch (Exception ex) {
                 getLogger().error(ex.getLocalizedMessage());
             }
         } else {
-            System.out.println("no indenter engine for content type:" +
-                contentType);
+            getLogger()
+                .warn("no indenter engine for content type:" + contentType);
         }
     }
 }

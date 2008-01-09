@@ -22,9 +22,9 @@
 package net.sf.xpontus.actions.impl;
 
 import com.vlsolutions.swing.docking.Dockable;
-
 import com.vlsolutions.swing.docking.DockableContainer;
 import com.vlsolutions.swing.docking.DockingUtilities;
+
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -36,6 +36,8 @@ import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemManager;
 import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.provider.local.LocalFile;
+
+import java.awt.Toolkit;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -76,6 +78,8 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
                 File dest = chooser.getSelectedFile();
 
                 if (dest.exists()) {
+                    Toolkit.getDefaultToolkit().beep();
+
                     int rep = JOptionPane.showConfirmDialog(chooser,
                             "Erase the file?", "The file exists!",
                             JOptionPane.YES_NO_OPTION);
@@ -134,9 +138,9 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
                                               .getCurrentDockable();
         dc.getDockKey().setTooltip(fo.getURL().toExternalForm());
         dc.getDockKey().setName(fo.getName().getBaseName());
-        
+
         DockableContainer dcp = DockingUtilities.findDockableContainer(dc);
-        
+
         System.out.println("Parent:" + (dcp.getClass().getName()));
 
         // removed the modified flag

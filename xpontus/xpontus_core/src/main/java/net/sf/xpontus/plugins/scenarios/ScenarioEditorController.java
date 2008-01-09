@@ -18,13 +18,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-package net.sf.xpontus.controllers.impl;
-
-import net.sf.xpontus.model.ScenarioModel;
+package net.sf.xpontus.plugins.scenarios;
+ 
 import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
-import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
-import net.sf.xpontus.plugins.scenarios.ParameterModel;
-import net.sf.xpontus.plugins.scenarios.ParameterModelEditor;
+import net.sf.xpontus.modules.gui.components.ScenarioManagerView; 
 import net.sf.xpontus.utils.XPontusComponentsUtils;
  
 
@@ -34,9 +31,7 @@ import java.awt.Component;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFileChooser;
-import net.sf.xpontus.plugins.scenarios.ScenarioPluginIF;
-import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
+import javax.swing.JFileChooser; 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -96,11 +91,11 @@ public class ScenarioEditorController {
 
     private boolean existsScenario(String name) {
         ScenarioManagerView m_parent = (ScenarioManagerView) view.getParent();
+        
         DefaultComboBoxModel dcm = (DefaultComboBoxModel) m_parent.getScenariosList().getModel();
 
         for (int i = 0; i < dcm.getSize(); i++) {
-            if (dcm.getElementAt(i).toString().equalsIgnoreCase(name)) {
-                System.out.println("Found existing scenario at index:" + i + ",name:" + name);
+            if (dcm.getElementAt(i).toString().equalsIgnoreCase(name)) { 
                 XPontusComponentsUtils.showErrorMessage("The scenario exists");
                 return true;
             }
@@ -265,44 +260,36 @@ public class ScenarioEditorController {
      *
      */
     public void addParameter() {
-        ParameterModel pm = new ParameterModel();
-        ParameterModelEditor editor = new ParameterModelEditor(view, pm);
-
-        if (editor.getButtonPressed() == ParameterModelEditor.BUTTON_OK) {
-            view.getParamModel().getParametersListModel().add(pm);
-            view.getParamModel().getParameters().add(pm);
-            view.getParamModel().getTableModel().fireTableDataChanged();
-        }
+        javax.swing.table.DefaultTableModel model;
+        model = (javax.swing.table.DefaultTableModel) view.getParamsTable().getModel();
+        model.addRow(new Object[] { "", "" });
     }
 
     public void editParameter() {
-        ParameterModel pm = (ParameterModel) view.getParamModel().getParameterSelectionHolder().getValue();
-
-        if (pm != null) {
-            ParameterModelEditor editor = new ParameterModelEditor(view, pm);
-
-            if (editor.getButtonPressed() == ParameterModelEditor.BUTTON_OK) {
-                view.getParamModel().getTableModel().fireTableDataChanged();
-                int row = view.getParamsTable().getSelectedRow();
-                view.getParamModel().getParameters().set(row, pm);
-            }
-        } else {
-            XPontusComponentsUtils.showErrorMessage("Please select a parameter");
-        }
+//        ParameterModel pm = (ParameterModel) view.getParamModel().getParameterSelectionHolder().getValue();
+//
+//        if (pm != null) {
+//            ParameterModelEditor editor = new ParameterModelEditor(view, pm);
+//
+//            if (editor.getButtonPressed() == ParameterModelEditor.BUTTON_OK) {
+//                view.getParamModel().getTableModel().fireTableDataChanged();
+//                int row = view.getParamsTable().getSelectedRow();
+//                view.getParamModel().getParameters().set(row, pm);
+//            }
+//        } else {
+//            XPontusComponentsUtils.showErrorMessage("Please select a parameter");
+//        }
     }
 
     /**
      *
      */
     public void removeParameter() {
-        ParameterModel pm = (ParameterModel) view.getParamModel().getParameterSelectionHolder().getValue();
+        javax.swing.table.DefaultTableModel model;
+        model = (javax.swing.table.DefaultTableModel) view.getParamsTable().getModel();
 
-        if (pm != null) {
-            view.getParamModel().getParametersListModel().remove(pm);
-            view.getParamModel().getParameters().remove(pm);
-            view.getParamModel().getTableModel().fireTableDataChanged();
-        } else {
-            XPontusComponentsUtils.showErrorMessage("Please select a parameter");
+        if (view.getParamsTable().getSelectedRow() != -1) {
+            model.removeRow(view.getParamsTable().getSelectedRow());
         }
     }
 
