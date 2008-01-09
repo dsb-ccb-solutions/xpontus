@@ -170,6 +170,8 @@ public class ScenarioEditorController {
 
         table.revalidate();
         table.repaint();
+        
+        System.out.println("nb params:" + model.getRowCount());
     }
 
     /**

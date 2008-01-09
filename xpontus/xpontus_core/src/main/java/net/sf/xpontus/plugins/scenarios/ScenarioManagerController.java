@@ -94,7 +94,9 @@ public class ScenarioManagerController {
             child = new ScenarioEditorView(view);
         }
 
+        
         child.setModel(model);
+        child.getController().resetParameters(model.getParameters());
         
     }
 

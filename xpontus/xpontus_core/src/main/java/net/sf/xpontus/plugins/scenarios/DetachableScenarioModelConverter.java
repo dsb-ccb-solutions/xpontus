@@ -47,6 +47,7 @@ public class DetachableScenarioModelConverter {
         m.setOutput(model.getOutput());
         m.setXsl(model.getXsl());
         m.setProcessor(model.getProcessor());
+        m.setParameters(model.getParameters());
 
         return m;
     }
