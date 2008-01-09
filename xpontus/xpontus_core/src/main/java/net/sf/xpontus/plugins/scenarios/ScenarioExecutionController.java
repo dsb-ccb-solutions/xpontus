@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
+import java.util.Arrays;
+import java.util.List;
 import net.sf.xpontus.modules.gui.components.ScenarioExecutionView;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -50,6 +52,24 @@ public class ScenarioExecutionController {
         view.setVisible(false);
     }
 
+    private ScenarioPluginIF getEngineForModel(String proc) { 
+
+        List engines = ScenarioPluginsConfiguration.getInstance().getEngines();
+
+        for (int i = 0; i < engines.size(); i++) {
+            ScenarioPluginIF plugin = (ScenarioPluginIF) engines.get(i);
+
+            if (Arrays.asList(plugin.getProcessors()).contains(proc)) {
+                return plugin;
+            }
+        }
+
+        XPontusComponentsUtils.showErrorMessage(
+            "No processor found for your configuration");
+
+        return null;
+    }
+    
     /**
      *
      */
@@ -61,7 +81,24 @@ public class ScenarioExecutionController {
             XPontusComponentsUtils.showWarningMessage(
                 "Please select a transformation profile to run");
         } else {
-            XPontusComponentsUtils.showInformationMessage("Not implemented");
+            DetachableScenarioModel dsm = (DetachableScenarioModel) view.getScenarioListModel().getSelectedItem();
+            ScenarioPluginIF plugin = getEngineForModel(dsm.getProcessor());
+            
+            if(plugin == null){
+                return;
+            }
+            try{
+            plugin.handleScenario(dsm);
+            }
+            catch(Exception e){
+                
+            }
+            
+            
+            
+            
+            
+            
         }
     }
 }

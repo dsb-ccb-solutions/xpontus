@@ -246,8 +246,10 @@ public class ScenarioEditorController {
         if (plugin == null) {
             return;
         }
+        
+        DetachableScenarioModelConverter converter = new DetachableScenarioModelConverter();
 
-        if (plugin.isValidModel(view.getModel(), false) && isvalid) {
+        if (plugin.isValidModel(converter.toSimpleModel(view.getModel()), false) && isvalid) {
             view.getModel().setParameters(table);
 
             JList li = parent.getScenariosList();

@@ -23,7 +23,7 @@
             </activation>
             <build>
                 <plugins>
-
+                    
                     <plugin>
                         <artifactId>maven-jar-plugin</artifactId>
                         <configuration>
@@ -182,7 +182,7 @@
             <version>2.1.4</version>
             <scope>compile</scope>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2</version>
@@ -237,7 +237,7 @@
             <scope>compile</scope>
         </dependency>
         
-         
+        
     </dependencies>
     <reporting>
         <plugins>
@@ -306,7 +306,7 @@
             <unsubscribe>http://lists.sourceforge.net/mailman/listinfo/xpontus-announce</unsubscribe>
         </mailingList>
     </mailingLists> 
-     <build>
+    <build>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -325,20 +325,20 @@
                     <target>1.4</target>   
                 </configuration>
             </plugin> 
-<plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>exec-maven-plugin</artifactId>
-<executions>
-          <execution>
-            <goals>
-              <goal>java</goal>
-            </goals>
-          </execution>
-        </executions> 
-      <configuration>       
-        <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
-      </configuration>
-    </plugin> 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions> 
+                <configuration>       
+                    <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
+                </configuration>
+            </plugin> 
         </plugins>
     </build>    
 </project>

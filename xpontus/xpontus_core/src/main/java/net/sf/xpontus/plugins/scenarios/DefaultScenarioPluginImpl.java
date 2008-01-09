@@ -64,7 +64,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     public static final String SIMPLE_JAXP_TRANSFORMATION = "Output type (XML, HTML, Text)";
 
     public String getName() {
-        return SIMPLE_JAXP_TRANSFORMATION;
+        return SIMPLE_JAXP_TRANSFORMATION; 
     }
 
     public String[] getProcessors() {
@@ -101,7 +101,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
      * @return
      * @throws java.lang.Exception
      */
-    public Reader getReader(ScenarioModel model) throws Exception {
+    public Reader getReader(DetachableScenarioModel model) throws Exception {
         InputStream bis = null;
         CharsetDetector detector = new CharsetDetector();
 
@@ -120,7 +120,10 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         return detector.detect().getReader();
     }
 
-    public void handleScenario(ScenarioModel model) throws Exception {
+    public void handleScenario(DetachableScenarioModel model) throws Exception {
+        if(!isValidModel(model, true)){
+            return;
+        }
         // set the processor properties for JAXP
         setSystemProperties();
 
@@ -190,12 +193,8 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         return sb.toString();
     }
 
-    public boolean isValidModel(ScenarioModel model, boolean transformationMode) {
+    public boolean isValidModel(DetachableScenarioModel model, boolean transformationMode) {
         StringBuffer errors = new StringBuffer();
-
-        if (model.getOutput().trim().equals("")) {
-            errors.append("The scenario name has not been specified\n");
-        }
 
         if (model.getOutput().trim().equals("")) {
             errors.append("The output file has not been specified\n");
