@@ -23,40 +23,54 @@
  */
 package net.sf.xpontus.plugins.validation.simplexmlvalidation;
 
-import net.sf.xpontus.constants.XPontusMenuConstantsIF; 
+import net.sf.xpontus.constants.XPontusMenuConstantsIF;
+import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
+import net.sf.xpontus.plugins.actions.ActionPluginIF;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
+import java.util.Vector;
+
+import javax.swing.Action;
 
 
 /**
  *
  * @author Yves Zoundi
  */
-public class SimpleValidationPluginImpl implements MenuBarPluginIF
-{
+public class SimpleValidationPluginImpl implements ActionPluginIF {
     private List menunames = new ArrayList();
     private Map actionMap = new HashMap();
+    private Map tbMap = new HashMap(1);
 
-    public SimpleValidationPluginImpl()
-    {
+    public SimpleValidationPluginImpl() {
         menunames.add(XPontusMenuConstantsIF.TOOLS_MENU_ID);
+
+        Action m_action = new SimpleValidationAction();
         List actions = new ArrayList();
-        actions.add(new SimpleValidationAction());
-        actionMap.put(XPontusMenuConstantsIF.TOOLS_MENU_ID,
-            actions);
+        actions.add(m_action);
+        actionMap.put(XPontusMenuConstantsIF.TOOLS_MENU_ID, actions);
+
+        List tbActions = new Vector(1);
+        tbActions.add(m_action);
+        tbMap.put(XPontusToolbarConstantsIF.TB_TOOLS, tbActions);
     }
 
-    public List getMenuNames()
-    {
+    public List getMenuNames() {
         return menunames;
     }
 
-    public Map getActionMap()
-    {
+    public Map getActionMap() {
         return actionMap;
+    }
+
+    public String[] getToolBarNames() {
+        return new String[] { XPontusToolbarConstantsIF.TB_TOOLS };
+    }
+
+    public Map getActions() {
+        return tbMap;
     }
 }
