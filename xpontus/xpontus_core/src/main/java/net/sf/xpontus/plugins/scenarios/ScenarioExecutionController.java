@@ -21,10 +21,17 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
-import java.util.Arrays;
-import java.util.List;
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.modules.gui.components.ScenarioExecutionView;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+
+import java.awt.Toolkit;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -52,8 +59,7 @@ public class ScenarioExecutionController {
         view.setVisible(false);
     }
 
-    private ScenarioPluginIF getEngineForModel(String proc) { 
-
+    private ScenarioPluginIF getEngineForModel(String proc) {
         List engines = ScenarioPluginsConfiguration.getInstance().getEngines();
 
         for (int i = 0; i < engines.size(); i++) {
@@ -69,7 +75,7 @@ public class ScenarioExecutionController {
 
         return null;
     }
-    
+
     /**
      *
      */
@@ -81,24 +87,33 @@ public class ScenarioExecutionController {
             XPontusComponentsUtils.showWarningMessage(
                 "Please select a transformation profile to run");
         } else {
-            DetachableScenarioModel dsm = (DetachableScenarioModel) view.getScenarioListModel().getSelectedItem();
-            ScenarioPluginIF plugin = getEngineForModel(dsm.getProcessor());
-            
-            if(plugin == null){
-                return;
-            }
-            try{
-            plugin.handleScenario(dsm);
-            }
-            catch(Exception e){
-                
-            }
-            
-            
-            
-            
-            
-            
+            new Thread(new Runnable() {
+                    public void run() {
+                        view.setVisible(false);
+                        
+                        DetachableScenarioModel dsm = (DetachableScenarioModel) view.getScenarioListModel()
+                                                                                    .getSelectedItem();
+                        ScenarioPluginIF plugin = getEngineForModel(dsm.getProcessor());
+
+                        if (plugin == null) {
+                            return;
+                        }
+
+                        ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                              .getConsole();
+
+                        OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
+
+                        try {
+                            plugin.handleScenario(dsm);
+                        } catch (Exception e) {
+                            odk.println(e.getMessage(), OutputDockable.RED_STYLE); 
+                        } finally {
+                            console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
+                            Toolkit.getDefaultToolkit().beep();
+                        }
+                    }
+                }).start();
         }
     }
 }

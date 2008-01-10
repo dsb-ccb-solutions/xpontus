@@ -76,17 +76,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Run"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="runButton_onClick"/>
-          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="runButton.addActionListener(&#xd;&#xa;            (ActionListener)EventHandler.create(&#xd;&#xa;                ActionListener.class,&#xd;&#xa;                controller,&#xd;&#xa;                ScenarioExecutionController.EXECUTE_METHOD)&#xd;&#xa;        );"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="closeButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Close"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="closeButton_onClick"/>
-          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="closeButton.addActionListener(&#xd;&#xa;            (ActionListener)EventHandler.create(&#xd;&#xa;                ActionListener.class,&#xd;&#xa;                controller,&#xd;&#xa;                ScenarioExecutionController.CLOSE_METHOD)&#xd;&#xa;        );"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

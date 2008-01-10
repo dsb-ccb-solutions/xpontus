@@ -66,7 +66,7 @@ public interface ScenarioPluginIF {
      * @param model
      * @throws java.lang.Exception
      */
-    void handleScenario(DetachableScenarioModel model) throws Exception;
+    void handleScenario(DetachableScenarioModel model);
 
     /**
      *

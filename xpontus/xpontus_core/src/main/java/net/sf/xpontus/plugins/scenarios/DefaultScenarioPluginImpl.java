@@ -1,4 +1,3 @@
-
 /*
  * To change this template, choose Tools | Templates
  * /ScenarioExecutionView.java
@@ -25,12 +24,22 @@ package net.sf.xpontus.plugins.scenarios;
 
 import com.ibm.icu.text.CharsetDetector;
 
-import net.sf.xpontus.plugins.scenarios.ScenarioModel;
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
+
+import org.apache.xalan.processor.TransformerFactoryImpl;
+
+import org.w3c.dom.Document;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -42,13 +51,18 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-
 import java.util.Hashtable;
 import java.util.Iterator;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -62,9 +76,10 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
      *
      */
     public static final String SIMPLE_JAXP_TRANSFORMATION = "Output type (XML, HTML, Text)";
+    private Log log = LogFactory.getLog(DefaultScenarioPluginImpl.class);
 
     public String getName() {
-        return SIMPLE_JAXP_TRANSFORMATION; 
+        return SIMPLE_JAXP_TRANSFORMATION;
     }
 
     public String[] getProcessors() {
@@ -85,14 +100,15 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
      * @param parameters
      */
     public void setParameters(Transformer tf, Hashtable parameters) {
-        if(parameters!=null){
+        if (parameters != null) {
             Iterator it = parameters.keySet().iterator();
-            while(it.hasNext()){
+
+            while (it.hasNext()) {
                 String m_key = it.next().toString();
                 Object m_value = parameters.get(m_key);
                 tf.setParameter(m_key, m_value);
             }
-        } 
+        }
     }
 
     /**
@@ -101,7 +117,8 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
      * @return
      * @throws java.lang.Exception
      */
-    public Reader getReader(DetachableScenarioModel model) throws Exception {
+    public Reader getReader(DetachableScenarioModel model)
+        throws Exception {
         InputStream bis = null;
         CharsetDetector detector = new CharsetDetector();
 
@@ -120,42 +137,85 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         return detector.detect().getReader();
     }
 
-    public void handleScenario(DetachableScenarioModel model) throws Exception {
-        if(!isValidModel(model, true)){
-            return;
+    public void handleScenario(DetachableScenarioModel model) {
+        try {
+            if (!isValidModel(model, true)) {
+                return;
+            }
+
+            log.info("Getting ready for transformation");
+
+            // set the processor properties for JAXP
+            setSystemProperties();
+
+            // initialize the xslt processor
+            TransformerFactory tFactory = new TransformerFactoryImpl();
+
+            FileObject fo = VFS.getManager().resolveFile(model.getXsl());
+
+            CharsetDetector detector = new CharsetDetector();
+
+            detector.setText(new BufferedInputStream(fo.getContent()
+                                                       .getInputStream()));
+
+            Source sSource = new StreamSource(detector.detect().getReader());
+
+            Templates translet = null;
+
+            try {
+                translet = tFactory.newTemplates(sSource);
+            } catch (TransformerConfigurationException tce) {
+                throw new Exception("Error compiling stylesheet:" +
+                    tce.getMessage());
+            }
+
+            Transformer tf = translet.newTransformer();
+
+            // create an input source to process
+            Reader m_reader = getReader(model);
+
+            Source src = new StreamSource(m_reader);
+
+            // create the output result
+            File output = new File(model.getOutput());
+
+            OutputStream bos = FileUtils.openOutputStream(output);
+
+            Writer m_writer = new BufferedWriter(new OutputStreamWriter(bos));
+
+            Result res = new StreamResult(m_writer);
+
+            // add the xsl parameters
+            setParameters(tf, model.getParameters());
+
+            TransformationErrorListener tel = new TransformationErrorListener();
+
+            tf.setErrorListener(tel);
+
+            // transform the input file
+            tf.transform(src, res);
+
+            // close any open streams
+            IOUtils.closeQuietly(m_writer);
+
+            IOUtils.closeQuietly(bos); 
+
+            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                  .getConsole();
+
+            OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
+
+            if (!tel.getErrors().equals("")) {
+                odk.println("Some errors occured...", OutputDockable.RED_STYLE);
+                odk.println(tel.getErrors(), OutputDockable.RED_STYLE);
+            } else {
+                odk.println("Transformation finished!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Transformation failed:\n" +
+                e.getMessage());
         }
-        // set the processor properties for JAXP
-        setSystemProperties();
-
-        // initialize the xslt processor
-        TransformerFactory tff = TransformerFactory.newInstance();
-
-        Transformer tf = tff.newTransformer();
-
-        // create an input source to process
-        Reader m_reader = getReader(model);
-
-        Source src = new StreamSource(m_reader);
-
-        // create the output result
-        File output = new File(model.getOutput());
-
-        OutputStream bos = FileUtils.openOutputStream(output);
-
-        Writer m_writer = new BufferedWriter(new OutputStreamWriter(bos));
-
-        Result res = new StreamResult(m_writer);
-
-        // add the xsl parameters
-        setParameters(tf, model.getParameters());
-
-        // transform the input file
-        tf.transform(src, res);
-
-        // close any open streams
-        IOUtils.closeQuietly(m_writer);
-
-        IOUtils.closeQuietly(bos);
     }
 
     /**
@@ -193,7 +253,10 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         return sb.toString();
     }
 
-    public boolean isValidModel(DetachableScenarioModel model, boolean transformationMode) {
+    public boolean isValidModel(DetachableScenarioModel model,
+        boolean transformationMode) {
+        log.info("Validating the model before execution");
+
         StringBuffer errors = new StringBuffer();
 
         if (model.getOutput().trim().equals("")) {
@@ -238,6 +301,8 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     }
 
     public void setSystemProperties() {
+        log.info("Settings system properties before running the scenario");
+
         // the default processor to use is xalan        
         System.setProperty("org.xml.sax.parser",
             "org.apache.xerces.parsers.SAXParser");
@@ -245,8 +310,5 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
             "org.apache.xerces.jaxp.SAXParserFactoryImpl");
         System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
             "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
-        System.setProperty("javax.xml.transform.TransformerFactory",
-            "org.apache.xalan.processor.TransformerFactoryImpl");
     }
 }
-
