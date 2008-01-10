@@ -5,7 +5,7 @@
   <artifactId>gendoc_plugin</artifactId>
   <packaging>pom</packaging>
   <version>1.0.0-pre1</version>
-  <name>Documentation generator</name> 
+  <name>Documentation</name> 
   <parent>
         <groupId>net.sf.xpontus</groupId>
         <artifactId>xpontus</artifactId>
