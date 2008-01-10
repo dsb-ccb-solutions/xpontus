@@ -31,6 +31,9 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 import java.awt.Component;
 import java.awt.Dimension;
 
+import java.net.URL;
+
+import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -74,6 +77,15 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
 
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
 
+        URL m_url = getClass().getResource("/net/sf/xpontus/icons/Element.png");
+        
+        final ImageIcon leafIcon = new ImageIcon(m_url);
+        
+        renderer.setLeafIcon(leafIcon);
+        renderer.setOpenIcon(leafIcon);
+        renderer.setClosedIcon(leafIcon);
+        renderer.setIcon(leafIcon);
+
         mTree.setCellRenderer(renderer);
 
         // tree selection listener
@@ -102,9 +114,6 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
     }
 
     public void updateAll(DefaultMutableTreeNode root) {
-        System.out.println("updating outline...");
-        System.out.println( "root node not null:" + (root!=null));
-        System.out.println("child depth:" + root.getDepth());
         this.root = root;
         model = new DefaultTreeModel(root);
         mTree.setModel(model);

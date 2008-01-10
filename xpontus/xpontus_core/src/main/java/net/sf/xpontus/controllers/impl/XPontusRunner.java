@@ -43,6 +43,7 @@ import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.SplashScreen;
 import net.sf.xpontus.modules.gui.components.XPontusTopComponentIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
+import net.sf.xpontus.plugins.actions.ActionPlugin;
 import net.sf.xpontus.plugins.completion.CodeCompletionPlugin;
 import net.sf.xpontus.plugins.evaluator.EvaluatorPlugin;
 import net.sf.xpontus.plugins.evaluator.ExpressionEvaluatorPanel;
@@ -52,16 +53,16 @@ import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.plugins.lexer.LexerPlugin;
 import net.sf.xpontus.plugins.menubar.MenuBarPlugin;
 import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
+import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPlugin;
 import net.sf.xpontus.plugins.scenarios.ScenarioPlugin;
+import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
+import net.sf.xpontus.plugins.settings.SettingsModuleIF;
 import net.sf.xpontus.plugins.themes.ThemePlugin;
 import net.sf.xpontus.plugins.toolbar.ToolBarPlugin;
 import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
-import org.apache.commons.vfs.FilesCache;
-import org.apache.commons.vfs.VFS;
- 
 import java.io.File;
 
 import java.util.Arrays;
@@ -72,11 +73,6 @@ import java.util.Vector;
 
 import javax.swing.JWindow;
 import javax.swing.UIManager;
-import net.sf.xpontus.plugins.actions.ActionPlugin;
-import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPlugin;
-import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
-import net.sf.xpontus.plugins.settings.SettingsModuleIF;
-import org.apache.commons.vfs.cache.LRUFilesCache;
 
 
 /**
@@ -87,7 +83,6 @@ public class XPontusRunner {
     private DefaultXPontusWindowImpl m_window;
 
     private XPontusRunner() {
-       
     }
 
     public DefaultXPontusWindowImpl getMainWindow() {
@@ -150,7 +145,7 @@ public class XPontusRunner {
         SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();
         settings.init();
         settings.start();
-        
+
         System.setProperty("java.security.manager", "");
 
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -173,7 +168,6 @@ public class XPontusRunner {
                 IOCPlugin.PLUGIN_IDENTIFIER, ThemePlugin.PLUGIN_IDENTIFIER,
                 MenuBarPlugin.PLUGIN_IDENTIFIER, LexerPlugin.PLUGIN_IDENTIFIER,
                 ToolBarPlugin.PLUGIN_IDENTIFIER,
-                ActionPlugin.PLUGIN_IDENTIFIER,
                 IndentationPlugin.PLUGIN_IDENTIFIER,
                 DocumentationPlugin.PLUGIN_IDENTIFIER,
                 ScenarioPlugin.PLUGIN_IDENTIFIER,
@@ -320,6 +314,9 @@ public class XPontusRunner {
             toolbarPlugin.initExtension(scenariosToolbarExt);
             toolbarPlugin.getOrCreateToolBar("xpath")
                          .add(new ExpressionEvaluatorPanel());
+
+            ((XPontusPlugin) controller.getPluginManager()
+                                       .getPlugin(ActionPlugin.PLUGIN_IDENTIFIER)).init();
         }
 
         DocumentAwareComponentHolder.getInstance()

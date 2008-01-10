@@ -67,7 +67,6 @@ public class ActionPlugin extends XPontusPlugin {
     public void initExtension(ActionPluginIF plugin) {
         try {
             
-            System.out.println("ZOUNDI:"  + plugin.getClass().getName());
             
             ToolBarPlugin toolbarPlugin = (ToolBarPlugin) getManager()
                                                               .getPlugin(ToolBarPlugin.PLUGIN_IDENTIFIER);
