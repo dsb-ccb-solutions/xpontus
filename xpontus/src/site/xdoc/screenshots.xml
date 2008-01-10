@@ -7,8 +7,11 @@
     </properties>  
     
     <body> 
-        <section name = "Snapshot version screenshot">
-            <p><img src = "images/Screenshot.png" alt = "Ubuntu Gutsy"/></p>
+        <section name = "Code structure screenshot (10-01-2008)">
+            <p><img src = "images/outlineShot.png" alt = "Windows XP"/></p>
         </section>  
+        <section name = "Transformation profiles screenshot (09-01-2008)">
+            <p><img src = "images/Screenshot09012008.png" alt = "Windows XP"/></p>
+        </section>    
     </body>
 </document>

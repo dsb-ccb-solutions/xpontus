@@ -27,14 +27,13 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 
-import net.sf.xpontus.plugins.settings.SettingsModuleIF;
 
 
 /**
  * Class description
  * @author Yves Zoundi
  */
-public class Db4oSettingsImpl implements SettingsModuleIF {
+public class Db4oSettingsImpl  {
     private ObjectContainer db;
     private String databaseFileName = "";
 

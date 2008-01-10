@@ -115,7 +115,7 @@ public class SchemaGenerationModel {
 
     /**
      * Set the input type(xml, xsd, rng,etc.)
-     * @param inputType the input type(xml, xsd, rng,etc.)
+     * @param newValue the input type(xml, xsd, rng,etc.)
      */
     public void setInputType(String newValue) {
         String oldValue = inputType;

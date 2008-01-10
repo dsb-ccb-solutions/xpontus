@@ -15,3 +15,4 @@
 /net/sf/xpontus/plugins/gendoc/
 /net/sf/xpontus/plugins/scenarios/
 /net/sf/xpontus/plugins/evaluator/
+/net/sf/xpontus/plugins/quicktoolbar/

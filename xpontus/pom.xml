@@ -96,5 +96,6 @@
         <module>quicktoolbar_plugin</module>
         <module>preview_plugin</module>
         <module>scripting_plugin</module>
-    </modules>   
+    <module>xmlsecurity</module>
+  </modules>   
 </project>

@@ -59,6 +59,10 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
     private ConsoleOutputWindow console;
     private String WINDOW_TITLE; 
     
+    
+    public OutlineViewDockable getOutline(){
+        return (OutlineViewDockable) outlineDockable;
+    }
 
     /** Creates a new instance of DefaultXPontusWindowImpl */
     private DefaultXPontusWindowImpl() {

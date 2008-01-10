@@ -28,8 +28,7 @@ import net.sf.xpontus.utils.NamespaceResolverHandler;
 
 import org.apache.xerces.parsers.SAXParser;
 
-import org.apache.xpath.XPathAPI;
-import org.apache.xpath.jaxp.JAXPPrefixResolver;
+import org.apache.xpath.XPathAPI; 
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;

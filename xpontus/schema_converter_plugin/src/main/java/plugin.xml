@@ -1,8 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
 <plugin id="plugin.core.menubar.schema_converter_plugin" version="0.0.1" class="net.sf.xpontus.plugins.schema_converter_plugin.SchemaGenerationPlugin">      
+    <attributes>
+        <attribute id = "Category" value="Tools"/>
+        <attribute id = "Built-in" value = "false"/>
+    </attributes>
     <requires>
-        <import plugin-id="plugin.core.menubar" />
+        <import plugin-id="plugin.core.actions" />
     </requires>
     <runtime> 
         <library id="schema_converter_plugin" path="lib/schema_converter_plugin-1.0.0-pre1.jar" type="code">
@@ -12,7 +16,7 @@
             <export prefix="*"/> 
         </library> 
     </runtime>
-    <extension plugin-id="plugin.core.menubar" point-id="menubarpluginif" id="schema_converter_plugin">
+    <extension plugin-id="plugin.core.actions" point-id="actionpluginif" id="schema_converter_plugin">
         <parameter id="class" value="net.sf.xpontus.plugins.schema_converter_plugin.SchemaGenerationPluginImpl" /> 
     </extension>
 </plugin>

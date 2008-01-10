@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.plugins.codecompletion.xml;
 
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.OutlineViewDockable;
 import net.sf.xpontus.parsers.*;
 import net.sf.xpontus.plugins.completion.CodeCompletionIF;
 import net.sf.xpontus.syntax.SyntaxDocument;
@@ -36,6 +38,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -175,6 +179,16 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
             lexer = new XMLLexer(mReader);
             parser = new XMLParser(lexer);
             parser.parse();
+
+            final XMLParser xp = parser;
+            final OutlineViewDockable outline = DefaultXPontusWindowImpl.getInstance()
+                                                                        .getOutline();
+            SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        outline.updateAll(xp.getRootNode());
+                    }
+                });
+
             System.out.println("parser end call");
         } catch (Exception err) {
         }
@@ -214,4 +228,3 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
         }
     }
 }
-

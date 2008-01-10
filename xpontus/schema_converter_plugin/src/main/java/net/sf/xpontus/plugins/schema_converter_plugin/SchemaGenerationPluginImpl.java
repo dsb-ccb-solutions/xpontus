@@ -26,23 +26,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
+import javax.swing.Action;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF; 
-import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
+import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
+import net.sf.xpontus.plugins.actions.ActionPluginIF;
 
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class SchemaGenerationPluginImpl implements MenuBarPluginIF {
+public class SchemaGenerationPluginImpl implements ActionPluginIF {
     private List menunames = new ArrayList();
     private Map actionMap = new HashMap();
+private Map tbMap = new HashMap(1);
 
     public SchemaGenerationPluginImpl() {
         menunames.add(XPontusMenuConstantsIF.TOOLS_MENU_ID);
 
         List actions = new ArrayList();
-        actions.add(new SchemaGenerationAction());
+        
+        Action m_action = new SchemaGenerationAction();
+        actions.add(m_action);
+        
         actionMap.put(XPontusMenuConstantsIF.TOOLS_MENU_ID, actions);
+        
+        
+          List tbActions = new Vector(1);
+        tbActions.add(m_action);
+        tbMap.put(XPontusToolbarConstantsIF.TB_TOOLS, tbActions);
+        
     }
 
     public List getMenuNames() {
@@ -51,5 +64,13 @@ public class SchemaGenerationPluginImpl implements MenuBarPluginIF {
 
     public Map getActionMap() {
         return actionMap;
+    }
+
+    public String[] getToolBarNames() {
+        return new String[] { XPontusToolbarConstantsIF.TB_TOOLS };
+    }
+
+    public Map getActions() {
+        return tbMap;
     }
 }

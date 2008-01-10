@@ -73,6 +73,7 @@ import java.util.Vector;
 import javax.swing.JWindow;
 import javax.swing.UIManager;
 import net.sf.xpontus.plugins.actions.ActionPlugin;
+import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPlugin;
 import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
 import net.sf.xpontus.plugins.settings.SettingsModuleIF;
 import org.apache.commons.vfs.cache.LRUFilesCache;
@@ -177,7 +178,8 @@ public class XPontusRunner {
                 DocumentationPlugin.PLUGIN_IDENTIFIER,
                 ScenarioPlugin.PLUGIN_IDENTIFIER,
                 EvaluatorPlugin.PLUGIN_IDENTIFIER,
-                CodeCompletionPlugin.PLUGIN_IDENTIFIER
+                CodeCompletionPlugin.PLUGIN_IDENTIFIER,
+                QuickToolBarPlugin.PLUGIN_IDENTIFIER
             };
 
         //  Package

@@ -11,7 +11,7 @@
     
     <body> 
         <section name = "Resume">
-            <p>Here <a target = "_blank" href = "resume.pdf">is</a> a quick resume in english. I used the <a target = "_blank"  href= "http://xmlresume.sourceforge.net/">XML resume library</a> to generate it.
+            <p><a target = "_blank" href = "resume.pdf"><u>Here is my resume in English</u></a>. I used the <a target = "_blank"  href= "http://xmlresume.sourceforge.net/">XML resume library</a> to generate it.
 My resume is not up to date. I plan to update it often and to make it available in French too.</p>
         </section>  
     </body>

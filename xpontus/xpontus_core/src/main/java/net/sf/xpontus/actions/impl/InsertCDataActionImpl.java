@@ -31,7 +31,7 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  */
 public class InsertCDataActionImpl extends DefaultDocumentAwareActionImpl {
-    public static final String BEAN_ALIAS = "action.commentxml";
+    public static final String BEAN_ALIAS = "action.insertcdata";
 
     public InsertCDataActionImpl() {
     }

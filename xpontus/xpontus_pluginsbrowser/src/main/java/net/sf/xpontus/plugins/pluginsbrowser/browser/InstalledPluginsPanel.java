@@ -17,6 +17,10 @@ import org.java.plugin.registry.PluginDescriptor;
 public class InstalledPluginsPanel extends javax.swing.JPanel {
     private DefaultTableModel tableModel;
 
+    public int getNbPlugins(){
+        return tableModel.getRowCount();
+    }
+    
     /** Creates new form InstalledPluginsPanel */
     public InstalledPluginsPanel() {
         //	setLayout(new java.awt.BorderLayout());

@@ -25,6 +25,9 @@ import com.vlsolutions.swing.docking.DockGroup;
 import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.Dockable;
 
+import net.sf.xpontus.parsers.XmlNode;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
+
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -32,6 +35,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.Element;
+import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -79,6 +84,11 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
                     if (node == null) {
                         return;
                     }
+
+                    if (node instanceof XmlNode) {
+                        XmlNode nodeInfo = (XmlNode) node;
+                        gotoLine(nodeInfo.line, nodeInfo.column);
+                    }
                 }
             });
     }
@@ -91,11 +101,37 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
         return root;
     }
 
-    public void updateAll() {
-        model.reload(root);
+    public void updateAll(DefaultMutableTreeNode root) {
+        System.out.println("updating outline...");
+        System.out.println( "root node not null:" + (root!=null));
+        System.out.println("child depth:" + root.getDepth());
+        this.root = root;
+        model = new DefaultTreeModel(root);
+        mTree.setModel(model);
         mTree.revalidate();
         mTree.repaint();
         expandAllNodes();
+    }
+
+    private void gotoLine(int line, int column) {
+        JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
+                                                     .getDocumentTabContainer()
+                                                     .getCurrentEditor();
+
+        Element element = jtc.getDocument().getDefaultRootElement();
+
+        if (element.getElement(line) == null) {
+            XPontusComponentsUtils.showErrorMessage(
+                "element location not found");
+
+            return;
+        }
+
+        int lineOffset = element.getElement(line).getStartOffset();
+
+        int tokenOffset = lineOffset + column;
+
+        jtc.setCaretPosition(tokenOffset);
     }
 
     /**

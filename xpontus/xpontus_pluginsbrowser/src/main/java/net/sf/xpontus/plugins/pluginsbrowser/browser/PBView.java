@@ -21,6 +21,9 @@ public class PBView extends javax.swing.JDialog {
         initComponents();
 //        pane.addTab("Installed", new InstalledPluginsPanel());
 	//  this.validate();
+        InstalledPluginsPanel ipp = (InstalledPluginsPanel) pane.getComponentAt(0);
+        int nb = ipp.getNbPlugins();
+        pane.setTitleAt(0, "Installed(" + nb +")");
         this.pack();
     }
     

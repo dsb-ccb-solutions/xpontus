@@ -40,11 +40,22 @@ import com.thaiopensource.util.UriOrFile;
 
 import com.thaiopensource.xml.sax.ErrorHandlerImpl;
 
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.swing.JFileChooser;
+import javax.swing.text.JTextComponent;
 
 
 /**
@@ -99,6 +110,10 @@ public class SchemaGeneratorHandler {
     public void generate() {
         view.setVisible(false);
 
+        ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                              .getConsole();
+        MessagesWindowDockable mconsole = (MessagesWindowDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
+
         try {
             SchemaGenerationModel model = view.getModel();
             InputFormat inFormat = null;
@@ -126,41 +141,50 @@ public class SchemaGeneratorHandler {
 
             ErrorHandlerImpl eh = new ErrorHandlerImpl();
 
-            SchemaCollection sc = inFormat.load(UriOrFile.toUri(
-                        view.getModel().getInputURI()), new String[0],
-                    model.getOutputType().toLowerCase(), eh);
+            SchemaCollection sc = null;
+
+            if (!view.getModel().isUseExternalDocument()) {
+                JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
+                                                             .getDocumentTabContainer()
+                                                             .getCurrentEditor();
+
+                if (jtc == null) {
+                    XPontusComponentsUtils.showErrorMessage(
+                        "No document opened!!!");
+
+                    return;
+                }
+
+                InputStream m_inputStream = new ByteArrayInputStream(jtc.getText()
+                                                                        .getBytes());
+                String suffixe = model.getOutputType().toLowerCase();
+                File tmp = File.createTempFile("schemageneratorhandler",
+                        "." + suffixe);
+                OutputStream m_outputStream = FileUtils.openOutputStream(tmp);
+
+                IOUtils.copy(m_inputStream, m_outputStream);
+
+                m_inputStream.close();
+                m_outputStream.close();
+
+                sc = inFormat.load(UriOrFile.toUri(tmp.getAbsolutePath()),
+                        new String[0], model.getOutputType().toLowerCase(), eh);
+            } else {
+                sc = inFormat.load(UriOrFile.toUri(view.getModel().getInputURI()),
+                        new String[0], model.getOutputType().toLowerCase(), eh);
+            }
+
             OutputDirectory od = new LocalOutputDirectory(sc.getMainUri(),
                     new File(view.getModel().getOutputURI()),
                     model.getOutputType().toLowerCase(),
                     DEFAULT_OUTPUT_ENCODING, DEFAULT_LINE_LENGTH, DEFAULT_INDENT);
             of.output(sc, od, new String[0],
                 model.getInputType().toLowerCase(), eh);
-            
-            
-            
 
-            //            DefaultXPontusWindowImpl.getInstance().getConsole().
-            //            
-            //            
-            //            XPontusWindow.getInstance().getConsole()
-            //                         .setFocus(ConsoleOutputWindow.MESSAGES_WINDOW);
-            //            XPontusWindow.getInstance().getConsole()
-            //                         .println(ConsoleOutputWindow.MESSAGES_WINDOW,
-            //                "Schema generated sucessfully");
-            //            XPontusWindow.getInstance().getStatusBar()
-            //                         .setOperationMessage("Schema generated sucessfully");
+            mconsole.println("Schema generated sucessfully");
         } catch (Exception ex) {
-            //            XPontusWindow.getInstance().getConsole()
-            //                         .setFocus(ConsoleOutputWindow.ERRORS_WINDOW);
-            //            XPontusWindow.getInstance().getConsole()
-            //                         .println(ConsoleOutputWindow.ERRORS_WINDOW,
-            //                "An error occurred");
-            //            ex.printStackTrace(XPontusWindow.getInstance().getConsole()
-            //                                            .getPrinter(ConsoleOutputWindow.ERRORS_WINDOW));
             ex.printStackTrace();
-
-            //            XPontusWindow.getInstance().getStatusBar()
-            //                         .setOperationMessage("An error occurred");
+            mconsole.println("An error occured", OutputDockable.RED_STYLE);
         }
     }
 

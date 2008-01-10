@@ -24,6 +24,8 @@
 
 package net.sf.xpontus.plugins.quicktoolbar;
 
+import java.awt.Component;
+
 /**
  * Plugin interface for quick toolbar functions
  * @version 0.0.1
@@ -45,6 +47,12 @@ public interface QuickToolBarPluginIF {
      * @return The supported content type
      */
     String getMimeType();
+    
+    /**
+     * 
+     * @return
+     */
+    Component getComponent();
     /**
      * The file context mode (ant, docbook, etc.)
      * @return The file context mode (ant, docbook, etc.)

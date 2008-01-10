@@ -20,6 +20,9 @@
  */
 package net.sf.xpontus.plugins.schema_converter_plugin;
 
+import java.net.URL;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
 import net.sf.xpontus.actions.impl.XPontusDialogActionImpl;
 
 
@@ -34,6 +37,9 @@ public class SchemaGenerationAction extends XPontusDialogActionImpl {
     public SchemaGenerationAction() {
         setName("Schema converter");
         setDialogClassName(SchemaGeneratorView.class.getName()); 
+        URL url = getClass().getResource("Export16.gif");
+        ImageIcon icon = new ImageIcon(url);
+        this.putValue(Action.SMALL_ICON, icon);
         this.setWindowClassLoader(this.getClass().getClassLoader());
     }
 }

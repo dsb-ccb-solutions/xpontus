@@ -51,6 +51,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import java.util.Hashtable;
+import java.util.Map;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -61,6 +63,10 @@ import javax.swing.JScrollPane;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
+import net.sf.xpontus.plugins.quicktoolbar.DefaultQuickToolbarPluginImpl;
+import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPluginIF;
+import net.sf.xpontus.properties.PropertiesHolder;
 
 
 /**
@@ -137,6 +143,9 @@ public class DocumentContainer implements Dockable {
     }
 
     public void setup() {
+        
+        documentPanel.add(new DefaultQuickToolbarPluginImpl().getComponent(), BorderLayout.NORTH);
+        
         String mm = MimeTypesProvider.getInstance().getMimeType("file.xml");
 
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
@@ -211,6 +220,34 @@ public class DocumentContainer implements Dockable {
         }
 
         String mm = MimeTypesProvider.getInstance().getMimeType(ext);
+        
+        
+        ////////////////////////////////
+            Map qtb = (Map) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_QUICKTOOLBAR_PROPERTY);
+            if(qtb.size() > 0){
+                Object obj = qtb.get(mm);
+                if(obj!=null){
+                    Hashtable t = (Hashtable)obj;
+                    ClassLoader cl = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
+                    String className = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME); 
+                    try{
+                        System.out.println("Adding quicktoolbar plugin lookup");
+                        QuickToolBarPluginIF qbp = (QuickToolBarPluginIF) Class.forName(className, true, cl).newInstance();
+                        documentPanel.add(qbp.getComponent(), BorderLayout.NORTH);
+                    }
+                    catch(Exception err){
+                        err.printStackTrace();
+                    }
+                }
+            }
+        
+        
+        
+        
+        ////////////////////////////////
+        
+        
+        
 
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
 

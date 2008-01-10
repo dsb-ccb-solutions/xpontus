@@ -31,6 +31,7 @@ import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
 import java.util.Iterator;
+import net.sf.xpontus.properties.PropertiesHolder;
 
 
 /**
@@ -46,6 +47,7 @@ public class IOCPlugin extends XPontusPlugin
     /** Creates a new instance of IOCModule */
     public IOCPlugin()
     {
+        PropertiesHolder.registerProperty(PLUGIN_IDENTIFIER, this);
     }
 
     /**
