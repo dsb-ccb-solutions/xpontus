@@ -39,7 +39,6 @@ import org.apache.commons.vfs.VFS;
 
 import org.apache.xalan.processor.TransformerFactoryImpl;
 
-import org.w3c.dom.Document;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -54,15 +53,12 @@ import java.io.Writer;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 

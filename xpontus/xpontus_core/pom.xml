@@ -98,36 +98,7 @@
             <artifactId>xalan</artifactId>
             <version>2.6.0</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>batik</groupId>
-            <artifactId>batik-1.5-fop</artifactId>
-            <version>0.20-5</version>
-            <scope>compile</scope>
         </dependency> 
-        <dependency>
-            <groupId>fop</groupId>
-            <artifactId>fop</artifactId>
-            <version>0.20.5</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xml-apis</artifactId>
-                    <groupId>xml-apis</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>avalon-framework</artifactId>
-                    <groupId>avalon-framework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>batik-1.5-fop</artifactId>
-                    <groupId>batik</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>xml-apis</artifactId>
-                    <groupId>xml-apis</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
         <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
@@ -241,15 +212,7 @@
             <artifactId>xstream</artifactId>
             <version>1.2</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>avalon-framework</groupId>
-            <artifactId>avalon-framework</artifactId>
-            <version>4.1.3</version>
-            <scope>compile</scope>
-        </dependency>
-        
-        
+        </dependency>  
     </dependencies>
     <reporting>
         <plugins>
