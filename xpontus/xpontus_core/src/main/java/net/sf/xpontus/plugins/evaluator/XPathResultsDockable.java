@@ -52,7 +52,7 @@ public class XPathResultsDockable extends OutputDockable {
     public XPathResultsDockable() {
         super();
         xpathResultsTable = new JTable();
-        
+
         Dimension m_dimension = new Dimension(300, 100);
         xpathResultsTable.setPreferredScrollableViewportSize(m_dimension);
 
@@ -69,13 +69,11 @@ public class XPathResultsDockable extends OutputDockable {
                         int selectedRow = xpathResultsTable.getSelectedRow();
 
                         if (selectedRow != -1) {
-                            String s = null;
+                            XPathResultDescriptor xrd = (XPathResultDescriptor) xpathResultsTable.getValueAt(selectedRow,
+                                    0);
 
-                            for (int i = 0;
-                                    i < xpathResultsTable.getColumnCount();
-                                    i++) {
-                                s = (xpathResultsTable.getValueAt(selectedRow, i)).toString();
-
+                            if (xrd.lineInfo) {
+                                String s = xrd.value;
                                 String[] lineinfo = s.split(",")[0].split(":");
                                 gotoLine(lineinfo);
                             }

@@ -8,7 +8,6 @@ package net.sf.xpontus.plugins.evaluator;
 import java.util.Hashtable;
 import javax.swing.DefaultComboBoxModel;
 import net.sf.xpontus.constants.XPontusConstantsIF;
-import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;

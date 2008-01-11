@@ -81,6 +81,9 @@ public class DocumentTabContainer {
                             DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
                             DefaultXPontusWindowImpl.getInstance().getOutline()
                                                     .updateAll(node);
+                        } else {
+                            DefaultXPontusWindowImpl.getInstance().getOutline()
+                                                    .updateAll(new DefaultMutableTreeNode());
                         }
 
                         DocumentAwareComponentHolder.getInstance()
