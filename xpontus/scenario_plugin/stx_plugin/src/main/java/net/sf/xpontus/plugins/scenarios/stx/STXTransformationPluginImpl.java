@@ -1,26 +1,8 @@
 /*
  * To change this template, choose Tools | Templates
- * /ScenarioExecutionView.java
- *
- * Created on August 22, 2007, 5:52 PM
- *
- * Copyright (C) 2005-2008 Yves Zoundi
- *
- * This library is free software; you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * and open the template in the editor.
  */
-package net.sf.xpontus.plugins.scenarios;
+package net.sf.xpontus.plugins.scenarios.stx;
 
 import com.ibm.icu.text.CharsetDetector;
 
@@ -28,6 +10,10 @@ import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
+import net.sf.xpontus.plugins.scenarios.DetachableScenarioModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioPluginIF;
+import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
+import net.sf.xpontus.plugins.scenarios.TransformationErrorListener;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.io.FileUtils;
@@ -36,9 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
-
-import org.apache.xalan.processor.TransformerFactoryImpl;
-
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -65,29 +48,29 @@ import javax.xml.transform.stream.StreamSource;
 
 /**
  *
- * @author Yves Zoundi <yveszoundit at users dot sf dot net>
+ * @author Propriétaire
  */
-public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
-    /**
-     *
-     */
-    public static final String SIMPLE_JAXP_TRANSFORMATION = "Output type (XML, HTML, Text)";
-    private Log log = LogFactory.getLog(DefaultScenarioPluginImpl.class);
+public class STXTransformationPluginImpl implements ScenarioPluginIF {
+    public static final String STX_TRANSFORMATION = "Output type (XML, HTML, Text)";
+    private Log log = LogFactory.getLog(STXTransformationPluginImpl.class);
+
+    public STXTransformationPluginImpl() {
+    }
 
     public String getName() {
-        return SIMPLE_JAXP_TRANSFORMATION;
+        return "STX:" + STX_TRANSFORMATION;
     }
 
     public String[] getProcessors() {
-        return new String[] { "Xalan 2.7.0:" + SIMPLE_JAXP_TRANSFORMATION };
+        return new String[] { "STX:" + STX_TRANSFORMATION };
     }
 
     public String[] getTransformationTypes() {
-        return new String[] { "Simple (XML, HTML, Text)" };
+        return new String[] { "(XML, HTML, Text)" };
     }
 
     public String[] getOutputTypes() {
-        return new String[] { "XML", "HTML", "Text" };
+        return new String[] { "HTML", "XML", "Text" };
     }
 
     /**
@@ -131,87 +114,6 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         detector.setText(new BufferedInputStream(bis));
 
         return detector.detect().getReader();
-    }
-
-    public void handleScenario(DetachableScenarioModel model) {
-        try {
-            if (!isValidModel(model, true)) {
-                return;
-            }
-
-            log.info("Getting ready for transformation");
-
-            // set the processor properties for JAXP
-            setSystemProperties();
-
-            // initialize the xslt processor
-            TransformerFactory tFactory = TransformerFactory.newInstance();
-
-            FileObject fo = VFS.getManager().resolveFile(model.getXsl());
-
-            CharsetDetector detector = new CharsetDetector();
-
-            detector.setText(new BufferedInputStream(fo.getContent()
-                                                       .getInputStream()));
-
-            Source sSource = new StreamSource(detector.detect().getReader());
-
-            Templates translet = null;
-
-            try {
-                translet = tFactory.newTemplates(sSource);
-            } catch (TransformerConfigurationException tce) {
-                throw new Exception("Error compiling stylesheet:" +
-                    tce.getMessage());
-            }
-
-            Transformer tf = translet.newTransformer();
-
-            // create an input source to process
-            Reader m_reader = getReader(model);
-
-            Source src = new StreamSource(m_reader);
-
-            // create the output result
-            File output = new File(model.getOutput());
-
-            OutputStream bos = FileUtils.openOutputStream(output);
-
-            Writer m_writer = new BufferedWriter(new OutputStreamWriter(bos));
-
-            Result res = new StreamResult(m_writer);
-
-            // add the xsl parameters
-            setParameters(tf, model.getParameters());
-
-            TransformationErrorListener tel = new TransformationErrorListener();
-
-            tf.setErrorListener(tel);
-
-            // transform the input file
-            tf.transform(src, res);
-
-            // close any open streams
-            IOUtils.closeQuietly(m_writer);
-
-            IOUtils.closeQuietly(bos); 
-
-            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
-                                                                  .getConsole();
-
-            OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
-
-            if (!tel.getErrors().equals("")) {
-                odk.println("Some errors occured...", OutputDockable.RED_STYLE);
-                odk.println(tel.getErrors(), OutputDockable.RED_STYLE);
-            } else {
-                odk.println("Transformation finished!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Transformation failed:\n" +
-                e.getMessage());
-        }
     }
 
     /**
@@ -296,9 +198,94 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         return true;
     }
 
+    public void handleScenario(DetachableScenarioModel model) {
+        try {
+            if (!isValidModel(model, true)) {
+                return;
+            }
+
+            log.info("Getting ready for transformation");
+
+            // set the processor properties for JAXP
+            setSystemProperties();
+
+            // initialize the xslt processor
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+
+            FileObject fo = VFS.getManager().resolveFile(model.getXsl());
+
+            CharsetDetector detector = new CharsetDetector();
+
+            detector.setText(new BufferedInputStream(fo.getContent()
+                                                       .getInputStream()));
+
+            Source sSource = new StreamSource(detector.detect().getReader());
+
+            Templates translet = null;
+
+            try {
+                translet = tFactory.newTemplates(sSource);
+            } catch (TransformerConfigurationException tce) {
+                throw new Exception("Error compiling stylesheet:" +
+                    tce.getMessage());
+            }
+
+            Transformer tf = translet.newTransformer();
+
+            // create an input source to process
+            Reader m_reader = getReader(model);
+
+            Source src = new StreamSource(m_reader);
+
+            // create the output result
+            File output = new File(model.getOutput());
+
+            OutputStream bos = FileUtils.openOutputStream(output);
+
+            Writer m_writer = new BufferedWriter(new OutputStreamWriter(bos));
+
+            Result res = new StreamResult(m_writer);
+
+            // add the xsl parameters
+            setParameters(tf, model.getParameters());
+
+            TransformationErrorListener tel = new TransformationErrorListener();
+
+            net.sf.joost.trax.TransformationErrListener te = new net.sf.joost.trax.TransformationErrListener();
+            te.setUserErrorListener(tel);
+
+            tf.setErrorListener(te);
+
+            // transform the input file
+            tf.transform(src, res);
+
+            // close any open streams
+            IOUtils.closeQuietly(m_writer);
+
+            IOUtils.closeQuietly(bos);
+
+            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                  .getConsole();
+
+            OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
+
+            if (!tel.getErrors().equals("")) {
+                odk.println("Some errors occured...", OutputDockable.RED_STYLE);
+                odk.println(tel.getErrors(), OutputDockable.RED_STYLE);
+            } else {
+                odk.println("Transformation finished!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Transformation failed:\n" +
+                e.getMessage());
+        }
+    }
+
     public void setSystemProperties() {
         log.info("Settings system properties before running the scenario");
-System.setProperty("javax.xml.transform.TransformerFactory", "org.apache.xalan.processor.TransformerFactoryImpl");
+        System.setProperty("javax.xml.transform.TransformerFactory",
+            "net.sf.joost.trax.TransformerFactoryImpl");
         // the default processor to use is xalan        
         System.setProperty("org.xml.sax.parser",
             "org.apache.xerces.parsers.SAXParser");

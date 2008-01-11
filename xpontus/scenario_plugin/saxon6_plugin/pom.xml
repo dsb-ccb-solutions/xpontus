@@ -6,11 +6,12 @@
     <version>1.0.0-pre1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.xpontus.plugins.scenario.stx</groupId>
-  <artifactId>stx_plugin</artifactId>
-  <name>STX support</name>
-  <version>1.0.0-pre1</version> 
-  <description>STX support for user transformations</description>
+  <groupId>net.sf.xpontus.plugins.scenarios.saxon6</groupId>
+  <artifactId>saxon6_plugin</artifactId>
+  <name>Saxon 6.x support</name>
+  <version>1.0.0-pre1</version>
+  <url>http://maven.apache.org</url>
+  <description>XPontus plugin for user transformations (HTML, PDF, etc.) using saxon 6.x processor</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -19,15 +20,15 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-            <groupId>net.sf.xpontus</groupId>
-            <artifactId>xpontus_core</artifactId>
-            <version>1.0.0-pre1</version>
+            <groupId>saxon</groupId>
+            <artifactId>saxon</artifactId>
+            <version>6.5.3</version>
             <scope>compile</scope>
         </dependency>
     <dependency>
-            <groupId>net.sourceforge.joost</groupId>
-            <artifactId>joost</artifactId>
-            <version>20070718</version>
+            <groupId>net.sf.xpontus</groupId>
+            <artifactId>xpontus_core</artifactId>
+            <version>1.0.0-pre1</version>
             <scope>compile</scope>
         </dependency>
   </dependencies>
