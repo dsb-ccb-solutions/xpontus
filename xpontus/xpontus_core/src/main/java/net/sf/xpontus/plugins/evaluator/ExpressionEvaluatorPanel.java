@@ -10,6 +10,8 @@ import javax.swing.DefaultComboBoxModel;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 import org.w3c.dom.NodeList;
 
@@ -32,8 +34,8 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
         if (mm.getSize() > 0) {
             this.engineList.setSelectedIndex(0);
         }
-    } 
-    
+    }
+
     public String getExpression() {
         return this.expressionList.getSelectedItem().toString();
     }
@@ -88,33 +90,42 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     private void evaluateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluateButtonActionPerformed
 
-        Hashtable t = (Hashtable) EvaluatorPluginConfiguration.getInstane().getEngines().get(this.engineList.getSelectedItem());
+        Thread m_worker = new Thread() {
 
-        if (t == null) {
-            XPontusComponentsUtils.showErrorMessage("No plugins installed for that action");
-            this.evaluateButton.setEnabled(false);
-            this.engineList.setEnabled(false);
-            this.expressionList.setEnabled(false);
-            return;
-        }
+            public void run() {
+                Hashtable t = (Hashtable) EvaluatorPluginConfiguration.getInstane().getEngines().get(engineList.getSelectedItem());
 
-        ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
-        String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME).toString();
-        try {
-            EvaluatorPluginIF plugin = (EvaluatorPluginIF) Class.forName(classname, true, loader).newInstance();
-            Object[] li = plugin.handle(getExpression());
-            if (li != null) {
-                NodeList nl = (NodeList) li[0];
-                DOMAddLines dm = (DOMAddLines) li[1];
-                XPathResultsDockable dockable = (XPathResultsDockable) DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(XPathResultsDockable.DOCKABLE_ID);
-                dockable.setResultsModel(new XPathResultsTableModel(nl, dm));
+                if (t == null) {
+                    XPontusComponentsUtils.showErrorMessage("No plugins installed for that action");
+                    evaluateButton.setEnabled(false);
+                    engineList.setEnabled(false);
+                    expressionList.setEnabled(false);
+                    return;
+                }
 
-            } else {
-                XPontusComponentsUtils.showErrorMessage("No results");
+                ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
+                String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME).toString();
+                try {
+                    EvaluatorPluginIF plugin = (EvaluatorPluginIF) Class.forName(classname, true, loader).newInstance();
+                    Object[] li = plugin.handle(getExpression());
+                    XPathResultsDockable dockable = (XPathResultsDockable) DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(XPathResultsDockable.DOCKABLE_ID);
+                    if (li != null) {
+                        NodeList nl = (NodeList) li[0];
+                        DOMAddLines dm = (DOMAddLines) li[1];
+                        dockable.setResultsModel(new XPathResultsTableModel(nl, dm));
+                        DefaultXPontusWindowImpl.getInstance().getConsole().setFocus(XPathResultsDockable.DOCKABLE_ID);
+                    } else { 
+                        DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(MessagesWindowDockable.DOCKABLE_ID).println("No results");
+                        DefaultXPontusWindowImpl.getInstance().getConsole().setFocus(MessagesWindowDockable.DOCKABLE_ID);
+                    }
+                } catch (Exception e) {
+                     DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(MessagesWindowDockable.DOCKABLE_ID).println("Error:\n" + e.getMessage() , OutputDockable.RED_STYLE);
+                        DefaultXPontusWindowImpl.getInstance().getConsole().setFocus(MessagesWindowDockable.DOCKABLE_ID);
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        };
+        m_worker.start();
+        
     }//GEN-LAST:event_evaluateButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox engineList;

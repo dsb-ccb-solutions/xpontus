@@ -21,8 +21,13 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
+import net.sf.xpontus.constants.XPontusConstantsIF;
+
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 
@@ -34,25 +39,58 @@ public class ScenarioPluginsConfiguration {
     private static ScenarioPluginsConfiguration INSTANCE;
     private List processorList = new Vector();
     private List outputTypes = new Vector();
-
+    private Map enginesMap = new HashMap();
     private List engines = new Vector();
-    
-    public List getEngines(){
-        return engines;
-    }
-    
+
     private ScenarioPluginsConfiguration() {
     }
 
-    public void addEngine(ScenarioPluginIF plugin){
+    public void setEnginesMap(Map enginesMap) {
+        this.enginesMap = enginesMap;
+    }
+
+    public List getEngines() {
+        return engines;
+    }
+
+    public ScenarioPluginIF getEngineForName(String name) {
+        System.out.println("Looking for plugin called:" + name);
+
+        try {
+            Hashtable t = (Hashtable) enginesMap.get(name);
+            String m_name = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME);
+            ClassLoader m_loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
+            
+            m_loader.getResource("/org/apache/avalon/framework/logger/Logger");
+            ScenarioPluginIF plugin = (ScenarioPluginIF)m_loader.loadClass(m_name).newInstance();
+
+            System.out.println("retrieved plugin called:" + name);
+
+            System.out.println("Plugin not null:" + (plugin.getClass().getName()));
+
+            return plugin;
+        } catch (Exception e) {
+            System.out.println("Exception while retrieving plugin");
+            e.printStackTrace();
+
+            return null;
+        }
+    }
+
+    public void addEngine(ScenarioPluginIF plugin, ClassLoader loader) {
         engines.add(plugin);
+
+        Hashtable t = new Hashtable();
+        t.put(XPontusConstantsIF.OBJECT_CLASSNAME, plugin.getClass().getName());
+        t.put(XPontusConstantsIF.CLASS_LOADER, loader);
+        enginesMap.put(plugin.getName(), t);
         
         processorList.addAll(Arrays.asList(plugin.getProcessors()));
         outputTypes.addAll(Arrays.asList(plugin.getOutputTypes()));
-        
     }
+
     /**
-     * 
+     *
      * @return
      */
     public static ScenarioPluginsConfiguration getInstance() {
@@ -64,7 +102,7 @@ public class ScenarioPluginsConfiguration {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public List getOutputTypes() {
@@ -72,7 +110,7 @@ public class ScenarioPluginsConfiguration {
     }
 
     /**
-     * 
+     *
      * @param outputTypes
      */
     public void setOutputTypes(List outputTypes) {
@@ -80,7 +118,7 @@ public class ScenarioPluginsConfiguration {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public List getProcessorList() {
@@ -88,7 +126,7 @@ public class ScenarioPluginsConfiguration {
     }
 
     /**
-     * 
+     *
      * @param processorList
      */
     public void setProcessorList(List processorList) {

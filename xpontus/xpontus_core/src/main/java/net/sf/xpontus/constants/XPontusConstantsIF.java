@@ -29,6 +29,7 @@ package net.sf.xpontus.constants;
 public interface XPontusConstantsIF extends XPontusConfigurationConstantsIF,
     XPontusFileConstantsIF, LexerPropertiesConstantsIF, XPontusMenuConstantsIF,
     XPontusPropertiesConstantsIF {
+    String OUTLINE_INFO = "OUTLINE_INFO";
     String APPLICATION_NAME = "XPontus XML Editor";
     String APPLICATION_VERSION = "1.0.0-pre1";
     String MODIFICATION_HANDLER = "MODIFICATION_HANDLER";

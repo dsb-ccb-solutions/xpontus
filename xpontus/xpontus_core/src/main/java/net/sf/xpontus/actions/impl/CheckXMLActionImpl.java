@@ -83,6 +83,8 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
             SAXParser parser = new SAXParser();
 
             parser.setFeature("http://xml.org/sax/features/validation", false);
+            
+            parser.setEntityResolver(null);
 
             parser.parse(new InputSource(m_reader));
             

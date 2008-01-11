@@ -24,9 +24,11 @@
 package net.sf.xpontus.plugins.scenarios;
 
 import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
-import net.sf.xpontus.modules.gui.components.ScenarioManagerView; 
+import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
@@ -78,15 +80,22 @@ public class ScenarioManagerController {
             return;
         }
 
-        DefaultComboBoxModel m = (DefaultComboBoxModel) li.getModel();
+        DefaultComboBoxModel listmodel = (DefaultComboBoxModel) li.getModel();
 
-        m.removeElement(m.getElementAt(index));
-
-        li.setSelectedIndex(li.getModel().getSize() - 1);
+        listmodel.removeElement(listmodel.getElementAt(index));
 
         ScenarioListModel _m = new ScenarioListModel();
-        _m.setScenarioList(view.getVector());
+
+        List v = new Vector();
+
+        for (int i = 0; i < listmodel.getSize(); i++) {
+            v.add(listmodel.getElementAt(i));
+        }
+
+        _m.setScenarioList(v);
         _m.save();
+
+        li.setSelectedIndex(li.getModel().getSize() - 1);
     }
 
     private void initScenarioEditor(ScenarioModel model) {
@@ -94,10 +103,8 @@ public class ScenarioManagerController {
             child = new ScenarioEditorView(view);
         }
 
-        
         child.setModel(model);
         child.getController().resetParameters(model.getParameters());
-        
     }
 
     private void showEditorDialog() {
@@ -115,7 +122,7 @@ public class ScenarioManagerController {
                                                      .getProcessorList().get(0)
                                                      .toString());
         System.out.println("Processor:" + scm.getProcessor());
-        
+
         initScenarioEditor(scm);
         child.isnew = true;
         child.setTitle("Create a new transformation profile");
@@ -134,8 +141,9 @@ public class ScenarioManagerController {
             return;
         }
 
-        DetachableScenarioModel scm = (DetachableScenarioModel) view.getScenariosList().getModel()
-                                                .getElementAt(index);
+        DetachableScenarioModel scm = (DetachableScenarioModel) view.getScenariosList()
+                                                                    .getModel()
+                                                                    .getElementAt(index);
         DetachableScenarioModelConverter dsmc = new DetachableScenarioModelConverter(scm);
         initScenarioEditor(dsmc.toScenarioModel());
 

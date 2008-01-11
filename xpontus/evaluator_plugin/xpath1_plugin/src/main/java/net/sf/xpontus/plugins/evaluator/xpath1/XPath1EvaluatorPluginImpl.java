@@ -72,13 +72,13 @@ public class XPath1EvaluatorPluginImpl implements EvaluatorPluginIF {
             InputStream is = new BufferedInputStream(new ByteArrayInputStream(
                         texte.getBytes()));
 
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
-            dbf.setValidating(false);
-
             final Map nsMap = new HashMap();
 
             SAXParser parser = new SAXParser();
+            
+            parser.setFeature("http://xml.org/sax/features/validation", false);
+            
+            parser.setEntityResolver(null);
 
             parser.setContentHandler(new NamespaceResolverHandler(nsMap));
 

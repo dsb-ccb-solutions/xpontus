@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.SwingUtilities;
+import net.sf.xpontus.constants.XPontusConstantsIF;
 
 
 /**
@@ -171,14 +172,15 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
         SyntaxDocument mDoc = (SyntaxDocument) doc;
 
-        try {
-            System.out.print("XML CODE COMPLETION PARSING...");
+        try { 
 
             String mText = doc.getText(0, doc.getLength());
             Reader mReader = new StringReader(mText);
             lexer = new XMLLexer(mReader);
             parser = new XMLParser(lexer);
             parser.parse();
+            
+            mDoc.putProperty(XPontusConstantsIF.OUTLINE_INFO, parser.getRootNode());
 
             final XMLParser xp = parser;
             final OutlineViewDockable outline = DefaultXPontusWindowImpl.getInstance()
@@ -188,8 +190,6 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                         outline.updateAll(xp.getRootNode());
                     }
                 });
-
-            System.out.println("parser end call");
         } catch (Exception err) {
         }
 
@@ -197,7 +197,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
             dtdLocation = lexer.getDTDLocation();
             schemaLocation = lexer.getSchemaLocation();
 
-            System.out.println("dtd:" + dtdLocation);
+            System.out.println("dtd:" + dtdLocation + ",schemaLocation:" + schemaLocation);
         }
 
         try {

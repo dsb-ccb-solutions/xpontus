@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+ 
 
 /**
  *
@@ -67,10 +67,13 @@ public class XMLSchemaCompletionParser implements ICompletionParser {
 
     public void updateCompletionInfo(String pubid, String uri, Reader in) {
         try {
+             
             String[] schemas = {  };
 
             SchemaGrammar grammer = (SchemaGrammar) new XMLSchemaLoader().loadGrammar(new XMLInputSource(
                         null, null, null, in, null));
+            
+             System.out.println("grammars:"  + grammer.getImportedGrammars().size());
 
             // clear at first
             String targetNS = grammer.getTargetNamespace();

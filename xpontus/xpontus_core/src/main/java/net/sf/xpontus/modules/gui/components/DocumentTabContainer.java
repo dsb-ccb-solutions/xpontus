@@ -29,15 +29,17 @@ import com.vlsolutions.swing.docking.event.DockableSelectionListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeListener;
 
+import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.syntax.SyntaxDocument;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
-
 
 import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.text.JTextComponent;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 
 /**
@@ -71,6 +73,16 @@ public class DocumentTabContainer {
                         currentDockable = selectedDockable;
 
                         currentEditor = container.getEditorComponent();
+
+                        SyntaxDocument m_doc = (SyntaxDocument) currentEditor.getDocument();
+                        Object o = m_doc.getProperty(XPontusConstantsIF.OUTLINE_INFO);
+
+                        if (o != null) {
+                            DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
+                            DefaultXPontusWindowImpl.getInstance().getOutline()
+                                                    .updateAll(node);
+                        }
+
                         DocumentAwareComponentHolder.getInstance()
                                                     .notifyComponents(new DocumentContainerChangeEvent(
                                 container));
@@ -94,6 +106,9 @@ public class DocumentTabContainer {
                             Dockable pane = ((DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent()).getDefaultPane();
 
                             desktop.replace(editor, pane);
+
+                            DefaultXPontusWindowImpl.getInstance().getOutline()
+                                                    .updateAll(new DefaultMutableTreeNode());
 
                             pane.getDockKey()
                                 .setDockableState(DockableState.STATE_DOCKED);
@@ -223,9 +238,10 @@ public class DocumentTabContainer {
      * @param file
      */
     public void createEditorFromFile(java.io.File file) {
-        if(!file.exists()){
+        if (!file.exists()) {
             return;
         }
+
         DocumentContainer container = new DocumentContainer();
         container.setup(file);
         container.completeSetup();

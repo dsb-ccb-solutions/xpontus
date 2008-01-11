@@ -27,11 +27,15 @@ import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockingUtilities;
 import com.vlsolutions.swing.docking.TabbedDockableContainer;
 
+import net.sf.xpontus.controllers.impl.PopupHandler;
 import net.sf.xpontus.plugins.evaluator.XPathResultsDockable;
 
 import org.apache.commons.collections.map.ListOrderedMap;
 
 import java.util.List;
+
+import javax.swing.JScrollPane;
+import javax.swing.text.JTextComponent;
 
 
 /**
@@ -74,7 +78,11 @@ public class ConsoleOutputWindow {
      *
      */
     private void initComponents() {
-        addDockable(new MessagesWindowDockable());
+        OutputDockable d = new MessagesWindowDockable();
+        JScrollPane sp = (JScrollPane) d.getComponent();
+        JTextComponent jtc = (JTextComponent) sp.getViewport().getComponent(0);
+        jtc.addMouseListener(new PopupHandler());
+        addDockable(d);
         addDockable(new XPathResultsDockable());
     }
 

@@ -19,6 +19,7 @@
  */
 package net.sf.xpontus.plugins.lexer.xml;
 
+import net.sf.xpontus.plugins.lexer.LexerPluginIF;
 import net.sf.xpontus.syntax.CharStream;
 import net.sf.xpontus.syntax.IColorProvider;
 import net.sf.xpontus.syntax.LexerInputStream;
@@ -33,16 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.text.Segment;
-import net.sf.xpontus.plugins.lexer.LexerPluginIF;
 
 
 /** This must be included for javacc joy.
  *  We use just token manager.
  */
 public class XMLParser implements XMLParserConstants, LexerPluginIF {
-    
-    private IColorProvider colorer = new XMLColorProviderImpl();
-    
     static private int[] jj_la1_0;
     static private int[] jj_la1_1;
     static private int[] jj_la1_2;
@@ -55,6 +52,7 @@ public class XMLParser implements XMLParserConstants, LexerPluginIF {
         jj_la1_3();
     }
 
+    private IColorProvider colorer = new XMLColorProviderImpl();
     private List tokens = new ArrayList();
     public XMLParserTokenManager token_source;
     public Token token;
@@ -353,7 +351,7 @@ public class XMLParser implements XMLParserConstants, LexerPluginIF {
     }
 
     public String getMimeType() {
-       return "text/xml";
+        return "text/xml";
     }
 
     public String getName() {
@@ -367,8 +365,11 @@ public class XMLParser implements XMLParserConstants, LexerPluginIF {
     public String getLexerClassName() {
         return this.getClass().getName();
     }
-  public String[] getSupportedExtensions() {
-        return new String[] {"xml", "xsd", "xconf", "xhtml", "rng", "xmap", "jnlp"};
+
+    public String[] getSupportedExtensions() {
+        return new String[] {
+            "xml", "xsd", "xconf", "xhtml", "rng", "xmap", "jnlp"
+        };
     }
 
     public IColorProvider getColorer() {

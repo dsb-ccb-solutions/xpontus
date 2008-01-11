@@ -132,7 +132,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
                         txt.getBytes()));
         }
 
-        detector.setText(bis);
+        detector.setText(new BufferedInputStream(bis));
 
         return detector.detect().getReader();
     }
