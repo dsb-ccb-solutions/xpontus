@@ -24,5 +24,7 @@
     <module>fop_plugin</module>
     <module>stx_plugin</module>
     <module>xquery_plugin</module>
+    <module>saxon6_plugin</module>
+    <module>saxon8_plugin</module>
   </modules>
 </project>
