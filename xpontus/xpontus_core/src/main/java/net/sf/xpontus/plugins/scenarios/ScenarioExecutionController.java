@@ -30,8 +30,6 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.awt.Toolkit;
 
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
