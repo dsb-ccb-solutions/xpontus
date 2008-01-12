@@ -109,7 +109,7 @@ public class MenuBarPlugin extends XPontusPlugin {
 
             for (int j = 0; j < actions.size(); j++) {
                 JMenuItem item = menu.add((Action) actions.get(j));
-                item.setIcon(null);
+//                item.setIcon(null);
             }
         }
     }
