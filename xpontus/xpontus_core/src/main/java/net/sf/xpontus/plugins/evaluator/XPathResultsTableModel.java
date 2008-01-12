@@ -43,6 +43,7 @@ public class XPathResultsTableModel extends AbstractTableModel {
 
     /**
      * @param rows
+     * @param locator
      */
     public XPathResultsTableModel(NodeList rows, DOMAddLines locator) {
         columns[0] = "Results";
@@ -57,27 +58,35 @@ public class XPathResultsTableModel extends AbstractTableModel {
 
             XPathResultDescriptor res = new XPathResultDescriptor();
 
-            //            buff.append("line " + element.getLineNumber());
-            //            
             if (element instanceof ElementImpl) {
                 StringBuffer buff = new StringBuffer();
                 buff.append(locator.getLineInfo(element) + ",");
                 buff.append(element.getNodeName());
                 res.lineInfo = true;
-                res.value = buff.toString(); 
+                res.value = buff.toString();
             } else if (element instanceof TextImpl) {
+                StringBuffer buff = new StringBuffer();
+                System.out.println("hum.. some text");
                 res.lineInfo = false;
-                String texte = ((TextImpl)element).getWholeText();
+
+                TextImpl ti = (TextImpl) element; 
+                buff.append("getData" + ti.toString() + ",getNodeValue" +     ti.getNodeValue() + ",getTextContent" +
+                     ",getWholeText" + ti.getWholeText());
+
+                System.out.println("TextImpl Buffer:" + buff.toString());
+                String texte = buff.toString() +
+                    "([etc... REST OF THE TEXT...])";
                 int taille = texte.length();
                 int max = taille;
-                if(max > 15){
-                    max = 15;
-                }
+
+//                if (max > 15) {
+//                    max = 15;
+//                }
+
                 res.value = texte.substring(0, max);
-            }
-            else{
+            } else {
                 res.lineInfo = false;
-                res.value = rows.item(i).toString();
+                res.value = element.getNodeValue();
             }
 
             data[i][0] = res;
@@ -107,6 +116,7 @@ public class XPathResultsTableModel extends AbstractTableModel {
      */
     public Object getValueAt(int row, int column) {
         Object o = data[row][column];
+
         return o;
     }
 

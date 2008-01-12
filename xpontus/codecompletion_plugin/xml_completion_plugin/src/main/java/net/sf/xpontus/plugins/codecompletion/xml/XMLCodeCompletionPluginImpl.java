@@ -21,6 +21,7 @@
  */
 package net.sf.xpontus.plugins.codecompletion.xml;
 
+import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.OutlineViewDockable;
 import net.sf.xpontus.parsers.*;
@@ -38,9 +39,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.SwingUtilities;
-import net.sf.xpontus.constants.XPontusConstantsIF;
 
 
 /**
@@ -51,7 +52,7 @@ import net.sf.xpontus.constants.XPontusConstantsIF;
  */
 public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     private Log logger = LogFactory.getLog(XMLCodeCompletionPluginImpl.class);
-    private List tagList = new ArrayList();
+    private List tagList = new Vector();
     private boolean isDTDCompletion = false;
     private boolean isSchemaCompletion = false;
     private Map nsTagListMap = new HashMap();
@@ -102,9 +103,21 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     public synchronized List getCompletionList() {
         List completionList = tagList;
 
+        System.out.println("map size:" + nsTagListMap.size());
+
         if (!isDTDCompletion) {
-            completionList = (List) nsTagListMap.get(nsTagListMap.keySet()
-                                                                 .iterator());
+            if ((completionList == null) || (completionList.size() == 0)) {
+                int taille = nsTagListMap.keySet().size();
+
+                if (taille > 0) {
+                    //                    completionList = new Vector((List)nsTagListMap.values().iterator().next());
+                    List m = (List) nsTagListMap.values().iterator().next();
+                    completionList = m;
+                }
+            } else {
+                completionList = (List) nsTagListMap.get(nsTagListMap.keySet()
+                                                                     .iterator());
+            }
         }
 
         return completionList;
@@ -172,15 +185,15 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
         SyntaxDocument mDoc = (SyntaxDocument) doc;
 
-        try { 
-
+        try {
             String mText = doc.getText(0, doc.getLength());
             Reader mReader = new StringReader(mText);
             lexer = new XMLLexer(mReader);
             parser = new XMLParser(lexer);
             parser.parse();
-            
-            mDoc.putProperty(XPontusConstantsIF.OUTLINE_INFO, parser.getRootNode());
+
+            mDoc.putProperty(XPontusConstantsIF.OUTLINE_INFO,
+                parser.getRootNode());
 
             final XMLParser xp = parser;
             final OutlineViewDockable outline = DefaultXPontusWindowImpl.getInstance()
@@ -197,7 +210,8 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
             dtdLocation = lexer.getDTDLocation();
             schemaLocation = lexer.getSchemaLocation();
 
-            System.out.println("dtd:" + dtdLocation + ",schemaLocation:" + schemaLocation);
+            System.out.println("dtd:" + dtdLocation + ",schemaLocation:" +
+                schemaLocation);
         }
 
         try {
@@ -212,6 +226,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                 updateAssistInfo(lexer.getdtdPublicId(), dtdLocation, dtdReader);
                 System.out.println("parsing dtd");
             } else if (schemaLocation != null) {
+                System.out.println("parsing schema");
                 setCompletionParser(new XMLSchemaCompletionParser());
 
                 java.net.URL url = new java.net.URL(schemaLocation);

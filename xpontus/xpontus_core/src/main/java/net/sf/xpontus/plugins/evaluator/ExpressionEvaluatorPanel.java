@@ -59,7 +59,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
         });
 
         expressionList.setEditable(true);
-        expressionList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "//test" }));
+        expressionList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "//article/text()" }));
         expressionList.setMinimumSize(new java.awt.Dimension(74, 20));
         expressionList.setPreferredSize(new java.awt.Dimension(74, 20));
 

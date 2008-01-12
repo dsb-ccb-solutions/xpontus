@@ -24,6 +24,7 @@ package net.sf.xpontus.plugins.settings;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
+import net.sf.xpontus.properties.PropertiesHolder;
 
 //import com.db4o.Db4o;
 //import com.db4o.ObjectContainer;
@@ -31,9 +32,9 @@ import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
 //
 //import com.db4o.config.Configuration;
 import java.io.File;
+
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.xpontus.properties.PropertiesHolder;
 
 
 /**
@@ -72,7 +73,8 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
                 XPontusConstantsIF.XPONTUS_PLUGINS_DATA_DIR,
                 XPontusConstantsIF.XPONTUS_PREFERENCES_DIR,
                 XPontusConstantsIF.XPONTUS_DATABASE_CONFIG_DIR,
-                XPontusConstantsIF.XPONTUS_PLUGINS_DIR
+                XPontusConstantsIF.XPONTUS_PLUGINS_DIR,
+                XPontusConstantsIF.XPONTUS_CACHE_DIR
             };
 
         for (int i = 0; i < configsDirectories.length; i++) {
@@ -80,7 +82,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
                 configsDirectories[i].mkdirs();
             }
         }
-        
+
         Map map = new HashMap();
         map.put(ROLE, this);
         PropertiesHolder.registerProperty(XPontusSettings.KEY, map);

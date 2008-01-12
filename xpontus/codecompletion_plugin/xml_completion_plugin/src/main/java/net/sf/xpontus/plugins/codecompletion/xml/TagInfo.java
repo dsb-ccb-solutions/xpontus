@@ -21,6 +21,8 @@
 package net.sf.xpontus.plugins.codecompletion.xml;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 
 /**
@@ -33,8 +35,8 @@ public class TagInfo {
     public static final int FORM = 2;
     private String tagName;
     private boolean hasBody;
-    private ArrayList attributes = new ArrayList();
-    private ArrayList children = new ArrayList();
+    private List attributes = new Vector();
+    private List children = new Vector();
 
     /**
      * RXgN^B

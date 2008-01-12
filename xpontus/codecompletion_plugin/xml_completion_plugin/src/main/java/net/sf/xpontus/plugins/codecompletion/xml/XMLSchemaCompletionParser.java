@@ -25,6 +25,9 @@ import org.apache.commons.logging.LogFactory;
 
 import org.apache.xerces.impl.xs.SchemaGrammar;
 import org.apache.xerces.impl.xs.XMLSchemaLoader;
+import org.apache.xerces.xni.XMLResourceIdentifier;
+import org.apache.xerces.xni.XNIException;
+import org.apache.xerces.xni.parser.XMLEntityResolver;
 import org.apache.xerces.xni.parser.XMLInputSource;
 import org.apache.xerces.xs.XSAttributeDeclaration;
 import org.apache.xerces.xs.XSAttributeUse;
@@ -39,13 +42,19 @@ import org.apache.xerces.xs.XSParticle;
 import org.apache.xerces.xs.XSTerm;
 import org.apache.xerces.xs.XSTypeDefinition;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
+
+import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
- 
+import java.util.Vector;
+
 
 /**
  *
@@ -53,7 +62,7 @@ import java.util.Map;
  */
 public class XMLSchemaCompletionParser implements ICompletionParser {
     private Log logger = LogFactory.getLog(XMLSchemaCompletionParser.class);
-    private List tagList = new ArrayList();
+    private List tagList = new Vector();
     private Map nsTagListMap = new HashMap();
 
     /** Creates a new instance of XMLSchemaCompletionParser */
@@ -65,30 +74,44 @@ public class XMLSchemaCompletionParser implements ICompletionParser {
         this.nsTagListMap = nsTagListMap;
     }
 
+    /**
+     * 
+     * @param pubid
+     * @param uri
+     * @param in
+     */
     public void updateCompletionInfo(String pubid, String uri, Reader in) {
         try {
-             
-            String[] schemas = {  };
+            XMLInputSource inputSource = new XMLInputSource(null, uri, null);
 
-            SchemaGrammar grammer = (SchemaGrammar) new XMLSchemaLoader().loadGrammar(new XMLInputSource(
-                        null, null, null, in, null));
-            
-             System.out.println("grammars:"  + grammer.getImportedGrammars().size());
+            XMLSchemaLoader loader = new XMLSchemaLoader();
+
+            loader.setEntityResolver(new XMLEntityResolver() {
+                    public XMLInputSource resolveEntity(
+                        XMLResourceIdentifier arg0)
+                        throws XNIException, IOException {
+                        return new XMLInputSource(arg0);
+                    }
+                });
+
+            InputStream isr = new BufferedInputStream(new URL(uri).openStream());
+            SchemaGrammar grammer = (SchemaGrammar) loader.loadGrammar(inputSource);
 
             // clear at first
             String targetNS = grammer.getTargetNamespace();
             nsTagListMap.put(targetNS, new ArrayList());
 
-            List tagList = (List) nsTagListMap.get(targetNS);
+            List m_tagList = (List) nsTagListMap.get(targetNS);
 
             //			root = null;
             XSNamedMap map = grammer.getComponents(XSConstants.ELEMENT_DECLARATION);
 
             for (int i = 0; i < map.getLength(); i++) {
                 XSElementDeclaration element = (XSElementDeclaration) map.item(i);
-                parseXSDElement(tagList, element);
+                parseXSDElement(m_tagList, element);
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -135,21 +158,25 @@ public class XMLSchemaCompletionParser implements ICompletionParser {
 
     private void parseXSModelGroup(TagInfo tagInfo, List tagList,
         XSModelGroup term) {
+        if (true) {
+            return;
+        }
+
         XSObjectList list = ((XSModelGroup) term).getParticles();
 
         for (int i = 0; i < list.getLength(); i++) {
             XSObject obj = list.item(i);
 
             if (obj instanceof XSParticle) {
-                XSTerm term2 = ((XSParticle) obj).getTerm();
+                XSTerm m_term = ((XSParticle) obj).getTerm();
 
-                if (term2 instanceof XSElementDeclaration) {
-                    parseXSDElement(tagList, (XSElementDeclaration) term2);
-                    tagInfo.addChildTagName(((XSElementDeclaration) term2).getName());
+                if (m_term instanceof XSElementDeclaration) {
+                    parseXSDElement(tagList, (XSElementDeclaration) m_term);
+                    tagInfo.addChildTagName(((XSElementDeclaration) m_term).getName());
                 }
 
-                if (term2 instanceof XSModelGroup) {
-                    parseXSModelGroup(tagInfo, tagList, (XSModelGroup) term2);
+                if (m_term instanceof XSModelGroup) {
+                    parseXSModelGroup(tagInfo, tagList, (XSModelGroup) m_term);
                 }
             }
         }
