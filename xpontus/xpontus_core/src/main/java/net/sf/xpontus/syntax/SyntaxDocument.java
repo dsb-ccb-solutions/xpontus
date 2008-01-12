@@ -21,12 +21,14 @@
  */
 package net.sf.xpontus.syntax;
 
-import net.sf.xpontus.utils.DynamicIntArray;
-import net.sf.xpontus.plugins.completion.*;
-import java.util.List;
-import java.util.*;
 import net.sf.xpontus.constants.*;
+import net.sf.xpontus.plugins.completion.*;
 import net.sf.xpontus.properties.*;
+import net.sf.xpontus.utils.DynamicIntArray;
+
+import java.util.*;
+import java.util.List;
+
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -50,6 +52,7 @@ public class SyntaxDocument extends PlainDocument {
     private ILexer lexer;
     private boolean isCodeCompletion = false;
     private CodeCompletionIF plugin;
+
     //element that represents the previous line postion of the cursor
     private DynamicIntArray endTokens;
     private Segment seg;
@@ -69,13 +72,6 @@ public class SyntaxDocument extends PlainDocument {
     private final MutableAttributeSet DEFAULT_STYLE;
     private boolean xmlCompletion = false;
 
-    public void setCodeCompletion(CodeCompletionIF plugin){
-	this.plugin = plugin;
-    }
-
-    public CodeCompletionIF getCodeCompletion(){
-	return plugin;
-    }
     /**
      *
      * @param editor
@@ -83,29 +79,41 @@ public class SyntaxDocument extends PlainDocument {
      */
     public SyntaxDocument(JTextComponent editor, SyntaxSupport support) {
         this.styleMap = support.getColorProvider().getStyles();
-     
+
         this.editor = editor;
         seg = new Segment();
         DEFAULT_STYLE = new SimpleAttributeSet();
         this.lexer = support.getLexer();
         endTokens = new DynamicIntArray(500);
 
-	Hashtable _map = (Hashtable)PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_COMPLETION_ENGINES);
-	if(_map.size() == 0){
-	    System.out.println("No engines found!");
-return;}
+        Hashtable _map = (Hashtable) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_COMPLETION_ENGINES);
 
-	
-	String completion_key = _map.keySet().iterator().next().toString();
-Hashtable m_map = (Hashtable)_map.get(completion_key);
-	try{
-	String m_classname = m_map.get(XPontusConstantsIF.OBJECT_CLASSNAME).toString();
-	ClassLoader loader = (ClassLoader)m_map.get(XPontusConstantsIF.CLASS_LOADER);
-	setCodeCompletion((CodeCompletionIF)Class.forName(m_classname, true, loader).newInstance());
-	}
-	catch(Exception e){
-	    e.printStackTrace();
-	}
+        if (_map.size() == 0) {
+            System.out.println("No engines found!");
+
+            return;
+        }
+
+        String completion_key = _map.keySet().iterator().next().toString();
+        Hashtable m_map = (Hashtable) _map.get(completion_key);
+
+        try {
+            String m_classname = m_map.get(XPontusConstantsIF.OBJECT_CLASSNAME)
+                                      .toString();
+            ClassLoader loader = (ClassLoader) m_map.get(XPontusConstantsIF.CLASS_LOADER);
+            setCodeCompletion((CodeCompletionIF) Class.forName(m_classname,
+                    true, loader).newInstance());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setCodeCompletion(CodeCompletionIF plugin) {
+        this.plugin = plugin;
+    }
+
+    public CodeCompletionIF getCodeCompletion() {
+        return plugin;
     }
 
     public void setLoading(boolean b) {
@@ -364,10 +372,11 @@ Hashtable m_map = (Hashtable)_map.get(completion_key);
     public void insertString(int off, String str, AttributeSet set)
         throws BadLocationException {
         super.insertString(off, str, set);
-        if ((plugin != null) && plugin.isTrigger(str) ) {
-            System.out.println("completion insert:" + plugin.getClass().getName());
-            ContentAssistWindow.complete(editor,
-                plugin , off, str, set);
+
+        if ((plugin != null) && plugin.isTrigger(str)) {
+            System.out.println("completion insert:" +
+                plugin.getClass().getName());
+            ContentAssistWindow.complete(editor, plugin, off, str, set);
         }
     }
 }

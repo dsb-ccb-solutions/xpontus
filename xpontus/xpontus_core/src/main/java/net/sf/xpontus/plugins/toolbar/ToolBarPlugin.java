@@ -44,7 +44,6 @@ import java.util.Map;
 
 import javax.swing.Action;
 import javax.swing.JButton;
-import net.sf.xpontus.plugins.evaluator.ExpressionEvaluatorPanel;
 
 
 /**
@@ -54,7 +53,7 @@ import net.sf.xpontus.plugins.evaluator.ExpressionEvaluatorPanel;
 public class ToolBarPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "toolbarpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.toolbar";
-    public static final int MAX_TOOLBAR_PER_LINE = 2;
+    public static final int MAX_TOOLBAR_PER_LINE = 5;
     private int x_pos = 0;
     private int y_pos = 0;
 
@@ -137,6 +136,7 @@ public class ToolBarPlugin extends XPontusPlugin {
 
             for (int j = 0; j < tbActions.size(); j++) {
                 JButton m_button = new JButton((Action) tbActions.get(j));
+                m_button.setText(null);
                 tb.add(m_button);
             }
         }

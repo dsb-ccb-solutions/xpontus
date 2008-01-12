@@ -42,6 +42,7 @@ import java.util.Map;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 
 /**
@@ -107,7 +108,8 @@ public class MenuBarPlugin extends XPontusPlugin {
             List actions = (List) map.get(m_MenuKey);
 
             for (int j = 0; j < actions.size(); j++) {
-                menu.add((Action) actions.get(j));
+                JMenuItem item = menu.add((Action) actions.get(j));
+                item.setIcon(null);
             }
         }
     }

@@ -15,6 +15,7 @@ import java.awt.FlowLayout;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 
 /**
@@ -22,7 +23,7 @@ import javax.swing.JPanel;
  * @author Propriétaire
  */
 public class DefaultQuickToolbarPluginImpl implements QuickToolBarPluginIF {
-    private JPanel panel;
+    private JToolBar panel;
 
     public String getName() {
         return "Default quicktoolbar";
@@ -38,15 +39,21 @@ public class DefaultQuickToolbarPluginImpl implements QuickToolBarPluginIF {
 
     public Component getComponent() {
         if (panel == null) {
-            panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            panel = new JToolBar();
+            panel.setFloatable(false);
+            panel.setRollover(true);
 
             IOCPlugin pc = (IOCPlugin) PropertiesHolder.getPropertyValue(IOCPlugin.PLUGIN_IDENTIFIER);
 
             Action m_action = (Action) pc.getBean(XMLCommentActionImpl.BEAN_ALIAS);
-            panel.add(new JButton(m_action));
+            JButton m_button = new JButton(m_action);
+            m_button.setText(null);
+            panel.add(m_button);
 
             m_action = (Action) pc.getBean(InsertCDataActionImpl.BEAN_ALIAS);
-            panel.add(new JButton(m_action));
+            m_button = new JButton(m_action);
+            m_button.setText(null);
+            panel.add(m_button);
         }
 
         return panel;

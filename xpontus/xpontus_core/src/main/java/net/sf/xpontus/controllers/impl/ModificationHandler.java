@@ -84,15 +84,20 @@ public class ModificationHandler implements DocumentListener, CaretListener {
                     final SyntaxDocument mDoc = (SyntaxDocument) editor.getEditorComponent()
                                                                        .getDocument();
 
-			if(mDoc.getCodeCompletion()!=null){
-                  //   System.out.println("parsing for completion");
-                    new Thread() {
-                            public void run() {
-                               mDoc.getCodeCompletion().init(mDoc);
-                            }
-                        }.start();
-                   //  System.out.println("parsing for completion done");
-}
+                    if (mDoc.getCodeCompletion() != null) {
+                        //   System.out.println("parsing for completion");
+                        new Thread() {
+                                public void run() {
+//                                    editor.getStatusBar()
+//                                          .setOperationMessage("Building code completion...");
+                                    mDoc.getCodeCompletion().init(mDoc);
+//                                    editor.getStatusBar()
+//                                          .setOperationMessage("Database completion updated...");
+                                }
+                            }.start();
+
+                        //  System.out.println("parsing for completion done");
+                    }
                 }
             });
     }
