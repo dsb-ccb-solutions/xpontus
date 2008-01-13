@@ -119,7 +119,7 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
 
         if (fo instanceof LocalFile) {
             bos = FileUtils.openOutputStream(new File(
-                        fo.getURL().toExternalForm()));
+                        fo.getName().getPathDecoded()));
             local = true;
         } else {
             bos = fo.getContent().getOutputStream();
@@ -138,7 +138,7 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
 
         if (local) {
             fo = VFS.getManager()
-                    .toFileObject(new File(fo.getURL().toExternalForm()));
+                    .toFileObject(new File(fo.getName().getURI()));
         }
 
         // add information about the file location
@@ -148,9 +148,7 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
                                               .getDocumentTabContainer()
                                               .getCurrentDockable();
         dc.getDockKey().setTooltip(fo.getURL().toExternalForm());
-        dc.getDockKey().setName(fo.getName().getBaseName());
-
-        DockableContainer dcp = DockingUtilities.findDockableContainer(dc);
+        dc.getDockKey().setName(fo.getName().getBaseName()); 
 
         // removed the modified flag
         ModificationHandler handler = (ModificationHandler) editor.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);

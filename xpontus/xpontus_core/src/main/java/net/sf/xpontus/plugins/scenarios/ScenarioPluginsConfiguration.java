@@ -60,13 +60,16 @@ public class ScenarioPluginsConfiguration {
             Hashtable t = (Hashtable) enginesMap.get(name);
             String m_name = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME);
             ClassLoader m_loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
-            
+
             m_loader.getResource("/org/apache/avalon/framework/logger/Logger");
-            ScenarioPluginIF plugin = (ScenarioPluginIF)m_loader.loadClass(m_name).newInstance();
+
+            ScenarioPluginIF plugin = (ScenarioPluginIF) m_loader.loadClass(m_name)
+                                                                 .newInstance();
 
             System.out.println("retrieved plugin called:" + name);
 
-            System.out.println("Plugin not null:" + (plugin.getClass().getName()));
+            System.out.println("Plugin not null:" +
+                (plugin.getClass().getName()));
 
             return plugin;
         } catch (Exception e) {
@@ -84,7 +87,7 @@ public class ScenarioPluginsConfiguration {
         t.put(XPontusConstantsIF.OBJECT_CLASSNAME, plugin.getClass().getName());
         t.put(XPontusConstantsIF.CLASS_LOADER, loader);
         enginesMap.put(plugin.getName(), t);
-        
+
         processorList.addAll(Arrays.asList(plugin.getProcessors()));
         outputTypes.addAll(Arrays.asList(plugin.getOutputTypes()));
     }

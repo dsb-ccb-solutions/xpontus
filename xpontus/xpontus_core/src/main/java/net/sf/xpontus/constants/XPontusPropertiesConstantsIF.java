@@ -28,6 +28,8 @@ package net.sf.xpontus.constants;
  * @author Yves Zoundi
  */
 public interface XPontusPropertiesConstantsIF {
+    
+     
     /**
      * Property holding menus by keys
      */
@@ -37,6 +39,11 @@ public interface XPontusPropertiesConstantsIF {
      * Property holding toolbar components by keys
      */
     String XPONTUS_TOOLBAR_PROPERTY = "XPONTUS_TOOLBAR_PROPERTY";
+
+    /**
+     *
+     */
+    String XPONTUS_PREVIEW_PROPERTY = "XPONTUS_PREVIEW_PROPERTY";
 
     /**
      * Property for themes supported by XPontus XML Editor
@@ -67,7 +74,7 @@ public interface XPontusPropertiesConstantsIF {
      * Property for outline engines
      */
     String XPONTUS_OUTLINE_ENGINES = "XPONTUS_OUTLINE_ENGINES";
-    
+
     /**
      * Property for user scenario plugins
      */
@@ -77,7 +84,7 @@ public interface XPontusPropertiesConstantsIF {
      * Property for the editor container plugins
      */
     String XPONTUS_TEXTEDITORS_PLUGINS_PROPERTY = "XPONTUS_TEXTEDITORS_PLUGINS_PROPERTY";
-    
+
     /**
      * Property for the quick toolbars
      */

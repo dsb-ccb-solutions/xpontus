@@ -26,11 +26,11 @@ import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
- 
-import org.apache.commons.vfs.FileObject; 
- 
+
+import org.apache.commons.vfs.FileObject;
 
 import javax.swing.JFileChooser;
+import net.sf.xpontus.constants.XPontusConstantsIF;
 
 
 /**
@@ -50,7 +50,7 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
 
     public void run() {
         if (vfsb == null) {
-            vfsb = new VFSBrowser();
+            vfsb = new VFSBrowser(); 
             vfsb.setDialogTitle("Select a file");
             vfsb.setMultiSelectionEnabled(true);
             vfsb.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -59,13 +59,11 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
         int answer = vfsb.showOpenDialog(XPontusComponentsUtils.getTopComponent()
                                                                .getDisplayComponent());
 
-       
-
         // open the selected files
         if (answer == javax.swing.JFileChooser.APPROVE_OPTION) {
-             DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                           .getDocumentTabContainer();
-             
+            DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
+                                                               .getDocumentTabContainer();
+
             try {
                 FileObject[] tmps = vfsb.getSelectedFiles();
 

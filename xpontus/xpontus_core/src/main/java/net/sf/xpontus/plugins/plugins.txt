@@ -16,3 +16,5 @@
 /net/sf/xpontus/plugins/scenarios/
 /net/sf/xpontus/plugins/evaluator/
 /net/sf/xpontus/plugins/quicktoolbar/
+/net/sf/xpontus/plugins/preview/
+/net/sf/xpontus/plugins/outline/

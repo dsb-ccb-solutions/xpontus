@@ -39,7 +39,6 @@ import org.apache.commons.vfs.VFS;
 
 import org.apache.xalan.processor.TransformerFactoryImpl;
 
-
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -194,7 +193,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
             // close any open streams
             IOUtils.closeQuietly(m_writer);
 
-            IOUtils.closeQuietly(bos); 
+            IOUtils.closeQuietly(bos);
 
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                                   .getConsole();
@@ -298,7 +297,8 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
 
     public void setSystemProperties() {
         log.info("Settings system properties before running the scenario");
-System.setProperty("javax.xml.transform.TransformerFactory", "org.apache.xalan.processor.TransformerFactoryImpl");
+        System.setProperty("javax.xml.transform.TransformerFactory",
+            "org.apache.xalan.processor.TransformerFactoryImpl");
         // the default processor to use is xalan        
         System.setProperty("org.xml.sax.parser",
             "org.apache.xerces.parsers.SAXParser");

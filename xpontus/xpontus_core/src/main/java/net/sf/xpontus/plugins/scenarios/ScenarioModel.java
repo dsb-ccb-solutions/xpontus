@@ -25,9 +25,7 @@ package net.sf.xpontus.plugins.scenarios;
 
 import net.sf.xpontus.model.ObservableModel;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 
 /**
@@ -42,8 +40,18 @@ public class ScenarioModel extends ObservableModel {
     private String processor = "";
     private String alias = "";
     private Hashtable parameters = new Hashtable();
+    private boolean preview = false;
 
     public ScenarioModel() {
+    }
+
+    public boolean isPreview() {
+        return preview;
+    }
+
+    public void setPreview(boolean preview) {
+        this.preview = preview;
+        updateView();
     }
 
     /**

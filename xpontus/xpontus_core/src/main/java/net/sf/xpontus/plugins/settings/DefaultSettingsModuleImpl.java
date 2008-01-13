@@ -21,6 +21,7 @@
  */
 package net.sf.xpontus.plugins.settings;
 
+import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
@@ -69,6 +70,8 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     }
 
     public void init() {
+        
+        
         File[] configsDirectories = {
                 XPontusConstantsIF.XPONTUS_PLUGINS_DATA_DIR,
                 XPontusConstantsIF.XPONTUS_PREFERENCES_DIR,

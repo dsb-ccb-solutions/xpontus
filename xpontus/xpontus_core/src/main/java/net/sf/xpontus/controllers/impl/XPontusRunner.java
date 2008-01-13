@@ -23,6 +23,8 @@
  */
 package net.sf.xpontus.controllers.impl;
 
+import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
+
 import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 import net.sf.xpontus.actions.impl.CopyActionImpl;
 import net.sf.xpontus.actions.impl.CreateNewFileActionImpl;
@@ -37,6 +39,7 @@ import net.sf.xpontus.actions.impl.SaveActionImpl;
 import net.sf.xpontus.actions.impl.SaveAsActionImpl;
 import net.sf.xpontus.actions.impl.SelectAllActionImpl;
 import net.sf.xpontus.actions.impl.UndoActionImpl;
+import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -53,6 +56,8 @@ import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.plugins.lexer.LexerPlugin;
 import net.sf.xpontus.plugins.menubar.MenuBarPlugin;
 import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
+import net.sf.xpontus.plugins.outline.OutlinePlugin;
+import net.sf.xpontus.plugins.preview.PreviewPlugin;
 import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPlugin;
 import net.sf.xpontus.plugins.scenarios.ScenarioPlugin;
 import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
@@ -142,6 +147,10 @@ public class XPontusRunner {
      * @throws java.lang.Exception An exception
      */
     public static void main(String[] args) throws Exception {
+        // set the bookmarks file for the file browser
+        VFSBrowser.setFavoritesFilename(XPontusConstantsIF.FAVORITES_FILE.getAbsolutePath());
+
+        // initialize the settings
         SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();
         settings.init();
         settings.start();
@@ -173,7 +182,8 @@ public class XPontusRunner {
                 ScenarioPlugin.PLUGIN_IDENTIFIER,
                 EvaluatorPlugin.PLUGIN_IDENTIFIER,
                 CodeCompletionPlugin.PLUGIN_IDENTIFIER,
-                QuickToolBarPlugin.PLUGIN_IDENTIFIER
+                QuickToolBarPlugin.PLUGIN_IDENTIFIER,
+                OutlinePlugin.PLUGIN_IDENTIFIER, PreviewPlugin.PLUGIN_IDENTIFIER
             };
 
         //  Package

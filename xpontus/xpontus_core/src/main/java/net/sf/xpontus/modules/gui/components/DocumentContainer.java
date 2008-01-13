@@ -358,7 +358,7 @@ public class DocumentContainer implements Dockable {
 
     public void setup(FileObject fo) {
         try { 
-            setup(fo, VFSBrowser.safename(fo), fo.getName().getBaseName());
+            setup(fo, fo.getName().getURI(), fo.getName().getBaseName());
             editor.setEditable(fo.isWriteable());
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -2,34 +2,37 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.sf.xpontus.plugins.scenarios;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.List;
-import java.util.Vector;
-import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
-import net.sf.xpontus.model.ConfigurationModel;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+import net.sf.xpontus.model.ConfigurationModel;
+
+import java.io.File;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.Reader;
 import java.io.Writer;
+import java.io.Writer;
+
+import java.util.List;
+import java.util.Vector;
+
+
 /**
  * the scenario list model
  * @author Yves Zoundi
@@ -49,7 +52,6 @@ public class ScenarioListModel extends ConfigurationModel {
         return XPontusConfigurationConstantsIF.XPONTUS_SCENARIOS_FILE;
     }
 
-    
     /**
      *
      *  save a configuration
@@ -78,10 +80,9 @@ public class ScenarioListModel extends ConfigurationModel {
 
             scenarioList = (List) xstream.fromXML(reader);
         } catch (Exception ex) {
-            ex.printStackTrace(); 
+            ex.printStackTrace();
         }
     }
-    
 
     /**
      *  get the scenario list

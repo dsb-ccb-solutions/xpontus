@@ -28,7 +28,7 @@ import java.io.File;
 
 /**
  *
- * @author Owner
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public interface XPontusConfigurationConstantsIF {
     /**
@@ -45,6 +45,10 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus configuration directory
      */
     File XPONTUS_HOME_DIR = new File(USER_HOME_DIR, ".xpontus");
+    /**
+     * 
+     */
+    File FAVORITES_FILE = new File(XPONTUS_HOME_DIR, "favorites");
 
     /**
      * XPontus plugins directory
@@ -55,10 +59,16 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus preferences directory
      */
     File XPONTUS_PREFERENCES_DIR = new File(XPONTUS_HOME_DIR, "preferences");
-    
-    File XPONTUS_SCENARIOS_FILE = new File(XPONTUS_PREFERENCES_DIR, "scenarios.xml");
-
+    /**
+     * 
+     */
+    File XPONTUS_SCENARIOS_FILE = new File(XPONTUS_PREFERENCES_DIR,
+            "scenarios.xml");
+    /**
+     * 
+     */
     File XPONTUS_CACHE_DIR = new File(XPONTUS_HOME_DIR, "cache");
+
     /**
      * XPontus data directory for plugins
      */

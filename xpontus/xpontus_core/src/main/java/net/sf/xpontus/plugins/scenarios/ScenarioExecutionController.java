@@ -25,11 +25,10 @@ import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
-import net.sf.xpontus.modules.gui.components.ScenarioExecutionView;
+import net.sf.xpontus.plugins.scenarios.ScenarioExecutionView;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.awt.Toolkit;
-
 
 
 /**
@@ -57,23 +56,6 @@ public class ScenarioExecutionController {
         view.setVisible(false);
     }
 
-//    private ScenarioPluginIF getEngineForModel(String proc) {
-//        List engines = ScenarioPluginsConfiguration.getInstance().getEngines();
-//
-//        for (int i = 0; i < engines.size(); i++) {
-//            ScenarioPluginIF plugin = (ScenarioPluginIF) engines.get(i);
-//
-//            if (Arrays.asList(plugin.getProcessors()).contains(proc)) {
-//                return plugin;
-//            }
-//        }
-//
-//        XPontusComponentsUtils.showErrorMessage(
-//            "No processor found for your configuration");
-//
-//        return null;
-//    }
-
     /**
      *
      */
@@ -88,10 +70,10 @@ public class ScenarioExecutionController {
             new Thread(new Runnable() {
                     public void run() {
                         view.setVisible(false);
-                        
+
                         DetachableScenarioModel dsm = (DetachableScenarioModel) view.getScenarioListModel()
                                                                                     .getSelectedItem();
-                     
+
                         String proc = dsm.getProcessor();
 
                         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
@@ -100,11 +82,16 @@ public class ScenarioExecutionController {
                         OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
 
                         try {
-                            ScenarioPluginIF m_plugin = ScenarioPluginsConfiguration.getInstance().getEngineForName(proc);
+                            ScenarioPluginIF m_plugin = ScenarioPluginsConfiguration.getInstance()
+                                                                                    .getEngineForName(proc);
                             m_plugin.handleScenario(dsm);
+
+                            // preview the result of the transformation
+                            if (dsm.isPreview()) {
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            odk.println(e.getMessage(), OutputDockable.RED_STYLE); 
+                            odk.println(e.getMessage(), OutputDockable.RED_STYLE);
                         } finally {
                             console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
                             Toolkit.getDefaultToolkit().beep();

@@ -23,8 +23,8 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
-import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
-import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
+import net.sf.xpontus.plugins.scenarios.ScenarioEditorView;
+import net.sf.xpontus.plugins.scenarios.ScenarioManagerView;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.util.List;

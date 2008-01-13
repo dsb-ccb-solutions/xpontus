@@ -12,9 +12,9 @@ package net.sf.xpontus.plugins.scenarios;
 public class DetachableScenarioModelConverter {
     private DetachableScenarioModel model;
 
-    public DetachableScenarioModelConverter(){
-        
+    public DetachableScenarioModelConverter() {
     }
+
     public DetachableScenarioModelConverter(DetachableScenarioModel model) {
         this.model = model;
     }
@@ -28,24 +28,26 @@ public class DetachableScenarioModelConverter {
     }
 
     /**
-     * 
+     *
      * @param scm
      * @return
      */
-    public DetachableScenarioModel toSimpleModel(ScenarioModel scm){
-       DetachableScenarioModel m = new DetachableScenarioModel(); 
-       m.setAlias(scm.getAlias());
-       m.setExternalDocument(scm.isExternalDocument());
-       m.setParameters(scm.getParameters());
-       m.setProcessor(scm.getProcessor());
-       m.setInput(scm.getInput());
-       m.setOutput(scm.getOutput());
-       m.setXsl(scm.getXsl());
-       return m;
+    public DetachableScenarioModel toSimpleModel(ScenarioModel scm) {
+        DetachableScenarioModel m = new DetachableScenarioModel();
+        m.setAlias(scm.getAlias());
+        m.setExternalDocument(scm.isExternalDocument());
+        m.setParameters(scm.getParameters());
+        m.setProcessor(scm.getProcessor());
+        m.setInput(scm.getInput());
+        m.setOutput(scm.getOutput());
+        m.setXsl(scm.getXsl());
+        m.setPreview(scm.isPreview());
+
+        return m;
     }
-    
+
     /**
-     * 
+     *
      * @return
      */
     public ScenarioModel toScenarioModel() {
@@ -53,6 +55,7 @@ public class DetachableScenarioModelConverter {
         m.setAlias(model.getAlias());
         m.setExternalDocument(model.isExternalDocument());
         m.setInput(model.getInput());
+        m.setPreview(model.isPreview());
         m.setOutput(model.getOutput());
         m.setXsl(model.getXsl());
         m.setProcessor(model.getProcessor());

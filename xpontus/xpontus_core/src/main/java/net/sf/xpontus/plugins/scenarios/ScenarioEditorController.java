@@ -20,8 +20,10 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
-import net.sf.xpontus.modules.gui.components.ScenarioEditorView;
-import net.sf.xpontus.modules.gui.components.ScenarioManagerView;
+import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
+
+import net.sf.xpontus.plugins.scenarios.ScenarioEditorView;
+import net.sf.xpontus.plugins.scenarios.ScenarioManagerView;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.logging.Log;
@@ -86,7 +88,7 @@ public class ScenarioEditorController {
     public static final String SAVE_METHOD = "updateScenario";
     private Log log = LogFactory.getLog(ScenarioEditorController.class);
     private ScenarioEditorView view;
-    private JFileChooser chooser;
+    private VFSBrowser chooser;
 
     /**
      *
@@ -94,8 +96,6 @@ public class ScenarioEditorController {
      */
     public ScenarioEditorController(ScenarioEditorView view) {
         this.view = view;
-        chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     }
 
     private boolean existsScenario(String name) {
@@ -125,8 +125,12 @@ public class ScenarioEditorController {
         int rep = chooser.showOpenDialog(c);
 
         if (rep == JFileChooser.APPROVE_OPTION) {
-            String path = chooser.getSelectedFile().getAbsolutePath();
-            view.getModel().setInput(path);
+            try {
+                String path = chooser.getSelectedFile().getName().getURI();
+                view.getModel().setInput(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -134,14 +138,20 @@ public class ScenarioEditorController {
      *
      */
     public void selectOutput() {
+        initBrowser();
+
         Component c = XPontusComponentsUtils.getTopComponent()
                                             .getDisplayComponent();
 
         int rep = chooser.showOpenDialog(c);
 
         if (rep == JFileChooser.APPROVE_OPTION) {
-            String path = chooser.getSelectedFile().getAbsolutePath();
-            view.getModel().setOutput(path);
+            try {
+                String path = chooser.getSelectedFile().getName().getURI();
+                view.getModel().setOutput(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -170,7 +180,7 @@ public class ScenarioEditorController {
 
         table.revalidate();
         table.repaint();
-        
+
         System.out.println("nb params:" + model.getRowCount());
     }
 
@@ -184,14 +194,16 @@ public class ScenarioEditorController {
         int rep = chooser.showOpenDialog(c);
 
         if (rep == JFileChooser.APPROVE_OPTION) {
-            String path = chooser.getSelectedFile().getAbsolutePath();
-            view.getModel().setXsl(path);
+            try {
+                String path = chooser.getSelectedFile().getName().getURI();
+                view.getModel().setXsl(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public ScenarioPluginIF getEngineForModel(String proc) {
-        System.out.println("Looking for engine for:" + proc);
-
         List engines = ScenarioPluginsConfiguration.getInstance().getEngines();
 
         for (int i = 0; i < engines.size(); i++) {
@@ -246,10 +258,11 @@ public class ScenarioEditorController {
         if (plugin == null) {
             return;
         }
-        
+
         DetachableScenarioModelConverter converter = new DetachableScenarioModelConverter();
 
-        if (plugin.isValidModel(converter.toSimpleModel(view.getModel()), false) && isvalid) {
+        if (plugin.isValidModel(converter.toSimpleModel(view.getModel()), false) &&
+                isvalid) {
             view.getModel().setParameters(table);
 
             JList li = parent.getScenariosList();
@@ -260,9 +273,7 @@ public class ScenarioEditorController {
 
             if (view.isnew) {
                 listmodel.addElement(dsmc.toSimpleModel(view.getModel()));
-                //                listmodel = new javax.swing.DefaultComboBoxModel((Vector) parent.getVector());
-                //                li.setModel(listmodel);
-                //                li.revalidate();
+
                 li.setSelectedIndex(listmodel.getSize());
 
                 ScenarioListModel _m = new ScenarioListModel();
@@ -306,87 +317,6 @@ public class ScenarioEditorController {
 
     /**
      *
-     */
-
-    //    public void updateScenario() {
-    //        ScenarioModel model = view.getModel();
-    //
-    //        ScenarioModel original = view.getOriginalModel();
-    //
-    //        String originalName = original.getAlias();
-    //
-    //	String modifiedName = model.getAlias();
-    //
-    //        ScenarioManagerView parent = (ScenarioManagerView) view.getParent();
-    //
-    //        DefaultComboBoxModel dcbm = (DefaultComboBoxModel) parent.getScenariosList().getModel();
-    //
-    //        // scenario validation ensure this
-    //        boolean isNew = originalName.equals("");
-    //
-    //        ScenarioPluginIF plugin = getEngineForModel(model);
-    //
-    //        if (plugin == null) {
-    //            return;
-    //        }
-    //
-    //        // validate the scenario
-    //        if (!plugin.isValidModel(model, false)) {
-    //            log.info("Invalid model");
-    //            return;
-    //        }
-    //
-    //        // new scenario
-    //        if (isNew) {
-    //            if (!existsScenario(modifiedName)) {
-    //                log.info("Adding new scenario");
-    //                
-    //                view.setVisible(false);
-    //                dcbm.addElement(model);
-    //            }
-    //        } // updated scenario
-    //        else {
-    //            if (originalName.equals(modifiedName)) {
-    //                log.info("Updating model with same name");
-    //                ScenarioModel sm = (ScenarioModel) parent.getScenariosList().getSelectedValue();
-    //                try{
-    //                    BeanUtils.copyProperties(sm, model);
-    //                }
-    //                catch(Exception err){
-    //                    err.printStackTrace();
-    //                }
-    //                view.setVisible(false);
-    //                parent.getScenariosList().revalidate();
-    //                parent.getScenariosList().repaint();
-    //                
-    //            } else {
-    //                System.out.println("modified name:" + modifiedName);
-    //                if (!existsScenario(modifiedName)) {
-    //                    ScenarioModel sm = (ScenarioModel) parent.getScenariosList().getSelectedValue();
-    //                    log.info("Updating model with a new name");
-    //                    
-    //                  try{
-    //                    BeanUtils.copyProperties(sm, model);
-    //                }
-    //                catch(Exception err){
-    //                    err.printStackTrace();
-    //                }
-    //                    view.setVisible(false);
-    //                    parent.getScenariosList().revalidate();
-    //                    parent.getScenariosList().repaint();
-    //                    
-    //                }
-    //                else{
-    //                    System.out.println("The scenario is not new and exists!");
-    //                }
-    //            }
-    //        }
-    //
-    //
-    //    }
-
-    /**
-     *
      * @return
      */
     public ScenarioEditorView getView() {
@@ -412,19 +342,6 @@ public class ScenarioEditorController {
     }
 
     public void editParameter() {
-        //        ParameterModel pm = (ParameterModel) view.getParamModel().getParameterSelectionHolder().getValue();
-        //
-        //        if (pm != null) {
-        //            ParameterModelEditor editor = new ParameterModelEditor(view, pm);
-        //
-        //            if (editor.getButtonPressed() == ParameterModelEditor.BUTTON_OK) {
-        //                view.getParamModel().getTableModel().fireTableDataChanged();
-        //                int row = view.getParamsTable().getSelectedRow();
-        //                view.getParamModel().getParameters().set(row, pm);
-        //            }
-        //        } else {
-        //            XPontusComponentsUtils.showErrorMessage("Please select a parameter");
-        //        }
     }
 
     /**
@@ -445,5 +362,14 @@ public class ScenarioEditorController {
      */
     public void closeWindow() {
         view.setVisible(false);
+    }
+
+    private void initBrowser() {
+        if (chooser == null) {
+            chooser = new VFSBrowser();
+            chooser.setDialogTitle("Select a file");
+            chooser.setMultiSelectionEnabled(true);
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        }
     }
 }

@@ -21,7 +21,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  * 
  */
-package net.sf.xpontus.modules.gui.components;
+package net.sf.xpontus.plugins.scenarios;
 
 import java.awt.Frame;
 import java.awt.event.ActionListener;

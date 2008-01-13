@@ -19,6 +19,15 @@ public class DetachableScenarioModel {
     private String processor = "";
     private String alias = "";
     private Hashtable parameters = new Hashtable();
+    private boolean preview = false;
+
+    public boolean isPreview() {
+        return preview;
+    }
+
+    public void setPreview(boolean preview) {
+        this.preview = preview;
+    }
 
     public String getAlias() {
         return alias;
@@ -63,8 +72,8 @@ public class DetachableScenarioModel {
     public String getProcessor() {
         return processor;
     }
-    
-    public String toString(){
+
+    public String toString() {
         return this.alias;
     }
 
