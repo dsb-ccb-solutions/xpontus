@@ -68,6 +68,8 @@ import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
+import org.apache.commons.vfs.provider.ftp.FtpFileSystemConfigBuilder;
+
 import java.io.File;
 
 import java.util.Arrays;
@@ -148,7 +150,7 @@ public class XPontusRunner {
      */
     public static void main(String[] args) throws Exception {
         // set the bookmarks file for the file browser
-        VFSBrowser.setFavoritesFilename(XPontusConstantsIF.FAVORITES_FILE.getAbsolutePath());
+        VFSBrowser.setFavoritesFilename(XPontusConstantsIF.FAVORITES_FILE.getAbsolutePath()); 
 
         // initialize the settings
         SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();

@@ -62,7 +62,11 @@ public class PreviewTextImpl implements PreviewPluginIF {
     }
 
     public void preview(DetachableScenarioModel model) {
-        final JDialog dialog = new JDialog();
+         Frame m_frame = (Frame) XPontusComponentsUtils.getTopComponent()
+                                                      .getDisplayComponent();
+         
+        final JDialog dialog = new JDialog(m_frame, true);
+        dialog.setTitle("Previewing transformation result");
 
         JTextArea infoLabel = new JTextArea(model.getAlias());
         infoLabel.setWrapStyleWord(true);
@@ -120,8 +124,7 @@ public class PreviewTextImpl implements PreviewPluginIF {
 
         dialog.pack();
 
-        Frame m_frame = (Frame) XPontusComponentsUtils.getTopComponent()
-                                                      .getDisplayComponent();
+       
 
         dialog.setLocationRelativeTo(m_frame);
 
