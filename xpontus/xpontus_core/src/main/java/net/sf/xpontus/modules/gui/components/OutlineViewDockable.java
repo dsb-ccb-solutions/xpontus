@@ -30,14 +30,14 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -78,9 +78,9 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
 
         URL m_url = getClass().getResource("/net/sf/xpontus/icons/Element.png");
-        
+
         final ImageIcon leafIcon = new ImageIcon(m_url);
-        
+
         renderer.setLeafIcon(leafIcon);
         renderer.setOpenIcon(leafIcon);
         renderer.setClosedIcon(leafIcon);
@@ -89,17 +89,19 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
         mTree.setCellRenderer(renderer);
 
         // tree selection listener
-        mTree.addTreeSelectionListener(new TreeSelectionListener() {
-                public void valueChanged(TreeSelectionEvent e) {
-                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) mTree.getLastSelectedPathComponent();
+        mTree.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2) {
+                        DefaultMutableTreeNode node = (DefaultMutableTreeNode) mTree.getLastSelectedPathComponent();
 
-                    if (node == null) {
-                        return;
-                    }
+                        if (node == null) {
+                            return;
+                        }
 
-                    if (node instanceof XmlNode) {
-                        XmlNode nodeInfo = (XmlNode) node;
-                        gotoLine(nodeInfo.line, nodeInfo.column);
+                        if (node instanceof XmlNode) {
+                            XmlNode nodeInfo = (XmlNode) node;
+                            gotoLine(nodeInfo.line, nodeInfo.column);
+                        }
                     }
                 }
             });
@@ -139,6 +141,8 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
         int lineOffset = element.getElement(line).getStartOffset();
 
         int tokenOffset = lineOffset + column;
+
+        jtc.grabFocus();
 
         jtc.setCaretPosition(tokenOffset);
     }

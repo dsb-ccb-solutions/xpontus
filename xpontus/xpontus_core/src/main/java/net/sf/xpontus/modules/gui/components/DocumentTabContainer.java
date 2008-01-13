@@ -35,6 +35,8 @@ import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
+import org.apache.commons.vfs.FileObject;
+
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -89,6 +91,10 @@ public class DocumentTabContainer {
                         DocumentAwareComponentHolder.getInstance()
                                                     .notifyComponents(new DocumentContainerChangeEvent(
                                 container));
+
+                        container.getComponent().requestFocus();
+                        currentEditor.grabFocus();
+                        currentEditor.setCaretPosition(currentEditor.getCaretPosition());
                     }
                 }
             });
@@ -251,6 +257,27 @@ public class DocumentTabContainer {
         setupEditor(container);
     }
 
+    /**
+     * @param fo
+     */
+    public void createEditorFromFileObject(FileObject fo) {
+        try {
+            if (!fo.exists()) {
+                return;
+            }
+        } catch (Exception e) {
+            return;
+        }
+
+        DocumentContainer container = new DocumentContainer();
+        container.setup(fo);
+        container.completeSetup();
+        setupEditor(container);
+    }
+
+    /**
+     *
+     */
     public void createEditorForNewFile() {
         DocumentContainer container = new DocumentContainer();
         container.setup();

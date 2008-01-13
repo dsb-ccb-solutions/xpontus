@@ -25,26 +25,30 @@ import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableContainer;
 import com.vlsolutions.swing.docking.DockingUtilities;
 
+import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
+
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.FileSystemManager;
-import org.apache.commons.vfs.VFS;
+import org.apache.commons.io.FileUtils; 
 import org.apache.commons.vfs.provider.local.LocalFile;
 
 import java.awt.Toolkit;
-
+ 
 import java.io.File;
 import java.io.OutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
 
 
 /**
@@ -54,7 +58,7 @@ import javax.swing.text.JTextComponent;
  */
 public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.saveas";
-    private JFileChooser chooser;
+    private VFSBrowser vfsb;
 
     /** Creates a new instance of SaveAsActionImpl */
     public SaveAsActionImpl() {
@@ -65,22 +69,28 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
      * Save the document under a new name
      */
     public void run() {
-        if (chooser == null) {
-            chooser = new JFileChooser();
-            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        if (vfsb == null) {
+            vfsb = new VFSBrowser();
+            vfsb.setDialogTitle("Save to a file");
+            vfsb.setMultiSelectionEnabled(false);
+            vfsb.setFileSelectionMode(JFileChooser.FILES_ONLY);
         }
 
-        int answer = chooser.showSaveDialog(XPontusComponentsUtils.getTopComponent()
-                                                                  .getDisplayComponent());
+        int answer = vfsb.showSaveDialog(XPontusComponentsUtils.getTopComponent()
+                                                               .getDisplayComponent());
 
-        if (answer == JFileChooser.APPROVE_OPTION) {
+        // open the selected files
+        if (answer == javax.swing.JFileChooser.APPROVE_OPTION) {
+            DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
+                                                               .getDocumentTabContainer();
+
             try {
-                File dest = chooser.getSelectedFile();
+                FileObject dest = vfsb.getSelectedFile();
 
                 if (dest.exists()) {
                     Toolkit.getDefaultToolkit().beep();
 
-                    int rep = JOptionPane.showConfirmDialog(chooser,
+                    int rep = JOptionPane.showConfirmDialog(vfsb,
                             "Erase the file?", "The file exists!",
                             JOptionPane.YES_NO_OPTION);
 
@@ -91,26 +101,25 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
                     save(dest);
                 }
             } catch (Exception e) {
+                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
     }
 
-    public void save(File output) throws Exception {
+    public void save(FileObject fo) throws Exception {
         // get the current document
         JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
                                                         .getDocumentTabContainer()
                                                         .getCurrentEditor();
 
-        // get an outputstream to save the document using Apache Commons VFS
-        FileSystemManager fsm = VFS.getManager();
-        OutputStream bos = null;
-        FileObject fo = fsm.resolveFile(output.getAbsolutePath());
-
         boolean local = false;
 
+        OutputStream bos = null;
+
         if (fo instanceof LocalFile) {
-            bos = FileUtils.openOutputStream(output);
+            bos = FileUtils.openOutputStream(new File(
+                        fo.getURL().toExternalForm()));
             local = true;
         } else {
             bos = fo.getContent().getOutputStream();
@@ -121,13 +130,15 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
         bos.close();
 
         // dummy mime type detection
-        String mm = MimeTypesProvider.getInstance().getMimeType(output.getName());
+        String mm = MimeTypesProvider.getInstance()
+                                     .getMimeType(fo.getName().getBaseName());
 
         // add the mime type
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
 
         if (local) {
-            fo = fsm.toFileObject(output);
+            fo = VFS.getManager()
+                    .toFileObject(new File(fo.getURL().toExternalForm()));
         }
 
         // add information about the file location
@@ -140,8 +151,6 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
         dc.getDockKey().setName(fo.getName().getBaseName());
 
         DockableContainer dcp = DockingUtilities.findDockableContainer(dc);
-
-        System.out.println("Parent:" + (dcp.getClass().getName()));
 
         // removed the modified flag
         ModificationHandler handler = (ModificationHandler) editor.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);

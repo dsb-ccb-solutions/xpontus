@@ -160,8 +160,6 @@ public class ToolBarPlugin extends XPontusPlugin {
             ToolBarPluginIF mPlugin = (ToolBarPluginIF) cl.newInstance();
             initExtension(mPlugin);
         }
-        
-       
     }
 
     private void incrementPositions() {

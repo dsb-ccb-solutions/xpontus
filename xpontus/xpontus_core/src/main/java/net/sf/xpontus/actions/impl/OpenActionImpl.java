@@ -21,8 +21,16 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
+
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+ 
+import org.apache.commons.vfs.FileObject; 
+ 
+
+import javax.swing.JFileChooser;
 
 
 /**
@@ -32,31 +40,41 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
  */
 public class OpenActionImpl extends XPontusThreadedActionImpl {
     public static final String BEAN_ALIAS = "action.open";
-    private javax.swing.JFileChooser chooser;
+    private VFSBrowser vfsb;
 
     /**
      * Creates a new instance of OpenActionImpl
      */
     public OpenActionImpl() {
-        chooser = new javax.swing.JFileChooser();
-        chooser.setMultiSelectionEnabled(true);
-        chooser.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);
     }
 
     public void run() {
-        // show the file dialog
-        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
-                                                                  .getDisplayComponent());
+        if (vfsb == null) {
+            vfsb = new VFSBrowser();
+            vfsb.setDialogTitle("Select a file");
+            vfsb.setMultiSelectionEnabled(true);
+            vfsb.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        }
+
+        int answer = vfsb.showOpenDialog(XPontusComponentsUtils.getTopComponent()
+                                                               .getDisplayComponent());
+
+       
 
         // open the selected files
         if (answer == javax.swing.JFileChooser.APPROVE_OPTION) {
-            final java.io.File[] selectedFiles = chooser.getSelectedFiles();
+             DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
+                                                           .getDocumentTabContainer();
+             
+            try {
+                FileObject[] tmps = vfsb.getSelectedFiles();
 
-            DefaultXPontusWindowImpl window = (DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent();
-
-            for (int i = 0; i < selectedFiles.length; i++) {
-                window.getDocumentTabContainer()
-                      .createEditorFromFile(selectedFiles[i]);
+                for (int i = 0; i < tmps.length; i++) {
+                    dtc.createEditorFromFileObject(tmps[i]);
+                }
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
     }

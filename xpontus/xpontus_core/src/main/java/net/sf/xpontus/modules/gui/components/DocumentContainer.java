@@ -25,11 +25,15 @@ import com.ibm.icu.text.CharsetDetector;
 
 import com.vlsolutions.swing.docking.*;
 import com.vlsolutions.swing.docking.DockKey;
-
+import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
+import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.controllers.impl.PopupHandler;
+import net.sf.xpontus.plugins.quicktoolbar.DefaultQuickToolbarPluginImpl;
+import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPluginIF;
+import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.syntax.LineView;
 import net.sf.xpontus.syntax.SyntaxDocument;
 import net.sf.xpontus.utils.MimeTypesProvider;
@@ -53,6 +57,7 @@ import java.io.InputStreamReader;
 
 import java.util.Hashtable;
 import java.util.Map;
+
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -63,10 +68,6 @@ import javax.swing.JScrollPane;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
-import net.sf.xpontus.plugins.quicktoolbar.DefaultQuickToolbarPluginImpl;
-import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPluginIF;
-import net.sf.xpontus.properties.PropertiesHolder;
 
 
 /**
@@ -93,6 +94,10 @@ public class DocumentContainer implements Dockable {
         documentPanel.setLayout(new BorderLayout());
         editor = new JEditorPane();
         status = new JStatusBar();
+
+        ManualFocusPolicy policy = new ManualFocusPolicy();
+        policy.setFirstComponent(documentPanel, editor);
+        documentPanel.setFocusTraversalPolicy(policy);
 
         scrollPane = new JScrollPane(editor);
         scrollPane.setRowHeaderView(new LineView(editor));
@@ -143,9 +148,9 @@ public class DocumentContainer implements Dockable {
     }
 
     public void setup() {
-        
-        documentPanel.add(new DefaultQuickToolbarPluginImpl().getComponent(), BorderLayout.NORTH);
-        
+        documentPanel.add(new DefaultQuickToolbarPluginImpl().getComponent(),
+            BorderLayout.NORTH);
+
         String mm = MimeTypesProvider.getInstance().getMimeType("file.xml");
 
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
@@ -220,35 +225,31 @@ public class DocumentContainer implements Dockable {
         }
 
         String mm = MimeTypesProvider.getInstance().getMimeType(ext);
-        
-        
+
         ////////////////////////////////
-            Map qtb = (Map) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_QUICKTOOLBAR_PROPERTY);
-            if(qtb.size() > 0){
-                Object obj = qtb.get(mm);
-                if(obj!=null){
-                    Hashtable t = (Hashtable)obj;
-                    ClassLoader cl = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
-                    String className = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME); 
-                    try{
-                        System.out.println("Adding quicktoolbar plugin lookup");
-                        QuickToolBarPluginIF qbp = (QuickToolBarPluginIF) Class.forName(className, true, cl).newInstance();
-                        documentPanel.add(qbp.getComponent(), BorderLayout.NORTH);
-                    }
-                    catch(Exception err){
-                        err.printStackTrace();
-                    }
+        Map qtb = (Map) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_QUICKTOOLBAR_PROPERTY);
+
+        if (qtb.size() > 0) {
+            Object obj = qtb.get(mm);
+
+            if (obj != null) {
+                Hashtable t = (Hashtable) obj;
+                ClassLoader cl = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
+                String className = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME);
+
+                try {
+                    System.out.println("Adding quicktoolbar plugin lookup");
+
+                    QuickToolBarPluginIF qbp = (QuickToolBarPluginIF) Class.forName(className,
+                            true, cl).newInstance();
+                    documentPanel.add(qbp.getComponent(), BorderLayout.NORTH);
+                } catch (Exception err) {
+                    err.printStackTrace();
                 }
             }
-        
-        
-        
-        
-        ////////////////////////////////
-        
-        
-        
+        }
 
+        ////////////////////////////////
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
 
         editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo);
@@ -353,5 +354,14 @@ public class DocumentContainer implements Dockable {
      */
     public JTextComponent getEditorComponent() {
         return editor;
+    }
+
+    public void setup(FileObject fo) {
+        try { 
+            setup(fo, VFSBrowser.safename(fo), fo.getName().getBaseName());
+            editor.setEditable(fo.isWriteable());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
