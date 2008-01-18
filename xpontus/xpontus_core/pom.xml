@@ -183,6 +183,12 @@
             <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge.jpf</groupId>
+            <artifactId>jxp</artifactId>
+            <version>1.0.2</version>
+            <scope>compile</scope>
+        </dependency>
         
         
         
