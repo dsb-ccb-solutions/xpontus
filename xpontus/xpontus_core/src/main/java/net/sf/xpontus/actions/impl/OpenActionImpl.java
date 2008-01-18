@@ -21,7 +21,8 @@
  */
 package net.sf.xpontus.actions.impl;
 
-import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
+
+import net.sf.xpontus.contrib.vfs.browser.*;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
@@ -29,8 +30,6 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.vfs.FileObject;
 
-import javax.swing.JFileChooser;
-import net.sf.xpontus.constants.XPontusConstantsIF;
 
 
 /**
@@ -40,7 +39,7 @@ import net.sf.xpontus.constants.XPontusConstantsIF;
  */
 public class OpenActionImpl extends XPontusThreadedActionImpl {
     public static final String BEAN_ALIAS = "action.open";
-    private VFSBrowser vfsb;
+     private VFSChooser chooser; //vfsb;
 
     /**
      * Creates a new instance of OpenActionImpl
@@ -49,14 +48,18 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
     }
 
     public void run() {
-        if (vfsb == null) {
-            vfsb = new VFSBrowser(); 
-            vfsb.setDialogTitle("Select a file");
-            vfsb.setMultiSelectionEnabled(true);
-            vfsb.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//        if (vfsb == null) {
+//            vfsb = new VFSBrowser(); 
+//            vfsb.setDialogTitle("Select a file");
+//            vfsb.setMultiSelectionEnabled(true);
+//            vfsb.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//        }
+        
+        if(chooser == null){
+            chooser = new VFSChooser();
         }
 
-        int answer = vfsb.showOpenDialog(XPontusComponentsUtils.getTopComponent()
+        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
                                                                .getDisplayComponent());
 
         // open the selected files
@@ -65,7 +68,7 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
                                                                .getDocumentTabContainer();
 
             try {
-                FileObject[] tmps = vfsb.getSelectedFiles();
+                FileObject[] tmps = new FileObject[]{chooser.getSelectedFile()};//vfsb.getSelectedFiles();
 
                 for (int i = 0; i < tmps.length; i++) {
                     dtc.createEditorFromFileObject(tmps[i]);

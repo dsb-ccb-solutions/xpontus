@@ -24,11 +24,12 @@ package net.sf.xpontus.plugins.scenarios;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
-import net.sf.xpontus.modules.gui.components.OutputDockable;
-import net.sf.xpontus.plugins.scenarios.ScenarioExecutionView;
+import net.sf.xpontus.modules.gui.components.OutputDockable; 
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.awt.Toolkit;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -37,6 +38,8 @@ import java.awt.Toolkit;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ScenarioExecutionController {
+    private Log logger = LogFactory.getLog(ScenarioExecutionController.class);
+    
     public static final String CLOSE_METHOD = "closeWindow";
     public static final String EXECUTE_METHOD = "execute";
     private ScenarioExecutionView view;
@@ -82,15 +85,23 @@ public class ScenarioExecutionController {
                         OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
 
                         try {
-                            ScenarioPluginIF m_plugin = ScenarioPluginsConfiguration.getInstance()
-                                                                                    .getEngineForName(proc);
+                            logger.info("Beginning the transformation");
+                            // get the plugin for this transformation
+                            ScenarioPluginIF m_plugin = ScenarioPluginsConfiguration.getInstance() .getEngineForName(proc);
+                            
+                            logger.info("Transformation the profile");
+                            // run the transformation profile
                             m_plugin.handleScenario(dsm);
 
                             // preview the result of the transformation
                             if (dsm.isPreview()) {
+                                logger.info("Previewing the transformation");
                             }
+                            logger.info("Transformation done");
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            logger.fatal("An error occured...");
+                            // print the error
+                            logger.fatal(e.getMessage());
                             odk.println(e.getMessage(), OutputDockable.RED_STYLE);
                         } finally {
                             console.setFocus(MessagesWindowDockable.DOCKABLE_ID);

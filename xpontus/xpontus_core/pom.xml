@@ -177,6 +177,12 @@
             <version>1.2</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sf.xpontus.contrib.vfs.browser</groupId>
+            <artifactId>browser</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
         
         
         
