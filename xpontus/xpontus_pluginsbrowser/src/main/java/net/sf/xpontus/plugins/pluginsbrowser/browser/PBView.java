@@ -3,7 +3,6 @@
  *
  * Created on December 26, 2007, 11:08 PM
  */
-
 package net.sf.xpontus.plugins.pluginsbrowser.browser;
 
 import java.awt.Frame;
@@ -14,23 +13,23 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
  * @author  mrcheeks
  */
 public class PBView extends javax.swing.JDialog {
-    
+
     /** Creates new form PBView */
     public PBView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 //        pane.addTab("Installed", new InstalledPluginsPanel());
-	//  this.validate();
+        //  this.validate();
         InstalledPluginsPanel ipp = (InstalledPluginsPanel) pane.getComponentAt(0);
         int nb = ipp.getNbPlugins();
-        pane.setTitleAt(0, "Installed(" + nb +")");
+        pane.setTitleAt(0, "Installed(" + nb + ")");
         this.pack();
     }
-    
-    public PBView(){
-         this((Frame) XPontusComponentsUtils.getTopComponent()
-                                           .getDisplayComponent(), true);
+
+    public PBView() {
+        this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -70,16 +69,13 @@ public class PBView extends javax.swing.JDialog {
 
 	// pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-setVisible(false);
+        setVisible(false);
     }//GEN-LAST:event_closeButtonActionPerformed
-       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bottomPanel;
     private javax.swing.JButton closeButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane pane;
     // End of variables declaration//GEN-END:variables
-    
 }

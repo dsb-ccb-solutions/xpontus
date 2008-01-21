@@ -68,7 +68,6 @@ import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
-import org.apache.commons.vfs.provider.ftp.FtpFileSystemConfigBuilder;
 
 import java.io.File;
 
@@ -307,8 +306,8 @@ public class XPontusRunner {
             ToolBarPluginIF fileToolBarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_GENERAL,
                     actionsList);
 
-            ToolBarPluginIF editToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_EDIT,
-                    editActionsList);
+//            ToolBarPluginIF editToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_EDIT,
+//                    editActionsList);
 
             ToolBarPluginIF toolsToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_TOOLS,
                     toolsActionsList);
@@ -321,7 +320,7 @@ public class XPontusRunner {
 
             toolbarPlugin.initExtension(fileToolBarExt);
             toolbarPlugin.initExtension(toolsToolbarExt);
-            toolbarPlugin.initExtension(editToolbarExt);
+//            toolbarPlugin.initExtension(editToolbarExt);
             toolbarPlugin.initExtension(helpToolbarExt);
             toolbarPlugin.initExtension(scenariosToolbarExt);
             toolbarPlugin.getOrCreateToolBar("xpath")

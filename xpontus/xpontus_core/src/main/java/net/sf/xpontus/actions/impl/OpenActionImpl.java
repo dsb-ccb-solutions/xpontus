@@ -57,6 +57,7 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
         
         if(chooser == null){
             chooser = new VFSChooser();
+            chooser.setMultipleFileSelectionsAllowed(true);
         }
 
         int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
@@ -68,7 +69,7 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
                                                                .getDocumentTabContainer();
 
             try {
-                FileObject[] tmps = new FileObject[]{chooser.getSelectedFile()};//vfsb.getSelectedFiles();
+                FileObject[] tmps = chooser.getSelectedFiles();
 
                 for (int i = 0; i < tmps.length; i++) {
                     dtc.createEditorFromFileObject(tmps[i]);

@@ -22,12 +22,9 @@
 package net.sf.xpontus.actions.impl;
 
 import com.vlsolutions.swing.docking.Dockable;
-import com.vlsolutions.swing.docking.DockableContainer;
-import com.vlsolutions.swing.docking.DockingUtilities;
-
-import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.contrib.vfs.browser.VFSChooser;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -36,19 +33,18 @@ import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import org.apache.commons.io.FileUtils; 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.provider.local.LocalFile;
 
 import java.awt.Toolkit;
- 
+
 import java.io.File;
 import java.io.OutputStream;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
-import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.VFS;
 
 
 /**
@@ -58,7 +54,7 @@ import org.apache.commons.vfs.VFS;
  */
 public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.saveas";
-    private VFSBrowser vfsb;
+    private VFSChooser vfsb;
 
     /** Creates a new instance of SaveAsActionImpl */
     public SaveAsActionImpl() {
@@ -70,10 +66,7 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
      */
     public void run() {
         if (vfsb == null) {
-            vfsb = new VFSBrowser();
-            vfsb.setDialogTitle("Save to a file");
-            vfsb.setMultiSelectionEnabled(false);
-            vfsb.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            vfsb = new VFSChooser();
         }
 
         int answer = vfsb.showSaveDialog(XPontusComponentsUtils.getTopComponent()
@@ -137,8 +130,7 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
 
         if (local) {
-            fo = VFS.getManager()
-                    .toFileObject(new File(fo.getName().getURI()));
+            fo = VFS.getManager().toFileObject(new File(fo.getName().getURI()));
         }
 
         // add information about the file location
@@ -148,7 +140,7 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
                                               .getDocumentTabContainer()
                                               .getCurrentDockable();
         dc.getDockKey().setTooltip(fo.getURL().toExternalForm());
-        dc.getDockKey().setName(fo.getName().getBaseName()); 
+        dc.getDockKey().setName(fo.getName().getBaseName());
 
         // removed the modified flag
         ModificationHandler handler = (ModificationHandler) editor.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);
