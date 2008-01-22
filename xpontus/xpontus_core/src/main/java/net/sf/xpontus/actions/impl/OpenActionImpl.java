@@ -21,15 +21,13 @@
  */
 package net.sf.xpontus.actions.impl;
 
-
-import net.sf.xpontus.contrib.vfs.browser.*;
+import net.sf.vfsjfilechooser.*;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.vfs.FileObject;
-
 
 
 /**
@@ -39,7 +37,7 @@ import org.apache.commons.vfs.FileObject;
  */
 public class OpenActionImpl extends XPontusThreadedActionImpl {
     public static final String BEAN_ALIAS = "action.open";
-     private VFSChooser chooser; //vfsb;
+    private VFSJFileChooser chooser; //vfsb;
 
     /**
      * Creates a new instance of OpenActionImpl
@@ -47,21 +45,15 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
     public OpenActionImpl() {
     }
 
-    public void run() {
-//        if (vfsb == null) {
-//            vfsb = new VFSBrowser(); 
-//            vfsb.setDialogTitle("Select a file");
-//            vfsb.setMultiSelectionEnabled(true);
-//            vfsb.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//        }
-        
-        if(chooser == null){
-            chooser = new VFSChooser();
-            chooser.setMultipleFileSelectionsAllowed(true);
+    public void run() { 
+        if (chooser == null) {
+            chooser = new VFSJFileChooser();
+            chooser.setFileSelectionMode(VFSJFileChooser.FILES_ONLY);
+            chooser.setMultiSelectionEnabled(true);
         }
 
         int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
-                                                               .getDisplayComponent());
+                                                                  .getDisplayComponent());
 
         // open the selected files
         if (answer == javax.swing.JFileChooser.APPROVE_OPTION) {

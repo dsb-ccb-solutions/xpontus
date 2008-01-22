@@ -30,6 +30,9 @@ import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
+import net.sf.xpontus.utils.NullEntityResolver;
+
+import org.apache.commons.io.IOUtils;
 
 import org.apache.xerces.parsers.SAXParser;
 
@@ -42,7 +45,6 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
-import org.apache.commons.io.IOUtils;
 
 
 /**
@@ -50,6 +52,38 @@ import org.apache.commons.io.IOUtils;
  * @author Yves Zoundi
  */
 public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
+    /** Namespaces feature id (http://xml.org/sax/features/namespaces). */
+    protected static final String NAMESPACES_FEATURE_ID = "http://xml.org/sax/features/namespaces";
+
+    /** Namespace prefixes feature id (http://xml.org/sax/features/namespace-prefixes). */
+    protected static final String NAMESPACE_PREFIXES_FEATURE_ID = "http://xml.org/sax/features/namespace-prefixes";
+
+    /** Validation feature id (http://xml.org/sax/features/validation). */
+    protected static final String VALIDATION_FEATURE_ID = "http://xml.org/sax/features/validation";
+
+    /** Schema validation feature id (http://apache.org/xml/features/validation/schema). */
+    protected static final String SCHEMA_VALIDATION_FEATURE_ID = "http://apache.org/xml/features/validation/schema";
+
+    /** Schema full checking feature id (http://apache.org/xml/features/validation/schema-full-checking). */
+    protected static final String SCHEMA_FULL_CHECKING_FEATURE_ID = "http://apache.org/xml/features/validation/schema-full-checking";
+
+    /** Honour all schema locations feature id (http://apache.org/xml/features/honour-all-schemaLocations). */
+    protected static final String HONOUR_ALL_SCHEMA_LOCATIONS_ID = "http://apache.org/xml/features/honour-all-schemaLocations";
+
+    /** Validate schema annotations feature id (http://apache.org/xml/features/validate-annotations) */
+    protected static final String VALIDATE_ANNOTATIONS_ID = "http://apache.org/xml/features/validate-annotations";
+
+    /** Dynamic validation feature id (http://apache.org/xml/features/validation/dynamic). */
+    protected static final String DYNAMIC_VALIDATION_FEATURE_ID = "http://apache.org/xml/features/validation/dynamic";
+
+    /** XInclude feature id (http://apache.org/xml/features/xinclude). */
+    protected static final String XINCLUDE_FEATURE_ID = "http://apache.org/xml/features/xinclude";
+
+    /** XInclude fixup base URIs feature id (http://apache.org/xml/features/xinclude/fixup-base-uris). */
+    protected static final String XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID = "http://apache.org/xml/features/xinclude/fixup-base-uris";
+
+    /** XInclude fixup language feature id (http://apache.org/xml/features/xinclude/fixup-language). */
+    protected static final String XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID = "http://apache.org/xml/features/xinclude/fixup-language";
     public static final String BEAN_ALIAS = "action.checkxml";
 
     public CheckXMLActionImpl() {
@@ -79,15 +113,18 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
 
             Reader m_reader = d.detect().getReader();
 
-            // parse the document
             SAXParser parser = new SAXParser();
 
-            parser.setFeature("http://xml.org/sax/features/validation", false);
-            
-            parser.setEntityResolver(null);
+            parser.setFeature(SCHEMA_FULL_CHECKING_FEATURE_ID, false);
+            parser.setFeature(HONOUR_ALL_SCHEMA_LOCATIONS_ID, false);
+            parser.setFeature(VALIDATION_FEATURE_ID, false);
+            parser.setFeature(DYNAMIC_VALIDATION_FEATURE_ID, false);
+            parser.setFeature(SCHEMA_VALIDATION_FEATURE_ID, false);
+            parser.setFeature(VALIDATE_ANNOTATIONS_ID, false);
+            parser.setEntityResolver(NullEntityResolver.getInstance());
 
             parser.parse(new InputSource(m_reader));
-            
+
             // close the streams
             IOUtils.closeQuietly(m_reader);
             IOUtils.closeQuietly(is);

@@ -23,8 +23,9 @@ package net.sf.xpontus.actions.impl;
 
 import com.vlsolutions.swing.docking.Dockable;
 
+import net.sf.vfsjfilechooser.*;
+
 import net.sf.xpontus.constants.XPontusConstantsIF;
-import net.sf.xpontus.contrib.vfs.browser.VFSChooser;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -54,7 +55,7 @@ import javax.swing.text.JTextComponent;
  */
 public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.saveas";
-    private VFSChooser vfsb;
+    private VFSJFileChooser chooser;
 
     /** Creates a new instance of SaveAsActionImpl */
     public SaveAsActionImpl() {
@@ -65,25 +66,25 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
      * Save the document under a new name
      */
     public void run() {
-        if (vfsb == null) {
-            vfsb = new VFSChooser();
+        if (chooser == null) {
+            chooser = new VFSJFileChooser();
         }
 
-        int answer = vfsb.showSaveDialog(XPontusComponentsUtils.getTopComponent()
-                                                               .getDisplayComponent());
+        int answer = chooser.showSaveDialog(XPontusComponentsUtils.getTopComponent()
+                                                                  .getDisplayComponent());
 
         // open the selected files
-        if (answer == javax.swing.JFileChooser.APPROVE_OPTION) {
+        if (answer == VFSJFileChooser.APPROVE_OPTION) {
             DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                                .getDocumentTabContainer();
 
             try {
-                FileObject dest = vfsb.getSelectedFile();
+                FileObject dest = chooser.getSelectedFile();
 
                 if (dest.exists()) {
                     Toolkit.getDefaultToolkit().beep();
 
-                    int rep = JOptionPane.showConfirmDialog(vfsb,
+                    int rep = JOptionPane.showConfirmDialog(chooser,
                             "Erase the file?", "The file exists!",
                             JOptionPane.YES_NO_OPTION);
 
@@ -100,23 +101,18 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
         }
     }
 
+    /**
+     *
+     * @param fo
+     * @throws java.lang.Exception
+     */
     public void save(FileObject fo) throws Exception {
         // get the current document
         JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
                                                         .getDocumentTabContainer()
                                                         .getCurrentEditor();
 
-        boolean local = false;
-
-        OutputStream bos = null;
-
-        if (fo instanceof LocalFile) {
-            bos = FileUtils.openOutputStream(new File(
-                        fo.getName().getPathDecoded()));
-            local = true;
-        } else {
-            bos = fo.getContent().getOutputStream();
-        }
+        OutputStream bos = fo.getContent().getOutputStream();
 
         bos.write(editor.getText().getBytes());
         bos.flush();
@@ -128,10 +124,6 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
 
         // add the mime type
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
-
-        if (local) {
-            fo = VFS.getManager().toFileObject(new File(fo.getName().getURI()));
-        }
 
         // add information about the file location
         editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo);

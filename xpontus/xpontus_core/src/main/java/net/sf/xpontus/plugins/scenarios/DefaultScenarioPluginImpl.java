@@ -37,7 +37,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
 
-import org.apache.xalan.processor.TransformerFactoryImpl;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -296,7 +295,6 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     }
 
     public void setSystemProperties() {
-        log.info("Settings system properties before running the scenario");
         System.setProperty("javax.xml.transform.TransformerFactory",
             "org.apache.xalan.processor.TransformerFactoryImpl");
         // the default processor to use is xalan        

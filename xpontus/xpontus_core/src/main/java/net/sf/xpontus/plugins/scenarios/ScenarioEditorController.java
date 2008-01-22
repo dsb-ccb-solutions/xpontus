@@ -20,10 +20,8 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
-import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
+import net.sf.vfsjfilechooser.*;
 
-import net.sf.xpontus.plugins.scenarios.ScenarioEditorView;
-import net.sf.xpontus.plugins.scenarios.ScenarioManagerView;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.logging.Log;
@@ -36,7 +34,6 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JTable;
 
@@ -88,7 +85,7 @@ public class ScenarioEditorController {
     public static final String SAVE_METHOD = "updateScenario";
     private Log log = LogFactory.getLog(ScenarioEditorController.class);
     private ScenarioEditorView view;
-    private VFSBrowser chooser;
+    private VFSJFileChooser chooser;
 
     /**
      *
@@ -124,7 +121,7 @@ public class ScenarioEditorController {
 
         int rep = chooser.showOpenDialog(c);
 
-        if (rep == JFileChooser.APPROVE_OPTION) {
+        if (rep == VFSJFileChooser.APPROVE_OPTION) {
             try {
                 String path = chooser.getSelectedFile().getName().getURI();
                 view.getModel().setInput(path);
@@ -145,7 +142,7 @@ public class ScenarioEditorController {
 
         int rep = chooser.showOpenDialog(c);
 
-        if (rep == JFileChooser.APPROVE_OPTION) {
+        if (rep == VFSJFileChooser.APPROVE_OPTION) {
             try {
                 String path = chooser.getSelectedFile().getName().getURI();
                 view.getModel().setOutput(path);
@@ -193,7 +190,7 @@ public class ScenarioEditorController {
 
         int rep = chooser.showOpenDialog(c);
 
-        if (rep == JFileChooser.APPROVE_OPTION) {
+        if (rep == VFSJFileChooser.APPROVE_OPTION) {
             try {
                 String path = chooser.getSelectedFile().getName().getURI();
                 view.getModel().setXsl(path);
@@ -366,10 +363,10 @@ public class ScenarioEditorController {
 
     private void initBrowser() {
         if (chooser == null) {
-            chooser = new VFSBrowser();
+            chooser = new VFSJFileChooser();
             chooser.setDialogTitle("Select a file");
             chooser.setMultiSelectionEnabled(true);
-            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.setFileSelectionMode(VFSJFileChooser.FILES_ONLY);
         }
     }
 }

@@ -6,7 +6,7 @@
         <attribute id = "Built-in" value = "true"/>
     </attributes>
     <requires>
-        <import plugin-id="plugin.core.ioc" />
+        <import plugin-id="plugin.ioc.spring" />
     </requires>
     <runtime> 
         <library id="spring" path="lib/spring-2.0.jar" type="code">

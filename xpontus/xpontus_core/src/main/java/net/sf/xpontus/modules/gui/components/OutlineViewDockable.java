@@ -91,17 +91,15 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
         // tree selection listener
         mTree.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    if (e.getClickCount() == 2) {
-                        DefaultMutableTreeNode node = (DefaultMutableTreeNode) mTree.getLastSelectedPathComponent();
+                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) mTree.getLastSelectedPathComponent();
 
-                        if (node == null) {
-                            return;
-                        }
+                    if (node == null) {
+                        return;
+                    }
 
-                        if (node instanceof XmlNode) {
-                            XmlNode nodeInfo = (XmlNode) node;
-                            gotoLine(nodeInfo.line, nodeInfo.column);
-                        }
+                    if (node instanceof XmlNode) { 
+                        XmlNode nodeInfo = (XmlNode) node;
+                        gotoLine(nodeInfo.line, nodeInfo.column);
                     }
                 }
             });

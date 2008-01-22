@@ -381,6 +381,8 @@ public final class FindReplaceUtility {
         String title = isReplace ? REPLACE_ACTION_COMMAND : FIND_ACTION_COMMAND;
         FIND_REPLACE_DIALOG.setTitle(title);
 
+        System.out.println("component found:" + (textComponent!=null));
+        
         String text = textComponent.getSelectedText();
 
         if (text == null) {

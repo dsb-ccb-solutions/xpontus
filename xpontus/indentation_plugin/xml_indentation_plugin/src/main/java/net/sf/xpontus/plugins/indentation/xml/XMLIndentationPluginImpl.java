@@ -42,6 +42,7 @@ import javax.swing.text.JTextComponent;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import net.sf.xpontus.utils.NullEntityResolver;
 
 
 /**
@@ -75,7 +76,7 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
             fact.setValidating(false);
 
             DocumentBuilder builder = fact.newDocumentBuilder();
-            builder.setEntityResolver(null);
+            builder.setEntityResolver(NullEntityResolver.getInstance());
 
             InputSource src = new InputSource(reader);
             Document doc = builder.parse(src);

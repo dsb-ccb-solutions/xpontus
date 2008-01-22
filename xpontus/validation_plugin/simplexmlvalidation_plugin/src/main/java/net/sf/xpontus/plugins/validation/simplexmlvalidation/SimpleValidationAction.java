@@ -57,6 +57,7 @@ import javax.swing.text.JTextComponent;
 public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
     private SAXParser parser;
     private ValidationHandler handler;
+    private InputSource m_source;
 
     /**
      *
@@ -71,9 +72,18 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
 
     public void run() {
         try {
-            JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
-                                                         .getDocumentTabContainer()
-                                                         .getCurrentEditor();
+            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                  .getConsole();
+
+            OutputDockable odk = (OutputDockable) console.getDockables()
+                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
+            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+                                                                                      .getDocumentTabContainer()
+                                                                                      .getCurrentDockable();
+
+            JTextComponent jtc = container.getEditorComponent();
+
+            container.getStatusBar().setMessage("Validating document...");
 
             InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
 
@@ -96,6 +106,7 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
 
                 handler = new ValidationHandler();
                 parser.setErrorHandler(handler);
+                m_source = new InputSource();
             }
 
             handler.reset();
@@ -103,17 +114,11 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
             CharsetDetector detector = new CharsetDetector();
             detector.setText(is);
 
-            parser.parse(new InputSource(detector.detect().getReader()));
+            m_source.setCharacterStream(detector.detect().getReader());
+
+            parser.parse(m_source);
 
             is.close();
-
-            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
-                                                                  .getConsole();
-            OutputDockable odk = (OutputDockable) console.getDockables()
-                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
-            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
-                                                                                      .getDocumentTabContainer()
-                                                                                      .getCurrentDockable();
 
             if (handler.getErrors().length() == 0) {
                 container.getStatusBar().setMessage("Document is valid!");

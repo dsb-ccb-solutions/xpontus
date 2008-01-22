@@ -20,8 +20,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.plugins.settings;
-
-import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
+ 
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;

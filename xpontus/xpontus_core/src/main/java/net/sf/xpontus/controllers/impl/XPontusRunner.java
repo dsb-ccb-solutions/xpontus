@@ -23,8 +23,6 @@
  */
 package net.sf.xpontus.controllers.impl;
 
-import edu.ucla.loni.ccb.vfsbrowser.VFSBrowser;
-
 import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 import net.sf.xpontus.actions.impl.CopyActionImpl;
 import net.sf.xpontus.actions.impl.CreateNewFileActionImpl;
@@ -39,7 +37,6 @@ import net.sf.xpontus.actions.impl.SaveActionImpl;
 import net.sf.xpontus.actions.impl.SaveAsActionImpl;
 import net.sf.xpontus.actions.impl.SelectAllActionImpl;
 import net.sf.xpontus.actions.impl.UndoActionImpl;
-import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -50,6 +47,7 @@ import net.sf.xpontus.plugins.actions.ActionPlugin;
 import net.sf.xpontus.plugins.completion.CodeCompletionPlugin;
 import net.sf.xpontus.plugins.evaluator.EvaluatorPlugin;
 import net.sf.xpontus.plugins.evaluator.ExpressionEvaluatorPanel;
+import net.sf.xpontus.plugins.gendoc.DocConfiguration;
 import net.sf.xpontus.plugins.gendoc.DocumentationPlugin;
 import net.sf.xpontus.plugins.indentation.IndentationPlugin;
 import net.sf.xpontus.plugins.ioc.IOCPlugin;
@@ -68,7 +66,6 @@ import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
-
 import java.io.File;
 
 import java.util.Arrays;
@@ -77,6 +74,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.swing.Action;
 import javax.swing.JWindow;
 import javax.swing.UIManager;
 
@@ -86,6 +84,18 @@ import javax.swing.UIManager;
  * @author Yves Zoundi
  */
 public class XPontusRunner {
+    static {
+        System.setProperty("javax.xml.transform.TransformerFactory",
+            "org.apache.xalan.processor.TransformerFactoryImpl");
+        // the default processor to use is xalan        
+        System.setProperty("org.xml.sax.parser",
+            "org.apache.xerces.parsers.SAXParser");
+        System.setProperty("javax.xml.parsers.SAXParserFactory",
+            "org.apache.xerces.jaxp.SAXParserFactoryImpl");
+        System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
+            "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
+    }
+
     private DefaultXPontusWindowImpl m_window;
 
     private XPontusRunner() {
@@ -149,7 +159,6 @@ public class XPontusRunner {
      */
     public static void main(String[] args) throws Exception {
         // set the bookmarks file for the file browser
-        VFSBrowser.setFavoritesFilename(XPontusConstantsIF.FAVORITES_FILE.getAbsolutePath()); 
 
         // initialize the settings
         SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();
@@ -186,8 +195,6 @@ public class XPontusRunner {
                 QuickToolBarPlugin.PLUGIN_IDENTIFIER,
                 OutlinePlugin.PLUGIN_IDENTIFIER, PreviewPlugin.PLUGIN_IDENTIFIER
             };
-
-        //  Package
 
         // init plugins
         for (int i = 0; i < identifiers.length; i++) {
@@ -306,9 +313,8 @@ public class XPontusRunner {
             ToolBarPluginIF fileToolBarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_GENERAL,
                     actionsList);
 
-//            ToolBarPluginIF editToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_EDIT,
-//                    editActionsList);
-
+            //            ToolBarPluginIF editToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_EDIT,
+            //                    editActionsList);
             ToolBarPluginIF toolsToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_TOOLS,
                     toolsActionsList);
 
@@ -320,7 +326,7 @@ public class XPontusRunner {
 
             toolbarPlugin.initExtension(fileToolBarExt);
             toolbarPlugin.initExtension(toolsToolbarExt);
-//            toolbarPlugin.initExtension(editToolbarExt);
+            //            toolbarPlugin.initExtension(editToolbarExt);
             toolbarPlugin.initExtension(helpToolbarExt);
             toolbarPlugin.initExtension(scenariosToolbarExt);
             toolbarPlugin.getOrCreateToolBar("xpath")
@@ -328,6 +334,13 @@ public class XPontusRunner {
 
             ((XPontusPlugin) controller.getPluginManager()
                                        .getPlugin(ActionPlugin.PLUGIN_IDENTIFIER)).init();
+        }
+
+        if (DocConfiguration.getInstane().getEnginesNames().length == 0) {
+            Action m_action = (Action) iocPlugin.getBean("action.docgen");
+            m_action.setEnabled(false);
+            m_action.putValue(Action.SHORT_DESCRIPTION,
+                "Install some plugins in the category documentation");
         }
 
         DocumentAwareComponentHolder.getInstance()
