@@ -20,6 +20,8 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
+import net.sf.xpontus.utils.XPontusComponentsUtils;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -378,11 +380,19 @@ public final class FindReplaceUtility {
                                                 .getDocumentTabContainer()
                                                 .getCurrentEditor();
 
+        if (textComponent == null) {
+            StringBuffer sb = new StringBuffer();
+            sb.append("The document can't be found.");
+            sb.append("\n This shouldn't happen try click inside ");
+            sb.append("the document and retry");
+            XPontusComponentsUtils.showErrorMessage(sb.toString());
+
+            return;
+        }
+
         String title = isReplace ? REPLACE_ACTION_COMMAND : FIND_ACTION_COMMAND;
         FIND_REPLACE_DIALOG.setTitle(title);
 
-        System.out.println("component found:" + (textComponent!=null));
-        
         String text = textComponent.getSelectedText();
 
         if (text == null) {
