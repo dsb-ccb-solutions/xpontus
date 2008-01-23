@@ -123,7 +123,7 @@
             <version>2.1.4</version>
             <scope>compile</scope>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2</version>
@@ -207,7 +207,7 @@
         
         
         
-          
+        
     </dependencies>
     <reporting>
         <plugins>
@@ -309,6 +309,43 @@
                     <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
                 </configuration>
             </plugin> 
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>webstart-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jnlp</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/${project.build.finalName}/webstart</outputDirectory> 
+                    <jnlp>
+                        <outputFile>xpontus.jnlp</outputFile> 
+                        <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
+                    </jnlp> 
+                    <sign>
+                        <keystore>${basedir}/xpontus</keystore>
+                        <keypass></keypass> 
+                        <storepass>${xpontus-storepass}</storepass>  
+                        <storetype></storetype>
+                        <alias>xpontus</alias> 
+                        <dnameCn>Yves Zoundi</dnameCn> 
+                        <dnameL>Quebec</dnameL> 
+                        <dnameC>CA</dnameC>
+                        <verify>true</verify>
+                    </sign> 
+                    <keystore>
+                        <delete>false</delete>  
+                        <gen>false</gen>      
+                    </keystore> 
+                    <pack200>false</pack200>
+                    <gzip>false</gzip>  
+                    <verbose>true</verbose> 
+                </configuration>
+            </plugin>  
         </plugins>
     </build>    
 </project>

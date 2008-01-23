@@ -22,6 +22,7 @@
 package net.sf.xpontus.plugins.ioc;
 
 import net.sf.xpontus.plugins.XPontusPlugin;
+import net.sf.xpontus.properties.PropertiesHolder;
 
 import org.java.plugin.PluginManager;
 import org.java.plugin.registry.Extension;
@@ -31,22 +32,19 @@ import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
 import java.util.Iterator;
-import net.sf.xpontus.properties.PropertiesHolder;
 
 
 /**
  * XPontus IOC Container plugin
  * @author Yves Zoundi
  */
-public class IOCPlugin extends XPontusPlugin
-{
+public class IOCPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "iocpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.ioc";
     private IOCPluginIF container;
 
     /** Creates a new instance of IOCModule */
-    public IOCPlugin()
-    {
+    public IOCPlugin() {
         PropertiesHolder.registerProperty(PLUGIN_IDENTIFIER, this);
     }
 
@@ -54,8 +52,7 @@ public class IOCPlugin extends XPontusPlugin
      * Returns the IOC Container
      * @return The IOC Container
      */
-    public IOCPluginIF getContainer()
-    {
+    public IOCPluginIF getContainer() {
         return container;
     }
 
@@ -63,8 +60,7 @@ public class IOCPlugin extends XPontusPlugin
      *
      * @param container
      */
-    public void setContainer(IOCPluginIF container)
-    {
+    public void setContainer(IOCPluginIF container) {
         this.container = container;
     }
 
@@ -73,8 +69,7 @@ public class IOCPlugin extends XPontusPlugin
      * @param alias The alias of the bean
      * @return A bean
      */
-    public Object getBean(String alias)
-    {
+    public Object getBean(String alias) {
         return container.getBean(alias);
     }
 
@@ -82,46 +77,46 @@ public class IOCPlugin extends XPontusPlugin
      * Initialize the default IOC Container
      * @throws java.lang.Exception
      */
-    public void init() throws Exception
-    {
-        PluginManager manager = getManager();
-        PluginRegistry registry = manager.getRegistry();
-        ExtensionPoint iocPluginExtPoint = registry.getExtensionPoint(getDescriptor()
-                                                                          .getId(),
-                EXTENSION_POINT_NAME);
-
-        Collection plugins = iocPluginExtPoint.getConnectedExtensions();
-
-        for (Iterator it = plugins.iterator(); it.hasNext();)
-        {
-            Extension ext = (Extension) it.next();
-            PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
-            ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
-            String className = ext.getParameter("class").valueAsString();
-            Class cl = classLoader.loadClass(className);
-            IOCPluginIF plugin = (IOCPluginIF) cl.newInstance();
-            setContainer(plugin);
-        }
-
-        ClassLoader c = Thread.currentThread().getContextClassLoader();
-        if(container!=null){
-            container.initializePropertiesBeans("/net/sf/xpontus/configuration/xpontus.properties", c);
-        }
+    public void init() throws Exception {
+//        PluginManager manager = getManager();
+//        PluginRegistry registry = manager.getRegistry();
+//        ExtensionPoint iocPluginExtPoint = registry.getExtensionPoint(getDescriptor()
+//                                                                          .getId(),
+//                EXTENSION_POINT_NAME);
+//
+//        Collection plugins = iocPluginExtPoint.getConnectedExtensions();
+//
+//        for (Iterator it = plugins.iterator(); it.hasNext();) {
+//            Extension ext = (Extension) it.next();
+//            PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
+//            ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
+//            String className = ext.getParameter("class").valueAsString();
+//            Class cl = classLoader.loadClass(className);
+//            IOCPluginIF plugin = (IOCPluginIF) cl.newInstance();
+//            setContainer(plugin);
+//        }
+//
+//        ClassLoader c = Thread.currentThread().getContextClassLoader();
+//
+//        if (container != null) {
+//            container.initializePropertiesBeans("/net/sf/xpontus/configuration/xpontus.properties",
+//                c);
+//        }
+        setContainer(new SpringIOCModuleImpl());
+       container.initializePropertiesBeans("/net/sf/xpontus/configuration/xpontus.properties", this.getClass().getClassLoader());
     }
 
     /**
      *
      * @throws java.lang.Exception
      */
-    protected void doStart() throws Exception
-    {
+    protected void doStart() throws Exception {
     }
 
     /**
      *
      * @throws java.lang.Exception
      */
-    protected void doStop() throws Exception
-    {
+    protected void doStop() throws Exception {
     }
 }

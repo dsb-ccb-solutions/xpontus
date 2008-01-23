@@ -85,6 +85,7 @@ import javax.swing.UIManager;
  */
 public class XPontusRunner {
     static {
+        System.setSecurityManager( null );
         System.setProperty("javax.xml.transform.TransformerFactory",
             "org.apache.xalan.processor.TransformerFactoryImpl");
         // the default processor to use is xalan        
@@ -164,9 +165,7 @@ public class XPontusRunner {
         SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();
         settings.init();
         settings.start();
-
-        System.setProperty("java.security.manager", "");
-
+ 
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         final JWindow splash = new SplashScreen();
