@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.evaluator.xquery</groupId>
   <artifactId>xquery_plugin</artifactId>
-  <name>XQuery</name>
+  <name>XQuery evaluator</name>
   <version>1.0.0-pre1</version> 
   <dependencies>
     <dependency>

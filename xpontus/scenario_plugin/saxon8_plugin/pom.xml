@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.scenarios.saxon8</groupId>
   <artifactId>saxon8_plugin</artifactId>
-  <name>Saxon 8.x support</name>
+  <name>Saxon 8.x transformer</name>
   <version>1.0.0-pre1</version>
   <url>http://maven.apache.org</url>
   <description>XPontus plugin for user transformations (HTML, PDF, etc.) using saxon 8.x processor</description>
