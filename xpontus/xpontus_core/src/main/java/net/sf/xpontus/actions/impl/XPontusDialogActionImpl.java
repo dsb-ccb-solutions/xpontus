@@ -66,25 +66,16 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
     }
 
     private void initComponents() {
-        //        System.out.println("init components");
         if (dialog == null) {
-            System.out.println(dialogClassName);
             try {
                 if (windowClassLoader != null) {
-                    //                     System.out.println("classloader");
                     dialog = (JDialog) Class.forName(dialogClassName, true,
                             windowClassLoader).newInstance();
                 } else {
-                    //                     System.out.println("no classloader");
-                    //                     System.out.println(dialogClassName);
                     dialog = (JDialog) Class.forName(dialogClassName)
                                             .newInstance();
                 }
-
-                log.info("Created dialog for class:" + this.dialogClassName);
             } catch (Exception ex) {
-                ex.printStackTrace();
-                System.out.println("ooo");
                 log.error(ex.getMessage());
             }
         }
