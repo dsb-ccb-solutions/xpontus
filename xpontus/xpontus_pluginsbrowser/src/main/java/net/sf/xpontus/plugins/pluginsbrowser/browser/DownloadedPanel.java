@@ -34,7 +34,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -85,7 +84,6 @@ public class DownloadedPanel extends JComponent {
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 detailsScrollPane, pluginDescriptionPane);
         splitPane.setDividerLocation(0.5);
-//        splitPane.setResizeWeight(0.5F);
         splitPane.setOneTouchExpandable(true);
         splitPane.setContinuousLayout(true);
 

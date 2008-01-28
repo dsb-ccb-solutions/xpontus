@@ -37,25 +37,21 @@ public class PBView extends javax.swing.JDialog {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-	
-	setLayout(new java.awt.BorderLayout());
+
         pane = new javax.swing.JTabbedPane();
         jPanel1 = new InstalledPluginsPanel();
         bottomPanel = new javax.swing.JPanel();
         closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Plugins browser (Under development)");
 
-	//        jPanel1.setLayout(new java.awt.BorderLayout());
-        pane.addTab("Installed plugins", jPanel1);
-	pane.addTab("Upgradeable plugin(s)", new javax.swing.JPanel(new java.awt.BorderLayout()));
-	pane.addTab("Add plugin(s)", new javax.swing.JPanel(new java.awt.BorderLayout()));
-	pane.addTab("Settings", new javax.swing.JPanel(new java.awt.BorderLayout()));
-
+        jPanel1.setLayout(new java.awt.BorderLayout());
+        pane.addTab("tab1", jPanel1);
 
         getContentPane().add(pane, java.awt.BorderLayout.CENTER);
 
-        closeButton.setText("Close");
+        closeButton.setText("Close"); // NOI18N
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
@@ -63,11 +59,9 @@ public class PBView extends javax.swing.JDialog {
         });
         bottomPanel.add(closeButton);
 
-	this.setTitle("Plugins manager");
-
         getContentPane().add(bottomPanel, java.awt.BorderLayout.SOUTH);
 
-	// pack();
+        pack();
     }// </editor-fold>//GEN-END:initComponents
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         setVisible(false);

@@ -43,7 +43,7 @@ public class PluginBrowserAction extends XPontusThreadedActionImpl
     {
         if (dialog == null)
         {
-            dialog = new PBView();
+            dialog = new PluginBrowser();
         }
 
         dialog.setLocationRelativeTo(DefaultXPontusWindowImpl.getInstance()
