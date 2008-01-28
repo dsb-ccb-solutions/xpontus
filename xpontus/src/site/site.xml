@@ -24,9 +24,9 @@
    
     <body> 
         <links>  
-            <item name = "XPontus on sourceforge" href="http://sourceforge.net/projects/xpontus"/>
+            <item name = "Project page Sourceforge" href="http://sourceforge.net/projects/xpontus"/>
             <item name = "XPontus Homepage" href="http://xpontus.sourceforge.net/index.html"/>
-            <item name = "VFSJFileChooser" href="http://sourceforge.net/projects/vfsjfilechooser/"/>
+            <item name = "VFSJFileChooser" href="http://vfsjfilechooser.sourceforge.net/index.html"/>
             <item name = "JXSLTDoc" href="http://jxsltdoc.sourceforge.net/"/>
             <item name = "JHTMLCleaner" href="http://jhmlcleaner.berlios.de/"/> 
         </links>        
