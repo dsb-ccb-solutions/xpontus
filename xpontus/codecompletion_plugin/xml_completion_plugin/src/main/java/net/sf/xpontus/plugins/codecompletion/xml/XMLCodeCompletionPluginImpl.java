@@ -115,6 +115,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                     completionList = m;
                 }
             } else {
+                
                 completionList = (List) nsTagListMap.get(nsTagListMap.keySet()
                                                                      .iterator());
             }
@@ -159,6 +160,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                     }
                 };
 
+            t.setPriority(Thread.MIN_PRIORITY);
             t.start();
         } else {
             System.out.println("The completion database is up to date");
@@ -227,7 +229,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                 System.out.println("parsing dtd");
             } else if (schemaLocation != null) {
                 System.out.println("parsing schema");
-                setCompletionParser(new XMLSchemaCompletionParser());
+                setCompletionParser(new XSDCompletionParser());
 
                 java.net.URL url = new java.net.URL(schemaLocation);
                 java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());

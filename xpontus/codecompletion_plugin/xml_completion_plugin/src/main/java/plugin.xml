@@ -12,6 +12,9 @@
         <library id="plugin.core.completion.xml.lib" path="lib/xml_completion_plugin-1.0-0-pre1.jar" type="code" > 
             <export prefix="*"/>
         </library>  
+        <library id="dtdparser" path="lib/dtdparser-1.21.jar" type="code" > 
+            <export prefix="*"/>
+        </library>  
     </runtime>
     <extension plugin-id="plugin.core.completion" point-id="completionpluginif"  id="plugin.core.completion.xml">
         <parameter id="class"  value="net.sf.xpontus.plugins.codecompletion.xml.XMLCodeCompletionPluginImpl" /> 

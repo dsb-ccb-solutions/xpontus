@@ -20,18 +20,28 @@
  */
 package net.sf.xpontus.plugins.codecompletion.xml;
 
+import com.wutka.dtd.DTD;
+import com.wutka.dtd.DTDAttribute;
+import com.wutka.dtd.DTDChoice;
+import com.wutka.dtd.DTDDecl;
+import com.wutka.dtd.DTDElement;
+import com.wutka.dtd.DTDEmpty;
+import com.wutka.dtd.DTDEnumeration;
+import com.wutka.dtd.DTDItem;
+import com.wutka.dtd.DTDMixed;
+import com.wutka.dtd.DTDName;
+import com.wutka.dtd.DTDParser;
+import com.wutka.dtd.DTDSequence;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.VFS;
-
-import org.apache.xerces.impl.dtd.DTDGrammar;
-import org.apache.xerces.impl.dtd.XMLDTDLoader;
-import org.apache.xerces.xni.parser.XMLInputSource;
 
 import java.io.Reader;
 
+import java.net.URL;
+
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -76,83 +86,84 @@ public class DTDCompletionParser implements ICompletionParser {
 
     public void updateCompletionInfo(String pubid, String uri, Reader in) {
         try {
-            XMLDTDLoader loader = new XMLDTDLoader() {
-                    public void element(java.lang.String elementName,
-                        org.apache.xerces.xni.Augmentations augs)
-                        throws org.apache.xerces.xni.XNIException {
-                        super.element(elementName, augs);
+            DTDParser parser = new DTDParser(new URL(uri));
+            DTD dtd = parser.parse();
+            Object[] obj = dtd.getItems();
 
-                        TagInfo tagInfo = new TagInfo(elementName, true);
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] instanceof DTDElement) {
+                    DTDElement element = (DTDElement) obj[i];
+                    String name = element.getName();
+                    DTDItem item = element.getContent();
+                    boolean hasBody = true;
 
-                        if (!tagList.contains(tagInfo)) {
-                            tagList.add(tagInfo);
-                        }
+                    if (item instanceof DTDEmpty) {
+                        hasBody = false;
                     }
 
-                    public void attributeDecl(java.lang.String elementName,
-                        java.lang.String attributeName, java.lang.String type,
-                        java.lang.String[] enumeration,
-                        java.lang.String defaultType,
-                        org.apache.xerces.xni.XMLString defaultValue,
-                        org.apache.xerces.xni.XMLString nonNormalizedDefaultValue,
-                        org.apache.xerces.xni.Augmentations augs)
-                        throws org.apache.xerces.xni.XNIException {
-                        TagInfo tagInfo = getTagInfo(elementName);
+                    TagInfo tagInfo = new TagInfo(name, hasBody);
+                    Iterator ite = element.attributes.keySet().iterator();
 
-                        AttributeInfo attrInfo = new AttributeInfo(attributeName,
-                                true, AttributeInfo.NONE, true);
+                    // set child tags
+                    if (item instanceof DTDSequence) {
+                        DTDSequence seq = (DTDSequence) item;
+                        setChildTagName(tagInfo, seq.getItem());
+                    } else if (item instanceof DTDMixed) {
+                        // #PCDATA
+                    }
 
+                    while (ite.hasNext()) {
+                        String attrName = (String) ite.next();
+                        DTDAttribute attr = element.getAttribute(attrName);
+
+                        DTDDecl decl = attr.getDecl();
+                        boolean required = false;
+
+                        if (decl == DTDDecl.REQUIRED) {
+                            required = true;
+                        }
+
+                        AttributeInfo attrInfo = new AttributeInfo(attrName,
+                                true, AttributeInfo.NONE, required);
                         tagInfo.addAttributeInfo(attrInfo);
 
-                        if (enumeration != null) {
-                            for (int i = 0; i < enumeration.length; i++) {
-                                attrInfo.addValue(enumeration[i]);
-                            }
-                        } else {
-                            if (defaultValue != null) {
-                                attrInfo.addValue(defaultValue.toString());
+                        Object attrType = attr.getType();
+
+                        if (attrType instanceof DTDEnumeration) {
+                            DTDEnumeration dtdEnum = (DTDEnumeration) attrType;
+                            String[] items = dtdEnum.getItems();
+
+                            for (int j = 0; j < items.length; j++) {
+                                attrInfo.addValue(items[j]);
                             }
                         }
                     }
 
-                    public void externalEntityDecl(java.lang.String name,
-                        org.apache.xerces.xni.XMLResourceIdentifier identifier,
-                        org.apache.xerces.xni.Augmentations augs)
-                        throws org.apache.xerces.xni.XNIException {
-                        super.externalEntityDecl(name, identifier, augs);
-                    }
-                };
+                    tagList.add(tagInfo);
 
-            FileObject fo = VFS.getManager().resolveFile(uri);
+                    // TODO root tag is an element that was found at first.
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+    }
 
-            DTDGrammar grammar = (DTDGrammar) loader.loadGrammar((new XMLInputSource(
-                        pubid, uri, fo.getURL().toExternalForm(), in, null)));
-
-            //            System.setProperty("xml.catalog.staticCatalog", "true");
-            //            System.setProperty("xml.catalog.files",
-            //                "C:\\tests\\docbook-xml-4.4\\docbook.cat");
-            //
-            //            CatalogManager manager = new CatalogManager();
-            //
-            //            Catalog catalog = manager.getCatalog();
-            //            pubid = pubid.substring(1, pubid.length() - 1);
-            //
-            //            String s = manager.getCatalog().resolvePublic(pubid, uri); 
-            //
-            //            s = s.substring(5, s.length());
-            //
-            //            InputSource is = new InputSource(new FileReader(s));
-            //
-            //            XMLResourceIdentifier identifier = new XMLResourceIdentifierImpl();
-            //            identifier.setPublicId(pubid);
-            //            identifier.setLiteralSystemId(s);
-            //            identifier.setBaseSystemId(s);
-            //
-            //            DTDGrammar grammar = (DTDGrammar) loader.loadGrammar(new XMLInputSource(
-            //                        identifier));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            ;
+    /**
+          * Sets a child tag name to TagInfo.
+          *
+          * @param tagInfo TagInfo
+          * @param items an array of DTDItem
+          */
+    private void setChildTagName(TagInfo tagInfo, DTDItem[] items) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] instanceof DTDName) {
+                DTDName dtdName = (DTDName) items[i];
+                tagInfo.addChildTagName(dtdName.getValue());
+            } else if (items[i] instanceof DTDChoice) {
+                DTDChoice dtdChoise = (DTDChoice) items[i];
+                setChildTagName(tagInfo, dtdChoise.getItem());
+            }
         }
     }
 }
