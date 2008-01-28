@@ -10,7 +10,7 @@
   <artifactId>xquery_plugin</artifactId>
   <name>XQuery Lexer</name>
   <version>1.0.0-pre1</version> 
-  <description>Lexer support for XQuery files</description>
+  <description>XQuery syntax highlighting support</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

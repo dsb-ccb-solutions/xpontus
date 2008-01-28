@@ -10,7 +10,7 @@
   <artifactId>dtd_plugin</artifactId>
   <name>DTD Lexer</name>
   <version>1.0.0-pre1</version>
-  <description>Lexer for DTD documents</description>
+  <description>Syntax highlighting for DTD documents</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

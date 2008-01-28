@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <version>1.0.0-pre1</version>
     <name>Core</name>
-    <description>XPontus Core API</description> 
+    <description>This is the core API of XPontus XML Editor. It's a set of components which provide the default features of the program.</description> 
     <parent>
         <groupId>net.sf.xpontus</groupId>
         <artifactId>xpontus</artifactId>

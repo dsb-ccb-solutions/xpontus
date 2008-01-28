@@ -10,7 +10,7 @@
   <artifactId>xpontus_pluginsbrowser</artifactId>
   <name>Plugins Browser</name>
   <version>1.0.0-pre1</version> 
-  <description>XPontus Plugins Browser</description>
+  <description>XPontus Plugins manager(add, upgrade, remove)</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

@@ -11,7 +11,7 @@
   <name>Saxon 6.x transformer</name>
   <version>1.0.0-pre1</version>
   <url>http://maven.apache.org</url>
-  <description>XPontus plugin for user transformations (HTML, PDF, etc.) using saxon 6.x processor</description>
+  <description>Saxon 6.x transformation profile support</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

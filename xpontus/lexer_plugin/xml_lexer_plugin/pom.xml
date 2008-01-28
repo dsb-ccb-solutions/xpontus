@@ -10,7 +10,7 @@
   <artifactId>xml_lexer_plugin</artifactId>
   <name>XML lexer</name>
   <version>1.0.0-pre1</version> 
-  <description>XPontus XML lexer plugin</description>
+  <description>XML syntax highlighting</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

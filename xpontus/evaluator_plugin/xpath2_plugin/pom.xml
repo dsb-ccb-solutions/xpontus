@@ -47,5 +47,6 @@
             <version>8.7</version>
             <scope>compile</scope>
         </dependency>
-    </dependencies>
+    </dependencies> 
+    <description>XPath2 query evaluator</description>
 </project>

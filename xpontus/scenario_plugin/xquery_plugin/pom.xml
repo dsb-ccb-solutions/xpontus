@@ -10,7 +10,7 @@
   <artifactId>xquery_plugin</artifactId>
   <name>XQuery transformer</name>
   <version>1.0.0-pre1</version> 
-  <description>Scenario support for XQuery transformations</description>
+  <description>Transformation profile support for XQuery</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

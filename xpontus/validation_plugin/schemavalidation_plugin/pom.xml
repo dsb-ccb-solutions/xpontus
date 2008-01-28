@@ -10,7 +10,7 @@
   <artifactId>schemavalidation_plugin</artifactId>
   <name>Schema Validation</name>
   <version>1.0.0-pre1</version> 
-  <description>XPontus plugin for validation of files against schemas</description>
+  <description>External schema validation</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

@@ -10,7 +10,7 @@
   <artifactId>xml_completion_plugin</artifactId>
   <name>XML Completion</name>
   <version>1.0-0-pre1</version> 
-  <description>XPontus XML completion plugin</description>
+  <description>XML code completion plugin</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

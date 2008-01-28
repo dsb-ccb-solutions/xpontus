@@ -37,5 +37,5 @@
         </dependency>
     
   </dependencies> 
-  <description>Documentation generation for DTD files</description>
+  <description>Documentation generator for DTD documents</description>
 </project>

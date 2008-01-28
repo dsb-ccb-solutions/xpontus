@@ -10,7 +10,7 @@
   <artifactId>xsddoc_plugin</artifactId>
   <name>Schema documentation</name>
   <version>1.0.0-pre1</version> 
-  <description>Documentation generation for XML Schema</description>
+  <description>Documentation generator for XML Schemas</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

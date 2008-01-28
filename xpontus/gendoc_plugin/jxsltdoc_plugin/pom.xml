@@ -10,7 +10,7 @@
   <artifactId>jxsltdoc_plugin</artifactId>
   <name>XSL documentation</name>
   <version>1.0-SNAPSHOT</version> 
-  <description>Documentation generation for XSL stylesheets</description>
+  <description>Documentation generator for XSL stylesheets</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
