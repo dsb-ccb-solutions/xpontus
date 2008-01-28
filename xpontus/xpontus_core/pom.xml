@@ -22,8 +22,7 @@
                 </property>
             </activation>
             <build>
-                <plugins>
-                    
+                <plugins> 
                     <plugin>
                         <artifactId>maven-jar-plugin</artifactId>
                         <configuration>
@@ -201,6 +200,7 @@
             <version>1.1</version>
             <scope>compile</scope>
         </dependency>
+        
         
         
         

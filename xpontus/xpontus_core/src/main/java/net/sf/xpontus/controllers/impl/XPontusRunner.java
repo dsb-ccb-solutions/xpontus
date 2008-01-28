@@ -64,8 +64,7 @@ import net.sf.xpontus.plugins.themes.ThemePlugin;
 import net.sf.xpontus.plugins.toolbar.ToolBarPlugin;
 import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
-import net.sf.xpontus.utils.DocumentContainerChangeEvent;
-
+import net.sf.xpontus.utils.DocumentContainerChangeEvent; 
 import java.io.File;
 
 import java.util.Arrays;
@@ -85,7 +84,7 @@ import javax.swing.UIManager;
  */
 public class XPontusRunner {
     static {
-        System.setSecurityManager( null );
+        System.setSecurityManager(null);
         System.setProperty("javax.xml.transform.TransformerFactory",
             "org.apache.xalan.processor.TransformerFactoryImpl");
         // the default processor to use is xalan        
@@ -165,7 +164,7 @@ public class XPontusRunner {
         SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();
         settings.init();
         settings.start();
- 
+
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         final JWindow splash = new SplashScreen();
@@ -266,6 +265,13 @@ public class XPontusRunner {
                 editActionsList[j] = iocPlugin.getBean(editActions[j]);
             }
 
+            Object[] optionsActionsList = {
+                    iocPlugin.getBean("action.preferences")
+                };
+
+            MenuBarPluginIF optionsMenuExt = createMenuExtension(XPontusMenuConstantsIF.OPTIONS_MENU_ID,
+                    optionsActionsList);
+
             // the menu extension
             MenuBarPluginIF fileMenuExt = createMenuExtension(XPontusMenuConstantsIF.FILE_MENU_ID,
                     actionsList);
@@ -306,14 +312,16 @@ public class XPontusRunner {
             menubarPlugin.initExtension(fileMenuExt);
             menubarPlugin.initExtension(helpMenuExt);
             menubarPlugin.initExtension(toolMenuExt);
+            menubarPlugin.initExtension(optionsMenuExt);
             menubarPlugin.initExtension(editMenuExt);
 
             // the toolbar extension
             ToolBarPluginIF fileToolBarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_GENERAL,
                     actionsList);
 
-            //            ToolBarPluginIF editToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_EDIT,
-            //                    editActionsList);
+            ToolBarPluginIF editToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_EDIT,
+                    editActionsList);
+
             ToolBarPluginIF toolsToolbarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_TOOLS,
                     toolsActionsList);
 
@@ -324,10 +332,14 @@ public class XPontusRunner {
                     helpActionsList);
 
             toolbarPlugin.initExtension(fileToolBarExt);
-            toolbarPlugin.initExtension(toolsToolbarExt);
-            //            toolbarPlugin.initExtension(editToolbarExt);
+
+            toolbarPlugin.initExtension(editToolbarExt);
+
             toolbarPlugin.initExtension(helpToolbarExt);
+            toolbarPlugin.initExtension(toolsToolbarExt);
+
             toolbarPlugin.initExtension(scenariosToolbarExt);
+
             toolbarPlugin.getOrCreateToolBar("xpath")
                          .add(new ExpressionEvaluatorPanel());
 
@@ -353,5 +365,7 @@ public class XPontusRunner {
             }).start();
 
         window.activateComponent();
+        
     }
-}
+     
+} 
