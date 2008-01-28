@@ -91,11 +91,11 @@
         <module>xpontus_pluginsbrowser</module>
         <module>outline_plugin</module>
         <module>evaluator_plugin</module>        
-        <module>spring_plugin</module>           
-        <module>db4o_plugin</module>
-        <module>quicktoolbar_plugin</module>
+        <module>quicktoolbar_plugin</module>           
         <module>preview_plugin</module>
         <module>scripting_plugin</module>
-    <module>xmlsecurity</module>
+        <module>xmlsecurity</module>
+        
+    
   </modules>   
 </project>
