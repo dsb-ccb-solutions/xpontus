@@ -64,7 +64,10 @@ import net.sf.xpontus.plugins.themes.ThemePlugin;
 import net.sf.xpontus.plugins.toolbar.ToolBarPlugin;
 import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
-import net.sf.xpontus.utils.DocumentContainerChangeEvent; 
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
+
+import org.java.plugin.PluginManager;
+
 import java.io.File;
 
 import java.util.Arrays;
@@ -194,22 +197,20 @@ public class XPontusRunner {
                 OutlinePlugin.PLUGIN_IDENTIFIER, PreviewPlugin.PLUGIN_IDENTIFIER
             };
 
+        PluginManager manager = XPontusPluginManager.getPluginManager();
+
         // init plugins
         for (int i = 0; i < identifiers.length; i++) {
-            XPontusPlugin plugin = (XPontusPlugin) controller.getPluginManager()
-                                                             .getPlugin(identifiers[i]);
+            XPontusPlugin plugin = (XPontusPlugin) manager.getPlugin(identifiers[i]);
             plugin.init();
         }
 
         // get some plugins
-        MenuBarPlugin menubarPlugin = (MenuBarPlugin) controller.getPluginManager()
-                                                                .getPlugin(MenuBarPlugin.PLUGIN_IDENTIFIER);
+        MenuBarPlugin menubarPlugin = (MenuBarPlugin) manager.getPlugin(MenuBarPlugin.PLUGIN_IDENTIFIER);
 
-        ToolBarPlugin toolbarPlugin = (ToolBarPlugin) controller.getPluginManager()
-                                                                .getPlugin(ToolBarPlugin.PLUGIN_IDENTIFIER);
+        ToolBarPlugin toolbarPlugin = (ToolBarPlugin) manager.getPlugin(ToolBarPlugin.PLUGIN_IDENTIFIER);
 
-        final IOCPlugin iocPlugin = (IOCPlugin) controller.getPluginManager()
-                                                          .getPlugin(IOCPlugin.PLUGIN_IDENTIFIER);
+        final IOCPlugin iocPlugin = (IOCPlugin) manager.getPlugin(IOCPlugin.PLUGIN_IDENTIFIER);
 
         if (iocPlugin.getContainer() != null) {
             final String[] actions = {
@@ -343,8 +344,7 @@ public class XPontusRunner {
             toolbarPlugin.getOrCreateToolBar("xpath")
                          .add(new ExpressionEvaluatorPanel());
 
-            ((XPontusPlugin) controller.getPluginManager()
-                                       .getPlugin(ActionPlugin.PLUGIN_IDENTIFIER)).init();
+            ((XPontusPlugin) manager.getPlugin(ActionPlugin.PLUGIN_IDENTIFIER)).init();
         }
 
         if (DocConfiguration.getInstane().getEnginesNames().length == 0) {
@@ -365,7 +365,5 @@ public class XPontusRunner {
             }).start();
 
         window.activateComponent();
-        
     }
-     
-} 
+}

@@ -59,7 +59,15 @@ import java.util.Locale;
  */
 public class XPontusPluginManager implements XPontusControllerIF {
     private static String PLUGINS = "plugins";
-    private PluginManager manager;
+    private static PluginManager manager;
+    
+    public static PluginManager getPluginManager(){
+        if(manager == null){
+            throw new RuntimeException("Plugin manager not registered yet!");
+        }
+        return manager;
+    }
+    
     private Log log = LogFactory.getLog(XPontusPluginManager.class);
 
     /**
@@ -75,13 +83,7 @@ public class XPontusPluginManager implements XPontusControllerIF {
         manager.publishPlugins(getPluginLocations());
     }
 
-    /**
-     * Returns the plugin manager
-     * @return The plugin manager
-     */
-    public PluginManager getPluginManager() {
-        return manager;
-    }
+     
 
     public void startApplication() {
         PluginRegistry registry = manager.getRegistry();

@@ -6,15 +6,21 @@
 
 package net.sf.xpontus.modules.gui.components.preferences;
 
+import java.awt.Component;
+
 /**
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class GeneralPanel extends javax.swing.JPanel {
+public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPanel{
     
     /** Creates new form GeneralPanel */
     public GeneralPanel() {
         initComponents();
+    }
+    
+    public String toString(){
+        return getTitle();
     }
     
     /** This method is called from within the constructor to
@@ -33,8 +39,10 @@ public class GeneralPanel extends javax.swing.JPanel {
         jComboBox2 = new javax.swing.JComboBox();
         jCheckBox3 = new javax.swing.JCheckBox();
 
+        jCheckBox1.setSelected(true);
         jCheckBox1.setText("Show splash screen on startup");
 
+        jCheckBox2.setSelected(true);
         jCheckBox2.setText("Show tips on startup");
 
         jLabel1.setText("  Default theme");
@@ -45,6 +53,7 @@ public class GeneralPanel extends javax.swing.JPanel {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jCheckBox3.setSelected(true);
         jCheckBox3.setText("Show confirm dialog on exit");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -100,4 +109,16 @@ public class GeneralPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
     
+    
+    public String getTitle() {
+        return "General";
+    }
+
+    public Component getComponent() {
+       return this;
+    }
+
+    public String getId() {
+        return getClass().getName();
+    }
 }

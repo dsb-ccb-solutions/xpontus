@@ -45,8 +45,9 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus configuration directory
      */
     File XPONTUS_HOME_DIR = new File(USER_HOME_DIR, ".xpontus");
+
     /**
-     * 
+     *
      */
     File FAVORITES_FILE = new File(XPONTUS_HOME_DIR, "favorites");
 
@@ -59,13 +60,17 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus preferences directory
      */
     File XPONTUS_PREFERENCES_DIR = new File(XPONTUS_HOME_DIR, "preferences");
+    File GENERAL_PREFERENCES_FILE = new File(XPONTUS_PREFERENCES_DIR,
+            "general.xml");
+
     /**
-     * 
+     *
      */
     File XPONTUS_SCENARIOS_FILE = new File(XPONTUS_PREFERENCES_DIR,
             "scenarios.xml");
+
     /**
-     * 
+     *
      */
     File XPONTUS_CACHE_DIR = new File(XPONTUS_HOME_DIR, "cache");
 
