@@ -42,7 +42,7 @@ public class EditorOptionModel extends ConfigurationModel {
     private boolean showLineNumbers = true;
     private Long tabSize = new Long(4);
     private String fontName = "Monospaced";
-    private String fontSize = 12 + ""; 
+    private String fontSize = 12 + "";
     private int cursorRate = 500;
     private PropertyChangeSupport changeSupport;
 
@@ -51,7 +51,6 @@ public class EditorOptionModel extends ConfigurationModel {
         changeSupport = new PropertyChangeSupport(this);
     }
 
-    
     /**
      *
      * @return
@@ -74,7 +73,7 @@ public class EditorOptionModel extends ConfigurationModel {
      */
     public void setShowLineNumbers(boolean newValue) {
         boolean oldValue = showLineNumbers;
-      
+
         showLineNumbers = newValue;
         changeSupport.firePropertyChange("showLineNumbers", oldValue, newValue);
     }
