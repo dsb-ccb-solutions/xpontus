@@ -50,7 +50,7 @@ public class SyntaxEditorkit extends DefaultEditorKit implements ViewFactory {
      *
      */
     public SyntaxEditorkit(JTextComponent editor, String mode) {
-        editor.setFont(new Font("Monospaced", Font.PLAIN, 13) );        
+//        editor.setFont(new Font("Monospaced", Font.PLAIN, 13) );        
         editor.setCaretPosition(0);
         editor.setCaret(new XPontusCaret());
         this.syntaxSupport = SyntaxSupportFactory.getSyntax(mode);

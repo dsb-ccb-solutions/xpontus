@@ -21,6 +21,7 @@
  */
 package net.sf.xpontus.plugins.settings;
  
+import java.awt.Font;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
@@ -35,6 +36,7 @@ import java.io.File;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.UIManager;
 
 
 /**
@@ -69,7 +71,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     }
 
     public void init() {
-        
+        UIManager.put("EditorPane.font", new Font("Monospaced", Font.PLAIN, 13));
         
         File[] configsDirectories = {
                 XPontusConstantsIF.XPONTUS_PLUGINS_DATA_DIR,

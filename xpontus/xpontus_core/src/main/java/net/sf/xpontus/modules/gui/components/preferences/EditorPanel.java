@@ -65,7 +65,7 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         });
 
         jLabel1.setFont(UIManager.getFont("EditorPane.font"));
-        jLabel1.setText("Monospaced, Plain, 12");
+        jLabel1.setText(getStringFont(UIManager.getFont("EditorPane.font")));
 
         jLabel2.setText("Tab size");
 
@@ -81,20 +81,25 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(88, 88, 88)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(88, 88, 88)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,22 +127,39 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     }// </editor-fold>//GEN-END:initComponents
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Component frame = XPontusComponentsUtils.getTopComponent().getDisplayComponent();
-        JFontChooser chooser = new JFontChooser();
-        chooser.setSelectedFont(UIManager.getFont("EditorPane.font"));
-        Font f = chooser.showFontDialog(frame, "Select font");
+        Font selectedFont = UIManager.getFont("EditorPane.font");
+
+        Font f = JFontChooser.showDialog(frame, "Select font", selectedFont);
         if (f != null) {
-            String style = "Plain";
-            if (f.getStyle() == Font.ITALIC) {
-                style = "Italic";
-            } else if (f.getStyle() == Font.BOLD) {
-                style = "Bold";
-            }
-            jLabel1.setText(f.getFamily() + "," + style + "," + f.getSize());
+            jLabel1.setText(getStringFont(f));
             jLabel1.setFont(f);
             jLabel1.repaint();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public String getStringFont(Font f) {
+        String style = "Bold Italic";
+
+        switch (f.getStyle()) {
+            case Font.ITALIC:
+                style = "Italic";
+                break;
+            case Font.BOLD:
+                style = "Bold";
+                break;
+            case 3:
+                style = "Bold Italic";
+                break;
+            case Font.PLAIN:
+                style = "Plain";
+                break;
+            default:
+                style = "Plain";
+                break;
+        }
+
+        return f.getFamily() + "," + style + "," + f.getSize();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
