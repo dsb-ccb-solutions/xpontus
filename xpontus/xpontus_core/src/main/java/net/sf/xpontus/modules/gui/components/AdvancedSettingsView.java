@@ -1,5 +1,5 @@
 /*
- * PreferencesView.java
+ * AdvancedSettingsView.java
  *
  * Created on 27 janvier 2008, 17:45
  */
@@ -11,12 +11,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -40,7 +38,7 @@ import org.java.plugin.registry.PluginDescriptor;
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class PreferencesView extends javax.swing.JDialog {
+public class AdvancedSettingsView extends javax.swing.JDialog {
 
     private Component currentComponent;
     private DefaultTreeModel model;
@@ -48,35 +46,19 @@ public class PreferencesView extends javax.swing.JDialog {
 
     private Component nullComponent;
     
-    /** Creates new form PreferencesView
+    /** Creates new form AdvancedSettingsView
      * @param parent
      * @param modal 
      */
-    public PreferencesView(java.awt.Frame parent, boolean modal) {
+    public AdvancedSettingsView(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
 
         nullComponent = new JPanel();
          
         rootNode = new DefaultMutableTreeNode("Root");
         model = new DefaultTreeModel(rootNode);
-
-        Class componentsClass[] = {GeneralPanel.class, EditorPanel.class};
-
-        initComponents();
-
-        for (Class c : componentsClass) {
-            try {
-                IPreferencesPanel panel = (IPreferencesPanel) c.newInstance();
-                PreferencesNode node = new PreferencesNode(panel);
-                model.insertNodeInto(node, rootNode, rootNode.getChildCount());
-                model.reload(rootNode);
-                TreePath path = new TreePath(node.getPath());
-                preferencesTree.expandPath(path);
-
-            } catch (Exception err) { 
-                err.printStackTrace();
-            }
-        } 
+ 
+        initComponents(); 
 
         DefaultMutableTreeNode pluginsNode = new DefaultMutableTreeNode("Plugins");
         model.insertNodeInto(pluginsNode, rootNode, rootNode.getChildCount());
@@ -186,11 +168,7 @@ public class PreferencesView extends javax.swing.JDialog {
         } else {
             tree.collapsePath(parent);
         }
-    }
-
-    public PreferencesView() {
-        this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
-    }
+    } 
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -216,7 +194,7 @@ public class PreferencesView extends javax.swing.JDialog {
         preferencesTree.setRootVisible(false);
         treeScrollPane.setViewportView(preferencesTree);
 
-        setTitle("Preferences");
+        setTitle("Plugins settings");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -281,6 +259,6 @@ public class PreferencesView extends javax.swing.JDialog {
         panePanel.revalidate();
         panePanel.repaint();
 
-        PreferencesView.this.repaint();
+        AdvancedSettingsView.this.repaint();
     }
     } 

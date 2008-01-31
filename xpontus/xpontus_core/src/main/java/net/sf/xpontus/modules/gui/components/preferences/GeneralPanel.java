@@ -38,6 +38,10 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
         jComboBox1 = new javax.swing.JComboBox();
         jComboBox2 = new javax.swing.JComboBox();
         jCheckBox3 = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox();
 
         jCheckBox1.setSelected(true);
         jCheckBox1.setText("Show splash screen on startup");
@@ -49,12 +53,20 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
 
         jLabel2.setText("  Default icon set");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
 
         jCheckBox3.setSelected(true);
         jCheckBox3.setText("Show confirm dialog on exit");
+
+        jLabel3.setText("  Toolbar icons");
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons" }));
+
+        jLabel4.setText("  Menubar icons");
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -63,6 +75,7 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addComponent(jCheckBox3)
                     .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -70,11 +83,14 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addGap(71, 71, 71)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jComboBox2, 0, 148, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, 172, Short.MAX_VALUE)
+                                .addComponent(jComboBox3, 0, 148, Short.MAX_VALUE)
+                                .addComponent(jComboBox4, 0, 148, Short.MAX_VALUE)))))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -84,17 +100,25 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
                 .addComponent(jCheckBox1)
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox2)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jCheckBox3)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -105,8 +129,12 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
     
     
