@@ -19,7 +19,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies> 
-  <description>Expression evaluator plugin which will have an XPath engine, an XQuery engine and maybe more</description>
+  <description>Query evaluator(XPath, XQuery, etc.)</description>
   <modules>
     <module>xpath1_plugin</module>
     <module>xquery_plugin</module>
