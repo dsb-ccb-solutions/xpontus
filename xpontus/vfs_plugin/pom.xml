@@ -29,5 +29,6 @@
     <modules>
         <module>ssh_plugin</module>
         <module>network_base_plugin</module>
-    </modules>
+    <module>smb_plugin</module>
+  </modules>
 </project>
