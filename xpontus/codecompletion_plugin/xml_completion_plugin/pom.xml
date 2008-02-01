@@ -24,6 +24,12 @@
             <version>1.0.0-pre1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>dtdparser</groupId>
+            <artifactId>dtdparser</artifactId>
+            <version>1.21</version>
+            <scope>compile</scope>
+        </dependency>
     <dependency>
             <groupId>castor</groupId>
             <artifactId>castor-xml</artifactId>
