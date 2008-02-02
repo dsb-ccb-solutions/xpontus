@@ -115,7 +115,6 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                     completionList = m;
                 }
             } else {
-                
                 completionList = (List) nsTagListMap.get(nsTagListMap.keySet()
                                                                      .iterator());
             }

@@ -60,11 +60,21 @@ public class DTDCompletionParser implements ICompletionParser {
     public DTDCompletionParser() {
     }
 
+    /**
+     *
+     * @param tagList
+     * @param nsTagListMap
+     */
     public void init(List tagList, Map nsTagListMap) {
         this.tagList = tagList;
         this.nsTagListMap = nsTagListMap;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     protected TagInfo getTagInfo(String name) {
         TagInfo info = null;
 
@@ -84,6 +94,12 @@ public class DTDCompletionParser implements ICompletionParser {
         return info;
     }
 
+    /**
+     *
+     * @param pubid
+     * @param uri
+     * @param in
+     */
     public void updateCompletionInfo(String pubid, String uri, Reader in) {
         try {
             DTDParser parser = new DTDParser(new URL(uri));

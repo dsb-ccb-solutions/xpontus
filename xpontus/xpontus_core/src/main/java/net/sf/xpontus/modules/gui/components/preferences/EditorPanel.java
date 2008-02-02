@@ -8,6 +8,9 @@ package net.sf.xpontus.modules.gui.components.preferences;
 import com.l2fprod.common.swing.JFontChooser;
 import java.awt.Component;
 import java.awt.Font;
+import java.nio.charset.Charset;
+import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -23,6 +26,7 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     private Integer max = new Integer(1000);
     private Integer step = new Integer(100);
     private SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
+    private DefaultComboBoxModel encodingModel;
 
     /**
      * 
@@ -35,6 +39,11 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
 
     /** Creates new form EditorPanel */
     public EditorPanel() {
+        encodingModel = new DefaultComboBoxModel();
+        Iterator<String> it = Charset.availableCharsets().keySet().iterator();
+        while (it.hasNext()) {
+            encodingModel.addElement(it.next());
+        }
         initComponents();
     }
 
@@ -53,6 +62,8 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
 
         jCheckBox1.setSelected(true);
         jCheckBox1.setText("Display line numbers");
@@ -76,6 +87,10 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
 
         jSpinner1.setModel(model);
 
+        jLabel4.setText("Default XML encoding");
+
+        jComboBox1.setModel(encodingModel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,15 +102,18 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addGap(88, 88, 88)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSpinner1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -122,7 +140,11 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jLabel1))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -163,12 +185,15 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
+    
     public String getTitle() {
         return "Editor";
     }

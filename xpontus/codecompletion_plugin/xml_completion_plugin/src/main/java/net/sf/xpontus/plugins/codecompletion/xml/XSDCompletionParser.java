@@ -23,18 +23,28 @@ package net.sf.xpontus.plugins.codecompletion.xml;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.exolab.castor.xml.schema.ElementDecl;
-import org.exolab.castor.xml.schema.Schema;
-import org.exolab.castor.xml.schema.reader.SchemaReader;
-
-import org.xml.sax.InputSource;
+import org.apache.xerces.impl.xs.SchemaGrammar;
+import org.apache.xerces.impl.xs.XMLSchemaLoader;
+import org.apache.xerces.xni.parser.XMLInputSource;
+import org.apache.xerces.xs.XSAttributeDeclaration;
+import org.apache.xerces.xs.XSAttributeUse;
+import org.apache.xerces.xs.XSComplexTypeDefinition;
+import org.apache.xerces.xs.XSConstants;
+import org.apache.xerces.xs.XSElementDeclaration;
+import org.apache.xerces.xs.XSModelGroup;
+import org.apache.xerces.xs.XSNamedMap;
+import org.apache.xerces.xs.XSObject;
+import org.apache.xerces.xs.XSObjectList;
+import org.apache.xerces.xs.XSParticle;
+import org.apache.xerces.xs.XSTerm;
+import org.apache.xerces.xs.XSTypeDefinition;
 
 import java.io.InputStream;
 import java.io.Reader;
 
 import java.net.URL;
 
-import java.util.Enumeration;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,26 +78,84 @@ public class XSDCompletionParser implements ICompletionParser {
     public void updateCompletionInfo(String pubid, String uri, Reader in) {
         try {
             InputStream is = new URL(uri).openStream();
-            InputSource src = new InputSource(is);
-            SchemaReader sr = new SchemaReader(src);
-            sr.setValidation(false);
-            sr.setCacheIncludedSchemas(true);
+            SchemaGrammar grammer = (SchemaGrammar) new XMLSchemaLoader().loadGrammar(new XMLInputSource(
+                        null, null, null, is, null));
 
-            Schema schema = sr.read();
-            
-            logger.info("Parsing schema done!!!");
-            
-            logger.info("Creating completion database");
+            // clear at first
+            String targetNS = grammer.getTargetNamespace();
+            nsTagListMap.put(targetNS, new ArrayList());
 
-            Enumeration<ElementDecl> elementDecls = schema.getElementDecls();
+            List tagList = (List) nsTagListMap.get(targetNS);
+            System.out.println("namespace:" + targetNS);
+            XSNamedMap map = grammer.getComponents(XSConstants.ELEMENT_DECLARATION);
 
-            // iterate over the elements
-            while (elementDecls.hasMoreElements()) {
-                ElementDecl element = elementDecls.nextElement();
-                String name = element.getName();
+            for (int i = 0; i < map.getLength(); i++) {
+                XSElementDeclaration element = (XSElementDeclaration) map.item(i);
+                parseXSDElement(tagList, element);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void parseXSDElement(List tagList, XSElementDeclaration element) {
+        TagInfo tagInfo = new TagInfo(element.getName(), true);
+
+        if (tagList.contains(tagInfo)) {
+            return;
+        }
+
+        tagList.add(tagInfo);
+
+        XSTypeDefinition type = element.getTypeDefinition();
+
+        if (type instanceof XSComplexTypeDefinition) {
+            XSParticle particle = ((XSComplexTypeDefinition) type).getParticle();
+
+            if (particle != null) {
+                XSTerm term = particle.getTerm();
+
+                if (term instanceof XSElementDeclaration) {
+                    parseXSDElement(tagList, (XSElementDeclaration) term);
+                    tagInfo.addChildTagName(((XSElementDeclaration) term).getName());
+                }
+
+                if (term instanceof XSModelGroup) {
+                    parseXSModelGroup(tagInfo, tagList, (XSModelGroup) term);
+                }
+            }
+
+            XSObjectList attrs = ((XSComplexTypeDefinition) type).getAttributeUses();
+
+            for (int i = 0; i < attrs.getLength(); i++) {
+                XSAttributeUse attrUse = (XSAttributeUse) attrs.item(i);
+                XSAttributeDeclaration attr = attrUse.getAttrDeclaration();
+                AttributeInfo attrInfo = new AttributeInfo(attr.getName(),
+                        true, AttributeInfo.NONE, attrUse.getRequired());
+                tagInfo.addAttributeInfo(attrInfo);
+            }
+        }
+    }
+
+    private void parseXSModelGroup(TagInfo tagInfo, List tagList,
+        XSModelGroup term) {
+        XSObjectList list = ((XSModelGroup) term).getParticles();
+
+        for (int i = 0; i < list.getLength(); i++) {
+            XSObject obj = list.item(i);
+
+            if (obj instanceof XSParticle) {
+                XSTerm term2 = ((XSParticle) obj).getTerm();
+
+                if (term2 instanceof XSElementDeclaration) {
+                    parseXSDElement(tagList, (XSElementDeclaration) term2);
+                    tagInfo.addChildTagName(((XSElementDeclaration) term2).getName());
+                }
+
+                if (term2 instanceof XSModelGroup) {
+                    parseXSModelGroup(tagInfo, tagList, (XSModelGroup) term2);
+                }
+            }
         }
     }
 }
