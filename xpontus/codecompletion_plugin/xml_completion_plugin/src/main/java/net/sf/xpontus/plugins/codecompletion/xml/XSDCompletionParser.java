@@ -87,6 +87,7 @@ public class XSDCompletionParser implements ICompletionParser {
 
             List tagList = (List) nsTagListMap.get(targetNS);
             System.out.println("namespace:" + targetNS);
+
             XSNamedMap map = grammer.getComponents(XSConstants.ELEMENT_DECLARATION);
 
             for (int i = 0; i < map.getLength(); i++) {
