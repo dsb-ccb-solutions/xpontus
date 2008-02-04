@@ -42,6 +42,7 @@ import java.util.Iterator;
 public class ConsolePlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "consolepluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.console";
+    public static final String PLUGIN_CATEGORY = "Console";
 
     public ConsolePlugin() {
     }

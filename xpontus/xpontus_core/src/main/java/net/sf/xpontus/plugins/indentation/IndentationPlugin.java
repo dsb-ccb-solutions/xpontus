@@ -44,6 +44,7 @@ import java.util.Iterator;
 public class IndentationPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "indentationpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.indentation";
+    public static final String PLUGIN_CATEGORY = "Indentation";
     private Hashtable indenters = new Hashtable();
 
     /** Creates a new instance of IndentationModule */

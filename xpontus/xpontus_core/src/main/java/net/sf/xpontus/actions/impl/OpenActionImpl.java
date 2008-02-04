@@ -45,7 +45,7 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
     public OpenActionImpl() {
     }
 
-    public void run() { 
+    public void run() {
         if (chooser == null) {
             chooser = new VFSJFileChooser();
             chooser.setFileSelectionMode(VFSJFileChooser.FILES_ONLY);

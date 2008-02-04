@@ -21,6 +21,7 @@
  */
 package net.sf.xpontus.utils;
 
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.XPontusTopComponentIF;
 
 import java.awt.Component;
@@ -28,7 +29,6 @@ import java.awt.Component;
 import java.lang.reflect.Method;
 
 import javax.swing.JOptionPane;
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 
 /**

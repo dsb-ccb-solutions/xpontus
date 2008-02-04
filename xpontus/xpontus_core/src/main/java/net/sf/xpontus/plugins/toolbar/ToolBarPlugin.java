@@ -54,6 +54,7 @@ public class ToolBarPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "toolbarpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.toolbar";
     public static final int MAX_TOOLBAR_PER_LINE = 2;
+    public static final String PLUGIN_CATEGORY = "Toolbar";
     private int x_pos = 0;
     private int y_pos = 0;
 
@@ -136,7 +137,7 @@ public class ToolBarPlugin extends XPontusPlugin {
 
             for (int j = 0; j < tbActions.size(); j++) {
                 JButton m_button = new JButton((Action) tbActions.get(j));
-//                m_button.setText(null);
+                //                m_button.setText(null);
                 tb.add(m_button);
             }
         }

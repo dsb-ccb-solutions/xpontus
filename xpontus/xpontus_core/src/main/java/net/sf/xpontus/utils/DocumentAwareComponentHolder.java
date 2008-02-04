@@ -23,10 +23,10 @@ package net.sf.xpontus.utils;
 import com.sun.java.help.impl.SwingWorker;
 
 import net.sf.xpontus.actions.DocumentAwareComponentIF;
+import net.sf.xpontus.actions.impl.XPontusDocumentAwareThreadedActionImpl;
 
 import java.util.List;
 import java.util.Vector;
-import net.sf.xpontus.actions.impl.XPontusDocumentAwareThreadedActionImpl;
 
 
 /**

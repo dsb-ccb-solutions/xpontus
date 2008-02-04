@@ -24,6 +24,7 @@ package net.sf.xpontus.actions.impl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 
+
 /**
  * Action to paste some text into a document
  * @version 0.0.1

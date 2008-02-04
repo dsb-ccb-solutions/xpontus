@@ -29,24 +29,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class PreferencesNode extends DefaultMutableTreeNode {
-
     public PreferencesNode(Object arg0) {
         super(arg0);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

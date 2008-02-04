@@ -30,7 +30,7 @@ import java.beans.PropertyChangeSupport;
  */
 public class DocumentationModel {
     private PropertyChangeSupport pcs;
-    private String type ;
+    private String type;
     private String title = "";
     private String input = "";
     private String output = "";

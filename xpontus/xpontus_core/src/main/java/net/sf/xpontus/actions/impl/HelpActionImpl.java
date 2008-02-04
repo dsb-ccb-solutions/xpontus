@@ -1,6 +1,6 @@
 /*
  * HelpActionImpl.java
- * 
+ *
  * Created on Sep 2, 2007, 10:04:58 AM
  *
  * Copyright (C) 2005-2007 Yves Zoundi
@@ -19,32 +19,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.actions.impl;
+
+import net.sf.xpontus.utils.HelperUtils;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import net.sf.xpontus.utils.HelperUtils;
+
 
 /**
  * Action to display the help dialog
  * @author Yves Zoundi
  */
-public class HelpActionImpl  extends AbstractXPontusActionImpl{
-    
-     public static final String BEAN_ALIAS = "action.help";
-     
-private java.awt.event.ActionListener helpListener;
+public class HelpActionImpl extends AbstractXPontusActionImpl {
+    public static final String BEAN_ALIAS = "action.help";
+    private java.awt.event.ActionListener helpListener;
     private javax.help.HelpBroker broker;
 
     /** Creates a new instance of HelpAction */
-    public HelpActionImpl()
-      {
-      }
+    public HelpActionImpl() {
+    }
 
-    private void init()
-      {
+    private void init() {
         HelperUtils utils;
         utils = new HelperUtils();
 
@@ -53,12 +50,10 @@ private java.awt.event.ActionListener helpListener;
         utils.setHelpURL(url);
         broker = utils.getHelpBroker();
 
-        javax.swing.JComponent label = new javax.swing.JLabel()
-              {
+        javax.swing.JComponent label = new javax.swing.JLabel() {
                 java.util.HashMap map;
 
-                private void setup()
-                  {
+                private void setup() {
                     map = new java.util.HashMap();
                     map.put(RenderingHints.KEY_TEXT_ANTIALIASING,
                         RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -66,23 +61,21 @@ private java.awt.event.ActionListener helpListener;
                         RenderingHints.VALUE_DITHER_ENABLE);
                     map.put(RenderingHints.KEY_FRACTIONALMETRICS,
                         RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-                  }
+                }
 
-                public void paintComponent(Graphics g)
-                  {
+                public void paintComponent(Graphics g) {
                     Graphics2D g2d = (Graphics2D) g;
 
-                    if (map == null)
-                      {
+                    if (map == null) {
                         setup();
-                      }
+                    }
 
                     RenderingHints hints = new RenderingHints(map);
                     g2d.setRenderingHints(hints);
 
                     super.paint(g2d);
-                  }
-              };
+                }
+            };
 
         broker.setFont(label.getFont());
 
@@ -101,15 +94,13 @@ private java.awt.event.ActionListener helpListener;
         broker.setCurrentID("id2475596");
 
         helpListener = new javax.help.CSH.DisplayHelpFromSource(broker);
-      }
+    }
 
-    public void execute()
-      {
-        if (broker == null)
-          {
+    public void execute() {
+        if (broker == null) {
             init();
-          }
+        }
 
         helpListener.actionPerformed(getEvent());
-      }
-  }
+    }
+}

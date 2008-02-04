@@ -8,9 +8,9 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 
-public class HTMLColorProvider extends DefaultColorProvider
+public class HTMLColorProviderImpl extends DefaultColorProvider
 {
-    public HTMLColorProvider()
+    public HTMLColorProviderImpl()
     {
         SimpleAttributeSet comment = new SimpleAttributeSet();
         StyleConstants.setBold(comment, true);

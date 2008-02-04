@@ -49,13 +49,10 @@ public interface SettingsModuleIF {
      * @param bean
      */
     public void save(ConfigurationModel bean);
-    
-    
+
     /**
-     * 
+     *
      * @param bean
      */
-    public Object load(ConfigurationModel bean); 
-
-     
+    public Object load(ConfigurationModel bean);
 }

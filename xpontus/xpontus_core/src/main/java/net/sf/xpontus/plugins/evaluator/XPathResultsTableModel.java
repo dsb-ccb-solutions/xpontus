@@ -69,20 +69,21 @@ public class XPathResultsTableModel extends AbstractTableModel {
                 System.out.println("hum.. some text");
                 res.lineInfo = false;
 
-                TextImpl ti = (TextImpl) element; 
-                buff.append("getData" + ti.toString() + ",getNodeValue" +     ti.getNodeValue() + ",getTextContent" +
-                     ",getWholeText" + ti.getWholeText());
+                TextImpl ti = (TextImpl) element;
+                buff.append("getData" + ti.toString() + ",getNodeValue" +
+                    ti.getNodeValue() + ",getTextContent" + ",getWholeText" +
+                    ti.getWholeText());
 
                 System.out.println("TextImpl Buffer:" + buff.toString());
+
                 String texte = buff.toString() +
                     "([etc... REST OF THE TEXT...])";
                 int taille = texte.length();
                 int max = taille;
 
-//                if (max > 15) {
-//                    max = 15;
-//                }
-
+                //                if (max > 15) {
+                //                    max = 15;
+                //                }
                 res.value = texte.substring(0, max);
             } else {
                 res.lineInfo = false;

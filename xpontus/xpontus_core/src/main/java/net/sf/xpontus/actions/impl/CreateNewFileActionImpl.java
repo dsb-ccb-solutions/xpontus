@@ -29,9 +29,8 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class CreateNewFileActionImpl extends XPontusThreadedActionImpl {
-    
     public static final String BEAN_ALIAS = "action.new";
-    
+
     public void run() {
         DefaultXPontusWindowImpl window = (DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent();
 

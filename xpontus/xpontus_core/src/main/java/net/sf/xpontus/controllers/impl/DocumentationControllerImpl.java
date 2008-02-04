@@ -20,20 +20,18 @@
  */
 package net.sf.xpontus.controllers.impl;
 
+import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.DocumentationModel;
 import net.sf.xpontus.modules.gui.components.DocumentationView;
 import net.sf.xpontus.plugins.gendoc.DocConfiguration;
 import net.sf.xpontus.plugins.gendoc.IDocumentationPluginIF;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-
 import java.io.File;
 
 import java.util.Hashtable;
 
 import javax.swing.JFileChooser;
-
-import net.sf.xpontus.constants.XPontusConstantsIF;
 
 
 /**
@@ -68,6 +66,7 @@ public class DocumentationControllerImpl {
      */
     public void selectInput() {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
         if (isOpenedDialog()) {
             view.getModel().setInput(chooser.getSelectedFile().getAbsolutePath());
         }
@@ -77,7 +76,8 @@ public class DocumentationControllerImpl {
      *
      */
     public void selectOutput() {
-         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
         if (isOpenedDialog()) {
             view.getModel()
                 .setOutput(chooser.getSelectedFile().getAbsolutePath());
@@ -86,6 +86,7 @@ public class DocumentationControllerImpl {
 
     public void selectCss() {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
         if (isOpenedDialog()) {
             view.getModel().setCss(chooser.getSelectedFile().getAbsolutePath());
         }
@@ -127,12 +128,14 @@ public class DocumentationControllerImpl {
      */
     public void handle() {
         String type = view.getModel().getType();
-        
-        if(type == null || type.trim().equals("")){
-            XPontusComponentsUtils.showErrorMessage("Please install some plugins");
+
+        if ((type == null) || type.trim().equals("")) {
+            XPontusComponentsUtils.showErrorMessage(
+                "Please install some plugins");
+
             return;
         }
-        
+
         Hashtable t = (Hashtable) DocConfiguration.getInstane().getEngines()
                                                   .get(type);
         ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);

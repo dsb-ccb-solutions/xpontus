@@ -43,6 +43,7 @@ import java.util.Map;
 public class DocumentationPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "gendocpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.gendoc";
+    public static final String PLUGIN_CATEGORY = "Documentation";
     private Map engines = new HashMap();
 
     public DocumentationPlugin() {

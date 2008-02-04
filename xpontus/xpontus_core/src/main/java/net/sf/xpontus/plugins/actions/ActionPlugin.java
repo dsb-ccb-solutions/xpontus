@@ -45,6 +45,7 @@ public class ActionPlugin extends XPontusPlugin {
      * The plugin id
      */
     public static final String PLUGIN_IDENTIFIER = "plugin.core.actions";
+    public static final String PLUGIN_CATEGORY = "Actions";
 
     /**
      * The extension point of this plugin
@@ -66,8 +67,6 @@ public class ActionPlugin extends XPontusPlugin {
      */
     public void initExtension(ActionPluginIF plugin) {
         try {
-            
-            
             ToolBarPlugin toolbarPlugin = (ToolBarPlugin) getManager()
                                                               .getPlugin(ToolBarPlugin.PLUGIN_IDENTIFIER);
             MenuBarPlugin menubarPlugin = (MenuBarPlugin) getManager()
@@ -77,7 +76,7 @@ public class ActionPlugin extends XPontusPlugin {
 
             menubarPlugin.initExtension(plugin);
             popupPlugin.initExtension(plugin);
-            
+
             toolbarPlugin.initExtension(plugin);
         } catch (Exception e) {
             log.fatal(e.getMessage());

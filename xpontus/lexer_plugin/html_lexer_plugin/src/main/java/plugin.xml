@@ -1,18 +1,25 @@
 <?xml version="1.0" ?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.lexer.html" version="0.0.1" class="net.sf.xpontus.plugins.lexer.html.HTMLLexerPlugin">
+<plugin id="plugin.lexer.html" version="0.0.1" vendor = "Yves Zoundi" class="net.sf.xpontus.plugins.lexer.html.HTMLLexerPlugin">
     <attributes>
         <attribute id = "Built-in" value = "false"/>
         <attribute id="Category" value = "Lexer"/>
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "HTML syntax highlighting"/>
+        <attribute id = "DisplayName" value = "HTML syntax highlighting"/>
     </attributes>
     <requires>
         <import plugin-id="plugin.core.lexer" />
+        <import plugin-id="plugin.core.preferences"/>
     </requires>
     <runtime> 
         <library id="plugin.lexer.html.lib" path="lib/html_lexer_plugin-1.0.0-pre1.jar" type="code">
             <export prefix="*"/> 
         </library>  
     </runtime>
+    <extension plugin-id="plugin.core.preferences" point-id="preferencespluginif"  id="plugin.core.lexer.html.preferences">
+        <parameter id="class"  value="net.sf.xpontus.plugins.lexer.html.HtmlLexerPreferences" /> 
+    </extension> 
     <extension plugin-id="plugin.core.lexer" point-id="lexerpluginif" id="plugin.lexer.html.extension">
         <parameter id="class" value="net.sf.xpontus.plugins.lexer.html.HtmlParser" /> 
     </extension>

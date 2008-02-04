@@ -32,7 +32,7 @@ import org.java.plugin.Plugin;
  */
 public class XMLIndentationPlugin extends Plugin{
 
-    public XMLIndentationPlugin() {
+    public XMLIndentationPlugin() { 
     }
 
     protected void doStart() throws Exception { 

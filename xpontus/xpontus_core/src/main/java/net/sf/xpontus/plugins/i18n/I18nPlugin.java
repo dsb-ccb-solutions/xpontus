@@ -40,6 +40,7 @@ import java.util.Iterator;
 public class I18nPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "i18npluginif";
     public static final String PLUGIN_IDENTIFIER = "plugins.core.i18n";
+    public static final String PLUGIN_CATEGORY = "I18n";
 
     /** Creates a new instance of I18nModule */
     public I18nPlugin() {

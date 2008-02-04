@@ -44,6 +44,7 @@ import java.util.Map;
 public class ThemePlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "themepluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.themes";
+    public static final String PLUGIN_CATEGORY = "Look";
 
     /**
      * Initialize the default IOC Container

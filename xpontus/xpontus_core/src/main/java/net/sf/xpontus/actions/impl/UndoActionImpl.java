@@ -21,12 +21,12 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 
 import javax.swing.text.JTextComponent;
 import javax.swing.undo.UndoManager;
-import net.sf.xpontus.constants.XPontusConstantsIF;
 
 
 /**

@@ -18,3 +18,4 @@
 /net/sf/xpontus/plugins/quicktoolbar/
 /net/sf/xpontus/plugins/preview/
 /net/sf/xpontus/plugins/outline/
+/net/sf/xpontus/plugins/preferences/

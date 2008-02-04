@@ -25,6 +25,7 @@ import com.ibm.icu.text.CharsetDetector;
 
 import com.vlsolutions.swing.docking.*;
 import com.vlsolutions.swing.docking.DockKey;
+
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
@@ -356,7 +357,7 @@ public class DocumentContainer implements Dockable {
     }
 
     public void setup(FileObject fo) {
-        try { 
+        try {
             setup(fo, fo.getName().getURI(), fo.getName().getBaseName());
             editor.setEditable(fo.isWriteable());
         } catch (Exception ex) {

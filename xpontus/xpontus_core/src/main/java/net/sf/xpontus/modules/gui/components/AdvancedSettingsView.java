@@ -9,12 +9,13 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,12 +26,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.controllers.impl.XPontusPluginManager;
-import net.sf.xpontus.modules.gui.components.preferences.EditorPanel;
-import net.sf.xpontus.modules.gui.components.preferences.GeneralPanel;
-import net.sf.xpontus.modules.gui.components.preferences.IPreferencesPanel;
 import net.sf.xpontus.modules.gui.components.preferences.PreferencesNode;
-import net.sf.xpontus.utils.XPontusComponentsUtils;
+import net.sf.xpontus.modules.gui.components.preferences.PreferencesNode2;
+import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
+import net.sf.xpontus.properties.PropertiesHolder;
 import org.java.plugin.PluginManager;
 import org.java.plugin.registry.PluginDescriptor;
 
@@ -42,10 +43,21 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
 
     private Component currentComponent;
     private DefaultTreeModel model;
+    private Map<String, PreferencesPluginIF> panelsMap = new HashMap<String, PreferencesPluginIF>();
     private DefaultMutableTreeNode rootNode;
-
     private Component nullComponent;
-    
+    private HashMap<String, List<PreferencesPluginIF>> pluginsMap = new HashMap<String, List<PreferencesPluginIF>>();
+
+    private List<PreferencesPluginIF> createOrGetCategory(String category) {
+        List li = new ArrayList();
+        if (!pluginsMap.containsKey(category)) {
+            pluginsMap.put(category, li);
+        } else {
+            li = pluginsMap.get(category);
+        }
+        return li;
+    }
+
     /** Creates new form AdvancedSettingsView
      * @param parent
      * @param modal 
@@ -54,11 +66,11 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
         super(parent, modal);
 
         nullComponent = new JPanel();
-         
+
         rootNode = new DefaultMutableTreeNode("Root");
         model = new DefaultTreeModel(rootNode);
- 
-        initComponents(); 
+
+        initComponents();
 
         DefaultMutableTreeNode pluginsNode = new DefaultMutableTreeNode("Plugins");
         model.insertNodeInto(pluginsNode, rootNode, rootNode.getChildCount());
@@ -69,15 +81,15 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
         model.reload(rootNode);
 
         PluginManager pluginManager = XPontusPluginManager.getPluginManager();
-        Object[] pluginDescriptors =   pluginManager.getRegistry().getPluginDescriptors().toArray();
+        Object[] pluginDescriptors = pluginManager.getRegistry().getPluginDescriptors().toArray();
 
-        HashMap<String, List> pluginsMap = new HashMap<String, List>();
+
 
         for (Object descriptor : pluginDescriptors) {
             PluginDescriptor d = (PluginDescriptor) descriptor;
             String pluginCategory = d.getAttribute("Category").getValue();
-            String pluginId = d.getId(); 
-            
+//            String pluginId = d.getAttribute("DisplayName").getValue().toString();
+
             List li = null;
             if (!pluginsMap.containsKey(pluginCategory)) {
                 li = new ArrayList();
@@ -85,24 +97,56 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
             } else {
                 li = pluginsMap.get(pluginCategory);
             }
-            li.add(pluginId);
+        }
+        
+         Hashtable settingsTable = (Hashtable) PropertiesHolder.getPropertyValue(XPontusConstantsIF.XPONTUS_PREFERENCES_PANELS);
+
+        Iterator<String> settingsIterator = settingsTable.keySet().iterator();
+        
+        while (settingsIterator.hasNext()) {
+            String id = settingsIterator.next();
+            Hashtable t = (Hashtable) settingsTable.get(id);
+            String m_className = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME);
+            ClassLoader m_loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
+            String m_category = (String) t.get("category");
+
+            try {
+                PreferencesPluginIF prefIF = (PreferencesPluginIF) Class.forName(m_className, true, m_loader).newInstance();
+                panelsMap.put(id, prefIF);
+                List m_list = createOrGetCategory(m_category);
+                m_list.add(prefIF);
+            } catch (Exception err) {
+
+            }
         }
 
         Iterator<String> it = pluginsMap.keySet().iterator();
 
         while (it.hasNext()) {
             String m_cat = it.next();
-            DefaultMutableTreeNode contextNode = new DefaultMutableTreeNode(m_cat);
-            model.insertNodeInto(contextNode, categoriesNode, categoriesNode.getChildCount());
-            model.reload(categoriesNode);
-
-            List<String> li = pluginsMap.get(m_cat);
-            for (String s : li) {
-                DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(s);
-                model.insertNodeInto(childNode, contextNode, contextNode.getChildCount());
-                model.reload(contextNode);
+            List<PreferencesPluginIF> a_list = pluginsMap.get(m_cat);
+            if (a_list.size() > 0) {
+                DefaultMutableTreeNode contextNode = new DefaultMutableTreeNode(m_cat);
+                model.insertNodeInto(contextNode, categoriesNode, categoriesNode.getChildCount());
+                model.reload(categoriesNode);
+                for (PreferencesPluginIF k : a_list) {
+                    PreferencesNode2 childNode = new PreferencesNode2(k, k.getComponent().getTitle());
+                    model.insertNodeInto(childNode, contextNode, contextNode.getChildCount());
+                    model.reload(contextNode);
+                }
             }
         }
+
+       
+
+//        Hashtable t = new Hashtable();
+//            t.put("category", category);
+//            t.put("id", id);
+//            t.put(XPontusConstantsIF.OBJECT_CLASSNAME, cl.getName());
+//            t.put(XPontusConstantsIF.CLASS_LOADER, classLoader);
+
+
+
 
         jSplitPane1.setLeftComponent(treeScrollPane);
         jSplitPane1.setRightComponent(panePanel);
@@ -110,7 +154,7 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
         Dimension dim = new Dimension(300, 200);
         treeScrollPane.setMinimumSize(dim);
         treeScrollPane.setPreferredSize(dim);
-        
+
         nullComponent.setMinimumSize(dim);
         nullComponent.setPreferredSize(dim);
 
@@ -125,13 +169,14 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
                 if (path != null) {
                     DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
 
-                    if (node instanceof PreferencesNode) {
-                        Component c = (Component) ((PreferencesNode) node).getUserObject();
-                        show(c);
+                    if(node instanceof PreferencesNode2){
+                       PreferencesPluginIF p = (PreferencesPluginIF) node.getUserObject();
+                       show(p.getComponent().getComponent());
                     }
                     else{
                         show(nullComponent);
                     }
+                    
                 }
             }
         });
@@ -156,7 +201,7 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
         TreeNode node = (TreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0) {
             for (Enumeration<TreeNode> e = node.children(); e.hasMoreElements();) {
-                TreeNode n =   e.nextElement();
+                TreeNode n = e.nextElement();
                 TreePath path = parent.pathByAddingChild(n);
                 expandAll(tree, path, expand);
             }
@@ -168,7 +213,7 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
         } else {
             tree.collapsePath(parent);
         }
-    } 
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -242,6 +287,20 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
         top.setBackground(panel.getBackground().brighter());
         panel.add("North", top);
         panel.add(c, BorderLayout.CENTER);
+        panel.setPreferredSize(new Dimension(500, 300));
+        panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        return panel;
+    }
+
+    public Component createSimpleComponent(String title) {
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel top = new JLabel(title);
+        top.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        top.setFont(top.getFont().deriveFont(Font.BOLD));
+        top.setOpaque(true);
+        top.setBackground(panel.getBackground().brighter());
+        panel.add("North", top);
+        panel.add(new JLabel(), BorderLayout.CENTER);
         panel.setPreferredSize(new Dimension(500, 300));
         panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         return panel;

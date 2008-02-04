@@ -21,21 +21,19 @@
  */
 package net.sf.xpontus.actions.impl;
 
-import javax.swing.JEditorPane;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.utils.PrintUtilities;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-
-import net.sf.xpontus.utils.PrintUtilities;
+import javax.swing.JEditorPane;
 
 
 /**
  * Action to print a document
  * @author Yves Zoundi
  */
-public class PrintActionImpl extends DefaultDocumentAwareActionImpl
-      {
-    public static final String BEAN_ALIAS = "action.print"; 
+public class PrintActionImpl extends DefaultDocumentAwareActionImpl {
+    public static final String BEAN_ALIAS = "action.print";
 
     /** Creates a new instance of PrintAction */
     public PrintActionImpl() {
@@ -46,7 +44,7 @@ public class PrintActionImpl extends DefaultDocumentAwareActionImpl
      */
     public void run() {
         DefaultXPontusWindowImpl frame = (DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent();
-        new PrintUtilities().print((JEditorPane)frame.getDocumentTabContainer().getCurrentEditor()); 
-    } 
- 
+        new PrintUtilities().print((JEditorPane) frame.getDocumentTabContainer()
+                                                      .getCurrentEditor());
+    }
 }

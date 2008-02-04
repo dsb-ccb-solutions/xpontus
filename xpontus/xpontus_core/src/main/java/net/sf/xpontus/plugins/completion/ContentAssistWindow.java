@@ -122,7 +122,7 @@ public class ContentAssistWindow {
         return result;
     }
 
-    public String tagInside(Document doc, int off) {
+    public static String tagInside(Document doc, int off) {
         SyntaxDocument mDoc = (SyntaxDocument) doc;
         ILexer lexer = mDoc.getLexer();
 
@@ -140,6 +140,8 @@ public class ContentAssistWindow {
         Token currentToken = null;
         Token tagToken = null;
 
+        boolean inside = false;
+
         for (int i = 0; i < tokens.size(); i++) {
             currentToken = (Token) tokens.get(i);
 
@@ -147,26 +149,122 @@ public class ContentAssistWindow {
                 break;
             }
 
+            if (currentToken.kind == 15) {
+                tagToken = currentToken;
+            }
+
+            if (tagToken != null) {
+                if (currentToken.image.equals("<")) {
+                    inside = true;
+                } else if (currentToken.image.equals(">")) {
+                    inside = false;
+                }
+            }
+
             previousToken = currentToken;
         }
 
-        return tagToken.image;
+        if (tagToken != null) {
+            if (inside) {
+                return tagToken.image;
+            }
+        }
+
+        return null;
     }
 
     public static void complete(final JTextComponent editor,
         final CodeCompletionIF contentAssist, int off, final String str,
         final AttributeSet set) {
-        final List completionData = contentAssist.getCompletionList();
+        List completionData = contentAssist.getCompletionList();
 
         final Document doc = editor.getDocument();
 
         if (str.equals(">")) {
             completeEndTag(editor, off, str, set);
         } else if (str.equals(" ")) {
-            String tagCompletionName = isInsideTag(off);
+            String tagCompletionName = tagInside(editor.getDocument(), off);
 
             if (tagCompletionName != null) {
                 List attributeCompletion = contentAssist.getAttributesCompletionList(tagCompletionName);
+                completionData = attributeCompletion;
+
+                if ((completionData == null) || (completionData.size() == 0)) {
+                    return;
+                }
+
+                try {
+                    completionList = new javax.swing.JList(completionData.toArray());
+
+                    final int offset = off;
+
+                    completionList.addMouseListener(new java.awt.event.MouseAdapter() {
+                            public void mouseReleased(
+                                java.awt.event.MouseEvent e) {
+                                try {
+                                    if (e.getClickCount() == 2) {
+                                        doc.insertString(editor.getCaretPosition(),
+                                            completionList.getSelectedValue()
+                                                          .toString(), set);
+                                        completionMenu.setVisible(false);
+                                    }
+                                } catch (javax.swing.text.BadLocationException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        });
+                    completionList.addKeyListener(new java.awt.event.KeyAdapter() {
+                            public void keyReleased(java.awt.event.KeyEvent e) {
+                                switch (e.getKeyCode()) {
+                                //                                case KeyEvent.VK_SPACE:
+                                //                                    completionMenu.setVisible(false);
+                                //
+                                //                                    break;
+                                case KeyEvent.VK_BACK_SPACE:
+                                    completionMenu.setVisible(false);
+
+                                    break;
+
+                                case KeyEvent.VK_ESCAPE:
+                                    completionMenu.setVisible(false);
+
+                                    break;
+
+                                case java.awt.event.KeyEvent.VK_ENTER:
+
+                                    try {
+                                        doc.insertString(editor.getCaretPosition(),
+                                            completionList.getSelectedValue()
+                                                          .toString(), null);
+
+                                        completionMenu.setVisible(false);
+                                    } catch (javax.swing.text.BadLocationException ex) {
+                                        ex.printStackTrace();
+                                    }
+
+                                    break;
+
+                                default:
+                                    break;
+                                }
+                            }
+                        });
+                    completionList.setSelectedIndex(0);
+
+                    javax.swing.JScrollPane completionPane = new javax.swing.JScrollPane(completionList);
+
+                    completionMenu = new javax.swing.JPopupMenu();
+                    completionMenu.add(completionPane);
+
+                    int dotPosition = editor.getCaretPosition();
+                    Rectangle popupLocation = editor.modelToView(dotPosition);
+
+                    completionList.setVisibleRowCount((completionData.size() > 10)
+                        ? 10 : completionData.size());
+                    completionMenu.show(editor, popupLocation.x, popupLocation.y);
+                    completionList.grabFocus();
+                } catch (Exception npe) {
+                }
             }
         } else {
             if ((completionData == null) || (completionData.size() == 0)) {
@@ -190,8 +288,6 @@ public class ContentAssistWindow {
                             } catch (javax.swing.text.BadLocationException ex) {
                                 ex.printStackTrace();
                             }
-
-                            
                         }
                     });
                 completionList.addKeyListener(new java.awt.event.KeyAdapter() {

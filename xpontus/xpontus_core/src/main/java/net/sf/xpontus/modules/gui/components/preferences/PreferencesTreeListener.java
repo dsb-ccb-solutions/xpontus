@@ -34,12 +34,12 @@ import javax.swing.tree.TreePath;
  */
 public class PreferencesTreeListener implements TreeSelectionListener {
     /**
-     * 
+     *
      * @param e
      */
     public void valueChanged(TreeSelectionEvent e) {
         TreePath path = e.getNewLeadSelectionPath();
-        
+
         JTree tree = (JTree) e.getSource();
 
         // if there is no path, then there is nothing selected, so we need

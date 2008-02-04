@@ -28,8 +28,6 @@ package net.sf.xpontus.constants;
  * @author Yves Zoundi
  */
 public interface XPontusPropertiesConstantsIF {
-    
-     
     /**
      * Property holding menus by keys
      */
@@ -74,6 +72,7 @@ public interface XPontusPropertiesConstantsIF {
      * Property for outline engines
      */
     String XPONTUS_OUTLINE_ENGINES = "XPONTUS_OUTLINE_ENGINES";
+    String XPONTUS_PREFERENCES_PANELS = "XPONTUS_PREFERENCES_PANELS";
 
     /**
      * Property for user scenario plugins

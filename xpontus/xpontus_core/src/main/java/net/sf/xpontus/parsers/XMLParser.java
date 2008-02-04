@@ -24,7 +24,6 @@ import antlr.collections.impl.BitSet;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
@@ -221,9 +220,11 @@ _loop4:
             case STARTTAG:
             case PCDATA:
             case COMMENT:
-            case PI:break;
+            case PI:
+                break;
 
-            default:throw new NoViableAltException(LT(1), getFilename());
+            default:
+                throw new NoViableAltException(LT(1), getFilename());
             }
 
 _loop8: 
@@ -251,9 +252,11 @@ _loop11:
             }
 
             case EMPTYTAG:
-            case STARTTAG:break;
+            case STARTTAG:
+                break;
 
-            default:throw new NoViableAltException(LT(1), getFilename());
+            default:
+                throw new NoViableAltException(LT(1), getFilename());
             }
         } catch (RecognitionException ex) {
             reportError(ex);
@@ -303,7 +306,8 @@ _loop11:
                 break;
             }
 
-            default:throw new NoViableAltException(LT(1), getFilename());
+            default:
+                throw new NoViableAltException(LT(1), getFilename());
             }
         } catch (RecognitionException ex) {
             reportError(ex);
@@ -333,7 +337,8 @@ _loop11:
                 break;
             }
 
-            default:throw new NoViableAltException(LT(1), getFilename());
+            default:
+                throw new NoViableAltException(LT(1), getFilename());
             }
         } catch (RecognitionException ex) {
             reportError(ex);
@@ -388,7 +393,8 @@ _loop15:
                 break;
             }
 
-            default:throw new NoViableAltException(LT(1), getFilename());
+            default:
+                throw new NoViableAltException(LT(1), getFilename());
             }
         } catch (RecognitionException ex) {
             reportError(ex);

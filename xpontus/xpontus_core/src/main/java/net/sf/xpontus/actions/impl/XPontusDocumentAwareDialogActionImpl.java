@@ -29,11 +29,10 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public  class XPontusDocumentAwareDialogActionImpl
+public class XPontusDocumentAwareDialogActionImpl
     extends XPontusDialogActionImpl implements DocumentAwareComponentIF {
     public XPontusDocumentAwareDialogActionImpl() {
-        registerComponent() ;
-        
+        registerComponent();
     }
 
     public void onNotify(DocumentContainerChangeEvent evt) {

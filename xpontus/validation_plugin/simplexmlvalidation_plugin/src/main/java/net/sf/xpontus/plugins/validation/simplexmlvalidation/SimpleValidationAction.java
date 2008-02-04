@@ -29,17 +29,15 @@ import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 
-import org.apache.xerces.impl.Constants;
+import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.util.SymbolTable;
 import org.apache.xerces.util.XMLGrammarPoolImpl;
 import org.apache.xerces.xni.grammars.XMLGrammarPool;
 
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -57,12 +55,8 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  */
 public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
-    protected static final String SYMBOL_TABLE = Constants.XERCES_PROPERTY_PREFIX +
-        Constants.SYMBOL_TABLE_PROPERTY;
-    private XMLReader parser;
+    private SAXParser parser;
     private ValidationHandler handler;
-    private InputSource m_source;
-    private XMLGrammarPool pool = new XMLGrammarPoolImpl();
 
     /**
      *
@@ -77,30 +71,20 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
 
     public void run() {
         try {
-            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
-                                                                  .getConsole();
+            JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
+                                                         .getDocumentTabContainer()
+                                                         .getCurrentEditor();
 
-            OutputDockable odk = (OutputDockable) console.getDockables()
-                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
-            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+             DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                       .getDocumentTabContainer()
                                                                                       .getCurrentDockable();
-
-            JTextComponent jtc = container.getEditorComponent();
-
-            container.getStatusBar().setMessage("Validating document...");
-
+             container.getStatusBar().setMessage("Validating document...");
             InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
 
             if (parser == null) {
-                SymbolTable table = new SymbolTable(2037);
-                parser = XMLReaderFactory.createXMLReader(
-                        "org.apache.xerces.parsers.SAXParser");
-
-                parser.setProperty("http://apache.org/xml/properties/internal/grammar-pool",
-                    pool);
-
-                parser.setProperty(SYMBOL_TABLE, table);
+                XMLGrammarPool pool = new XMLGrammarPoolImpl();
+                SymbolTable table = new SymbolTable();
+                parser = new SAXParser(table, pool);
                 parser.setFeature("http://xml.org/sax/features/use-entity-resolver2",
                     true);
                 parser.setFeature("http://apache.org/xml/features/validation/schema",
@@ -115,21 +99,23 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
                     true);
 
                 handler = new ValidationHandler();
-                parser.setContentHandler(handler);
-                m_source = new InputSource();
+                parser.setErrorHandler(handler);
             }
 
-            pool.clear();
             handler.reset();
 
             CharsetDetector detector = new CharsetDetector();
             detector.setText(is);
 
-            m_source.setCharacterStream(detector.detect().getReader());
-
-            parser.parse(m_source);
+            parser.parse(new InputSource(detector.detect().getReader()));
 
             is.close();
+
+            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                  .getConsole();
+            OutputDockable odk = (OutputDockable) console.getDockables()
+                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
+           
 
             if (handler.getErrors().length() == 0) {
                 container.getStatusBar().setMessage("Document is valid!");
@@ -140,8 +126,6 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
                     OutputDockable.RED_STYLE);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-
             StringBuffer details = new StringBuffer();
 
             if (e instanceof SAXParseException) {
@@ -167,7 +151,7 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
         }
     }
 
-    public static class ValidationHandler extends DefaultHandler {
+    public static class ValidationHandler implements ErrorHandler {
         private StringBuffer errors = new StringBuffer();
 
         public String getErrors() {

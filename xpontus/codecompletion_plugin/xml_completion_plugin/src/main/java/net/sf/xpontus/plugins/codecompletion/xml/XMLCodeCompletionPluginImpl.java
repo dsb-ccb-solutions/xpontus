@@ -83,17 +83,17 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     }
 
     public synchronized List getAttributesCompletionList(String tagName) {
-        List completionList = getCompletionList();
+        List completionList = tagList;
 
         TagInfo tagInfo = getTagInfo(tagName);
 
         final List emptyList = new ArrayList();
 
-        if (tagInfo == null) {
+        if (tagInfo == null) { 
             return emptyList;
         }
 
-        if (tagInfo.getAttributeInfo() != null) {
+        if (tagInfo.getAttributeInfo() != null) { 
             return Arrays.asList(tagInfo.getAttributeInfo());
         } else {
             return emptyList;
@@ -101,9 +101,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     }
 
     public synchronized List getCompletionList() {
-        List completionList = tagList;
-
-        System.out.println("map size:" + nsTagListMap.size());
+        List completionList = tagList; 
 
         if (!isDTDCompletion) {
             if ((completionList == null) || (completionList.size() == 0)) {
@@ -148,26 +146,22 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
             completionInformation = uri;
 
             Thread t = new Thread() {
-                    public void run() {
-                        logger.info("parsing dtd/schema...");
+                    public void run() { 
                         parsingDone = false;
                         tagList.clear();
                         completionParser.init(tagList, nsTagListMap);
                         completionParser.updateCompletionInfo(pubid, uri, r);
-                        parsingDone = true;
-                        logger.info("parsing dtd/schema is done");
+                        parsingDone = true; 
                     }
                 };
 
             t.setPriority(Thread.MIN_PRIORITY);
             t.start();
-        } else {
-            System.out.println("The completion database is up to date");
-        }
+        } 
     }
 
     public boolean isTrigger(String str) {
-        return str.equals("<") || str.equals(">");
+        return str.equals("<") || str.equals(">") || str.equals(" ");
     }
 
     public String getMimeType() {
@@ -209,10 +203,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
         if (lexer != null) {
             dtdLocation = lexer.getDTDLocation();
-            schemaLocation = lexer.getSchemaLocation();
-
-            System.out.println("dtd:" + dtdLocation + ",schemaLocation:" +
-                schemaLocation);
+            schemaLocation = lexer.getSchemaLocation(); 
         }
 
         try {
@@ -224,10 +215,8 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                 java.net.URL url = new java.net.URL(dtdLocation);
                 java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
 
-                updateAssistInfo(lexer.getdtdPublicId(), dtdLocation, dtdReader);
-                System.out.println("parsing dtd");
-            } else if (schemaLocation != null) {
-                System.out.println("parsing schema");
+                updateAssistInfo(lexer.getdtdPublicId(), dtdLocation, dtdReader); 
+            } else if (schemaLocation != null) { 
                 setCompletionParser(new XSDCompletionParser());
 
                 java.net.URL url = new java.net.URL(schemaLocation);
@@ -236,8 +225,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                     dtdReader);
             }
         } catch (Exception err) {
-            if (err instanceof java.net.UnknownHostException) {
-                logger.warn("Unable to resolve remote DTD location");
+            if (err instanceof java.net.UnknownHostException) { 
             } else {
                 logger.fatal(err.getMessage());
             }

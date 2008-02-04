@@ -44,6 +44,7 @@ import java.util.Map;
 public class IconPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "iconpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugins.core.icons";
+    public static final String PLUGIN_CATEGORY = "Look";
     private Map iconsMap = new HashMap();
 
     /** Creates a new instance of IconModule */

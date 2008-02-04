@@ -44,6 +44,7 @@ import java.util.Iterator;
 public class OutlinePlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "outlinepluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.outline";
+    public static final String PLUGIN_CATEGORY = "Outline";
     private Hashtable outliners;
 
     public OutlinePlugin() {

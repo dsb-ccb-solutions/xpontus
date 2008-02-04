@@ -60,14 +60,6 @@ import java.util.Locale;
 public class XPontusPluginManager implements XPontusControllerIF {
     private static String PLUGINS = "plugins";
     private static PluginManager manager;
-    
-    public static PluginManager getPluginManager(){
-        if(manager == null){
-            throw new RuntimeException("Plugin manager not registered yet!");
-        }
-        return manager;
-    }
-    
     private Log log = LogFactory.getLog(XPontusPluginManager.class);
 
     /**
@@ -76,14 +68,20 @@ public class XPontusPluginManager implements XPontusControllerIF {
      */
     public XPontusPluginManager() throws Exception {
         DefaultSettingsModuleImpl.getInstance().init();
-        
+
         manager = ObjectFactory.newInstance().createManager();
 
         manager.publishPlugins(getBuiltinPluginLocations());
         manager.publishPlugins(getPluginLocations());
     }
 
-     
+    public static PluginManager getPluginManager() {
+        if (manager == null) {
+            throw new RuntimeException("Plugin manager not registered yet!");
+        }
+
+        return manager;
+    }
 
     public void startApplication() {
         PluginRegistry registry = manager.getRegistry();
@@ -223,10 +221,13 @@ public class XPontusPluginManager implements XPontusControllerIF {
 
             while (it.hasNext()) {
                 String line = it.nextLine();
+                System.out.println("Location:" + line);
+
                 PluginLocation loc = getPluginLocation(line);
                 locations.add(loc);
             }
         } catch (IOException ex) {
+            ex.printStackTrace();
             log.error(ex.getMessage());
         } finally {
             IOUtils.closeQuietly(is);

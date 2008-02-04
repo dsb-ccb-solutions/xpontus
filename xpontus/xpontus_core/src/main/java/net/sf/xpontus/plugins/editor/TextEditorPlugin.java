@@ -44,10 +44,11 @@ import java.util.Iterator;
 public class TextEditorPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "texteditormoduleif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.editor";
+    public static final String PLUGIN_CATEGORY = "Editor";
     private Hashtable h_plugins;
 
     /**
-     * 
+     *
      */
     public TextEditorPlugin() {
     }

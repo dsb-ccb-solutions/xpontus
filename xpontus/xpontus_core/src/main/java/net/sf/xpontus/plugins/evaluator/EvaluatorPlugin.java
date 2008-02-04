@@ -43,6 +43,7 @@ import java.util.Map;
 public class EvaluatorPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "evaluatorpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.evaluator";
+    public static final String PLUGIN_CATEGORY = "Evaluator";
     private Map engines = new HashMap();
 
     protected void doStart() throws Exception {
@@ -72,7 +73,7 @@ public class EvaluatorPlugin extends XPontusPlugin {
         for (Iterator it = plugins.iterator(); it.hasNext();) {
             Extension ext = (Extension) it.next();
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
-            String className = ext.getParameter("class").valueAsString(); 
+            String className = ext.getParameter("class").valueAsString();
 
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
 
@@ -80,7 +81,7 @@ public class EvaluatorPlugin extends XPontusPlugin {
             EvaluatorPluginIF m_plugin = (EvaluatorPluginIF) cl.newInstance();
             addEngine(m_plugin, classLoader);
         }
-        
+
         EvaluatorPluginConfiguration.getInstane().setEngines(engines);
     }
 }

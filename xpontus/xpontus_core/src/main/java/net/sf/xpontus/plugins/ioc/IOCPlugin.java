@@ -24,15 +24,6 @@ package net.sf.xpontus.plugins.ioc;
 import net.sf.xpontus.plugins.XPontusPlugin;
 import net.sf.xpontus.properties.PropertiesHolder;
 
-import org.java.plugin.PluginManager;
-import org.java.plugin.registry.Extension;
-import org.java.plugin.registry.ExtensionPoint;
-import org.java.plugin.registry.PluginDescriptor;
-import org.java.plugin.registry.PluginRegistry;
-
-import java.util.Collection;
-import java.util.Iterator;
-
 
 /**
  * XPontus IOC Container plugin
@@ -41,6 +32,7 @@ import java.util.Iterator;
 public class IOCPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "iocpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.ioc";
+    public static final String PLUGIN_CATEGORY = "IOC";
     private IOCPluginIF container;
 
     /** Creates a new instance of IOCModule */
@@ -78,32 +70,33 @@ public class IOCPlugin extends XPontusPlugin {
      * @throws java.lang.Exception
      */
     public void init() throws Exception {
-//        PluginManager manager = getManager();
-//        PluginRegistry registry = manager.getRegistry();
-//        ExtensionPoint iocPluginExtPoint = registry.getExtensionPoint(getDescriptor()
-//                                                                          .getId(),
-//                EXTENSION_POINT_NAME);
-//
-//        Collection plugins = iocPluginExtPoint.getConnectedExtensions();
-//
-//        for (Iterator it = plugins.iterator(); it.hasNext();) {
-//            Extension ext = (Extension) it.next();
-//            PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
-//            ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
-//            String className = ext.getParameter("class").valueAsString();
-//            Class cl = classLoader.loadClass(className);
-//            IOCPluginIF plugin = (IOCPluginIF) cl.newInstance();
-//            setContainer(plugin);
-//        }
-//
-//        ClassLoader c = Thread.currentThread().getContextClassLoader();
-//
-//        if (container != null) {
-//            container.initializePropertiesBeans("/net/sf/xpontus/configuration/xpontus.properties",
-//                c);
-//        }
+        //        PluginManager manager = getManager();
+        //        PluginRegistry registry = manager.getRegistry();
+        //        ExtensionPoint iocPluginExtPoint = registry.getExtensionPoint(getDescriptor()
+        //                                                                          .getId(),
+        //                EXTENSION_POINT_NAME);
+        //
+        //        Collection plugins = iocPluginExtPoint.getConnectedExtensions();
+        //
+        //        for (Iterator it = plugins.iterator(); it.hasNext();) {
+        //            Extension ext = (Extension) it.next();
+        //            PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
+        //            ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
+        //            String className = ext.getParameter("class").valueAsString();
+        //            Class cl = classLoader.loadClass(className);
+        //            IOCPluginIF plugin = (IOCPluginIF) cl.newInstance();
+        //            setContainer(plugin);
+        //        }
+        //
+        //        ClassLoader c = Thread.currentThread().getContextClassLoader();
+        //
+        //        if (container != null) {
+        //            container.initializePropertiesBeans("/net/sf/xpontus/configuration/xpontus.properties",
+        //                c);
+        //        }
         setContainer(new SpringIOCModuleImpl());
-       container.initializePropertiesBeans("/net/sf/xpontus/configuration/xpontus.properties", this.getClass().getClassLoader());
+        container.initializePropertiesBeans("/net/sf/xpontus/configuration/xpontus.properties",
+            this.getClass().getClassLoader());
     }
 
     /**

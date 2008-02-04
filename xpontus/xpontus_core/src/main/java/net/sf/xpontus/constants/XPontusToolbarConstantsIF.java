@@ -29,8 +29,7 @@ package net.sf.xpontus.constants;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public interface XPontusToolbarConstantsIF
-{
+public interface XPontusToolbarConstantsIF {
     /**
      * Toolbar name for general actions
      */

@@ -46,6 +46,7 @@ public class PreviewPlugin extends XPontusPlugin {
      *
      */
     public static final String EXTENSION_POINT_NAME = "previewpluginif";
+    public static final String PLUGIN_CATEGORY = "Preview";
 
     /**
      *

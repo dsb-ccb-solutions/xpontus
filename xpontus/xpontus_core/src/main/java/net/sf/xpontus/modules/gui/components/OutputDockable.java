@@ -51,7 +51,7 @@ public abstract class OutputDockable implements Dockable {
         StyleConstants.setForeground(blueStyle, Color.BLUE);
         StyleConstants.setForeground(blackStyle, Color.BLACK);
     }
-    
+
     public abstract String getId();
 
     public MutableAttributeSet getBlackStyle() {

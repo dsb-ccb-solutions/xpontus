@@ -42,6 +42,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 
+
 /**
  * The default main component of XPontus XML Editor
  * @author Yves Zoundi
@@ -57,23 +58,13 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
     private JFrame frame;
     private Dockable pane;
     private ConsoleOutputWindow console;
-    private String WINDOW_TITLE; 
-    
-    
-    public OutlineViewDockable getOutline(){
-        return (OutlineViewDockable) outlineDockable;
-    }
+    private String WINDOW_TITLE;
 
     /** Creates a new instance of DefaultXPontusWindowImpl */
     private DefaultXPontusWindowImpl() {
         super();
-        
-        
-        
-        
-        frame = new JFrame();
 
- 
+        frame = new JFrame();
 
         frame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent arg0) {
@@ -84,10 +75,15 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         StrBuilder b = new StrBuilder();
         b.append(XPontusConstantsIF.APPLICATION_NAME);
         b.append(" ");
-        b.append(XPontusConstantsIF.APPLICATION_VERSION + " 2008 SNAPSHOT EDITION");
+        b.append(XPontusConstantsIF.APPLICATION_VERSION +
+            " 2008 SNAPSHOT EDITION");
         WINDOW_TITLE = b.toString();
         frame.setTitle(WINDOW_TITLE);
         initComponents();
+    }
+
+    public OutlineViewDockable getOutline() {
+        return (OutlineViewDockable) outlineDockable;
     }
 
     public JStatusBar getStatusBar() {
@@ -162,16 +158,16 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         // create the menubar
         menubar = new JMenuBar();
 
-//        pane = new DefaultPane();
+        //        pane = new DefaultPane();
         toolbar = ToolBarContainer.createDefaultContainer(true, true, true, true);
 
         final DockTabbedPane dtp = new DockTabbedPane();
         Dimension dim = new Dimension(600, 400);
         dtp.setMinimumSize(dim);
-       dtp.setPreferredSize(dim);
+        dtp.setPreferredSize(dim);
 
-       pane = new DefaultPane();
-         
+        pane = new DefaultPane();
+
         // add the pane to the desktop
         desktop.addDockable(pane);
 
@@ -179,7 +175,6 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         desktop.registerDockable(outlineDockable);
 
         desktop.split(pane, outlineDockable, DockingConstants.SPLIT_LEFT);
-        
 
         console = new ConsoleOutputWindow();
 

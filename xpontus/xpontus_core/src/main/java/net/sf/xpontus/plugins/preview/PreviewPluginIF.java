@@ -34,7 +34,7 @@ public interface PreviewPluginIF {
      * @return the mimetype of this plugin
      */
     public String getMimeType();
-    
+
     public String getName();
 
     /**

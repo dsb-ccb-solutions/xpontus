@@ -88,11 +88,12 @@ public class ModificationHandler implements DocumentListener, CaretListener {
                         //   System.out.println("parsing for completion");
                         new Thread() {
                                 public void run() {
-//                                    editor.getStatusBar()
-//                                          .setOperationMessage("Building code completion...");
+                                    //                                    editor.getStatusBar()
+                                    //                                          .setOperationMessage("Building code completion...");
                                     mDoc.getCodeCompletion().init(mDoc);
-//                                    editor.getStatusBar()
-//                                          .setOperationMessage("Database completion updated...");
+
+                                    //                                    editor.getStatusBar()
+                                    //                                          .setOperationMessage("Database completion updated...");
                                 }
                             }.start();
 

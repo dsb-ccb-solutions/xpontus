@@ -28,23 +28,27 @@ package net.sf.xpontus.constants;
  */
 public interface LexerPropertiesConstantsIF {
     /**
-     * 
+     *
      */
     String LEXER_NAME = "LEXER_NAME";
+
     /**
-     * 
+     *
      */
     String LEXER_DESCRIPTION = "LEXER_DESCRIPTION";
+
     /**
-     * 
+     *
      */
     String CONTENT_TYPE = "CONTENT_TYPE";
+
     /**
-     * 
+     *
      */
     String CLASS_LOADER = "CLASS_LOADER";
+
     /**
-     * 
+     *
      */
     String LEXER_CLASSNAME = "LEXER_CLASSNAME";
 }

@@ -40,7 +40,7 @@ public class ExitActionImpl extends AbstractXPontusActionImpl {
     // Terminate the program
     public void execute() {
         // terminate the program
-        
+
         // exit without errors
 
         /** TODO
@@ -54,7 +54,7 @@ public class ExitActionImpl extends AbstractXPontusActionImpl {
          *
          */
         DefaultSettingsModuleImpl.getInstance().shutdown();
-        
+
         System.exit(0);
     }
 }

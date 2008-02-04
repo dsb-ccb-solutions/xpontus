@@ -53,7 +53,6 @@ public class XPontusMimetypesFileTypeMap extends FileTypeMap {
     private final Map types = new HashMap();
 
     public XPontusMimetypesFileTypeMap() {
-         
     }
 
     public XPontusMimetypesFileTypeMap(String mimeTypeFileName)

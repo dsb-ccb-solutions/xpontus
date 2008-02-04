@@ -4,6 +4,9 @@
     <attributes>
 		<attribute id = "Category" value="Look"/>
 		<attribute id = "Built-in" value = "false"/>
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "Themes plugin"/>
+        <attribute id = "DisplayName" value = "Themes plugin"/>
 	</attributes>
     <runtime>
         <library type="code" path="." id="plugin.core.themes"> 

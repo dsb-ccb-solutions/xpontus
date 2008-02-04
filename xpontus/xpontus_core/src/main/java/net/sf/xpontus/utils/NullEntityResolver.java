@@ -43,7 +43,7 @@ public class NullEntityResolver implements EntityResolver {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public static NullEntityResolver getInstance() {
@@ -55,7 +55,7 @@ public class NullEntityResolver implements EntityResolver {
     }
 
     /**
-     * 
+     *
      * @param publicId
      * @param systemId
      * @return

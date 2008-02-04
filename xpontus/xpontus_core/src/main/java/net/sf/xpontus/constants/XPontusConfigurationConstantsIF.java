@@ -45,6 +45,7 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus configuration directory
      */
     File XPONTUS_HOME_DIR = new File(USER_HOME_DIR, ".xpontus");
+    File MIMETYPES_FILE = new File(XPONTUS_HOME_DIR, "mimes.properties");
 
     /**
      *

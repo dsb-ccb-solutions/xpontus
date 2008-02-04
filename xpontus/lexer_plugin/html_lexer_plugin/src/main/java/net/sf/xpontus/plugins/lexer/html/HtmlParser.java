@@ -1394,5 +1394,5 @@ label_4:
      public String[] getSupportedExtensions() {
         return new String[] {"htm", "html"};
     }
-    private IColorProvider colorer = new HTMLColorProvider();
+    private IColorProvider colorer = new HTMLColorProviderImpl();
 }

@@ -21,7 +21,6 @@
  */
 package net.sf.xpontus.plugins.lexer;
 
-import java.util.Arrays;
 import net.sf.xpontus.constants.LexerPropertiesConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
@@ -34,6 +33,7 @@ import org.java.plugin.registry.ExtensionPoint;
 import org.java.plugin.registry.PluginDescriptor;
 import org.java.plugin.registry.PluginRegistry;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -48,6 +48,7 @@ import java.util.Map;
 public class LexerPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "lexerpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.lexer";
+    public static final String PLUGIN_CATEGORY = "Lexer";
     private Map lexerMap = new HashMap();
 
     public LexerPlugin() {
@@ -60,8 +61,8 @@ public class LexerPlugin extends XPontusPlugin {
      * @param loader
      */
     private void addLexer(LexerPluginIF lexer, ClassLoader loader) {
-        Hashtable t = new Hashtable(); 
-        
+        Hashtable t = new Hashtable();
+
         t.put(LexerPropertiesConstantsIF.CLASS_LOADER, loader);
         t.put(LexerPropertiesConstantsIF.LEXER_CLASSNAME,
             lexer.getLexerClassName());
@@ -73,13 +74,13 @@ public class LexerPlugin extends XPontusPlugin {
         lexerMap.put(lexer.getMimeType(), t);
 
         String[] extensions = null;
-        try{ 
+
+        try {
             extensions = lexer.getSupportedExtensions();
-        }
-        catch(Exception e){ 
+        } catch (Exception e) {
             e.printStackTrace();
-        } 
-        
+        }
+
         String mime = lexer.getMimeType();
         String mime_types = createMimeTypes(mime, extensions);
 

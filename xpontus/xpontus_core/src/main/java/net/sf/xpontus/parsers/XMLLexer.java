@@ -226,7 +226,8 @@ tryAgain:
                 break;
             }
 
-            default:throw new NoViableAltForCharException((char) LA(1),
+            default:
+                throw new NoViableAltForCharException((char) LA(1),
                     getFilename(), getLine(), getColumn());
             }
 
@@ -243,9 +244,11 @@ tryAgain:
             }
 
             case '>':
-            case '[':break;
+            case '[':
+                break;
 
-            default:throw new NoViableAltForCharException((char) LA(1),
+            default:
+                throw new NoViableAltForCharException((char) LA(1),
                     getFilename(), getLine(), getColumn());
             }
 
@@ -253,10 +256,12 @@ tryAgain:
         }
 
         case '>':
-        case '[':break;
+        case '[':
+            break;
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         switch (LA(1)) {
@@ -278,19 +283,23 @@ tryAgain:
                 break;
             }
 
-            case '>':break;
+            case '>':
+                break;
 
-            default:throw new NoViableAltForCharException((char) LA(1),
+            default:
+                throw new NoViableAltForCharException((char) LA(1),
                     getFilename(), getLine(), getColumn());
             }
 
             break;
         }
 
-        case '>':break;
+        case '>':
+            break;
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         _saveIndex = text.length();
@@ -436,8 +445,9 @@ _loop75:
             break;
         }
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
 _loop69: 
@@ -501,8 +511,9 @@ _loop65:
             break;
         }
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         if (_createToken && (_token == null) && (_ttype != Token.SKIP)) {
@@ -673,10 +684,12 @@ _loop26:
         case 'w':
         case 'x':
         case 'y':
-        case 'z':break;
+        case 'z':
+            break;
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
 _loop31: 
@@ -748,9 +761,11 @@ _loop31:
                 case 'w':
                 case 'x':
                 case 'y':
-                case 'z':break;
+                case 'z':
+                    break;
 
-                default:throw new NoViableAltForCharException((char) LA(1),
+                default:
+                    throw new NoViableAltForCharException((char) LA(1),
                         getFilename(), getLine(), getColumn());
                 }
             } else {
@@ -803,10 +818,12 @@ _loop31:
             break;
         }
 
-        case '=':break;
+        case '=':
+            break;
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         match('=');
@@ -822,10 +839,12 @@ _loop31:
         }
 
         case '"':
-        case '\'':break;
+        case '\'':
+            break;
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         mSTRING_NO_QUOTE(true);
@@ -944,10 +963,12 @@ _loop35:
             break;
         }
 
-        case '>':break;
+        case '>':
+            break;
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         _saveIndex = text.length();
@@ -1052,10 +1073,12 @@ _loop35:
         case 'w':
         case 'x':
         case 'y':
-        case 'z':break;
+        case 'z':
+            break;
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
 _loop42: 
@@ -1132,9 +1155,11 @@ _loop42:
                 case 'w':
                 case 'x':
                 case 'y':
-                case 'z':break;
+                case 'z':
+                    break;
 
-                default:throw new NoViableAltForCharException((char) LA(1),
+                default:
+                    throw new NoViableAltForCharException((char) LA(1),
                         getFilename(), getLine(), getColumn());
                 }
             } else {
@@ -1169,8 +1194,9 @@ _loop42:
             break;
         }
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         if (_createToken && (_token == null) && (_ttype != Token.SKIP)) {
@@ -1360,8 +1386,9 @@ _loop60:
             break;
         }
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         if (_createToken && (_token == null) && (_ttype != Token.SKIP)) {
@@ -1445,8 +1472,9 @@ _loop60:
             break;
         }
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         if (_createToken && (_token == null) && (_ttype != Token.SKIP)) {
@@ -1564,8 +1592,9 @@ _loop60:
             break;
         }
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         if (_createToken && (_token == null) && (_ttype != Token.SKIP)) {
@@ -1620,8 +1649,9 @@ _loop60:
             break;
         }
 
-        default:throw new NoViableAltForCharException((char) LA(1),
-                getFilename(), getLine(), getColumn());
+        default:
+            throw new NoViableAltForCharException((char) LA(1), getFilename(),
+                getLine(), getColumn());
         }
 
         if (_createToken && (_token == null) && (_ttype != Token.SKIP)) {

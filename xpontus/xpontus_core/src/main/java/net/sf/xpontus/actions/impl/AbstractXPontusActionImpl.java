@@ -2,7 +2,7 @@
  * AbstractXPontusActionImpl.java
  *
  * Created on 25 mai 2007, 14:54
- * 
+ *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
  * This library is free software; you can redistribute it and/or modify

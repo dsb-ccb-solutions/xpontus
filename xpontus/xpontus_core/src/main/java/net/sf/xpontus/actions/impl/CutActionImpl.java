@@ -40,5 +40,5 @@ public class CutActionImpl extends DefaultDocumentAwareActionImpl {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
         dtc.getCurrentEditor().cut();
-    } 
+    }
 }

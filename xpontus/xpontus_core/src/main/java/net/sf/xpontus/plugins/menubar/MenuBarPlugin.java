@@ -52,6 +52,7 @@ import javax.swing.JMenuItem;
 public class MenuBarPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "menubarpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.menubar";
+    public static final String PLUGIN_CATEGORY = "Menubar";
     boolean newmenu = false;
     private Map menuMap = new HashMap();
 
@@ -109,7 +110,8 @@ public class MenuBarPlugin extends XPontusPlugin {
 
             for (int j = 0; j < actions.size(); j++) {
                 JMenuItem item = menu.add((Action) actions.get(j));
-//                item.setIcon(null);
+
+                //                item.setIcon(null);
             }
         }
     }

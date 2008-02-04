@@ -107,8 +107,7 @@ public class PrintUtilities implements Printable {
 
         if (printView(graphics2D, allocation, rootView)) {
             return Printable.PAGE_EXISTS;
-        }
-        else {
+        } else {
             pageStartY = 0;
             pageEndY = 0;
             currentPage = -1;

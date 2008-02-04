@@ -97,7 +97,7 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
                         return;
                     }
 
-                    if (node instanceof XmlNode) { 
+                    if (node instanceof XmlNode) {
                         XmlNode nodeInfo = (XmlNode) node;
                         gotoLine(nodeInfo.line, nodeInfo.column);
                     }

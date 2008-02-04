@@ -26,6 +26,8 @@ import com.ibm.icu.text.CharsetDetector;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
+import org.apache.xerces.util.XMLCatalogResolver;
+
 import org.w3c.dom.Document;
 
 import org.xml.sax.InputSource;
@@ -49,9 +51,23 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class XMLUtils {
     private static XMLUtils INSTANCE;
+    private XMLCatalogResolver xmlCatalogResolver;
 
     /** Creates a new instance of XMLUtils */
     private XMLUtils() {
+    }
+
+    public InputSource resolveURI(String uri) {
+        try {
+            InputSource src = new InputSource(xmlCatalogResolver.resolveURI(uri));
+
+            if (src == null) {
+            }
+
+            return src;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**

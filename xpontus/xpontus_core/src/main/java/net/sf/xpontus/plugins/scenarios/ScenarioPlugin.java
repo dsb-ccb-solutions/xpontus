@@ -23,7 +23,6 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
-import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
 
 import org.java.plugin.PluginManager;
@@ -33,10 +32,7 @@ import org.java.plugin.registry.PluginDescriptor;
 import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Map;
 
 
 /**
@@ -47,6 +43,7 @@ import java.util.Map;
 public class ScenarioPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "scenariopluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.scenarios";
+    public static final String PLUGIN_CATEGORY = "Transformation";
 
     public ScenarioPlugin() {
     }

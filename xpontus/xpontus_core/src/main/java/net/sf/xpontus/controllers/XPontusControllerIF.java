@@ -36,6 +36,4 @@ public interface XPontusControllerIF {
      * Stop the application
      */
     public void stopApplication();
-
-   
 }

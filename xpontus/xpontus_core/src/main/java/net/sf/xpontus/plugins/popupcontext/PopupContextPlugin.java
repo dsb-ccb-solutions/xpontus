@@ -16,6 +16,7 @@ public class PopupContextPlugin extends XPontusPlugin {
     * The plugin id
     */
     public static final String PLUGIN_IDENTIFIER = "plugin.core.popupcontext";
+    public static final String PLUGIN_CATEGORY = "Editor";
 
     /**
      * The extension point of this plugin

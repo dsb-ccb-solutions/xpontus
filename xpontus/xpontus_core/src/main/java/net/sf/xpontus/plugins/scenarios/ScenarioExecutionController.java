@@ -24,12 +24,13 @@ package net.sf.xpontus.plugins.scenarios;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
-import net.sf.xpontus.modules.gui.components.OutputDockable; 
+import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import java.awt.Toolkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.awt.Toolkit;
 
 
 /**
@@ -38,10 +39,9 @@ import org.apache.commons.logging.LogFactory;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ScenarioExecutionController {
-    private Log logger = LogFactory.getLog(ScenarioExecutionController.class);
-    
     public static final String CLOSE_METHOD = "closeWindow";
     public static final String EXECUTE_METHOD = "execute";
+    private Log logger = LogFactory.getLog(ScenarioExecutionController.class);
     private ScenarioExecutionView view;
 
     /**
@@ -86,9 +86,11 @@ public class ScenarioExecutionController {
 
                         try {
                             logger.info("Beginning the transformation");
+
                             // get the plugin for this transformation
-                            ScenarioPluginIF m_plugin = ScenarioPluginsConfiguration.getInstance() .getEngineForName(proc);
-                            
+                            ScenarioPluginIF m_plugin = ScenarioPluginsConfiguration.getInstance()
+                                                                                    .getEngineForName(proc);
+
                             logger.info("Transformation the profile");
                             // run the transformation profile
                             m_plugin.handleScenario(dsm);
@@ -97,6 +99,7 @@ public class ScenarioExecutionController {
                             if (dsm.isPreview()) {
                                 logger.info("Previewing the transformation");
                             }
+
                             logger.info("Transformation done");
                         } catch (Exception e) {
                             logger.fatal("An error occured...");

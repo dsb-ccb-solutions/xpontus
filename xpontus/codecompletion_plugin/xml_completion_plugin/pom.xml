@@ -29,17 +29,7 @@
             <artifactId>dtdparser</artifactId>
             <version>1.21</version>
             <scope>compile</scope>
-        </dependency>
-    
-    
-    
-    
-    
-    
-    
-    
-         
-         
+        </dependency> 
   </dependencies>
   <build>
         <plugins>

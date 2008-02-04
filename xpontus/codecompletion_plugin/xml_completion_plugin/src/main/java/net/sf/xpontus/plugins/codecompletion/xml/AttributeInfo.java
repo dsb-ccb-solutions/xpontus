@@ -97,6 +97,10 @@ public class AttributeInfo {
     public void addValue(String value) {
         this.values.add(value);
     }
+    
+    public String toString(){
+        return this.attributeName;
+    }
 
     public String[] getValues() {
         return (String[]) this.values.toArray(new String[this.values.size()]);

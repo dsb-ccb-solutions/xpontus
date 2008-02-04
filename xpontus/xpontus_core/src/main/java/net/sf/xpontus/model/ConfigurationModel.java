@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.sf.xpontus.model;
 
 import com.thoughtworks.xstream.XStream;
@@ -18,6 +17,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
+
 /**
  *
  * @author Propriétaire
@@ -25,7 +25,7 @@ import java.io.Writer;
 public abstract class ConfigurationModel {
     /** Creates a new instance of ConfigurationModel */
     public ConfigurationModel() {
-    } 
+    }
 
     /**
      *

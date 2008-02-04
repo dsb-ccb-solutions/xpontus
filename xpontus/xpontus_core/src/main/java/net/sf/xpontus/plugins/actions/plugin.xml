@@ -4,6 +4,9 @@
     <attributes>
         <attribute id = "Category" value="Actions"/>
         <attribute id = "Built-in" value = "true"/>
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "Action plugin"/>
+        <attribute id = "DisplayName" value = "Action plugin"/>
     </attributes>
      <requires>
         <import plugin-id="plugin.core.toolbar" />

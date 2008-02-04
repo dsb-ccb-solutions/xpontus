@@ -30,8 +30,7 @@ import javax.swing.event.DocumentEvent;
  * Interface for text editor plugins
  * @author Yves Zoundi
  */
-public interface TextEditorPluginIF { 
-    
+public interface TextEditorPluginIF {
     void onDocumentChanged(DocumentEvent e);
 
     void registerPopupActions();

@@ -4,8 +4,12 @@
     <attributes>
         <attribute id = "Built-in" value = "false"/>
         <attribute id="Category" value = "Transformation"/>
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "FOP transformation plugin"/>
+        <attribute id = "DisplayName" value = "FOP transformation plugin"/>
     </attributes>
-    <requires>
+    <requires> 
+        <import plugin-id="plugin.core.preferences"/>
         <import plugin-id="plugin.core.scenarios" />
     </requires>
     <runtime> 
@@ -22,6 +26,9 @@
             <export prefix="*"/>
         </library>  
     </runtime>
+    <extension plugin-id="plugin.core.preferences" point-id="preferencespluginif"  id="plugin.core.scenarios.fop.preferences">
+        <parameter id="class"  value="net.sf.xpontus.plugins.scenario.fop.fop_plugin.FOPConfigurationPanel" /> 
+    </extension> 
     <extension plugin-id="plugin.core.scenarios" point-id="scenariopluginif"  id="plugin.core.scenarios.fop">
         <parameter id="class"  value="net.sf.xpontus.plugins.scenario.fop.fop_plugin.FOPTransformationPluginImpl" /> 
     </extension> 

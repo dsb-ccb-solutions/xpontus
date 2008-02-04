@@ -82,7 +82,7 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
             Document doc = builder.parse(src);
 
             OutputFormat formatter = new OutputFormat();
-            formatter.setIndenting(true);
+            formatter.setIndenting(true); 
             formatter.setEncoding("UTF-8");
 
             ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();

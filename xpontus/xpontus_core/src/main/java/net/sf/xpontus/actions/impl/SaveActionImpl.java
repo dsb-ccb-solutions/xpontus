@@ -38,14 +38,12 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class SaveActionImpl extends DefaultDocumentAwareActionImpl
-{
+public class SaveActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.save";
     private JFileChooser chooser = null;
 
     /** Creates a new instance of SaveActionImpl */
-    public SaveActionImpl()
-    {
+    public SaveActionImpl() {
         chooser = new JFileChooser();
         chooser.setDialogTitle("Save as");
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -54,10 +52,8 @@ public class SaveActionImpl extends DefaultDocumentAwareActionImpl
     /**
      *  Save the document
      */
-    public void run()
-    {
-        try
-        {
+    public void run() {
+        try {
             JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
                                                             .getDocumentTabContainer()
                                                             .getCurrentEditor();
@@ -65,13 +61,11 @@ public class SaveActionImpl extends DefaultDocumentAwareActionImpl
             Object o = editor.getClientProperty(XPontusConstantsIF.FILE_OBJECT);
 
             // a new file with no recorded location
-            if (o == null)
-            {
+            if (o == null) {
                 new SaveAsActionImpl().execute();
             }
             // the file has a location (it is not new)
-            else
-            {
+            else {
                 FileObject fo = (FileObject) o;
 
                 OutputStream bos = fo.getContent().getOutputStream();
@@ -85,9 +79,7 @@ public class SaveActionImpl extends DefaultDocumentAwareActionImpl
                 ModificationHandler handler = (ModificationHandler) editor.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);
                 handler.setModified(false);
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
         }
     }
 }

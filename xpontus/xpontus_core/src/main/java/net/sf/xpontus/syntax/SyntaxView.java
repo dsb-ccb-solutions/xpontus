@@ -36,7 +36,7 @@ public class SyntaxView extends PlainView {
     }
 
     /**
-     * 
+     *
      * @param lineIndex
      * @param g
      * @param x

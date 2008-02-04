@@ -20,22 +20,25 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.plugins.settings;
- 
-import java.awt.Font;
+
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
 import net.sf.xpontus.properties.PropertiesHolder;
 
-//import com.db4o.Db4o;
-//import com.db4o.ObjectContainer;
-//import com.db4o.ObjectSet;
-//
-//import com.db4o.config.Configuration;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+
+import java.awt.Font;
+
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.UIManager;
 
 
@@ -72,7 +75,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
 
     public void init() {
         UIManager.put("EditorPane.font", new Font("Monospaced", Font.PLAIN, 13));
-        
+
         File[] configsDirectories = {
                 XPontusConstantsIF.XPONTUS_PLUGINS_DATA_DIR,
                 XPontusConstantsIF.XPONTUS_PREFERENCES_DIR,
@@ -85,6 +88,25 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
             if (!configsDirectories[i].exists()) {
                 configsDirectories[i].mkdirs();
             }
+        }
+
+        String[] locations = {
+                "/net/sf/xpontus/configuration/editorPanel.properties",
+                "/net/sf/xpontus/configuration/general.properties",
+                "/net/sf/xpontus/configuration/mimetypes.properties"
+            };
+
+        try {
+            for (String loc : locations) {
+                InputStream is = getClass().getResourceAsStream(loc);
+                String outName = FilenameUtils.getBaseName(loc);
+                File output = new File(XPontusConstantsIF.XPONTUS_HOME_DIR,
+                        outName);
+                OutputStream out = new FileOutputStream(output);
+                IOUtils.copy(is, out);
+            }
+        } catch (Exception err) {
+            err.printStackTrace();
         }
 
         Map map = new HashMap();

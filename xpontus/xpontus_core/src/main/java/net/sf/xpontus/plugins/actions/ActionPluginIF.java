@@ -30,6 +30,6 @@ import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
  * Plugin interface for actions
  * @author Yves Zoundi
  */
-public interface ActionPluginIF extends MenuBarPluginIF, ToolBarPluginIF, PopupContextPluginImpl{
-   
+public interface ActionPluginIF extends MenuBarPluginIF, ToolBarPluginIF,
+    PopupContextPluginImpl {
 }

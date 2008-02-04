@@ -32,7 +32,6 @@ import net.sf.xpontus.utils.MimeTypesProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 import java.util.Hashtable;
 import java.util.Map;
 

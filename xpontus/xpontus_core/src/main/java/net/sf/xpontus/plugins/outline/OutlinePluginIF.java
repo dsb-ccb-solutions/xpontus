@@ -31,14 +31,14 @@ import javax.swing.text.Document;
  */
 public interface OutlinePluginIF {
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     String getContentType();
 
     /**
-     * 
-     * @param doc 
+     *
+     * @param doc
      */
     void updateOutline(Document doc);
 }

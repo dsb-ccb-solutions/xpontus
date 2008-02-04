@@ -37,7 +37,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
 
-
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -171,13 +170,11 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
             Source src = new StreamSource(m_reader);
 
             // create the output result
-            File output = new File(model.getOutput());
+            FileObject outputFo = VFS.getManager().resolveFile(model.getOutput());
 
-            OutputStream bos = FileUtils.openOutputStream(output);
+            OutputStream bos = outputFo.getContent().getOutputStream();
 
-            Writer m_writer = new BufferedWriter(new OutputStreamWriter(bos));
-
-            Result res = new StreamResult(m_writer);
+            Result res = new StreamResult(bos);
 
             // add the xsl parameters
             setParameters(tf, model.getParameters());
@@ -189,9 +186,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
             // transform the input file
             tf.transform(src, res);
 
-            // close any open streams
-            IOUtils.closeQuietly(m_writer);
-
+            // close any open streams 
             IOUtils.closeQuietly(bos);
 
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
@@ -262,8 +257,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         }
 
         if (model.isExternalDocument()) {
-            if (model.getInput().trim().equals("") ||
-                    !new File(model.getInput()).exists()) {
+            if (model.getInput().trim().equals("")) {
                 errors.append("The input document is invalid\n");
             }
         } else {

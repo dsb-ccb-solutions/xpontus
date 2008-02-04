@@ -45,6 +45,7 @@ import java.util.Iterator;
 public class CodeCompletionPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "completionpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.completion";
+    public static final String PLUGIN_CATEGORY = "Completion";
     private Hashtable engines;
 
     public CodeCompletionPlugin() {

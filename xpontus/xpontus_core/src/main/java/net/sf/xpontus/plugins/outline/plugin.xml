@@ -4,6 +4,9 @@
     <attributes>
         <attribute id = "Category" value="Outline"/>
         <attribute id = "Built-in" value = "true"/>
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "Code structure plugin"/>
+        <attribute id = "DisplayName" value = "Code structure plugin"/>
     </attributes>
     <runtime>
         <library type="code" path="." id="plugin.core.outline"> 

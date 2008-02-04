@@ -62,9 +62,9 @@ public class PreviewTextImpl implements PreviewPluginIF {
     }
 
     public void preview(DetachableScenarioModel model) {
-         Frame m_frame = (Frame) XPontusComponentsUtils.getTopComponent()
+        Frame m_frame = (Frame) XPontusComponentsUtils.getTopComponent()
                                                       .getDisplayComponent();
-         
+
         final JDialog dialog = new JDialog(m_frame, true);
         dialog.setTitle("Previewing transformation result");
 
@@ -123,8 +123,6 @@ public class PreviewTextImpl implements PreviewPluginIF {
         dialog.setContentPane(c);
 
         dialog.pack();
-
-       
 
         dialog.setLocationRelativeTo(m_frame);
 

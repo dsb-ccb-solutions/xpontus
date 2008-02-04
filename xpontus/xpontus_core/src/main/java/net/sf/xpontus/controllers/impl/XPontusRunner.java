@@ -23,6 +23,10 @@
  */
 package net.sf.xpontus.controllers.impl;
 
+import com.l2fprod.common.swing.JTipOfTheDay;
+import com.l2fprod.common.swing.TipModel;
+import com.l2fprod.common.swing.tips.TipLoader;
+
 import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 import net.sf.xpontus.actions.impl.CopyActionImpl;
 import net.sf.xpontus.actions.impl.CreateNewFileActionImpl;
@@ -55,6 +59,7 @@ import net.sf.xpontus.plugins.lexer.LexerPlugin;
 import net.sf.xpontus.plugins.menubar.MenuBarPlugin;
 import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
 import net.sf.xpontus.plugins.outline.OutlinePlugin;
+import net.sf.xpontus.plugins.preferences.PreferencesPlugin;
 import net.sf.xpontus.plugins.preview.PreviewPlugin;
 import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPlugin;
 import net.sf.xpontus.plugins.scenarios.ScenarioPlugin;
@@ -74,10 +79,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Vector;
 
 import javax.swing.Action;
+import javax.swing.JDialog;
 import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 
@@ -182,7 +190,7 @@ public class XPontusRunner {
 
         controller.startApplication();
 
-        XPontusTopComponentIF window = DefaultXPontusWindowImpl.getInstance();
+        final XPontusTopComponentIF window = DefaultXPontusWindowImpl.getInstance();
 
         String[] identifiers = {
                 IOCPlugin.PLUGIN_IDENTIFIER, ThemePlugin.PLUGIN_IDENTIFIER,
@@ -194,7 +202,8 @@ public class XPontusRunner {
                 EvaluatorPlugin.PLUGIN_IDENTIFIER,
                 CodeCompletionPlugin.PLUGIN_IDENTIFIER,
                 QuickToolBarPlugin.PLUGIN_IDENTIFIER,
-                OutlinePlugin.PLUGIN_IDENTIFIER, PreviewPlugin.PLUGIN_IDENTIFIER
+                OutlinePlugin.PLUGIN_IDENTIFIER, PreviewPlugin.PLUGIN_IDENTIFIER,
+                PreferencesPlugin.PLUGIN_IDENTIFIER
             };
 
         PluginManager manager = XPontusPluginManager.getPluginManager();
@@ -365,5 +374,38 @@ public class XPontusRunner {
             }).start();
 
         window.activateComponent();
+
+        final Class m_class = settings.getClass();
+
+        final JTipOfTheDay.ShowOnStartupChoice fake = new JTipOfTheDay.ShowOnStartupChoice() {
+                private boolean value = true;
+
+                public boolean isShowingOnStartup() {
+                    return value;
+                }
+
+                public void setShowingOnStartup(boolean showOnStartup) {
+                    value = showOnStartup;
+                }
+            };
+
+        SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    Properties tipProperties = new Properties();
+                    String tipsLoc = "/net/sf/xpontus/tips/tips.properties";
+
+                    try {
+                        tipProperties.load(m_class.getResourceAsStream(tipsLoc));
+                    } catch (Exception e) {
+                    }
+
+                    TipModel tipModel = TipLoader.load(tipProperties);
+                    JTipOfTheDay jtip = new JTipOfTheDay(tipModel);
+                    JDialog dialog = jtip.getUI()
+                                         .createDialog(window.getDisplayComponent(),
+                            fake);
+                    dialog.setVisible(true);
+                }
+            });
     }
 }

@@ -17,7 +17,7 @@ public class XPontusSettings {
     public static final String KEY = XPontusSettings.class.getName();
 
     /**
-     * 
+     *
      * @return
      */
     public static SettingsModuleIF getDefault() {
@@ -25,7 +25,7 @@ public class XPontusSettings {
     }
 
     /**
-     * 
+     *
      * @param role
      * @return
      */
