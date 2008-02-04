@@ -193,19 +193,7 @@
             <artifactId>jpf-boot</artifactId>
             <version>1.5</version>
             <scope>compile</scope>
-        </dependency>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        </dependency> 
     </dependencies>
     <reporting>
         <plugins>
