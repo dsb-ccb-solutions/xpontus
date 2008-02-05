@@ -75,7 +75,7 @@ public class HTMLIndentationModuleImpl implements IndentationPluginIF
         return "text/html";
     }
 
-    public void run()
+    public void run() throws Exception
     {
         try
         {
@@ -124,7 +124,7 @@ public class HTMLIndentationModuleImpl implements IndentationPluginIF
         }
         catch (Exception ex)
         {
-            ex.printStackTrace();
+            throw ex;
         }
     }
 }

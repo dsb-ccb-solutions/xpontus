@@ -26,8 +26,11 @@ package net.sf.xpontus.actions.impl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
 import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -64,6 +67,11 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
 
         DocumentTabContainer container = DefaultXPontusWindowImpl.getInstance()
                                                                  .getDocumentTabContainer();
+
+        ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                              .getConsole();
+
+        OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
 
         Vector v = container.getEditorsAsVector();
 
@@ -119,9 +127,14 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
 
                 ModificationHandler handler = (ModificationHandler) jtc.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);
                 handler.setModified(true);
-                Toolkit.getDefaultToolkit().beep();
+
+                odk.println("The document is well formed");
             } catch (Exception ex) {
+                odk.println(ex.getMessage(), OutputDockable.RED_STYLE);
                 getLogger().error(ex.getLocalizedMessage());
+            } finally {
+                Toolkit.getDefaultToolkit().beep();
+                console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
             }
         } else {
             getLogger()

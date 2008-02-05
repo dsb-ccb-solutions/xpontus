@@ -39,8 +39,9 @@ public interface IndentationPluginIF {
      */
     String getMimeType();
 
-    /**
-     * hhhh
+    /** 
+     * 
+     * @throws java.lang.Exception 
      */
-    void run();
+    void run() throws Exception;
 }

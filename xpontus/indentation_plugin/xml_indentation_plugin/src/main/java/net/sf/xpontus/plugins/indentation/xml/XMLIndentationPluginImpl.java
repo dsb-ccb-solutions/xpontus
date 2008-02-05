@@ -61,7 +61,7 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
         return "text/xml";
     }
 
-    public void run() {
+    public void run() throws Exception{
         JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
                                                      .getDocumentTabContainer()
                                                      .getCurrentEditor();
@@ -97,7 +97,7 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
             } else {
             }
         } catch (Exception e) {
-            e.printStackTrace();
+           throw e;
         }
     }
 }

@@ -39,6 +39,9 @@ import org.apache.xerces.parsers.SAXParser;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -143,6 +146,9 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
             container.getStatusBar().setMessage("Document not well formed");
             odk.println(err.toString() + e.getMessage(),
                 OutputDockable.RED_STYLE);
+        } finally {
+            Toolkit.getDefaultToolkit().beep();
+            console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
         }
     }
 
