@@ -37,6 +37,13 @@
             <version>1.0.0-pre1</version>
             <scope>compile</scope>
         </dependency>
+    <dependency>
+            <groupId>miniTemplator</groupId>
+            <artifactId>miniTemplator</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+    
   </dependencies>
     <build>
         <resources>

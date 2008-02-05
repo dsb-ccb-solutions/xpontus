@@ -12,6 +12,9 @@
         <library id="plugin.browser.lib" path="lib/xpontus_pluginsbrowser-1.0.0-pre1.jar" type="code" > 
             <export prefix="*"/>
         </library> 
+        <library id="miniTemplator" path="lib/miniTemplator-1.0.jar" type="code" > 
+            <export prefix="*"/>
+        </library>  
         <library id="jung" path="lib/jung-1.7.6.jar" type="code" > 
             <export prefix="*"/>
         </library>  
