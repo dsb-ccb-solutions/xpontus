@@ -113,7 +113,7 @@ public class HtmlLexerPreferences implements PreferencesPluginIF {
             return "HTML syntax highlighting";
         }
 
-        public Component getComponent() {
+        public Component getJComponent() {
             return this;
         }
 

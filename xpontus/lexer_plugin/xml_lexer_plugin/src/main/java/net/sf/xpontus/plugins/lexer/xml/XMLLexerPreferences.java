@@ -112,7 +112,7 @@ public class XMLLexerPreferences implements PreferencesPluginIF {
             return "XML syntax highlighting";
         }
 
-        public Component getComponent() {
+        public Component getJComponent() {
             return this;
         }
 

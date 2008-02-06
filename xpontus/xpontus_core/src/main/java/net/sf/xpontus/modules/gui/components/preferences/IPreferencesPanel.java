@@ -25,15 +25,28 @@ import java.awt.Component;
 
 
 /**
- *
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public interface IPreferencesPanel {
+    /**
+     * 
+     * @return
+     */
     public String getTitle();
 
+    /**
+     * 
+     * @return
+     */
+    @Override
     public String toString();
 
-    public Component getComponent();
+    /**
+     * 
+     * @return
+     */
+    public Component getJComponent();
 
     public String getId();
 }

@@ -6,7 +6,12 @@
 package net.sf.xpontus.modules.gui.components.preferences;
 
 import java.awt.Component;
+import java.awt.event.ItemEvent;
+import java.io.File;
+import java.util.Properties;
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
+import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 /**
  *
@@ -19,6 +24,7 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
         initComponents();
     }
 
+    @Override
     public String toString() {
         return getTitle();
     }
@@ -31,42 +37,77 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
+        showSplashScreenOption = new javax.swing.JCheckBox();
+        showTipsOption = new javax.swing.JCheckBox();
+        defaultThemeLabel = new javax.swing.JLabel();
+        defaultIconSetLabel = new javax.swing.JLabel();
+        themeList = new javax.swing.JComboBox();
+        iconSetList = new javax.swing.JComboBox();
+        showConfirmDialogOnExitOption = new javax.swing.JCheckBox();
+        toolbarIconsLabel = new javax.swing.JLabel();
+        toolbarSettingsList = new javax.swing.JComboBox();
+        menubarIconsLabel = new javax.swing.JLabel();
+        menubarStyleList = new javax.swing.JComboBox();
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Show splash screen on startup");
+        showSplashScreenOption.setSelected(true);
+        showSplashScreenOption.setText("Show splash screen on startup");
+        showSplashScreenOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showSplashScreenOptionActionPerformed(evt);
+            }
+        });
 
-        jCheckBox2.setSelected(true);
-        jCheckBox2.setText("Show tips on startup");
+        showTipsOption.setSelected(true);
+        showTipsOption.setText("Show tips on startup");
+        showTipsOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showTipsOptionActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("  Default theme");
+        defaultThemeLabel.setText("  Default theme");
 
-        jLabel2.setText("  Default icon set");
+        defaultIconSetLabel.setText("  Default icon set");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
+        themeList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
+        themeList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                themeListItemStateChanged(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
+        iconSetList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
+        iconSetList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                iconSetListItemStateChanged(evt);
+            }
+        });
 
-        jCheckBox3.setSelected(true);
-        jCheckBox3.setText("Show confirm dialog on exit");
+        showConfirmDialogOnExitOption.setSelected(true);
+        showConfirmDialogOnExitOption.setText("Show confirm dialog on exit");
+        showConfirmDialogOnExitOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showConfirmDialogOnExitOptionActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("  Toolbar icons");
+        toolbarIconsLabel.setText("  Toolbar icons");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons" }));
+        toolbarSettingsList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons" }));
+        toolbarSettingsList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                toolbarSettingsListItemStateChanged(evt);
+            }
+        });
 
-        jLabel4.setText("  Menubar icons");
+        menubarIconsLabel.setText("  Menubar icons");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons" }));
+        menubarStyleList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons" }));
+        menubarStyleList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                menubarStyleListItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -75,65 +116,102 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menubarIconsLabel)
+                    .addComponent(showConfirmDialogOnExitOption)
+                    .addComponent(showSplashScreenOption, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(showTipsOption, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
+                                .addComponent(defaultThemeLabel)
+                                .addComponent(defaultIconSetLabel)
+                                .addComponent(toolbarIconsLabel))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, 172, Short.MAX_VALUE)
-                                .addComponent(jComboBox3, 0, 148, Short.MAX_VALUE)
-                                .addComponent(jComboBox4, 0, 148, Short.MAX_VALUE)))))
+                                .addComponent(iconSetList, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(themeList, javax.swing.GroupLayout.Alignment.TRAILING, 0, 172, Short.MAX_VALUE)
+                                .addComponent(toolbarSettingsList, 0, 148, Short.MAX_VALUE)
+                                .addComponent(menubarStyleList, 0, 148, Short.MAX_VALUE)))))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCheckBox1)
+                .addComponent(showSplashScreenOption)
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox2)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(showTipsOption)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(defaultThemeLabel)
+                    .addComponent(themeList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(defaultIconSetLabel)
+                    .addComponent(iconSetList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(toolbarSettingsList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(toolbarIconsLabel))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(menubarIconsLabel)
+                    .addComponent(menubarStyleList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jCheckBox3)
+                .addComponent(showConfirmDialogOnExitOption)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+    private void showSplashScreenOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showSplashScreenOptionActionPerformed
+        props.setProperty("showSplashScreenOnStartup", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
+    }//GEN-LAST:event_showSplashScreenOptionActionPerformed
+
+    private void showTipsOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTipsOptionActionPerformed
+        props.setProperty("showTipsOnStartup", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
+    }//GEN-LAST:event_showTipsOptionActionPerformed
+
+    private void showConfirmDialogOnExitOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showConfirmDialogOnExitOptionActionPerformed
+        props.setProperty("showConfirmDialogOnExit", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
+    }//GEN-LAST:event_showConfirmDialogOnExitOptionActionPerformed
+
+    private void themeListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_themeListItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            props.setProperty("defaultTheme", themeList.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_themeListItemStateChanged
+
+    private void iconSetListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_iconSetListItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            props.setProperty("defaultIconSet", iconSetList.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_iconSetListItemStateChanged
+
+    private void toolbarSettingsListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toolbarSettingsListItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            props.setProperty("defaultIconSet", iconSetList.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_toolbarSettingsListItemStateChanged
+
+    private void menubarStyleListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_menubarStyleListItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            props.setProperty("MenuBarLookAndFeel", iconSetList.getSelectedItem().toString());
+        }
+    }//GEN-LAST:event_menubarStyleListItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel defaultIconSetLabel;
+    private javax.swing.JLabel defaultThemeLabel;
+    private javax.swing.JComboBox iconSetList;
+    private javax.swing.JLabel menubarIconsLabel;
+    private javax.swing.JComboBox menubarStyleList;
+    private javax.swing.JCheckBox showConfirmDialogOnExitOption;
+    private javax.swing.JCheckBox showSplashScreenOption;
+    private javax.swing.JCheckBox showTipsOption;
+    private javax.swing.JComboBox themeList;
+    private javax.swing.JLabel toolbarIconsLabel;
+    private javax.swing.JComboBox toolbarSettingsList;
     // End of variables declaration//GEN-END:variables
+    
     public String getTitle() {
         return "General";
     }
@@ -147,18 +225,34 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     }
 
     public void saveSettings() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        PropertiesConfigurationLoader.save(config, props);
     }
 
     public void loadSettings() {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        showSplashScreenOnStartup = Boolean.valueOf(props.get("showSplashScreenOnStartup").toString());
+        showTipsOnStartup = Boolean.valueOf(props.get("showTipsOnStartup").toString());
+        showConfirmDialogOnExit = Boolean.valueOf(props.get("showConfirmDialogOnExit").toString());
+        defaultTheme = props.get("defaultTheme").toString();
+        defaultIconSet = props.get("defaultIconSet").toString();
+        toolbarConfig = props.get("ToolbarIcons").toString();
+        menubarConfig = props.get("MenuBarLookAndFeel").toString();
     }
 
     public IPreferencesPanel getPreferencesPanelComponent() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this;
     }
+    private final File config = XPontusConfigurationConstantsIF.GENERAL_PREFERENCES_FILE;
+    private Properties props;
+    private String menubarConfig;
+    private String toolbarConfig;
+    private String defaultIconSet;
+    private String defaultTheme;
+    private boolean showConfirmDialogOnExit;
+    private boolean showTipsOnStartup;
+    private boolean showSplashScreenOnStartup;
 
-    public Component getComponent() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Component getJComponent() {
+        return this;
     }
 }

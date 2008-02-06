@@ -100,7 +100,7 @@ public class XMLIndentationPreferences implements PreferencesPluginIF {
             return "XML indentation";
         }
 
-        public Component getComponent() {
+        public Component getJComponent() {
             return this;
         }
 

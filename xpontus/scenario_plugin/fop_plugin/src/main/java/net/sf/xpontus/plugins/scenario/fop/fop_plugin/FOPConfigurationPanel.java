@@ -106,7 +106,7 @@ public class FOPConfigurationPanel implements PreferencesPluginIF {
             return CONFIGURATION;
         }
 
-        public Component getComponent() {
+        public Component getJComponent() {
             return this;
         }
 

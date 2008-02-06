@@ -171,7 +171,7 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
 
                     if(node instanceof PreferencesNode2){
                        PreferencesPluginIF p = (PreferencesPluginIF) node.getUserObject();
-                       show(p.getPreferencesPanelComponent().getComponent());
+                       show(p.getPreferencesPanelComponent().getJComponent());
                     }
                     else{
                         show(nullComponent);

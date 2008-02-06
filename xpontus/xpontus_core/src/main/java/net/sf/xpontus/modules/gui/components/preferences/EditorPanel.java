@@ -8,18 +8,23 @@ package net.sf.xpontus.modules.gui.components.preferences;
 import com.l2fprod.common.swing.JFontChooser;
 import java.awt.Component;
 import java.awt.Font;
+import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Iterator;
+import java.util.Properties;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
+import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel {
+public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel, PreferencesPluginIF {
 
     private Integer value = new Integer(700);
     private Integer min = new Integer(500);
@@ -27,7 +32,7 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     private Integer step = new Integer(100);
     private SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
     private DefaultComboBoxModel encodingModel;
-
+ 
     /**
      * 
      * @return
@@ -55,41 +60,41 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        displayLineNumbersOption = new javax.swing.JCheckBox();
+        chooseFontButton = new javax.swing.JButton();
+        fontValueLabel = new javax.swing.JLabel();
+        tabSizeLabel = new javax.swing.JLabel();
+        tabSizeTF = new javax.swing.JFormattedTextField();
+        cursorBlinkRateLabel = new javax.swing.JLabel();
+        cursorBlinkRateValues = new javax.swing.JSpinner();
+        encodingLabel = new javax.swing.JLabel();
+        encodingList = new javax.swing.JComboBox();
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Display line numbers");
+        displayLineNumbersOption.setSelected(true);
+        displayLineNumbersOption.setText("Display line numbers");
 
-        jButton1.setText("Font...");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        chooseFontButton.setText("Font...");
+        chooseFontButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                chooseFontButtonActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(UIManager.getFont("EditorPane.font"));
-        jLabel1.setText(getStringFont(UIManager.getFont("EditorPane.font")));
+        fontValueLabel.setFont(UIManager.getFont("EditorPane.font"));
+        fontValueLabel.setText(getStringFont(UIManager.getFont("EditorPane.font")));
 
-        jLabel2.setText("Tab size");
+        tabSizeLabel.setText("Tab size");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        jFormattedTextField1.setValue(new Integer(4));
+        tabSizeTF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        tabSizeTF.setValue(new Integer(4));
 
-        jLabel3.setText("Cursor blink rate");
+        cursorBlinkRateLabel.setText("Cursor blink rate");
 
-        jSpinner1.setModel(model);
+        cursorBlinkRateValues.setModel(model);
 
-        jLabel4.setText("Default XML encoding");
+        encodingLabel.setText("Default XML encoding");
 
-        jComboBox1.setModel(encodingModel);
+        encodingList.setModel(encodingModel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -100,64 +105,64 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(chooseFontButton)
+                            .addComponent(tabSizeLabel)
+                            .addComponent(cursorBlinkRateLabel)
+                            .addComponent(encodingLabel))
                         .addGap(88, 88, 88)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(encodingList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                    .addComponent(fontValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)))))
+                                    .addComponent(tabSizeTF, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cursorBlinkRateValues, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(displayLineNumbersOption, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCheckBox1)
+                .addComponent(displayLineNumbersOption)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(cursorBlinkRateLabel)
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cursorBlinkRateValues, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tabSizeLabel)
+                    .addComponent(tabSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
+                    .addComponent(chooseFontButton)
+                    .addComponent(fontValueLabel))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(encodingLabel)
+                    .addComponent(encodingList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void chooseFontButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFontButtonActionPerformed
         Component frame = XPontusComponentsUtils.getTopComponent().getDisplayComponent();
         Font selectedFont = UIManager.getFont("EditorPane.font");
 
         Font f = JFontChooser.showDialog(frame, "Select font", selectedFont);
         if (f != null) {
-            jLabel1.setText(getStringFont(f));
-            jLabel1.setFont(f);
-            jLabel1.repaint();
+            fontValueLabel.setText(getStringFont(f));
+            fontValueLabel.setFont(f);
+            fontValueLabel.repaint();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_chooseFontButtonActionPerformed
 
     public String getStringFont(Font f) {
         String style = "Bold Italic";
@@ -183,26 +188,65 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         return f.getFamily() + "," + style + "," + f.getSize();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JButton chooseFontButton;
+    private javax.swing.JLabel cursorBlinkRateLabel;
+    private javax.swing.JSpinner cursorBlinkRateValues;
+    private javax.swing.JCheckBox displayLineNumbersOption;
+    private javax.swing.JLabel encodingLabel;
+    private javax.swing.JComboBox encodingList;
+    private javax.swing.JLabel fontValueLabel;
+    private javax.swing.JLabel tabSizeLabel;
+    private javax.swing.JFormattedTextField tabSizeTF;
     // End of variables declaration//GEN-END:variables
-    
     public String getTitle() {
         return "Editor";
     }
 
-    public Component getComponent() {
+    public Component getJComponent() {
         return this;
     }
 
     public String getId() {
         return getClass().getName();
     }
+
+    public String getPluginCategory() {
+       return "";
+    }
+
+    public IPreferencesPanel getPreferencesPanelComponent() {
+        return this;
+    }
+
+    public void saveSettings() {
+        PropertiesConfigurationLoader.save(propertiesFile, properties);
+    }
+
+    public void loadSettings() {
+        properties = PropertiesConfigurationLoader.load(propertiesFile); 
+        String[] f = properties.getProperty("Font").split(",");
+        String family = f[0];
+        String style1 = f[1];
+        int style = Font.PLAIN;
+        
+        if(style1.equals("Bold")){
+            style = Font.BOLD;
+        }
+        else if(style1.equals("Bold Italic")){
+            style  = 3;
+        }
+        int size = Integer.parseInt(f[2]);
+        
+        displayLineNumbers = Boolean.valueOf(properties.getProperty("displayLineNumbers"));
+        editorFont = new Font(family, style, size);
+        cursorBlinkRate = Integer.parseInt(properties.getProperty("cursorBlinkRate"));
+        defaultXMLEncoding = properties.getProperty("DefaultXMLEncoding").toString();
+    }
+    
+    private File propertiesFile = XPontusConfigurationConstantsIF.EDITOR_PREFERENCES_FILE;
+    private Properties properties;
+    private int cursorBlinkRate;
+    private boolean displayLineNumbers;
+    private Font editorFont;
+    private String defaultXMLEncoding;
 }

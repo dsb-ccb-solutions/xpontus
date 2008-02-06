@@ -1,7 +1,7 @@
 <html> 
     <head></head>
     <body> 
-        <div style="background:gray;color:white;width:100%"> 
+        <div style="width:100%;border:1px solid;border-width: 1px;"> 
             <h2>${displayname}</h2> 
         </div>  
         <table border="0"> 

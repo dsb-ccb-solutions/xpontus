@@ -61,8 +61,10 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus preferences directory
      */
     File XPONTUS_PREFERENCES_DIR = new File(XPONTUS_HOME_DIR, "preferences");
+    File EDITOR_PREFERENCES_FILE = new File(XPONTUS_PREFERENCES_DIR,
+            "editor.properties");
     File GENERAL_PREFERENCES_FILE = new File(XPONTUS_PREFERENCES_DIR,
-            "general.xml");
+            "general.properties");
 
     /**
      *

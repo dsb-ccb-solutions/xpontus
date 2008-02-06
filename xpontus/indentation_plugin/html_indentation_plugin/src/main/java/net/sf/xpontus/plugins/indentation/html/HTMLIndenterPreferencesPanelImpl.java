@@ -187,7 +187,7 @@ public class HTMLIndenterPreferencesPanelImpl implements PreferencesPluginIF {
             return "HTML indentation";
         }
 
-        public Component getComponent() {
+        public Component getJComponent() {
             return this;
         }
 
