@@ -22,6 +22,7 @@
 package net.sf.xpontus.actions.impl;
 
 import net.sf.vfsjfilechooser.*;
+import net.sf.vfsjfilechooser.acessories.*;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
@@ -48,6 +49,7 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
     public void run() {
         if (chooser == null) {
             chooser = new VFSJFileChooser();
+            chooser.setAccessory(new DefaultAccessoriesPanel(chooser));
             chooser.setFileSelectionMode(VFSJFileChooser.FILES_ONLY);
             chooser.setMultiSelectionEnabled(true);
         }
