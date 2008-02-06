@@ -39,7 +39,7 @@ public interface PreferencesPluginIF {
      *
      * @return
      */
-    public IPreferencesPanel getComponent();
+    public IPreferencesPanel getPreferencesPanelComponent();
 
     /**
      *

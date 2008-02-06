@@ -52,14 +52,6 @@ public class FOPConfigurationPanel implements PreferencesPluginIF {
         return PLUGIN_CATEGORY;
     }
 
-    public IPreferencesPanel getComponent() {
-        if (panel == null) {
-            panel = new FOPConfigurationComponent();
-        }
-
-        return panel;
-    }
-
     public void saveSettings() {
     }
 
@@ -90,12 +82,12 @@ public class FOPConfigurationPanel implements PreferencesPluginIF {
 
             browseButton = new JButton("Browse...");
 
-            fopSettingsTF = new JTextField(35); 
-            
+            fopSettingsTF = new JTextField(35);
+
             GridBagConstraints c = new GridBagConstraints();
             c.gridx = 0;
             c.anchor = GridBagConstraints.NORTHWEST;
-            c.insets = new Insets(2, 2,2, 2);
+            c.insets = new Insets(2, 2, 2, 2);
             c.gridy = 0;
             p.add(browseButton, c);
 
@@ -103,7 +95,7 @@ public class FOPConfigurationPanel implements PreferencesPluginIF {
             c.gridx = 1;
             c.gridy = 0;
             c.anchor = GridBagConstraints.NORTHWEST;
-            c.insets = new Insets(2, 2,2, 2);
+            c.insets = new Insets(2, 2, 2, 2);
             c.fill = GridBagConstraints.BOTH;
             p.add(fopSettingsTF, c);
 
@@ -121,5 +113,13 @@ public class FOPConfigurationPanel implements PreferencesPluginIF {
         public String getId() {
             return getClass().getName();
         }
+    }
+
+    public IPreferencesPanel getPreferencesPanelComponent() {
+        if (panel == null) {
+            panel = new FOPConfigurationComponent();
+        }
+
+        return panel;
     }
 }

@@ -60,7 +60,7 @@ public class HTMLIndenterPreferencesPanelImpl implements PreferencesPluginIF {
         return "Indentation";
     }
 
-    public IPreferencesPanel getComponent() {
+    public IPreferencesPanel getPreferencesPanelComponent() {
         return panel;
     }
 

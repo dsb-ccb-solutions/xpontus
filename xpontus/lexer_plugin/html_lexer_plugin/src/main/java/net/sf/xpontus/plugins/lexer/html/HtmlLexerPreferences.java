@@ -56,7 +56,7 @@ public class HtmlLexerPreferences implements PreferencesPluginIF {
         return "Lexer";
     }
 
-    public IPreferencesPanel getComponent() {
+    public IPreferencesPanel getPreferencesPanelComponent() {
         return panel;
     }
 

@@ -45,6 +45,6 @@ public class PreferencesNode2 extends DefaultMutableTreeNode {
     }
 
     public String toString() {
-        return plugin.getComponent().getTitle();
+        return plugin.getPreferencesPanelComponent().getTitle();
     }
 }

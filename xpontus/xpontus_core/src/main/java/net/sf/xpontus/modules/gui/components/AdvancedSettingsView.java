@@ -130,7 +130,7 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
                 model.insertNodeInto(contextNode, categoriesNode, categoriesNode.getChildCount());
                 model.reload(categoriesNode);
                 for (PreferencesPluginIF k : a_list) {
-                    PreferencesNode2 childNode = new PreferencesNode2(k, k.getComponent().getTitle());
+                    PreferencesNode2 childNode = new PreferencesNode2(k, k.getPreferencesPanelComponent().getTitle());
                     model.insertNodeInto(childNode, contextNode, contextNode.getChildCount());
                     model.reload(contextNode);
                 }
@@ -171,7 +171,7 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
 
                     if(node instanceof PreferencesNode2){
                        PreferencesPluginIF p = (PreferencesPluginIF) node.getUserObject();
-                       show(p.getComponent().getComponent());
+                       show(p.getPreferencesPanelComponent().getComponent());
                     }
                     else{
                         show(nullComponent);

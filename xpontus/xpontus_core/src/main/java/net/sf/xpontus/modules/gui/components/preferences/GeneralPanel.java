@@ -3,26 +3,26 @@
  *
  * Created on 27 janvier 2008, 18:31
  */
-
 package net.sf.xpontus.modules.gui.components.preferences;
 
 import java.awt.Component;
+import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
 
 /**
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPanel{
-    
+public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPanel, PreferencesPluginIF {
+
     /** Creates new form GeneralPanel */
     public GeneralPanel() {
         initComponents();
     }
-    
-    public String toString(){
+
+    public String toString() {
         return getTitle();
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -121,8 +121,6 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
@@ -136,17 +134,31 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
-    
-    
     public String getTitle() {
         return "General";
     }
 
-    public Component getComponent() {
-       return this;
-    }
-
     public String getId() {
         return getClass().getName();
+    }
+
+    public String getPluginCategory() {
+        return "";
+    }
+
+    public void saveSettings() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void loadSettings() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public IPreferencesPanel getPreferencesPanelComponent() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Component getComponent() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

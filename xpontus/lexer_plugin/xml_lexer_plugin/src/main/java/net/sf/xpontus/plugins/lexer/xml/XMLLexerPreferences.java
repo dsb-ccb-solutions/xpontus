@@ -56,7 +56,7 @@ public class XMLLexerPreferences implements PreferencesPluginIF {
         return "Lexer";
     }
 
-    public IPreferencesPanel getComponent() {
+    public IPreferencesPanel getPreferencesPanelComponent() {
         return panel;
     }
 

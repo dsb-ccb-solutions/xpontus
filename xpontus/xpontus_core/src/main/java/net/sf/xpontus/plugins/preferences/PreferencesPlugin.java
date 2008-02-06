@@ -77,7 +77,7 @@ public class PreferencesPlugin extends XPontusPlugin {
 
             Class cl = classLoader.loadClass(className);
             PreferencesPluginIF pref = (PreferencesPluginIF) cl.newInstance();
-            String id = pref.getComponent().getId();
+            String id = pref.getPreferencesPanelComponent().getId();
             String category = pref.getPluginCategory();
             Hashtable t = new Hashtable();
             t.put("category", category);
