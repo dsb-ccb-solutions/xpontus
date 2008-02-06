@@ -42,7 +42,8 @@ import javax.swing.JTable;
 
 
 /**
- *
+ * Settings for the XML lexer
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class XMLLexerPreferences implements PreferencesPluginIF {
