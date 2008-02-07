@@ -1,12 +1,12 @@
 package net.sf.xpontus.plugins.pluginsbrowser.browser;
 
 import java.awt.BorderLayout;
-
-
 import java.awt.FlowLayout;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -16,6 +16,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.ListSelectionModel;
 
 
 public class PluginsSettingsPanel extends JComponent {
@@ -23,6 +24,7 @@ public class PluginsSettingsPanel extends JComponent {
     private JScrollPane mirrorsScrollPane;
     private JList mirrorsList;
     private DefaultComboBoxModel sfMirrorsModel;
+    private DefaultComboBoxModel updateMirrorsListModel;
     private JSplitPane splitPane;
     private JButton selectMirrorButton;
     private JComponent leftPanel;
@@ -47,36 +49,37 @@ public class PluginsSettingsPanel extends JComponent {
 
         mirrorsList = new JList();
         mirrorsList.setModel(sfMirrorsModel);
+        mirrorsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        updateOptionsList = new JComboBox(new DefaultComboBoxModel(
-                    UPDATE_OPTIONS));
-        mirrorsScrollPane = new JScrollPane(mirrorsList);
+        updateMirrorsListModel = new DefaultComboBoxModel(UPDATE_OPTIONS);
+        updateOptionsList = new JComboBox(updateMirrorsListModel);
+        mirrorsScrollPane = new JScrollPane(mirrorsList);       
         mirrorsList.setSelectedIndex(0);
 
         leftPanel = new JPanel(new BorderLayout());
 
         JPanel leftPanelChild = new JPanel();
-        
+
         leftPanelChild.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        leftPanel.add(checkForUpdatesOption, BorderLayout.NORTH); 
-         
+        leftPanel.add(checkForUpdatesOption, BorderLayout.NORTH);
+
         leftPanelChild.add(updateOptionsList);
-        
+
         leftPanel.add(leftPanelChild, BorderLayout.CENTER);
 
         JPanel p = new JPanel();
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-        
+
         p.add(new JLabel("Select mirrror"));
         p.add(Box.createVerticalStrut(5));
         p.add(selectMirrorButton);
         p.add(Box.createVerticalStrut(5));
-        
+
         rightPanel = new JPanel(new BorderLayout());
-        
+
         rightPanel.add(p, BorderLayout.NORTH);
-        
+
         rightPanel.add(mirrorsScrollPane, BorderLayout.CENTER);
 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel,
