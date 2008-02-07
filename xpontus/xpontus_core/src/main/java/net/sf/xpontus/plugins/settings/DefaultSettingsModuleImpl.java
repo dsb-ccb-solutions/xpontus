@@ -98,12 +98,16 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
 
         try {
             for (String loc : locations) {
-                InputStream is = getClass().getResourceAsStream(loc);
-                String outName = FilenameUtils.getBaseName(loc);
-                File output = new File(XPontusConstantsIF.XPONTUS_HOME_DIR,
+                String outName = FilenameUtils.getName(loc);
+                File output = new File(XPontusConstantsIF.XPONTUS_PREFERENCES_DIR,
                         outName);
-                OutputStream out = new FileOutputStream(output);
-                IOUtils.copy(is, out);
+
+                if (!output.exists()) {
+                    InputStream is = getClass().getResourceAsStream(loc);
+
+                    OutputStream out = new FileOutputStream(output);
+                    IOUtils.copy(is, out);
+                }
             }
         } catch (Exception err) {
             err.printStackTrace();

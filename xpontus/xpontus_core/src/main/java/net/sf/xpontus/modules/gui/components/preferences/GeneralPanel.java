@@ -229,19 +229,31 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     }
 
     public void loadSettings() {
-
-        showSplashScreenOnStartup = Boolean.valueOf(props.get("showSplashScreenOnStartup").toString());
-        showTipsOnStartup = Boolean.valueOf(props.get("showTipsOnStartup").toString());
-        showConfirmDialogOnExit = Boolean.valueOf(props.get("showConfirmDialogOnExit").toString());
-        defaultTheme = props.get("defaultTheme").toString();
-        defaultIconSet = props.get("defaultIconSet").toString();
-        toolbarConfig = props.get("ToolbarIcons").toString();
-        menubarConfig = props.get("MenuBarLookAndFeel").toString();
+        // load the properties file
+        props = PropertiesConfigurationLoader.load(config);
+        
+        this.showSplashScreenOnStartup = Boolean.valueOf(props.get("showSplashScreenOnStartup").toString());
+        this.showTipsOnStartup = Boolean.valueOf(props.get("showTipsOnStartup").toString());
+        this.showConfirmDialogOnExit = Boolean.valueOf(props.get("showConfirmDialogOnExit").toString());
+        this.defaultTheme = props.get("defaultTheme").toString();
+        this.defaultIconSet = props.get("defaultIconSet").toString();
+        this.toolbarConfig = props.get("ToolbarIcons").toString();
+        this.menubarConfig = props.get("MenuBarLookAndFeel").toString();
+        
+        // update controls
+        this.showSplashScreenOption.setSelected(showTipsOnStartup);
+        this.showTipsOption.setSelected(showTipsOnStartup);
+        this.showConfirmDialogOnExitOption.setSelected(showConfirmDialogOnExit);
+        this.themeList.setSelectedItem(defaultTheme);
+        this.iconSetList.setSelectedItem(defaultIconSet);
+        this.toolbarSettingsList.setSelectedItem(toolbarConfig);
+        this.menubarStyleList.setSelectedItem(menubarConfig);
     }
 
     public IPreferencesPanel getPreferencesPanelComponent() {
         return this;
     }
+    
     private final File config = XPontusConfigurationConstantsIF.GENERAL_PREFERENCES_FILE;
     private Properties props;
     private String menubarConfig;

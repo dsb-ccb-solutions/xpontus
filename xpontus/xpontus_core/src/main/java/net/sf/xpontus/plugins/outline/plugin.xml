@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.core.outline" version="0.0.1" class="net.sf.xpontus.plugins.outline.OutlinePlugin"> 
+<plugin id="plugin.core.outline" version="0.0.1"  vendor="Yves Zoundi" class="net.sf.xpontus.plugins.outline.OutlinePlugin"> 
     <attributes>
         <attribute id = "Category" value="Outline"/>
         <attribute id = "Built-in" value = "true"/>

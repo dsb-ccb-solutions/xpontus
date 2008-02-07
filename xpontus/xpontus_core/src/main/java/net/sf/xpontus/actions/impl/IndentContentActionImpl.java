@@ -28,6 +28,7 @@ import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
@@ -67,6 +68,9 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
 
         DocumentTabContainer container = DefaultXPontusWindowImpl.getInstance()
                                                                  .getDocumentTabContainer();
+
+        DocumentContainer dc = (DocumentContainer) container.getCurrentDockable();
+        dc.getStatusBar().setMessage("Formatting document...");
 
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                               .getConsole();
@@ -128,8 +132,10 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
                 ModificationHandler handler = (ModificationHandler) jtc.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);
                 handler.setModified(true);
 
-                odk.println("The document is well formed");
+                dc.getStatusBar().setMessage("Formatting succeeded...");
+                odk.println("Indentation succeeded");
             } catch (Exception ex) {
+                dc.getStatusBar().setMessage("Formatting failed...");
                 odk.println(ex.getMessage(), OutputDockable.RED_STYLE);
                 getLogger().error(ex.getLocalizedMessage());
             } finally {

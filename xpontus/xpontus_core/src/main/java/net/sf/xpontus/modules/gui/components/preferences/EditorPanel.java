@@ -223,24 +223,33 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     }
 
     public void loadSettings() {
+        //load the properties
         properties = PropertiesConfigurationLoader.load(propertiesFile); 
+        
         String[] f = properties.getProperty("Font").split(",");
-        String family = f[0];
-        String style1 = f[1];
+        String family = f[0].trim();
+        String style1 = f[1].trim();
         int style = Font.PLAIN;
         
-        if(style1.equals("Bold")){
+        if(style1.trim().equals("Bold")){
             style = Font.BOLD;
         }
-        else if(style1.equals("Bold Italic")){
+        else if(style1.trim().equals("Bold Italic")){
             style  = 3;
         }
-        int size = Integer.parseInt(f[2]);
+        int size = Integer.parseInt(f[2].trim());
         
-        displayLineNumbers = Boolean.valueOf(properties.getProperty("displayLineNumbers"));
-        editorFont = new Font(family, style, size);
-        cursorBlinkRate = Integer.parseInt(properties.getProperty("cursorBlinkRate"));
-        defaultXMLEncoding = properties.getProperty("DefaultXMLEncoding").toString();
+        this.displayLineNumbers = Boolean.valueOf(properties.getProperty("displayLineNumbers"));
+        this.editorFont = new Font(family, style, size);
+        this.cursorBlinkRate = Integer.parseInt(properties.getProperty("cursorBlinkRate"));
+        this.defaultXMLEncoding = properties.getProperty("DefaultXMLEncoding").toString();
+        
+        this.displayLineNumbersOption.setSelected(displayLineNumbers);
+        this.fontValueLabel.setText(getStringFont(editorFont) );
+        this.fontValueLabel.setFont(editorFont);
+        this.encodingList.setSelectedItem(defaultXMLEncoding);
+        this.cursorBlinkRateValues.setValue(Integer.valueOf(cursorBlinkRate));
+        this.tabSizeTF.setValue(Integer.valueOf(size));
     }
     
     private File propertiesFile = XPontusConfigurationConstantsIF.EDITOR_PREFERENCES_FILE;

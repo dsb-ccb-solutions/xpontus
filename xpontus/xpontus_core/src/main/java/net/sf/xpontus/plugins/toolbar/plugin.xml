@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.core.toolbar" version="0.0.1" class="net.sf.xpontus.plugins.toolbar.ToolBarPlugin"> 
+<plugin id="plugin.core.toolbar"  vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.toolbar.ToolBarPlugin"> 
     <attributes>
         <attribute id = "Category" value="Toolbar"/>
         <attribute id = "Built-in" value = "false"/>

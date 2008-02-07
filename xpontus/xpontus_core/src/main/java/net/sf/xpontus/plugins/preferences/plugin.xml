@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.core.preferences" version="0.0.1" class="net.sf.xpontus.plugins.preferences.PreferencesPlugin"> 
+<plugin id="plugin.core.preferences"  vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.preferences.PreferencesPlugin"> 
     <attributes>
         <attribute id = "Category" value="Tools"/>
         <attribute id = "Built-in" value = "true"/>

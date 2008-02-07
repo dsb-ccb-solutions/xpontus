@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.gendoc.xsddoc" vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.gendoc.xsddoc.XSDDocPlugin">      
+ <plugin id="plugin.gendoc.xsddoc" vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.gendoc.xsddoc.XSDDocPlugin">      
      <attributes>
         <attribute id = "Category" value = "Documentation"/>
         <attribute id = "Built-in" value = "false"/>
         <attribute id = "Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
         <attribute id = "Description" value = "XML Schema documentation generator"/>
         <attribute id = "DisplayName" value = "XML Schema documentation generator"/>
-    </attributes>
+    </attributes> 
     <requires>
         <import plugin-id="plugin.core.gendoc" />
     </requires>

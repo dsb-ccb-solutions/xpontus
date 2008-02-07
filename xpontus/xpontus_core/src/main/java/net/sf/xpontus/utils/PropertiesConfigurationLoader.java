@@ -66,9 +66,11 @@ public class PropertiesConfigurationLoader {
             properties.load(is);
             IOUtils.closeQuietly(is);
         } catch (IOException e) {
+            e.printStackTrace();
             log.error(e.getMessage());
         }
 
+        System.out.println("Properties:" + properties.size());
         return properties;
     }
 }

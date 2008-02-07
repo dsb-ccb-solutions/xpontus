@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.core.scenarios" version="0.0.1" class="net.sf.xpontus.plugins.scenarios.ScenarioPlugin"> 
+<plugin id="plugin.core.scenarios" vendor="Yves Zoundi"  version="0.0.1" class="net.sf.xpontus.plugins.scenarios.ScenarioPlugin"> 
     <attributes>
         <attribute id = "Category" value="Transformation"/>
         <attribute id = "Built-in" value = "true"/>

@@ -7,7 +7,7 @@
         <attribute id = "Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
         <attribute id = "Description" value = "DTD documentation generator"/>
         <attribute id = "DisplayName" value = "DTD documentation generator"/>
-    </attributes>
+    </attributes> 
     <requires>
         <import plugin-id="plugin.core.gendoc" /> 
     </requires>

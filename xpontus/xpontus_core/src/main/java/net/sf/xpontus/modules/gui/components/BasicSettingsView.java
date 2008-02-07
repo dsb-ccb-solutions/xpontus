@@ -3,7 +3,6 @@
  *
  * Created on 30 janvier 2008, 17:51
  */
-
 package net.sf.xpontus.modules.gui.components;
 
 import com.l2fprod.common.swing.JButtonBar;
@@ -27,6 +26,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import net.sf.xpontus.modules.gui.components.preferences.EditorPanel;
 import net.sf.xpontus.modules.gui.components.preferences.GeneralPanel;
+import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**
@@ -34,15 +34,13 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class BasicSettingsView extends javax.swing.JDialog {
-    
-    private Component currentComponent;
-    private DefaultTreeModel model;
-    private DefaultMutableTreeNode rootNode;
-    private JButtonBar bar = new JButtonBar(JButtonBar.HORIZONTAL);
-    private JDialog advancedSettingsDialog;
 
+    private Component currentComponent;
+    private JButtonBar bar = new JButtonBar(JButtonBar.HORIZONTAL);
+    private PreferencesPluginIF[] panels;
+    private JDialog advancedSettingsDialog;
     private Component nullComponent;
-    
+
     /** 
      * Creates new form BasicSettingsView
      * @param parent
@@ -50,57 +48,65 @@ public class BasicSettingsView extends javax.swing.JDialog {
      */
     public BasicSettingsView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-       
+
         add(bar, BorderLayout.NORTH);
-        
+
         ButtonGroup group = new ButtonGroup();
 
-         
+
         nullComponent = new JPanel();
         currentComponent = nullComponent;
         initComponents();
         jPanel1.add(nullComponent, BorderLayout.CENTER);
-        
-        
-        
-         addButton("General", "/net/sf/xpontus/icons/gear.gif", makePanel("General", new GeneralPanel()), bar, group);
-          addButton("Editor", "/net/sf/xpontus/icons/accessories-text-editor.gif", makePanel("Editor", new EditorPanel()), bar, group);
-          
-          System.out.println("Pref dialog");
-          
-          pack();
-    }
-    
-    private void addButton(String title,  String iconUrl,
-      final Component component, JButtonBar bar, ButtonGroup group) {
-        final ImageIcon icon = new ImageIcon(getClass().getResource(iconUrl));
-      Action action = new AbstractAction(title, icon ) {
-        public void actionPerformed(ActionEvent e) {
-          show(component);
+
+        String icons[] = {"/net/sf/xpontus/icons/gear.gif", "/net/sf/xpontus/icons/accessories-text-editor.gif"};
+
+        panels = new PreferencesPluginIF[]{
+            new GeneralPanel(), new EditorPanel()
+        };
+
+        for (int i = 0; i < icons.length; i++) {
+            PreferencesPluginIF m_panel = panels[i];
+            m_panel.loadSettings();
+            String m_title = m_panel.getPreferencesPanelComponent().getTitle();
+            Component m_component = m_panel.getPreferencesPanelComponent().getJComponent();
+            addButton(m_title, icons[i], makePanel(m_title, m_component), bar, group);
         }
-      };
 
-      JToggleButton button = new JToggleButton(action);
-      Dimension dim = new Dimension(100,100);
-      button.setMinimumSize(dim);
-      button.setPreferredSize(dim);
-      bar.add(button);
-
-      group.add(button);
-
-      if (group.getSelection() == null) {
-        button.setSelected(true);
-        show(component);
-      }
+        pack();
     }
+
+    private void addButton(String title, String iconUrl,
+            final Component component, JButtonBar bar, ButtonGroup group) {
+        final ImageIcon icon = new ImageIcon(getClass().getResource(iconUrl));
+        Action action = new AbstractAction(title, icon) {
+
+            public void actionPerformed(ActionEvent e) {
+                show(component);
+            }
+        };
+
+        JToggleButton button = new JToggleButton(action);
+        Dimension dim = new Dimension(100, 100);
+        button.setMinimumSize(dim);
+        button.setPreferredSize(dim);
+        bar.add(button);
+
+        group.add(button);
+
+        if (group.getSelection() == null) {
+            button.setSelected(true);
+            show(component);
+        }
+    }
+
     /**
      * 
      */
     public BasicSettingsView() {
         this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
     }
-     
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -159,7 +165,6 @@ public class BasicSettingsView extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
     /** Closes the dialog */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         setVisible(false); 
@@ -170,25 +175,27 @@ public class BasicSettingsView extends javax.swing.JDialog {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-       setVisible(false);
+        setVisible(false);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(advancedSettingsDialog == null){
+        if (advancedSettingsDialog == null) {
             advancedSettingsDialog = new AdvancedSettingsView(this, true);
         }
         advancedSettingsDialog.setLocationRelativeTo(this);
         advancedSettingsDialog.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 BasicSettingsView dialog = new BasicSettingsView(new java.awt.Frame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
@@ -197,8 +204,6 @@ public class BasicSettingsView extends javax.swing.JDialog {
             }
         });
     }
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton jButton1;
@@ -207,8 +212,7 @@ public class BasicSettingsView extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables
-    
-     private JPanel makePanel(String title, Component c) {
+    private JPanel makePanel(String title, Component c) {
         JPanel panel = new JPanel(new BorderLayout());
         JLabel top = new JLabel(title);
         top.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
@@ -234,6 +238,6 @@ public class BasicSettingsView extends javax.swing.JDialog {
         jPanel1.revalidate();
         jPanel1.repaint();
 
-         this.repaint();
+        this.repaint();
     }
 }
