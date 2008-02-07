@@ -70,7 +70,6 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
                                                                  .getDocumentTabContainer();
 
         DocumentContainer dc = (DocumentContainer) container.getCurrentDockable();
-        dc.getStatusBar().setMessage("Formatting document...");
 
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                               .getConsole();
@@ -109,6 +108,8 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
         ((PlainDocument) jtc.getDocument()).readLock();
 
         if (ht.containsKey(contentType)) {
+            dc.getStatusBar().setMessage("Formatting document...");
+
             try {
                 Hashtable m_ht = (Hashtable) ht.get(contentType);
 
@@ -143,6 +144,8 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
                 console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
             }
         } else {
+            odk.println("no indenter engine for content type:" + contentType,
+                OutputDockable.RED_STYLE);
             getLogger()
                 .warn("no indenter engine for content type:" + contentType);
         }
