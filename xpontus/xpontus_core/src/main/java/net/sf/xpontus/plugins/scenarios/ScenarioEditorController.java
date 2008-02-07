@@ -36,6 +36,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
 import javax.swing.JTable;
+import net.sf.vfsjfilechooser.acessories.DefaultAccessoriesPanel;
 
 
 /**
@@ -93,6 +94,8 @@ public class ScenarioEditorController {
      */
     public ScenarioEditorController(ScenarioEditorView view) {
         this.view = view;
+        chooser = new VFSJFileChooser();
+        chooser.setAccessory(new DefaultAccessoriesPanel(chooser));
     }
 
     private boolean existsScenario(String name) {

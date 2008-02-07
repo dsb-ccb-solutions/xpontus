@@ -137,7 +137,7 @@ public class ToolBarPlugin extends XPontusPlugin {
 
             for (int j = 0; j < tbActions.size(); j++) {
                 JButton m_button = new JButton((Action) tbActions.get(j));
-                //                m_button.setText(null);
+                m_button.setBorder(null);
                 tb.add(m_button);
             }
         }
