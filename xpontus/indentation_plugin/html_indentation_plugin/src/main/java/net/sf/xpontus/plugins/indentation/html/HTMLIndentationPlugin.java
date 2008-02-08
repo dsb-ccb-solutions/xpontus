@@ -1,6 +1,6 @@
 /*
  * HTMLIndentationPlugin.java
- * 
+ *
  * Created on Aug 13, 2007, 7:21:39 PM
  *
  *
@@ -25,17 +25,15 @@ package net.sf.xpontus.plugins.indentation.html;
 
 import org.java.plugin.Plugin;
 
+
 /**
- *  
+ *
  *
  */
 public class HTMLIndentationPlugin extends Plugin {
-
     protected void doStart() throws Exception {
-        
     }
 
     protected void doStop() throws Exception {
-       
     }
 }

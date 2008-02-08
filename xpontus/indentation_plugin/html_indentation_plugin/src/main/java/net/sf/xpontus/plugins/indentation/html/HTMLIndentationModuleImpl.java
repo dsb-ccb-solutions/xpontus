@@ -43,7 +43,10 @@ import org.w3c.dom.Document;
 
 import org.xml.sax.InputSource;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
@@ -53,32 +56,26 @@ import javax.swing.text.JTextComponent;
  * HTML indenter engine implementation
  * @author Yves Zoundi
  */
-public class HTMLIndentationModuleImpl implements IndentationPluginIF
-{ 
+public class HTMLIndentationModuleImpl implements IndentationPluginIF {
     private final String ELEM_PROP = "http://cyberneko.org/html/properties/names/elems";
     private final String ATTRS_PROP = "http://cyberneko.org/html/properties/names/attrs";
     private final String NS_PROP = "http://xml.org/sax/features/namespaces";
     private final String BALANCE_PROP = "http://cyberneko.org/html/features/balance-tags";
-    private final String FILTERS_PROP = "http://cyberneko.org/html/properties/filters"; 
+    private final String FILTERS_PROP = "http://cyberneko.org/html/properties/filters";
 
-    public HTMLIndentationModuleImpl()
-    {
+    public HTMLIndentationModuleImpl() {
     }
 
-    public String getName()
-    {
+    public String getName() {
         return "HTML formatter";
     }
 
-    public String getMimeType()
-    {
+    public String getMimeType() {
         return "text/html";
     }
 
-    public void run() throws Exception
-    {
-        try
-        {
+    public void run() throws Exception {
+        try {
             HTMLConfiguration config = new HTMLConfiguration();
             config.setProperty(ELEM_PROP, "lower");
             config.setProperty(ATTRS_PROP, "lower");
@@ -116,14 +113,15 @@ public class HTMLIndentationModuleImpl implements IndentationPluginIF
 
             byte[] b = out.toByteArray();
 
-            if (b.length > 0)
-            { 
-                jtc.getDocument().remove(0, jtc.getDocument().getLength());
-                jtc.getDocument().insertString(0, new String(b), null); 
+            if (b.length > 0) {
+                jtc.getDocument().remove(0, jtc.getDocument().getLength()); 
+
+                InputStream newIs = new BufferedInputStream(new ByteArrayInputStream(
+                            b));
+                chd.setText(newIs);
+                jtc.read(chd.detect().getReader(), null);
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             throw ex;
         }
     }
