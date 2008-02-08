@@ -38,5 +38,5 @@ public interface IDocumentationPluginIF {
      *
      * @param model
      */
-    void handle(DocumentationModel model);
+    void handle(DocumentationModel model) throws Exception;
 }

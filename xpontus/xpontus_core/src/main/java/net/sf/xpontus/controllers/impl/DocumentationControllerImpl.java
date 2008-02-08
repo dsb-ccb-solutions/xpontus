@@ -20,9 +20,16 @@
  */
 package net.sf.xpontus.controllers.impl;
 
+import com.sun.java.help.impl.SwingWorker;
+
+import java.awt.Toolkit;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.DocumentationModel;
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentationView;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.plugins.gendoc.DocConfiguration;
 import net.sf.xpontus.plugins.gendoc.IDocumentationPluginIF;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -127,26 +134,51 @@ public class DocumentationControllerImpl {
      *
      */
     public void handle() {
-        String type = view.getModel().getType();
+        SwingWorker sw = new SwingWorker() {
+                @Override
+                public Object construct() {
+                    String type = view.getModel().getType();
+                    
+                     ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                              .getConsole();
+                        console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
 
-        if ((type == null) || type.trim().equals("")) {
-            XPontusComponentsUtils.showErrorMessage(
-                "Please install some plugins");
+                        MessagesWindowDockable mwd = (MessagesWindowDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
+                        
 
-            return;
-        }
+                    if ((type == null) || type.trim().equals("")) {
+                        XPontusComponentsUtils.showErrorMessage(
+                            "Please install some plugins");
 
-        Hashtable t = (Hashtable) DocConfiguration.getInstane().getEngines()
-                                                  .get(type);
-        ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
-        String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME).toString();
+                        return null;
+                    }
 
-        try {
-            IDocumentationPluginIF p = (IDocumentationPluginIF) Class.forName(classname,
-                    true, loader).newInstance();
-            p.handle(view.getModel());
-        } catch (Exception e) {
-        }
+                    Hashtable t = (Hashtable) DocConfiguration.getInstane()
+                                                              .getEngines()
+                                                              .get(type);
+                    ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
+                    String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME)
+                                        .toString();
+
+                    try {
+                        IDocumentationPluginIF p = (IDocumentationPluginIF) Class.forName(classname,
+                                true, loader).newInstance();
+                        p.handle(view.getModel());
+                        
+                        mwd.println("Documentation generated successfully!");
+                    } catch (Exception e) {
+                       
+                        mwd.println(e.getMessage(), OutputDockable.RED_STYLE);
+                    } finally {
+                        Toolkit.getDefaultToolkit().beep();
+                        view.setVisible(false);
+                    }
+
+                    return null;
+                }
+            };
+
+        sw.start();
     }
 
     /**

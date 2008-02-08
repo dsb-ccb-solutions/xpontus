@@ -132,7 +132,7 @@ public class DocumentationView extends javax.swing.JDialog {
 
         noticeTF.setFont(new java.awt.Font("Dialog", 1, 10));
         noticeTF.setForeground(new java.awt.Color(0, 0, 204));
-        noticeTF.setText("* The parameters header, footer, and css stylesheet are mandatories");
+        noticeTF.setText("* The parameters header, footer and css stylesheet can be omitted");
 
         headerLabel.setText("Header");
 
@@ -205,7 +205,7 @@ public class DocumentationView extends javax.swing.JDialog {
                     .add(cssTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(17, 17, 17)
                 .add(noticeTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
