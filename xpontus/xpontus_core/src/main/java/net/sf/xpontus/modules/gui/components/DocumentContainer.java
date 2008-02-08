@@ -31,6 +31,7 @@ import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.controllers.impl.PopupHandler;
+import net.sf.xpontus.controllers.impl.XPontusUndoManager;
 import net.sf.xpontus.plugins.quicktoolbar.DefaultQuickToolbarPluginImpl;
 import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPluginIF;
 import net.sf.xpontus.properties.PropertiesHolder;
@@ -177,12 +178,12 @@ public class DocumentContainer implements Dockable {
                 editor.read(new InputStreamReader(is), null);
             }
 
-            javax.swing.undo.UndoManager _undo = new javax.swing.undo.UndoManager();
+            XPontusUndoManager _undo = new XPontusUndoManager();
             editor.putClientProperty(XPontusConstantsIF.UNDO_MANAGER, _undo);
 
             editor.getDocument().addUndoableEditListener(new UndoableEditListener() {
                     public void undoableEditHappened(UndoableEditEvent event) {
-                        ((javax.swing.undo.UndoManager) editor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER)).addEdit(event.getEdit());
+                        ((XPontusUndoManager) editor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER)).addEdit(event.getEdit());
                     }
                 });
 
@@ -288,13 +289,13 @@ public class DocumentContainer implements Dockable {
                             new ByteArrayInputStream(b)), null);
                 }
 
-                javax.swing.undo.UndoManager _undo = new javax.swing.undo.UndoManager();
+                XPontusUndoManager _undo = new XPontusUndoManager();
                 editor.putClientProperty(XPontusConstantsIF.UNDO_MANAGER, _undo);
 
                 editor.getDocument().addUndoableEditListener(new UndoableEditListener() {
                         public void undoableEditHappened(
                             UndoableEditEvent event) {
-                            ((javax.swing.undo.UndoManager) editor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER)).addEdit(event.getEdit());
+                            ((XPontusUndoManager) editor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER)).addEdit(event.getEdit());
                         }
                     });
             }

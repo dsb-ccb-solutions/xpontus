@@ -24,10 +24,9 @@ package net.sf.xpontus.actions.impl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
-import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 import javax.swing.text.JTextComponent;
-import javax.swing.undo.UndoManager;
+import net.sf.xpontus.controllers.impl.XPontusUndoManager;
 
 
 /**
@@ -45,7 +44,7 @@ public class RedoActionImpl extends DefaultDocumentAwareActionImpl {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
         JTextComponent jtc = dtc.getCurrentEditor();
-        UndoManager redo = (UndoManager) jtc.getClientProperty(XPontusConstantsIF.UNDO_MANAGER);
+        XPontusUndoManager redo = (XPontusUndoManager) jtc.getClientProperty(XPontusConstantsIF.UNDO_MANAGER);
 
         if (redo.canRedo()) {
             redo.redo();
