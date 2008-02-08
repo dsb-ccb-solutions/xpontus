@@ -25,15 +25,16 @@ package net.sf.xpontus.controllers.impl;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
+import net.sf.xpontus.model.CaretPosition;
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.syntax.SyntaxDocument;
+import net.sf.xpontus.utils.EditorUtilities;
 
 import javax.swing.SwingUtilities;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
 
 
@@ -128,7 +129,7 @@ public class ModificationHandler implements DocumentListener, CaretListener {
 
     /**
      *
-     * @param arg0
+     * @param e
      */
     public void caretUpdate(CaretEvent e) {
         final CaretEvent evt = e;
@@ -142,16 +143,8 @@ public class ModificationHandler implements DocumentListener, CaretListener {
 
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    int caretPosition = editor.getEditorComponent()
-                                              .getCaretPosition();
-                    Element root = editor.getEditorComponent().getDocument()
-                                         .getDefaultRootElement();
-                    int line = root.getElementIndex(caretPosition);
-                    int lineStart = root.getElement(line).getStartOffset();
-                    int lineNumber = line + 1;
-                    int columnNumber = caretPosition - lineStart + 1;
-                    String msg = lineNumber + ":" + columnNumber;
-                    editor.getStatusBar().setLineMessage(msg);
+                    CaretPosition pos = EditorUtilities.getCaretPosition(editor.getEditorComponent());
+                    editor.getStatusBar().setLineMessage(pos.toString());
                 }
             });
     }
