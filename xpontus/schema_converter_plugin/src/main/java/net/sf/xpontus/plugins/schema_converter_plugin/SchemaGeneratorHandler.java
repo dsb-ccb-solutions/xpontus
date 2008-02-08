@@ -42,17 +42,27 @@ import com.thaiopensource.xml.sax.ErrorHandlerImpl;
 
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.xml.sax.SAXParseException;
+
+import java.awt.Toolkit;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.text.JTextComponent;
@@ -74,6 +84,7 @@ public class SchemaGeneratorHandler {
     public static final String GENERATE_METHOD = "generate";
     public static final String INPUT_METHOD = "input";
     public static final String OUTPUT_METHOD = "output";
+    private Log logger = LogFactory.getLog(SchemaGeneratorHandler.class);
     private SchemaGeneratorView view;
     private JFileChooser chooser;
 
@@ -108,11 +119,28 @@ public class SchemaGeneratorHandler {
     }
 
     public void generate() {
+        Thread worker = new Thread() {
+                public void run() {
+                    generateSchema();
+                }
+            };
+
+        worker.setPriority(Thread.MIN_PRIORITY);
+        worker.start();
+    }
+
+    private void generateSchema() {
         view.setVisible(false);
 
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                               .getConsole();
         MessagesWindowDockable mconsole = (MessagesWindowDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
+
+        DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+                                                                                  .getDocumentTabContainer()
+                                                                                  .getCurrentDockable();
+
+        container.getStatusBar().setMessage("Generating schema...");
 
         try {
             SchemaGenerationModel model = view.getModel();
@@ -169,6 +197,7 @@ public class SchemaGeneratorHandler {
 
                 sc = inFormat.load(UriOrFile.toUri(tmp.getAbsolutePath()),
                         new String[0], model.getOutputType().toLowerCase(), eh);
+                tmp.deleteOnExit();
             } else {
                 sc = inFormat.load(UriOrFile.toUri(view.getModel().getInputURI()),
                         new String[0], model.getOutputType().toLowerCase(), eh);
@@ -181,10 +210,44 @@ public class SchemaGeneratorHandler {
             of.output(sc, od, new String[0],
                 model.getInputType().toLowerCase(), eh);
 
-            mconsole.println("Schema generated sucessfully");
+            mconsole.println("Schema generated sucessfully!");
+
+            container.getStatusBar().setMessage("Schema generated sucessfully!");
         } catch (Exception ex) {
-            ex.printStackTrace();
-            mconsole.println("An error occured", OutputDockable.RED_STYLE);
+            StringBuffer sb = new StringBuffer();
+
+            if (ex instanceof SAXParseException) {
+                SAXParseException spe = (SAXParseException) ex;
+                sb.append("Error around line " + spe.getLineNumber());
+                sb.append(", column " + spe.getColumnNumber());
+                sb.append("\n");
+            }
+
+            container.getStatusBar().setMessage("Schema generation failed!");
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            PrintStream ps = new PrintStream(bos);
+            ex.printStackTrace(ps);
+
+            String errStackTrace = new String(bos.toByteArray());
+            sb.append(errStackTrace);
+            mconsole.println(sb.toString(), OutputDockable.RED_STYLE);
+            logger.error(sb.toString());
+
+            // close the open streams
+            try {
+                ps.flush();
+                ps.close();
+                bos.flush();
+                bos.close();
+            } catch (IOException ioe) {
+                logger.error(ioe.getMessage());
+
+                // what can we do with that... nothing
+            }
+        } finally {
+            console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
+            Toolkit.getDefaultToolkit().beep();
         }
     }
 
