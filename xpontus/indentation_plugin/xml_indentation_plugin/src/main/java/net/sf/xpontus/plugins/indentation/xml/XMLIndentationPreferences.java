@@ -92,7 +92,7 @@ public class XMLIndentationPreferences implements PreferencesPluginIF {
             p.add(omitDocTypeOption);
             p.add(omitXMLDeclarationOption);
             p.add(preserveSpaceOption);
-            
+
             add(p, BorderLayout.CENTER);
         }
 

@@ -27,6 +27,7 @@ import com.ibm.icu.text.CharsetDetector;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
+import net.sf.xpontus.utils.NullEntityResolver;
 
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -35,14 +36,16 @@ import org.w3c.dom.Document;
 
 import org.xml.sax.InputSource;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import net.sf.xpontus.utils.NullEntityResolver;
 
 
 /**
@@ -61,7 +64,7 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
         return "text/xml";
     }
 
-    public void run() throws Exception{
+    public void run() throws Exception {
         JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
                                                      .getDocumentTabContainer()
                                                      .getCurrentEditor();
@@ -82,8 +85,7 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
             Document doc = builder.parse(src);
 
             OutputFormat formatter = new OutputFormat();
-            formatter.setIndenting(true); 
-            formatter.setEncoding("UTF-8");
+            formatter.setIndenting(true);
 
             ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
             XMLSerializer serializer = new XMLSerializer(out, formatter);
@@ -93,12 +95,15 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
 
             if (b.length > 0) {
                 jtc.getDocument().remove(0, jtc.getDocument().getLength());
-                jtc.getDocument().insertString(0, new String(b), null);
+
+                InputStream newIs = new BufferedInputStream(new ByteArrayInputStream(
+                            b));
+                chd.setText(newIs);
+                jtc.read(chd.detect().getReader(), null);
             } else {
             }
         } catch (Exception e) {
-           throw e;
+            throw e;
         }
     }
 }
-
