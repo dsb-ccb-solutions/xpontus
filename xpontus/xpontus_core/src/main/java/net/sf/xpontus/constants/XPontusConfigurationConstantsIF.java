@@ -27,7 +27,8 @@ import java.io.File;
 
 
 /**
- *
+ * Some file configuration variables
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public interface XPontusConfigurationConstantsIF {
@@ -45,10 +46,13 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus configuration directory
      */
     File XPONTUS_HOME_DIR = new File(USER_HOME_DIR, ".xpontus");
+    /**
+     * The mimetypes file
+     */
     File MIMETYPES_FILE = new File(XPONTUS_HOME_DIR, "mimes.properties");
 
     /**
-     *
+     * The virtual file browser bookmarks file
      */
     File FAVORITES_FILE = new File(XPONTUS_HOME_DIR, "favorites");
 
@@ -61,19 +65,25 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus preferences directory
      */
     File XPONTUS_PREFERENCES_DIR = new File(XPONTUS_HOME_DIR, "preferences");
+    /**
+     * The editor preferences file
+     */
     File EDITOR_PREFERENCES_FILE = new File(XPONTUS_PREFERENCES_DIR,
             "editorPanel.properties");
+    /**
+     * Some general properties
+     */
     File GENERAL_PREFERENCES_FILE = new File(XPONTUS_PREFERENCES_DIR,
             "general.properties");
 
     /**
-     *
+     * User transformations profiles
      */
     File XPONTUS_SCENARIOS_FILE = new File(XPONTUS_PREFERENCES_DIR,
             "scenarios.xml");
 
     /**
-     *
+     * Resources cache dir
      */
     File XPONTUS_CACHE_DIR = new File(XPONTUS_HOME_DIR, "cache");
 
@@ -88,7 +98,7 @@ public interface XPontusConfigurationConstantsIF {
     File XPONTUS_DATABASE_CONFIG_DIR = new File(XPONTUS_HOME_DIR, "config");
 
     /**
-     * XPontus embedded database file
+     * XPontus embedded database file - obsolete, db4o is still not used for user settings
      */
     File XPONTUS_DATABASE_FILE = new File(XPONTUS_DATABASE_CONFIG_DIR, "db.yap");
 }

@@ -38,7 +38,7 @@
     </Container>
   </NonVisualComponents>
   <Properties>
-    <Property name="title" type="java.lang.String" value="Plugins settings"/>
+    <Property name="title" type="java.lang.String" value="Plugins settings(not finished)"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

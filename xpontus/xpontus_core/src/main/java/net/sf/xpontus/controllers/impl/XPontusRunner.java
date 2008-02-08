@@ -385,7 +385,8 @@ public class XPontusRunner {
                 }
 
                 public void setShowingOnStartup(boolean showOnStartup) {
-                    value = showOnStartup; 
+                    value = showOnStartup;
+
                     // save to preferences here
                 }
             };

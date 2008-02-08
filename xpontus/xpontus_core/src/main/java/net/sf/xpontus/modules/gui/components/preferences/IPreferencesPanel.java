@@ -30,20 +30,20 @@ import java.awt.Component;
  */
 public interface IPreferencesPanel {
     /**
-     * 
+     *
      * @return
      */
     public String getTitle();
 
     /**
-     * 
+     *
      * @return
      */
     @Override
     public String toString();
 
     /**
-     * 
+     *
      * @return
      */
     public Component getJComponent();

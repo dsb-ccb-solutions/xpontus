@@ -122,7 +122,7 @@ public class BasicSettingsView extends javax.swing.JDialog {
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setTitle("Settings");
+        setTitle("Settings(not finished)");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -143,7 +143,7 @@ public class BasicSettingsView extends javax.swing.JDialog {
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.SOUTH);
 
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +161,7 @@ public class BasicSettingsView extends javax.swing.JDialog {
         });
         jPanel2.add(cancelButton);
 
-        add(jPanel2, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

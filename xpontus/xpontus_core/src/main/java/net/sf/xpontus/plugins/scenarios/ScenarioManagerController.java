@@ -108,7 +108,7 @@ public class ScenarioManagerController {
     }
 
     private void showEditorDialog() {
-        System.out.println("dialog not null:" + (child!=null));
+        System.out.println("dialog not null:" + (child != null));
         child.setLocationRelativeTo(view);
         child.setVisible(true);
     }

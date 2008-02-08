@@ -71,6 +71,7 @@ public class PropertiesConfigurationLoader {
         }
 
         System.out.println("Properties:" + properties.size());
+
         return properties;
     }
 }

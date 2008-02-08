@@ -21,6 +21,7 @@
 package net.sf.xpontus.plugins.scenarios;
 
 import net.sf.vfsjfilechooser.*;
+import net.sf.vfsjfilechooser.acessories.DefaultAccessoriesPanel;
 
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -36,7 +37,6 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
 import javax.swing.JTable;
-import net.sf.vfsjfilechooser.acessories.DefaultAccessoriesPanel;
 
 
 /**

@@ -239,7 +239,7 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
         preferencesTree.setRootVisible(false);
         treeScrollPane.setViewportView(preferencesTree);
 
-        setTitle("Plugins settings");
+        setTitle("Plugins settings(not finished)");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);

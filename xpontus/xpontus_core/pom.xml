@@ -110,10 +110,10 @@
             <version>3.2</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
+       <dependency>
             <groupId>com.ibm.icu</groupId>
             <artifactId>icu4j</artifactId>
-            <version>3.8</version>
+            <version>3.4.4</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -295,7 +295,6 @@
                     <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
                 </configuration>
             </plugin> 
-            <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webstart-maven-plugin</artifactId>
@@ -332,7 +331,6 @@
                     <verbose>true</verbose> 
                 </configuration>
             </plugin>  
-            -->
         </plugins>
     </build>    
 </project>
