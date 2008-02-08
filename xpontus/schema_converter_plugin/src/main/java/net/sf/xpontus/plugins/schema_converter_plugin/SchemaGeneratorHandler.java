@@ -215,6 +215,7 @@ public class SchemaGeneratorHandler {
             container.getStatusBar().setMessage("Schema generated sucessfully!");
         } catch (Exception ex) {
             StringBuffer sb = new StringBuffer();
+            sb.append("Error generating schema\n");
 
             if (ex instanceof SAXParseException) {
                 SAXParseException spe = (SAXParseException) ex;
