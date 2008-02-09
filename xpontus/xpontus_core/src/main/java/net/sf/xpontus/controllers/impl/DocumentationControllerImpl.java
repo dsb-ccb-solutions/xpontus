@@ -22,7 +22,6 @@ package net.sf.xpontus.controllers.impl;
 
 import com.sun.java.help.impl.SwingWorker;
 
-import java.awt.Toolkit;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.DocumentationModel;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
@@ -33,6 +32,8 @@ import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.plugins.gendoc.DocConfiguration;
 import net.sf.xpontus.plugins.gendoc.IDocumentationPluginIF;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+
+import java.awt.Toolkit;
 
 import java.io.File;
 
@@ -64,7 +65,6 @@ public class DocumentationControllerImpl {
      */
     public DocumentationControllerImpl() {
         chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         chooser.setMultiSelectionEnabled(false);
     }
 
@@ -74,7 +74,10 @@ public class DocumentationControllerImpl {
     public void selectInput() {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        if (isOpenedDialog()) {
+        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
+                                                                  .getDisplayComponent());
+
+        if (answer == JFileChooser.APPROVE_OPTION) {
             view.getModel().setInput(chooser.getSelectedFile().getAbsolutePath());
         }
     }
@@ -85,7 +88,10 @@ public class DocumentationControllerImpl {
     public void selectOutput() {
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-        if (isOpenedDialog()) {
+        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
+                                                                  .getDisplayComponent());
+
+        if (answer == JFileChooser.APPROVE_OPTION) {
             view.getModel()
                 .setOutput(chooser.getSelectedFile().getAbsolutePath());
         }
@@ -94,24 +100,12 @@ public class DocumentationControllerImpl {
     public void selectCss() {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        if (isOpenedDialog()) {
-            view.getModel().setCss(chooser.getSelectedFile().getAbsolutePath());
-        }
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean isOpenedDialog() {
         int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
                                                                   .getDisplayComponent());
 
         if (answer == JFileChooser.APPROVE_OPTION) {
-            return true;
+            view.getModel().setCss(chooser.getSelectedFile().getAbsolutePath());
         }
-
-        return false;
     }
 
     /**
@@ -138,13 +132,12 @@ public class DocumentationControllerImpl {
                 @Override
                 public Object construct() {
                     String type = view.getModel().getType();
-                    
-                     ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
-                                                                              .getConsole();
-                        console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
 
-                        MessagesWindowDockable mwd = (MessagesWindowDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
-                        
+                    ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+                                                                          .getConsole();
+                    console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
+
+                    MessagesWindowDockable mwd = (MessagesWindowDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
 
                     if ((type == null) || type.trim().equals("")) {
                         XPontusComponentsUtils.showErrorMessage(
@@ -164,12 +157,12 @@ public class DocumentationControllerImpl {
                         IDocumentationPluginIF p = (IDocumentationPluginIF) Class.forName(classname,
                                 true, loader).newInstance();
                         p.handle(view.getModel());
-                        
+
                         mwd.println("Documentation generated successfully!");
                     } catch (Exception e) {
-                       
                         mwd.println(e.getMessage(), OutputDockable.RED_STYLE);
                     } finally {
+                        console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
                         Toolkit.getDefaultToolkit().beep();
                         view.setVisible(false);
                     }

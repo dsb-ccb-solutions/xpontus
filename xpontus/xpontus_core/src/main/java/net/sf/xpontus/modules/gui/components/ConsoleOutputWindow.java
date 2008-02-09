@@ -53,7 +53,7 @@ public class ConsoleOutputWindow {
      *
      */
     static public final int XPATH_WINDOW = 1;
-    public static DockGroup group = new DockGroup("outputWindow");
+    private DockGroup group = new DockGroup("outputWindow");
     private final DockKey outputKey = new DockKey("Output");
     private ListOrderedMap dockables = new ListOrderedMap();
 
@@ -71,6 +71,7 @@ public class ConsoleOutputWindow {
     }
 
     public void addDockable(OutputDockable dockable) {
+        dockable.getDockKey().setDockGroup(group);
         dockables.put(dockable.getId(), dockable);
     }
 

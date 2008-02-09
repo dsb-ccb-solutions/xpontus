@@ -25,9 +25,7 @@ import DTDDoc.*;
 import net.sf.xpontus.model.DocumentationModel;
 import net.sf.xpontus.plugins.gendoc.IDocumentationPluginIF;
 
-
 import java.io.File;
-import java.io.IOException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,17 +42,14 @@ public class DTDDocPluginImpl implements IDocumentationPluginIF {
         return TYPE;
     }
 
-    public void handle(DocumentationModel model) {
-        try {
-            DTDCommenter commenter = new DTDCommenter(new SystemLogger());
-            File dest = new File(model.getOutput());
-            File src = new File(model.getInput()); 
-            Set scan = new HashSet();
-            String t = model.getTitle();
-            scan.add(src);
-            commenter.commentDTDs(scan, src.getParentFile(), dest, true, true, true, t, null);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    public void handle(DocumentationModel model) throws Exception {
+        DTDCommenter commenter = new DTDCommenter(new SystemLogger());
+        File dest = new File(model.getOutput());
+        File src = new File(model.getInput());
+        Set scan = new HashSet();
+        String t = model.getTitle();
+        scan.add(src);
+        commenter.commentDTDs(scan, src.getParentFile(), dest, true, true,
+            true, t, null);
     }
 }

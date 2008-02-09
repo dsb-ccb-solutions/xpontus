@@ -21,21 +21,21 @@
  */
 package net.sf.xpontus.plugins.pluginsbrowser.browser;
 
-import java.awt.FlowLayout;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
+import java.util.Map;
 
 
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class UpgradePluginsPanel extends JComponent {
+public abstract class AbstractPluginsResolver {
     /**
-     *
+     * 
+     * @return
      */
-    public UpgradePluginsPanel() {
-       setLayout(new FlowLayout(FlowLayout.LEFT));
-        add(new JLabel("Nothing yet"));
-    }
+    public abstract Map<String, SimplePluginDescriptor> getPluginDescriptorsMap();
+    /**
+     * 
+     */
+    public abstract  void resolvePlugins();
 }

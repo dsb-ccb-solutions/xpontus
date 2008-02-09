@@ -75,7 +75,12 @@ public class DownloadedPanel extends JComponent {
         columns.add("Category");
         columns.add("Built-in");
 
-        tableModel = new DefaultTableModel(new Vector(), columns);
+        tableModel = new DefaultTableModel(new Vector(), columns) {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return false;
+                    }
+                };
 
         pluginDetailsTable = new JTable(tableModel);
         pluginDetailsTable.setMinimumSize(dim);

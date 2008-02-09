@@ -21,9 +21,13 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
+import com.vlsolutions.swing.docking.DockGroup;
+import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.docking.DockingUtilities;
+import com.vlsolutions.swing.docking.TabbedDockableContainer;
 import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
 import com.vlsolutions.swing.docking.event.DockableSelectionListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
@@ -49,6 +53,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author Yves Zoundi
  */
 public class DocumentTabContainer {
+    protected static DockGroup group = new DockGroup("Editors");
     private Vector editors = new Vector();
     private boolean actionsEnabled = false;
     private DockingDesktop desktop;
@@ -92,9 +97,8 @@ public class DocumentTabContainer {
                                                     .notifyComponents(new DocumentContainerChangeEvent(
                                 container));
 
-                        container.getComponent().requestFocus();
+                        currentEditor.requestFocus();
                         currentEditor.grabFocus();
-                        currentEditor.setCaretPosition(currentEditor.getCaretPosition());
                     }
                 }
             });

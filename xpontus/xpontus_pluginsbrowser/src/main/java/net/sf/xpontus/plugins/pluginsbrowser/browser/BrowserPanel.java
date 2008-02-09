@@ -21,18 +21,25 @@
  */
 package net.sf.xpontus.plugins.pluginsbrowser.browser;
 
-import org.java.plugin.registry.PluginDescriptor;
-
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Vector;
 
+import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -45,23 +52,27 @@ import javax.swing.text.html.HTMLEditorKit;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class InstalledPluginsPanel extends JComponent {
-    private JTable table;
-    private TableModel tableModel;
+public class BrowserPanel extends JComponent {
     private JScrollPane scrollPane;
     private JSplitPane splitPane;
+    private JTable table;
+    private TableModel tableModel;
+    private JPanel northPanel;
+    private JButton reloadButton;
+    private JTextField searchTextField;
+    private JButton searchButton;
     private JEditorPane editorPane;
     private JScrollPane editorScrollPane;
-    private Map<String, SimplePluginDescriptor> pluginsMap = new HashMap<String, SimplePluginDescriptor>();
+    private Map<String, SimplePluginDescriptor> pluginsMap;
     private PluginsTemplateRenderer ptr;
 
-    /** Creates new form InstalledPluginsPanel */
-    public InstalledPluginsPanel() {
+    public BrowserPanel(AbstractPluginsResolver resolver) {
         setLayout(new BorderLayout());
-
         ptr = new PluginsTemplateRenderer();
 
-        Object[] descriptors = PBPlugin.r.getPluginDescriptors().toArray();
+        resolver.resolvePlugins();
+
+        pluginsMap = resolver.getPluginDescriptorsMap();
 
         java.util.Vector columns = new java.util.Vector(3);
         columns.add("Identifier");
@@ -70,42 +81,14 @@ public class InstalledPluginsPanel extends JComponent {
 
         java.util.Vector rows = new java.util.Vector();
 
-        for (int i = 0; i < descriptors.length; i++) {
-            PluginDescriptor pds = (PluginDescriptor) descriptors[i];
-            String id = pds.getId().toString();
-            String category = pds.getAttribute("Category").getValue().toString();
-            String homepage = pds.getAttribute("Homepage").getValue().toString();
-            String builtin = pds.getAttribute("Built-in").getValue().toString();
-            String displayname = pds.getAttribute("DisplayName").getValue()
-                                    .toString();
-            String description = pds.getAttribute("Description").getValue()
-                                    .toString();
-            String version = pds.getVersion().toString();
-            SimplePluginDescriptor spd = new SimplePluginDescriptor();
-
-            String vendor = "Yves Zoundi";
-
-            if (pds.getVendor() != null) {
-                vendor = pds.getVendor();
-            }
-
-            java.util.Vector m_row = new java.util.Vector(3);
-            m_row.add(id);
-            m_row.add(category);
-            m_row.add(builtin);
-
-            spd.setAuthor(vendor);
-            spd.setBuiltin(builtin);
-            spd.setCategory(category);
-            spd.setDescription(description);
-            spd.setDisplayname(displayname);
-            spd.setHomepage(homepage);
-            spd.setId(id);
-            spd.setVersion(version);
-
+        for (Iterator<String> it = pluginsMap.keySet().iterator();
+                it.hasNext();) {
+            Vector m_row = new Vector();
+            SimplePluginDescriptor spd = pluginsMap.get(it.next());
+            m_row.add(spd.getId());
+            m_row.add(spd.getCategory());
+            m_row.add(spd.getBuiltin());
             rows.add(m_row);
-
-            pluginsMap.put(id, spd);
         }
 
         editorPane = new JEditorPane();
@@ -117,12 +100,14 @@ public class InstalledPluginsPanel extends JComponent {
         editorScrollPane.getViewport().add(editorPane);
 
         tableModel = new DefaultTableModel(rows, columns) {
+                    @Override
                     public boolean isCellEditable(int row, int column) {
                         return false;
                     }
                 };
-                
+
         table = new JTable(tableModel);
+
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent e) {
                     if (e.getValueIsAdjusting()) {
@@ -132,19 +117,64 @@ public class InstalledPluginsPanel extends JComponent {
                     int row = table.getSelectedRow();
 
                     if (row != -1) {
-                        if (row != -1) {
-                            String id = tableModel.getValueAt(row, 0).toString();
-                            SimplePluginDescriptor spd = pluginsMap.get(id);
-                            editorPane.setText(ptr.renderTemplate(spd));
-                        }
+                        String id = tableModel.getValueAt(row, 0).toString();
+                        SimplePluginDescriptor spd = pluginsMap.get(id);
+                        editorPane.setText(ptr.renderTemplate(spd));
                     }
                 }
             });
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setRowSelectionInterval(0, 0);
 
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        if (tableModel.getRowCount() > 0) {
+            table.setRowSelectionInterval(0, 0);
+        }
+
+        searchButton = new JButton("Search");
+        reloadButton = new JButton("Reload");
+        searchTextField = new JTextField(20);
         scrollPane = new JScrollPane();
         scrollPane.getViewport().add(table);
+
+        northPanel = new JPanel();
+        northPanel.setLayout(new GridBagLayout());
+
+        // add the reload button
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(3, 3, 3, 3);
+        northPanel.add(reloadButton, gbc);
+
+        // add some space
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(3, 3, 3, 3);
+        northPanel.add(Box.createHorizontalGlue(), gbc);
+
+        // add the search button
+        gbc = new GridBagConstraints();
+        gbc.gridx = 5;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(3, 3, 3, 3);
+        northPanel.add(searchButton, gbc);
+
+        // add the search box
+        gbc = new GridBagConstraints();
+        gbc.gridx = 6;
+        gbc.gridy = 0;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(3, 3, 3, 3);
+        northPanel.add(searchTextField, gbc);
 
         // create the splitpane container 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
@@ -153,10 +183,12 @@ public class InstalledPluginsPanel extends JComponent {
         splitPane.setDividerLocation(0.5);
         splitPane.setOneTouchExpandable(true);
 
+        add(northPanel, BorderLayout.NORTH);
+
         add(splitPane, BorderLayout.CENTER);
     }
 
-    public int getNbPlugins() {
-        return tableModel.getRowCount();
+    public String getNbPlugins() {
+        return "" + pluginsMap.size();
     }
 }

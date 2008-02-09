@@ -82,7 +82,6 @@ public class DocumentContainer implements Dockable {
     private JScrollPane scrollPane;
     private Action closeAllInTab;
     private Action closeAllOtherInTab;
-    private DockGroup group = new DockGroup("Editors");
     private JTextComponent editor;
     private DockKey key;
     private final String image = "/net/sf/xpontus/icons/file.gif";
@@ -94,6 +93,8 @@ public class DocumentContainer implements Dockable {
         documentPanel = new JPanel();
         documentPanel.setLayout(new BorderLayout());
         editor = new JEditorPane();
+
+        editor.setRequestFocusEnabled(true);
         status = new JStatusBar();
 
         ManualFocusPolicy policy = new ManualFocusPolicy();
@@ -124,7 +125,7 @@ public class DocumentContainer implements Dockable {
         this.getComponent().setPreferredSize(dim);
 
         key.setResizeWeight(0.7f);
-        key.setDockGroup(group);
+        key.setDockGroup(DocumentTabContainer.group);
 
         ImageIcon icon = new ImageIcon(getClass().getResource(image));
         key.setIcon(icon);

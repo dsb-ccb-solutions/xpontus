@@ -37,7 +37,7 @@ public class XSDDocPluginImpl implements IDocumentationPluginIF{
         return TYPE;
     }
 
-    public void handle(DocumentationModel model) { 
+    public void handle(DocumentationModel model) throws Exception{ 
         Processor processor = new Processor();
         processor.setOut(model.getOutput());
         processor.setDoctitle(model.getTitle());

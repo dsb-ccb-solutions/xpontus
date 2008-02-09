@@ -53,7 +53,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class AvailablePluginsResolver {
+public class AvailablePluginsResolver extends AbstractPluginsResolver {
     private Map<String, SimplePluginDescriptor> pluginsMap = new HashMap<String, SimplePluginDescriptor>();
     private List<String> installed = new Vector<String>();
     PropertyDescriptor[] pd;
@@ -159,6 +159,16 @@ public class AvailablePluginsResolver {
                     pluginsMap.put(id, spd);
                 }
             }
+        }
+    }
+
+    @Override
+    public void resolvePlugins() {
+        try {
+            resolvePlugins(
+                "http://xpontus.sourceforge.net/snapshot/plugins.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
