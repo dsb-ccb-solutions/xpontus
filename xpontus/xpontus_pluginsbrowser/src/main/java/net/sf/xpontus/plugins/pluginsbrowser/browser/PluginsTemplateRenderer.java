@@ -61,15 +61,39 @@ public class PluginsTemplateRenderer {
                 String m_value = pluginInformation.get(m_key);
                 t.setVariable(m_key, m_value);
             }
-            
-            if(!pluginInformation.containsKey("vendor")){
+
+            if (!pluginInformation.containsKey("vendor")) {
                 t.setVariable("vendor", "Yves Zoundi");
             }
-            
-            
+
             return t.generateOutput();
         } catch (Exception e) {
             e.printStackTrace();
+
+            return null;
+        }
+    }
+
+    public String renderTemplate(SimplePluginDescriptor spd) {
+        try {
+            InputStream is = getClass().getResourceAsStream("template.st");
+            Reader isr = new InputStreamReader(is);
+            Reader m_reader = new BufferedReader(isr);
+            MiniTemplator t = new MiniTemplator(m_reader);
+
+            t.setVariable("vendor", spd.getAuthor());
+            t.setVariable("built-in", spd.getBuiltin());
+            t.setVariable("category", spd.getCategory());
+            t.setVariable("description", spd.getDescription());
+            t.setVariable("displayname", spd.getDisplayname());
+            t.setVariable("homepage", spd.getHomepage());
+            t.setVariable("id", spd.getId());
+            t.setVariable("version", spd.getVersion());
+
+            return t.generateOutput();
+        } catch (Exception e) {
+            e.printStackTrace();
+
             return null;
         }
     }

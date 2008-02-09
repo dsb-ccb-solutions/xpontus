@@ -63,7 +63,6 @@
           <SubComponents>
             <Component class="javax.swing.JEditorPane" name="jEditorPane1">
               <Properties>
-                <Property name="contentType" type="java.lang.String" value="text/html"/>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="editorKit" type="javax.swing.text.EditorKit" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new HTMLEditorKit()" type="code"/>

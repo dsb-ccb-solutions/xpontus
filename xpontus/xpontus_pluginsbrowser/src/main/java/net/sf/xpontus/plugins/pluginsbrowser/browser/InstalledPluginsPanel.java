@@ -80,7 +80,7 @@ public class InstalledPluginsPanel extends javax.swing.JPanel {
 
         java.util.Vector rows = new java.util.Vector();
 
-
+         
         for (int i = 0; i < descriptors.length; i++) {
             PluginDescriptor pds = (PluginDescriptor) descriptors[i];
             String id = pds.getId().toString();
@@ -91,7 +91,7 @@ public class InstalledPluginsPanel extends javax.swing.JPanel {
             String displayname = pds.getAttribute("DisplayName").getValue().toString();
             String description = pds.getAttribute("Description").getValue().toString();
             String version = pds.getVersion().toString();
-
+           
             java.util.Vector m_row = new java.util.Vector(3);
             m_row.add(id);
             m_row.add(category);

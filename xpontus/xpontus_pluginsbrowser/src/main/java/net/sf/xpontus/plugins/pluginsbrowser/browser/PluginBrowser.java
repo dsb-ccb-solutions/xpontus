@@ -44,7 +44,7 @@ public class PluginBrowser extends javax.swing.JDialog {
     private JTabbedPane tabbedPane;
     private JComponent downloadedPanel;
     private InstalledPluginsPanel installedPanel;
-    private JComponent availablePanel;
+    private AvailablePluginsPanel availablePanel;
     private JComponent settingsPanel;
     private JComponent upgradesPanel;
     private JComponent buttonsPanel;
@@ -99,7 +99,7 @@ public class PluginBrowser extends javax.swing.JDialog {
         this.upgradesPanel = new UpgradePluginsPanel();
 
         tabbedPane.addTab("Upgrades", upgradesPanel);
-        tabbedPane.addTab("Available", availablePanel);
+        tabbedPane.addTab("Available(" + availablePanel.getNbPlugins() + ")", availablePanel);
         tabbedPane.addTab("Downloaded", downloadedPanel);
         tabbedPane.addTab("Installed(" + installedPanel.getNbPlugins() + ")", installedPanel);
         tabbedPane.addTab("Settings", settingsPanel);
