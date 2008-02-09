@@ -295,6 +295,7 @@
                     <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
                 </configuration>
             </plugin> 
+            <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webstart-maven-plugin</artifactId>
@@ -330,7 +331,7 @@
                     <gzip>false</gzip>  
                     <verbose>true</verbose> 
                 </configuration>
-            </plugin>  
+            </plugin>  -->
         </plugins>
     </build>    
 </project>
