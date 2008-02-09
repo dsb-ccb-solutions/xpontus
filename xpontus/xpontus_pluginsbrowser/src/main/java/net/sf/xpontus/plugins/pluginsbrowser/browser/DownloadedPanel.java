@@ -26,6 +26,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 
+import java.util.Vector;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
@@ -50,6 +52,7 @@ public class DownloadedPanel extends JComponent {
     private JEditorPane pluginDescriptionPane;
     private JScrollPane detailsScrollPane;
     private JScrollPane descriptionScrollPane;
+    private DefaultTableModel tableModel;
 
     public DownloadedPanel() {
         setLayout(new BorderLayout());
@@ -67,7 +70,14 @@ public class DownloadedPanel extends JComponent {
 
         add(panel, BorderLayout.NORTH);
 
-        pluginDetailsTable = new JTable(new DefaultTableModel());
+        Vector columns = new Vector(3);
+        columns.add("Identifier");
+        columns.add("Category");
+        columns.add("Built-in");
+
+        tableModel = new DefaultTableModel(new Vector(), columns);
+
+        pluginDetailsTable = new JTable(tableModel);
         pluginDetailsTable.setMinimumSize(dim);
         pluginDetailsTable.setPreferredSize(dim);
 
