@@ -48,21 +48,36 @@ public class BatchValidationDialogView extends javax.swing.JDialog {
         controller = new BatchValidationController(this);
         initComponents();
         this.setTitle("Batch Validation");
-        ( (DefaultComboBoxModel)extensionsList.getModel()).addElement("*.xml");
+        ((DefaultComboBoxModel) extensionsList.getModel()).addElement("*.xml");
     }
 
+    /**
+     * 
+     * @return
+     */
     public JList getPathList() {
         return pathList;
     }
 
+    /**
+     * 
+     * @return
+     */
     public JTextField getExtensionTF() {
         return extensionTF;
     }
 
+    /**
+     * 
+     */
     public BatchValidationDialogView() {
         this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
     }
 
+    /**
+     * 
+     * @return
+     */
     public JCheckBox getRecurseOption() {
         return recurseOption;
     }
@@ -287,10 +302,25 @@ public class BatchValidationDialogView extends javax.swing.JDialog {
     private javax.swing.JButton removePathButton;
     private javax.swing.JButton validateButton;
     // End of variables declaration//GEN-END:variables
+    
+    /**
+     * 
+     * @return
+     */
     public JList getExtensionsList() {
         return extensionsList;
     }
 
+    public void enableControlButtons(boolean b){
+        closeButton.setEnabled(b);
+        validateButton.setEnabled(b);
+    }
+     
+
+    /**
+     * 
+     * @param extensionsList
+     */
     public void setExtensionsList(JList extensionsList) {
         this.extensionsList = extensionsList;
     }

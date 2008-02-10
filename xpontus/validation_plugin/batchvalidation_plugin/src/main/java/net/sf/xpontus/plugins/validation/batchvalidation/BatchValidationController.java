@@ -113,7 +113,7 @@ public class BatchValidationController {
     private BatchValidationDialogView view;
     private SAXParser parser;
     private BatchValidationErrorHandler errorHandler;
-    private VFSJFileChooser chooser;
+    private VFSJFileChooser chooser; 
 
     /**
      * Default constructor
@@ -229,7 +229,8 @@ public class BatchValidationController {
      */
     public void validateFiles() {
         final SwingWorker worker = new SwingWorker() {
-                public Object construct() {
+                public Object construct() { 
+                    view.enableControlButtons(false);
                     doValidateFiles();
 
                     return null;
@@ -260,8 +261,11 @@ public class BatchValidationController {
         }
 
         if (nbExtensions == 0) {
+            Toolkit.getDefaultToolkit().beep();
             XPontusComponentsUtils.showErrorMessage(
                 "Please add some file extensions");
+
+            view.enableControlButtons(true);
 
             return;
         }
@@ -291,7 +295,9 @@ public class BatchValidationController {
         final int nbFiles = files.size();
 
         if (nbFiles == 0) {
+            Toolkit.getDefaultToolkit().beep();
             XPontusComponentsUtils.showErrorMessage("No files found!");
+            view.enableControlButtons(true);
 
             return;
         }
@@ -340,6 +346,8 @@ public class BatchValidationController {
 
         for (int i = 0; i < files.size(); i++) {
             if (pm.isCanceled()) {
+                Toolkit.getDefaultToolkit().beep();
+
                 int nbErrors = errorHandler.getNumberOfErrors();
 
                 String strMessage = "There is(are) " + nbErrors +
@@ -362,7 +370,6 @@ public class BatchValidationController {
                 }
 
                 outputWindow.setFocus(MessagesWindowDockable.DOCKABLE_ID);
-                Toolkit.getDefaultToolkit().beep();
 
                 return;
             }
@@ -395,6 +402,8 @@ public class BatchValidationController {
 
         console.println("Batch Validation report", OutputDockable.BLUE_STYLE);
 
+        Toolkit.getDefaultToolkit().beep();
+
         if (nbErrors == 0) {
             console.println("All files are valid!");
             XPontusComponentsUtils.showInformationMessage(
@@ -407,14 +416,14 @@ public class BatchValidationController {
             XPontusComponentsUtils.showErrorMessage(strMessage);
         }
 
+        view.enableControlButtons(true);
         outputWindow.setFocus(MessagesWindowDockable.DOCKABLE_ID);
-        Toolkit.getDefaultToolkit().beep();
     }
 
     /**
      * Close the dialog window
      */
-    public void closeWindow() {
+    public void closeWindow() { 
         view.setVisible(false);
     }
 
