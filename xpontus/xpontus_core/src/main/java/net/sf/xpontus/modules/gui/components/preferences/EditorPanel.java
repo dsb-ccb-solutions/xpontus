@@ -5,7 +5,6 @@
  */
 package net.sf.xpontus.modules.gui.components.preferences;
 
-import com.l2fprod.common.swing.JFontChooser;
 import java.awt.Component;
 import java.awt.Font;
 import java.io.File;
@@ -19,12 +18,14 @@ import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
 import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+import com.jidesoft.dialog.*;
+import javax.swing.Icon;
 
 /**
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel, PreferencesPluginIF {
+public class EditorPanel extends AbstractDialogPage implements IPreferencesPanel, PreferencesPluginIF {
 
     private Integer value = new Integer(700);
     private Integer min = new Integer(500);
@@ -32,7 +33,7 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     private Integer step = new Integer(100);
     private SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
     private DefaultComboBoxModel encodingModel;
- 
+
     /**
      * 
      * @return
@@ -42,14 +43,17 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         return getTitle();
     }
 
+    public EditorPanel(String name) {
+        super(name);
+    }
+
+    public EditorPanel(String name, Icon icon) {
+        super(name, icon);
+    }
+
     /** Creates new form EditorPanel */
     public EditorPanel() {
-        encodingModel = new DefaultComboBoxModel();
-        Iterator<String> it = Charset.availableCharsets().keySet().iterator();
-        while (it.hasNext()) {
-            encodingModel.addElement(it.next());
-        }
-        initComponents();
+
     }
 
     /** This method is called from within the constructor to
@@ -156,12 +160,7 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         Component frame = XPontusComponentsUtils.getTopComponent().getDisplayComponent();
         Font selectedFont = UIManager.getFont("EditorPane.font");
 
-        Font f = JFontChooser.showDialog(frame, "Select font", selectedFont);
-        if (f != null) {
-            fontValueLabel.setText(getStringFont(f));
-            fontValueLabel.setFont(f);
-            fontValueLabel.repaint();
-        }
+        
 }//GEN-LAST:event_chooseFontButtonActionPerformed
 
     public String getStringFont(Font f) {
@@ -211,7 +210,7 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     }
 
     public String getPluginCategory() {
-       return "";
+        return "";
     }
 
     public IPreferencesPanel getPreferencesPanelComponent() {
@@ -219,43 +218,54 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     }
 
     public void saveSettings() {
-        PropertiesConfigurationLoader.save(propertiesFile, properties);
+    // PropertiesConfigurationLoader.save(propertiesFile, properties);
     }
 
     public void loadSettings() {
+        if (true) {
+            return;
+        }
         //load the properties
-        properties = PropertiesConfigurationLoader.load(propertiesFile); 
-        
+        properties = PropertiesConfigurationLoader.load(propertiesFile);
+
         String[] f = properties.getProperty("Font").split(",");
         String family = f[0].trim();
         String style1 = f[1].trim();
         int style = Font.PLAIN;
-        
-        if(style1.trim().equals("Bold")){
+
+        if (style1.trim().equals("Bold")) {
             style = Font.BOLD;
-        }
-        else if(style1.trim().equals("Bold Italic")){
-            style  = 3;
+        } else if (style1.trim().equals("Bold Italic")) {
+            style = 3;
         }
         int size = Integer.parseInt(f[2].trim());
-        
+
         this.displayLineNumbers = Boolean.valueOf(properties.getProperty("displayLineNumbers"));
         this.editorFont = new Font(family, style, size);
         this.cursorBlinkRate = Integer.parseInt(properties.getProperty("cursorBlinkRate"));
         this.defaultXMLEncoding = properties.getProperty("DefaultXMLEncoding").toString();
-        
+
         this.displayLineNumbersOption.setSelected(displayLineNumbers);
-        this.fontValueLabel.setText(getStringFont(editorFont) );
+        this.fontValueLabel.setText(getStringFont(editorFont));
         this.fontValueLabel.setFont(editorFont);
         this.encodingList.setSelectedItem(defaultXMLEncoding);
         this.cursorBlinkRateValues.setValue(Integer.valueOf(cursorBlinkRate));
         this.tabSizeTF.setValue(Integer.valueOf(size));
     }
-    
     private File propertiesFile = XPontusConfigurationConstantsIF.EDITOR_PREFERENCES_FILE;
     private Properties properties;
     private int cursorBlinkRate;
     private boolean displayLineNumbers;
     private Font editorFont;
     private String defaultXMLEncoding;
+
+    @Override
+    public void lazyInitialize() {
+        encodingModel = new DefaultComboBoxModel();
+        Iterator<String> it = Charset.availableCharsets().keySet().iterator();
+        while (it.hasNext()) {
+            encodingModel.addElement(it.next());
+        }
+        initComponents();
+    }
 }

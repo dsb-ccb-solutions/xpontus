@@ -151,6 +151,12 @@
             <artifactId>xstream</artifactId>
             <version>1.2</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xpp3_min</artifactId>
+                    <groupId>xpp3</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-vfs</groupId>
@@ -174,13 +180,25 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.1</version>
-            <scope>compile</scope>            
-        </dependency>
-        <dependency>
-            <groupId>l2fprod-common</groupId>
-            <artifactId>l2fprod-common</artifactId>
-            <version>7.3-20070317</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>logkit</artifactId>
+                    <groupId>logkit</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>avalon-framework</artifactId>
+                    <groupId>avalon-framework</groupId>
+                </exclusion>
+            </exclusions>            
         </dependency>
         <dependency>
             <groupId>net.sf.jpf</groupId>
@@ -193,13 +211,20 @@
             <artifactId>jpf-boot</artifactId>
             <version>1.5</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>net.infonode</groupId>
-            <artifactId>itp</artifactId>
-            <version>1.5.0</version>
-            <scope>compile</scope>
-        </dependency> 
+            <groupId>com.jidesoft</groupId>
+            <artifactId>jide-oss</artifactId>
+            <version>2.2.1.11</version>
+        </dependency>
+          
+
     </dependencies>
     <reporting>
         <plugins>

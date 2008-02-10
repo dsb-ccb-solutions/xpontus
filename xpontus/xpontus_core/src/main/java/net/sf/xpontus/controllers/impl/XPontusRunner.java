@@ -22,10 +22,7 @@
  *
  */
 package net.sf.xpontus.controllers.impl;
-
-import com.l2fprod.common.swing.JTipOfTheDay;
-import com.l2fprod.common.swing.TipModel;
-import com.l2fprod.common.swing.tips.TipLoader;
+ 
 
 import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 import net.sf.xpontus.actions.impl.CopyActionImpl;
@@ -377,37 +374,6 @@ public class XPontusRunner {
 
         final Class m_class = settings.getClass();
 
-        final JTipOfTheDay.ShowOnStartupChoice fake = new JTipOfTheDay.ShowOnStartupChoice() {
-                private boolean value = true;
-
-                public boolean isShowingOnStartup() {
-                    return value;
-                }
-
-                public void setShowingOnStartup(boolean showOnStartup) {
-                    value = showOnStartup;
-
-                    // save to preferences here
-                }
-            };
-
-        SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    Properties tipProperties = new Properties();
-                    String tipsLoc = "/net/sf/xpontus/tips/tips.properties";
-
-                    try {
-                        tipProperties.load(m_class.getResourceAsStream(tipsLoc));
-                    } catch (Exception e) {
-                    }
-
-                    TipModel tipModel = TipLoader.load(tipProperties);
-                    JTipOfTheDay jtip = new JTipOfTheDay(tipModel);
-                    JDialog dialog = jtip.getUI()
-                                         .createDialog(window.getDisplayComponent(),
-                            fake);
-                    dialog.setVisible(true);
-                }
-            });
+        
     }
 }

@@ -6,22 +6,31 @@
 package net.sf.xpontus.modules.gui.components.preferences;
 
 import java.awt.Component;
-import java.awt.event.ItemEvent;
 import java.io.File;
 import java.util.Properties;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
 import net.sf.xpontus.utils.PropertiesConfigurationLoader;
+import com.jidesoft.dialog.*;
+import javax.swing.Icon;
 
 /**
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPanel, PreferencesPluginIF {
+public class GeneralPanel extends AbstractDialogPage implements IPreferencesPanel, PreferencesPluginIF {
 
     /** Creates new form GeneralPanel */
     public GeneralPanel() {
-        initComponents();
+        super("General");
+    }
+
+    public GeneralPanel(String name) {
+        super(name);
+    }
+
+    public GeneralPanel(String name, Icon icon) {
+        super(name, icon);
     }
 
     @Override
@@ -163,39 +172,39 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
         );
     }// </editor-fold>//GEN-END:initComponents
     private void showSplashScreenOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showSplashScreenOptionActionPerformed
-        props.setProperty("showSplashScreenOnStartup", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
+//        props.setProperty("xpontus.showSplashScreenOnStartup", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
     }//GEN-LAST:event_showSplashScreenOptionActionPerformed
 
     private void showTipsOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTipsOptionActionPerformed
-        props.setProperty("showTipsOnStartup", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
+//        props.setProperty("xpontus.showTipsOnStartup", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
     }//GEN-LAST:event_showTipsOptionActionPerformed
 
     private void showConfirmDialogOnExitOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showConfirmDialogOnExitOptionActionPerformed
-        props.setProperty("showConfirmDialogOnExit", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
+//        props.setProperty("xpontus.showConfirmDialogOnExit", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
     }//GEN-LAST:event_showConfirmDialogOnExitOptionActionPerformed
 
     private void themeListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_themeListItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            props.setProperty("defaultTheme", themeList.getSelectedItem().toString());
-        }
+//        if (evt.getStateChange() == ItemEvent.SELECTED) {
+//            props.setProperty("xpontus.defaultTheme", themeList.getSelectedItem().toString());
+//        }
     }//GEN-LAST:event_themeListItemStateChanged
 
     private void iconSetListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_iconSetListItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            props.setProperty("defaultIconSet", iconSetList.getSelectedItem().toString());
-        }
+//        if (evt.getStateChange() == ItemEvent.SELECTED) {
+//            props.setProperty("xpontus.defaultIconSet", iconSetList.getSelectedItem().toString());
+//        }
     }//GEN-LAST:event_iconSetListItemStateChanged
 
     private void toolbarSettingsListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toolbarSettingsListItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            props.setProperty("defaultIconSet", iconSetList.getSelectedItem().toString());
-        }
+//        if (evt.getStateChange() == ItemEvent.SELECTED) {
+//            props.setProperty("xpontus.defaultIconSet", iconSetList.getSelectedItem().toString());
+//        }
     }//GEN-LAST:event_toolbarSettingsListItemStateChanged
 
     private void menubarStyleListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_menubarStyleListItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            props.setProperty("MenuBarLookAndFeel", iconSetList.getSelectedItem().toString());
-        }
+//        if (evt.getStateChange() == ItemEvent.SELECTED) {
+//            props.setProperty("xpontus.MenuBarLookAndFeel", iconSetList.getSelectedItem().toString());
+//        }
     }//GEN-LAST:event_menubarStyleListItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -211,7 +220,6 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     private javax.swing.JLabel toolbarIconsLabel;
     private javax.swing.JComboBox toolbarSettingsList;
     // End of variables declaration//GEN-END:variables
-    
     public String getTitle() {
         return "General";
     }
@@ -229,31 +237,30 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     }
 
     public void loadSettings() {
-        // load the properties file
-        props = PropertiesConfigurationLoader.load(config);
-        
-        this.showSplashScreenOnStartup = Boolean.valueOf(props.get("showSplashScreenOnStartup").toString());
-        this.showTipsOnStartup = Boolean.valueOf(props.get("showTipsOnStartup").toString());
-        this.showConfirmDialogOnExit = Boolean.valueOf(props.get("showConfirmDialogOnExit").toString());
-        this.defaultTheme = props.get("defaultTheme").toString();
-        this.defaultIconSet = props.get("defaultIconSet").toString();
-        this.toolbarConfig = props.get("ToolbarIcons").toString();
-        this.menubarConfig = props.get("MenuBarLookAndFeel").toString();
-        
-        // update controls
-        this.showSplashScreenOption.setSelected(showTipsOnStartup);
-        this.showTipsOption.setSelected(showTipsOnStartup);
-        this.showConfirmDialogOnExitOption.setSelected(showConfirmDialogOnExit);
-        this.themeList.setSelectedItem(defaultTheme);
-        this.iconSetList.setSelectedItem(defaultIconSet);
-        this.toolbarSettingsList.setSelectedItem(toolbarConfig);
-        this.menubarStyleList.setSelectedItem(menubarConfig);
+//        // load the properties file
+//        props = PropertiesConfigurationLoader.load(config);
+//        
+//        this.showSplashScreenOnStartup = Boolean.valueOf(props.get("xpontus.showSplashScreenOnStartup").toString());
+//        this.showTipsOnStartup = Boolean.valueOf(props.get("xpontus.showTipsOnStartup").toString());
+//        this.showConfirmDialogOnExit = Boolean.valueOf(props.get("xpontus.showConfirmDialogOnExit").toString());
+//        this.defaultTheme = props.get("xpontus.defaultTheme").toString();
+//        this.defaultIconSet = props.get("xpontus.defaultIconSet").toString();
+//        this.toolbarConfig = props.get("xpontus.ToolbarIcons").toString();
+//        this.menubarConfig = props.get("xpontus.MenuBarLookAndFeel").toString();
+//        
+//        // update controls
+//        this.showSplashScreenOption.setSelected(showTipsOnStartup);
+//        this.showTipsOption.setSelected(showTipsOnStartup);
+//        this.showConfirmDialogOnExitOption.setSelected(showConfirmDialogOnExit);
+//        this.themeList.setSelectedItem(defaultTheme);
+//        this.iconSetList.setSelectedItem(defaultIconSet);
+//        this.toolbarSettingsList.setSelectedItem(toolbarConfig);
+//        this.menubarStyleList.setSelectedItem(menubarConfig);
     }
 
     public IPreferencesPanel getPreferencesPanelComponent() {
         return this;
     }
-    
     private final File config = XPontusConfigurationConstantsIF.GENERAL_PREFERENCES_FILE;
     private Properties props;
     private String menubarConfig;
@@ -266,5 +273,10 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
 
     public Component getJComponent() {
         return this;
+    }
+
+    @Override
+    public void lazyInitialize() {
+        initComponents();
     }
 }
