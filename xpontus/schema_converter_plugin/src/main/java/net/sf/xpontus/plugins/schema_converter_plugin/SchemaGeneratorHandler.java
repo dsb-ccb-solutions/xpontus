@@ -214,6 +214,8 @@ public class SchemaGeneratorHandler {
 
             container.getStatusBar().setMessage("Schema generated sucessfully!");
         } catch (Exception ex) {
+            ex.printStackTrace();
+            
             StringBuffer sb = new StringBuffer();
             sb.append("Error generating schema\n");
 
