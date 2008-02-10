@@ -23,6 +23,10 @@ package net.sf.xpontus.modules.gui.components;
 
 import com.ibm.icu.text.CharsetDetector;
 
+import com.jidesoft.swing.Searchable;
+import com.jidesoft.swing.SearchableBar;
+import com.jidesoft.swing.SearchableUtils;
+
 import com.vlsolutions.swing.docking.*;
 import com.vlsolutions.swing.docking.DockKey;
 
@@ -49,6 +53,7 @@ import org.apache.commons.vfs.VFS;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -66,6 +71,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.JTextComponent;
@@ -81,10 +87,12 @@ public class DocumentContainer implements Dockable {
     private JStatusBar status;
     private JScrollPane scrollPane;
     private Action closeAllInTab;
+    private SearchableBar _textAreaSearchableBar;
     private Action closeAllOtherInTab;
     private JTextComponent editor;
     private DockKey key;
     private final String image = "/net/sf/xpontus/icons/file.gif";
+    private JComponent bottomPanel;
 
     /**
      * Creates a new instance of EditorContainer
@@ -105,7 +113,29 @@ public class DocumentContainer implements Dockable {
         scrollPane.setRowHeaderView(new LineView(editor));
 
         documentPanel.add(scrollPane, BorderLayout.CENTER);
-        documentPanel.add(status, BorderLayout.SOUTH);
+
+        bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(status, BorderLayout.CENTER);
+
+        Searchable searchable = SearchableUtils.installSearchable(editor);
+        searchable.setRepeats(true);
+        _textAreaSearchableBar = SearchableBar.install(searchable,
+                KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK),
+                new SearchableBar.Installer() {
+                    public void openSearchBar(SearchableBar searchableBar) {
+                        bottomPanel.add(searchableBar, BorderLayout.NORTH);
+                        bottomPanel.invalidate();
+                        bottomPanel.revalidate();
+                    }
+
+                    public void closeSearchBar(SearchableBar searchableBar) {
+                        bottomPanel.remove(searchableBar);
+                        bottomPanel.invalidate();
+                        bottomPanel.revalidate();
+                    }
+                });
+
+        documentPanel.add(bottomPanel, BorderLayout.SOUTH);
     }
 
     /**
