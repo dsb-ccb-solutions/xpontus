@@ -347,6 +347,7 @@ public class BatchValidationController {
         for (int i = 0; i < files.size(); i++) {
             if (pm.isCanceled()) {
                 Toolkit.getDefaultToolkit().beep();
+                view.enableControlButtons(true);
 
                 int nbErrors = errorHandler.getNumberOfErrors();
 
