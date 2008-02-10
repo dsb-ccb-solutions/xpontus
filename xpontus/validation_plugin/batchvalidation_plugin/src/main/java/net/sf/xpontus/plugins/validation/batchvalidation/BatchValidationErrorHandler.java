@@ -66,6 +66,7 @@ class BatchValidationErrorHandler implements ErrorHandler {
         String message = e.getLocalizedMessage();
 
         errors.append("**** File " + fo.getName().getURI() + " is invalid");
+        errors.appendNewLine();
         errors.append("Error around line:" + line);
         errors.append(",column:" + column);
         errors.appendNewLine();
