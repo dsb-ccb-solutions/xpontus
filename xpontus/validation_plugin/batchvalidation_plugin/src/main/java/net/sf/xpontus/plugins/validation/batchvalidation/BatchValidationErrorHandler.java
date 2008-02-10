@@ -71,6 +71,7 @@ class BatchValidationErrorHandler implements ErrorHandler {
         errors.appendNewLine();
         errors.append(message);
         errors.appendNewLine();
+        errors.appendNewLine();
     }
 
     public void warning(SAXParseException e) throws SAXException {

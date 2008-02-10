@@ -50,6 +50,7 @@ import org.apache.xerces.xni.parser.XMLParserConfiguration;
 
 import org.xml.sax.InputSource;
 
+import java.awt.Component;
 import java.awt.Toolkit;
 
 import java.io.BufferedInputStream;
@@ -295,10 +296,15 @@ public class BatchValidationController {
             return;
         }
 
+        view.setVisible(false);
+
         log.info("There are " + nbFiles + " to validate");
 
-        final ProgressMonitor pm = new ProgressMonitor(view, "Progression", "",
-                0, nbFiles);
+        Component mainWindow = DefaultXPontusWindowImpl.getInstance()
+                                                       .getDisplayComponent();
+
+        final ProgressMonitor pm = new ProgressMonitor(mainWindow,
+                "Progression", "", 0, nbFiles);
         pm.setMillisToDecideToPopup(1000);
 
         ConsoleOutputWindow outputWindow = DefaultXPontusWindowImpl.getInstance()
@@ -336,13 +342,23 @@ public class BatchValidationController {
             if (pm.isCanceled()) {
                 int nbErrors = errorHandler.getNumberOfErrors();
 
+                String strMessage = "There is(are) " + nbErrors +
+                    " invalid file(s). Please consult the messages window";
+
+                console.println("Batch Validation report",
+                    OutputDockable.BLUE_STYLE);
+
                 if (nbErrors == 0) {
                     console.println("All files are valid!");
+                    XPontusComponentsUtils.showInformationMessage(
+                        "All files are valid!");
                 } else {
                     console.println("There is(are) " + nbErrors +
                         " invalid file(s)");
                     console.println(errorHandler.getErrorMessages(),
                         OutputDockable.RED_STYLE);
+
+                    XPontusComponentsUtils.showErrorMessage(strMessage);
                 }
 
                 outputWindow.setFocus(MessagesWindowDockable.DOCKABLE_ID);
@@ -374,12 +390,21 @@ public class BatchValidationController {
 
         int nbErrors = errorHandler.getNumberOfErrors();
 
+        String strMessage = "There is(are) " + nbErrors +
+            " invalid file(s). Please consult the messages window";
+
+        console.println("Batch Validation report", OutputDockable.BLUE_STYLE);
+
         if (nbErrors == 0) {
             console.println("All files are valid!");
+            XPontusComponentsUtils.showInformationMessage(
+                "All files are valid!");
         } else {
             console.println("There is(are) " + nbErrors + " invalid file(s)");
             console.println(errorHandler.getErrorMessages(),
                 OutputDockable.RED_STYLE);
+
+            XPontusComponentsUtils.showErrorMessage(strMessage);
         }
 
         outputWindow.setFocus(MessagesWindowDockable.DOCKABLE_ID);
