@@ -38,9 +38,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import net.sf.xpontus.utils.NullEntityResolver;
 
 
 /**
@@ -65,6 +65,7 @@ public class DOMAddLines extends DOMParser {
         try {
             this.setFeature("http://apache.org/xml/features/dom/defer-node-expansion",
                 false);
+            this.setEntityResolver(NullEntityResolver.getInstance());
             this.parse(src);
             out = new PrintWriter(new OutputStreamWriter(System.out, "UTF8"));
         } catch (IOException e) {

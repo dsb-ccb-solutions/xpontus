@@ -28,7 +28,7 @@
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Component id="bottomPanel" alignment="0" max="32767" attributes="1"/>
                       <Component id="extensionsSettingsPanel" alignment="0" max="32767" attributes="1"/>
-                      <Component id="inputPanel" alignment="0" max="32767" attributes="1"/>
+                      <Component id="inputPanel" alignment="0" pref="515" max="32767" attributes="1"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -54,6 +54,7 @@
   <SubComponents>
     <Component class="javax.swing.JCheckBox" name="recurseOption">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Directory recursion"/>
       </Properties>
     </Component>

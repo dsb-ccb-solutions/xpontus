@@ -20,7 +20,10 @@
  */
 package net.sf.xpontus.plugins.evaluator.xpath1;
 
+import com.ibm.icu.text.CharsetDetector;
+
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.plugins.evaluator.CustomNamespaceContext;
 import net.sf.xpontus.plugins.evaluator.DOMAddLines;
 import net.sf.xpontus.plugins.evaluator.EvaluatorPluginIF;
@@ -28,16 +31,16 @@ import net.sf.xpontus.utils.NamespaceResolverHandler;
 
 import org.apache.xerces.parsers.SAXParser;
 
-import org.apache.xpath.XPathAPI; 
+import org.apache.xpath.XPathAPI;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import org.xml.sax.InputSource;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.Reader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +48,6 @@ import java.util.Map;
 import javax.swing.text.JTextComponent;
 
 import javax.xml.namespace.NamespaceContext;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 
 /**
@@ -53,58 +55,56 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class XPath1EvaluatorPluginImpl implements EvaluatorPluginIF {
-    
-    public XPath1EvaluatorPluginImpl(){
-        
+    public XPath1EvaluatorPluginImpl() {
     }
-    
+
     public String getName() {
         return "XPATH 1.0";
     }
 
-    public Object[] handle(String expression) {
-        try {
-            JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
-                                                         .getDocumentTabContainer()
-                                                         .getCurrentEditor();
+    public Object[] handle(String expression) throws Exception {
+        JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
+                                                     .getDocumentTabContainer()
+                                                     .getCurrentEditor();
 
-            String texte = jtc.getText();
-            InputStream is = new BufferedInputStream(new ByteArrayInputStream(
-                        texte.getBytes()));
+        String texte = jtc.getText();
+        byte[] b = texte.getBytes();
+        InputStream is = new ByteArrayInputStream(texte.getBytes());
 
-            final Map nsMap = new HashMap();
+        final Map nsMap = new HashMap();
 
-            SAXParser parser = new SAXParser();
-            
-            parser.setFeature("http://xml.org/sax/features/validation", false);
-            
-            parser.setEntityResolver(null);
+        SAXParser parser = new SAXParser();
 
-            parser.setContentHandler(new NamespaceResolverHandler(nsMap));
+        parser.setFeature("http://xml.org/sax/features/validation", false);
 
-            InputSource mInputSource = new InputSource(new BufferedInputStream(
-                        new ByteArrayInputStream(texte.getBytes())));
+        parser.setEntityResolver(null);
 
-            parser.parse(mInputSource);
+        parser.setContentHandler(new NamespaceResolverHandler(nsMap));
 
-            //            DocumentBuilder db = dbf.newDocumentBuilder();
-            InputSource src = new InputSource(new BufferedInputStream(
-                        new ByteArrayInputStream(texte.getBytes())));
-            DOMAddLines da = new DOMAddLines(src); //db.parse(new BufferedInputStream(new ByteArrayInputStream(texte.getBytes())));
+        CharsetDetector detector = new CharsetDetector();
+        detector.setText(is);
 
-            Document doc = da.getDocument();
+        Reader m_reader = detector.detect().getReader();
+        InputSource mInputSource = new InputSource(m_reader);
 
-            XPathAPI api = new XPathAPI();
+        parser.parse(mInputSource);
 
-            NamespaceContext nsc = new CustomNamespaceContext(nsMap);
+        detector.setText(new ByteArrayInputStream(texte.getBytes()));
+        m_reader = detector.detect().getReader();
 
-            JAXPPrefixResolver resolver = new JAXPPrefixResolver(nsc);
+        InputSource src = new InputSource(m_reader);
+        DOMAddLines da = new DOMAddLines(src); //db.parse(new BufferedInputStream(new ByteArrayInputStream(texte.getBytes())));
 
-            NodeList nodeList = api.eval(doc, expression, resolver).nodelist();
+        Document doc = da.getDocument();
 
-            return new Object[]{nodeList, da};
-        } catch (Exception e) {
-            return null;
-        }
+        XPathAPI api = new XPathAPI();
+
+        NamespaceContext nsc = new CustomNamespaceContext(nsMap);
+
+        JAXPPrefixResolver resolver = new JAXPPrefixResolver(nsc);
+
+        NodeList nodeList = api.eval(doc, expression, resolver).nodelist();
+
+        return new Object[] { nodeList, da };
     }
 }

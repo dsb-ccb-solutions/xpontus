@@ -18,10 +18,17 @@
  */
 package net.sf.xpontus.plugins.validation.batchvalidation;
 
+import com.ibm.icu.text.CharsetDetector;
+
 import com.sun.java.help.impl.SwingWorker;
+
+import net.sf.vfsjfilechooser.VFSJFileChooser;
+import net.sf.vfsjfilechooser.acessories.DefaultAccessoriesPanel;
+import net.sf.vfsjfilechooser.utils.VFSUtils;
 
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -32,6 +39,8 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.vfs.FileContent;
+import org.apache.commons.vfs.FileObject;
 
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.parsers.XIncludeAwareParserConfiguration;
@@ -41,8 +50,13 @@ import org.apache.xerces.xni.parser.XMLParserConfiguration;
 
 import org.xml.sax.InputSource;
 
+import java.awt.Toolkit;
+
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.InputStream;
+import java.io.Reader;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -63,31 +77,57 @@ import javax.swing.ProgressMonitor;
  * @version 0.0.1
  */
 public class BatchValidationController {
-    // Methods names
+    /**
+    * Method to validate files
+    */
     public static final String VALIDATE_FILES_METHOD = "validateFiles";
-    public static final String ADD_FILE_METHOD = "addFile";
-    public static final String REMOVE_FILE_METHOD = "removeFile";
-    public static final String ADD_EXTENSION_METHOD = "addExtension";
-    public static final String REMOVE_EXTENSION_METHOD = "removeExtension";
-    public static final String CLOSE_WINDOW_METHOD = "closeWindow";
-    private Log log = LogFactory.getLog(BatchValidationController.class);
-
-    // private members
-    private BatchValidationDialogView view;
-    private JFileChooser chooser;
 
     /**
-     *
+     * Method to add a path to validate
+     */
+    public static final String ADD_FILE_METHOD = "addFile";
+
+    /**
+     * Method to remove a file/directory from the path list
+     */
+    public static final String REMOVE_FILE_METHOD = "removeFile";
+
+    /**
+     * Method to register an XML file extension
+     */
+    public static final String ADD_EXTENSION_METHOD = "addExtension";
+
+    /**
+     * Method to remove a file extension to consider
+     */
+    public static final String REMOVE_EXTENSION_METHOD = "removeExtension";
+
+    /**
+     * Method name to close the validation dialog
+     */
+    public static final String CLOSE_WINDOW_METHOD = "closeWindow";
+
+    // private members
+    private Log log = LogFactory.getLog(BatchValidationController.class);
+    private BatchValidationDialogView view;
+    private SAXParser parser;
+    private BatchValidationErrorHandler errorHandler;
+    private VFSJFileChooser chooser;
+
+    /**
+     * Default constructor
      */
     public BatchValidationController() {
-        chooser = new JFileChooser();
+        chooser = new VFSJFileChooser();
+        chooser.setAccessory(new DefaultAccessoriesPanel(chooser));
+        chooser.setFileHidingEnabled(true);
         chooser.setMultiSelectionEnabled(true);
-        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        chooser.setFileSelectionMode(VFSJFileChooser.FILES_AND_DIRECTORIES);
     }
 
     /**
-     *
-     * @param aThis
+     * Set the validation dialog of this controller
+     * @param aThis a validation dialog
      */
     public BatchValidationController(BatchValidationDialogView aThis) {
         this();
@@ -95,35 +135,35 @@ public class BatchValidationController {
     }
 
     /**
-     *
-     * @return
+     * Returns the view of this controller
+     * @return The view of this controller
      */
     public BatchValidationDialogView getView() {
         return view;
     }
 
     /**
-     * Add a path
+     * Add a path to validate
      */
     public void addFile() {
         int answer = chooser.showOpenDialog(view);
 
         if (answer == JFileChooser.APPROVE_OPTION) {
-            File[] files = chooser.getSelectedFiles();
+            FileObject[] files = chooser.getSelectedFiles();
 
-            for (int i = 0; i < files.length; i++) {
-                File f = files[i];
-                String path = f.getAbsolutePath();
-
-                if (!pathAdded(path)) {
+            for (FileObject fo : files) {
+                if (!pathAdded(fo)) {
                     JList li = view.getPathList();
                     DefaultComboBoxModel m = (DefaultComboBoxModel) li.getModel();
-                    m.addElement(path);
+                    m.addElement(fo);
                 }
             }
         }
     }
 
+    /**
+     * Remove a path from the path list
+     */
     public void removeFile() {
         JList li = view.getPathList();
         int index = li.getSelectedIndex();
@@ -139,8 +179,8 @@ public class BatchValidationController {
     }
 
     /**
-     *
-     * @param view
+     * Set the validation dialog of this view
+     * @param view The validation dialog
      */
     public void setView(BatchValidationDialogView view) {
         this.view = view;
@@ -183,10 +223,13 @@ public class BatchValidationController {
         }
     }
 
+    /**
+     * Validate the selected paths
+     */
     public void validateFiles() {
         final SwingWorker worker = new SwingWorker() {
                 public Object construct() {
-                    validateFiles2();
+                    doValidateFiles();
 
                     return null;
                 }
@@ -198,7 +241,7 @@ public class BatchValidationController {
     /**
      * Validate the selected files
      */
-    public void validateFiles2() {
+    public void doValidateFiles() {
         JList li = view.getPathList();
         final int paths = li.getModel().getSize();
         ListModel m = li.getModel();
@@ -209,6 +252,12 @@ public class BatchValidationController {
 
         final int nbExtensions = extensionListModel.getSize();
 
+        String[] extensions = new String[nbExtensions];
+
+        for (int i = 0; i < nbExtensions; i++) {
+            extensions[i] = (extensionListModel.getElementAt(i).toString());
+        }
+
         if (nbExtensions == 0) {
             XPontusComponentsUtils.showErrorMessage(
                 "Please add some file extensions");
@@ -216,37 +265,25 @@ public class BatchValidationController {
             return;
         }
 
-        String[] extensions = new String[nbExtensions];
+        WildCardFileSelector filterSelector = new WildCardFileSelector(recurse,
+                extensions);
 
-        for (int i = 0; i < nbExtensions; i++) {
-            extensions[i] = (extensionListModel.getElementAt(i).toString());
-            System.out.println("extension:" + extensions[i]);
-        }
-
-        IOFileFilter suffixFilter = new WildcardFileFilter(extensions,
-                IOCase.INSENSITIVE);
-
-        List files = new Vector();
+        List<FileObject> files = new Vector<FileObject>();
 
         for (int i = 0; i < paths; i++) {
-            File filePath = new File(m.getElementAt(i).toString());
+            FileObject fo = (FileObject) m.getElementAt(i);
 
-            if (filePath.isDirectory()) {
-                if (recurse) {
-                    System.out.println("recursive match");
-
-                    Collection cl = FileUtils.listFiles(filePath, suffixFilter,
-                            TrueFileFilter.INSTANCE);
-
-                    File[] fl = FileUtils.convertFileCollectionToFileArray(cl);
-
+            if (VFSUtils.isDirectory(fo)) {
+                try {
+                    FileObject[] fl = fo.findFiles(filterSelector);
                     files.addAll(Arrays.asList(fl));
-                } else {
-                    files.addAll(Arrays.asList(filePath.listFiles(
-                                (FileFilter) suffixFilter)));
+                } catch (Exception err) {
+                    log.error("Error getting file list information from " +
+                        fo.getName().getURI());
+                    log.error(err.getMessage());
                 }
             } else {
-                files.add(filePath);
+                files.add(fo);
             }
         }
 
@@ -264,52 +301,89 @@ public class BatchValidationController {
                 0, nbFiles);
         pm.setMillisToDecideToPopup(1000);
 
-        XMLParserConfiguration config = new XIncludeAwareParserConfiguration();
-        XMLGrammarPool grammarPool = new XMLGrammarPoolImpl();
-        final String GRAMMAR_POOL_PROPERTY = "http://apache.org/xml/properties/internal/grammar-pool";
-        config.setProperty(GRAMMAR_POOL_PROPERTY, grammarPool);
+        ConsoleOutputWindow outputWindow = DefaultXPontusWindowImpl.getInstance()
+                                                                   .getConsole();
+        OutputDockable console = (OutputDockable) outputWindow.getDockables()
+                                                              .get(ConsoleOutputWindow.MESSAGES_WINDOW);
 
-        File current_file = null;
+        if (parser == null) {
+            try {
+                XMLParserConfiguration config = new XIncludeAwareParserConfiguration();
+                XMLGrammarPool grammarPool = new XMLGrammarPoolImpl();
+                final String GRAMMAR_POOL_PROPERTY = "http://apache.org/xml/properties/internal/grammar-pool";
+                config.setProperty(GRAMMAR_POOL_PROPERTY, grammarPool);
 
-        SAXParser parser = null;
+                parser = new SAXParser(config);
+                errorHandler = new BatchValidationErrorHandler();
 
-        OutputDockable console = (OutputDockable) DefaultXPontusWindowImpl.getInstance()
-                                                                          .getConsole()
-                                                                          .getDockables()
-                                                                          .get(ConsoleOutputWindow.MESSAGES_WINDOW);
-
-        try {
-            parser = new SAXParser(config);
-
-            parser.setFeature("http://xml.org/sax/features/validation", true);
-            parser.setFeature("http://xml.org/sax/features/namespaces", true);
-            parser.setFeature("http://apache.org/xml/features/validation/schema",
-                true);
-            parser.setFeature("http://apache.org/xml/features/validation/dynamic",
-                true);
-        } catch (Exception err) {
-            log.fatal(err.getMessage());
+                parser.setFeature("http://xml.org/sax/features/validation", true);
+                parser.setFeature("http://xml.org/sax/features/namespaces", true);
+                parser.setFeature("http://apache.org/xml/features/validation/schema",
+                    true);
+                parser.setErrorHandler(errorHandler);
+                parser.setFeature("http://apache.org/xml/features/validation/dynamic",
+                    true);
+            } catch (Exception err) {
+                log.fatal(err.getMessage());
+            }
         }
 
-        for (int i = 0; i < nbFiles; i++) {
-            final File m_file = (File) files.get(i);
-            current_file = m_file;
+        errorHandler.reset();
+
+        CharsetDetector detector = new CharsetDetector();
+
+        for (int i = 0; i < files.size(); i++) {
+            if (pm.isCanceled()) {
+                int nbErrors = errorHandler.getNumberOfErrors();
+
+                if (nbErrors == 0) {
+                    console.println("All files are valid!");
+                } else {
+                    console.println("There is(are) " + nbErrors +
+                        " invalid file(s)");
+                    console.println(errorHandler.getErrorMessages(),
+                        OutputDockable.RED_STYLE);
+                }
+
+                outputWindow.setFocus(MessagesWindowDockable.DOCKABLE_ID);
+                Toolkit.getDefaultToolkit().beep();
+
+                return;
+            }
+
+            FileObject m_file = files.get(i);
 
             final int pos = i;
 
             pm.setProgress(pos + 1);
-            pm.setNote(m_file.getName());
-
-            String message = m_file.getName() + " is valid";
+            pm.setNote(m_file.getName().getBaseName());
 
             try {
-                parser.parse(new InputSource(FileUtils.openInputStream(m_file)));
-            } catch (Exception exe) {
-                message = m_file.getName() + " is invalid";
-            }
+                errorHandler.setCurrentFile(m_file);
 
-            console.println(message);
+                FileContent fileContent = m_file.getContent();
+                InputStream bis = new BufferedInputStream(fileContent.getInputStream());
+                detector.setText(bis);
+
+                Reader m_reader = detector.detect().getReader();
+                parser.parse(new InputSource(m_reader));
+            } catch (Exception exe) {
+                log.error(exe.getMessage());
+            }
         }
+
+        int nbErrors = errorHandler.getNumberOfErrors();
+
+        if (nbErrors == 0) {
+            console.println("All files are valid!");
+        } else {
+            console.println("There is(are) " + nbErrors + " invalid file(s)");
+            console.println(errorHandler.getErrorMessages(),
+                OutputDockable.RED_STYLE);
+        }
+
+        outputWindow.setFocus(MessagesWindowDockable.DOCKABLE_ID);
+        Toolkit.getDefaultToolkit().beep();
     }
 
     /**
@@ -335,13 +409,13 @@ public class BatchValidationController {
         return found;
     }
 
-    private boolean pathAdded(String path) {
+    private boolean pathAdded(FileObject fo) {
         JList li = view.getPathList();
         DefaultComboBoxModel m = (DefaultComboBoxModel) li.getModel();
         boolean found = false;
 
         for (int i = 0; i < m.getSize(); i++) {
-            found = m.getElementAt(i).equals(path);
+            found = m.getElementAt(i).equals(fo);
 
             if (found) {
                 break;

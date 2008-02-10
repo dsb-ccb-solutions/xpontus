@@ -20,8 +20,6 @@
  */
 package net.sf.xpontus.plugins.evaluator;
 
-import org.w3c.dom.NodeList;
-
 
 /**
  *
@@ -30,5 +28,5 @@ import org.w3c.dom.NodeList;
 public interface EvaluatorPluginIF {
     String getName();
 
-    public Object[] handle(String expression);
+    public Object[] handle(String expression) throws Exception;
 }

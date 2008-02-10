@@ -5,10 +5,12 @@
  */
 package net.sf.xpontus.plugins.evaluator;
 
+import java.awt.Toolkit;
 import java.util.Hashtable;
 import javax.swing.DefaultComboBoxModel;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -101,7 +103,9 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
                     expressionList.setEnabled(false);
                     return;
                 }
+                DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentDockable();
 
+                container.getStatusBar().setMessage("Expression evaluation in progres...");
                 ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
                 String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME).toString();
                 try {
@@ -109,17 +113,23 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
                     Object[] li = plugin.handle(getExpression());
                     XPathResultsDockable dockable = (XPathResultsDockable) DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(XPathResultsDockable.DOCKABLE_ID);
                     if (li != null) {
+                        container.getStatusBar().setMessage("Expression evaluation finished...");
                         NodeList nl = (NodeList) li[0];
                         DOMAddLines dm = (DOMAddLines) li[1];
                         dockable.setResultsModel(new XPathResultsTableModel(nl, dm));
                         DefaultXPontusWindowImpl.getInstance().getConsole().setFocus(XPathResultsDockable.DOCKABLE_ID);
-                    } else { 
+                    } else {
+                        container.getStatusBar().setMessage("No results for expression....");
                         DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(MessagesWindowDockable.DOCKABLE_ID).println("No results");
                         DefaultXPontusWindowImpl.getInstance().getConsole().setFocus(MessagesWindowDockable.DOCKABLE_ID);
                     }
                 } catch (Exception e) {
-                     DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(MessagesWindowDockable.DOCKABLE_ID).println("Error:\n" + e.getMessage() , OutputDockable.RED_STYLE);
-                        DefaultXPontusWindowImpl.getInstance().getConsole().setFocus(MessagesWindowDockable.DOCKABLE_ID);
+                    container.getStatusBar().setMessage("Error evaluating expression...");
+                    DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(MessagesWindowDockable.DOCKABLE_ID).println("No results");
+                    DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(MessagesWindowDockable.DOCKABLE_ID).println("Error:\n" + e.getMessage(), OutputDockable.RED_STYLE);
+                    DefaultXPontusWindowImpl.getInstance().getConsole().setFocus(MessagesWindowDockable.DOCKABLE_ID);
+                } finally {
+                    Toolkit.getDefaultToolkit().beep();
                 }
             }
         };
