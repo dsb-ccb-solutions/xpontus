@@ -42,11 +42,6 @@ public class BasicSettingsView extends MultiplePageDialog {
     public BasicSettingsView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
-        final Dimension dimension = new Dimension(500, 500);
-            
-            setMinimumSize(dimension);
-            setPreferredSize(dimension);
-            
         setTitle("Basic settings");
         setStyle(MultiplePageDialog.ICON_STYLE);
 
@@ -57,12 +52,10 @@ public class BasicSettingsView extends MultiplePageDialog {
                 "/net/sf/xpontus/icons/accessories-text-editor.gif"
             };
 
-        AbstractDialogPage panel1 = new AbstractDialogPageBuilder("General",
-                new ImageIcon(getClass().getResource(icons[0])),
-                new GeneralPanel());
-        AbstractDialogPage panel2 = new AbstractDialogPageBuilder("Editor",
-                new ImageIcon(getClass().getResource(icons[1])),
-                new EditorPanel());
+        AbstractDialogPage panel1 = new GeneralPanel("General",
+                new ImageIcon(getClass().getResource(icons[0])));
+        AbstractDialogPage panel2 = new EditorPanel("Editor",
+                new ImageIcon(getClass().getResource(icons[1])));
 
         model.append(panel1);
         model.append(panel2);
@@ -83,22 +76,22 @@ public class BasicSettingsView extends MultiplePageDialog {
     @Override
     public JComponent getBannerPanel() {
         BannerPanel panel = new BannerPanel("Preferences");
+
         return panel;
     }
 
-    
     /**
-     * 
+     *
      * @return
      */
     @Override
     public ButtonPanel createButtonPanel() {
         ButtonPanel buttonPanel = new ButtonPanel();
-        
+
         saveButton = new JButton("Save");
         advancedButton = new JButton("Advanced");
         cancelButton = new JButton("Cancel");
-        
+
         buttonPanel.add(saveButton);
         buttonPanel.add(cancelButton);
         buttonPanel.add(advancedButton);
@@ -126,21 +119,17 @@ public class BasicSettingsView extends MultiplePageDialog {
             super(name, icon);
             this.p = p;
         }
- 
+
         @Override
         public void lazyInitialize() {
             setLayout(new BorderLayout());
-            
-            
-            
+
             getContentPane()
                 .add(new BannerPanel(p.getPreferencesPanelComponent().getTitle()),
                 BorderLayout.NORTH);
             getContentPane()
                 .add(p.getPreferencesPanelComponent().getJComponent(),
                 BorderLayout.CENTER);
-             
-           
         }
     }
 }
