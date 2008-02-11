@@ -32,11 +32,6 @@ import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOCase;
-import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.TrueFileFilter;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.vfs.FileContent;
@@ -54,13 +49,10 @@ import java.awt.Component;
 import java.awt.Toolkit;
 
 import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileFilter;
 import java.io.InputStream;
 import java.io.Reader;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
@@ -270,7 +262,7 @@ public class BatchValidationController {
             return;
         }
 
-        WildCardFileSelector filterSelector = new WildCardFileSelector(recurse,
+        WildcardFileSelectorw filterSelector = new WildcardFileSelectorw(recurse,
                 extensions);
 
         List<FileObject> files = new Vector<FileObject>();
