@@ -189,8 +189,7 @@ public class DocumentContainer implements Dockable {
 
         editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, null);
 
-        editor.setUI(new XPontusEditorUI(editor, "file.xml")); 
-         
+        editor.setUI(new XPontusEditorUI(editor, "file.xml"));
 
         SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
         doc.setLoading(true);
