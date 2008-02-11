@@ -221,9 +221,7 @@ public class SchemaGeneratorHandler {
                         "Please check again the input type list or trying validating your document\n");
                     throw new Exception(stb.toString());
                 }
-            }
-
-            container.getStatusBar().setMessage("Generating schema...");
+            } 
 
             OutputDirectory od = new LocalOutputDirectory(sc.getMainUri(),
                     new File(view.getModel().getOutputURI()),
@@ -233,8 +231,7 @@ public class SchemaGeneratorHandler {
                 model.getInputType().toLowerCase(), eh);
 
             mconsole.println("Schema generated sucessfully!");
-
-            container.getStatusBar().setMessage("Schema generated sucessfully!");
+ 
         } catch (Exception ex) {
             ex.printStackTrace();
 
@@ -248,8 +245,7 @@ public class SchemaGeneratorHandler {
                 sb.append("\n");
             }
 
-            container.getStatusBar().setMessage("Schema generation failed!");
-
+            
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(bos);
             ex.printStackTrace(ps);
