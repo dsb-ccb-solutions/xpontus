@@ -32,7 +32,7 @@ import org.apache.commons.vfs.FileSelector;
  * Wildcard file filter for VFS
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class WildcardFileSelectorw implements FileSelector {
+public class WildcardFileSelector implements FileSelector {
     private boolean recursive;
     private String[] wildcards;
 
@@ -41,7 +41,7 @@ public class WildcardFileSelectorw implements FileSelector {
      * @param recursive Recursive match
      * @param wildcards Array for wilcards
      */
-    public WildcardFileSelectorw(boolean recursive, String[] wildcards) {
+    public WildcardFileSelector(boolean recursive, String[] wildcards) {
         this.recursive = recursive;
         this.wildcards = wildcards;
     }

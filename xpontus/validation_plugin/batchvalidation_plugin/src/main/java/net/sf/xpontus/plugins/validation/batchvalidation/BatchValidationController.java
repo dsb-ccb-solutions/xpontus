@@ -262,7 +262,7 @@ public class BatchValidationController {
             return;
         }
 
-        WildcardFileSelectorw filterSelector = new WildcardFileSelectorw(recurse,
+        WildcardFileSelector filterSelector = new WildcardFileSelector(recurse,
                 extensions);
 
         List<FileObject> files = new Vector<FileObject>();
