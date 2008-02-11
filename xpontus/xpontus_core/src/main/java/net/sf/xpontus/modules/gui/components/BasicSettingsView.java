@@ -110,26 +110,4 @@ public class BasicSettingsView extends MultiplePageDialog {
 
         return buttonPanel;
     }
-
-    class AbstractDialogPageBuilder extends AbstractDialogPage {
-        private PreferencesPluginIF p;
-
-        public AbstractDialogPageBuilder(String name, Icon icon,
-            PreferencesPluginIF p) {
-            super(name, icon);
-            this.p = p;
-        }
-
-        @Override
-        public void lazyInitialize() {
-            setLayout(new BorderLayout());
-
-            getContentPane()
-                .add(new BannerPanel(p.getPreferencesPanelComponent().getTitle()),
-                BorderLayout.NORTH);
-            getContentPane()
-                .add(p.getPreferencesPanelComponent().getJComponent(),
-                BorderLayout.CENTER);
-        }
-    }
 }
