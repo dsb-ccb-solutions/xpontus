@@ -22,12 +22,9 @@
 package net.sf.xpontus.modules.gui.components;
 
 import com.vlsolutions.swing.docking.DockGroup;
-import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
-import com.vlsolutions.swing.docking.DockingUtilities;
-import com.vlsolutions.swing.docking.TabbedDockableContainer;
 import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
 import com.vlsolutions.swing.docking.event.DockableSelectionListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
@@ -127,33 +124,16 @@ public class DocumentTabContainer {
                                 .setDockableState(DockableState.STATE_DOCKED);
                             DocumentAwareComponentHolder.getInstance()
                                                         .notifyComponents(new DocumentContainerChangeEvent(
-                                    null));
-                            //event.cancel(); 
+                                    null)); 
                             editors.remove(editor);
+
+                            currentDockable = null;
+                            currentEditor = null;
                         } else {
                             DocumentAwareComponentHolder.getInstance()
                                                         .notifyComponents(new DocumentContainerChangeEvent(
                                     editor));
                             editors.remove(editor);
-                        }
-
-                        currentDockable = null;
-                        currentEditor = null;
-                    } else if ((current != null) &&
-                            (current.getDockable() instanceof OutlineViewDockable) &&
-                            event.getFutureState().isClosed()) {
-                    } else if ((current != null) &&
-                            (current.getDockable() instanceof OutputDockable) &&
-                            event.getFutureState().isClosed()) {
-                        ConsoleOutputWindow console = ((DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent()).getConsole();
-
-                        if (current.getDockable()
-                                       .equals((Dockable) console.getDockables()
-                                                                     .get(0))) {
-                        } else if (current.getDockable()
-                                              .equals((Dockable) console.getDockables()
-                                                                            .get(1))) {
-                        } else {
                         }
                     }
                 }

@@ -119,7 +119,7 @@ public class DocumentContainer implements Dockable {
 
         Searchable searchable = SearchableUtils.installSearchable(editor);
         searchable.setRepeats(true);
-        _textAreaSearchableBar = SearchableBar.install(searchable,
+        this._textAreaSearchableBar = SearchableBar.install(searchable,
                 KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK),
                 new SearchableBar.Installer() {
                     public void openSearchBar(SearchableBar searchableBar) {
