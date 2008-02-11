@@ -5,30 +5,32 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.jidesoft.dialog.*;
+import com.jidesoft.dialog.AbstractDialogPage;
+import com.jidesoft.dialog.BannerPanel;
+import com.jidesoft.dialog.ButtonPanel;
+import com.jidesoft.dialog.MultiplePageDialog;
+import com.jidesoft.dialog.PageList;
 
-import net.sf.xpontus.modules.gui.components.preferences.EditorPanel;
-import net.sf.xpontus.modules.gui.components.preferences.GeneralPanel;
-import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
+import net.sf.xpontus.modules.gui.components.preferences.EditorPanelDialog;
+import net.sf.xpontus.modules.gui.components.preferences.GeneralPanelDialog;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import java.awt.*;
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Frame;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
 
 
 /**
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class BasicSettingsView extends MultiplePageDialog {
+public class BasicSettingsView extends MultiplePageDialog
+{
     private JDialog dialog;
     private JButton saveButton;
     private JButton cancelButton;
@@ -39,7 +41,8 @@ public class BasicSettingsView extends MultiplePageDialog {
      * @param parent
      * @param modal
      */
-    public BasicSettingsView(java.awt.Frame parent, boolean modal) {
+    public BasicSettingsView(java.awt.Frame parent, boolean modal)
+    {
         super(parent, modal);
 
         setTitle("Basic settings");
@@ -47,14 +50,15 @@ public class BasicSettingsView extends MultiplePageDialog {
 
         PageList model = new PageList();
 
-        String[] icons = {
+        String[] icons = 
+            {
                 "/net/sf/xpontus/icons/gear.gif",
                 "/net/sf/xpontus/icons/accessories-text-editor.gif"
             };
 
-        AbstractDialogPage panel1 = new GeneralPanel("General",
+        AbstractDialogPage panel1 = new GeneralPanelDialog("General",
                 new ImageIcon(getClass().getResource(icons[0])));
-        AbstractDialogPage panel2 = new EditorPanel("Editor",
+        AbstractDialogPage panel2 = new EditorPanelDialog("Editor",
                 new ImageIcon(getClass().getResource(icons[1])));
 
         model.append(panel1);
@@ -68,13 +72,15 @@ public class BasicSettingsView extends MultiplePageDialog {
     /**
      *
      */
-    public BasicSettingsView() {
+    public BasicSettingsView()
+    {
         this((Frame) XPontusComponentsUtils.getTopComponent()
                                            .getDisplayComponent(), true);
     }
 
     @Override
-    public JComponent getBannerPanel() {
+    public JComponent getBannerPanel()
+    {
         BannerPanel panel = new BannerPanel("Preferences");
 
         return panel;
@@ -85,7 +91,8 @@ public class BasicSettingsView extends MultiplePageDialog {
      * @return
      */
     @Override
-    public ButtonPanel createButtonPanel() {
+    public ButtonPanel createButtonPanel()
+    {
         ButtonPanel buttonPanel = new ButtonPanel();
 
         saveButton = new JButton("Save");
@@ -96,9 +103,12 @@ public class BasicSettingsView extends MultiplePageDialog {
         buttonPanel.add(cancelButton);
         buttonPanel.add(advancedButton);
 
-        advancedButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (dialog == null) {
+        advancedButton.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    if (dialog == null)
+                    {
                         JDialog parent = BasicSettingsView.this;
                         dialog = new AdvancedSettingsView(parent, true);
                     }
