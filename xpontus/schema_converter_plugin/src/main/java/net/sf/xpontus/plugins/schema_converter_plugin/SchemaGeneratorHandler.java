@@ -140,8 +140,6 @@ public class SchemaGeneratorHandler {
                                                                                   .getDocumentTabContainer()
                                                                                   .getCurrentDockable();
 
-        container.getStatusBar().setMessage("Generating schema...");
-
         try {
             SchemaGenerationModel model = view.getModel();
             InputFormat inFormat = null;
@@ -195,13 +193,28 @@ public class SchemaGeneratorHandler {
                 m_inputStream.close();
                 m_outputStream.close();
 
-                sc = inFormat.load(UriOrFile.toUri(tmp.getAbsolutePath()),
-                        new String[0], model.getOutputType().toLowerCase(), eh);
+                try {
+                    sc = inFormat.load(UriOrFile.toUri(tmp.getAbsolutePath()),
+                            new String[0], model.getOutputType().toLowerCase(),
+                            eh);
+                } catch (Exception ife) {
+                    throw new Exception(
+                        "Error loading input document/ Maybe the input type is invalid?");
+                }
+
                 tmp.deleteOnExit();
             } else {
-                sc = inFormat.load(UriOrFile.toUri(view.getModel().getInputURI()),
-                        new String[0], model.getOutputType().toLowerCase(), eh);
+                try {
+                    sc = inFormat.load(UriOrFile.toUri(
+                                view.getModel().getInputURI()), new String[0],
+                            model.getOutputType().toLowerCase(), eh);
+                } catch (Exception ife) {
+                    throw new Exception(
+                        "Error loading input document/ Maybe the input type is invalid?");
+                }
             }
+
+            container.getStatusBar().setMessage("Generating schema...");
 
             OutputDirectory od = new LocalOutputDirectory(sc.getMainUri(),
                     new File(view.getModel().getOutputURI()),
@@ -215,7 +228,7 @@ public class SchemaGeneratorHandler {
             container.getStatusBar().setMessage("Schema generated sucessfully!");
         } catch (Exception ex) {
             ex.printStackTrace();
-            
+
             StringBuffer sb = new StringBuffer();
             sb.append("Error generating schema\n");
 
