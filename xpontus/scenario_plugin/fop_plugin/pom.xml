@@ -35,11 +35,22 @@
             <artifactId>fop</artifactId>
             <version>0.20.5</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>avalon-framework</artifactId>
+                    <groupId>avalon-framework</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>avalon-framework</groupId>
-            <artifactId>avalon-framework</artifactId>
-            <version>4.1.4</version>
+            <artifactId>avalon-framework-api</artifactId>
+            <version>4.1.5</version>
+        </dependency>
+         <dependency>
+            <groupId>avalon-framework</groupId>
+            <artifactId>avalon-framework-impl</artifactId>
+            <version>4.1.5</version>
         </dependency>
     </dependencies>
 </project>

@@ -12,8 +12,7 @@ import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.plugins.scenarios.DetachableScenarioModel;
 import net.sf.xpontus.plugins.scenarios.TransformationErrorListener;
-
-import org.apache.avalon.framework.logger.ConsoleLogger;
+ 
 import org.apache.avalon.framework.logger.Logger;
 
 import org.apache.commons.io.FileUtils;
@@ -59,7 +58,7 @@ public class FOPTransformationPluginImpl  implements ScenarioPluginIF {
     private Logger logger;
 
     public FOPTransformationPluginImpl(){
-        logger = new ConsoleLogger(ConsoleLogger.LEVEL_INFO);
+        logger = new org.apache.avalon.framework.logger.ConsoleLogger();
     }
     public String getName() {
         return "FOP 0.20.5:" + FOP_TRANSFORMATION;
