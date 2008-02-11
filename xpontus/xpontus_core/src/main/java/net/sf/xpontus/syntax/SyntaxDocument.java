@@ -343,7 +343,12 @@ public class SyntaxDocument extends PlainDocument {
         int initialTokenType = 0;
 
         if (line > 0) {
+            int pos = line - 1;
+            if(pos > 0){
+                
+            // BUG HERE check if the value of line first...
             initialTokenType = endTokens.get(line - 1);
+            }
         }
 
         return lexer.getTokens(seg, initialTokenType, startOffset);
@@ -373,9 +378,7 @@ public class SyntaxDocument extends PlainDocument {
         throws BadLocationException {
         super.insertString(off, str, set);
 
-        if ((plugin != null) && plugin.isTrigger(str)) {
-            System.out.println("completion insert:" +
-                plugin.getClass().getName());
+        if ((plugin != null) && plugin.isTrigger(str)) { 
             ContentAssistWindow.complete(editor, plugin, off, str, set);
         }
     }
