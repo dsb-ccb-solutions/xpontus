@@ -26,6 +26,7 @@ import net.sf.xpontus.constants.XPontusConstantsIF;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -56,6 +57,13 @@ public class ScenarioPluginsConfiguration {
     public ScenarioPluginIF getEngineForName(String name) {
         System.out.println("Looking for plugin called:" + name);
 
+        Iterator<String> names = enginesMap.keySet().iterator();
+        while(names.hasNext()){
+            System.out.println("engine:" + names.next());
+        }
+        
+        
+        
         try {
             Hashtable t = (Hashtable) enginesMap.get(name);
             String m_name = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME);

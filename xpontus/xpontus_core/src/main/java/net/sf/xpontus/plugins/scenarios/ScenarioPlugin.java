@@ -59,7 +59,7 @@ public class ScenarioPlugin extends XPontusPlugin {
 
         ScenarioPluginsConfiguration.getInstance()
                                     .addEngine(new DefaultScenarioPluginImpl(),
-            getClass().getClassLoader());
+            this.getClass().getClassLoader());
 
         for (Iterator it = plugins.iterator(); it.hasNext();) {
             Extension ext = (Extension) it.next();

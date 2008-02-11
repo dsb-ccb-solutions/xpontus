@@ -198,6 +198,9 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         inputButton = new javax.swing.JButton();
         inputTF = new javax.swing.JTextField();
         useExternalDocumentOption = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        scriptTF = new javax.swing.JTextField();
+        scriptButton = new javax.swing.JButton();
         thirdPanel = new javax.swing.JPanel();
         parametersPanel = new javax.swing.JPanel();
         paramsScrollPane = new javax.swing.JScrollPane();
@@ -207,8 +210,6 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         removeParameterButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         processorsList = new javax.swing.JComboBox();
-        scriptTF = new javax.swing.JTextField();
-        scriptButton = new javax.swing.JButton();
         processorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -253,9 +254,9 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
             .add(outputPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(outputButton)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(outputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(60, 60, 60)
+                .add(outputTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 319, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(6, Short.MAX_VALUE))
         );
         outputPanelLayout.setVerticalGroup(
             outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -264,7 +265,7 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
                 .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(outputButton)
                     .add(outputTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(4, Short.MAX_VALUE))
         );
 
         inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input options"));
@@ -304,15 +305,14 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         inputPanelLayout.setHorizontalGroup(
             inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(inputPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(inputButton)
                     .add(useCurrentDocumentOption))
                 .add(33, 33, 33)
                 .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(useExternalDocumentOption)
-                    .add(inputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
-                .addContainerGap())
+                    .add(inputTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 328, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
         inputPanelLayout.setVerticalGroup(
             inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -327,6 +327,40 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stylesheet"));
+
+        scriptTF.setColumns(6);
+        scriptTF.setEditable(false);
+
+        scriptButton.setText("Script/Stylesheet...");
+        scriptButton.addActionListener(
+            (ActionListener)EventHandler.create(
+                ActionListener.class,
+                controller,
+                ScenarioEditorController.SCRIPT_METHOD)
+        );
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(scriptButton)
+                .add(36, 36, 36)
+                .add(scriptTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(scriptButton)
+                    .add(scriptTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         org.jdesktop.layout.GroupLayout firstPanelLayout = new org.jdesktop.layout.GroupLayout(firstPanel);
         firstPanel.setLayout(firstPanelLayout);
         firstPanelLayout.setHorizontalGroup(
@@ -334,26 +368,34 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
             .add(firstPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(firstPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(inputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(firstPanelLayout.createSequentialGroup()
+                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(57, 57, 57))
                     .add(firstPanelLayout.createSequentialGroup()
                         .add(nameLabel)
-                        .add(113, 113, 113)
-                        .add(nameTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
-                    .add(outputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 113, Short.MAX_VALUE)
+                        .add(nameTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 356, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(66, 66, 66))
+                    .add(firstPanelLayout.createSequentialGroup()
+                        .add(firstPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, outputPanel, 0, 510, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, inputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         firstPanelLayout.setVerticalGroup(
             firstPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(firstPanelLayout.createSequentialGroup()
-                .add(22, 22, 22)
+                .addContainerGap()
                 .add(firstPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(nameLabel)
                     .add(nameTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(inputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 68, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(18, 18, 18)
-                .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         m_pane.addTab("General options", firstPanel);
@@ -406,17 +448,6 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
             }
         });
 
-        scriptTF.setColumns(6);
-        scriptTF.setEditable(false);
-
-        scriptButton.setText("Script/Stylesheet...");
-        scriptButton.addActionListener(
-            (ActionListener)EventHandler.create(
-                ActionListener.class,
-                controller,
-                ScenarioEditorController.SCRIPT_METHOD)
-        );
-
         processorLabel.setText("Processor");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
@@ -425,13 +456,9 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(scriptButton)
-                    .add(processorLabel))
-                .add(36, 36, 36)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(processorsList, 0, 312, Short.MAX_VALUE)
-                    .add(scriptTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
+                .add(processorLabel)
+                .add(116, 116, 116)
+                .add(processorsList, 0, 312, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -439,13 +466,9 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(scriptButton)
-                    .add(scriptTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(27, 27, 27)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(processorLabel)
                     .add(processorsList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout thirdPanelLayout = new org.jdesktop.layout.GroupLayout(thirdPanel);
@@ -455,16 +478,16 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
             .add(org.jdesktop.layout.GroupLayout.TRAILING, thirdPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(thirdPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, parametersPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, parametersPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
                 .add(21, 21, 21))
         );
         thirdPanelLayout.setVerticalGroup(
             thirdPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, thirdPanelLayout.createSequentialGroup()
                 .add(27, 27, 27)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 133, Short.MAX_VALUE)
-                .add(18, 18, 18)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(parametersPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(129, 129, 129))
         );
@@ -525,6 +548,7 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
     private javax.swing.JPanel inputPanel;
     private javax.swing.JTextField inputTF;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane m_pane;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTF;

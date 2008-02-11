@@ -72,7 +72,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     private Log log = LogFactory.getLog(DefaultScenarioPluginImpl.class);
 
     public String getName() {
-        return SIMPLE_JAXP_TRANSFORMATION;
+        return "Xalan 2.7.0:" + SIMPLE_JAXP_TRANSFORMATION;
     }
 
     public String[] getProcessors() {
@@ -116,7 +116,8 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         CharsetDetector detector = new CharsetDetector();
 
         if (model.isExternalDocument()) {
-            bis = FileUtils.openInputStream(new File(model.getInput()));
+            FileObject fo = VFS.getManager().resolveFile(model.getInput());
+            bis = new BufferedInputStream(fo.getContent().getInputStream());
         } else {
             String txt = DefaultXPontusWindowImpl.getInstance()
                                                  .getDocumentTabContainer()
@@ -196,9 +197,14 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
 
             if (!tel.getErrors().equals("")) {
                 odk.println("Some errors occured...", OutputDockable.RED_STYLE);
+
                 odk.println(tel.getErrors(), OutputDockable.RED_STYLE);
             } else {
                 odk.println("Transformation finished!");
+
+                if (tel.warningsFound()) {
+                    odk.println("Warnings:" + tel.getWarnings());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

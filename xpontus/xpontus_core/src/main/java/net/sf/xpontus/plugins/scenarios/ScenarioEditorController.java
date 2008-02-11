@@ -95,6 +95,7 @@ public class ScenarioEditorController {
     public ScenarioEditorController(ScenarioEditorView view) {
         this.view = view;
         chooser = new VFSJFileChooser();
+        chooser.setFileSelectionMode(VFSJFileChooser.FILES_ONLY);
         chooser.setAccessory(new DefaultAccessoriesPanel(chooser));
     }
 
