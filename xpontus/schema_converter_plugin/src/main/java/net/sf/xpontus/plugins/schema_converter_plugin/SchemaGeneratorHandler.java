@@ -199,8 +199,12 @@ public class SchemaGeneratorHandler {
                             new String[0], model.getOutputType().toLowerCase(),
                             eh);
                 } catch (Exception ife) {
-                    throw new Exception(
-                        "Error loading input document/ Maybe the input type is invalid?");
+                   StrBuilder stb = new StrBuilder();
+                    stb.append("\nError loading input document!\n");
+                    stb.append("Maybe the input type is invalid?\n");
+                    stb.append(
+                        "Please check again the input type list or trying validating your document\n");
+                    throw new Exception(stb.toString());
                 }
 
                 tmp.deleteOnExit();
