@@ -124,7 +124,7 @@ public class DocumentTabContainer {
                                 .setDockableState(DockableState.STATE_DOCKED);
                             DocumentAwareComponentHolder.getInstance()
                                                         .notifyComponents(new DocumentContainerChangeEvent(
-                                    null)); 
+                                    null));
                             editors.remove(editor);
 
                             currentDockable = null;

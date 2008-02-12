@@ -31,6 +31,7 @@ public class MessagesWindowDockable extends OutputDockable {
         m_pane.setEditable(false);
         scrollPane = new JScrollPane(m_pane);
         m_key = new DockKey(DOCKABLE_ID, "Messages");
+        m_key.setCloseEnabled(false);
         m_key.setResizeWeight(0.1f);
     }
 

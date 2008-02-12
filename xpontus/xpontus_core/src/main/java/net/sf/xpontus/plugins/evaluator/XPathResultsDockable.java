@@ -58,6 +58,7 @@ public class XPathResultsDockable extends OutputDockable {
 
         m_key = new DockKey(DOCKABLE_ID, "XPath");
         m_key.setResizeWeight(0.1f);
+        m_key.setCloseEnabled(false);
 
         scrollPane = new JScrollPane(xpathResultsTable);
 
