@@ -19,7 +19,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.controllers.impl;
-
+ 
 import com.sun.java.help.impl.SwingWorker;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;

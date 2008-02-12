@@ -21,13 +21,16 @@
  */
 package net.sf.xpontus.syntax;
 
-import net.sf.xpontus.constants.*;
-import net.sf.xpontus.plugins.completion.*;
-import net.sf.xpontus.properties.*;
+import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
+import net.sf.xpontus.plugins.completion.CodeCompletionIF;
+import net.sf.xpontus.plugins.completion.ContentAssistWindow;
+import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.utils.DynamicIntArray;
 
-import java.util.*;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
@@ -47,7 +50,8 @@ import javax.swing.text.SimpleAttributeSet;
  *
  * @author Yves Zoundi
  */
-public class SyntaxDocument extends PlainDocument {
+public class SyntaxDocument extends PlainDocument
+{
     // the lexer for the document
     private ILexer lexer;
     private boolean isCodeCompletion = false;
@@ -77,7 +81,8 @@ public class SyntaxDocument extends PlainDocument {
      * @param editor
      * @param support
      */
-    public SyntaxDocument(JTextComponent editor, SyntaxSupport support) {
+    public SyntaxDocument(JTextComponent editor, SyntaxSupport support)
+    {
         this.styleMap = support.getColorProvider().getStyles();
 
         this.editor = editor;
@@ -88,7 +93,8 @@ public class SyntaxDocument extends PlainDocument {
 
         Hashtable _map = (Hashtable) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_COMPLETION_ENGINES);
 
-        if (_map.size() == 0) {
+        if (_map.size() == 0)
+        {
             System.out.println("No engines found!");
 
             return;
@@ -97,26 +103,32 @@ public class SyntaxDocument extends PlainDocument {
         String completion_key = _map.keySet().iterator().next().toString();
         Hashtable m_map = (Hashtable) _map.get(completion_key);
 
-        try {
+        try
+        {
             String m_classname = m_map.get(XPontusConstantsIF.OBJECT_CLASSNAME)
                                       .toString();
             ClassLoader loader = (ClassLoader) m_map.get(XPontusConstantsIF.CLASS_LOADER);
             setCodeCompletion((CodeCompletionIF) Class.forName(m_classname,
                     true, loader).newInstance());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public void setCodeCompletion(CodeCompletionIF plugin) {
+    public void setCodeCompletion(CodeCompletionIF plugin)
+    {
         this.plugin = plugin;
     }
 
-    public CodeCompletionIF getCodeCompletion() {
+    public CodeCompletionIF getCodeCompletion()
+    {
         return plugin;
     }
 
-    public void setLoading(boolean b) {
+    public void setLoading(boolean b)
+    {
         isLoading = b;
     }
 
@@ -124,7 +136,8 @@ public class SyntaxDocument extends PlainDocument {
      *
      * @return
      */
-    public ILexer getLexer() {
+    public ILexer getLexer()
+    {
         return lexer;
     }
 
@@ -132,7 +145,8 @@ public class SyntaxDocument extends PlainDocument {
      *
      * @return
      */
-    public boolean isCodeCompletion() {
+    public boolean isCodeCompletion()
+    {
         return xmlCompletion;
     }
 
@@ -140,7 +154,8 @@ public class SyntaxDocument extends PlainDocument {
      *
      * @return
      */
-    public Map getStyleMap() {
+    public Map getStyleMap()
+    {
         return styleMap;
     }
 
@@ -148,7 +163,8 @@ public class SyntaxDocument extends PlainDocument {
      *
      * @param e
      */
-    protected void fireInsertUpdate(DocumentEvent e) {
+    protected void fireInsertUpdate(DocumentEvent e)
+    {
         Element lineMap = getDefaultRootElement();
         DocumentEvent.ElementChange change = e.getChange(lineMap);
         Element[] added = (change == null) ? null : change.getChildrenAdded();
@@ -160,13 +176,15 @@ public class SyntaxDocument extends PlainDocument {
             ? endTokens.get(previousLine) : 0);
 
         // If entire lines were added...
-        if ((added != null) && (added.length > 0)) {
+        if ((added != null) && (added.length > 0))
+        {
             Element[] removed = change.getChildrenRemoved();
             int numRemoved = (removed != null) ? removed.length : 0;
 
             int endBefore = (line + added.length) - numRemoved;
 
-            for (int i = line; i < endBefore; i++) {
+            for (int i = line; i < endBefore; i++)
+            {
                 setSharedSegment(i); // Loads line i's text into s.
 
                 int tokenType = lexer.getLastTokenTypeOnLine(seg,
@@ -179,8 +197,10 @@ public class SyntaxDocument extends PlainDocument {
             // Update last tokens for lines below until they stop changing.
             updateLastTokensBelow(endBefore, numLines, previousTokenType);
         }
+
         // Otherwise, text was inserted on a single line...
-        else {
+        else
+        {
             // Update last tokens for lines below until they stop changing.
             updateLastTokensBelow(line, numLines, previousTokenType);
         }
@@ -188,7 +208,8 @@ public class SyntaxDocument extends PlainDocument {
         super.fireInsertUpdate(e);
     }
 
-    protected void fireRemoveUpdate(DocumentEvent chng) {
+    protected void fireRemoveUpdate(DocumentEvent chng)
+    {
         Element lineMap = getDefaultRootElement();
         int numLines = lineMap.getElementCount();
 
@@ -196,7 +217,8 @@ public class SyntaxDocument extends PlainDocument {
         Element[] removed = (change == null) ? null : change.getChildrenRemoved();
 
         // If entire lines were removed...
-        if ((removed != null) && (removed.length > 0)) {
+        if ((removed != null) && (removed.length > 0))
+        {
             int line = change.getIndex(); // First line entirely removed.
             int previousLine = line - 1; // Line before that.
             int previousTokenType = ((previousLine > -1)
@@ -215,11 +237,14 @@ public class SyntaxDocument extends PlainDocument {
             // Update last tokens for lines below until they've stopped changing.
             updateLastTokensBelow(line, numLines, previousTokenType);
         }
+
         // Otherwise, text was removed from just one line...
-        else {
+        else
+        {
             int line = lineMap.getElementIndex(chng.getOffset());
 
-            if (line >= endTokens.getSize()) {
+            if (line >= endTokens.getSize())
+            {
                 return; // If we're editing the
 
                 // last line in a
@@ -245,13 +270,15 @@ public class SyntaxDocument extends PlainDocument {
      * @param line
      *          The line number you want to get.
      */
-    private final void setSharedSegment(int line) {
+    private final void setSharedSegment(int line)
+    {
         Element map = getDefaultRootElement();
         int numLines = map.getElementCount();
 
         Element element = map.getElement(line);
 
-        if (element == null) {
+        if (element == null)
+        {
             throw new InternalError("Invalid line number: " + line);
         }
 
@@ -259,9 +286,12 @@ public class SyntaxDocument extends PlainDocument {
         int endOffset = ((line == (numLines - 1)) ? (element.getEndOffset() -
             1) : (element.getEndOffset() - 1));
 
-        try {
+        try
+        {
             getText(startOffset, endOffset - startOffset, seg);
-        } catch (BadLocationException ble) {
+        }
+        catch (BadLocationException ble)
+        {
             throw new InternalError("Text range not in document: " +
                 startOffset + "-" + endOffset);
         }
@@ -275,11 +305,13 @@ public class SyntaxDocument extends PlainDocument {
      * @return
      */
     private int updateLastTokensBelow(int line, int numLines,
-        int previousTokenType) {
+        int previousTokenType)
+    {
         int firstLine = line;
         int end = numLines - 1;
 
-        while (line < end) {
+        while (line < end)
+        {
             setSharedSegment(line);
 
             int oldTokenType = endTokens.get(line);
@@ -290,7 +322,8 @@ public class SyntaxDocument extends PlainDocument {
             // that we're saying this line needs repainting; this is because
             // the beginning of this line did indeed change color, but the
             // end didn't.
-            if (oldTokenType == newTokenType) {
+            if (oldTokenType == newTokenType)
+            {
                 damageRange(firstLine, line);
 
                 return line;
@@ -303,7 +336,8 @@ public class SyntaxDocument extends PlainDocument {
             line++;
         }
 
-        if (line > firstLine) {
+        if (line > firstLine)
+        {
             damageRange(firstLine, line);
         }
 
@@ -315,7 +349,8 @@ public class SyntaxDocument extends PlainDocument {
      * @param firstLine
      * @param lastLine
      */
-    private void damageRange(int firstLine, int lastLine) {
+    private void damageRange(int firstLine, int lastLine)
+    {
         Element f = getDefaultRootElement().getElement(firstLine);
         Element e = getDefaultRootElement().getElement(lastLine);
         editor.getUI().damageRange(editor, f.getStartOffset(), e.getEndOffset());
@@ -326,15 +361,19 @@ public class SyntaxDocument extends PlainDocument {
      * @param line
      * @return
      */
-    public final List getTokenListForLine(int line) {
+    public final List getTokenListForLine(int line)
+    {
         Element map = getDefaultRootElement();
         Element elem = map.getElement(line);
         int startOffset = elem.getStartOffset();
         int endOffset = elem.getEndOffset() - 1;
 
-        try {
+        try
+        {
             getText(startOffset, endOffset - startOffset, seg);
-        } catch (BadLocationException ble) {
+        }
+        catch (BadLocationException ble)
+        {
             ble.printStackTrace();
 
             return null;
@@ -342,7 +381,8 @@ public class SyntaxDocument extends PlainDocument {
 
         int initialTokenType = 0;
 
-        if (line > 0) {
+        if (line > 0)
+        {
             // BUG HERE check if the value of line first...
             initialTokenType = endTokens.get(line - 1);
         }
@@ -355,7 +395,8 @@ public class SyntaxDocument extends PlainDocument {
      * @param kind
      * @return
      */
-    public MutableAttributeSet getStyleForType(int kind) {
+    public MutableAttributeSet getStyleForType(int kind)
+    {
         Integer tokenId = new Integer(kind);
         Object tokenStyle = styleMap.get(tokenId);
 
@@ -371,10 +412,12 @@ public class SyntaxDocument extends PlainDocument {
      * @throws javax.swing.text.BadLocationException
      */
     public void insertString(int off, String str, AttributeSet set)
-        throws BadLocationException {
+        throws BadLocationException
+    {
         super.insertString(off, str, set);
 
-        if ((plugin != null) && plugin.isTrigger(str)) {
+        if ((plugin != null) && plugin.isTrigger(str))
+        {
             ContentAssistWindow.complete(editor, plugin, off, str, set);
         }
     }
