@@ -86,23 +86,17 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         this.scenario.setAlias(name);
         this.scenario.setInput(xmlURI);
         this.scenario.setXsl(xslURI);
+        this.scenario.setExternalDocument(_scenario.isExternalDocument());
         this.scenario.setOutput(_scenario.getOutput());
         this.scenario.setParameters(_scenario.getParameters());
-        this.scenario.setProcessor(output);
- 
+        this.scenario.setProcessor(output); 
         
         outputTF.setText(scenario.getOutput());
-
         this.nameTF.setText(name);
-
         this.inputTF.setText(xmlURI);
-
-        this.scriptTF.setText(xslURI);
-
+        this.scriptTF.setText(xslURI);         
         this.inputButton.setEnabled(scenario.isExternalDocument());
-
         this.useExternalDocumentOption.setSelected(scenario.isExternalDocument());
-
         this.processorsList.setSelectedItem(output);
     }
 
@@ -153,9 +147,7 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
         }
 
         scriptTF.setText(scenario.getXsl());
-
-//        List params = scenario.getParameters();
-        String output = scenario.getProcessor();
+ 
 
         outputTF.setText(scenario.getOutput());
         
