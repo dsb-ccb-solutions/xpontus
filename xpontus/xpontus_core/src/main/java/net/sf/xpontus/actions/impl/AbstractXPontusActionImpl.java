@@ -20,8 +20,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.actions.impl;
-
-import net.sf.xpontus.actions.*;
+ 
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,6 +33,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
+import net.sf.xpontus.actions.XPontusActionIF;
 
 
 /**

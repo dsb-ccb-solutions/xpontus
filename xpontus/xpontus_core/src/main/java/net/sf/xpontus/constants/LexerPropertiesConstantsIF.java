@@ -23,32 +23,32 @@ package net.sf.xpontus.constants;
 
 
 /**
- *
+ * The lexer's properties interface constants
  * @author Yves Zoundi
  */
 public interface LexerPropertiesConstantsIF {
     /**
-     *
+     * The lexer name property
      */
     String LEXER_NAME = "LEXER_NAME";
 
     /**
-     *
+     * The lexer description property
      */
     String LEXER_DESCRIPTION = "LEXER_DESCRIPTION";
 
     /**
-     *
+     * The lexer content type property
      */
     String CONTENT_TYPE = "CONTENT_TYPE";
 
     /**
-     *
+     * The lexer classloader property
      */
     String CLASS_LOADER = "CLASS_LOADER";
 
     /**
-     *
+     * The lexer class name property
      */
     String LEXER_CLASSNAME = "LEXER_CLASSNAME";
 }

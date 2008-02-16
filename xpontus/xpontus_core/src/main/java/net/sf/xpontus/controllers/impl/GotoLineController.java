@@ -33,26 +33,52 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class GotoLineController {
+    /**
+     * Method name to go to a line
+     */
     public static final String GOTO_LINE_METHOD = "gotoLine";
+    /**
+     * Method name to close the dialog window
+     */
     public static final String CLOSE_WINDOW_METHOD = "closeWindow";
+    
+    // private members
     private GotoLineView view;
 
+    /**
+     * Create a controller for the specified dialog
+     * @param view The dialog of this controller
+     */
     public GotoLineController(GotoLineView view) {
         setView(view);
     }
 
+    /**
+     * Returns the dialog of this controller
+     * @return The dialog of this controller
+     */
     public GotoLineView getView() {
         return view;
     }
 
+    /**
+     * Sets the dialog of this controller
+     * @param view The dialog of this controller
+     */
     public void setView(GotoLineView view) {
         this.view = view;
     }
 
+    /**
+     * Close the goto Line dialog
+     */
     public void closeWindow() {
         view.setVisible(false);
     }
 
+    /**
+     * Go to the specified line
+     */
     public void gotoLine() {
         JTextComponent edit = DefaultXPontusWindowImpl.getInstance()
                                                       .getDocumentTabContainer()

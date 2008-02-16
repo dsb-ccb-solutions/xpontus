@@ -76,13 +76,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Vector;
 
 import javax.swing.Action;
-import javax.swing.JDialog;
 import javax.swing.JWindow;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 

@@ -43,25 +43,47 @@ import javax.swing.JFileChooser;
 
 
 /**
- *
+ * @version 0.0.1
+ * The controller for the documentation generator dialog
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DocumentationControllerImpl {
+    /**
+     * The method name to select an input file
+     */
     public static final String INPUT_METHOD = "selectInput";
+    /**
+     * The method name to select an output directory
+     */
     public static final String OUTPUT_METHOD = "selectOutput";
+    /**
+     * The method name to select a css stylesheet
+     */
     public static final String CSS_METHOD = "selectCss";
+    /**
+     * The method name to close the documentation generator dialog
+     */
     public static final String CLOSE_METHOD = "closeWindow";
+    /**
+     * The method name to generate the documentation
+     */
     public static final String HANDLE_METHOD = "handle";
+    
+    // private members
     private DocumentationView view;
     private JFileChooser chooser;
 
+    /**
+     * Create a controller for the specified documentation generator dialog
+     * @param view The documentation generator dialog
+     */
     public DocumentationControllerImpl(DocumentationView view) {
         this();
         this.view = view;
     }
 
     /**
-     *
+     * Default constructor
      */
     public DocumentationControllerImpl() {
         chooser = new JFileChooser();
@@ -69,7 +91,7 @@ public class DocumentationControllerImpl {
     }
 
     /**
-     *
+     * Select a schema
      */
     public void selectInput() {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -83,7 +105,7 @@ public class DocumentationControllerImpl {
     }
 
     /**
-     *
+     * Select a output directory
      */
     public void selectOutput() {
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -97,6 +119,9 @@ public class DocumentationControllerImpl {
         }
     }
 
+    /**
+     * Select a css stylesheet
+     */
     public void selectCss() {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -109,23 +134,23 @@ public class DocumentationControllerImpl {
     }
 
     /**
-     *
-     * @return
+     * Returns the documentation generator dialog of this controller
+     * @return The documentation generator dialog of this controller
      */
     public DocumentationView getView() {
         return view;
     }
 
     /**
-     *
-     * @param view
+     * Sets the documentation generator dialog of this controller
+     * @param view The documentation generator dialog
      */
     public void setView(DocumentationView view) {
         this.view = view;
     }
 
     /**
-     *
+     * Generate the documentation for a specified schema
      */
     public void handle() {
         SwingWorker sw = new SwingWorker() {
@@ -175,15 +200,15 @@ public class DocumentationControllerImpl {
     }
 
     /**
-     *
+     * Close the documentation generator dialog
      */
     public void closeWindow() {
         view.setVisible(false);
     }
 
     /**
-     *
-     * @return
+     * Validation of user input
+     * @return Whether or not all the information has been filled to generate the documentation
      */
     public boolean isValid() {
         DocumentationModel model = view.getModel();

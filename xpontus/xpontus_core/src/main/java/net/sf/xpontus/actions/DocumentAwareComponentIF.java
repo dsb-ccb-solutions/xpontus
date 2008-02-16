@@ -28,7 +28,14 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public interface DocumentAwareComponentIF {
+    /**
+     * Add a component to the "Document aware" listeners
+     */
     public void registerComponent();
 
+    /**
+     * Notification about a document selection change
+     * @param evt An event which indicates that the selected document has changed
+     */
     public void onNotify(DocumentContainerChangeEvent evt);
 }

@@ -19,8 +19,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.plugins.scenarios;
-
-import net.sf.vfsjfilechooser.*;
+ 
 import net.sf.vfsjfilechooser.acessories.DefaultAccessoriesPanel;
 
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -37,6 +36,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
 import javax.swing.JTable;
+import net.sf.vfsjfilechooser.VFSJFileChooser;
 
 
 /**
@@ -46,42 +46,42 @@ import javax.swing.JTable;
  */
 public class ScenarioEditorController {
     /**
-     *
+     * Method name to close the scenario editing dialog
      */
     public static final String CLOSE_WINDOW_METHOD = "closeWindow";
 
     /**
-     *
+     * Method name to add a xslt parameter
      */
     public static final String ADD_PARAMETER_METHOD = "addParameter";
 
     /**
-     *
+     * Method name to edit a xslt parameter
      */
     public static final String EDIT_PARAMETER_METHOD = "editParameter";
 
     /**
-     *
+     * Method name to remove a xslt parameter
      */
     public static final String REMOVE_PARAMETER_METHOD = "removeParameter";
 
     /**
-     *
+     * Method name to select an input file
      */
     public static final String INPUT_METHOD = "selectInput";
 
     /**
-     *
+     * Method name to select an output file
      */
     public static final String OUTPUT_METHOD = "selectOutput";
 
     /**
-     *
+     * Method name to select an xsl stylesheet
      */
     public static final String SCRIPT_METHOD = "selectScript";
 
     /**
-     *
+     * Save a transformation profile to persistent storage
      */
     public static final String SAVE_METHOD = "updateScenario";
     private Log log = LogFactory.getLog(ScenarioEditorController.class);
@@ -89,8 +89,8 @@ public class ScenarioEditorController {
     private VFSJFileChooser chooser;
 
     /**
-     *
-     * @param view
+     * Create a controller for the specified scenario dialog
+     * @param view The scenario editor dialog
      */
     public ScenarioEditorController(ScenarioEditorView view) {
         this.view = view;
@@ -99,6 +99,7 @@ public class ScenarioEditorController {
         chooser.setAccessory(new DefaultAccessoriesPanel(chooser));
     }
 
+    // check if a scenario already exists with the specified name
     private boolean existsScenario(String name) {
         ScenarioManagerView m_parent = (ScenarioManagerView) view.getParent();
 
@@ -117,7 +118,7 @@ public class ScenarioEditorController {
     }
 
     /**
-     *
+     * Select an input file
      */
     public void selectInput() {
         Component c = XPontusComponentsUtils.getTopComponent()
@@ -136,7 +137,7 @@ public class ScenarioEditorController {
     }
 
     /**
-     *
+     * Select a output file
      */
     public void selectOutput() {
         initBrowser();
@@ -157,8 +158,8 @@ public class ScenarioEditorController {
     }
 
     /**
-     *
-     * @param params
+     * Update the parameters table list
+     * @param params The XSLT parameters
      */
     public void resetParameters(java.util.Hashtable params) {
         JTable table = view.getParamsTable();
@@ -180,13 +181,11 @@ public class ScenarioEditorController {
         }
 
         table.revalidate();
-        table.repaint();
-
-        System.out.println("nb params:" + model.getRowCount());
+        table.repaint(); 
     }
 
     /**
-     *
+     * Select a script or a XSL stylesheet
      */
     public void selectScript() {
         Component c = XPontusComponentsUtils.getTopComponent()
@@ -204,6 +203,11 @@ public class ScenarioEditorController {
         }
     }
 
+    /**
+     * Returns the plugin to use for the XSLT transformation 
+     * @param proc The xslt processor to use
+     * @return The plugin for the XSLT transformation
+     */
     public ScenarioPluginIF getEngineForModel(String proc) {
         List engines = ScenarioPluginsConfiguration.getInstance().getEngines();
 
@@ -221,6 +225,9 @@ public class ScenarioEditorController {
         return null;
     }
 
+    /**
+     *  Save a scenario to persistent storage
+     */
     public void updateScenario() {
         boolean isvalid = true;
 
@@ -317,23 +324,23 @@ public class ScenarioEditorController {
     }
 
     /**
-     *
-     * @return
+     * Returns the scenario dialog editor
+     * @return The scenario dialog editor
      */
     public ScenarioEditorView getView() {
         return view;
     }
 
     /**
-     *
-     * @param view
+     * Sets the scenario dialog editor
+     * @param view The scenario dialog editor
      */
     public void setView(ScenarioEditorView view) {
         this.view = view;
     }
 
     /**
-     *
+     * add an xslt parameter
      */
     public void addParameter() {
         javax.swing.table.DefaultTableModel model;
@@ -342,11 +349,14 @@ public class ScenarioEditorController {
         model.addRow(new Object[] { "", "" });
     }
 
+    /**
+     * Edit an xslt parameter
+     */
     public void editParameter() {
     }
 
     /**
-     *
+     * Remove an xslt parameter
      */
     public void removeParameter() {
         javax.swing.table.DefaultTableModel model;
@@ -359,7 +369,7 @@ public class ScenarioEditorController {
     }
 
     /**
-     *
+     * Close the editing dialog
      */
     public void closeWindow() {
         view.setVisible(false);

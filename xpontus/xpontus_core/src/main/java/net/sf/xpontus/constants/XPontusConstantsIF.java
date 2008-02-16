@@ -29,11 +29,32 @@ package net.sf.xpontus.constants;
 public interface XPontusConstantsIF extends XPontusConfigurationConstantsIF,
     XPontusFileConstantsIF, LexerPropertiesConstantsIF, XPontusMenuConstantsIF,
     XPontusPropertiesConstantsIF {
+    /**
+     * The information about a document code structure
+     */
     String OUTLINE_INFO = "OUTLINE_INFO";
+    /**
+     * The software's name
+     */
     String APPLICATION_NAME = "XPontus XML Editor";
+    /**
+     * The software's version
+     */
     String APPLICATION_VERSION = "1.0.0-pre1";
+    /**
+     * 
+     */
     String MODIFICATION_HANDLER = "MODIFICATION_HANDLER";
+    /**
+     * An object name property
+     */
     String OBJECT_NAME = "OBJECT_NAME";
+    /**
+     * An object full qualified name
+     */
     String OBJECT_CLASSNAME = "OBJECT_CLASSNAME";
+    /**
+     * The undo/redo manager
+     */
     String UNDO_MANAGER = "UNDO_MANAGER";
 }
