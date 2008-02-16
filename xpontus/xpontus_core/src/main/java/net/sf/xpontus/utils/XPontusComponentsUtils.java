@@ -26,8 +26,6 @@ import net.sf.xpontus.modules.gui.components.XPontusTopComponentIF;
 
 import java.awt.Component;
 
-import java.lang.reflect.Method;
-
 import javax.swing.JOptionPane;
 
 
@@ -47,16 +45,16 @@ public class XPontusComponentsUtils {
     }
 
     /**
-     *
-     * @param method
+     * Set the main window of this application
+     * @param method The method name to create the main window
      */
     public static void setTopComponentFactoryMethod(String method) {
         TOP_COMPONENT_FACTORY_METHOD = method;
     }
 
     /**
-     *
-     * @param message
+     * Show an information dialog
+     * @param message A message
      */
     public static void showInformationMessage(String message) {
         Component component = getTopComponent().getDisplayComponent();
@@ -65,8 +63,8 @@ public class XPontusComponentsUtils {
     }
 
     /**
-     *
-     * @param message
+     * Display an error dialog
+     * @param message A message
      */
     public static void showErrorMessage(String message) {
         Component component = getTopComponent().getDisplayComponent();
@@ -75,8 +73,8 @@ public class XPontusComponentsUtils {
     }
 
     /**
-     *
-     * @param message
+     * Show a warning dialog
+     * @param message a message
      */
     public static void showWarningMessage(String message) {
         Component component = getTopComponent().getDisplayComponent();
@@ -85,8 +83,8 @@ public class XPontusComponentsUtils {
     }
 
     /**
-     *
-     * @return
+     * Returns the main window
+     * @return The default component(The main window)
      */
     public static XPontusTopComponentIF getTopComponent() {
         return DefaultXPontusWindowImpl.getInstance();

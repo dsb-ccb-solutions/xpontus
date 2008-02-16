@@ -46,7 +46,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 
 /**
- *
+ * Utility class for XML documents
  * @author Yves Zoundi
  */
 public class XMLUtils {
@@ -71,10 +71,10 @@ public class XMLUtils {
     }
 
     /**
-     *
-     * @param text
-     * @return
-     * @throws java.lang.Exception
+     * Create a DOM document from a string
+     * @param text The document's text
+     * @return a DOM Document
+     * @throws java.lang.Exception parsing exception
      */
     public static Document createDomDocument(String text)
         throws Exception {
@@ -91,10 +91,10 @@ public class XMLUtils {
     }
 
     /**
-     *
-     * @param xmlFile
-     * @return
-     * @throws java.lang.Exception
+     * Create a DOM document from a file
+     * @param xmlFile The input file
+     * @return a DOM document
+     * @throws java.lang.Exception a parsing exception
      */
     public static Document createDomDocument(File xmlFile)
         throws Exception {
@@ -127,9 +127,9 @@ public class XMLUtils {
     }
 
     /**
-     *
-     * @param is
-     * @return
+     * Validate a stream
+     * @param is The input stream
+     * @return whether or not the input stream is valid
      */
     public static boolean isValid(InputStream is) {
         boolean valid = true;
@@ -137,6 +137,7 @@ public class XMLUtils {
         try {
             SAXParserFactory spf = SAXParserFactory.newInstance();
             SAXParser saxParser = spf.newSAXParser();
+            
             saxParser.parse(is, new DefaultHandler());
         } catch (Exception e) {
             valid = false;
