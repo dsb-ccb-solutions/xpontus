@@ -127,10 +127,11 @@ public class DocumentTabContainer {
 
                         if (mh != null) {
                             if (mh.equals(Boolean.TRUE)) {
-                                //                                saveAction.execute();
+                                saveAction.execute();
                             }
                         }
 
+                         
                         if (editors.size() == 1) {
                             editor.getDockKey()
                                   .setDockableState(DockableState.STATE_CLOSED);
@@ -155,7 +156,7 @@ public class DocumentTabContainer {
                             DocumentAwareComponentHolder.getInstance()
                                                         .notifyComponents(new DocumentContainerChangeEvent(
                                     editor));
-                            editors.remove(editor);
+                            editors.remove(editor); 
                         }
                     } else if ((current != null) &&
                             (current.getDockable() instanceof OutlineViewDockable) &&
