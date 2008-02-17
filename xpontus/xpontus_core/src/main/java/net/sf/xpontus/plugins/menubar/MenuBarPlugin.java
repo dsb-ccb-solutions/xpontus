@@ -21,10 +21,12 @@
  */
 package net.sf.xpontus.plugins.menubar;
 
+import net.sf.xpontus.actions.impl.*;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.XPontusPlugin;
+import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.properties.PropertiesHolder;
 
 import org.java.plugin.PluginManager;
@@ -40,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.Action;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -67,7 +70,7 @@ public class MenuBarPlugin extends XPontusPlugin {
      * @param menu_key  The menu key
      * @return A menu
      */
-    private JMenu getOrCreateMenu(String menu_key) {
+    public JMenu getOrCreateMenu(String menu_key) {
         newmenu = false;
 
         JMenu menu = null;
@@ -109,12 +112,11 @@ public class MenuBarPlugin extends XPontusPlugin {
             List actions = (List) map.get(m_MenuKey);
 
             for (int j = 0; j < actions.size(); j++) {
-                JMenuItem item = menu.add((Action) actions.get(j));
-
-                //                item.setIcon(null);
+               menu.add((Action) actions.get(j)); 
             }
         }
     }
+ 
 
     public void init() throws Exception {
         JMenu menu = null;

@@ -23,7 +23,6 @@ package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
-import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 
 /**

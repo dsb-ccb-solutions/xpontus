@@ -24,6 +24,7 @@ package net.sf.xpontus.actions.impl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.utils.FileHistoryList;
 
 import org.apache.commons.vfs.FileObject;
 
@@ -67,6 +68,8 @@ public class SaveActionImpl extends DefaultDocumentAwareActionImpl {
             // the file has a location (it is not new)
             else {
                 FileObject fo = (FileObject) o;
+
+                FileHistoryList.addFile(fo.getName().getURI());
 
                 OutputStream bos = fo.getContent().getOutputStream();
 

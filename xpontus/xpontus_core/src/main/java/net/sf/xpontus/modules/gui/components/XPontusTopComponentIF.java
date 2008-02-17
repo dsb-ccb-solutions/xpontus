@@ -22,6 +22,7 @@
 package net.sf.xpontus.modules.gui.components;
 
 import java.awt.Component;
+import net.sf.xpontus.plugins.ioc.IOCPlugin;
 
 
 /**
@@ -51,6 +52,8 @@ public interface XPontusTopComponentIF {
      * activate the component
      */
     void activateComponent();
+    
+    public void setIOCContainer(IOCPlugin container);
 
     /**
      * deactivate the component

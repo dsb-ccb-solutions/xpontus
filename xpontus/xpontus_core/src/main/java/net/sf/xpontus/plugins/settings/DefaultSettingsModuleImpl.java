@@ -23,12 +23,14 @@ package net.sf.xpontus.plugins.settings;
 
 import com.vlsolutions.swing.docking.DefaultDockableContainerFactory;
 import com.vlsolutions.swing.docking.DockableContainerFactory;
-
 import com.vlsolutions.swing.docking.TabbedDockableContainer;
+
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
 import net.sf.xpontus.properties.PropertiesHolder;
+import net.sf.xpontus.utils.FileHistoryList;
+import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -43,11 +45,9 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import java.util.Properties;
+
 import javax.swing.UIManager;
-import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
-import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 
 /**
@@ -126,8 +126,9 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
         PropertiesHolder.registerProperty(XPontusSettings.KEY, map);
 
         DockableContainerFactory.setFactory(new XPontusDockableContainerFactory());
-        
-        
+
+        FileHistoryList.init();
+
         initDefaultSettings();
     }
 
@@ -140,6 +141,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     }
 
     public void shutdown() {
+        FileHistoryList.save();
     }
 
     /**
@@ -161,39 +163,21 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
 
     private void initDefaultSettings() {
         Properties props = null;
-        
+
         props = PropertiesConfigurationLoader.load(XPontusConstantsIF.GENERAL_PREFERENCES_FILE);
-        
+
         Iterator it = props.keySet().iterator();
-        while(it.hasNext()){
+
+        while (it.hasNext()) {
             Object key = it.next();
             Object value = props.get(key);
             UIManager.put(key, value);
         }
-        
-        
-        
-//        showSplashScreenOnStartup=true
-//showTipsOnStartup=true
-//showConfirmDialogOnExit=true
-//defaultTheme=Default
-//defaultIconSet=Default
-//ToolbarIcons=Buttons and icons
-//MenuBarLookAndFeel=Text and icons
-        
-        
-        UIManager.put("", "");
-        
-        
-        
-        
-        
-        
     }
 
     public class XPontusDockableContainerFactory
         extends DefaultDockableContainerFactory {
-        public TabbedDockableContainer createTabbedDockableContainer() { 
+        public TabbedDockableContainer createTabbedDockableContainer() {
             return new DockTabbedPane2();
         }
     }

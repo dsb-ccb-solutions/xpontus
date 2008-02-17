@@ -42,7 +42,7 @@ public interface XPontusMenuConstantsIF {
      * The help menu id
      */
     String HELP_MENU_ID = "HELP_MENU_ID";
-    
+
     /**
      * The view menu ID
      */
@@ -67,13 +67,14 @@ public interface XPontusMenuConstantsIF {
      * The menu ids array
      */
     String[] MENU_IDS = {
-            FILE_MENU_ID, EDIT_MENU_ID, TOOLS_MENU_ID, OPTIONS_MENU_ID,
+            FILE_MENU_ID, EDIT_MENU_ID, VIEW_MENU_ID, TOOLS_MENU_ID, OPTIONS_MENU_ID,
             WINDOW_MENU_ID, HELP_MENU_ID
         };
 
     /**
      * The menu titles (to be replace with i18n keys)
      */
-    String[] MENU_TITLES = { "File", "Edit", "Tools", "Options", "Window", "Help" };
-    
+    String[] MENU_TITLES = {
+            "File", "Edit", "View", "Tools", "Options", "Window", "Help"
+        };
 }

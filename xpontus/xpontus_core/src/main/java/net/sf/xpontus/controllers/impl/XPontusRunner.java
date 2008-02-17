@@ -22,8 +22,8 @@
  *
  */
 package net.sf.xpontus.controllers.impl;
- 
 
+import net.sf.xpontus.actions.impl.*;
 import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 import net.sf.xpontus.actions.impl.CopyActionImpl;
 import net.sf.xpontus.actions.impl.CreateNewFileActionImpl;
@@ -35,9 +35,12 @@ import net.sf.xpontus.actions.impl.PasteActionImpl;
 import net.sf.xpontus.actions.impl.PrintActionImpl;
 import net.sf.xpontus.actions.impl.RedoActionImpl;
 import net.sf.xpontus.actions.impl.SaveActionImpl;
-import net.sf.xpontus.actions.impl.SaveAsActionImpl;
 import net.sf.xpontus.actions.impl.SelectAllActionImpl;
 import net.sf.xpontus.actions.impl.UndoActionImpl;
+import net.sf.xpontus.actions.impl.ViewMessagesWindowActionImpl;
+import net.sf.xpontus.actions.impl.ViewOutlineWindowActionImpl;
+import net.sf.xpontus.actions.impl.ViewToolbarActionImpl;
+import net.sf.xpontus.actions.impl.ViewXPathWindowActionImpl;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -79,6 +82,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.Action;
+import javax.swing.JMenu;
 import javax.swing.JWindow;
 import javax.swing.UIManager;
 
@@ -215,18 +219,32 @@ public class XPontusRunner {
 
         final IOCPlugin iocPlugin = (IOCPlugin) manager.getPlugin(IOCPlugin.PLUGIN_IDENTIFIER);
 
+        DefaultXPontusWindowImpl.getInstance().setIOCContainer(iocPlugin);
+
         if (iocPlugin.getContainer() != null) {
             final String[] actions = {
                     CreateNewFileActionImpl.BEAN_ALIAS,
-                    OpenActionImpl.BEAN_ALIAS, SaveActionImpl.BEAN_ALIAS,
-                    SaveAsActionImpl.BEAN_ALIAS, PrintActionImpl.BEAN_ALIAS,
-                    ExitActionImpl.BEAN_ALIAS
+                    OpenActionImpl.BEAN_ALIAS, 
+                    SaveActionImpl.BEAN_ALIAS, SaveAsActionImpl.BEAN_ALIAS,
+                    PrintActionImpl.BEAN_ALIAS, ExitActionImpl.BEAN_ALIAS
                 };
 
             final Object[] actionsList = new Object[actions.length];
 
             for (int j = 0; j < actions.length; j++) {
                 actionsList[j] = iocPlugin.getBean(actions[j]);
+            }
+
+            final String[] viewActions = {
+                    ViewToolbarActionImpl.BEAN_ALIAS,
+                    ViewOutlineWindowActionImpl.BEAN_ALIAS,
+                    ViewMessagesWindowActionImpl.BEAN_ALIAS,
+                    ViewXPathWindowActionImpl.BEAN_ALIAS
+                };
+            final Object[] viewActionsList = new Object[viewActions.length];
+
+            for (int i = 0; i < viewActions.length; i++) {
+                viewActionsList[i] = iocPlugin.getBean(viewActions[i]);
             }
 
             final String[] editActions = {
@@ -283,6 +301,9 @@ public class XPontusRunner {
             MenuBarPluginIF editMenuExt = createMenuExtension(XPontusMenuConstantsIF.EDIT_MENU_ID,
                     editActionsList);
 
+            MenuBarPluginIF viewMenuExt = createMenuExtension(XPontusMenuConstantsIF.VIEW_MENU_ID,
+                    viewActionsList);
+
             MenuBarPluginIF toolMenuExt = new MenuBarPluginIF() {
                     public List getMenuNames() {
                         return Arrays.asList(new String[] {
@@ -318,6 +339,13 @@ public class XPontusRunner {
             menubarPlugin.initExtension(toolMenuExt);
             menubarPlugin.initExtension(optionsMenuExt);
             menubarPlugin.initExtension(editMenuExt);
+            menubarPlugin.initExtension(viewMenuExt);
+            
+            JMenu recentFilesMenu = new JMenu("Recent files");
+            AbstractXPontusActionImpl rAction= new RecentFilesActionImpl(recentFilesMenu);            
+            recentFilesMenu.addActionListener(rAction);
+            JMenu parent = menubarPlugin.getOrCreateMenu(XPontusMenuConstantsIF.FILE_MENU_ID);
+            parent.add(recentFilesMenu);
 
             // the toolbar extension
             ToolBarPluginIF fileToolBarExt = createToolbarExtension(XPontusToolbarConstantsIF.TB_GENERAL,
@@ -370,7 +398,5 @@ public class XPontusRunner {
         window.activateComponent();
 
         final Class m_class = settings.getClass();
-
-        
     }
 }

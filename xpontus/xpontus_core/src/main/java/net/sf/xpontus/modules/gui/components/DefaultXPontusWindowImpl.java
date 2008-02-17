@@ -30,6 +30,7 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
 import net.sf.xpontus.actions.impl.ExitActionImpl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 
+import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import org.apache.commons.lang.text.StrBuilder;
 
 import java.awt.BorderLayout;
@@ -40,6 +41,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import java.net.URL;
+
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
@@ -51,6 +53,7 @@ import javax.swing.SwingUtilities;
  */
 public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
     private static DefaultXPontusWindowImpl INSTANCE;
+    private IOCPlugin iocContainer;
     private JMenuBar menubar;
     private DockingDesktop desktop;
     private JStatusBar statusbar;
@@ -67,7 +70,9 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         super();
 
         frame = new JFrame();
-        URL logoURL = getClass().getResource("/net/sf/xpontus/icons/icone.png");
+
+        URL logoURL = getClass()
+                          .getResource("/net/sf/xpontus/icons/icone.png");
         frame.setIconImage(Toolkit.getDefaultToolkit().createImage(logoURL));
 
         frame.addWindowListener(new WindowAdapter() {
@@ -77,11 +82,13 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
             });
 
         StrBuilder b = new StrBuilder();
+
         b.append(XPontusConstantsIF.APPLICATION_NAME);
         b.append(" ");
-        b.append(XPontusConstantsIF.APPLICATION_VERSION +
-            " 2008 SNAPSHOT EDITION");
+        b.append(XPontusConstantsIF.APPLICATION_VERSION);
+        b.append(" 2008 SNAPSHOT EDITION");
         WINDOW_TITLE = b.toString();
+
         frame.setTitle(WINDOW_TITLE);
         initComponents();
     }
@@ -162,14 +169,10 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         // create the menubar
         menubar = new JMenuBar();
 
-        //        pane = new DefaultPane();
+        // create the toolbar
         toolbar = ToolBarContainer.createDefaultContainer(true, true, true, true);
 
-        final DockTabbedPane dtp = new DockTabbedPane();
-        Dimension dim = new Dimension(600, 400);
-        dtp.setMinimumSize(dim);
-        dtp.setPreferredSize(dim);
-
+        // default pane
         pane = new DefaultPane();
 
         // add the pane to the desktop
@@ -238,5 +241,13 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
     /** deactivate the main window */
     public void deactivateComponent() {
         frame.setVisible(false);
+    }
+
+    public IOCPlugin getIOCContainer(){
+        return this.iocContainer;
+    }
+    
+    public void setIOCContainer(IOCPlugin container) {
+       this.iocContainer = container;
     }
 }

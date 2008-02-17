@@ -25,15 +25,25 @@ import com.vlsolutions.swing.docking.DockGroup;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.docking.DockingUtilities;
+import com.vlsolutions.swing.docking.TabbedDockableContainer;
 import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
 import com.vlsolutions.swing.docking.event.DockableSelectionListener;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
 import com.vlsolutions.swing.docking.event.DockableStateWillChangeListener;
 
+import net.sf.xpontus.actions.impl.SaveActionImpl;
+import net.sf.xpontus.actions.impl.ViewMessagesWindowActionImpl;
+import net.sf.xpontus.actions.impl.ViewOutlineWindowActionImpl;
+import net.sf.xpontus.actions.impl.ViewXPathWindowActionImpl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.constants.XPontusFileConstantsIF;
+import net.sf.xpontus.plugins.evaluator.XPathResultsDockable;
+import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.syntax.SyntaxDocument;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
+import net.sf.xpontus.utils.FileHistoryList;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.vfs.FileObject;
@@ -108,6 +118,18 @@ public class DocumentTabContainer {
                             (current.getDockable() instanceof DocumentContainer) &&
                             event.getFutureState().isClosed()) {
                         DocumentContainer editor = (DocumentContainer) current.getDockable();
+                        SaveActionImpl saveAction = (SaveActionImpl) DefaultXPontusWindowImpl.getInstance()
+                                                                                             .getIOCContainer()
+                                                                                             .getBean(SaveActionImpl.BEAN_ALIAS);
+
+                        Object mh = editor.getEditorComponent()
+                                          .getClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED);
+
+                        if (mh != null) {
+                            if (mh.equals(Boolean.TRUE)) {
+                                saveAction.execute();
+                            }
+                        }
 
                         if (editors.size() == 1) {
                             editor.getDockKey()
@@ -135,6 +157,27 @@ public class DocumentTabContainer {
                                     editor));
                             editors.remove(editor);
                         }
+                    } else if ((current != null) &&
+                            (current.getDockable() instanceof OutlineViewDockable) &&
+                            event.getFutureState().isClosed()) {
+                        IOCPlugin iocContainer = DefaultXPontusWindowImpl.getInstance()
+                                                                         .getIOCContainer();
+                        ViewOutlineWindowActionImpl m_action = (ViewOutlineWindowActionImpl) iocContainer.getBean(ViewOutlineWindowActionImpl.BEAN_ALIAS);
+                        m_action.setName("Show outline");
+                    } else if ((current != null) &&
+                            (current.getDockable() instanceof MessagesWindowDockable) &&
+                            event.getFutureState().isClosed()) {
+                        IOCPlugin iocContainer = DefaultXPontusWindowImpl.getInstance()
+                                                                         .getIOCContainer();
+                        ViewMessagesWindowActionImpl m_action = (ViewMessagesWindowActionImpl) iocContainer.getBean(ViewMessagesWindowActionImpl.BEAN_ALIAS);
+                        m_action.setName("Show Messages window");
+                    } else if ((current != null) &&
+                            (current.getDockable() instanceof XPathResultsDockable) &&
+                            event.getFutureState().isClosed()) {
+                        IOCPlugin iocContainer = DefaultXPontusWindowImpl.getInstance()
+                                                                         .getIOCContainer();
+                        ViewXPathWindowActionImpl m_action = (ViewXPathWindowActionImpl) iocContainer.getBean(ViewXPathWindowActionImpl.BEAN_ALIAS);
+                        m_action.setName("Show XPath window");
                     }
                 }
             });
@@ -253,10 +296,35 @@ public class DocumentTabContainer {
             return;
         }
 
-        DocumentContainer container = new DocumentContainer();
-        container.setup(fo);
-        container.completeSetup();
-        setupEditor(container);
+        FileHistoryList.addFile(fo.getName().getURI());
+
+        DocumentContainer[] openEditors = getEditorsAsArray();
+        DocumentContainer alreadyOpened = null;
+
+        for (DocumentContainer dct : openEditors) {
+            Object obj = dct.getEditorComponent()
+                            .getClientProperty(XPontusConstantsIF.FILE_OBJECT);
+
+            if ((obj != null) && obj.equals(fo)) {
+                alreadyOpened = dct;
+
+                break;
+            }
+        }
+
+        if (alreadyOpened != null) {
+            TabbedDockableContainer dockableContainer = DockingUtilities.findTabbedDockableContainer(alreadyOpened);
+
+            if (dockableContainer != null) {
+                dockableContainer.setSelectedDockable(alreadyOpened);
+                alreadyOpened.getEditorComponent().grabFocus();
+            }
+        } else {
+            DocumentContainer container = new DocumentContainer();
+            container.setup(fo);
+            container.completeSetup();
+            setupEditor(container);
+        }
     }
 
     /**

@@ -66,8 +66,7 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
     }
 
     private void initComponents() {
-        if (dialog == null) { 
-
+        if (dialog == null) {
             try {
                 if (windowClassLoader != null) {
                     dialog = (JDialog) Class.forName(dialogClassName, true,

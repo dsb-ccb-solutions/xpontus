@@ -43,7 +43,7 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi
  */
 public class ModificationHandler implements DocumentListener, CaretListener {
-    private DocumentContainer editor;
+    private DocumentContainer editor; 
 
     /** Creates a new instance of ModificationHandler
      * @param editor the document container

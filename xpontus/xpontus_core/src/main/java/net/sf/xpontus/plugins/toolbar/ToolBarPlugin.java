@@ -26,6 +26,7 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
 import com.vlsolutions.swing.toolbars.ToolBarPanel;
 import com.vlsolutions.swing.toolbars.VLToolBar;
 
+import net.sf.xpontus.actions.impl.*;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.XPontusPlugin;
 
@@ -136,9 +137,14 @@ public class ToolBarPlugin extends XPontusPlugin {
             List tbActions = (List) actions.get(tbNames[i]);
 
             for (int j = 0; j < tbActions.size(); j++) {
-                JButton m_button = new JButton((Action) tbActions.get(j));
-                m_button.setBorder(null);
-                tb.add(m_button);
+                Action m_action = (Action) tbActions.get(j);
+
+                if (!m_action.getClass().getName()
+                                 .equals(RecentFilesActionImpl.class.getName())) {
+                    JButton m_button = new JButton(m_action);
+                    m_button.setBorder(null);
+                    tb.add(m_button);
+                }
             }
         }
     }

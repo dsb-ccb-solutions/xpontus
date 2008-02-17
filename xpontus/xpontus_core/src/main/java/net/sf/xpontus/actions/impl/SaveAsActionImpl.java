@@ -34,18 +34,15 @@ import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.VFS;
-import org.apache.commons.vfs.provider.local.LocalFile;
 
 import java.awt.Toolkit;
 
-import java.io.File;
 import java.io.OutputStream;
 
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.utils.FileHistoryList;
 
 
 /**
@@ -114,6 +111,7 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
 
         OutputStream bos = fo.getContent().getOutputStream();
 
+         FileHistoryList.addFile(fo.getName().getURI());
         bos.write(editor.getText().getBytes());
         bos.flush();
         bos.close();
