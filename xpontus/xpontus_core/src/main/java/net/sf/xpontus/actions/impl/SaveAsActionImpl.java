@@ -30,19 +30,21 @@ import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
+import net.sf.xpontus.utils.FileHistoryList;
 import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.provider.local.LocalFile;
 
 import java.awt.Toolkit;
 
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.utils.FileHistoryList;
 
 
 /**
@@ -109,9 +111,15 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
                                                         .getDocumentTabContainer()
                                                         .getCurrentEditor();
 
-        OutputStream bos = fo.getContent().getOutputStream();
+        OutputStream bos = null;
 
-         FileHistoryList.addFile(fo.getName().getURI());
+        if (fo instanceof LocalFile) {
+            bos = new FileOutputStream(fo.getName().getPath());
+        } else {
+            fo.getContent().getOutputStream();
+        }
+
+        FileHistoryList.addFile(fo.getName().getURI());
         bos.write(editor.getText().getBytes());
         bos.flush();
         bos.close();

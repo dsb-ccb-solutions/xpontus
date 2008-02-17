@@ -27,7 +27,9 @@ import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.utils.FileHistoryList;
 
 import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.provider.local.LocalFile;
 
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import javax.swing.JFileChooser;
@@ -64,14 +66,20 @@ public class SaveActionImpl extends DefaultDocumentAwareActionImpl {
             // a new file with no recorded location
             if (o == null) {
                 new SaveAsActionImpl().execute();
-            }
-            // the file has a location (it is not new)
+            } 
+            // save existing file
             else {
                 FileObject fo = (FileObject) o;
 
                 FileHistoryList.addFile(fo.getName().getURI());
 
-                OutputStream bos = fo.getContent().getOutputStream();
+                OutputStream bos = null;
+
+                if (fo instanceof LocalFile) {
+                    bos = new FileOutputStream(fo.getName().getPath());
+                } else {
+                    bos = fo.getContent().getOutputStream();
+                }
 
                 bos.write(editor.getText().getBytes());
 
