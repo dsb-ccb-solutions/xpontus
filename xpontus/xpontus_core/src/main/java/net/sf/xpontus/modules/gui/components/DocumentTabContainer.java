@@ -65,6 +65,7 @@ public class DocumentTabContainer {
     private boolean actionsEnabled = false;
     private DockingDesktop desktop;
     private JTextComponent currentEditor;
+    private boolean closeAccepted = false;
     private Dockable currentDockable;
 
     /** Creates a new instance of EditorTabContainer
@@ -110,6 +111,10 @@ public class DocumentTabContainer {
                 }
             });
         desktop.addDockableStateWillChangeListener(new DockableStateWillChangeListener() {
+                public boolean isAccepted() {
+                    return closeAccepted;
+                }
+
                 public void dockableStateWillChange(
                     DockableStateWillChangeEvent event) {
                     DockableState current = event.getCurrentState();
@@ -117,6 +122,8 @@ public class DocumentTabContainer {
                     if ((current != null) &&
                             (current.getDockable() instanceof DocumentContainer) &&
                             event.getFutureState().isClosed()) {
+                        closeAccepted = false;
+
                         DocumentContainer editor = (DocumentContainer) current.getDockable();
                         SaveActionImpl saveAction = (SaveActionImpl) DefaultXPontusWindowImpl.getInstance()
                                                                                              .getIOCContainer()
@@ -127,11 +134,12 @@ public class DocumentTabContainer {
 
                         if (mh != null) {
                             if (mh.equals(Boolean.TRUE)) {
-                                saveAction.execute();
+                                saveAction.saveDocument();
                             }
                         }
 
-                         
+                        closeAccepted = true;
+
                         if (editors.size() == 1) {
                             editor.getDockKey()
                                   .setDockableState(DockableState.STATE_CLOSED);
@@ -156,7 +164,7 @@ public class DocumentTabContainer {
                             DocumentAwareComponentHolder.getInstance()
                                                         .notifyComponents(new DocumentContainerChangeEvent(
                                     editor));
-                            editors.remove(editor); 
+                            editors.remove(editor);
                         }
                     } else if ((current != null) &&
                             (current.getDockable() instanceof OutlineViewDockable) &&

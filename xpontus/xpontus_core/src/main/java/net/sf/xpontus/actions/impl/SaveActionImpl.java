@@ -33,6 +33,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
 
 
@@ -41,7 +42,7 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class SaveActionImpl extends DefaultDocumentAwareActionImpl {
+public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.save";
     private JFileChooser chooser = null;
 
@@ -52,10 +53,24 @@ public class SaveActionImpl extends DefaultDocumentAwareActionImpl {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     }
 
+    public void saveDocument() {
+         JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
+                                                            .getDocumentTabContainer()
+                                                            .getCurrentEditor();
+         
+        int rep = JOptionPane.showConfirmDialog(DefaultXPontusWindowImpl.getInstance()
+                                                                        .getDisplayComponent(),
+               "The file has been modified", "Save document?", JOptionPane.YES_NO_OPTION);
+
+        if (rep == JOptionPane.YES_OPTION) {
+            execute();
+        }
+    }
+
     /**
      *  Save the document
      */
-    public void run() {
+    public void execute() {
         try {
             JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
                                                             .getDocumentTabContainer()
@@ -66,7 +81,7 @@ public class SaveActionImpl extends DefaultDocumentAwareActionImpl {
             // a new file with no recorded location
             if (o == null) {
                 new SaveAsActionImpl().execute();
-            } 
+            }
             // save existing file
             else {
                 FileObject fo = (FileObject) o;

@@ -30,6 +30,7 @@ import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.FileHistoryList;
 import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -52,7 +53,7 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
+public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.saveas";
     private VFSJFileChooser chooser;
 
@@ -64,19 +65,26 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
      *
      * Save the document under a new name
      */
-    public void run() {
+    public void execute() {
         if (chooser == null) {
             chooser = new VFSJFileChooser();
         }
 
+        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
+                                                           .getDocumentTabContainer();
+
+        chooser.setDialogTitle("Save " +
+            dtc.getCurrentDockable().getDockKey().getName());
+
+        doSave();
+    }
+
+    public void doSave() {
         int answer = chooser.showSaveDialog(XPontusComponentsUtils.getTopComponent()
                                                                   .getDisplayComponent());
 
         // open the selected files
         if (answer == VFSJFileChooser.APPROVE_OPTION) {
-            DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                               .getDocumentTabContainer();
-
             try {
                 FileObject dest = chooser.getSelectedFile();
 
@@ -89,6 +97,8 @@ public class SaveAsActionImpl extends DefaultDocumentAwareActionImpl {
 
                     if (rep == JOptionPane.YES_OPTION) {
                         save(dest);
+                    } else {
+                        doSave();
                     }
                 } else {
                     save(dest);
