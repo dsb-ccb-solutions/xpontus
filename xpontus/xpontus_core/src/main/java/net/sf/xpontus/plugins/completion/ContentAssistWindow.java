@@ -135,8 +135,7 @@ public class ContentAssistWindow {
         int endOffset = off;
 
         List tokens = mDoc.getTokenListForLine(lineIndex);
-
-        Token previousToken = null;
+ 
         Token currentToken = null;
         Token tagToken = null;
 
@@ -149,23 +148,11 @@ public class ContentAssistWindow {
                 break;
             }
 
-            if (currentToken.kind == 15) {
-                tagToken = currentToken;
-            }
-
-            if (tagToken != null) {
-                if (currentToken.image.equals("<")) {
-                    inside = true;
-                } else if (currentToken.image.equals(">")) {
-                    inside = false;
-                }
-            }
-
-            previousToken = currentToken;
+           
         }
 
-        if (tagToken != null) {
-            if (inside) {
+        if (tagToken!=null) {
+            if(tagToken.kind == 15){ 
                 return tagToken.image;
             }
         }
@@ -183,7 +170,7 @@ public class ContentAssistWindow {
         if (str.equals(">")) {
             completeEndTag(editor, off, str, set);
         } else if (str.equals(" ")) {
-            String tagCompletionName = tagInside(editor.getDocument(), off);
+            String tagCompletionName = null;//tagInside(editor.getDocument(), off);
 
             if (tagCompletionName != null) {
                 List attributeCompletion = contentAssist.getAttributesCompletionList(tagCompletionName);
