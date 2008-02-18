@@ -11,6 +11,8 @@ import net.sf.xpontus.syntax.Token;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
+import java.text.Collator;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JList;
@@ -181,6 +183,7 @@ public class ContentAssistWindow {
                 }
 
                 try {
+                     Collections.sort(completionData, new SimpleComparator());
                     completionList = new javax.swing.JList(completionData.toArray());
 
                     final int offset = off;
@@ -236,7 +239,7 @@ public class ContentAssistWindow {
                                 }
                             }
                         });
-                    completionList.setSelectedIndex(0);
+                    completionList.setSelectedIndex(0); 
 
                     javax.swing.JScrollPane completionPane = new javax.swing.JScrollPane(completionList);
 
@@ -259,6 +262,7 @@ public class ContentAssistWindow {
             }
 
             try {
+                Collections.sort(completionData, new SimpleComparator());
                 completionList = new javax.swing.JList(completionData.toArray());
 
                 final int offset = off;

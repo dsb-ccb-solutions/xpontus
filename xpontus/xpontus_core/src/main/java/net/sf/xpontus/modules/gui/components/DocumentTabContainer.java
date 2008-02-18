@@ -51,6 +51,7 @@ import org.apache.commons.vfs.FileObject;
 import java.util.Iterator;
 import java.util.Vector;
 
+import javax.swing.SwingUtilities;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -96,7 +97,7 @@ public class DocumentTabContainer {
                         currentEditor.requestFocusInWindow();
                         currentEditor.requestFocus();
                         currentEditor.grabFocus();
-                        
+
                         currentEditor.setCaretPosition(currentEditor.getCaretPosition());
 
                         SyntaxDocument m_doc = (SyntaxDocument) currentEditor.getDocument();
@@ -271,9 +272,11 @@ public class DocumentTabContainer {
                 desk.maximize(editor);
             } else {
                 desk.createTab(lastDockable, editor, (last + 1), true);
-                
             }
-            editor.getEditorComponent().setCaretPosition( editor.getEditorComponent().getCaretPosition());
+
+            editor.getEditorComponent()
+                  .setCaretPosition(editor.getEditorComponent()
+                                          .getCaretPosition());
             editor.getEditorComponent().grabFocus();
         }
 
@@ -289,6 +292,20 @@ public class DocumentTabContainer {
         DocumentAwareComponentHolder.getInstance()
                                     .notifyComponents(new DocumentContainerChangeEvent(
                 editor));
+
+        final SyntaxDocument mDoc = (SyntaxDocument) editor.getEditorComponent()
+                                                           .getDocument();
+
+        if (mDoc.getCodeCompletion() != null) {
+            Thread m_worker = new Thread() {
+                    public void run() {
+                        mDoc.getCodeCompletion().init(mDoc);
+                    }
+                };
+
+            m_worker.setPriority(Thread.MIN_PRIORITY);
+            SwingUtilities.invokeLater(m_worker);
+        }
     }
 
     /**
