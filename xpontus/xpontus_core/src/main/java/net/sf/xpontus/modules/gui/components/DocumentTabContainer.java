@@ -79,18 +79,30 @@ public class DocumentTabContainer {
                     Dockable selectedDockable = e.getSelectedDockable();
 
                     if (selectedDockable == null) {
+                        DefaultXPontusWindowImpl.getInstance().getOutline()
+                                                .updateAll(new DefaultMutableTreeNode());
+
                         return;
                     }
 
                     if (selectedDockable instanceof DocumentContainer) {
                         DocumentContainer container = (DocumentContainer) selectedDockable;
+                        container.getEditorComponent().grabFocus();
 
                         currentDockable = selectedDockable;
 
                         currentEditor = container.getEditorComponent();
 
+                        currentEditor.requestFocusInWindow();
+                        currentEditor.requestFocus();
+                        currentEditor.grabFocus();
+                        
+                        currentEditor.setCaretPosition(currentEditor.getCaretPosition());
+
                         SyntaxDocument m_doc = (SyntaxDocument) currentEditor.getDocument();
                         Object o = m_doc.getProperty(XPontusConstantsIF.OUTLINE_INFO);
+
+                        System.out.println("OUtline not empty:" + (o != null));
 
                         if (o != null) {
                             DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
@@ -104,9 +116,6 @@ public class DocumentTabContainer {
                         DocumentAwareComponentHolder.getInstance()
                                                     .notifyComponents(new DocumentContainerChangeEvent(
                                 container));
-
-                        currentEditor.requestFocus();
-                        currentEditor.grabFocus();
                     }
                 }
             });
@@ -262,7 +271,10 @@ public class DocumentTabContainer {
                 desk.maximize(editor);
             } else {
                 desk.createTab(lastDockable, editor, (last + 1), true);
+                
             }
+            editor.getEditorComponent().setCaretPosition( editor.getEditorComponent().getCaretPosition());
+            editor.getEditorComponent().grabFocus();
         }
 
         editors.add(editor);

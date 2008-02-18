@@ -103,7 +103,9 @@ public class DocumentContainer implements Dockable {
         editor = new JEditorPane();
 
         editor.setRequestFocusEnabled(true);
+        editor.setFocusable(true);
         status = new JStatusBar();
+        editor.setCaretPosition(0);
  
 
         scrollPane = new JScrollPane(editor);
