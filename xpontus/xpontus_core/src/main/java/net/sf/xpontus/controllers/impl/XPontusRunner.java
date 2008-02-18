@@ -23,7 +23,7 @@
  */
 package net.sf.xpontus.controllers.impl;
 
-import net.sf.xpontus.actions.impl.*;
+import net.sf.xpontus.actions.impl.AbstractXPontusActionImpl;
 import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 import net.sf.xpontus.actions.impl.CopyActionImpl;
 import net.sf.xpontus.actions.impl.CreateNewFileActionImpl;
@@ -33,8 +33,10 @@ import net.sf.xpontus.actions.impl.IndentContentActionImpl;
 import net.sf.xpontus.actions.impl.OpenActionImpl;
 import net.sf.xpontus.actions.impl.PasteActionImpl;
 import net.sf.xpontus.actions.impl.PrintActionImpl;
+import net.sf.xpontus.actions.impl.RecentFilesActionImpl;
 import net.sf.xpontus.actions.impl.RedoActionImpl;
 import net.sf.xpontus.actions.impl.SaveActionImpl;
+import net.sf.xpontus.actions.impl.SaveAsActionImpl;
 import net.sf.xpontus.actions.impl.SelectAllActionImpl;
 import net.sf.xpontus.actions.impl.UndoActionImpl;
 import net.sf.xpontus.actions.impl.ViewMessagesWindowActionImpl;
@@ -224,9 +226,9 @@ public class XPontusRunner {
         if (iocPlugin.getContainer() != null) {
             final String[] actions = {
                     CreateNewFileActionImpl.BEAN_ALIAS,
-                    OpenActionImpl.BEAN_ALIAS, 
-                    SaveActionImpl.BEAN_ALIAS, SaveAsActionImpl.BEAN_ALIAS,
-                    PrintActionImpl.BEAN_ALIAS, ExitActionImpl.BEAN_ALIAS
+                    OpenActionImpl.BEAN_ALIAS, SaveActionImpl.BEAN_ALIAS,
+                    SaveAsActionImpl.BEAN_ALIAS, PrintActionImpl.BEAN_ALIAS,
+                    ExitActionImpl.BEAN_ALIAS
                 };
 
             final Object[] actionsList = new Object[actions.length];
@@ -340,10 +342,11 @@ public class XPontusRunner {
             menubarPlugin.initExtension(optionsMenuExt);
             menubarPlugin.initExtension(editMenuExt);
             menubarPlugin.initExtension(viewMenuExt);
-            
+
             JMenu recentFilesMenu = new JMenu("Recent files");
-            AbstractXPontusActionImpl rAction= new RecentFilesActionImpl(recentFilesMenu);            
+            AbstractXPontusActionImpl rAction = new RecentFilesActionImpl(recentFilesMenu);
             recentFilesMenu.addActionListener(rAction);
+
             JMenu parent = menubarPlugin.getOrCreateMenu(XPontusMenuConstantsIF.FILE_MENU_ID);
             parent.add(recentFilesMenu);
 

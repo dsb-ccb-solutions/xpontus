@@ -8,11 +8,14 @@ package net.sf.xpontus.plugins.evaluator;
 import java.awt.Toolkit;
 import java.util.Hashtable;
 import javax.swing.DefaultComboBoxModel;
+import net.sf.xpontus.actions.DocumentAwareComponentIF;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
+import net.sf.xpontus.utils.DocumentAwareComponentHolder;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 import org.w3c.dom.NodeList;
 
@@ -20,11 +23,11 @@ import org.w3c.dom.NodeList;
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
+public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements DocumentAwareComponentIF {
 
     /** Creates new form ExpressionEvaluatorPanel */
     public ExpressionEvaluatorPanel() {
-
+        
         initComponents();
         DefaultComboBoxModel mm = (DefaultComboBoxModel) this.engineList.getModel();
         String engines[] = EvaluatorPluginConfiguration.getInstane().getEnginesNames();
@@ -35,6 +38,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
         if (mm.getSize() > 0) {
             this.engineList.setSelectedIndex(0);
         }
+        registerComponent();
     }
 
     public String getExpression() {
@@ -61,7 +65,6 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
         });
 
         expressionList.setEditable(true);
-        expressionList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "//article/text()" }));
         expressionList.setMinimumSize(new java.awt.Dimension(74, 20));
         expressionList.setPreferredSize(new java.awt.Dimension(74, 20));
 
@@ -141,4 +144,15 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel {
     private javax.swing.JButton evaluateButton;
     private javax.swing.JComboBox expressionList;
     // End of variables declaration//GEN-END:variables
+    
+    public void registerComponent() {
+        DocumentAwareComponentHolder.getInstance().register(this);
+    }
+
+    public void onNotify(DocumentContainerChangeEvent evt) { 
+        boolean b = (evt.getSource()!=null); 
+        evaluateButton.setEnabled(b);
+        expressionList.setEnabled(b);
+        engineList.setEnabled(b);
+    }
 }

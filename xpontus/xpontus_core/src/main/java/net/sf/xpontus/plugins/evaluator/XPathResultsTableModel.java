@@ -20,9 +20,11 @@
  */
 package net.sf.xpontus.plugins.evaluator;
 
-import org.apache.xerces.dom.ElementImpl;
-import org.apache.xerces.dom.TextImpl;
+import org.apache.commons.lang.text.StrBuilder;
 
+import org.apache.xerces.dom.ElementImpl;
+
+import org.w3c.dom.CharacterData;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -64,27 +66,22 @@ public class XPathResultsTableModel extends AbstractTableModel {
                 buff.append(element.getNodeName());
                 res.lineInfo = true;
                 res.value = buff.toString();
-            } else if (element instanceof TextImpl) {
-                StringBuffer buff = new StringBuffer();
-                System.out.println("hum.. some text");
+            } else if (element instanceof CharacterData) {
+                CharacterData ti = (CharacterData) element;
+                StrBuilder buff = new StrBuilder();
+                buff.append(ti.getData());
+
+                int taille = buff.length();
+                String texte = buff.toString();
+
+                if (taille > 15) {
+                    texte = texte.substring(0, 15) +
+                        " [REST OF THE TEXT OMITTED]";
+                }
+
+                res.value = "Text Content:" + texte +
+                    " Location not available";
                 res.lineInfo = false;
-
-                TextImpl ti = (TextImpl) element;
-                buff.append("getData" + ti.toString() + ",getNodeValue" +
-                    ti.getNodeValue() + ",getTextContent" + ",getWholeText" +
-                    ti.getWholeText());
-
-                System.out.println("TextImpl Buffer:" + buff.toString());
-
-                String texte = buff.toString() +
-                    "([etc... REST OF THE TEXT...])";
-                int taille = texte.length();
-                int max = taille;
-
-                //                if (max > 15) {
-                //                    max = 15;
-                //                }
-                res.value = texte.substring(0, max);
             } else {
                 res.lineInfo = false;
                 res.value = element.getNodeValue();

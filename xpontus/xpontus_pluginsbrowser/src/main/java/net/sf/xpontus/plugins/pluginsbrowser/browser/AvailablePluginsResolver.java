@@ -56,7 +56,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class AvailablePluginsResolver extends AbstractPluginsResolver {
     private Map<String, SimplePluginDescriptor> pluginsMap = new HashMap<String, SimplePluginDescriptor>();
     private List<String> installed = new Vector<String>();
-    PropertyDescriptor[] pd;
+    private PropertyDescriptor[] pd;
 
     public AvailablePluginsResolver() {
         init();
@@ -72,7 +72,7 @@ public class AvailablePluginsResolver extends AbstractPluginsResolver {
         return null;
     }
 
-    public Map<String, SimplePluginDescriptor> getPluginDescriptorsMap() {
+    public synchronized Map<String, SimplePluginDescriptor> getPluginDescriptorsMap() {
         return pluginsMap;
     }
 

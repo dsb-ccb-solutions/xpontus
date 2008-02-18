@@ -20,6 +20,8 @@
  */
 package net.sf.xpontus.plugins.evaluator;
 
+import net.sf.xpontus.utils.NullEntityResolver;
+
 import org.apache.xerces.parsers.DOMParser;
 import org.apache.xerces.xni.Augmentations;
 import org.apache.xerces.xni.NamespaceContext;
@@ -40,7 +42,6 @@ import org.xml.sax.InputSource;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import net.sf.xpontus.utils.NullEntityResolver;
 
 
 /**
@@ -278,50 +279,4 @@ public class DOMAddLines extends DOMParser {
             ; // Ignore ignorable white spaces
         }
     } // ignorableWhitespace
-
-    //
-    // Main
-    //
-
-    /** Main program entry point. */
-    public static void main(String[] argv) {
-        // is there anything to do?
-        if (argv.length == 0) {
-            printUsage();
-            System.exit(1);
-        }
-
-        // check parameters
-        for (int i = 0; i < argv.length; i++) {
-            String arg = argv[i];
-
-            // options
-            if (arg.startsWith("-")) {
-                if (arg.equals("-h")) {
-                    printUsage();
-                    System.exit(1);
-                }
-
-                if (arg.equals("-i")) {
-                    NotIncludeIgnorableWhiteSpaces = true;
-
-                    continue;
-                }
-            }
-
-            // DOMAddLine parse and print
-
-            //      DOMAddLines domAddExample = new DOMAddLines( arg );
-            //      Document doc             = domAddExample.getDocument();
-            //      domAddExample.print( doc );
-        }
-    } // main(String[])
-
-    /** Prints the usage. */
-    private static void printUsage() {
-        System.err.println("usage: jre dom.DOMAddLines (options) uri ...");
-        System.err.println();
-        System.err.println("  -h       Display help screen.");
-        System.err.println("  -i       Don't print ignorable white spaces.");
-    } // printUsage()
 }
