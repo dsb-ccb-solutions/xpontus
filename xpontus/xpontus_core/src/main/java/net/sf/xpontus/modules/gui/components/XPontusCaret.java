@@ -30,6 +30,7 @@ import javax.swing.text.Highlighter.HighlightPainter;
 
 /**
  * A caret which always blinks
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class XPontusCaret extends DefaultCaret {

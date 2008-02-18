@@ -104,10 +104,7 @@ public class DocumentContainer implements Dockable {
 
         editor.setRequestFocusEnabled(true);
         status = new JStatusBar();
-
-        ManualFocusPolicy policy = new ManualFocusPolicy();
-        policy.setFirstComponent(documentPanel, editor);
-        documentPanel.setFocusTraversalPolicy(policy);
+ 
 
         scrollPane = new JScrollPane(editor);
         scrollPane.setRowHeaderView(new LineView(editor));

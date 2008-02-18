@@ -21,7 +21,6 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.vlsolutions.swing.docking.DockTabbedPane;
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockingConstants;
 import com.vlsolutions.swing.docking.DockingDesktop;
@@ -35,7 +34,6 @@ import org.apache.commons.lang.text.StrBuilder;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
