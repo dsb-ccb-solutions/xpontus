@@ -5,119 +5,239 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.jidesoft.dialog.AbstractDialogPage;
-import com.jidesoft.dialog.BannerPanel;
-import com.jidesoft.dialog.ButtonPanel;
-import com.jidesoft.dialog.MultiplePageDialog;
-import com.jidesoft.dialog.PageList;
-
-import net.sf.xpontus.modules.gui.components.preferences.EditorPanelDialog;
-import net.sf.xpontus.modules.gui.components.preferences.GeneralPanelDialog;
-import net.sf.xpontus.utils.XPontusComponentsUtils;
-
+import com.l2fprod.common.swing.JButtonBar;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
-
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+import javax.swing.UIManager;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import net.sf.xpontus.modules.gui.components.preferences.EditorPanel;
+import net.sf.xpontus.modules.gui.components.preferences.GeneralPanel;
+import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class BasicSettingsView extends MultiplePageDialog
-{
-    private JDialog dialog;
-    private JButton saveButton;
-    private JButton cancelButton;
-    private JButton advancedButton;
+public class BasicSettingsView extends javax.swing.JDialog {
 
-    /**
+    private Component currentComponent;
+    private JButtonBar bar = new JButtonBar(JButtonBar.HORIZONTAL);
+    private PreferencesPluginIF[] panels;
+    private JDialog advancedSettingsDialog;
+    private Component nullComponent;
+
+    /** 
      * Creates new form BasicSettingsView
      * @param parent
-     * @param modal
+     * @param modal 
      */
-    public BasicSettingsView(java.awt.Frame parent, boolean modal)
-    {
+    public BasicSettingsView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
-        setTitle("Basic settings");
-        setStyle(MultiplePageDialog.ICON_STYLE);
+        add(bar, BorderLayout.NORTH);
 
-        PageList model = new PageList();
+        ButtonGroup group = new ButtonGroup();
 
-        String[] icons = 
-            {
-                "/net/sf/xpontus/icons/gear.gif",
-                "/net/sf/xpontus/icons/accessories-text-editor.gif"
-            };
 
-        AbstractDialogPage panel1 = new GeneralPanelDialog("General",
-                new ImageIcon(getClass().getResource(icons[0])));
-        AbstractDialogPage panel2 = new EditorPanelDialog("Editor",
-                new ImageIcon(getClass().getResource(icons[1])));
+        nullComponent = new JPanel();
+        currentComponent = nullComponent;
+        initComponents();
+        jPanel1.add(nullComponent, BorderLayout.CENTER);
 
-        model.append(panel1);
-        model.append(panel2);
+        String icons[] = {"/net/sf/xpontus/icons/gear.gif", "/net/sf/xpontus/icons/accessories-text-editor.gif"};
 
-        setPageList(model);
+        panels = new PreferencesPluginIF[]{
+            new GeneralPanel(), new EditorPanel()
+        };
+
+        for (int i = 0; i < icons.length; i++) {
+            PreferencesPluginIF m_panel = panels[i];
+            m_panel.loadSettings();
+            String m_title = m_panel.getPreferencesPanelComponent().getTitle();
+            Component m_component = m_panel.getPreferencesPanelComponent().getJComponent();
+            addButton(m_title, icons[i], makePanel(m_title, m_component), bar, group);
+        }
 
         pack();
     }
 
-    /**
-     *
-     */
-    public BasicSettingsView()
-    {
-        this((Frame) XPontusComponentsUtils.getTopComponent()
-                                           .getDisplayComponent(), true);
+    private void addButton(String title, String iconUrl,
+            final Component component, JButtonBar bar, ButtonGroup group) {
+        final ImageIcon icon = new ImageIcon(getClass().getResource(iconUrl));
+        Action action = new AbstractAction(title, icon) {
+
+            public void actionPerformed(ActionEvent e) {
+                show(component);
+            }
+        };
+
+        JToggleButton button = new JToggleButton(action);
+        Dimension dim = new Dimension(100, 100);
+        button.setMinimumSize(dim);
+        button.setPreferredSize(dim);
+        bar.add(button);
+
+        group.add(button);
+
+        if (group.getSelection() == null) {
+            button.setSelected(true);
+            show(component);
+        }
     }
 
-    @Override
-    public JComponent getBannerPanel()
-    {
-        BannerPanel panel = new BannerPanel("Preferences");
+    /**
+     * 
+     */
+    public BasicSettingsView() {
+        this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
+    }
 
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        saveButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
+
+        setTitle("Settings(not finished)");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                closeDialog(evt);
+            }
+        });
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        jButton1.setText("Plugins advanced >>>");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1);
+
+        jPanel1.add(jPanel3, java.awt.BorderLayout.SOUTH);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(saveButton);
+
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cancelButton);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.SOUTH);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    /** Closes the dialog */
+    private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
+        setVisible(false); 
+    }//GEN-LAST:event_closeDialog
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (advancedSettingsDialog == null) {
+            advancedSettingsDialog = new AdvancedSettingsView(this, true);
+        }
+        advancedSettingsDialog.setLocationRelativeTo(this);
+        advancedSettingsDialog.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                BasicSettingsView dialog = new BasicSettingsView(new java.awt.Frame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton saveButton;
+    // End of variables declaration//GEN-END:variables
+    private JPanel makePanel(String title, Component c) {
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel top = new JLabel(title);
+        top.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        top.setFont(top.getFont().deriveFont(Font.BOLD));
+        top.setOpaque(true);
+        top.setBackground(UIManager.getColor("ToggleButton.highlight"));
+        panel.add("North", top);
+        panel.add(c, BorderLayout.CENTER);
+        panel.setPreferredSize(new Dimension(500, 300));
+        panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         return panel;
     }
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public ButtonPanel createButtonPanel()
-    {
-        ButtonPanel buttonPanel = new ButtonPanel();
+    private void show(Component component) {
+        if (currentComponent != null) {
+            jPanel1.remove(currentComponent);
+        }
 
-        saveButton = new JButton("Save");
-        advancedButton = new JButton("Advanced");
-        cancelButton = new JButton("Cancel");
+        currentComponent = component;
 
-        buttonPanel.add(saveButton);
-        buttonPanel.add(cancelButton);
-        buttonPanel.add(advancedButton);
+        jPanel1.add(currentComponent, BorderLayout.CENTER);
 
-        advancedButton.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent e)
-                {
-                    if (dialog == null)
-                    {
-                        JDialog parent = BasicSettingsView.this;
-                        dialog = new AdvancedSettingsView(parent, true);
-                    }
+        jPanel1.revalidate();
+        jPanel1.repaint();
 
-                    dialog.setLocationRelativeTo(BasicSettingsView.this);
-                    dialog.setVisible(true);
-                }
-            });
-
-        return buttonPanel;
+        this.repaint();
     }
 }

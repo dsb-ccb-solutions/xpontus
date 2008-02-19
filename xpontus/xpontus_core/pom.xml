@@ -223,6 +223,12 @@
             <artifactId>jide-oss</artifactId>
             <version>2.2.1.11</version>
         </dependency>
+        <dependency>
+            <groupId>l2fprod-common</groupId>
+            <artifactId>l2fprod-common</artifactId>
+            <version>7.3-20070317</version>
+            <scope>compile</scope>
+        </dependency>
         
           
 

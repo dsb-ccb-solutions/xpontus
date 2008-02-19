@@ -5,6 +5,7 @@
  */
 package net.sf.xpontus.modules.gui.components.preferences;
 
+import com.l2fprod.common.swing.JFontChooser;
 import java.awt.Component;
 import java.awt.Font;
 import java.io.File;
@@ -155,12 +156,12 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         Component frame = XPontusComponentsUtils.getTopComponent().getDisplayComponent();
         Font selectedFont = UIManager.getFont("EditorPane.font");
 
-//        Font f = JFontChooser.showDialog(frame, "Select font", selectedFont);
-//        if (f != null) {
-//            fontValueLabel.setText(getStringFont(f));
-//            fontValueLabel.setFont(f);
-//            fontValueLabel.repaint();
-//        }
+        Font f = JFontChooser.showDialog(frame, "Select font", selectedFont);
+        if (f != null) {
+            fontValueLabel.setText(getStringFont(f));
+            fontValueLabel.setFont(f);
+            fontValueLabel.repaint();
+        }
 }//GEN-LAST:event_chooseFontButtonActionPerformed
 
     public String getStringFont(Font f) {
