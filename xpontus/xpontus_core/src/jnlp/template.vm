@@ -5,7 +5,7 @@
     href="$outputFile">
   <information>
     <title>XPontus XML Editor</title>
-    <vendor>Yves Zoundi<vendor/>
+    <vendor>Yves Zoundi</vendor>
     <homepage>http://localhost:8080/xpontus/</homepage>
     <description kind="one-line">A free Java Based XML Editor</description>
   </information>
@@ -13,10 +13,7 @@
      <all-permissions/>
   </security>
   <resources>
-    <j2se version="1.4+"
-     initial-heap-size="32m"
-     max-heap-size="256m"
-     />
+    <j2se version="1.4+" initial-heap-size="32m" max-heap-size="256m"/>
      $dependencies
   </resources>
   <application-desc main-class="$mainClass"> 
