@@ -21,12 +21,11 @@
  */
 package net.sf.xpontus.actions.impl;
 
-import net.sf.vfsjfilechooser.utils.VFSUtils;
-
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.utils.FileHistoryList;
 
 import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,7 +53,6 @@ public class RecentFilesActionImpl extends AbstractXPontusActionImpl
     }
 
     public void execute() {
-        
     }
 
     public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -69,11 +67,10 @@ public class RecentFilesActionImpl extends AbstractXPontusActionImpl
     }
 
     private void fillSubMenu() {
-        
         menu.removeAll();
-        
+
         List<String> files = FileHistoryList.getFileHistoryList();
-        
+
         System.out.println("recent:" + files.size());
 
         for (final String path : files) {
@@ -86,13 +83,25 @@ public class RecentFilesActionImpl extends AbstractXPontusActionImpl
 
     private class ShowHistoryListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            
             JMenuItem item = (JMenuItem) e.getSource();
 
             String path = (String) item.getClientProperty("FILE_OBJECT");
-            FileObject fo = VFSUtils.resolveFileObject(path);
+            FileObject fo = null;
 
-            if ((fo == null) || !VFSUtils.exists(fo)) {
+            try {
+                fo = VFS.getManager().resolveFile(path);
+
+                if (fo == null) {
+                    return;
+                }
+
+                if (!fo.exists()) {
+                    fo = null;
+                }
+            } catch (Exception err) {
+            }
+
+            if ((fo == null)) {
                 FileHistoryList.removeEntry(path);
                 menu.remove(item);
 

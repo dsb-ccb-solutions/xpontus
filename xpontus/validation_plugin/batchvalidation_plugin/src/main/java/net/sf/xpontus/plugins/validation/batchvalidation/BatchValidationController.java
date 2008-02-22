@@ -22,10 +22,6 @@ import com.ibm.icu.text.CharsetDetector;
 
 import com.sun.java.help.impl.SwingWorker;
 
-import net.sf.vfsjfilechooser.VFSJFileChooser;
-import net.sf.vfsjfilechooser.acessories.DefaultAccessoriesPanel;
-import net.sf.vfsjfilechooser.utils.VFSUtils;
-
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
@@ -36,6 +32,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.vfs.FileContent;
 import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.FileType;
+import org.apache.commons.vfs.VFS;
 
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.parsers.XIncludeAwareParserConfiguration;
@@ -49,6 +47,7 @@ import java.awt.Component;
 import java.awt.Toolkit;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 
@@ -105,17 +104,16 @@ public class BatchValidationController {
     private BatchValidationDialogView view;
     private SAXParser parser;
     private BatchValidationErrorHandler errorHandler;
-    private VFSJFileChooser chooser; 
+    private JFileChooser chooser;
 
     /**
      * Default constructor
      */
     public BatchValidationController() {
-        chooser = new VFSJFileChooser();
-        chooser.setAccessory(new DefaultAccessoriesPanel(chooser));
+        chooser = new JFileChooser();
         chooser.setFileHidingEnabled(true);
         chooser.setMultiSelectionEnabled(true);
-        chooser.setFileSelectionMode(VFSJFileChooser.FILES_AND_DIRECTORIES);
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
     }
 
     /**
@@ -142,13 +140,18 @@ public class BatchValidationController {
         int answer = chooser.showOpenDialog(view);
 
         if (answer == JFileChooser.APPROVE_OPTION) {
-            FileObject[] files = chooser.getSelectedFiles();
+            File[] files = chooser.getSelectedFiles();
 
-            for (FileObject fo : files) {
-                if (!pathAdded(fo)) {
-                    JList li = view.getPathList();
-                    DefaultComboBoxModel m = (DefaultComboBoxModel) li.getModel();
-                    m.addElement(fo);
+            for (File f : files) {
+                try {
+                    FileObject fo = VFS.getManager().toFileObject(f);
+
+                    if (!pathAdded(fo)) {
+                        JList li = view.getPathList();
+                        DefaultComboBoxModel m = (DefaultComboBoxModel) li.getModel();
+                        m.addElement(fo);
+                    }
+                } catch (Exception err) {
                 }
             }
         }
@@ -221,7 +224,7 @@ public class BatchValidationController {
      */
     public void validateFiles() {
         final SwingWorker worker = new SwingWorker() {
-                public Object construct() { 
+                public Object construct() {
                     view.enableControlButtons(false);
                     doValidateFiles();
 
@@ -270,17 +273,20 @@ public class BatchValidationController {
         for (int i = 0; i < paths; i++) {
             FileObject fo = (FileObject) m.getElementAt(i);
 
-            if (VFSUtils.isDirectory(fo)) {
-                try {
-                    FileObject[] fl = fo.findFiles(filterSelector);
-                    files.addAll(Arrays.asList(fl));
-                } catch (Exception err) {
-                    log.error("Error getting file list information from " +
-                        fo.getName().getURI());
-                    log.error(err.getMessage());
+            try {
+                if (fo.getType().equals(FileType.FOLDER)) {
+                    try {
+                        FileObject[] fl = fo.findFiles(filterSelector);
+                        files.addAll(Arrays.asList(fl));
+                    } catch (Exception err) {
+                        log.error("Error getting file list information from " +
+                            fo.getName().getURI());
+                        log.error(err.getMessage());
+                    }
+                } else {
+                    files.add(fo);
                 }
-            } else {
-                files.add(fo);
+            } catch (Exception err) {
             }
         }
 
@@ -416,7 +422,7 @@ public class BatchValidationController {
     /**
      * Close the dialog window
      */
-    public void closeWindow() { 
+    public void closeWindow() {
         view.setVisible(false);
     }
 

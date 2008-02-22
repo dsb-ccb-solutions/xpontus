@@ -21,14 +21,15 @@
  */
 package net.sf.xpontus.actions.impl;
 
-import net.sf.vfsjfilechooser.*;
-import net.sf.vfsjfilechooser.acessories.*;
+import java.io.File;
+import javax.swing.JFileChooser; 
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
 
 
 /**
@@ -38,7 +39,7 @@ import org.apache.commons.vfs.FileObject;
  */
 public class OpenActionImpl extends XPontusThreadedActionImpl {
     public static final String BEAN_ALIAS = "action.open";
-    private VFSJFileChooser chooser; //vfsb;
+    private JFileChooser chooser; //vfsb;
 
     /**
      * Creates a new instance of OpenActionImpl
@@ -48,9 +49,8 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
 
     public void run() {
         if (chooser == null) {
-            chooser = new VFSJFileChooser();
-            chooser.setAccessory(new DefaultAccessoriesPanel(chooser));
-            chooser.setFileSelectionMode(VFSJFileChooser.FILES_ONLY);
+            chooser = new JFileChooser(); 
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             chooser.setMultiSelectionEnabled(true);
         }
 
@@ -63,10 +63,11 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
                                                                .getDocumentTabContainer();
 
             try {
-                FileObject[] tmps = chooser.getSelectedFiles();
+                File[] files =   chooser.getSelectedFiles();
 
-                for (int i = 0; i < tmps.length; i++) {
-                    dtc.createEditorFromFileObject(tmps[i]);
+                for (int i = 0; i < files.length; i++) {
+                    FileObject fo = VFS.getManager().toFileObject(files[i]);
+                    dtc.createEditorFromFileObject(fo);
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block

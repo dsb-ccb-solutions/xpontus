@@ -23,8 +23,6 @@ package net.sf.xpontus.actions.impl;
 
 import com.vlsolutions.swing.docking.Dockable;
 
-import net.sf.vfsjfilechooser.*;
-
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -37,13 +35,16 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.provider.local.LocalFile;
 
 import java.awt.Toolkit;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
 
@@ -55,7 +56,7 @@ import javax.swing.text.JTextComponent;
  */
 public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.saveas";
-    private VFSJFileChooser chooser;
+    private JFileChooser chooser;
 
     /** Creates a new instance of SaveAsActionImpl */
     public SaveAsActionImpl() {
@@ -67,7 +68,7 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
      */
     public void execute() {
         if (chooser == null) {
-            chooser = new VFSJFileChooser();
+            chooser = new JFileChooser();
         }
 
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
@@ -84,9 +85,10 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
                                                                   .getDisplayComponent());
 
         // open the selected files
-        if (answer == VFSJFileChooser.APPROVE_OPTION) {
+        if (answer == JFileChooser.APPROVE_OPTION) {
             try {
-                FileObject dest = chooser.getSelectedFile();
+                File f = chooser.getSelectedFile();
+                FileObject dest = VFS.getManager().toFileObject(f);
 
                 if (dest.exists()) {
                     Toolkit.getDefaultToolkit().beep();

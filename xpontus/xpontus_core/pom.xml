@@ -171,12 +171,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>net.sf.vfsjfilechooser</groupId>
-            <artifactId>vfsjfilechooser</artifactId>
-            <version>0.0.1beta2</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.1</version>
@@ -198,13 +192,13 @@
                     <artifactId>avalon-framework</artifactId>
                     <groupId>avalon-framework</groupId>
                 </exclusion>
-            </exclusions>            
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.sf.jpf</groupId>
             <artifactId>jpf</artifactId>
             <version>1.5</version>
-            <scope>compile</scope>
+            <scope>compile</scope>            
         </dependency>
         <dependency>
             <groupId>net.sf.jpf</groupId>
@@ -229,6 +223,7 @@
             <version>7.3-20070317</version>
             <scope>compile</scope>
         </dependency>
+        
         
           
 
@@ -333,7 +328,7 @@
                     <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
                 </configuration>
             </plugin>  
-             
+             <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webstart-maven-plugin</artifactId>
@@ -369,7 +364,7 @@
                     <gzip>false</gzip>  
                     <verbose>true</verbose> 
                 </configuration>
-            </plugin>    
+            </plugin>    -->
         </plugins>
     </build>    
 </project>

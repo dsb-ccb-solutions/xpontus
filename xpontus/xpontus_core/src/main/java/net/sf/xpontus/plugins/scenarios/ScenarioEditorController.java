@@ -19,8 +19,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.plugins.scenarios;
- 
-import net.sf.vfsjfilechooser.acessories.DefaultAccessoriesPanel;
+  
 
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -34,9 +33,9 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JList;
-import javax.swing.JTable;
-import net.sf.vfsjfilechooser.VFSJFileChooser;
+import javax.swing.JTable; 
 
 
 /**
@@ -86,7 +85,7 @@ public class ScenarioEditorController {
     public static final String SAVE_METHOD = "updateScenario";
     private Log log = LogFactory.getLog(ScenarioEditorController.class);
     private ScenarioEditorView view;
-    private VFSJFileChooser chooser;
+    private JFileChooser chooser;
 
     /**
      * Create a controller for the specified scenario dialog
@@ -94,9 +93,8 @@ public class ScenarioEditorController {
      */
     public ScenarioEditorController(ScenarioEditorView view) {
         this.view = view;
-        chooser = new VFSJFileChooser();
-        chooser.setFileSelectionMode(VFSJFileChooser.FILES_ONLY);
-        chooser.setAccessory(new DefaultAccessoriesPanel(chooser));
+        chooser = new  JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY); 
     }
 
     // check if a scenario already exists with the specified name
@@ -126,9 +124,9 @@ public class ScenarioEditorController {
 
         int rep = chooser.showOpenDialog(c);
 
-        if (rep == VFSJFileChooser.APPROVE_OPTION) {
+        if (rep ==  JFileChooser.APPROVE_OPTION) {
             try {
-                String path = chooser.getSelectedFile().getName().getURI();
+                String path = chooser.getSelectedFile().getAbsolutePath();
                 view.getModel().setInput(path);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -147,9 +145,9 @@ public class ScenarioEditorController {
 
         int rep = chooser.showOpenDialog(c);
 
-        if (rep == VFSJFileChooser.APPROVE_OPTION) {
+        if (rep ==  JFileChooser.APPROVE_OPTION) {
             try {
-                String path = chooser.getSelectedFile().getName().getURI();
+                String path = chooser.getSelectedFile().getAbsolutePath();
                 view.getModel().setOutput(path);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -193,9 +191,9 @@ public class ScenarioEditorController {
 
         int rep = chooser.showOpenDialog(c);
 
-        if (rep == VFSJFileChooser.APPROVE_OPTION) {
+        if (rep ==  JFileChooser.APPROVE_OPTION) {
             try {
-                String path = chooser.getSelectedFile().getName().getURI();
+                String path = chooser.getSelectedFile().getAbsolutePath();
                 view.getModel().setXsl(path);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -377,10 +375,10 @@ public class ScenarioEditorController {
 
     private void initBrowser() {
         if (chooser == null) {
-            chooser = new VFSJFileChooser();
+            chooser = new JFileChooser();
             chooser.setDialogTitle("Select a file");
             chooser.setMultiSelectionEnabled(true);
-            chooser.setFileSelectionMode(VFSJFileChooser.FILES_ONLY);
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         }
     }
 }

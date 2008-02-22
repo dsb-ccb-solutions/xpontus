@@ -21,8 +21,6 @@
  */
 package net.sf.xpontus.utils;
 
-import net.sf.vfsjfilechooser.utils.VFSUtils;
-
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 
 import org.apache.commons.io.FileUtils;
@@ -30,6 +28,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -79,10 +78,14 @@ public class FileHistoryList {
 
             while ((line = m_reader.readLine()) != null) {
                 if (!line.trim().equals("")) {
-                    FileObject fo = VFSUtils.resolveFileObject(line);
+                    try {
+                        FileObject fo = VFS.getManager().resolveFile(line);
 
-                    if ((fo != null) && VFSUtils.exists(fo)) {
-                        files.add(line);
+                        if ((fo != null) && fo.exists()) {
+                            files.add(line);
+                        }
+                    } catch (Exception err) {
+                        // nothing to do
                     }
                 }
             }
