@@ -23,6 +23,7 @@
  */
 package net.sf.xpontus.controllers.impl;
 
+import com.vlsolutions.swing.docking.DockingPreferences;
 import net.sf.xpontus.actions.impl.AbstractXPontusActionImpl;
 import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 import net.sf.xpontus.actions.impl.CopyActionImpl;
@@ -88,25 +89,24 @@ import javax.swing.JMenu;
 import javax.swing.JWindow;
 import javax.swing.UIManager;
 
-
 /**
  * Main class of the program
  * @author Yves Zoundi
  */
 public class XPontusRunner {
+
     static {
         System.setSecurityManager(null);
         System.setProperty("javax.xml.transform.TransformerFactory",
-            "org.apache.xalan.processor.TransformerFactoryImpl");
+                "org.apache.xalan.processor.TransformerFactoryImpl");
         // the default processor to use is xalan        
         System.setProperty("org.xml.sax.parser",
-            "org.apache.xerces.parsers.SAXParser");
+                "org.apache.xerces.parsers.SAXParser");
         System.setProperty("javax.xml.parsers.SAXParserFactory",
-            "org.apache.xerces.jaxp.SAXParserFactoryImpl");
+                "org.apache.xerces.jaxp.SAXParserFactoryImpl");
         System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
-            "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
+                "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
     }
-
     private DefaultXPontusWindowImpl m_window;
 
     private XPontusRunner() {
@@ -127,37 +127,39 @@ public class XPontusRunner {
     }
 
     public static MenuBarPluginIF createMenuExtension(final String menu,
-        final Object[] actions) {
+            final Object[] actions) {
         MenuBarPluginIF plugin = new MenuBarPluginIF() {
-                public List getMenuNames() {
-                    return Arrays.asList(new String[] { menu });
-                }
 
-                public Map getActionMap() {
-                    Map m = new HashMap();
-                    m.put(menu, Arrays.asList(actions));
+            public List getMenuNames() {
+                return Arrays.asList(new String[]{menu});
+            }
 
-                    return m;
-                }
+            public Map getActionMap() {
+                Map m = new HashMap();
+                m.put(menu, Arrays.asList(actions));
+
+                return m;
+            }
             };
 
         return plugin;
     }
 
     public static ToolBarPluginIF createToolbarExtension(final String tb,
-        final Object[] actions) {
+            final Object[] actions) {
         // the toolbar extension
         ToolBarPluginIF toolbar = new ToolBarPluginIF() {
-                public String[] getToolBarNames() {
-                    return new String[] { tb };
-                }
 
-                public Map getActions() {
-                    Map m = new HashMap();
-                    m.put(tb, Arrays.asList(actions));
+            public String[] getToolBarNames() {
+                return new String[]{tb};
+            }
 
-                    return m;
-                }
+            public Map getActions() {
+                Map m = new HashMap();
+                m.put(tb, Arrays.asList(actions));
+
+                return m;
+            }
             };
 
         return toolbar;
@@ -170,7 +172,7 @@ public class XPontusRunner {
      */
     public static void main(String[] args) throws Exception {
         // set the bookmarks file for the file browser
-
+        DockingPreferences.setDottedDesktopStyle();
         // initialize the settings
         SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();
         settings.init();
@@ -180,10 +182,11 @@ public class XPontusRunner {
 
         final JWindow splash = new SplashScreen();
         new Thread(new Runnable() {
-                public void run() {
-                    splash.setLocationRelativeTo(splash.getOwner());
-                    splash.setVisible(true);
-                }
+
+            public void run() {
+                splash.setLocationRelativeTo(splash.getOwner());
+                splash.setVisible(true);
+            }
             }).start();
 
         XPontusPluginManager controller = new XPontusPluginManager();
@@ -193,18 +196,18 @@ public class XPontusRunner {
         final XPontusTopComponentIF window = DefaultXPontusWindowImpl.getInstance();
 
         String[] identifiers = {
-                IOCPlugin.PLUGIN_IDENTIFIER, ThemePlugin.PLUGIN_IDENTIFIER,
-                MenuBarPlugin.PLUGIN_IDENTIFIER, LexerPlugin.PLUGIN_IDENTIFIER,
-                ToolBarPlugin.PLUGIN_IDENTIFIER,
-                IndentationPlugin.PLUGIN_IDENTIFIER,
-                DocumentationPlugin.PLUGIN_IDENTIFIER,
-                ScenarioPlugin.PLUGIN_IDENTIFIER,
-                EvaluatorPlugin.PLUGIN_IDENTIFIER,
-                CodeCompletionPlugin.PLUGIN_IDENTIFIER,
-                QuickToolBarPlugin.PLUGIN_IDENTIFIER,
-                OutlinePlugin.PLUGIN_IDENTIFIER, PreviewPlugin.PLUGIN_IDENTIFIER,
-                PreferencesPlugin.PLUGIN_IDENTIFIER
-            };
+            IOCPlugin.PLUGIN_IDENTIFIER, ThemePlugin.PLUGIN_IDENTIFIER,
+            MenuBarPlugin.PLUGIN_IDENTIFIER, LexerPlugin.PLUGIN_IDENTIFIER,
+            ToolBarPlugin.PLUGIN_IDENTIFIER,
+            IndentationPlugin.PLUGIN_IDENTIFIER,
+            DocumentationPlugin.PLUGIN_IDENTIFIER,
+            ScenarioPlugin.PLUGIN_IDENTIFIER,
+            EvaluatorPlugin.PLUGIN_IDENTIFIER,
+            CodeCompletionPlugin.PLUGIN_IDENTIFIER,
+            QuickToolBarPlugin.PLUGIN_IDENTIFIER,
+            OutlinePlugin.PLUGIN_IDENTIFIER, PreviewPlugin.PLUGIN_IDENTIFIER,
+            PreferencesPlugin.PLUGIN_IDENTIFIER
+        };
 
         PluginManager manager = XPontusPluginManager.getPluginManager();
 
@@ -225,11 +228,11 @@ public class XPontusRunner {
 
         if (iocPlugin.getContainer() != null) {
             final String[] actions = {
-                    CreateNewFileActionImpl.BEAN_ALIAS,
-                    OpenActionImpl.BEAN_ALIAS, SaveActionImpl.BEAN_ALIAS,
-                    SaveAsActionImpl.BEAN_ALIAS, PrintActionImpl.BEAN_ALIAS,
-                    ExitActionImpl.BEAN_ALIAS
-                };
+                CreateNewFileActionImpl.BEAN_ALIAS,
+                OpenActionImpl.BEAN_ALIAS, SaveActionImpl.BEAN_ALIAS,
+                SaveAsActionImpl.BEAN_ALIAS, PrintActionImpl.BEAN_ALIAS,
+                ExitActionImpl.BEAN_ALIAS
+            };
 
             final Object[] actionsList = new Object[actions.length];
 
@@ -238,11 +241,11 @@ public class XPontusRunner {
             }
 
             final String[] viewActions = {
-                    ViewToolbarActionImpl.BEAN_ALIAS,
-                    ViewOutlineWindowActionImpl.BEAN_ALIAS,
-                    ViewMessagesWindowActionImpl.BEAN_ALIAS,
-                    ViewXPathWindowActionImpl.BEAN_ALIAS
-                };
+                ViewToolbarActionImpl.BEAN_ALIAS,
+                ViewOutlineWindowActionImpl.BEAN_ALIAS,
+                ViewMessagesWindowActionImpl.BEAN_ALIAS,
+                ViewXPathWindowActionImpl.BEAN_ALIAS
+            };
             final Object[] viewActionsList = new Object[viewActions.length];
 
             for (int i = 0; i < viewActions.length; i++) {
@@ -250,18 +253,18 @@ public class XPontusRunner {
             }
 
             final String[] editActions = {
-                    SelectAllActionImpl.BEAN_ALIAS, CopyActionImpl.BEAN_ALIAS,
-                    CutActionImpl.BEAN_ALIAS, PasteActionImpl.BEAN_ALIAS,
-                    UndoActionImpl.BEAN_ALIAS, RedoActionImpl.BEAN_ALIAS,
-                    "action.findreplace", "action.gotoline"
-                };
+                SelectAllActionImpl.BEAN_ALIAS, CopyActionImpl.BEAN_ALIAS,
+                CutActionImpl.BEAN_ALIAS, PasteActionImpl.BEAN_ALIAS,
+                UndoActionImpl.BEAN_ALIAS, RedoActionImpl.BEAN_ALIAS,
+                "action.findreplace", "action.gotoline"
+            };
 
             final String[] toolsActions = {
-                    CheckXMLActionImpl.BEAN_ALIAS,
-                    IndentContentActionImpl.BEAN_ALIAS, "action.docgen"
-                };
+                CheckXMLActionImpl.BEAN_ALIAS,
+                IndentContentActionImpl.BEAN_ALIAS, "action.docgen"
+            };
 
-            final String[] helpActions = { "action.about", "action.help" };
+            final String[] helpActions = {"action.about", "action.help"};
             final Object[] helpActionsList = new Object[helpActions.length];
 
             for (int i = 0; i < helpActions.length; i++) {
@@ -269,8 +272,8 @@ public class XPontusRunner {
             }
 
             final String[] scenariosActions = {
-                    "action.scenariomanager", "action.scenariorunner"
-                };
+                "action.scenariomanager", "action.scenariorunner"
+            };
             final Object[] scenariosActionsList = new Object[scenariosActions.length];
 
             for (int i = 0; i < scenariosActionsList.length; i++) {
@@ -290,8 +293,8 @@ public class XPontusRunner {
             }
 
             Object[] optionsActionsList = {
-                    iocPlugin.getBean("action.preferences")
-                };
+                iocPlugin.getBean("action.preferences")
+            };
 
             MenuBarPluginIF optionsMenuExt = createMenuExtension(XPontusMenuConstantsIF.OPTIONS_MENU_ID,
                     optionsActionsList);
@@ -307,29 +310,30 @@ public class XPontusRunner {
                     viewActionsList);
 
             MenuBarPluginIF toolMenuExt = new MenuBarPluginIF() {
-                    public List getMenuNames() {
-                        return Arrays.asList(new String[] {
-                                XPontusMenuConstantsIF.TOOLS_MENU_ID
-                            });
+
+                public List getMenuNames() {
+                    return Arrays.asList(new String[]{
+                        XPontusMenuConstantsIF.TOOLS_MENU_ID
+                    });
+                }
+
+                public Map getActionMap() {
+                    Map m = new HashMap();
+                    String id = XPontusMenuConstantsIF.TOOLS_MENU_ID;
+                    List li = new Vector();
+
+                    for (int j = 0; j < toolsActionsList.length; j++) {
+                        li.add(toolsActionsList[j]);
                     }
 
-                    public Map getActionMap() {
-                        Map m = new HashMap();
-                        String id = XPontusMenuConstantsIF.TOOLS_MENU_ID;
-                        List li = new Vector();
-
-                        for (int j = 0; j < toolsActionsList.length; j++) {
-                            li.add(toolsActionsList[j]);
-                        }
-
-                        for (int j = 0; j < scenariosActionsList.length; j++) {
-                            li.add(scenariosActionsList[j]);
-                        }
-
-                        m.put(id, li);
-
-                        return m;
+                    for (int j = 0; j < scenariosActionsList.length; j++) {
+                        li.add(scenariosActionsList[j]);
                     }
+
+                    m.put(id, li);
+
+                    return m;
+                }
                 };
 
             // the menu extension
@@ -375,8 +379,7 @@ public class XPontusRunner {
 
             toolbarPlugin.initExtension(scenariosToolbarExt);
 
-            toolbarPlugin.getOrCreateToolBar("xpath")
-                         .add(new ExpressionEvaluatorPanel());
+            toolbarPlugin.getOrCreateToolBar("xpath").add(new ExpressionEvaluatorPanel());
 
             ((XPontusPlugin) manager.getPlugin(ActionPlugin.PLUGIN_IDENTIFIER)).init();
         }
@@ -385,17 +388,17 @@ public class XPontusRunner {
             Action m_action = (Action) iocPlugin.getBean("action.docgen");
             m_action.setEnabled(false);
             m_action.putValue(Action.SHORT_DESCRIPTION,
-                "Install some plugins in the category documentation");
+                    "Install some plugins in the category documentation");
         }
 
-        DocumentAwareComponentHolder.getInstance()
-                                    .notifyComponents(new DocumentContainerChangeEvent(
+        DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(
                 null));
 
         new Thread(new Runnable() {
-                public void run() {
-                    splash.dispose();
-                }
+
+            public void run() {
+                splash.dispose();
+            }
             }).start();
 
         window.activateComponent();

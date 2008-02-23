@@ -104,8 +104,7 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
         }
 
         jtc.putClientProperty(XPontusFileConstantsIF.FILE_LOCKED, Boolean.TRUE);
-
-        ((PlainDocument) jtc.getDocument()).readLock();
+ 
 
         if (ht.containsKey(contentType)) {
             dc.getStatusBar().setMessage("Formatting document...");
@@ -124,9 +123,7 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
                     table.put(contentType, indenter);
                 } else {
                     indenter = (IndentationPluginIF) table.get(contentType);
-                }
-
-                ((PlainDocument) jtc.getDocument()).readUnlock();
+                } 
                 indenter.run();
                 jtc.putClientProperty(XPontusFileConstantsIF.FILE_LOCKED, null);
 

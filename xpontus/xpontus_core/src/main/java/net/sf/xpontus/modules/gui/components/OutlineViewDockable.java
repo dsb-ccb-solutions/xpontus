@@ -44,12 +44,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
-
 /**
  * @version 0.0.1
  * @author Yves Zoundi
  */
 public class OutlineViewDockable extends JScrollPane implements Dockable {
+
     private DockKey key = new DockKey("Outline ");
     private DefaultTreeModel model;
     private DefaultMutableTreeNode root;
@@ -68,7 +68,7 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
         scrollPane = new JScrollPane(mTree);
 
         key.setResizeWeight(0.2f);
-        key.setDockGroup(new DockGroup("Outline")); 
+        key.setDockGroup(new DockGroup("Outline"));
 
         Dimension dim = new Dimension(250, 200);
         scrollPane.setPreferredSize(dim);
@@ -90,7 +90,10 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
 
         // tree selection listener
         mTree.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
+
+            public void mouseClicked(MouseEvent e) {
+
+                if (e.getClickCount() == 2) {
                     DefaultMutableTreeNode node = (DefaultMutableTreeNode) mTree.getLastSelectedPathComponent();
 
                     if (node == null) {
@@ -102,6 +105,7 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
                         gotoLine(nodeInfo.line, nodeInfo.column);
                     }
                 }
+            }
             });
     }
 
@@ -123,15 +127,13 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
     }
 
     private void gotoLine(int line, int column) {
-        JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
-                                                     .getDocumentTabContainer()
-                                                     .getCurrentEditor();
+        JTextComponent jtc = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentEditor();
 
         Element element = jtc.getDocument().getDefaultRootElement();
 
         if (element.getElement(line) == null) {
             XPontusComponentsUtils.showErrorMessage(
-                "element location not found");
+                    "element location not found");
 
             return;
         }
