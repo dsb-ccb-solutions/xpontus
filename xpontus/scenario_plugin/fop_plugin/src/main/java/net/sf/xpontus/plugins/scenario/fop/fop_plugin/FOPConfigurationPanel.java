@@ -76,13 +76,12 @@ public class FOPConfigurationPanel implements PreferencesPluginIF {
 
             add("North", top);
 
-            JPanel p = new JPanel(new GridBagLayout());
-
-
+            JPanel p = new JPanel(new GridBagLayout()); 
 
             browseButton = new JButton("Browse...");
 
-            fopSettingsTF = new JTextField(35);
+            fopSettingsTF = new JTextField();
+            fopSettingsTF.setEditable(false);
 
             GridBagConstraints c = new GridBagConstraints();
             c.gridx = 0;
@@ -93,10 +92,12 @@ public class FOPConfigurationPanel implements PreferencesPluginIF {
 
             c = new GridBagConstraints();
             c.gridx = 1;
-            c.gridy = 0;
+            c.gridy = 0; 
+            c.gridwidth = 3;
+            c.ipadx = 200;
             c.anchor = GridBagConstraints.NORTHWEST;
             c.insets = new Insets(2, 2, 2, 2);
-            c.fill = GridBagConstraints.BOTH;
+            c.fill = GridBagConstraints.HORIZONTAL;
             p.add(fopSettingsTF, c);
 
             add(p, BorderLayout.CENTER);
