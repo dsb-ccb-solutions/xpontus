@@ -46,13 +46,13 @@ public class DefaultQuickToolbarPluginImpl implements QuickToolBarPluginIF {
             IOCPlugin pc = (IOCPlugin) PropertiesHolder.getPropertyValue(IOCPlugin.PLUGIN_IDENTIFIER);
 
             Action m_action = (Action) pc.getBean(XMLCommentActionImpl.BEAN_ALIAS);
-            ImageButton m_button = new ImageButton(m_action);
+            JButton m_button = new JButton(m_action);
             m_button.setBackground(panel.getBackground());
             m_button.setText(null);
             panel.add(m_button);
 
             m_action = (Action) pc.getBean(InsertCDataActionImpl.BEAN_ALIAS);
-            m_button = new ImageButton(m_action);
+            m_button = new JButton(m_action);
             m_button.setText(null);
             m_button.setBackground(panel.getBackground());
             panel.add(m_button);
