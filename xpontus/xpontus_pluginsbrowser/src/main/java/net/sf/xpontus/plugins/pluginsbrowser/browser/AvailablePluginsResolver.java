@@ -21,6 +21,11 @@
  */
 package net.sf.xpontus.plugins.pluginsbrowser.browser;
 
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
 import org.java.plugin.registry.PluginDescriptor;
 
 import org.w3c.dom.Document;
@@ -35,8 +40,14 @@ import java.beans.PropertyDescriptor;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import java.net.URL;
 
 import java.util.HashMap;
 import java.util.List;
@@ -165,8 +176,20 @@ public class AvailablePluginsResolver extends AbstractPluginsResolver {
     @Override
     public void resolvePlugins() {
         try {
-            resolvePlugins(
-                "http://xpontus.sourceforge.net/snapshot/plugins.xml");
+            File cacheDir = XPontusConfigurationConstantsIF.XPONTUS_CACHE_DIR;
+            File pluginsFile = new File(cacheDir, "plugins.xml");
+
+            if (!pluginsFile.exists()) {
+                URL pluginURL = new URL(
+                        "http://xpontus.sourceforge.net/snapshot/plugins.xml");
+                InputStream is = pluginURL.openStream();
+                OutputStream os = FileUtils.openOutputStream(pluginsFile);
+                IOUtils.copy(is, os);
+                IOUtils.closeQuietly(os);
+                IOUtils.closeQuietly(is);
+            }
+
+            resolvePlugins(pluginsFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }

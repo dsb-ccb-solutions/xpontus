@@ -88,8 +88,9 @@ public class PluginsSettingsPanel extends JComponent {
         splitPane.setOneTouchExpandable(true);
 
         splitPane.setContinuousLayout(true);
-
-        splitPane.setDividerLocation(0.5F);
+        splitPane.setDividerLocation(0.25F);
+        
+        splitPane.setResizeWeight(0.25F);
 
         add(splitPane, BorderLayout.CENTER);
     }
