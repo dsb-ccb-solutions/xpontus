@@ -296,6 +296,22 @@ public class DocumentTabContainer {
         final SyntaxDocument mDoc = (SyntaxDocument) editor.getEditorComponent()
                                                            .getDocument();
 
+         System.out.println("OUTLINE BEGIN CODE");
+        if (mDoc.getOutlinePlugin() != null) {
+            Thread m_worker = new Thread() {
+                    public void run() {
+                        System.out.println("Initial outline...");
+                        mDoc.getOutlinePlugin().updateOutline(mDoc);
+                    }
+                };
+
+            m_worker.setPriority(Thread.MIN_PRIORITY);
+            m_worker.start();
+        }
+        else{
+            System.out.println("NO OUTLINE TO BUILD");
+        }
+         
         if (mDoc.getCodeCompletion() != null) {
             Thread m_worker = new Thread() {
                     public void run() {
@@ -306,6 +322,8 @@ public class DocumentTabContainer {
             m_worker.setPriority(Thread.MIN_PRIORITY);
             SwingUtilities.invokeLater(m_worker);
         }
+
+       
     }
 
     /**

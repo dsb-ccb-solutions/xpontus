@@ -24,7 +24,6 @@ package net.sf.xpontus.plugins.codecompletion.xml;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.OutlineViewDockable;
-import net.sf.xpontus.parsers.*;
 import net.sf.xpontus.plugins.completion.CodeCompletionIF;
 import net.sf.xpontus.syntax.SyntaxDocument;
 
@@ -89,11 +88,11 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
         final List emptyList = new ArrayList();
 
-        if (tagInfo == null) { 
+        if (tagInfo == null) {
             return emptyList;
         }
 
-        if (tagInfo.getAttributeInfo() != null) { 
+        if (tagInfo.getAttributeInfo() != null) {
             return Arrays.asList(tagInfo.getAttributeInfo());
         } else {
             return emptyList;
@@ -101,7 +100,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     }
 
     public synchronized List getCompletionList() {
-        List completionList = tagList; 
+        List completionList = tagList;
 
         if (!isDTDCompletion) {
             if ((completionList == null) || (completionList.size() == 0)) {
@@ -139,25 +138,25 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
     public void updateAssistInfo(final String pubid, final String uri,
         final Reader r) {
-        System.out.println("updating pubid with:" + pubid);
+        System.out.println("updating pubid with:" + uri);
 
         if ((completionInformation == null) ||
                 !(completionInformation.equals(uri))) {
             completionInformation = uri;
 
             Thread t = new Thread() {
-                    public void run() { 
+                    public void run() {
                         parsingDone = false;
                         tagList.clear();
                         completionParser.init(tagList, nsTagListMap);
                         completionParser.updateCompletionInfo(pubid, uri, r);
-                        parsingDone = true; 
+                        parsingDone = true;
                     }
                 };
 
             t.setPriority(Thread.MIN_PRIORITY);
             t.start();
-        } 
+        }
     }
 
     public boolean isTrigger(String str) {
@@ -173,59 +172,44 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     }
 
     public void init(final javax.swing.text.Document doc) {
+        System.out.println("Running code completion...");
         String dtdLocation = null;
-        XMLLexer lexer = null;
-        XMLParser parser = null;
         String schemaLocation = null;
 
         SyntaxDocument mDoc = (SyntaxDocument) doc;
 
-        try {
-            String mText = doc.getText(0, doc.getLength());
-            Reader mReader = new StringReader(mText);
-            lexer = new XMLLexer(mReader);
-            parser = new XMLParser(lexer);
-            parser.parse();
+        Object mDtd = mDoc.getProperty(XPontusConstantsIF.PARSER_DATA_DTD_COMPLETION_INFO);
+        Object mXsd = mDoc.getProperty(XPontusConstantsIF.PARSER_DATA_SCHEMA_COMPLETION_INFO);
 
-            mDoc.putProperty(XPontusConstantsIF.OUTLINE_INFO,
-                parser.getRootNode());
-
-            final XMLParser xp = parser;
-            final OutlineViewDockable outline = DefaultXPontusWindowImpl.getInstance()
-                                                                        .getOutline();
-            SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        outline.updateAll(xp.getRootNode());
-                    }
-                });
-        } catch (Exception err) {
+        if (mDtd != null) {
+            System.out.println("Got dtd completion... from outline");
+            dtdLocation = mDtd.toString();
         }
 
-        if (lexer != null) {
-            dtdLocation = lexer.getDTDLocation();
-            schemaLocation = lexer.getSchemaLocation(); 
+        if (mXsd != null) {
+            schemaLocation = mXsd.toString();
         }
 
         try {
             if (dtdLocation != null) {
-                dtdLocation = dtdLocation.substring(1, dtdLocation.length() -
-                        1);
+                logger.info("Using dtd location to build completion database"); 
                 setCompletionParser(new DTDCompletionParser());
 
                 java.net.URL url = new java.net.URL(dtdLocation);
                 java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
 
-                updateAssistInfo(lexer.getdtdPublicId(), dtdLocation, dtdReader); 
-            } else if (schemaLocation != null) { 
+                updateAssistInfo(null, dtdLocation, dtdReader);
+            } else if (schemaLocation != null) {
+                logger.info(
+                    "Using schema location to build completion database");
                 setCompletionParser(new XSDCompletionParser());
 
                 java.net.URL url = new java.net.URL(schemaLocation);
                 java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
-                updateAssistInfo(lexer.getdtdPublicId(), schemaLocation,
-                    dtdReader);
+                updateAssistInfo(null, schemaLocation, dtdReader);
             }
         } catch (Exception err) {
-            if (err instanceof java.net.UnknownHostException) { 
+            if (err instanceof java.net.UnknownHostException) {
             } else {
                 logger.fatal(err.getMessage());
             }

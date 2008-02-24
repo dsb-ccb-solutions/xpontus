@@ -57,4 +57,8 @@ public interface XPontusConstantsIF extends XPontusConfigurationConstantsIF,
      * The undo/redo manager
      */
     String UNDO_MANAGER = "UNDO_MANAGER";
+    
+    String PARSER_DATA_DTD_COMPLETION_INFO = "PARSER_DATA_DTD_COMPLETION_INFO";
+    
+    String PARSER_DATA_SCHEMA_COMPLETION_INFO = "PARSER_DATA_SCHEMA_COMPLETION_INFO";
 }

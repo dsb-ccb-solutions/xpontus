@@ -34,6 +34,7 @@ import org.java.plugin.registry.PluginRegistry;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
+import net.sf.xpontus.constants.XPontusConstantsIF;
 
 
 /**
@@ -70,7 +71,7 @@ public class OutlinePlugin extends XPontusPlugin {
 
             Class cl = classLoader.loadClass(className);
             OutlinePluginIF m_outliner = (OutlinePluginIF) cl.newInstance();
-            initExtension(m_outliner);
+            initExtension(m_outliner, classLoader);
         }
     }
 
@@ -82,10 +83,12 @@ public class OutlinePlugin extends XPontusPlugin {
         outliners.clear();
     }
 
-    private void initExtension(OutlinePluginIF m_outliner) {
+    private void initExtension(OutlinePluginIF m_outliner, ClassLoader loader) {
         String m_class = m_outliner.getClass().getName();
         String m_mime = m_outliner.getContentType();
-
-        outliners.put(m_mime, m_class);
+        Hashtable v = new Hashtable(); 
+        v.put(XPontusConstantsIF.OBJECT_CLASSNAME, m_class);
+        v.put(XPontusConstantsIF.CLASS_LOADER, loader);
+        outliners.put(m_mime, v);
     }
 }

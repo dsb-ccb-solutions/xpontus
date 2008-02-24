@@ -1,6 +1,6 @@
 /*
  * XMLOutlinePluginImpl.java
- * 
+ *
  * Created on 2007-10-02, 18:17:22
  *
  * Copyright (C) 2005-2008 Yves Zoundi
@@ -19,21 +19,30 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.plugins.outline.xml;
 
-import javax.swing.text.Document; 
+import com.ibm.icu.text.CharsetDetector;
+
+import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.OutlineViewDockable;
 import net.sf.xpontus.plugins.outline.OutlinePluginIF;
+
+import java.io.ByteArrayInputStream;
+import java.io.Reader;
+
+import javax.swing.SwingUtilities;
+import javax.swing.text.Document;
+
 
 /**
  *
  * @author Yves Zoundi
  */
-public class XMLOutlinePluginImpl implements OutlinePluginIF{
-
+public class XMLOutlinePluginImpl implements OutlinePluginIF {
     /**
      * Returns the content type supported by this plugin implementation
-     * @return 
+     * @return
      */
     public String getContentType() {
         return "text/xml";
@@ -44,7 +53,42 @@ public class XMLOutlinePluginImpl implements OutlinePluginIF{
      * @param doc The document being edited
      */
     public void updateOutline(Document doc) {
-         doc = null;
-    }
+        try {
+            byte[] b = doc.getText(0, doc.getLength()).getBytes();
+            CharsetDetector detector = new CharsetDetector();
+            detector.setText(new ByteArrayInputStream(b));
 
+            Reader m_reader = detector.detect().getReader();
+
+            final XMLOutlineDocumentParser parser = new XMLOutlineDocumentParser();
+            parser.parse(m_reader);
+
+            final OutlineViewDockable outline = DefaultXPontusWindowImpl.getInstance()
+                                                                        .getOutline();
+
+            final Document mDoc = doc;
+
+            System.out.println("~~~~~~ PARSER DATA ");
+
+            String dtdLocation = parser.getDtdLocation();
+            String schemaLocation = parser.getSchemaLocation();
+
+            if (dtdLocation != null) {
+                mDoc.putProperty(XPontusConstantsIF.PARSER_DATA_DTD_COMPLETION_INFO,
+                    dtdLocation);
+            } else if (schemaLocation != null) {
+                mDoc.putProperty(XPontusConstantsIF.PARSER_DATA_SCHEMA_COMPLETION_INFO,
+                    schemaLocation);
+            }
+
+            SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        mDoc.putProperty(XPontusConstantsIF.OUTLINE_INFO,
+                            parser.getRootNode());
+                        outline.updateAll(parser.getRootNode());
+                    }
+                });
+        } catch (Exception e) {
+        }
+    }
 }

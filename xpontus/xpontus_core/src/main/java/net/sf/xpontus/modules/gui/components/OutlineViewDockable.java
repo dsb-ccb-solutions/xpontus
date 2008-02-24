@@ -43,6 +43,7 @@ import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import net.sf.xpontus.parsers.TokenNode;
 
 /**
  * @version 0.0.1
@@ -100,8 +101,8 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
                         return;
                     }
 
-                    if (node instanceof XmlNode) {
-                        XmlNode nodeInfo = (XmlNode) node;
+                    if (node instanceof TokenNode) {
+                        TokenNode nodeInfo = (TokenNode) node;
                         gotoLine(nodeInfo.line, nodeInfo.column);
                     }
                 }
@@ -127,6 +128,7 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
     }
 
     private void gotoLine(int line, int column) {
+        System.out.println("Line:" + line + ",Column:" + column);
         JTextComponent jtc = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentEditor();
 
         Element element = jtc.getDocument().getDefaultRootElement();
@@ -138,6 +140,11 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
             return;
         }
 
+        
+        // we need to remove some info from here
+        line = line - 1;
+        column = column - 1;
+        
         int lineOffset = element.getElement(line).getStartOffset();
 
         int tokenOffset = lineOffset + column;

@@ -44,6 +44,7 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.PlainDocument;
 import javax.swing.text.Segment;
 import javax.swing.text.SimpleAttributeSet;
+import net.sf.xpontus.plugins.outline.OutlinePluginIF;
 
 
 /**
@@ -56,6 +57,7 @@ public class SyntaxDocument extends PlainDocument
     private ILexer lexer;
     private boolean isCodeCompletion = false;
     private CodeCompletionIF plugin;
+    private OutlinePluginIF outlinePlugin;
 
     //element that represents the previous line postion of the cursor
     private DynamicIntArray endTokens;
@@ -93,12 +95,8 @@ public class SyntaxDocument extends PlainDocument
 
         Hashtable _map = (Hashtable) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_COMPLETION_ENGINES);
 
-        if (_map.size() == 0)
-        {
-            System.out.println("No engines found!");
-
-            return;
-        }
+        if (_map.size() > 0)
+        {   
 
         String completion_key = _map.keySet().iterator().next().toString();
         Hashtable m_map = (Hashtable) _map.get(completion_key);
@@ -115,8 +113,46 @@ public class SyntaxDocument extends PlainDocument
         {
             e.printStackTrace();
         }
+        
+        }
+        
+        Hashtable outlineTable = (Hashtable) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_OUTLINE_ENGINES);
+        System.out.println("Outliners:" + outlineTable.size());
+        if(outlineTable.size() > 0){
+            System.out.println(outlineTable.keySet().iterator().next());
+            Object mimeType = editor.getClientProperty(XPontusConstantsIF.CONTENT_TYPE);
+            if(mimeType!=null){
+                System.out.println("Mimetype not null:" + mimeType);
+                if(outlineTable.containsKey(mimeType)){
+                    System.out.println("We got a match");
+                    Hashtable v = (Hashtable) outlineTable.get(mimeType);
+                    String m_classname = (String) v.get(XPontusConstantsIF.OBJECT_CLASSNAME);
+                    ClassLoader m_loader = (ClassLoader) v.get(XPontusConstantsIF.CLASS_LOADER);
+                    try{
+                        OutlinePluginIF m_outline = (OutlinePluginIF) m_loader.loadClass(m_classname).newInstance();
+                        setOutlinePlugin(m_outline); 
+                    }
+                    catch(Exception exe){
+                        exe.printStackTrace();
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("no outline plugins");
+        }
     }
 
+    public OutlinePluginIF getOutlinePlugin() {
+        return outlinePlugin;
+    }
+
+    public void setOutlinePlugin(OutlinePluginIF outlinePlugin) {
+        System.out.println("Outline plugin set");
+        this.outlinePlugin = outlinePlugin;
+    }
+
+    
     public void setCodeCompletion(CodeCompletionIF plugin)
     {
         this.plugin = plugin;

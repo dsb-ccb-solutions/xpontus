@@ -14,8 +14,10 @@ import java.awt.FlowLayout;
 
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import net.sf.xpontus.modules.gui.components.ImageButton;
 
 
 /**
@@ -23,7 +25,7 @@ import javax.swing.JToolBar;
  * @author Propriétaire
  */
 public class DefaultQuickToolbarPluginImpl implements QuickToolBarPluginIF {
-    private JToolBar panel;
+    private JComponent panel;
 
     public String getName() {
         return "Default quicktoolbar";
@@ -39,20 +41,20 @@ public class DefaultQuickToolbarPluginImpl implements QuickToolBarPluginIF {
 
     public Component getComponent() {
         if (panel == null) {
-            panel = new JToolBar();
-            panel.setFloatable(false);
-            panel.setRollover(true);
+            panel = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 
             IOCPlugin pc = (IOCPlugin) PropertiesHolder.getPropertyValue(IOCPlugin.PLUGIN_IDENTIFIER);
 
             Action m_action = (Action) pc.getBean(XMLCommentActionImpl.BEAN_ALIAS);
-            JButton m_button = new JButton(m_action);
+            ImageButton m_button = new ImageButton(m_action);
+            m_button.setBackground(panel.getBackground());
             m_button.setText(null);
             panel.add(m_button);
 
             m_action = (Action) pc.getBean(InsertCDataActionImpl.BEAN_ALIAS);
-            m_button = new JButton(m_action);
+            m_button = new ImageButton(m_action);
             m_button.setText(null);
+            m_button.setBackground(panel.getBackground());
             panel.add(m_button);
         }
 

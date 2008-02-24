@@ -78,12 +78,22 @@ PARSER_BEGIN(XMLParser)
  * Microsystems, Inc. All Rights Reserved.
  */
 
-package net.sf.xpontus.view.editor.syntax.xml;
+package net.sf.xpontus.plugins.lexer.xml;
 
-import java.io.*;
-import java.util.*;
-import net.sf.xpontus.view.editor.syntax.*;
-import net.sf.xpontus.view.editor.*;
+import net.sf.xpontus.plugins.lexer.LexerPluginIF;
+import net.sf.xpontus.syntax.CharStream;
+import net.sf.xpontus.syntax.IColorProvider;
+import net.sf.xpontus.syntax.LexerInputStream;
+import net.sf.xpontus.syntax.ParseException;
+import net.sf.xpontus.syntax.Token;
+import net.sf.xpontus.syntax.TokenMgrError;
+
+import java.io.CharArrayReader;
+import java.io.Reader;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.text.Segment;
 
 /** This must be included for javacc joy. 

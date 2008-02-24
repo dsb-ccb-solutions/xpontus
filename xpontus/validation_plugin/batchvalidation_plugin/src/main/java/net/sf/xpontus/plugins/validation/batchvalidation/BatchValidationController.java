@@ -357,15 +357,16 @@ public class BatchValidationController {
 
                 if (nbErrors == 0) {
                     console.println("All files are valid!");
-                    XPontusComponentsUtils.showInformationMessage(
-                        "All files are valid!");
+                    DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                            .setMessage("All files are valid!");
                 } else {
                     console.println("There is(are) " + nbErrors +
                         " invalid file(s)");
                     console.println(errorHandler.getErrorMessages(),
                         OutputDockable.RED_STYLE);
 
-                    XPontusComponentsUtils.showErrorMessage(strMessage);
+                    DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                            .setMessage(strMessage);
                 }
 
                 outputWindow.setFocus(MessagesWindowDockable.DOCKABLE_ID);
@@ -405,14 +406,15 @@ public class BatchValidationController {
 
         if (nbErrors == 0) {
             console.println("All files are valid!");
-            XPontusComponentsUtils.showInformationMessage(
-                "All files are valid!");
+            DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                    .setMessage("All files are valid!");
         } else {
             console.println("There is(are) " + nbErrors + " invalid file(s)");
             console.println(errorHandler.getErrorMessages(),
                 OutputDockable.RED_STYLE);
 
-            XPontusComponentsUtils.showErrorMessage(strMessage);
+            DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                    .setMessage(strMessage);
         }
 
         view.enableControlButtons(true);
