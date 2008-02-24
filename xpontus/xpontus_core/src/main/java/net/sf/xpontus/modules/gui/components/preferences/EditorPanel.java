@@ -16,6 +16,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.constants.XPontusUIManagerConstantsIF;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
 import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -26,13 +28,6 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
  */
 public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel, PreferencesPluginIF {
 
-    private Integer value = new Integer(700);
-    private Integer min = new Integer(500);
-    private Integer max = new Integer(1000);
-    private Integer step = new Integer(100);
-    private SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-    private DefaultComboBoxModel encodingModel;
- 
     /**
      * 
      * @return
@@ -52,6 +47,68 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         initComponents();
     }
 
+    public String getTitle() {
+        return "Editor";
+    }
+
+    public Component getJComponent() {
+        return this;
+    }
+
+    public String getId() {
+        return getClass().getName();
+    }
+
+    public String getPluginCategory() {
+       return "";
+    }
+
+    public IPreferencesPanel getPreferencesPanelComponent() {
+        return this;
+    }
+
+    public void saveSettings() {
+        properties.put("displayLineNumbers", Boolean.valueOf(displayLineNumbersOption.isSelected()) + "");
+        
+        
+        
+        UIManager.put(XPontusUIManagerConstantsIF.XPONTUS_EDITOR_LINE_NUMBERS_VISIBLE_PROPERTY, Boolean.valueOf(displayLineNumbersOption.isSelected()));
+        
+        PropertiesConfigurationLoader.save(propertiesFile, properties);
+    }
+
+    public void loadSettings() {
+       
+        //load the properties
+        properties = PropertiesConfigurationLoader.load(propertiesFile); 
+        
+        System.out.println("Editor props:" + properties.size());
+        String[] f = properties.getProperty("Font").split(",");
+        String family = f[0].trim();
+        String style1 = f[1].trim();
+        int style = Font.PLAIN;
+        
+        if(style1.trim().equals("Bold")){
+            style = Font.BOLD;
+        }
+        else if(style1.trim().equals("Bold Italic")){
+            style  = 3;
+        }
+        int size = Integer.parseInt(f[2].trim());
+        
+        this.displayLineNumbers = Boolean.valueOf(properties.getProperty("displayLineNumbers"));
+        this.editorFont = new Font(family, style, size);
+        this.cursorBlinkRate = Integer.parseInt(properties.getProperty("cursorBlinkRate"));
+        this.defaultXMLEncoding = properties.getProperty("DefaultXMLEncoding").toString();
+        
+        this.displayLineNumbersOption.setSelected(displayLineNumbers);
+        this.fontValueLabel.setText(getStringFont(editorFont) );
+        this.fontValueLabel.setFont(editorFont);
+        this.encodingList.setSelectedItem(defaultXMLEncoding);
+        this.cursorBlinkRateValues.setValue(Integer.valueOf(cursorBlinkRate));
+        this.tabSizeTF.setValue(Integer.valueOf(size));
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -198,63 +255,14 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     private javax.swing.JLabel tabSizeLabel;
     private javax.swing.JFormattedTextField tabSizeTF;
     // End of variables declaration//GEN-END:variables
-    public String getTitle() {
-        return "Editor";
-    }
-
-    public Component getJComponent() {
-        return this;
-    }
-
-    public String getId() {
-        return getClass().getName();
-    }
-
-    public String getPluginCategory() {
-       return "";
-    }
-
-    public IPreferencesPanel getPreferencesPanelComponent() {
-        return this;
-    }
-
-    public void saveSettings() {
-        PropertiesConfigurationLoader.save(propertiesFile, properties);
-    }
-
-    public void loadSettings() {
-        if(true){
-            return;
-        }
-        //load the properties
-        properties = PropertiesConfigurationLoader.load(propertiesFile); 
-        
-        String[] f = properties.getProperty("Font").split(",");
-        String family = f[0].trim();
-        String style1 = f[1].trim();
-        int style = Font.PLAIN;
-        
-        if(style1.trim().equals("Bold")){
-            style = Font.BOLD;
-        }
-        else if(style1.trim().equals("Bold Italic")){
-            style  = 3;
-        }
-        int size = Integer.parseInt(f[2].trim());
-        
-        this.displayLineNumbers = Boolean.valueOf(properties.getProperty("displayLineNumbers"));
-        this.editorFont = new Font(family, style, size);
-        this.cursorBlinkRate = Integer.parseInt(properties.getProperty("cursorBlinkRate"));
-        this.defaultXMLEncoding = properties.getProperty("DefaultXMLEncoding").toString();
-        
-        this.displayLineNumbersOption.setSelected(displayLineNumbers);
-        this.fontValueLabel.setText(getStringFont(editorFont) );
-        this.fontValueLabel.setFont(editorFont);
-        this.encodingList.setSelectedItem(defaultXMLEncoding);
-        this.cursorBlinkRateValues.setValue(Integer.valueOf(cursorBlinkRate));
-        this.tabSizeTF.setValue(Integer.valueOf(size));
-    }
     
+    private Integer value = new Integer(700);
+    private Integer min = new Integer(500);
+    private Integer max = new Integer(1000);
+    private Integer step = new Integer(100);
+    private SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
+    private DefaultComboBoxModel encodingModel;
+ 
     private File propertiesFile = XPontusConfigurationConstantsIF.EDITOR_PREFERENCES_FILE;
     private Properties properties;
     private int cursorBlinkRate;

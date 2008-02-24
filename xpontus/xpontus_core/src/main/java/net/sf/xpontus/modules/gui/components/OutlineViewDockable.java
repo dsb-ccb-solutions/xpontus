@@ -25,7 +25,6 @@ import com.vlsolutions.swing.docking.DockGroup;
 import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.Dockable;
 
-import net.sf.xpontus.parsers.XmlNode;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.awt.Component;

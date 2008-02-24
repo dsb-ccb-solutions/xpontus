@@ -22,8 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.UIManager;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import net.sf.xpontus.modules.gui.components.preferences.EditorPanel;
 import net.sf.xpontus.modules.gui.components.preferences.GeneralPanel;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
@@ -101,7 +99,7 @@ public class BasicSettingsView extends javax.swing.JDialog {
     }
 
     /**
-     * 
+     * Default constructor
      */
     public BasicSettingsView() {
         this((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent(), true);
@@ -171,6 +169,9 @@ public class BasicSettingsView extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        for (int i = 0; i < panels.length; i++) {
+            panels[i].saveSettings();
+        }
         setVisible(false);
     }//GEN-LAST:event_saveButtonActionPerformed
 

@@ -72,9 +72,11 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.constants.XPontusUIManagerConstantsIF;
 
 
 /**
@@ -109,7 +111,15 @@ public class DocumentContainer implements Dockable {
  
 
         scrollPane = new JScrollPane(editor);
-        scrollPane.setRowHeaderView(new LineView(editor));
+        Object lineProp = UIManager.get(XPontusUIManagerConstantsIF.XPONTUS_EDITOR_LINE_NUMBERS_VISIBLE_PROPERTY);
+        if(lineProp!=null){
+            if(lineProp.equals(Boolean.TRUE)){
+                scrollPane.setRowHeaderView(new LineView(editor));
+            }
+        }
+        else{
+            scrollPane.setRowHeaderView(new LineView(editor));
+        }
 
         documentPanel.add(scrollPane, BorderLayout.CENTER);
 

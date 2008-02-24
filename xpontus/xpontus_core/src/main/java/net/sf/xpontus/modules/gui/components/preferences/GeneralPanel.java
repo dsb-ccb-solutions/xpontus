@@ -23,8 +23,7 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     public GeneralPanel() {
         initComponents();
     }
-
-    @Override
+ 
     public String toString() {
         return getTitle();
     }
@@ -212,9 +211,7 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     }
 
     public void loadSettings() {
-        if(true){
-            return;
-        }
+       
         // load the properties file
         props = PropertiesConfigurationLoader.load(config);
         

@@ -25,6 +25,7 @@ package net.sf.xpontus.plugins.indentation.xml;
 
 import com.ibm.icu.text.CharsetDetector;
 
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
 import net.sf.xpontus.utils.NullEntityResolver;
@@ -74,6 +75,22 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
 
         Reader reader = chd.detect().getReader();
 
+        String omitCommentsOption = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
+                "$" +
+                XMLIndentationPreferencesConstantsIF.OMIT_COMMENTS_OPTION);
+
+        String omitDoctypeOption = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
+                "$" +
+                XMLIndentationPreferencesConstantsIF.OMIT_DOCTYPE_OPTION);
+
+        String omitXmlDeclaration = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
+                "$" +
+                XMLIndentationPreferencesConstantsIF.OMIT_XML_DECLARATION_OPTION);
+
+        String preserveSpaceOption = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
+                "$" +
+                XMLIndentationPreferencesConstantsIF.PRESERVE_SPACE_OPTION);
+
         try {
             DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
             fact.setValidating(false);
@@ -85,6 +102,12 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
             Document doc = builder.parse(src);
 
             OutputFormat formatter = new OutputFormat();
+            
+            formatter.setOmitXMLDeclaration(Boolean.getBoolean(omitXmlDeclaration));
+            formatter.setOmitDocumentType(Boolean.getBoolean(omitDoctypeOption));
+            formatter.setPreserveSpace(Boolean.getBoolean(preserveSpaceOption));
+            formatter.setOmitComments(Boolean.getBoolean(omitCommentsOption));
+            
             formatter.setIndenting(true);
 
             ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();

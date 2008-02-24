@@ -54,7 +54,6 @@ public class PreferencesPlugin extends XPontusPlugin {
     public static final String PLUGIN_IDENTIFIER = "plugin.core.preferences";
     private Hashtable settings;
 
-    @Override
     public void init() throws Exception {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_PREFERENCES_PANELS,
             settings);
@@ -88,12 +87,10 @@ public class PreferencesPlugin extends XPontusPlugin {
         }
     }
 
-    @Override
     protected void doStart() throws Exception {
         settings = new Hashtable();
     }
 
-    @Override
     protected void doStop() throws Exception {
         settings.clear();
     }

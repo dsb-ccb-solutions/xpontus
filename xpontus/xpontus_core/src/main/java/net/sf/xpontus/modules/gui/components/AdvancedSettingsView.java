@@ -28,7 +28,6 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.controllers.impl.XPontusPluginManager;
-import net.sf.xpontus.modules.gui.components.preferences.PreferencesNode;
 import net.sf.xpontus.modules.gui.components.preferences.PreferencesNode2;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
 import net.sf.xpontus.properties.PropertiesHolder;
@@ -112,6 +111,7 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
 
             try {
                 PreferencesPluginIF prefIF = (PreferencesPluginIF) Class.forName(m_className, true, m_loader).newInstance();
+                prefIF.loadSettings();
                 panelsMap.put(id, prefIF);
                 List m_list = createOrGetCategory(m_category);
                 m_list.add(prefIF);
@@ -268,6 +268,12 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+       
+        Iterator<PreferencesPluginIF> m_it = panelsMap.values().iterator();
+        while(m_it.hasNext()){
+            m_it.next().saveSettings();
+        }
+        
         setVisible(false);
 }//GEN-LAST:event_closeButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
