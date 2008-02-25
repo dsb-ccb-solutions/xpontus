@@ -76,7 +76,7 @@ public class XMLOutlineDocumentParser {
                 });
             parser.setFeature("http://xml.org/sax/features/validation", false);
         } catch (Exception err) {
-            err.printStackTrace();
+//            err.printStackTrace();
         }
     }
 
@@ -101,24 +101,24 @@ public class XMLOutlineDocumentParser {
             DefaultXPontusWindowImpl.getInstance().getStatusBar()
                                     .setMessage("Done reading document structure");
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
     private class XMLDocErrorHandler implements XMLErrorHandler {
         private void report(XMLParseException e) {
-            DefaultXPontusWindowImpl.getInstance().getStatusBar()
-                                    .setMessage("Error building outline - See the messages window");
-
-            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
-                                                                  .getConsole();
-
-            MessagesWindowDockable mw = (MessagesWindowDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
-
-            mw.println("Error building outline", OutputDockable.RED_STYLE);
-            mw.println(e.getMessage(), OutputDockable.RED_STYLE);
-
-            Toolkit.getDefaultToolkit().beep();
+//            DefaultXPontusWindowImpl.getInstance().getStatusBar()
+//                                    .setMessage("Error building outline - See the messages window");
+//
+//            ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
+//                                                                  .getConsole();
+//
+//            MessagesWindowDockable mw = (MessagesWindowDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
+//
+//            mw.println("Error building outline", OutputDockable.RED_STYLE);
+//            mw.println(e.getMessage(), OutputDockable.RED_STYLE);
+//
+//            Toolkit.getDefaultToolkit().beep();
         }
 
         public void warning(java.lang.String domain, java.lang.String key,
