@@ -131,6 +131,9 @@ public class SchemaGeneratorHandler {
     }
 
     private void generateSchema() {
+        DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                .setMessage("Generating schema...");
+
         view.setVisible(false);
 
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
@@ -178,6 +181,8 @@ public class SchemaGeneratorHandler {
                 if (jtc == null) {
                     XPontusComponentsUtils.showErrorMessage(
                         "No document opened!!!");
+                    DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                            .setMessage("Error generating schema, Please see the messages window!");
 
                     return;
                 }
@@ -199,7 +204,7 @@ public class SchemaGeneratorHandler {
                             new String[0], model.getOutputType().toLowerCase(),
                             eh);
                 } catch (Exception ife) {
-                   StrBuilder stb = new StrBuilder();
+                    StrBuilder stb = new StrBuilder();
                     stb.append("\nError loading input document!\n");
                     stb.append("Maybe the input type is invalid?\n");
                     stb.append(
@@ -221,7 +226,7 @@ public class SchemaGeneratorHandler {
                         "Please check again the input type list or trying validating your document\n");
                     throw new Exception(stb.toString());
                 }
-            } 
+            }
 
             OutputDirectory od = new LocalOutputDirectory(sc.getMainUri(),
                     new File(view.getModel().getOutputURI()),
@@ -231,8 +236,12 @@ public class SchemaGeneratorHandler {
                 model.getInputType().toLowerCase(), eh);
 
             mconsole.println("Schema generated sucessfully!");
- 
+
+            DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                    .setMessage("Schema generated sucessfully!");
         } catch (Exception ex) {
+            DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                    .setMessage("Error generating schema, Please see the messages window!");
             ex.printStackTrace();
 
             StringBuffer sb = new StringBuffer();
@@ -245,7 +254,6 @@ public class SchemaGeneratorHandler {
                 sb.append("\n");
             }
 
-            
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(bos);
             ex.printStackTrace(ps);
