@@ -39,7 +39,6 @@ import org.apache.xerces.parsers.SAXParser;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
-import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 
 import java.io.BufferedInputStream;
@@ -48,6 +47,8 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 
 /**
@@ -96,6 +97,18 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
         JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
                                                      .getDocumentTabContainer()
                                                      .getCurrentEditor();
+        
+        
+        Object contentType = jtc.getClientProperty(XPontusConstantsIF.CONTENT_TYPE) ;
+        
+        if(contentType == null){
+            return;
+        }
+        
+        if(!contentType.equals("text/xml")){
+            XPontusComponentsUtils.showInformationMessage("The document is not an XML document \nor is not registered as one");;
+            return;
+        }
 
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                               .getConsole();

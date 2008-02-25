@@ -21,8 +21,10 @@
  */
 package net.sf.xpontus.plugins.indentation.html;
 
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.preferences.IPreferencesPanel;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
+import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,10 +33,15 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import java.nio.charset.Charset;
 
 import java.util.Iterator;
+import java.util.Properties;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -50,10 +57,14 @@ import javax.swing.JPanel;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class HTMLIndenterPreferencesPanelImpl implements PreferencesPluginIF {
-    private IPreferencesPanel panel;
+    private HTMLIndenterPrefComponent panel;
+    private String elementsP = null;
+    private String attributesP = null;
+    private String normalizeAttributesOptionP = null;
+    private String fixWindowsEntitiesP = null;
+    private String encodingP = null;
 
     public HTMLIndenterPreferencesPanelImpl() {
-        panel = new HTMLIndenterPrefComponent();
     }
 
     public String getPluginCategory() {
@@ -61,13 +72,64 @@ public class HTMLIndenterPreferencesPanelImpl implements PreferencesPluginIF {
     }
 
     public IPreferencesPanel getPreferencesPanelComponent() {
+        if (panel == null) {
+            panel = new HTMLIndenterPrefComponent();
+        }
+
         return panel;
     }
 
     public void saveSettings() {
+        Properties props = new Properties();
+        props.put(HTMLIndenterPluginConstantsIF.class.getName() + "$" +
+            HTMLIndenterPluginConstantsIF.ATTRIBUTES_PROPERTY, attributesP);
+
+        props.put(HTMLIndenterPluginConstantsIF.class.getName() + "$" +
+            HTMLIndenterPluginConstantsIF.ELEMENTS_PROPERTY, elementsP);
+
+        props.put(HTMLIndenterPluginConstantsIF.class.getName() + "$" +
+            HTMLIndenterPluginConstantsIF.FIX_WINDOW_ENTITIES_PROPERTY,
+            fixWindowsEntitiesP);
+
+        props.put(HTMLIndenterPluginConstantsIF.class.getName() + "$" +
+            HTMLIndenterPluginConstantsIF.NORMALIZE_ATTRIBUTES_PROPERTY,
+            normalizeAttributesOptionP);
+
+        props.put(HTMLIndenterPluginConstantsIF.class.getName() + "$" +
+            HTMLIndenterPluginConstantsIF.ENCODING_PROPERTY, encodingP);
+
+        Iterator it = props.keySet().iterator();
+
+        while (it.hasNext()) {
+            String m_key = it.next().toString();
+            String m_value = props.getProperty(m_key);
+            XPontusConfig.put(m_key, m_value);
+        }
+
+        PropertiesConfigurationLoader.save(HTMLIndentationPlugin.configfile,
+            props);
     }
 
     public void loadSettings() {
+        attributesP = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                "$" + HTMLIndenterPluginConstantsIF.ATTRIBUTES_PROPERTY)
+                                   .toString();
+
+        elementsP = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                "$" + HTMLIndenterPluginConstantsIF.ELEMENTS_PROPERTY).toString();
+
+        fixWindowsEntitiesP = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                "$" +
+                HTMLIndenterPluginConstantsIF.FIX_WINDOW_ENTITIES_PROPERTY)
+                                           .toString();
+
+        normalizeAttributesOptionP = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                "$" +
+                HTMLIndenterPluginConstantsIF.NORMALIZE_ATTRIBUTES_PROPERTY)
+                                                  .toString();
+
+        encodingP = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                "$" + HTMLIndenterPluginConstantsIF.ENCODING_PROPERTY).toString();
     }
 
     public class HTMLIndenterPrefComponent extends JComponent
@@ -98,6 +160,7 @@ public class HTMLIndenterPreferencesPanelImpl implements PreferencesPluginIF {
             GridBagConstraints c = null;
 
             encodingModel = new DefaultComboBoxModel();
+            encodingModel.addElement("AUTODETECT");
 
             Iterator it = Charset.availableCharsets().keySet().iterator();
 
@@ -108,16 +171,56 @@ public class HTMLIndenterPreferencesPanelImpl implements PreferencesPluginIF {
             elementsOptionList = new JComboBox(new String[] {
                         "upper", "lower", "match"
                     });
+
+            elementsOptionList.addItemListener(new ItemListener() {
+                    public void itemStateChanged(ItemEvent arg0) {
+                        if (arg0.getStateChange() == ItemEvent.SELECTED) {
+                            elementsP = elementsOptionList.getSelectedItem()
+                                                          .toString();
+                        }
+                    }
+                });
             attributesOptionList = new JComboBox(new String[] {
                         "upper", "lower", "no-change"
                     });
+
+            attributesOptionList.addItemListener(new ItemListener() {
+                    public void itemStateChanged(ItemEvent arg0) {
+                        if (arg0.getStateChange() == ItemEvent.SELECTED) {
+                            attributesP = attributesOptionList.getSelectedItem()
+                                                              .toString();
+                        }
+                    }
+                });
             fixWindowsEntitiesRef = new JCheckBox("Fix Windows entities", true);
+
+            fixWindowsEntitiesRef.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                        fixWindowsEntitiesP = Boolean.valueOf(fixWindowsEntitiesRef.isSelected())
+                                                     .toString();
+                    }
+                });
             normalizeAttributesOption = new JCheckBox("Normalize attributes",
                     true);
+            normalizeAttributesOption.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                        normalizeAttributesOptionP = Boolean.valueOf(fixWindowsEntitiesRef.isSelected())
+                                                            .toString();
+                    }
+                });
+
             elementsOptionLabel = new JLabel("Elements");
             attributesOptionLabel = new JLabel("Attributes");
             encodingLabel = new JLabel("Default encoding");
             encodingList = new JComboBox(encodingModel);
+
+            encodingList.addItemListener(new ItemListener() {
+                    public void itemStateChanged(ItemEvent arg0) {
+                        if (arg0.getStateChange() == ItemEvent.SELECTED) {
+                            encodingP = encodingList.getSelectedItem().toString();
+                        }
+                    }
+                });
 
             c = new GridBagConstraints();
             c.gridx = 0;
@@ -181,6 +284,18 @@ public class HTMLIndenterPreferencesPanelImpl implements PreferencesPluginIF {
             p.add(normalizeAttributesOption, c);
 
             add(p, BorderLayout.CENTER);
+
+            refreshProperties();
+        }
+
+        public void refreshProperties() {
+            normalizeAttributesOption.setSelected(Boolean.valueOf(
+                    normalizeAttributesOptionP).booleanValue());
+            elementsOptionList.setSelectedItem(elementsP);
+            attributesOptionList.setSelectedItem(attributesP);
+            encodingList.setSelectedItem(encodingP);
+            fixWindowsEntitiesRef.setSelected(Boolean.valueOf(
+                    fixWindowsEntitiesP).booleanValue());
         }
 
         public String getTitle() {

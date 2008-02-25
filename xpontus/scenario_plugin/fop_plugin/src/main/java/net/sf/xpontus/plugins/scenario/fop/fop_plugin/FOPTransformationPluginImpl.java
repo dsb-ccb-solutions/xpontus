@@ -6,13 +6,17 @@ package net.sf.xpontus.plugins.scenario.fop.fop_plugin;
 
 import com.ibm.icu.text.CharsetDetector;
 
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.plugins.scenarios.DetachableScenarioModel;
+import net.sf.xpontus.plugins.scenarios.ScenarioPluginIF;
+import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
 import net.sf.xpontus.plugins.scenarios.TransformationErrorListener;
- 
+import net.sf.xpontus.utils.XPontusComponentsUtils;
+
 import org.apache.avalon.framework.logger.Logger;
 
 import org.apache.commons.io.FileUtils;
@@ -23,6 +27,7 @@ import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.provider.local.LocalFile;
 
 import org.apache.fop.apps.Driver;
+import org.apache.fop.apps.Options;
 import org.apache.fop.messaging.MessageHandler;
 
 import org.apache.xalan.processor.TransformerFactoryImpl;
@@ -36,6 +41,7 @@ import java.io.Reader;
 
 import java.util.Hashtable;
 import java.util.Iterator;
+
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
@@ -44,22 +50,21 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
-import net.sf.xpontus.plugins.scenarios.ScenarioPluginIF;
-import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
-import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 
 /**
  *
  * @author Propriétaire
  */
-public class FOPTransformationPluginImpl  implements ScenarioPluginIF {
+public class FOPTransformationPluginImpl implements ScenarioPluginIF {
+    public static final String FOP_CONFIG_FILE_PROPERTY = "FOP_CONFIG_FILE_PROPERTY";
     public static final String FOP_TRANSFORMATION = "Output type (PDF, SVG, XML, Text)";
     private Logger logger;
 
-    public FOPTransformationPluginImpl(){
+    public FOPTransformationPluginImpl() {
         logger = new org.apache.avalon.framework.logger.ConsoleLogger();
     }
+
     public String getName() {
         return "FOP 0.20.5:" + FOP_TRANSFORMATION;
     }
@@ -76,7 +81,6 @@ public class FOPTransformationPluginImpl  implements ScenarioPluginIF {
         return new String[] { "PDF", "SVG", "XML", "Text" };
     }
 
-    
     /**
      *
      * @param tf
@@ -119,7 +123,7 @@ public class FOPTransformationPluginImpl  implements ScenarioPluginIF {
 
         return detector.detect().getReader();
     }
-    
+
     public void handleScenario(DetachableScenarioModel model) {
         try {
             if (!isValidModel(model, true)) {
@@ -127,7 +131,7 @@ public class FOPTransformationPluginImpl  implements ScenarioPluginIF {
             }
 
             Driver driver = new Driver();
-            
+
             MessageHandler.setScreenLogger(logger);
             driver.setLogger(logger);
 
@@ -145,6 +149,15 @@ public class FOPTransformationPluginImpl  implements ScenarioPluginIF {
             }
 
             driver.setRenderer(renderer);
+
+            String m_prop = FOPConfigurationPanel.class.getName() + "$" +
+                FOPTransformationPluginImpl.FOP_CONFIG_FILE_PROPERTY;
+            Object o = XPontusConfig.getValue(m_prop);
+
+            if (o != null) {
+                Options opts = new Options();
+                opts.loadUserconfiguration(o.toString());
+            }
 
             logger.info("Getting ready for transformation");
 

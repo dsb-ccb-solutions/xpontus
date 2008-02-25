@@ -25,6 +25,7 @@ package net.sf.xpontus.plugins.indentation.html;
 
 import com.ibm.icu.text.CharsetDetector;
 
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
 
@@ -47,6 +48,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
@@ -62,6 +64,7 @@ public class HTMLIndentationModuleImpl implements IndentationPluginIF {
     private final String NS_PROP = "http://xml.org/sax/features/namespaces";
     private final String BALANCE_PROP = "http://cyberneko.org/html/features/balance-tags";
     private final String FILTERS_PROP = "http://cyberneko.org/html/properties/filters";
+    private final String FIX_WINDOWS_PROP = "http://cyberneko.org/html/features/scanner/fix-mswindows-refs";
 
     public HTMLIndentationModuleImpl() {
     }
@@ -77,8 +80,29 @@ public class HTMLIndentationModuleImpl implements IndentationPluginIF {
     public void run() throws Exception {
         try {
             HTMLConfiguration config = new HTMLConfiguration();
-            config.setProperty(ELEM_PROP, "lower");
-            config.setProperty(ATTRS_PROP, "lower");
+
+            String elementP = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                    "$" + HTMLIndenterPluginConstantsIF.ELEMENTS_PROPERTY)
+                                           .toString();
+            String attributesP = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                    "$" + HTMLIndenterPluginConstantsIF.ATTRIBUTES_PROPERTY)
+                                              .toString();
+            String fixWinRefs = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                    "$" +
+                    HTMLIndenterPluginConstantsIF.FIX_WINDOW_ENTITIES_PROPERTY)
+                                             .toString();
+            String normP = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                    "$" +
+                    HTMLIndenterPluginConstantsIF.NORMALIZE_ATTRIBUTES_PROPERTY)
+                                        .toString();
+            String encodingP = XPontusConfig.getValue(HTMLIndenterPluginConstantsIF.class.getName() +
+                    "$" + HTMLIndenterPluginConstantsIF.ENCODING_PROPERTY)
+                                            .toString();
+
+            config.setProperty(ELEM_PROP, elementP);
+            config.setProperty(ATTRS_PROP, attributesP);
+            config.setFeature(FIX_WINDOWS_PROP,
+                Boolean.valueOf(fixWinRefs).booleanValue());
             config.setFeature(NS_PROP, true);
             config.setFeature(BALANCE_PROP, true);
 
@@ -86,10 +110,17 @@ public class HTMLIndentationModuleImpl implements IndentationPluginIF {
                                                          .getDocumentTabContainer()
                                                          .getCurrentEditor();
 
-            CharsetDetector chd = new CharsetDetector();
-            chd.setText(jtc.getText().getBytes());
+            Reader reader = null;
+            byte[] bt = jtc.getText().getBytes();
 
-            Reader reader = chd.detect().getReader();
+            if (!encodingP.equals("AUTODETECT")) {
+                reader = new InputStreamReader(new ByteArrayInputStream(bt),
+                        encodingP);
+            } else {
+                CharsetDetector chd = new CharsetDetector();
+                chd.setText(bt);
+                reader = chd.detect().getReader();
+            }
 
             Purifier purifier = new Purifier();
             XMLDocumentFilter[] filters = new XMLDocumentFilter[] { purifier };
@@ -114,10 +145,11 @@ public class HTMLIndentationModuleImpl implements IndentationPluginIF {
             byte[] b = out.toByteArray();
 
             if (b.length > 0) {
-                jtc.getDocument().remove(0, jtc.getDocument().getLength()); 
+                jtc.getDocument().remove(0, jtc.getDocument().getLength());
 
                 InputStream newIs = new BufferedInputStream(new ByteArrayInputStream(
                             b));
+                CharsetDetector chd = new CharsetDetector();
                 chd.setText(newIs);
                 jtc.read(chd.detect().getReader(), null);
             }
