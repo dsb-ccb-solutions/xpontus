@@ -3,7 +3,12 @@
 <plugin id="plugin.core.completion.xml" version="0.0.1" class="net.sf.xpontus.plugins.codecompletion.xml.XMLCodeCompletionPlugin">
     <attributes>
         <attribute id = "Built-in" value = "false"/>
-        <attribute id="Category" value = "Completion"/>
+        <attribute id="Category" value = "Completion"/>  
+        <attribute id = "Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id = "Description" value = "Code completion support for XML documents"/>
+        <attribute id = "DisplayName" value = "XML code completion"/>
+        <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
+        <attribute id = "date" value = "26-02-2008"/>
     </attributes>
     <requires>
         <import plugin-id="plugin.core.outline.xml" />

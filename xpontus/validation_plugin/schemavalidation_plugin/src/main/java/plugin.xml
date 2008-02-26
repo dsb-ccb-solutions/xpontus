@@ -1,6 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
 <plugin id="plugin.core.menubar.schemavalidationplugin" version="0.0.1" class="net.sf.xpontus.plugins.validation.schemavalidation.SchemaValidationPlugin">      
+     <attributes>
+        <attribute id = "Category" value="Validation"/>
+        <attribute id = "Built-in" value = "false"/>
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "Validate XML files against external schemas"/>
+        <attribute id = "DisplayName" value = "External Schema Validation"/>
+        <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
+        <attribute id = "date" value = "26-02-2008"/>
+    </attributes>
     <requires>
         <import plugin-id="plugin.core.menubar" />
     </requires>

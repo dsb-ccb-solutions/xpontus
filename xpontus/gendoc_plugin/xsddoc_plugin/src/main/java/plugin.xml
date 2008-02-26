@@ -6,7 +6,9 @@
         <attribute id = "Built-in" value = "false"/>
         <attribute id = "Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
         <attribute id = "Description" value = "XML Schema documentation generator"/>
-        <attribute id = "DisplayName" value = "XML Schema documentation generator"/>
+        <attribute id = "DisplayName" value = "Generate XML Schema documentation"/>
+        <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
+        <attribute id = "date" value = "26-02-2008"/>
     </attributes> 
     <requires>
         <import plugin-id="plugin.core.gendoc" />
