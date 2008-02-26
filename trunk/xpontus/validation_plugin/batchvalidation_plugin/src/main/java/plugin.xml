@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.core.menubar.batchvalidationplugin" version="0.0.1" class="net.sf.xpontus.plugins.validation.batchvalidation.BatchValidationPlugin">      
+<plugin id="plugin.core.menubar.batchvalidationplugin" vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.validation.batchvalidation.BatchValidationPlugin">      
     <attributes>
         <attribute id = "Category" value="Validation"/>
-        <attribute id = "Built-in" value = "false"/>
+        <attribute id = "Built-in" value = "false"/>      
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "Batch XML Validation of XML files"/>
+        <attribute id = "DisplayName" value = "Toolbar plugin"/>  
+        <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
+        <attribute id = "date" value = "26-02-2008"/>
     </attributes>
     <requires>
         <import plugin-id="plugin.core.actions" />

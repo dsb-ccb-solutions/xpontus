@@ -6,7 +6,9 @@
         <attribute id = "Built-in" value = "false"/>
         <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
         <attribute id="Description" value = "I18n plugin"/>
-        <attribute id = "DisplayName" value = "I18n plugin"/>
+        <attribute id = "DisplayName" value = "I18n plugin"/>      
+        <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
+        <attribute id = "date" value = "26-02-2008"/>
     </attributes>
     <runtime>
         <library type="code" path="." id="plugin.core.i18n"> 
