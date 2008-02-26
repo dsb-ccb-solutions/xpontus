@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-package net.sf.xpontus.plugins.validation.simplexmlvalidation;
+package net.sf.xpontus.actions.impl;
 
 import com.ibm.icu.text.CharsetDetector;
 
@@ -54,15 +54,20 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  * @version 0.0.1
  */
-public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
+public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
+    public static final String BEAN_ALIAS = "action.validate";
     private SAXParser parser;
     private ValidationHandler handler;
 
     /**
      *
      */
-    public SimpleValidationAction() {
-        
+    public SimpleValidationActionImpl() {
+        setName("Validate XML");
+        setDescription("XML Validation");
+
+        URL url = getClass().getResource("validate16.gif");
+        this.putValue(Action.SMALL_ICON, new ImageIcon(url));
     }
 
     public void run() {
@@ -71,10 +76,11 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
                                                          .getDocumentTabContainer()
                                                          .getCurrentEditor();
 
-             DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                       .getDocumentTabContainer()
                                                                                       .getCurrentDockable();
-             container.getStatusBar().setMessage("Validating document...");
+            container.getStatusBar().setMessage("Validating document...");
+
             InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
 
             if (parser == null) {
@@ -111,7 +117,6 @@ public class SimpleValidationAction extends DefaultDocumentAwareActionImpl {
                                                                   .getConsole();
             OutputDockable odk = (OutputDockable) console.getDockables()
                                                          .get(ConsoleOutputWindow.MESSAGES_WINDOW);
-           
 
             if (handler.getErrors().length() == 0) {
                 container.getStatusBar().setMessage("Document is valid!");

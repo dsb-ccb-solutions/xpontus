@@ -20,18 +20,6 @@
     </dependency>
     
     <dependency>
-            <groupId>jung</groupId>
-            <artifactId>jung</artifactId>
-            <version>1.7.6</version>
-            <scope>compile</scope>
-        </dependency>
-    <dependency>
-            <groupId>colt</groupId>
-            <artifactId>colt</artifactId>
-            <version>1.2.0</version>
-            <scope>compile</scope>
-        </dependency>
-    <dependency>
             <groupId>net.sf.xpontus</groupId>
             <artifactId>xpontus_core</artifactId>
             <version>1.0.0-pre1</version>
@@ -43,6 +31,8 @@
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
+    
+    
     
   </dependencies>
     <build>

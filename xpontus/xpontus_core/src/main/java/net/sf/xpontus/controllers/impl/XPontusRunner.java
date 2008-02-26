@@ -88,6 +88,7 @@ import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JWindow;
 import javax.swing.UIManager;
+import net.sf.xpontus.actions.impl.SimpleValidationActionImpl;
 
 /**
  * Main class of the program
@@ -258,13 +259,16 @@ public class XPontusRunner {
                 UndoActionImpl.BEAN_ALIAS, RedoActionImpl.BEAN_ALIAS,
                 "action.findreplace", "action.gotoline"
             };
-
+ 
+            final Object[] validateActionsList = new Object[]{iocPlugin.getBean(SimpleValidationActionImpl.BEAN_ALIAS)};
+            
+            
             final String[] toolsActions = {
                 CheckXMLActionImpl.BEAN_ALIAS,
                 IndentContentActionImpl.BEAN_ALIAS, "action.docgen"
             };
 
-            final String[] helpActions = {"action.about", "action.help"};
+            final String[] helpActions = {"action.about", "action.pluginmanager", "action.help"};
             final Object[] helpActionsList = new Object[helpActions.length];
 
             for (int i = 0; i < helpActions.length; i++) {
@@ -322,6 +326,7 @@ public class XPontusRunner {
                     String id = XPontusMenuConstantsIF.TOOLS_MENU_ID;
                     List li = new Vector();
 
+                    li.add(validateActionsList[0]);
                     for (int j = 0; j < toolsActionsList.length; j++) {
                         li.add(toolsActionsList[j]);
                     }
@@ -376,6 +381,8 @@ public class XPontusRunner {
 
             toolbarPlugin.initExtension(helpToolbarExt);
             toolbarPlugin.initExtension(toolsToolbarExt);
+            
+            toolbarPlugin.initExtension(createToolbarExtension(XPontusToolbarConstantsIF.TB_VALIDATION, validateActionsList));
 
             toolbarPlugin.initExtension(scenariosToolbarExt);
 

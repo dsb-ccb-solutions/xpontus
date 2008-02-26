@@ -55,7 +55,7 @@ public class BatchValidationPluginImpl implements ActionPluginIF {
 
         List tbActions = new Vector(1);
         tbActions.add(m_action);
-        tbMap.put(XPontusToolbarConstantsIF.TB_TOOLS, tbActions);
+        tbMap.put(XPontusToolbarConstantsIF.TB_VALIDATION, tbActions);
     }
 
     public List getMenuNames() {
@@ -67,7 +67,7 @@ public class BatchValidationPluginImpl implements ActionPluginIF {
     }
 
     public String[] getToolBarNames() {
-        return new String[] { XPontusToolbarConstantsIF.TB_TOOLS };
+        return new String[] { XPontusToolbarConstantsIF.TB_VALIDATION };
     }
 
     public Map getActions() {

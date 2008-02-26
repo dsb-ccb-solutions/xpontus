@@ -34,6 +34,8 @@ public interface XPontusToolbarConstantsIF {
      * Toolbar name for general actions
      */
     String TB_GENERAL = "GENERAL";
+    
+    String TB_VALIDATION = "VALIDATION";
 
     /**
      * Toolbar name fholding edit actions
