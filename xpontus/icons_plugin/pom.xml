@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <parent>
+    <artifactId>xpontus</artifactId>
+    <groupId>net.sf.xpontus</groupId>
+    <version>1.0.0-pre1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.xpontus.plugins.icons</groupId>
+  <artifactId>icons_plugin</artifactId>
+  <name>Icons Set</name>
+  <packaging>pom</packaging>
+  <version>1.0.0-pre1</version> 
+  <description>Icon sets plugin</description>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <modules>
+    <module>eclipse_icons_plugin</module>
+    <module>java_icons_plugin</module>
+    
+  </modules>
+</project>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sf.xpontus</groupId>
+    <artifactId>xpontus</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-pre1</version>
+    <name>XPontus XML Editor</name>
+    <description>XPontus XML Editor, A free java based XML Editor</description>
+    <url>http://xpontus.sourceforge.net</url>
+    <organization>
+        <name>XPontus Team</name>
+        <url>http://yveszoundi.blogspot.com</url>
+    </organization> 
+    <licenses>
+        <license>
+            <name>GPL</name>
+            <url>http://www.gnu.org/licenses/gpl.txt</url>
+        </license>
+    </licenses>    
+    <mailingLists>
+        <mailingList>
+            <name>xpontus-announce</name>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=xpontus-announce</archive>
+            <subscribe>http://lists.sourceforge.net/mailman/listinfo/xpontus-announce</subscribe>
+            <unsubscribe>http://lists.sourceforge.net/mailman/listinfo/xpontus-announce</unsubscribe>
+        </mailingList>
+        <mailingList>
+            <name>xpontus-features-requests</name>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=xpontus-features-requests</archive>
+            <subscribe>http://lists.sourceforge.net/mailman/listinfo/xpontus-features-requests</subscribe>
+            <unsubscribe>http://lists.sourceforge.net/mailman/listinfo/xpontus-features-requests</unsubscribe>
+        </mailingList>
+    </mailingLists> 
+    <developers>       
+        <developer>
+            <id>mrcheeks</id>
+            <name>Yves Zoundi</name>          
+            <organization>Universite Laval Library</organization>
+            <organizationUrl>http://www.bibl.ulaval.ca/mieux/</organizationUrl>
+            <email>yveszoundi AT users DOT sf DOT net</email>    
+            <roles>
+                <role>Developer,Project manager</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>mohadib</id>
+            <name>Jason Davis</name>
+            <organization>OpenActive</organization>
+            <organizationUrl>http://openactive.org</organizationUrl>
+            <email>mohadib AT users DOT sf DOT net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>delvinj</id>
+            <name>Daniel Johnson</name>
+            <organizationUrl>http://jedit.sf.net</organizationUrl>
+            <email>delvinj AT users DOT sf DOT net</email>
+            <organization>JEdit</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <email>apamax@gmail.com</email>
+            <name>Apama</name>
+            <organization>Apama Design</organization>
+            <organizationUrl>http://designapama.blogspot.com</organizationUrl>
+            <roles>
+                <role>Graphics designer</role>
+            </roles>
+        </contributor>
+    </contributors>
+    <modules>
+        <module>xpontus_core</module> 
+        <module>i18n_plugin</module>              
+        <module>validation_plugin</module>
+        <module>schema_converter_plugin</module>
+        <module>lexer_plugin</module>        
+        <module>codecompletion_plugin</module>
+        <module>vfs_plugin</module>
+        <module>indentation_plugin</module>
+        <module>gendoc_plugin</module>
+        <module>scenario_plugin</module>        
+        <module>themes_plugin</module>
+        <module>icons_plugin</module> 
+        <module>outline_plugin</module>
+        <module>evaluator_plugin</module>        
+        <module>quicktoolbar_plugin</module>           
+        <module>preview_plugin</module>
+        <module>scripting_plugin</module>
+        <module>xmlsecurity</module> 
+  </modules>   
+</project>

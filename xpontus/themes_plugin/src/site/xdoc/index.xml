@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    
+    <properties>
+        <author email="yveszoundi AT users DOT sf DOT net">Yves Zoundi</author>
+        <title>Themes plugin</title>        
+    </properties>
+    
+    <meta name="keyword" content="XSL, java"/>
+    
+    <body> 
+        <section name ="Overview">
+            <p>This plugin allows to add look and feels to XPontus in a modular manner.</p> 
+        </section> 
+    </body>
+</document>

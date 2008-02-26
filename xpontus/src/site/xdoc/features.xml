@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    
+    <properties>
+        <author email="yveszoundi.AT.users.DOT.sf.DOT.net">Yves Zoundi</author>
+        <title>Features</title>        
+    </properties>
+    
+    
+    
+    <body> 
+        
+        
+        <section name = "Features">
+            <table align ="center" width="80%">
+                <tr>
+                    <th width="25%">Module</th>
+                    <th width="55%">Description and status</th>
+                </tr>
+                <tr>
+                    <td width="25%"><strong>The core IDE</strong></td>   
+                    <td width="55%"><p>Some basic text editing features are still missing.</p>
+                        <ul>
+                            <li>As I moved from local filesystem usage to commons-vfs for filesystem abstractions, you cannot save a document yet.</li>
+                            <li>Printing bugs present in 1.0.0-rc3 will be fixed. Some people reported that they can't print multiple pages. In Ubuntu to be able to print you have to downgrade your version of cups to 1.2.8(cups or java bug??).</li>
+                    </ul></td> 
+                </tr>
+                
+                <tr>
+                    <td width="25%"><strong>Code completion</strong></td>   
+                    <td width="55%"><p>The basic functionality is ready. It is not fast and efficient, might be slow. The completion is not intelligent yet. You get a full list of elements/attributes in the suggestion list.</p>
+                    <p>Code completion wasn't designed as a plugin so I have to refractor the old code I have.</p></td> 
+                </tr>
+                
+                
+                
+                <tr>
+                    <td width="25%"><strong>XPontus plugin's browser</strong></td>   
+                    <td width="55%"> <p>It allows you to install , remove, update or query available plugins</p></td> 
+                </tr>
+                
+                
+                <tr>
+                    <td width="25%"><strong>XPontus icons plugin</strong></td>   
+                    <td width="55%">It allows you to use a different icon theme</td> 
+                </tr>
+                
+                
+                <tr>
+                    <td width="25%"><strong>XPontus themes plugin</strong></td>   
+                    <td width="55%">It allows you to use different look and feels for the editor : Windows look and feel, etc.</td> 
+                </tr>
+                
+                
+                <tr>
+                    <td width="25%"><strong>XPontus virtual file system plugin</strong></td>   
+                    <td width="55%"><p>It allows the editor to open a local or remote files. It will support the following protocols : Local, Samba, SSH, HTTP, HTTPS, FTP</p></td> 
+                </tr>
+                
+                
+                <tr>
+                    <td width="25%"><strong>Schema converter/generator plugin</strong></td>   
+                    <td width="55%"><p>The schema converter plugin allows you to generate/convert files into differents formats. Supported formats are : DTD, XML Schema, Relax NG, XML.</p></td> 
+                </tr>
+                
+                
+                <tr>
+                    <td width="25%"><strong>Documentation generator plugin</strong></td>   
+                    <td width="55%">
+                        <ul>
+                            <li> It supports generating documentation from DTDS or XML Schemas. It only supports single files.</li>
+                            <li> The XSL documentation generator plugin is not added yet. It depends on my other project Jxsltdoc.</li>
+                        </ul>
+                    </td> 
+                </tr>
+                
+                
+                <tr>
+                    <td width="25%"><strong>Lexer plugin</strong></td>   
+                    <td width="55%">The lexer plugin is responsible for syntax coloring. For now there is XML and HTML files are supported.</td> 
+                </tr>
+                
+                <tr>
+                    <td width="25%"><strong>Validation plugin</strong></td>   
+                    <td width="55%">It allows you to validate files. 3 sub-plugins are available for now : Simple xml validation, Batch XML validation, External Schema validation</td> 
+                </tr>
+                
+                <tr>
+                    <td width="25%"><strong>Users transformations plugin</strong></td>   
+                    <td width="55%">It allows you to manage transformations profiles and execute them. The following engines are available : Xalan 2.7.0, Saxon 6.5.4, Saxon 8, XQuery, STX, Apache FO </td> 
+                </tr>
+                
+                <tr>
+                    <td width="25%"><strong>Expression evaluator plugin</strong></td>   
+                    <td width="55%">The expression evaluator plugin allows you evaluate 3 kind of expressions : XPath 1.0, XPath 2.0 and XQuery</td> 
+                </tr>
+                
+                
+            </table>
+        </section> 
+        
+        
+    </body>
+</document>

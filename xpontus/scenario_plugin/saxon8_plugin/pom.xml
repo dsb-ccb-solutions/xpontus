@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <parent>
+    <artifactId>scenario_plugin</artifactId>
+    <groupId>net.sf.xpontus.plugins.scenario</groupId>
+    <version>1.0.0-pre1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.xpontus.plugins.scenarios.saxon8</groupId>
+  <artifactId>saxon8_plugin</artifactId>
+  <name>Saxon 8.x transformer</name>
+  <version>1.0.0-pre1</version>
+  <url>http://maven.apache.org</url>
+  <description>Saxon 8.x transformation profile support</description>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+            <groupId>net.sf.xpontus</groupId>
+            <artifactId>xpontus_core</artifactId>
+            <version>1.0.0-pre1</version>
+            <scope>compile</scope>
+        </dependency>
+    <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon</artifactId>
+            <version>8.7</version>
+            <scope>compile</scope>
+        </dependency>
+    <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon-xpath</artifactId>
+            <version>8.7</version>
+            <scope>compile</scope>
+        </dependency>
+    <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon-xom</artifactId>
+            <version>8.7</version>
+            <scope>compile</scope>
+        </dependency>
+    <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon-dom</artifactId>
+            <version>8.7</version>
+            <scope>compile</scope>
+        </dependency>
+  </dependencies>
+</project>

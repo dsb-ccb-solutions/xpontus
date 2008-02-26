@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.evaluator.xpath1" vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.evaluator.xpath1.XPath1EvaluatorPlugin">      
+    <attributes>
+        <attribute id = "Category" value="Evaluator"/>
+        <attribute id = "Built-in" value = "false"/>
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "XPath1 query evaluator"/>
+        <attribute id = "DisplayName" value = "XPath1 query evaluator"/>
+    </attributes>
+    <requires>
+        <import plugin-id="plugin.core.evaluator" />
+    </requires>
+    <runtime> 
+        <library id="plugin.evaluator.xpath1.lib" path="lib/xpath1_plugin-1.0.0-pre1.jar" type="code">
+            <export prefix="*"/> 
+        </library>  
+    </runtime>
+    <extension plugin-id="plugin.core.evaluator" point-id="evaluatorpluginif" id="plugin.evaluator.xpath1">
+        <parameter id="class" value="net.sf.xpontus.plugins.evaluator.xpath1.XPath1EvaluatorPluginImpl" /> 
+    </extension>
+</plugin>

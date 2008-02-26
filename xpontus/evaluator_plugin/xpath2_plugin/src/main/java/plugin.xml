@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 2.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.evaluator.xpath2" version="0.0.2" class="net.sf.xpontus.plugins.evaluator.xpath2.XPath2EvaluatorPlugin">      
+    <requires>
+        <import plugin-id="plugin.core.evaluator" />
+    </requires>
+    <runtime> 
+        <library id="plugin.evaluator.xpath2.lib" path="lib/xpath2_plugin-1.0.0-pre1.jar" type="code">
+            <export prefix="*"/> 
+        </library>  
+        <library id="saxon8.7" path="lib/saxon-8.7.jar" type="code">
+            <export prefix="*"/> 
+        </library> 
+        <library id="saxon-xom-8.7" path="lib/saxon-xom-8.7.jar" type="code">
+            <export prefix="*"/> 
+        </library> 
+        <library id="saxon-xpath-8.7" path="lib/saxon-xpath-8.7.jar" type="code">
+            <export prefix="*"/> 
+        </library> 
+        <library id="saxon-dom-8.7" path="lib/saxon-dom-8.7.jar" type="code">
+            <export prefix="*"/> 
+        </library> 
+    </runtime>
+    <extension plugin-id="plugin.core.evaluator" point-id="evaluatorpluginif" id="plugin.evaluator.xpath2">
+        <parameter id="class" value="net.sf.xpontus.plugins.evaluator.xpath2.XPath2EvaluatorPluginImpl" /> 
+    </extension>
+</plugin>

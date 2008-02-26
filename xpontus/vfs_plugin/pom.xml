@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <parent>
+        <artifactId>xpontus</artifactId>
+        <groupId>net.sf.xpontus</groupId>
+        <version>1.0.0-pre1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sf.xpontus.plugins.vfs</groupId>
+    <artifactId>vfs_plugin</artifactId>
+    <name>Virtual file system</name>
+    <packaging>pom</packaging>
+    <version>1.0.0-pre1</version> 
+    <description>Virtual file system support</description>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.xpontus</groupId>
+            <artifactId>xpontus_core</artifactId>
+            <version>1.0.0-pre1</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <modules>
+        <module>ssh_plugin</module>
+        <module>network_base_plugin</module>
+    <module>smb_plugin</module>
+  </modules>
+</project>

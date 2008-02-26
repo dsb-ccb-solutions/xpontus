@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.i18n.default" version="0.0.1" class="net.sf.xpontus.plugins.i18n.ResourceBundleI18nPlugin">
+    	<requires>
+		<import plugin-id="ioc.module.core" />
+	</requires>
+	<runtime> 
+		<library id="spring" path="lib/xpontus-i18n-plugin.jar" type="code">
+			   <export prefix="*"/> 
+		</library> 
+	</runtime>
+	<extension plugin-id="plugin.i18n.core" point-id="i18nplugin" id="plugin.i18n.default">
+		<parameter id="class" value="net.sf.xpontus.plugins.i18n.I18nPluginImpl" /> 
+	</extension>
+</plugin>
