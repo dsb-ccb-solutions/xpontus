@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+
+
+<!--
+    Copyright 2002-2005 The Apache Software Foundation or its licensors,
+    as applicable.
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+    <header>
+        <title>XSLT Scenarios</title>
+        <meta name="keywords">XML Editor, XML, XSLT, XML IDE, DTD, DTD Editor, XSLT Editor, XSLT
+            Debugger, XSL Editor, XPontus XML Editor, Java based XML Editor</meta>
+        <meta name="description">XPontus XML Editor features - XSLT Scenarios</meta>
+        <meta name="robots">index, follow</meta>
+    </header>
+    <body>
+        <section>
+            <title>Overview</title>
+            <p>We can define XSLT scenarios as XSLT transformations. The user defines the following data :</p>
+            <ul>
+                <li>an XML input(a XML file)</li>
+                <li>an XSLT stylesheet which will be used to transform the XML file and optionnaly some parameters</li>
+                <li>the type of result expected (svg, html, pdf, text, xml)</li>
+                <li>the output file to store the result</li>
+            </ul>
+        </section>
+        <section>
+            <title>Adding an XSLT Scenario</title>
+            <p>You can add/edit/remove a XSLT scenario by using the menu Tools->Manage XSLT scenarios</p>
+        </section>
+        <section>
+            <title>Execute an XSLT scenario</title>
+            <p>You can perform a XSLT scenario by using the menu Tools->Execute XML scenario XML</p>
+        </section>
+    </body>
+</document>

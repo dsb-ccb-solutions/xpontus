@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!--
+ * configuration.xml
+ *
+ * Created on November 23, 2005, 8:00 PM
+ * 
+ *  Copyright (C) 2005-2007 Yves Zoundi
+ *
+ *  This library is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published
+ *  by the Free Software Foundation; either version 2.1 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+-->
+<!--  Definition of actions for XPontus XML Editor -->
+<beans> 
+    <!-- ======================= I18N ===================================== -->
+    <bean id="messageSource"  class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <value>net.sf.xpontus.i18n.textMessages,net.sf.xpontus.i18n.application</value>
+        </property>
+    </bean>        
+    
+    <!-- recent files listener -->
+    <bean id = "recentFilesListener" class = "net.sf.xpontus.controller.handlers.RecentFileListActionListener"/>
+    
+    <!-- action to reload a file -->
+     <bean id = "action.reload" class = "net.sf.xpontus.controller.actions.ReloadAction">
+        <property name = "name" value = "action.reload.name"/>
+        <property name  = "actionCommand" value = "action.reload"/>
+        <property name = "description" value = "action.reload.description"/>        
+    </bean>
+    
+    <bean id = "action.recent" class= "net.sf.xpontus.controller.actions.RecentFileAction">
+        <property name = "name" value = "action.recent.name"/>
+        <property name = "actionCommand" value = "action.recent"/>
+        <property name = "description" value = "action.recent.description"/>
+    </bean>
+    <!-- ======================= General Actions ========================== -->
+    <!-- action to display the about dialog -->
+    <bean id="action.about" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.about.name"/>
+        <property name = "actionCommand" value = "action.about"/>
+        <property name = "description" value = "action.about.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/about16.gif"/>
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.AboutFormView"/>
+    </bean>   
+    <!-- xmldiff action -->
+    <bean id="action.xmldiff" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.xmldiff.name"/>
+        <property name = "actionCommand" value = "action.xmldiff"/>
+        <property name = "description" value = "action.xmldiff.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/diff16.gif"/>
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.XMLDiffFormView"/>
+    </bean>    
+    <!-- insert a comment-->
+    <bean id="action.insertcomment" class = "net.sf.xpontus.controller.actions.InsertCommentAction">
+        <property name = "name" value = "action.insertcomment.name"/>
+        <property name = "actionCommand" value = "action.insertcomment"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/htmlcomment16.gif"/>
+        <property name = "description" value = "action.insertcomment.description"/>
+    </bean>    
+    <!-- insert cdata action -->
+      <bean id="action.insertcdatasection" class = "net.sf.xpontus.controller.actions.InsertCdataAction">
+        <property name = "name" value = "action.insertcdatasection.name"/>
+        <property name = "actionCommand" value = "action.insertcdatasection"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/cdata16.gif"/>
+        <property name = "description" value = "action.insertcdatasection.description"/>
+    </bean>    
+    <!-- action to display the search dialog -->
+    <bean id="action.find" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.search.name"/>
+        <property name = "accelerator" value = "control F"/>
+        <property name = "actionCommand" value = "action.find"/>
+        <property name = "description" value = "action.search.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/search16.gif"/>
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.SearchFormView"/>
+    </bean>       
+    <!-- action to display the preferences dialog -->
+    <bean id="action.preferences" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.preferences.name"/>
+        <property name = "actionCommand" value = "action.preferences"/>
+        <property name = "description" value = "action.preferences.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/preferences16.gif"/>
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.components.options.PreferencesDialog"/>
+    </bean>   
+    <!-- action to go to display the built-in help -->
+    <bean id="action.help" class = "net.sf.xpontus.controller.actions.HelpAction">
+        <property name = "name" value = "action.manual.name"/>
+        <property name = "actionCommand" value = "action.help"/>
+        <property name = "description" value = "action.manual.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/help16.gif"/>
+    </bean> 
+    <!-- action to go to a line in a document -->
+    <bean id="action.gotoline" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.gotoline.name"/>
+        <property name = "accelerator" value = "control G"/>
+        <property name = "actionCommand" value = "action.gotoline"/>
+        <property name = "description" value = "action.gotoline.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/goto16.gif"/>        
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.GotoLineFormView"/>
+    </bean>    
+    <!-- action to open a file -->
+    <bean id="action.open" class = "net.sf.xpontus.controller.actions.OpenAction">
+        <property name = "name" value = "action.open.name"/>
+        <property name = "accelerator" value = "control O"/>
+        <property name = "actionCommand" value = "action.open"/>
+        <property name = "description" value = "action.open.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/open16.gif"/>
+    </bean>    
+    <!-- action to open a remote file -->
+    <bean id="action.openremote" class = "net.sf.xpontus.controller.actions.OpenRemoteAction">
+        <property name = "name" value = "action.openremote.name"/>
+        <property name = "actionCommand" value = "action.openremote.description"/>
+        <property name = "description" value = "action.open.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/openremote16.gif"/>
+    </bean>               
+    <!-- action to cut text from the editor -->    
+    <bean id="action.cut" class = "net.sf.xpontus.controller.actions.CutAction">
+        <property name = "name" value = "action.cut.name"/>
+        <property name = "accelerator" value = "control X"/>
+        <property name = "actionCommand" value = "action.cut"/>
+        <property name = "description" value = "action.cut.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/cut16.gif"/>
+    </bean>
+    <!-- action to copy text -->
+    <bean id="action.copy" class = "net.sf.xpontus.controller.actions.CopyAction">
+        <property name = "name" value = "action.copy.name"/>
+        <property name = "accelerator" value = "control C"/>
+        <property name = "actionCommand" value = "action.copy"/>
+        <property name = "description" value = "action.copy.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/copy16.gif"/>
+    </bean>
+    <!-- action to paste text -->
+    <bean id="action.paste" class = "net.sf.xpontus.controller.actions.PasteAction">
+        <property name = "name" value = "action.paste.name"/>
+        <property name = "accelerator" value = "control V"/>
+        <property name = "actionCommand" value = "action.paste"/>
+        <property name = "description" value = "action.paste.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/paste16.gif"/>
+    </bean>
+    <!-- action to select text -->
+    <bean id="action.selectall" class = "net.sf.xpontus.controller.actions.SelectAllAction">
+        <property name = "name" value = "action.selectall.name"/>
+        <property name = "accelerator" value = "control A"/>
+        <property name = "actionCommand" value = "action.selectall"/>
+        <property name = "description" value = "action.selectall.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/selectAll16.gif"/>
+    </bean>
+    <!-- action to undo changes -->
+    <bean id="action.undo" class = "net.sf.xpontus.controller.actions.UndoAction">
+        <property name = "name" value = "action.undo.name"/>
+        <property name = "accelerator" value = "control Z"/>
+        <property name = "actionCommand" value = "action.undo"/>
+        <property name = "description" value = "action.undo.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/undo16.gif"/>
+    </bean> 
+    <!-- action to repeat changes -->
+    <bean id="action.redo" class = "net.sf.xpontus.controller.actions.RedoAction">
+        <property name = "name" value = "action.redo.name"/>
+        <property name = "accelerator" value = "control Y"/>
+        <property name = "actionCommand" value = "action.redo"/>
+        <property name = "description" value = "action.redo.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/redo16.gif"/>
+    </bean> 
+    <!-- action to create a new file -->
+    <bean id="action.new" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.new.name"/>
+        <property name = "accelerator" value = "control N"/>
+        <property name = "actionCommand" value = "action.new"/>
+        <property name = "description" value = "action.new.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/new16.gif"/>
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.TemplateFormView"/>
+    </bean> 
+    <!-- action to save a file -->
+    <bean id="action.save" class = "net.sf.xpontus.controller.actions.SaveAction">
+        <property name = "name" value = "action.save.name"/>
+        <property name = "accelerator" value = "control S"/>
+        <property name = "actionCommand" value = "action.save"/>
+        <property name = "description" value = "action.save.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/save16.gif"/>
+    </bean> 
+    <!-- action to save a file as -->
+    <bean id="action.saveas" class = "net.sf.xpontus.controller.actions.SaveAsAction">
+        <property name = "name" value = "action.saveas.name"/>
+        <property name = "actionCommand" value = "action.saveas"/>
+        <property name = "description" value = "action.saveas.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/saveas16.gif"/>
+    </bean> 
+    <!-- action to save all files -->
+    <bean id="action.saveall" class = "net.sf.xpontus.controller.actions.SaveAllAction">
+        <property name = "name" value = "action.saveall.name"/>
+        <property name = "actionCommand" value = "action.saveall"/>
+        <property name = "description" value = "action.saveall.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/saveall16.gif"/>
+    </bean> 
+    <!-- action to print a file -->
+    <bean id="action.print" class = "net.sf.xpontus.controller.actions.PrintAction">
+        <property name = "name" value = "action.print.name"/>
+        <property name = "accelerator" value = "control P"/>
+        <property name = "actionCommand" value = "action.print"/>
+        <property name = "description" value = "action.print.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/print16.gif"/>
+    </bean> 
+    <!-- action to exit the program --> 
+    <bean id="action.exit" class = "net.sf.xpontus.controller.actions.ExitAction">
+        <property name = "name" value = "action.exit.name"/>
+        <property name = "actionCommand" value = "action.exit"/>
+        <property name = "description" value = "action.exit.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/exit16.gif"/>
+    </bean> 
+    <!-- action to close a document --> 
+    <bean id="action.closeothers" class = "net.sf.xpontus.controller.actions.CloseOtherAction">
+        <property name = "name" value = "action.closeothers.name"/>
+        <property name = "actionCommand" value = "action.closeothers"/>
+        <property name = "description" value = "action.closeothers.description"/>
+    </bean> 
+    <!-- action to close other tabs -->
+    <bean id="action.closetab" class = "net.sf.xpontus.controller.actions.TabCloseAction">
+        <property name = "name" value = "action.closetab.name"/>
+        <property name = "actionCommand" value = "action.closetab"/>
+        <property name = "description" value = "action.closetab.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/close16.gif"/>
+    </bean> 
+    <!-- action to close all documents --> 
+    <bean id="action.closetaball" class = "net.sf.xpontus.controller.actions.TabCloseAllAction">
+        <property name = "name" value = "action.closetaball.name"/>
+        <property name = "actionCommand" value = "action.closetaball"/>
+        <property name = "description" value = "action.closetaball.description"/>        
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/closeAllWindows16.gif"/>
+    </bean> 
+    <!-- ======================= XSLT Actions ========================== -->
+    <!-- action to list XSLT Scenarios -->
+    <bean id="action.list_scenarios" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.managescenarios.name"/>
+        <property name = "actionCommand" value = "action.list_scenarios"/>
+        <property name = "description" value = "action.managescenarios.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/scenario16.gif"/>
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.ScenarioListView"/>
+    </bean> 
+    <!-- action to execute a XSLT scenario -->
+    <bean id="action.execute_scenarios" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.executescenario.name"/>
+        <property name = "actionCommand" value = "action.execute_scenarios"/>
+        <property name = "description" value = "action.executescenario.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/play16.gif"/>
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.ApplyScenarioView"/>
+    </bean> 
+    <!-- ======================= XML Actions ========================== -->
+    <!-- action to indent xml code -->
+    <bean id="action.indentxml" class = "net.sf.xpontus.controller.actions.XMLIndentAction">
+        <property name = "name" value = "action.indentxml.name"/>
+        <property name = "actionCommand" value = "action.indentxml"/>
+        <property name = "description" value = "action.indentxml.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/prettyPrint16.gif"/>
+    </bean>
+    <!-- action to tidy HTML files -->
+    <bean id="action.tidy" class = "net.sf.xpontus.controller.actions.HTMLTidyAction">
+        <property name = "name" value = "action.htmltidy.name"/>
+        <property name = "actionCommand" value = "action.tidy"/>
+        <property name = "description" value = "action.htmltidy.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/tidy16.gif"/>
+    </bean>
+    <!-- action to comment XML code -->
+    <bean id="action.commentxml" class = "net.sf.xpontus.controller.actions.XMLCommentAction">
+        <property name = "name" value = "action.commentxml.name"/>
+        <property name = "actionCommand" value = "action.commentxml"/>
+        <property name = "description" value = "action.commentxml.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/comment16.gif"/>
+    </bean>
+    <!-- action to validate XML against schema -->
+    <bean id="action.validateschema" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.validateschema.name"/>
+        <property name = "actionCommand" value = "action.validateschema"/>
+        <property name = "description" value = "action.validateschema.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/xsd16.gif"/>
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.SchemaValidationView"/>
+    </bean>
+    <!-- action to generate a dtd from a XML file -->
+    <bean id="action.generatedtd" class = "net.sf.xpontus.controller.actions.GenerateDtdAction">
+        <property name = "name" value = "action.generatedtd.name"/>
+        <property name = "actionCommand" value = "action.generatedtd"/>
+        <property name = "description" value = "action.generatedtd.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/dtd16.gif"/>
+    </bean>
+    <!-- action for batch validation of XML files -->
+    <bean id="action.batchvalidation" class = "net.sf.xpontus.core.controller.actions.DialogFormProxyAction">
+        <property name = "name" value = "action.batchvalidation.name"/>
+        <property name = "actionCommand" value = "action.batchvalidation"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/batch16.gif"/>
+        <property name = "description" value = "action.batchvalidation.description"/>
+        <property name = "dialogClassName" value = "net.sf.xpontus.view.BatchValidationForm"/>
+    </bean>
+    <!-- action to validate a XML document -->
+    <bean id="action.validate" class = "net.sf.xpontus.controller.actions.ValidateXmlAction">
+        <property name = "name" value = "action.validatexml.name"/>
+        <property name = "actionCommand" value = "action.validate"/>
+        <property name = "description" value = "action.validatexml.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/validate16.gif"/>
+    </bean>
+    <!-- action to check if the XML is well-formed -->
+    <bean id="action.checkxml" class = "net.sf.xpontus.controller.actions.CheckXmlFormedAction">
+        <property name = "name" value = "action.checkxml.name"/>
+        <property name = "actionCommand" value = "action.checkxml"/>
+        <property name = "description" value = "action.checkxml.description"/>
+        <property name = "icon" value = "/net/sf/xpontus/icons/_PATH_/check16.gif"/>
+    </bean>
+</beans>

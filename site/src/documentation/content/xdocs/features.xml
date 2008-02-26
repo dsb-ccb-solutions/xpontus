@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+
+
+<!--
+    Copyright 2002-2005 The Apache Software Foundation or its licensors,
+    as applicable.
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<document>
+    <header>
+        <title>XPontus XML Editor features</title>
+        <meta name="keywords">XML Editor, XML, XSLT, XML IDE, DTD, DTD Editor, XSLT Editor, XSLT
+            Debugger, XSL Editor, XPontus XML Editor, Java based XML Editor</meta>
+        <meta name="description">XPontus XML Editor features</meta>
+        <meta name="robots">index, follow</meta>
+    </header>
+    <body>
+        <section>
+            <title>Features</title>            
+            <p>Here are the main features :</p>
+
+            <ul>
+                <li>Syntax highlighting with true lexer support(using <a href="http://jflex.de/">JFlex</a>) for XML related files, HTML, Java, C/C++, Javascript, properties files</li>
+                <li>Use templates to create XML files</li>
+                <li>Multiple XSLT processors(Saxon 6.5.5, Xalan 2.7.0 and Saxon-B 8.5.1)</li>
+                <li>Open files from remote locations(http,ftp)</li>
+                <li>XML code formatting and indentation</li>
+                <li>HTML tidy support</li>
+                <li>DTD generation from XML documents</li>
+                <li>XML Validation and batch validation</li>
+		<li>Schema validation with relax-ng or trex or XML Schema</li>
+		<li>XMLDiff support - You can only inspect differences between 2 XML files for now</li>
+                <li>XSLT transformations with user defined scenarios</li>
+		<li>HTML, XML , text, PDF, SVG and Postscript output support for XSLT transformations</li>
+                <li>Most text editing functions(open,save,print,find,etc.)</li>
+                <li>User interface and program settings customization</li>
+                <li>Multilingal interface(english and french for now) - !french translation is almost complete!</li>
+                <li>Platform interoperability as the software is written in Java</li>                
+            </ul>
+        </section>
+    </body>
+</document>
