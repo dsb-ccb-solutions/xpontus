@@ -62,12 +62,7 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
     /**
      *
      */
-    public SimpleValidationActionImpl() {
-        setName("Validate XML");
-        setDescription("XML Validation");
-
-        URL url = getClass().getResource("validate16.gif");
-        this.putValue(Action.SMALL_ICON, new ImageIcon(url));
+    public SimpleValidationActionImpl() { 
     }
 
     public void run() {
