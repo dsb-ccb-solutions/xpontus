@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dtd SYSTEM "xml-completion-info.dtd">
+<!-- The element list was pulled from the May 2, 2001 XML Schema XSD spec -->
+<!-- Contributed by Tom Gutwin  Nov. 30, 2001-->
+<!-- Updated by Tom Gutwin  Apr. 13, 2002-->
+<dtd>
+  <element-list>
+    <element content="(annotation|element)" name="all">
+      <attribute name="id" type="ID"/>
+      <attribute name="maxOccurs" type="(1)" value="1"/>
+      <attribute name="minOccurs" type="(0|1)" value="1"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(appinfo|documentation)" name="annotation">
+      <attribute name="id" type="ID"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="any">
+      <attribute name="id" type="ID"/>
+      <attribute name="maxOccurs" type="(nonNegativeInteger|unbounded)" value="1"/>
+      <attribute name="minOccurs" type="nonNegativeInteger" value="1"/>
+      <attribute name="namespace" type="(##any|##other|anyURI|##targetNamespace|##local)" value="##any"/>
+      <attribute name="processContents" type="(skip|lax|strict)" value="strict"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="anyAttribute">
+      <attribute name="id" type="ID"/>
+      <attribute name="namespace" type="(##any|##other|anyURI|##targetNamespace|##local)" value="##any"/>
+      <attribute name="processContents" type="(skip|lax|strict)" value="strict"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element name="appinfo">
+      <attribute name="source" type="anyURI"/>
+    </element>
+    <element content="(annotation|simpleType)" name="attribute">
+      <attribute name="default" type="string"/>
+      <attribute name="fixed" type="string"/>
+      <attribute name="form" type="(qualified|unqualified)"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="ref" type="QName"/>
+      <attribute name="type" type="QName"/>
+      <attribute name="use" type="(prohibited|optional|required)" value="optional"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation|attribute|attributeGroup|anyAttribute)" name="attributeGroup">
+      <attribute name="id" type="ID"/>
+      <attribute name="ref" type="QName"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation|element|group|choice|sequence|any" name="choice">
+      <attribute name="id" type="ID"/>
+      <attribute name="maxOccurs" type="(nonNegativeInteger|unbounded)" value="1"/>
+      <attribute name="minOccurs" type="(nonNegativeInteger|unbounded)" value="1"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation|restriction|extension" name="complexContent">
+      <attribute name="id" type="ID"/>
+      <attribute name="mixed" type="boolean"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation|simpleContent|complexContent|group|all|choice|sequence|attribute|attributeGroup|anyAttribute" name="complexType">
+      <attribute name="abstract" type="boolean" value="false"/>
+      <attribute name="block" type="(#all|extension|restriction)"/>
+      <attribute name="final" type="(#all|extension|restriction)"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="mixed" type="boolean" value="false"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element name="documentation">
+      <attribute name="source" type="anyURI"/>
+      <attribute name="xml:lang" type="xml:lang"/>
+    </element>
+    <element content="annotation|simpleType|complexType|unique|key|keyRef" name="element">
+      <attribute name="abstract" type="boolean" value="false"/>
+      <attribute name="block" type="(#all|extension|restriction|substitution)"/>
+      <attribute name="default" type="string"/>
+      <attribute name="final" type="(#all|extension|restriction)"/>
+      <attribute name="fixed" type="string"/>
+      <attribute name="form" type="(qualified|unqualified)"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="minOccurs" type="(nonNegativeInteger|unbounded)" value="1"/>
+      <attribute name="maxOccurs" type="(nonNegativeInteger|unbounded)" value="1"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="nillable" type="boolean" value="false"/>
+      <attribute name="ref" type="QName"/>
+      <attribute name="substitutionGroup" type="QName"/>
+      <attribute name="type" type="QName"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="enumeration">
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="anySimpleType"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation|group|all|choice|sequence|attribute|attributeGroup|anyAttribute)" name="extension">
+      <attribute name="base" type="QName"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="field">
+      <attribute name="id" type="ID"/>
+      <attribute name="xpath" type="token"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="fractionDigits">
+      <attribute name="fixed" type="boolean" value="false"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="nonNegativeInteger"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation|all|choice|sequence)" name="group">
+      <attribute name="id" type="ID"/>
+      <attribute name="maxOccurs" type="(nonNegativeInteger|unbounded)" value="1"/>
+      <attribute name="minOccurs" type="nonNegativeInteger" value="1"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="ref" type="QName"/>
+    </element>
+    <element content="(annotation)" name="import">
+      <attribute name="id" type="ID"/>
+      <attribute name="namespace" type="anyURI"/>
+      <attribute name="schemaLocation" type="anyURI"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="include">
+      <attribute name="id" type="ID"/>
+      <attribute name="schemaLocation" type="anyURI"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation|selector|field)" name="key">
+      <attribute name="id" type="ID"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation|selector|field)" name="keyref">
+      <attribute name="id" type="ID"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="refer" type="QName"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="length">
+      <attribute name="fixed" type="boolean" value="false"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="nonNegativeInteger"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation|simpleType)" name="list">
+      <attribute name="id" type="ID"/>
+      <attribute name="itemType" type="QName"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="maxInclusive">
+      <attribute name="fixed" type="boolean" value="false"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="anySimpleType"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="maxLength">
+      <attribute name="fixed" type="boolean" value="false"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="nonNegativeInteger"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="minExclusive">
+      <attribute name="fixed" type="boolean" value="false"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="anySimpleType"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="minInclusive">
+      <attribute name="fixed" type="boolean" value="false"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="anySimpleType"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="minLength">
+      <attribute name="fixed" type="boolean" value="false"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="nonNegativeInteger"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="notation">
+      <attribute name="id" type="ID"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="public" type="token"/>
+      <attribute name="system" type="anyURI"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="pattern">
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="anySimpleType"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation|simpleType|complexType|group|attributeGroup)" name="redefine">
+      <attribute name="id" type="ID"/>
+      <attribute name="schemaLocation" type="anyURI"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation|group|all|choice|sequence|attribute|attributeGroup|anyAttribute|simpleType|minExclusive|minInclusive|maxExclusive|maxInclusive|totalDigits|fractionDigits|length|minLength|maxLength|enumeration|whiteSpace|pattern)" name="restriction">
+      <attribute name="base" type="QName"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(include|import|redefine|annotation|simpleType|complexType|group|attributeGroup|element|attribute)" name="schema">
+      <attribute name="attributeFormDefault" type="(qualified|unqualified)" value="unqualified"/>
+      <attribute name="blockDefault" type="(#all|extension|restriction|substitution)" value=""/>
+      <attribute name="elementFormDefault" type="(qualified|unqualified)" value="unqualified"/>
+      <attribute name="finalDefault" type="(#all|extension|restriction)" value=""/>
+      <attribute name="id" type="ID"/>
+      <attribute name="targetNamespace" type="anyURI"/>
+      <attribute name="version" type="token"/>
+      <attribute name="xml:lang" type="xml:lang"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="(annotation)" name="selector">
+      <attribute name="id" type="ID"/>
+      <attribute name="xpath" type="token"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation|element|group|choice|sequence|any" name="sequence">
+      <attribute name="id" type="ID"/>
+      <attribute name="maxOccurs" type="nonNegativeInteger|unbounded)" value="1"/>
+      <attribute name="minOccurs" type="nonNegativeInteger" value="1"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation|restriction|extension" name="simpleContent">
+      <attribute name="id" type="ID"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation|list|union" name="simpleType">
+      <attribute name="final" type="(#all|list|union|restriction)"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation" name="totalDigits">
+      <attribute name="fixed" type="boolean : false"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="positiveInteger"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation|simpleType" name="union">
+      <attribute name="id" type="ID"/>
+      <attribute name="memberTypes" type="list of QName"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation|selector|field" name="unique">
+      <attribute name="id" type="ID"/>
+      <attribute name="name" type="NCName"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+    <element content="annotation" name="whiteSpace">
+      <attribute name="fixed" type="boolean" value="false"/>
+      <attribute name="id" type="ID"/>
+      <attribute name="value" type="(preserve|replace|collapse)"/>
+      <attribute name="otherAttribute" type="string" value=""/>
+    </element>
+  </element-list>
+</dtd>

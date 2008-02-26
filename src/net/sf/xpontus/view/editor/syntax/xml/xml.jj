@@ -1,0 +1,562 @@
+/*
+ * The contents of this file are subject to the terms of the Common Development
+ * and Distribution License (the License). You may not use this file except in
+ * compliance with the License.
+ *
+ * You can obtain a copy of the License at http://www.netbeans.org/cddl.html
+ * or http://www.netbeans.org/cddl.txt.
+ *
+ * When distributing Covered Code, include this CDDL Header Notice in each file
+ * and include the License file at http://www.netbeans.org/cddl.txt.
+ * If applicable, add the following below the CDDL Header, with the fields
+ * enclosed by brackets [] replaced by your own identifying information:
+ * "Portions Copyrighted [year] [name of copyright owner]"
+ *
+ * The Original Software is NetBeans. The Initial Developer of the Original
+ * Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
+ * Microsystems, Inc. All Rights Reserved.
+ */
+
+/**
+  XML grammar suitable for syntax coloring. Currently it
+  returns: tag names, strings, ... and comments.
+
+  <h3>Suggestion to JavaCC developers</h3>
+  JavaCC [Token Manager] would be improved in following areas:
+
+  <li>TOKENMGR_BEGIN/END instead of TOKEN_MGR_DECLS.
+  <ul>
+    <li>It would allow TokenManager be a subclass.
+    <li>It would lead to code reuse/space save.
+    <li>It would be helpfull it a application uses more than one JavaCC generated analyzers.
+  </ul>
+
+
+  <li>Intoduction of lookahead (LA as ANLTR calls it is better than long LOOKAHEAD)
+  at lexical rules.
+
+  <li> Allow to return same token from more states. 
+  Construct that reclassifies returned token. E.g. It would generate 
+  <pre>
+  { matchedToken.kind = newKind; }
+  </pre>
+  Or allow non-unique token names. E.g. 
+  <SOFT_ERR: "?"> in default state and <SOFT_ERR: "--"> in comment state.
+
+  <li>ASCIICharStream etc. should be declared as CharStream implementations
+
+  <p>NOTE: Remove UCode_CharStream.java after javacc this source.
+
+  @author Petr Kuzel
+*/
+
+options {
+    USER_CHAR_STREAM = true;
+    UNICODE_INPUT = true;   
+    STATIC = false;
+    LOOKAHEAD = 1;
+}
+
+
+PARSER_BEGIN(XMLParser)
+/*
+ * The contents of this file are subject to the terms of the Common Development
+ * and Distribution License (the License). You may not use this file except in
+ * compliance with the License.
+ *
+ * You can obtain a copy of the License at http://www.netbeans.org/cddl.html
+ * or http://www.netbeans.org/cddl.txt.
+ * 
+ * When distributing Covered Code, include this CDDL Header Notice in each file
+ * and include the License file at http://www.netbeans.org/cddl.txt.
+ * If applicable, add the following below the CDDL Header, with the fields
+ * enclosed by brackets [] replaced by your own identifying information:
+ * "Portions Copyrighted [year] [name of copyright owner]"
+ *
+ * The Original Software is NetBeans. The Initial Developer of the Original
+ * Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
+ * Microsystems, Inc. All Rights Reserved.
+ */
+
+package net.sf.xpontus.view.editor.syntax.xml;
+
+import java.io.*;
+import java.util.*;
+import net.sf.xpontus.view.editor.syntax.*;
+import net.sf.xpontus.view.editor.*;
+import javax.swing.text.Segment;
+
+/** This must be included for javacc joy. 
+ *  We use just token manager.
+ */
+public class XMLParser implements ILexer{ 
+
+    public XMLParser(){
+        this((LexerInputStream)null);
+    }
+
+    public void ReInit(Reader reader){
+        ReInit(new LexerInputStream(reader));
+    }
+
+    private List tokens = new ArrayList(); 
+
+    public int getLastTokenTypeOnLine(Segment text, int initialTokenType)
+    {
+        getTokens(text, initialTokenType, 0);
+
+        return ((Token) tokens.get(tokens.size() - 1)).kind;
+    }
+
+     public List getTokens(Segment text, int initialTokenType, int startOffset)
+    {
+        tokens.clear();
+
+        int state = DEFAULT;
+
+        switch (initialTokenType)
+        {
+        case TEXT_IN_COMMENT:
+            state = IN_COMMENT;
+
+            break;
+
+        case COMMENT_START:
+            state = IN_COMMENT;
+
+            break;
+
+        case DOCTYPE:
+            state = IN_DOCTYPE;
+
+            break;
+
+        case PUBLIC:
+            state = IN_DOCTYPE;
+
+            break;
+
+        case SYSTEM:
+            state = IN_DOCTYPE;
+
+            break;
+
+        case TEXT_IN_DOCTYPE:
+            state = IN_DOCTYPE;
+
+            break;
+
+        case ERR_IN_DOCTYPE:
+            state = IN_DOCTYPE;
+
+            break;
+
+        case TAG_NAME:
+            state = IN_TAG_ATTLIST;
+
+            break;
+
+        case GREF_STRING_END:
+            state = IN_TAG_ATTLIST;
+
+            break;
+
+        case XML_TARGET:
+            state = IN_XML_DECL;
+
+            break;
+
+        case TEXT_IN_GREF_STRING:
+            state = IN_GREF_STRING;
+
+            break;
+
+        case GREF_STRING_START:
+            state = IN_GREF_STRING;
+
+            break;
+
+        default:
+            break;
+        }
+
+        try
+        {
+            Reader reader = new CharArrayReader(text.array, text.offset, text.count);
+            ReInit(new LexerInputStream(reader));
+            this.token_source.SwitchTo(state);
+
+            Token currentToken = null;
+
+            while ((currentToken = getNextToken()).kind != XMLParserConstants.EOF)
+            {
+                tokens.add(currentToken);
+            }
+        }
+        catch (TokenMgrError err)
+        {
+            tokens.add(new Token(this.token_source.input_stream.GetImage(), initialTokenType));
+        }
+
+        if (tokens.size() == 0)
+        {
+            tokens.add(new Token("", initialTokenType));
+        }
+
+        return tokens;
+    }
+}
+
+PARSER_END(XMLParser)
+
+/*##########################################################*/
+/*              LEXAN                                       */
+/*#########################################################3*/
+
+/** Syntax requires recognition of newlines in any context. */
+<*>
+TOKEN: 
+{
+/** global text matches all but following chars.
+ * ("<" | ">" | "'" | "\"" | "&" | "%"| ";" | "[" | "]" | "=" | "/" | "!" | "?" | "#")+
+ */
+  <#TEXT: (~[" ", "\t", "\n", "<", ">", "'", "\"", "&", "%", ";", "[", "]" , "=" , "/" , "!" , "?", "#"])>  
+|
+  <#CONTENT: (~["\n","<",">","&"])>
+| /** global white space. */
+  <#WS: (" " | "\t" | "\n" | "\r")>  
+| //[3]
+  <#S: (" " | "\t" | "\n" | "\r")+ >  
+|
+  <#NAME: (~[" ", "\t", "\n", "<", ">", "'", "\"", "&", "%", ";", "[", "]" , "=" , "/" , "!" , "?", "#"])+>
+}
+
+/** 
+ * Initial state could be a switch allowing then guess 
+ * which token is just recognized.
+ *
+ */
+<DEFAULT> //COMMENT //GREF
+TOKEN:
+{
+//  <RCB: ">"> //doctype end? -symbol
+  <RSB: "]"> //dctype end? - symbol
+| <TAG_START: "<"> : IN_TAG
+| <DECL_START: "<!"> : IN_DECL
+| <PI_START: "<?"> : IN_PI
+| <CDATA_START: "<![CDATA["> : IN_CDATA
+| <COND_END_IN_DEFAULT: "]]>"> //little bit tricky - what it would be else?
+| <DTD_END_IN_DEFAULT: "]>">
+| <TEXT_IN_DEFAULT: (~["<", "]", "&"])+ | ">" | "]">
+| <ERR_IN_DEFAULT: "<<">
+}
+
+/** < ... > */
+<IN_TAG>
+TOKEN:
+{
+  <TAG_NAME: (("/")? <NAME>) > : IN_TAG_ATTLIST     //                         ?
+| <ERR_IN_TAG: ("<" | "'" | "\"" | "&" | "%"| ";" | "[" | "]" | "=" | "!" | " " | ">")+ | "/">  //?!
+}
+
+/** pairs <tag ... >*/
+<IN_TAG_ATTLIST>  //GREFSTRING //GREFCHARS
+TOKEN:
+{
+  <ATT_NAME: (<NAME>)>  //                                        ?     ?
+| <ERR_IN_TAG_ATTLIST: ("<" | "&" | "%"| ";" | "[" | "]" | "!" | "/" | "?")+ >
+| <WS_IN_TAG_ATTLIST: (<WS>)+>
+| <EQ_IN_TAG_ATTLIST: "=">
+| <TAG_END: ("/")? ">"  > : DEFAULT
+}
+
+
+
+/** <? ... ?> */
+<IN_PI>
+TOKEN:
+{
+  <XML_TARGET: "xml"> : IN_XML_DECL
+| <PI_CONTENT_START: <S> > : IN_PI_CONTENT
+| <PI_END: "?>"> : DEFAULT //be tolerant to missing <WS> <?pi?>
+| <ERR_IN_PI: "XML" | ("<" | ">" | "'" | "\"" | "&" | "%"| ";" | "[" | "]" | "=" | "/" | "!" )+>
+| <PI_TARGET: (<NAME>)>
+}
+
+/** <?pi ... ?> */
+<IN_PI_CONTENT>
+TOKEN:
+{
+
+  <PI_CONTENT_END: "?>"> : DEFAULT
+| <TEXT_IN_PI_CONTENT: ((<TEXT>)+ | (<WS>)+ | ( "'" | "\"" | "#" | "?" | ">" | "&" | "%"| ";" | "[" | "]" | "=" | "/" | "!" )) >
+| <ERR_IN_PI_CONTENT: ("<")+>   
+}
+
+
+/** <?xml ... ?>
+*   just treat well known xml declaration "attributes" as keywords
+*/
+<IN_XML_DECL>
+TOKEN:
+{
+  <KW_IN_XML_DECL: "version" | "encoding" | "standalone" >
+| <TEXT_IN_XML_DECL: (~["\n", "\t", " ", "?", "="])+ >
+| <BR_IN_XML_DECL: ("\t" | " " | "=" | "\n")+ >
+| <XML_DECL_END: "?>" > : DEFAULT
+| <Q_IN_XML_DECL: "?">
+}
+
+
+/** In CDATA if allowed any character except "]]>" */
+<IN_CDATA>
+TOKEN:
+{
+  <CDATA_END: "]]>"> : DEFAULT
+| <TEXT_IN_CDATA: <CDATA_CONTENT> | "<">
+| <MARKUP_IN_CDATA: "<" ("!" | "/")? <NAME> (<CDATA_CONTENT>)? ">">
+| <#CDATA_CONTENT: ((~["]", "<"])+ | ("]" ~["]"])+ | ("]]" ~[">"])+)+ >
+}
+
+/** declaration is <! ... */
+<IN_DECL>
+TOKEN:
+{
+  <ENTITY: "ENTITY"> : IN_ENTITY_DECL
+| <ATTLIST: "ATTLIST"> : IN_ATTLIST_DECL
+| <DOCTYPE: "DOCTYPE"> : IN_DOCTYPE
+| <ELEMENT: "ELEMENT"> : IN_ELEMENT
+| <NOTATION: "NOTATION"> : IN_NOTATION
+| <TEXT_IN_DECL: (<TEXT>)+ >
+| <WS_IN_DECL: (<WS>)+ >
+| <ERR_IN_DECL: ("<" | "'" | "\"" | ";" | "]" | "=" | "/" | "!")+>
+| <COND: "["> : IN_COND
+| <DECL_END: ">"> : DEFAULT  
+}
+
+<IN_ENTITY_DECL> //STRING //CHARS //PREF
+TOKEN:
+{
+  <KW_IN_ENTITY: "SYSTEM" | "NDATA" | "PUBLIC">
+| <TEXT_IN_ENTITY:  (<WS>)+ | (<TEXT> | "<" | "&" | ";" | "[" | "]" | "=" | "/" | "!")+>
+| <ENTITY_END: ">" > : DEFAULT
+}
+
+<IN_ELEMENT> //PREF
+TOKEN:
+{
+  <EMPTY: "EMPTY">
+| <PCDATA: "#PCDATA">
+| <ANY: "ANY">
+| <TEXT_IN_ELEMENT: (<TEXT>)+ | (<WS>)+ | "?" > 
+| <ELEMENT_END: ">"> : DEFAULT
+}
+
+/** 
+ * [82]   NotationDecl ::= '<!NOTATION' S Name S (ExternalID | PublicID) S? '>'
+ *                                     ^
+ */
+<IN_NOTATION> //CHARS //STRING  ??GREF
+TOKEN:
+{
+  <SYSTEM_IN_NOTATION: "SYSTEM" | "PUBLIC">
+| <TEXT_IN_NOTATION: (<TEXT> | "&"| "%" | ";" | "[" | "]" | "=" | "/" | "!" | "?" | "#")+ | (<WS>)+ >
+| <ERR_IN_NOTATION: ("<")>
+| <NOTATION_END: ">"> : DEFAULT
+}
+
+/** 
+* Conditional section "<![ ... [" declatation. Content of the section 
+* is treated by DEFAULT => the end delimiter too.
+* This code only tries to colorize "INCLUDE", "IGNORE" as kw.
+*/
+<IN_COND> //PREF
+TOKEN:
+{
+  <INCLUDE: "INCLUDE">
+| <IGNORE: "IGNORE">
+| <TEXT_IN_COND: (<WS>)+ >
+| <ERR_IN_COND: ((<TEXT>)+ | ("<" | ">" | "'" | "\"" | "&" | ";" | "]" | "!" | "/")+) >
+| <COND_END: "["> : DEFAULT
+}
+
+/** List of attribures */
+<IN_ATTLIST_DECL> //STRING //CHARS
+TOKEN:
+{
+  <ERR_IN_ATTLIST: ("<")+ >
+| <REQUIRED: "#REQUIRED">
+| <IMPLIED: "#IMPLIED">
+| <FIXED: "#FIXED">
+| <ID_IN_ATTLIST: "ID">
+| <CDATA: "CDATA">
+| <IDREF: "IDREF">
+| <IDREFS: "IDREFS">
+| <ENTITY_IN_ATTLIST: "ENTITY">
+| <ENTITIES: "ENTITIES">
+| <NMTOKEN: "NMTOKEN">
+| <NMTOKENS: "NMTOKENS">
+| <NOTATION_IN_ATTLIST: "NOTATION">
+| <TEXT_IN_ATTLIST: ((<WS>)+ | (<TEXT>)+ | ("&" | "%" | ";" | "[" | "]")+)>
+| <ATTLIST_END: ">"> : DEFAULT
+}
+
+/** 
+* Doctype section "<!DOCTYPE ... [>" declatation. Content of the section 
+* is treated by DEFAULT => the end delimiter too.
+* This code only tries to colorize "SYSTEME", "PUBLIC" as kw.
+*/
+<IN_DOCTYPE> //PREF //STRING //CHARS
+TOKEN:
+{
+  <PUBLIC: "PUBLIC">
+| <SYSTEM: "SYSTEM">
+| <TEXT_IN_DOCTYPE: (<WS>)+ | (<TEXT>)+ >
+| <ERR_IN_DOCTYPE: ("<" | ";" | "]" | "!" | "=" | "/" | "&")+ >
+| <DOCTYPE_END: "[" | ">"> : DEFAULT
+}
+
+/*########################################################*/
+// reused automatons
+
+/** REFERENCE is delimited by "%" | "&" ... ";" | <WS> 
+  It could be optimalized by introcusing just IN_REF state
+  shared by GREF & PREF because they can not be nested.
+*/
+<IN_DOCTYPE, IN_ELEMENT, IN_COND, IN_ENTITY_DECL>
+TOKEN:
+{
+  <PREF_START: "%">  : IN_PREF
+}
+
+<IN_PREF>
+TOKEN:
+{
+  <TEXT_IN_PREF: (<TEXT>)+ > 
+| <PREF_END: ";" | (<WS>)+ >   //<WS> is just for error recovery
+}
+
+<DEFAULT, IN_GREF_CHARS, IN_GREF_STRING>
+TOKEN:
+{
+  <GREF_START: "&">  : IN_GREF
+}
+
+<IN_GREF>
+TOKEN:
+{
+  <TEXT_IN_GREF: (<TEXT> | "#")+ > 
+| <ERR_IN_GREF: "/" | ">" | "<" | "&" | "'" | "\"" | "?" | "%" | "!">  // error recovery
+| <GREF_END: ";" | (<WS>)+ > 
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+/** 
+ * CHARS automaton delimited by "'" 
+ */
+<IN_ENTITY_DECL, IN_ATTLIST_DECL, IN_DOCTYPE, IN_NOTATION>
+TOKEN:
+{
+  <CHARS_START: "'">  : IN_CHARS
+}
+
+<IN_CHARS>
+TOKEN:
+{
+  <TEXT_IN_CHARS: (~["'"])+>
+| <CHARS_END: "'"> 
+}
+
+
+/** 
+ * GREF_CHARS automaton delimited by "'" allowing &subs;
+ */
+<IN_TAG_ATTLIST>
+TOKEN:
+{
+  <GREF_CHARS_START: "'">  : IN_GREF_CHARS
+}
+
+<IN_GREF_CHARS>
+TOKEN:
+{
+  <TEXT_IN_GREF_CHARS: (~["'", "&"])+>
+| <GREF_CHARS_END: "'"> 
+}
+
+
+/** 
+ * STRING automaton delimited by "\"" 
+ */
+<IN_ENTITY_DECL, IN_ATTLIST_DECL, IN_DOCTYPE, IN_NOTATION>
+TOKEN:
+{
+  <STRING_START: "\"">  : IN_STRING
+}
+
+<IN_STRING>
+TOKEN:
+{
+  <TEXT_IN_STRING: ((~["\""])+)>
+| <STRING_END: "\""> 
+
+}
+
+/** 
+ * GREF_STRING automaton delimited by "\"" 
+ */
+<IN_TAG_ATTLIST>
+TOKEN:
+{
+  <GREF_STRING_START: "\"">  : IN_GREF_STRING
+}
+
+<IN_GREF_STRING>
+TOKEN:
+{
+  <TEXT_IN_GREF_STRING: ((~["\"", "&"])+)>
+| <GREF_STRING_END: "\""> : IN_TAG_ATTLIST
+
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+/** 
+ * COMMENT automaton delimited by "-->" 
+ */
+<DEFAULT>
+TOKEN:
+{
+  <COMMENT_START: "<!--">  : IN_COMMENT
+}
+
+<IN_COMMENT>
+/* Comment is delimited by multiple character delimiter.
+   The comment end regular expressions must throw TokenMgrError 
+   to indicate that the lexer is in the middle of token at
+   buffer boundaries!
+*/
+TOKEN:
+{
+  <TEXT_IN_COMMENT: ( (~["-"])+ | ("-" ~["-"])+ )+  >
+| <ERR_IN_COMMENT: "--" ~[">"] > 
+| <COMMENT_END: "-->" > :DEFAULT
+}
+
+void start (LinkedList list)
+ :
+  {
+   Token tok;
+  }
+ {
+   (
+      ( tok = <TAG_START>    
+     | tok = <TAG_END>     
+     )
+     { 
+        list.add (tok.toString ());
+   }
+    )* <EOF>
+  }
