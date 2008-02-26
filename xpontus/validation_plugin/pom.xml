@@ -20,8 +20,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <modules>
-    <module>simplexmlvalidation_plugin</module>
+  <modules> 
     <module>batchvalidation_plugin</module>
     <module>schemavalidation_plugin</module>
   </modules>

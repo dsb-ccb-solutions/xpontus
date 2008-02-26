@@ -87,8 +87,7 @@
         <module>gendoc_plugin</module>
         <module>scenario_plugin</module>        
         <module>themes_plugin</module>
-        <module>icons_plugin</module>
-        <module>xpontus_pluginsbrowser</module>
+        <module>icons_plugin</module> 
         <module>outline_plugin</module>
         <module>evaluator_plugin</module>        
         <module>quicktoolbar_plugin</module>           
