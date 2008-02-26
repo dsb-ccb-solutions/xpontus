@@ -93,15 +93,20 @@ public class PluginBrowser extends javax.swing.JDialog {
         this.noticePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         this.downloadedPanel = new DownloadedPanel();
-        this.installedPanel = new BrowserPanel(new InstalledPluginsResolver());
-        this.availablePanel = new BrowserPanel(new AvailablePluginsResolver());
+        this.installedPanel = new BrowserPanel(new InstalledPluginsResolver(),
+                "Uninstall");
+        this.availablePanel = new BrowserPanel(new AvailablePluginsResolver(),
+                "Install");
         this.settingsPanel = new PluginsSettingsPanel();
-        this.upgradesPanel = new BrowserPanel(new UpgradesPluginResolver());
+        this.upgradesPanel = new BrowserPanel(new UpgradesPluginResolver(),
+                "Update");
 
         tabbedPane.addTab("Upgrades", upgradesPanel);
-        tabbedPane.addTab("Available(" + availablePanel.getNbPlugins() + ")", availablePanel);
+        tabbedPane.addTab("Available(" + availablePanel.getNbPlugins() + ")",
+            availablePanel);
         tabbedPane.addTab("Downloaded", downloadedPanel);
-        tabbedPane.addTab("Installed(" + installedPanel.getNbPlugins() + ")", installedPanel);
+        tabbedPane.addTab("Installed(" + installedPanel.getNbPlugins() + ")",
+            installedPanel);
         tabbedPane.addTab("Settings", settingsPanel);
 
         add(noticePanel, BorderLayout.NORTH);

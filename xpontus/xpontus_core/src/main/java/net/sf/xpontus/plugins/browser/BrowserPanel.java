@@ -66,7 +66,7 @@ public class BrowserPanel extends JComponent {
     private Map<String, SimplePluginDescriptor> pluginsMap;
     private PluginsTemplateRenderer ptr;
 
-    public BrowserPanel(AbstractPluginsResolver resolver) {
+    public BrowserPanel(AbstractPluginsResolver resolver, String title) {
         setLayout(new BorderLayout());
         ptr = new PluginsTemplateRenderer();
 
@@ -75,6 +75,8 @@ public class BrowserPanel extends JComponent {
         pluginsMap = resolver.getPluginDescriptorsMap();
 
         java.util.Vector columns = new java.util.Vector(3);
+
+        columns.add(title);
         columns.add("Identifier");
         columns.add("Category");
         columns.add("Built-in");
@@ -84,6 +86,8 @@ public class BrowserPanel extends JComponent {
         for (Iterator<String> it = pluginsMap.keySet().iterator();
                 it.hasNext();) {
             Vector m_row = new Vector();
+            m_row.add(new Boolean(false));
+
             SimplePluginDescriptor spd = pluginsMap.get(it.next());
             m_row.add(spd.getId());
             m_row.add(spd.getCategory());
@@ -102,7 +106,11 @@ public class BrowserPanel extends JComponent {
         tableModel = new DefaultTableModel(rows, columns) {
                     @Override
                     public boolean isCellEditable(int row, int column) {
-                        return false;
+                        return (column == 0);
+                    }
+
+                    public Class getColumnClass(int c) {
+                        return getValueAt(0, c).getClass();
                     }
                 };
 
@@ -117,7 +125,7 @@ public class BrowserPanel extends JComponent {
                     int row = table.getSelectedRow();
 
                     if (row != -1) {
-                        String id = tableModel.getValueAt(row, 0).toString();
+                        String id = tableModel.getValueAt(row, 1).toString();
                         SimplePluginDescriptor spd = pluginsMap.get(id);
                         editorPane.setText(ptr.renderTemplate(spd));
                     }
