@@ -46,13 +46,18 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus configuration directory
      */
     File XPONTUS_HOME_DIR = new File(USER_HOME_DIR, ".xpontus");
-    
+    File PLUGINS_SEARCHINDEX_DIR = new File(XPONTUS_HOME_DIR, "searchindex");
+    File AVAILABLE_PLUGINS_SEARCHINDEX_DIR = new File(PLUGINS_SEARCHINDEX_DIR,
+            "installedplugins");
+    File INSTALLED_PLUGINS_SEARCHINDEX_DIR = new File(PLUGINS_SEARCHINDEX_DIR,
+            "availableplugins");
+
     /**
-     * 
-     * 
+     *
+     *
      */
     File RECENT_FILES_HISTORY_FILE = new File(XPONTUS_HOME_DIR, "history");
-    
+
     /**
      * The mimetypes file
      */
@@ -72,11 +77,13 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus preferences directory
      */
     File XPONTUS_PREFERENCES_DIR = new File(XPONTUS_HOME_DIR, "preferences");
+
     /**
      * The editor preferences file
      */
     File EDITOR_PREFERENCES_FILE = new File(XPONTUS_PREFERENCES_DIR,
             "editorPanel.properties");
+
     /**
      * Some general properties
      */

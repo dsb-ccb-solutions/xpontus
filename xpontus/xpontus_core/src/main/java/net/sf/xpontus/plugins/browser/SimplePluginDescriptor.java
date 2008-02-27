@@ -35,13 +35,57 @@ public class SimplePluginDescriptor {
     private String builtin;
     private String id;
     private String displayname;
+    private String archive;
+    private String packagename;
+    private String license;
+    private String date;
+    private String contributors;
 
     public SimplePluginDescriptor() {
     }
 
-    @Override
     public String toString() {
         return id;
+    }
+
+    public String getPackagename() {
+        return packagename;
+    }
+
+    public void setPackagename(String packagename) {
+        this.packagename = packagename;
+    }
+
+    public String getArchive() {
+        return archive;
+    }
+
+    public void setArchive(String archive) {
+        this.archive = archive;
+    }
+
+    public String getContributors() {
+        return contributors;
+    }
+
+    public void setContributors(String contributors) {
+        this.contributors = contributors;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     
