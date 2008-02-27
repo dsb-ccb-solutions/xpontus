@@ -43,7 +43,7 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi
  */
 public class ModificationHandler implements DocumentListener, CaretListener {
-    private DocumentContainer editor; 
+    private DocumentContainer editor;
 
     /** Creates a new instance of ModificationHandler
      * @param editor the document container
@@ -81,41 +81,33 @@ public class ModificationHandler implements DocumentListener, CaretListener {
                     }
 
                     editor.getStatusBar().setMessage(msg);
-
-                    final SyntaxDocument mDoc = (SyntaxDocument) editor.getEditorComponent()
-                                                                       .getDocument();
-
-                    
-                    if(mDoc.getOutlinePlugin()!=null){
-                        Thread m_worker = new Thread(){
-                            public void run(){
-                                 
-                                mDoc.getOutlinePlugin().updateOutline(mDoc);
-                                 
-                            }
-                        };
-                        m_worker.setPriority(Thread.MIN_PRIORITY);
-                        m_worker.start();
-                        
-                    }
-                    
-                    if (mDoc.getCodeCompletion() != null) {
-                        //   System.out.println("parsing for completion");
-                        new Thread() {
-                                public void run() {
-                                    //                                    editor.getStatusBar()
-                                    //                                          .setOperationMessage("Building code completion...");
-                                    mDoc.getCodeCompletion().init(mDoc);
-
-                                    //                                    editor.getStatusBar()
-                                    //                                          .setOperationMessage("Database completion updated...");
-                                }
-                            }.start();
-
-                        //  System.out.println("parsing for completion done");
-                    }
                 }
             });
+
+        final SyntaxDocument mDoc = (SyntaxDocument) editor.getEditorComponent()
+                                                           .getDocument();
+
+        if (mDoc.getOutlinePlugin() != null) {
+            Thread m_worker = new Thread() {
+                    public void run() {
+                        mDoc.getOutlinePlugin().updateOutline(mDoc);
+                    }
+                };
+
+            m_worker.setPriority(Thread.MIN_PRIORITY);
+            m_worker.start();
+        }
+
+        if (mDoc.getCodeCompletion() != null) {
+            Thread m_worker = new Thread() {
+                    public void run() {
+                        mDoc.getCodeCompletion().init(mDoc);
+                    }
+                };
+
+            m_worker.setPriority(Thread.MIN_PRIORITY);
+            m_worker.start();
+        }
     }
 
     /**
