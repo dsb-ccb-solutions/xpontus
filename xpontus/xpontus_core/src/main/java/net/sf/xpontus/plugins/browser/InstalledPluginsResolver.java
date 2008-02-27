@@ -46,6 +46,7 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
 
         for (int i = 0; i < descriptors.length; i++) {
             PluginDescriptor pds = (PluginDescriptor) descriptors[i];
+            System.out.println("PLUGIN_LOCATION:" + pds.getLocation().toExternalForm());
             String id = pds.getId().toString();
             String category = pds.getAttribute("Category").getValue().toString();
             String homepage = pds.getAttribute("Homepage").getValue().toString();

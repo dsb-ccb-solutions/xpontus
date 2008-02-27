@@ -62,7 +62,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class DocumentTabContainer {
     protected static DockGroup group = new DockGroup("Editors");
-    private Vector editors = new Vector();
+    private Vector<DocumentContainer> editors = new Vector<DocumentContainer>();
     private boolean actionsEnabled = false;
     private DockingDesktop desktop;
     private JTextComponent currentEditor;
@@ -175,6 +175,7 @@ public class DocumentTabContainer {
                                                         .notifyComponents(new DocumentContainerChangeEvent(
                                     editor));
                             editors.remove(editor);
+                            editors.get(editors.size() - 1).getEditorComponent().grabFocus();
                         }
                     } else if ((current != null) &&
                             (current.getDockable() instanceof OutlineViewDockable) &&
