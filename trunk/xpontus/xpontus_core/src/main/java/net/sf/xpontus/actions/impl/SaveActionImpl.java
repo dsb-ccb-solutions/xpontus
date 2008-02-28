@@ -60,7 +60,7 @@ public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
          
         int rep = JOptionPane.showConfirmDialog(DefaultXPontusWindowImpl.getInstance()
                                                                         .getDisplayComponent(),
-               "The file has been modified", "Save document?", JOptionPane.YES_NO_OPTION);
+               "The file has been modified. Do you want to save it?", "Save document?", JOptionPane.YES_NO_OPTION);
 
         if (rep == JOptionPane.YES_OPTION) {
             execute();

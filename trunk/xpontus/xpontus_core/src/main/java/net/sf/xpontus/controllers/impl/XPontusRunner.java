@@ -268,7 +268,7 @@ public class XPontusRunner {
                 IndentContentActionImpl.BEAN_ALIAS, "action.docgen"
             };
 
-            final String[] helpActions = {"action.about", "action.pluginmanager", "action.help"};
+            final String[] helpActions = {"action.about", "action.help"};
             final Object[] helpActionsList = new Object[helpActions.length];
 
             for (int i = 0; i < helpActions.length; i++) {
@@ -310,6 +310,9 @@ public class XPontusRunner {
             MenuBarPluginIF editMenuExt = createMenuExtension(XPontusMenuConstantsIF.EDIT_MENU_ID,
                     editActionsList);
 
+            MenuBarPluginIF pluginMenuExt = createMenuExtension(XPontusMenuConstantsIF.PLUGINS_MENU_ID,
+                    new Object[]{iocPlugin.getBean("action.pluginmanager")});
+            
             MenuBarPluginIF viewMenuExt = createMenuExtension(XPontusMenuConstantsIF.VIEW_MENU_ID,
                     viewActionsList);
 
@@ -351,6 +354,7 @@ public class XPontusRunner {
             menubarPlugin.initExtension(optionsMenuExt);
             menubarPlugin.initExtension(editMenuExt);
             menubarPlugin.initExtension(viewMenuExt);
+            menubarPlugin.initExtension(pluginMenuExt);
 
             JMenu recentFilesMenu = new JMenu("Recent files");
             AbstractXPontusActionImpl rAction = new RecentFilesActionImpl(recentFilesMenu);
