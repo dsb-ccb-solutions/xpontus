@@ -9,6 +9,9 @@
         <attribute id = "DisplayName" value = "Code completion plugin"/>      
         <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
         <attribute id = "date" value = "26-02-2008"/>
+        <attribute id = "last-modified" value = "26-02-2008"/>
+        <attribute id = "size" value = ""/>
+        <attribute id = "archive-name" value = ""/>
     </attributes>
     <runtime>
         <library type="code" path="." id="plugin.core.completion.lib"> 

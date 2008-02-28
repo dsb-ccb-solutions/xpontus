@@ -25,13 +25,15 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
+import java.awt.event.ActionListener;
+
+import java.beans.EventHandler;
 
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -53,13 +55,21 @@ public class DownloadedPanel extends JComponent {
     private JScrollPane detailsScrollPane;
     private JScrollPane descriptionScrollPane;
     private DefaultTableModel tableModel;
+    private InstallDownloadedPluginsController ctrl;
 
     public DownloadedPanel() {
         setLayout(new BorderLayout());
 
+        ctrl = new InstallDownloadedPluginsController();
+        ctrl.setView(this);
+
         Dimension dim = new Dimension(200, 200);
 
         addPluginsButton = new JButton("Add plugins...");
+
+        addPluginsButton.addActionListener((ActionListener) EventHandler.create(
+                ActionListener.class, ctrl, "addPlugin"));
+
         installPluginsButton = new JButton("Install");
 
         LayoutManager layout = new FlowLayout(FlowLayout.LEFT);
@@ -109,19 +119,15 @@ public class DownloadedPanel extends JComponent {
         add(panel, BorderLayout.SOUTH);
     }
 
+    public JTable getPluginsTable() {
+        return pluginDetailsTable;
+    }
+
     public JButton getAddPluginsButton() {
         return addPluginsButton;
     }
 
     public JButton getInstallPluginsButton() {
         return installPluginsButton;
-    }
-
-    public static void main(String[] argv) {
-        JFrame f = new JFrame("test");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setContentPane(new DownloadedPanel());
-        f.pack();
-        f.setVisible(true);
     }
 }
