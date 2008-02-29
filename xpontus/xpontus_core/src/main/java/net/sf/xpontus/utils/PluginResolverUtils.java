@@ -12,8 +12,7 @@ import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import net.sf.xpontus.plugins.browser.SimplePluginDescriptor;
+import java.lang.reflect.Method; 
 
 /**
  *
@@ -22,12 +21,7 @@ import net.sf.xpontus.plugins.browser.SimplePluginDescriptor;
 public class PluginResolverUtils {
     
     private static PropertyDescriptor[] pd;
-    
- public static SimplePluginDescriptor resolvePlugins(InputStream url) throws Exception {
-        XStream xstream = new XStream(new DomDriver());
-//        return (SimplePluginDescriptor) xstream.fromXML(url);
-        return null;
-    }
+  
  
  public static PropertyDescriptor findDescriptor(String property) {
         for (PropertyDescriptor p : pd) {
