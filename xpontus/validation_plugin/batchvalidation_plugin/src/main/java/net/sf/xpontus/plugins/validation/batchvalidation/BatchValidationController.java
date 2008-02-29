@@ -223,15 +223,13 @@ public class BatchValidationController {
      * Validate the selected paths
      */
     public void validateFiles() {
-        final SwingWorker worker = new SwingWorker() {
-                public Object construct() {
-                    view.enableControlButtons(false);
+        Thread worker = new Thread(){
+            public void run(){
+                 view.enableControlButtons(false);
                     doValidateFiles();
-
-                    return null;
-                }
-            };
-
+            }
+        };
+        worker.setPriority(Thread.MIN_PRIORITY);
         worker.start();
     }
 
@@ -307,9 +305,12 @@ public class BatchValidationController {
         Component mainWindow = DefaultXPontusWindowImpl.getInstance()
                                                        .getDisplayComponent();
 
-        final ProgressMonitor pm = new ProgressMonitor(mainWindow,
-                "Progression", "", 0, nbFiles);
-        pm.setMillisToDecideToPopup(1000);
+//        final ProgressMonitor pm = new ProgressMonitor(mainWindow,
+//                "Progression", "", 0, nbFiles);
+//        pm.setMillisToDecideToPopup(1000);
+        
+        ProgressMonitorHandler pmh = new ProgressMonitorHandler(0, nbFiles);
+        DefaultXPontusWindowImpl.getInstance().getStatusBar().addOperationComponent(pmh);
 
         ConsoleOutputWindow outputWindow = DefaultXPontusWindowImpl.getInstance()
                                                                    .getConsole();
@@ -343,7 +344,7 @@ public class BatchValidationController {
         CharsetDetector detector = new CharsetDetector();
 
         for (int i = 0; i < files.size(); i++) {
-            if (pm.isCanceled()) {
+            if (pmh.isCanceled()) {
                 Toolkit.getDefaultToolkit().beep();
                 view.enableControlButtons(true);
 
@@ -378,8 +379,7 @@ public class BatchValidationController {
 
             final int pos = i;
 
-            pm.setProgress(pos + 1);
-            pm.setNote(m_file.getName().getBaseName());
+            pmh.updateProgress(pos + 1); 
 
             try {
                 errorHandler.setCurrentFile(m_file);
@@ -419,6 +419,8 @@ public class BatchValidationController {
 
         view.enableControlButtons(true);
         outputWindow.setFocus(MessagesWindowDockable.DOCKABLE_ID);
+        
+        DefaultXPontusWindowImpl.getInstance().getStatusBar().removeOperationComponent(pmh);
     }
 
     /**
