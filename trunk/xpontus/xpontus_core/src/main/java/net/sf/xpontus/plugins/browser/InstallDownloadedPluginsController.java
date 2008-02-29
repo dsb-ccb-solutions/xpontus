@@ -27,6 +27,8 @@ import javax.rmi.CORBA.Util;
 
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+import org.java.plugin.tools.PluginArchiver;
 
 
 /**
@@ -84,13 +86,14 @@ public class InstallDownloadedPluginsController {
 
             for (File selectedFile : selectedFiles) {
                 try {
+                    PluginArchiver.unpack(selectedFile.toURL(), new File("/home/mrcheeks/Tests/cvs/maven-jpf-plugin/target/site"));
                     FileObject fo = VFS.getManager().toFileObject(selectedFile);
                     InputStream is = readDescriptor(fo.getURL());
                     String s = IOUtils.toString(is); 
-                    SimplePluginDescriptor spd = PluginResolverUtils.resolvePlugins(new ByteArrayInputStream(s.getBytes()));
-                    tableModel.addRow(new String[] {
-                            spd.getId(), spd.getCategory(), spd.getBuiltin()
-                        });
+//                    SimplePluginDescriptor spd = PluginResolverUtils.resolvePlugins(new ByteArrayInputStream(s.getBytes()));
+//                    tableModel.addRow(new String[] {
+//                            spd.getId(), spd.getCategory(), spd.getBuiltin()
+//                        });
                 } catch (Exception err) {
                     err.printStackTrace();
                 }
