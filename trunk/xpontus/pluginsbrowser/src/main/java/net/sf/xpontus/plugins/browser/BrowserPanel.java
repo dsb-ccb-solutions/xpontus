@@ -22,7 +22,6 @@
 package net.sf.xpontus.plugins.browser;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -46,6 +45,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.html.HTMLEditorKit;
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 
 /**

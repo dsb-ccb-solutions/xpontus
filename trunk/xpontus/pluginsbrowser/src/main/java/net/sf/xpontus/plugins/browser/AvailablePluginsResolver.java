@@ -59,6 +59,7 @@ import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import net.sf.xpontus.controllers.impl.XPontusPluginManager;
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 
 /**

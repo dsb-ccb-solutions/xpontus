@@ -4,31 +4,31 @@
  */
 package net.sf.xpontus.plugins.browser;
 
-import net.sf.xpontus.utils.PluginResolverUtils;
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+import net.sf.xpontus.controllers.impl.XPontusPluginManager;
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
+import org.java.plugin.registry.Identity;
+import org.java.plugin.registry.PluginRegistry;
+import org.java.plugin.tools.PluginArchiver;
+
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 
 import java.net.URL;
 
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-
-import javax.rmi.CORBA.Util;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
-import org.java.plugin.tools.PluginArchiver;
 
 
 /**
@@ -38,12 +38,21 @@ import org.java.plugin.tools.PluginArchiver;
 public class InstallDownloadedPluginsController {
     private JFileChooser chooser = new JFileChooser();
     private DownloadedPanel view;
+    private PluginRegistry registry;
 
     public InstallDownloadedPluginsController() {
         chooser = new JFileChooser();
         chooser.setDialogTitle("Select archive");
         chooser.setMultiSelectionEnabled(true);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    }
+
+    public PluginRegistry getRegistry() {
+        if (registry == null) {
+            registry = XPontusPluginManager.getPluginManager().getRegistry();
+        }
+
+        return registry;
     }
 
     public DownloadedPanel getView() {
@@ -54,24 +63,111 @@ public class InstallDownloadedPluginsController {
         this.view = view;
     }
 
-    public InputStream readDescriptor(final URL archiveFile)
-        throws IOException {
-        ZipInputStream zipStrm = new ZipInputStream(new BufferedInputStream(
-                    archiveFile.openStream()));
+    private void collectManifests(final File file, final Set manifests,
+        final Set archives) throws Exception {
+        String name = file.getName().toLowerCase();
+
+        if (name.endsWith(".jpa")) {
+            archives.add(file.toURL());
+
+            return;
+        }
+
+        URL url = PluginsUtils.getManifestUrl(file);
+
+        if (url != null) {
+            manifests.add(url);
+
+            return;
+        }
+
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+
+            for (int i = 0; i < files.length; i++) {
+                collectManifests(files[i], manifests, archives);
+            }
+        }
+    }
+
+    void addManifests(final File[] files) throws Exception {
+        if (files.length == 0) {
+            return;
+        }
 
         try {
-            ZipEntry entry = zipStrm.getNextEntry(); 
-            System.out.println("Entry:" + entry.getName());
-            if (entry == null) { 
-                throw new IOException(
-                    "invalid plug-ins archive, no entries found");
+            Set manifests = new HashSet();
+            Set archives = new HashSet();
+
+            for (int i = 0; i < files.length; i++) {
+                collectManifests(files[i], manifests, archives);
             }
 
-            return zipStrm;
+            Map<String, Identity> m_map = getRegistry()
+                                              .register((URL[]) manifests.toArray(
+                        new URL[manifests.size()]));
+
+            
+            if (m_map.size() > 0) {
+                Iterator<String> it = m_map.keySet().iterator();
+
+                while (it.hasNext()) {
+                    String cle = it.next();
+                    System.out.println("Cle:" + cle);
+
+                    Identity m_id = m_map.get(cle);
+                    String pluginIdentifier = m_id.getId();
+                    File archiveFile = view.getFilesMap().get(pluginIdentifier); 
+
+                    File destFolder = new File(XPontusConfigurationConstantsIF.XPONTUS_PLUGINS_DIR,
+                            pluginIdentifier);
+
+                    if (!destFolder.exists()) {
+                        destFolder.mkdirs();
+                    }
+ 
+                    try{
+                    PluginsUtils.unzip(archiveFile.getAbsolutePath(),
+                        destFolder.getAbsolutePath());
+                    }
+                    catch(Exception err){
+                        throw new Exception("Error extracting plugin archive");
+                    }
+                }
+            }
+            
+        } finally {
+        }
+    }
+    
+    public void findRowForPlugin(String id){
+         JTable table = view.getPluginsTable();
+        int selected = table.getSelectedRow();
+
+         
+        DefaultTableModel m_model = (DefaultTableModel) table.getModel();
+        m_model.removeRow(selected);
+    }
+
+    public void installPlugin() {
+        JTable table = view.getPluginsTable();
+        int selected = table.getSelectedRow();
+
+        if (selected == -1) {
+            return;
+        }
+
+        DefaultTableModel m_model = (DefaultTableModel) table.getModel();
+
+        String id = (String) m_model.getValueAt(selected, 1);
+
+        File pluginArchive = view.getFilesMap().get(id);
+
+        try {
+            addManifests(new File[] { pluginArchive });
         } catch (Exception e) {
-            System.out.println("Exception");
             e.printStackTrace();
-            return null;
+            XPontusComponentsUtils.showErrorMessage(e.getMessage());
         }
     }
 
@@ -79,21 +175,34 @@ public class InstallDownloadedPluginsController {
         int rep = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
                                                                .getDisplayComponent());
 
+        DefaultTableModel m_model = (DefaultTableModel) view.getPluginsTable()
+                                                            .getModel();
+
         if (rep == JFileChooser.APPROVE_OPTION) {
             File[] selectedFiles = chooser.getSelectedFiles();
+
             DefaultTableModel tableModel = (DefaultTableModel) view.getPluginsTable()
                                                                    .getModel();
 
             for (File selectedFile : selectedFiles) {
                 try {
-                    PluginArchiver.unpack(selectedFile.toURL(), new File("/home/mrcheeks/Tests/cvs/maven-jpf-plugin/target/site"));
+                    //PluginArchiver.unpack(selectedFile.toURL(), new File("/home/mrcheeks/Tests/cvs/maven-jpf-plugin/target/site"));
                     FileObject fo = VFS.getManager().toFileObject(selectedFile);
-                    InputStream is = readDescriptor(fo.getURL());
-                    String s = IOUtils.toString(is); 
-//                    SimplePluginDescriptor spd = PluginResolverUtils.resolvePlugins(new ByteArrayInputStream(s.getBytes()));
-//                    tableModel.addRow(new String[] {
-//                            spd.getId(), spd.getCategory(), spd.getBuiltin()
-//                        });
+                    URL manifestURL = PluginsUtils.getManifestUrl(selectedFile);
+
+                    if (manifestURL != null) {
+                        InputStream is = manifestURL.openStream();
+                        SimplePluginDescriptor spd = net.sf.xpontus.utils.PluginResolverUtils.resolvePlugins(is);
+
+                        if (spd.getId() != null) {
+                            view.getFilesMap().put(spd.getId(), selectedFile);
+                            view.getPluginsMap().put(spd.getId(), spd);
+                            tableModel.addRow(new Object[] {
+                                    new Boolean(false), spd.getId(),
+                                    spd.getCategory(), spd.getBuiltin()
+                                });
+                        }
+                    }
                 } catch (Exception err) {
                     err.printStackTrace();
                 }
