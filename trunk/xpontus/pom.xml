@@ -94,5 +94,6 @@
         <module>preview_plugin</module>
         <module>scripting_plugin</module>
         <module>xmlsecurity</module> 
+	<module>pluginsbrowser</module> 
   </modules>   
 </project>
