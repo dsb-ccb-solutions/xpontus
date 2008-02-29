@@ -9,7 +9,7 @@
     <groupId>net.sf.xpontus.plugins.lexer.html</groupId>
     <artifactId>html_lexer_plugin</artifactId>
     <name>HTML lexer</name>
-    <packaging>jpf-plugin</packaging>
+    <packaging>jar</packaging>
     <version>1.0.0-pre1</version> 
     <description>XPontus HTML lexer plugin</description>
     <dependencies>
@@ -44,16 +44,7 @@
                     <source>1.5</source>
                     <target>1.5</target>   
                 </configuration>
-            </plugin> 
-            <plugin>
-                <groupId>net.sf.jpf</groupId>
-                <artifactId>maven-jpf-plugin</artifactId>
-                <version>0.0.2</version>
-                <extensions>true</extensions>
-                <configuration>                    
-                    <manifestFile>src/main/java/plugin.xml</manifestFile>
-                </configuration>
-            </plugin>
+            </plugin>  
         </plugins>
     </build>
 </project>
