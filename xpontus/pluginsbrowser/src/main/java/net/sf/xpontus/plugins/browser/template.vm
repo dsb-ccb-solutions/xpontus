@@ -1,0 +1,53 @@
+<html> 
+    <head></head>
+    <body> 
+        <div style="width:100%;border:1px solid;border-width: 1px;"> 
+            <h2>$displayname</h2> 
+        </div>  
+        <table border="0"> 
+            <tr> 
+                <td> 
+                    <strong>Category</strong> 
+                </td>  
+                <td>$category</td> 
+            </tr>  
+            <tr> 
+                <td> 
+                    <strong>Version</strong> 
+                </td>  
+                <td>$version</td> 
+            </tr>  
+            <tr> 
+                <td> 
+                    <strong>Built-in</strong> 
+                </td>  
+                <td>$built-in</td> 
+            </tr>  
+            <tr> 
+                <td> 
+                    <strong>Id</strong> 
+                </td>  
+                <td>$id</td> 
+            </tr>  
+            <tr> 
+                <td> 
+                    <strong>Author</strong> 
+                </td>  
+                <td>$vendor</td> 
+            </tr>  
+            <tr> 
+                <td> 
+                    <strong>Homepage</strong> 
+                </td>  
+                <td> 
+                    <a href="$homepage">$homepage</a> 
+                </td> 
+            </tr> 
+        </table>  
+        <br/>
+        <hr style="width:100%;height:1px"/>
+        <br/>  
+        <h3>Description</h3>  
+        <p>$description</p> 
+    </body> 
+</html>

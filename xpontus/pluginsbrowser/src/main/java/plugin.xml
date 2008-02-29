@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.browser" version="0.0.1" class="net.sf.xpontus.plugins.browser.XPontusBrowserPlugin">
+    <attributes>
+        <attribute id = "Built-in" value = "false"/>
+        <attribute id="Category" value = "Tools"/>
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "Plugins Manager - Install, Remove or updates plugins"/>
+        <attribute id = "DisplayName" value = "Plugins Manager"/>
+        <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
+        <attribute id = "date" value = "26-02-2008"/>
+    </attributes>
+    <requires>
+        <import plugin-id="plugin.core.menubar" />
+    </requires>
+    <runtime> 
+        <library id="plugin.browser.lib" path="lib/pluginsbrowser-1.0.0-pre1.jar" type="code" > 
+            <export prefix="*"/>
+        </library>  
+        <library id="velocity" version="1.5" path="lib/velocity-1.5.jar" type="code" > 
+            <export prefix="*"/>
+        </library>  
+        <library id="oro" path="lib/oro-2.0.8.jar" version="2.0.8" type="code" > 
+            <export prefix="*"/>
+        </library>  
+        <library id="lucene-core" path="lib/lucene-core-2.3.1" version="2.3.1" type="code" > 
+            <export prefix="*"/>
+        </library> 
+        <library id="jpf-tools" path="lib/jpf-tools" version="1.5" type="code" > 
+            <export prefix="*"/>
+        </library> 
+    </runtime>
+    <extension plugin-id="plugin.core.menubar" point-id="menubarpluginif"  id="pluginBrowserTool">
+        <parameter id="class"  value="net.sf.xpontus.plugins.browser.BrowserMenuBarPluginImpl" /> 
+    </extension>
+    
+</plugin>
+
