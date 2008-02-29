@@ -24,17 +24,19 @@ package net.sf.xpontus.plugins.menubar;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Action;
+
 
 /**
  * Plugin interface for the menubar entries
  * @author Yves Zoundi
  */
 public interface MenuBarPluginIF {
-    public List getMenuNames();
+    public List<String> getMenuNames();
 
     /**
      *
      * @return
      */
-    public Map getActionMap();
+    public Map<String, List<Action>> getActionMap();
 }

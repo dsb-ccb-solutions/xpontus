@@ -309,9 +309,7 @@ public class XPontusRunner {
 
             MenuBarPluginIF editMenuExt = createMenuExtension(XPontusMenuConstantsIF.EDIT_MENU_ID,
                     editActionsList);
-
-            MenuBarPluginIF pluginMenuExt = createMenuExtension(XPontusMenuConstantsIF.PLUGINS_MENU_ID,
-                    new Object[]{iocPlugin.getBean("action.pluginmanager")});
+ 
             
             MenuBarPluginIF viewMenuExt = createMenuExtension(XPontusMenuConstantsIF.VIEW_MENU_ID,
                     viewActionsList);
@@ -353,8 +351,7 @@ public class XPontusRunner {
             menubarPlugin.initExtension(toolMenuExt);
             menubarPlugin.initExtension(optionsMenuExt);
             menubarPlugin.initExtension(editMenuExt);
-            menubarPlugin.initExtension(viewMenuExt);
-            menubarPlugin.initExtension(pluginMenuExt);
+            menubarPlugin.initExtension(viewMenuExt); 
 
             JMenu recentFilesMenu = new JMenu("Recent files");
             AbstractXPontusActionImpl rAction = new RecentFilesActionImpl(recentFilesMenu);
