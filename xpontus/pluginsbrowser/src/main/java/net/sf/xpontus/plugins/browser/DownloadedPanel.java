@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.plugins.browser;
 
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -29,6 +31,9 @@ import java.awt.event.ActionListener;
 
 import java.beans.EventHandler;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -38,6 +43,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -56,9 +64,20 @@ public class DownloadedPanel extends JComponent {
     private JScrollPane descriptionScrollPane;
     private DefaultTableModel tableModel;
     private InstallDownloadedPluginsController ctrl;
+    private PluginsTemplateRenderer ptr;
+    private Map<String, SimplePluginDescriptor> pluginsMap;
+    private Map<String, File> filesMap;
 
+    public Map<String, File> getFilesMap() {
+        return filesMap;
+    }
+
+    
     public DownloadedPanel() {
         setLayout(new BorderLayout());
+        ptr = new PluginsTemplateRenderer();
+        pluginsMap = new HashMap<String, SimplePluginDescriptor>();
+        filesMap = new HashMap<String, File>();
 
         ctrl = new InstallDownloadedPluginsController();
         ctrl.setView(this);
@@ -71,6 +90,9 @@ public class DownloadedPanel extends JComponent {
                 ActionListener.class, ctrl, "addPlugin"));
 
         installPluginsButton = new JButton("Install");
+        
+        installPluginsButton.addActionListener((ActionListener) EventHandler.create(
+                ActionListener.class, ctrl, "installPlugin"));
 
         LayoutManager layout = new FlowLayout(FlowLayout.LEFT);
 
@@ -80,21 +102,27 @@ public class DownloadedPanel extends JComponent {
 
         add(panel, BorderLayout.NORTH);
 
-        Vector columns = new Vector(3);
+        Vector columns = new Vector();
+        columns.add("Install");
         columns.add("Identifier");
         columns.add("Category");
         columns.add("Built-in");
 
         tableModel = new DefaultTableModel(new Vector(), columns) {
-                    @Override
-                    public boolean isCellEditable(int row, int column) {
-                        return false;
+                    public Class getColumnClass(int c) {
+                        return getValueAt(0, c).getClass();
+                    }
+
+                   public boolean isCellEditable(int row, int column) {
+                        return (column == 0);
                     }
                 };
 
         pluginDetailsTable = new JTable(tableModel);
         pluginDetailsTable.setMinimumSize(dim);
         pluginDetailsTable.setPreferredSize(dim);
+
+        pluginDetailsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         detailsScrollPane = new JScrollPane(pluginDetailsTable);
 
@@ -112,11 +140,35 @@ public class DownloadedPanel extends JComponent {
         splitPane.setOneTouchExpandable(true);
         splitPane.setContinuousLayout(true);
 
+        pluginDetailsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    if (e.getValueIsAdjusting()) {
+                        return;
+                    }
+
+                    int row = pluginDetailsTable.getSelectedRow();
+
+                    if (row != -1) {
+                        String id = tableModel.getValueAt(row, 1).toString();
+                        SimplePluginDescriptor spd = pluginsMap.get(id);
+                        pluginDescriptionPane.setText(ptr.renderTemplate(spd));
+                    }
+                }
+            });
+
         add(splitPane, BorderLayout.CENTER);
 
         panel = new JPanel(layout);
         panel.add(installPluginsButton);
         add(panel, BorderLayout.SOUTH);
+    }
+
+    public JTable getPluginDetailsTable() {
+        return pluginDetailsTable;
+    }
+
+    public Map<String, SimplePluginDescriptor> getPluginsMap() {
+        return pluginsMap;
     }
 
     public JTable getPluginsTable() {

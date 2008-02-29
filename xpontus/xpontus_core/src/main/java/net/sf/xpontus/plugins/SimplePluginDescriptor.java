@@ -19,7 +19,7 @@
  *
  *
  */
-package net.sf.xpontus.plugins.browser;
+package net.sf.xpontus.plugins;
 
 
 /**
@@ -27,7 +27,7 @@ package net.sf.xpontus.plugins.browser;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class SimplePluginDescriptor {
-    private String author ;
+    private String author;
     private String version;
     private String homepage;
     private String description;
@@ -88,7 +88,6 @@ public class SimplePluginDescriptor {
         this.license = license;
     }
 
-    
     public String getAuthor() {
         return author;
     }

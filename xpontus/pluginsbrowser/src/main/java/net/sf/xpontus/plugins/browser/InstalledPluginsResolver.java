@@ -26,6 +26,7 @@ import org.java.plugin.registry.PluginDescriptor;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.xpontus.controllers.impl.XPontusPluginManager;
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 
 /**

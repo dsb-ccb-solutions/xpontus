@@ -22,6 +22,7 @@
 package net.sf.xpontus.plugins.browser;
 
 import java.util.Map;
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 
 /**

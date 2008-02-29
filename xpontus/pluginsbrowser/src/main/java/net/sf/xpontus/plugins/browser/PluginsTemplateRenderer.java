@@ -32,6 +32,7 @@ import java.io.Writer;
 
 import java.util.Iterator;
 import java.util.Map;
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
 import org.apache.velocity.VelocityContext;
 
 

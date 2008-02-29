@@ -6,10 +6,18 @@ package net.sf.xpontus.plugins.browser;
 
 import org.java.plugin.util.IoUtil;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 
 /**
@@ -17,7 +25,45 @@ import java.net.URL;
  * @author mrcheeks
  */
 public class PluginsUtils {
-    private static URL getManifestUrl(final File file) {
+    public static void unzip(String zipFilename, String outdir)
+        throws IOException {
+        System.out.println("In unzip method...");
+        ZipFile zipFile = new ZipFile(zipFilename);
+        Enumeration entries = zipFile.entries();
+
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = (ZipEntry) entries.nextElement();
+            System.out.println("Entry name:" + entry.getName());
+            boolean isDirectory = entry.isDirectory();
+            byte[] buffer = new byte[1024];
+            int len;
+
+             File destDir = new File(outdir + File.separator +
+                        entry.getName());
+             
+            if (isDirectory) {
+               
+                System.out.println("DestDir:" + destDir.getAbsolutePath());
+
+                if (!destDir.exists()) {
+                    destDir.mkdirs();
+                }
+            } else {
+                InputStream zipin = zipFile.getInputStream(entry);
+                BufferedOutputStream fileout = new BufferedOutputStream(new FileOutputStream(outdir +
+                            File.separator + entry.getName()));
+
+                while ((len = zipin.read(buffer)) >= 0)
+                    fileout.write(buffer, 0, len);
+
+                zipin.close();
+                fileout.flush();
+                fileout.close();
+            }
+        }
+    }
+
+    public static URL getManifestUrl(final File file) {
         try {
             if (file.isDirectory()) {
                 File result = new File(file, "plugin.xml"); //$NON-NLS-1$
