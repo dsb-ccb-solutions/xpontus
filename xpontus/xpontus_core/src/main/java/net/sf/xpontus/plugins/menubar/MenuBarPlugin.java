@@ -26,7 +26,6 @@ import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.XPontusPlugin;
-import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.properties.PropertiesHolder;
 
 import org.java.plugin.PluginManager;
@@ -42,10 +41,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.Action;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 
 /**
@@ -97,22 +94,22 @@ public class MenuBarPlugin extends XPontusPlugin {
     public void initExtension(MenuBarPluginIF ext) {
         JMenu menu = null;
 
-        Map map = ext.getActionMap();
+        Map<String, List<Action>> map = ext.getActionMap();
 
-        Iterator m_iterator = map.keySet().iterator();
+        Iterator<String> m_iterator = map.keySet().iterator();
 
         for (int pos = 0; m_iterator.hasNext(); pos++) {
-            String m_MenuKey = m_iterator.next().toString();
+            String m_MenuKey = m_iterator.next();
             menu = getOrCreateMenu(m_MenuKey);
 
             if (newmenu) {
                 menu.setText(ext.getMenuNames().get(pos).toString());
             }
 
-            List actions = (List) map.get(m_MenuKey);
+            List<Action> actions = map.get(m_MenuKey);
 
             for (int j = 0; j < actions.size(); j++) {
-               menu.add((Action) actions.get(j)); 
+               menu.add(actions.get(j)); 
             }
         }
     }

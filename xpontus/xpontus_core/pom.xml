@@ -193,13 +193,7 @@
             <artifactId>jpf</artifactId>
             <version>1.5</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.jpf</groupId>
-            <artifactId>jpf-tools</artifactId>
-            <version>1.5</version>
-            <scope>compile</scope>
-        </dependency>
+        </dependency>       
         <dependency>
             <groupId>net.sf.jpf</groupId>
             <artifactId>jpf-boot</artifactId>
