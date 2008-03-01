@@ -21,12 +21,13 @@
  */
 package net.sf.xpontus.plugins.browser;
 
+import net.sf.xpontus.controllers.impl.XPontusPluginManager;
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
+
 import org.java.plugin.registry.PluginDescriptor;
 
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.xpontus.controllers.impl.XPontusPluginManager;
-import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 
 /**
@@ -43,11 +44,16 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
 
     @Override
     public void resolvePlugins() {
-        Object[] descriptors = XPontusPluginManager.getPluginManager().getRegistry().getPluginDescriptors().toArray();
+        Object[] descriptors = XPontusPluginManager.getPluginManager()
+                                                   .getRegistry()
+                                                   .getPluginDescriptors()
+                                                   .toArray();
 
         for (int i = 0; i < descriptors.length; i++) {
             PluginDescriptor pds = (PluginDescriptor) descriptors[i];
-            System.out.println("PLUGIN_LOCATION:" + pds.getLocation().toExternalForm());
+            System.out.println("PLUGIN_LOCATION:" +
+                pds.getLocation().toExternalForm());
+
             String id = pds.getId().toString();
             String category = pds.getAttribute("Category").getValue().toString();
             String homepage = pds.getAttribute("Homepage").getValue().toString();
@@ -64,6 +70,14 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
             if (pds.getVendor() != null) {
                 vendor = pds.getVendor();
             }
+            
+            if(spd.getAuthor() == null){
+                spd.setAuthor("Yves Zoundi");
+            }
+
+            if (spd.getLicense() == null) {
+                spd.setLicense("UNKNOWN");
+            }
 
             spd.setAuthor(vendor);
             spd.setBuiltin(builtin);
@@ -73,7 +87,10 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
             spd.setHomepage(homepage);
             spd.setId(id);
             spd.setVersion(version);
-            pluginsMap.put(id, spd);
+
+            if (!spd.getBuiltin().equals("true")) {
+                pluginsMap.put(id, spd);
+            }
         }
     }
 }

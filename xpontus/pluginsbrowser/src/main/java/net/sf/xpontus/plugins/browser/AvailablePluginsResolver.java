@@ -22,6 +22,8 @@
 package net.sf.xpontus.plugins.browser;
 
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+import net.sf.xpontus.controllers.impl.XPontusPluginManager;
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -58,8 +60,6 @@ import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import net.sf.xpontus.controllers.impl.XPontusPluginManager;
-import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 
 /**
@@ -99,7 +99,10 @@ public class AvailablePluginsResolver extends AbstractPluginsResolver {
                   .log(Level.SEVERE, null, ex);
         }
 
-        Object[] descriptors = XPontusPluginManager.getPluginManager().getRegistry().getPluginDescriptors().toArray();
+        Object[] descriptors = XPontusPluginManager.getPluginManager()
+                                                   .getRegistry()
+                                                   .getPluginDescriptors()
+                                                   .toArray();
 
         for (int i = 0; i < descriptors.length; i++) {
             PluginDescriptor pds = (PluginDescriptor) descriptors[i];
@@ -135,7 +138,7 @@ public class AvailablePluginsResolver extends AbstractPluginsResolver {
     public void resolvePlugins(String url) throws Exception {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
-        Document doc = db.parse(url);
+        Document doc = db.parse(new File(url));
         Node root = doc.getFirstChild();
 
         NodeList plugins = root.getChildNodes();
@@ -169,7 +172,12 @@ public class AvailablePluginsResolver extends AbstractPluginsResolver {
                         spd.setAuthor("Yves Zoundi");
                     }
 
-                    pluginsMap.put(id, spd);
+                    if (spd.getLicense() == null) {
+                        spd.setLicense("UNKNOWN");
+                    }
+
+                   
+                    
                 }
             }
         }

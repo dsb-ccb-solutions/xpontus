@@ -14,7 +14,6 @@ import org.apache.commons.vfs.VFS;
 
 import org.java.plugin.registry.Identity;
 import org.java.plugin.registry.PluginRegistry;
-import org.java.plugin.tools.PluginArchiver;
 
 import java.io.File;
 import java.io.InputStream;
@@ -103,6 +102,7 @@ public class InstallDownloadedPluginsController {
                 collectManifests(files[i], manifests, archives);
             }
 
+            
             Map<String, Identity> m_map = getRegistry()
                                               .register((URL[]) manifests.toArray(
                         new URL[manifests.size()]));
@@ -112,11 +112,11 @@ public class InstallDownloadedPluginsController {
                 Iterator<String> it = m_map.keySet().iterator();
 
                 while (it.hasNext()) {
-                    String cle = it.next();
-                    System.out.println("Cle:" + cle);
+                    String cle = it.next(); 
 
                     Identity m_id = m_map.get(cle);
                     String pluginIdentifier = m_id.getId();
+                   
                     File archiveFile = view.getFilesMap().get(pluginIdentifier); 
 
                     File destFolder = new File(XPontusConfigurationConstantsIF.XPONTUS_PLUGINS_DIR,
