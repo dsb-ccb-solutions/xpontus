@@ -45,8 +45,8 @@ public class PluginBrowser extends javax.swing.JDialog {
     private JComponent downloadedPanel;
     private BrowserPanel installedPanel;
     private BrowserPanel availablePanel;
-    private JComponent settingsPanel;
-    private JComponent upgradesPanel;
+//    private JComponent settingsPanel;
+//    private JComponent upgradesPanel;
     private JComponent buttonsPanel;
     private JButton closeButton;
     private JComponent noticePanel;
@@ -97,17 +97,17 @@ public class PluginBrowser extends javax.swing.JDialog {
                 "Uninstall");
         this.availablePanel = new BrowserPanel(new AvailablePluginsResolver(),
                 "Install");
-        this.settingsPanel = new PluginsSettingsPanel();
-        this.upgradesPanel = new BrowserPanel(new UpgradesPluginResolver(),
-                "Update");
+//        this.settingsPanel = new PluginsSettingsPanel();
+//        this.upgradesPanel = new BrowserPanel(new UpgradesPluginResolver(),
+//                "Update");
 
-        tabbedPane.addTab("Upgrades", upgradesPanel);
+//        tabbedPane.addTab("Upgrades", upgradesPanel);
         tabbedPane.addTab("Available(" + availablePanel.getNbPlugins() + ")",
             availablePanel);
         tabbedPane.addTab("Downloaded", downloadedPanel);
         tabbedPane.addTab("Installed(" + installedPanel.getNbPlugins() + ")",
             installedPanel);
-        tabbedPane.addTab("Settings", settingsPanel);
+//        tabbedPane.addTab("Settings", settingsPanel);
 
         add(noticePanel, BorderLayout.NORTH);
         add(tabbedPane, BorderLayout.CENTER);
