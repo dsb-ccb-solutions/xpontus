@@ -52,7 +52,8 @@ public class PluginsUtils {
             m_installedFSDirectory = FSDirectory.getDirectory(XPontusConfigurationConstantsIF.INSTALLED_PLUGINS_SEARCHINDEX_DIR);
             create = IndexReader.indexExists(m_installedFSDirectory);
             m_installedIndexWriter = new IndexWriter(m_installedFSDirectory,
-                    create, new UTF8AccentRemoverAnalyzer());
+                    create, new UTF8AccentRemoverAnalyzer()); 
+            
             m_installedIndexReader = IndexReader.open(m_installedFSDirectory);
 
             Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -65,6 +66,7 @@ public class PluginsUtils {
                     }
                 });
         } catch (Exception err) {
+            err.printStackTrace();
         }
     }
 
@@ -120,6 +122,7 @@ public class PluginsUtils {
 
             m_installedIndexWriter.optimize();
         } catch (Exception err) {
+            err.printStackTrace();
         }
     }
 
