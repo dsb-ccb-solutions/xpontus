@@ -22,8 +22,6 @@
 package net.sf.xpontus.plugins.codecompletion.xml;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.OutlineViewDockable;
 import net.sf.xpontus.plugins.completion.CodeCompletionIF;
 import net.sf.xpontus.syntax.SyntaxDocument;
 
@@ -31,7 +29,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.Reader;
-import java.io.StringReader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import javax.swing.SwingUtilities;
 
 
 /**
