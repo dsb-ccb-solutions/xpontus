@@ -46,11 +46,28 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus configuration directory
      */
     File XPONTUS_HOME_DIR = new File(USER_HOME_DIR, ".xpontus");
+
+    /**
+     *
+     */
     File PLUGINS_SEARCHINDEX_DIR = new File(XPONTUS_HOME_DIR, "searchindex");
+
+    /**
+     *
+     */
     File AVAILABLE_PLUGINS_SEARCHINDEX_DIR = new File(PLUGINS_SEARCHINDEX_DIR,
-            "installedplugins");
-    File INSTALLED_PLUGINS_SEARCHINDEX_DIR = new File(PLUGINS_SEARCHINDEX_DIR,
             "availableplugins");
+
+    /**
+     *
+     */
+    File INSTALLED_PLUGINS_SEARCHINDEX_DIR = new File(PLUGINS_SEARCHINDEX_DIR,
+            "installedplugins");
+
+    /**
+     *
+     */
+    File GRAMMAR_CACHING_DIR = new File(XPONTUS_HOME_DIR, "grammars");
 
     /**
      *
