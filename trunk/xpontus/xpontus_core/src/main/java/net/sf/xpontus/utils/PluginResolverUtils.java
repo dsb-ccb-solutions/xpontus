@@ -79,7 +79,7 @@ public class PluginResolverUtils {
                 else if(attributeId.equals("DisplayName")){
                      spd.setDisplayname(attributeValue);
                 }
-                else if(attributeId.equals("License")){
+                else if(attributeId.equals("License")){ 
                      spd.setLicense(attributeValue);
                 }
                 else if(attributeId.equals("date")){
@@ -89,6 +89,10 @@ public class PluginResolverUtils {
         } catch (Exception err) {
         }
 
+        if(spd.getLicense() == null){
+            spd.setLicense("UNKNOWN");
+        }
+        
         return spd;
     }
 
