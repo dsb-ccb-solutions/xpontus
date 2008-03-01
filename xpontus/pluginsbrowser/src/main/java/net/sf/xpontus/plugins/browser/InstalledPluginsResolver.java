@@ -91,6 +91,10 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
             if (!spd.getBuiltin().equals("true")) {
                 pluginsMap.put(id, spd);
             }
+            
+            
         }
+        PluginsUtils.initInstalledPluginsIndex();
+        PluginsUtils.shouldAddToIndex(pluginsMap);
     }
 }
