@@ -132,7 +132,7 @@ public class DownloadedPanel extends JComponent {
         pluginDescriptionPane.setMinimumSize(dim);
         pluginDescriptionPane.setPreferredSize(dim);
 
-        descriptionScrollPane = new JScrollPane(pluginDescriptionPane);
+        this.descriptionScrollPane = new JScrollPane(pluginDescriptionPane);
 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 detailsScrollPane, pluginDescriptionPane);

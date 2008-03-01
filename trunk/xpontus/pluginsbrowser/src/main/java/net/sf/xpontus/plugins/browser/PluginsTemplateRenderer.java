@@ -102,6 +102,7 @@ public class PluginsTemplateRenderer {
             context.put("homepage", spd.getHomepage());
             context.put("id", spd.getId());
             context.put("version", spd.getVersion());
+            context.put("license", spd.getLicense());
 
             InputStream is = getClass().getResourceAsStream("template.vm");
             Velocity.evaluate(context, writer, "browser_template_renderer",

@@ -5,6 +5,9 @@
 
 package net.sf.xpontus.plugins.browser;
 
+import java.net.URL;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
 import net.sf.xpontus.actions.impl.XPontusDialogActionImpl;
 
 /**
@@ -18,6 +21,9 @@ public class XPontusBrowserPluginAction extends XPontusDialogActionImpl{
         setDescription("Plugins manager");
         setWindowClassLoader(XPontusBrowserPlugin.class.getClassLoader());
         setDialogClassName(PluginBrowser.class.getName());
+        URL sURL = getClass().getResource("plugin.png");
+        ImageIcon sIcon = new ImageIcon(sURL);
+        putValue(Action.SMALL_ICON, sIcon);
     }
 
     
