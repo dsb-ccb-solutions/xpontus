@@ -26,17 +26,23 @@ import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 
 /**
- *
+ * Plugins resolver
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public abstract class AbstractPluginsResolver {
     /**
      * 
-     * @return
+     * @return The plugins map(id, model descriptor)
      */
     public abstract Map<String, SimplePluginDescriptor> getPluginDescriptorsMap();
     /**
-     * 
+     * load the plugins map
      */
     public abstract  void resolvePlugins();
+    
+    /**
+     * Reload the plugins map
+     */
+    public abstract void reload();
 }

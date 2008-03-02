@@ -41,4 +41,8 @@ public class UpgradesPluginResolver extends AbstractPluginsResolver {
     @Override
     public void resolvePlugins() {
     }
+
+    @Override
+    public void reload() { 
+    }
 }

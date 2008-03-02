@@ -66,14 +66,16 @@ public class BrowserPanel extends JComponent {
     private JButton searchButton;
     private JEditorPane editorPane;
     private JScrollPane editorScrollPane;
-    private final Map<String, SimplePluginDescriptor> pluginsMap;
+    private   Map<String, SimplePluginDescriptor> pluginsMap;
     private transient Map<String, SimplePluginDescriptor> currentMap;
     private PluginsTemplateRenderer ptr;
     private String indexFile;
+    private AbstractPluginsResolver resolver;
 
-    public BrowserPanel(AbstractPluginsResolver resolver, String title,
+    public BrowserPanel(AbstractPluginsResolver m_resolver, String title,
         String m_indexFile) {
         setLayout(new BorderLayout());
+        resolver = m_resolver;
         ptr = new PluginsTemplateRenderer();
         this.indexFile = m_indexFile;
 
@@ -151,7 +153,7 @@ public class BrowserPanel extends JComponent {
         searchButton = new JButton("Search");
         searchButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    Map<String, SimplePluginDescriptor> searchResults = PluginsUtils.searchIndex(searchTextField.getText(),
+                    Map<String, SimplePluginDescriptor> searchResults = PluginsUtils.getInstance().searchIndex(searchTextField.getText(),
                             indexFile);
 
                     boolean updateNeeded = false;
@@ -170,30 +172,21 @@ public class BrowserPanel extends JComponent {
                     }
 
                     if (updateNeeded) {
-                        while (tableModel.getRowCount() > 0) {
-                            tableModel.removeRow(tableModel.getRowCount() - 1);
-
-                            tableModel.fireTableDataChanged();
-                        }
-
-                        for (Iterator<String> it = currentMap.keySet().iterator();
-                                it.hasNext();) {
-                            Vector m_row = new Vector();
-                            m_row.add(new Boolean(false));
-
-                            SimplePluginDescriptor spd = currentMap.get(it.next());
-                            m_row.add(spd.getId());
-                            m_row.add(spd.getCategory());
-                            m_row.add(spd.getBuiltin());
-                            tableModel.addRow(m_row);
-                        }
-                        
-                         tableModel.fireTableDataChanged();
+                        reloadPluginsTable();
                     }
                 }
             });
 
         reloadButton = new JButton("Reload");
+        reloadButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    resolver.reload();
+                    pluginsMap = new HashMap(resolver.getPluginDescriptorsMap());
+                    currentMap = new HashMap(pluginsMap);
+                    reloadPluginsTable();
+                    
+                }
+            });
 
         scrollPane = new JScrollPane();
         scrollPane.getViewport().add(table);
@@ -248,6 +241,28 @@ public class BrowserPanel extends JComponent {
         add(northPanel, BorderLayout.NORTH);
 
         add(splitPane, BorderLayout.CENTER);
+    }
+
+    void reloadPluginsTable() {
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(tableModel.getRowCount() - 1);
+
+            tableModel.fireTableDataChanged();
+        }
+
+        for (Iterator<String> it = currentMap.keySet().iterator();
+                it.hasNext();) {
+            Vector m_row = new Vector();
+            m_row.add(new Boolean(false));
+
+            SimplePluginDescriptor spd = currentMap.get(it.next());
+            m_row.add(spd.getId());
+            m_row.add(spd.getCategory());
+            m_row.add(spd.getBuiltin());
+            tableModel.addRow(m_row);
+        }
+
+        tableModel.fireTableDataChanged();
     }
 
     public String getNbPlugins() {

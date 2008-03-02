@@ -43,15 +43,24 @@ import java.util.zip.ZipFile;
  * @author mrcheeks
  */
 public class PluginsUtils {
-    private static FSDirectory m_installedFSDirectory;
-    private static IndexWriter m_installedIndexWriter;
-    private static IndexReader m_installedIndexReader; 
-    private static final String[] fields = {
+    private static PluginsUtils INSTANCE;
+    private FSDirectory m_installedFSDirectory;
+    private IndexWriter m_installedIndexWriter;
+    private IndexReader m_installedIndexReader;
+    private final String[] fields = {
             "author", "license", "date", "version", "homepage", "description",
             "category", "builtin", "id", "displayname",
         };
 
-    public static Map<String, SimplePluginDescriptor> searchIndex(String str,
+    public static PluginsUtils getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new PluginsUtils();
+        }
+
+        return INSTANCE;
+    }
+
+    public Map<String, SimplePluginDescriptor> searchIndex(String str,
         String index) {
         Map<String, SimplePluginDescriptor> results = new HashMap<String, SimplePluginDescriptor>();
 
@@ -83,8 +92,8 @@ public class PluginsUtils {
                 spd.setDate(doc.get("date"));
                 spd.setDisplayname(doc.get("displayname"));
                 spd.setHomepage(doc.get("homepage"));
-                spd.setLicense(doc.get("license")); 
-                spd.setDescription(doc.get("description")); 
+                spd.setLicense(doc.get("license"));
+                spd.setDescription(doc.get("description"));
                 results.put(spd.getId(), spd);
             }
         } catch (Exception err) {
@@ -102,7 +111,7 @@ public class PluginsUtils {
         return results;
     }
 
-    public static void initInstalledPluginsIndex() {
+    public void initInstalledPluginsIndex() {
         try {
             boolean create = false;
 
@@ -113,15 +122,12 @@ public class PluginsUtils {
             m_installedFSDirectory = FSDirectory.getDirectory(XPontusConfigurationConstantsIF.INSTALLED_PLUGINS_SEARCHINDEX_DIR);
 
             Analyzer m_analyzer = new UTF8AccentRemoverAnalyzer();
-            
+
             if (!IndexReader.indexExists(m_installedFSDirectory)) {
                 m_installedIndexWriter = new IndexWriter(m_installedFSDirectory,
                         true, m_analyzer);
                 m_installedIndexWriter.close();
             }
-
-            m_installedIndexWriter = new IndexWriter(m_installedFSDirectory,
-                    false, m_analyzer);
 
             m_installedIndexReader = IndexReader.open(m_installedFSDirectory);
         } catch (Exception err) {
@@ -129,29 +135,34 @@ public class PluginsUtils {
         }
     }
 
-    public static void shouldAddToIndex(Map<String, SimplePluginDescriptor> map) {
+    public void shouldAddToIndex(Map<String, SimplePluginDescriptor> map) {
         if (m_installedIndexReader.numDocs() == 0) {
-            Iterator<SimplePluginDescriptor> it = map.values().iterator();
+            try {
+                Analyzer m_analyzer = new UTF8AccentRemoverAnalyzer();
+                m_installedIndexWriter = new IndexWriter(m_installedFSDirectory,
+                        false, m_analyzer);
 
-            while (it.hasNext()) {
-                SimplePluginDescriptor spd = it.next();
+                Iterator<SimplePluginDescriptor> it = map.values().iterator();
 
-                synchronized (spd) {
-                    addToIndex(spd);
+                while (it.hasNext()) {
+                    SimplePluginDescriptor spd = it.next();
+
+                    synchronized (spd) {
+                        addToIndex(spd);
+                    }
                 }
-            }
 
-            try { 
+                 
                 m_installedIndexWriter.close();
             } catch (Exception err) {
             }
         }
     }
 
-    public static void addToIndex(SimplePluginDescriptor spd) {
+    public void addToIndex(SimplePluginDescriptor spd) {
         try {
             System.out.println("Adding :" + spd.getId());
-            
+
             System.out.println("---------------------------------");
 
             Document doc = new Document();
@@ -169,12 +180,12 @@ public class PluginsUtils {
             if ((spd.getAuthor() == null)) {
                 spd.setAuthor("Yves Zoundi");
             }
-            
-            if(spd.getAuthor().trim().equals("")){
-                 spd.setAuthor("Yves Zoundi");
+
+            if (spd.getAuthor().trim().equals("")) {
+                spd.setAuthor("Yves Zoundi");
             }
-            
-            if(spd.getBuiltin() == null){
+
+            if (spd.getBuiltin() == null) {
                 spd.setBuiltin("false");
             }
 
@@ -183,8 +194,7 @@ public class PluginsUtils {
                 spd.setLicense("http://www.gnu.org/licenses/gpl-2.0.txt");
             }
 
-//            spd.print();
-            
+            //            spd.print();
             doc.add(new Field("id", spd.getId(), Field.Store.YES,
                     Field.Index.TOKENIZED));
             doc.add(new Field("category", spd.getCategory(), Field.Store.YES,
@@ -218,7 +228,7 @@ public class PluginsUtils {
         }
     }
 
-    public static void unzip(String zipFilename, String outdir)
+    public void unzip(String zipFilename, String outdir)
         throws IOException {
         System.out.println("In unzip method...");
 
@@ -256,7 +266,7 @@ public class PluginsUtils {
         }
     }
 
-    public static URL getManifestUrl(final File file) {
+    public URL getManifestUrl(final File file) {
         try {
             if (file.isDirectory()) {
                 File result = new File(file, "plugin.xml"); //$NON-NLS-1$

@@ -204,4 +204,8 @@ public class AvailablePluginsResolver extends AbstractPluginsResolver {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void reload() { 
+    }
 }

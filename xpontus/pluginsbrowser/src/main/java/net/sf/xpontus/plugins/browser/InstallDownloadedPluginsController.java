@@ -27,6 +27,7 @@ import java.util.Set;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -41,9 +42,18 @@ public class InstallDownloadedPluginsController {
 
     public InstallDownloadedPluginsController() {
         chooser = new JFileChooser();
-        chooser.setDialogTitle("Select archive");
+        chooser.setDialogTitle("Select XPontus plugin archive");
         chooser.setMultiSelectionEnabled(true);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setFileFilter(new FileFilter() {
+                public boolean accept(File f) {
+                    return f.getName().toLowerCase().endsWith(".zip");
+                }
+
+                public String getDescription() {
+                    return "XPontus plugins archives(*.zip)";
+                }
+            });
     }
 
     public PluginRegistry getRegistry() {
@@ -72,7 +82,7 @@ public class InstallDownloadedPluginsController {
             return;
         }
 
-        URL url = PluginsUtils.getManifestUrl(file);
+        URL url = PluginsUtils.getInstance().getManifestUrl(file);
 
         if (url != null) {
             manifests.add(url);
@@ -102,22 +112,20 @@ public class InstallDownloadedPluginsController {
                 collectManifests(files[i], manifests, archives);
             }
 
-            
             Map<String, Identity> m_map = getRegistry()
                                               .register((URL[]) manifests.toArray(
                         new URL[manifests.size()]));
 
-            
             if (m_map.size() > 0) {
                 Iterator<String> it = m_map.keySet().iterator();
 
                 while (it.hasNext()) {
-                    String cle = it.next(); 
+                    String cle = it.next();
 
                     Identity m_id = m_map.get(cle);
                     String pluginIdentifier = m_id.getId();
-                   
-                    File archiveFile = view.getFilesMap().get(pluginIdentifier); 
+
+                    File archiveFile = view.getFilesMap().get(pluginIdentifier);
 
                     File destFolder = new File(XPontusConfigurationConstantsIF.XPONTUS_PLUGINS_DIR,
                             pluginIdentifier);
@@ -125,26 +133,24 @@ public class InstallDownloadedPluginsController {
                     if (!destFolder.exists()) {
                         destFolder.mkdirs();
                     }
- 
-                    try{
-                    PluginsUtils.unzip(archiveFile.getAbsolutePath(),
-                        destFolder.getAbsolutePath());
-                    }
-                    catch(Exception err){
+
+                    try {
+                        PluginsUtils.getInstance()
+                                    .unzip(archiveFile.getAbsolutePath(),
+                            destFolder.getAbsolutePath());
+                    } catch (Exception err) {
                         throw new Exception("Error extracting plugin archive");
                     }
                 }
             }
-            
         } finally {
         }
     }
-    
-    public void findRowForPlugin(String id){
-         JTable table = view.getPluginsTable();
+
+    public void findRowForPlugin(String id) {
+        JTable table = view.getPluginsTable();
         int selected = table.getSelectedRow();
 
-         
         DefaultTableModel m_model = (DefaultTableModel) table.getModel();
         m_model.removeRow(selected);
     }
@@ -188,7 +194,8 @@ public class InstallDownloadedPluginsController {
                 try {
                     //PluginArchiver.unpack(selectedFile.toURL(), new File("/home/mrcheeks/Tests/cvs/maven-jpf-plugin/target/site"));
                     FileObject fo = VFS.getManager().toFileObject(selectedFile);
-                    URL manifestURL = PluginsUtils.getManifestUrl(selectedFile);
+                    URL manifestURL = PluginsUtils.getInstance()
+                                                  .getManifestUrl(selectedFile);
 
                     if (manifestURL != null) {
                         InputStream is = manifestURL.openStream();
