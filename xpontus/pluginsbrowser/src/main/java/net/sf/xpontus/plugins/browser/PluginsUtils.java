@@ -52,6 +52,23 @@ public class PluginsUtils {
             "category", "builtin", "id", "displayname",
         };
 
+    private PluginsUtils() {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+                public void run() {
+                    try {
+                        if (m_installedIndexReader != null) {
+                            m_installedIndexReader.close();
+                        }
+
+                        if (m_installedIndexWriter != null) {
+                            m_installedIndexWriter.close();
+                        }
+                    } catch (Exception err) {
+                    }
+                }
+            });
+    }
+
     public static PluginsUtils getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new PluginsUtils();
@@ -152,7 +169,6 @@ public class PluginsUtils {
                     }
                 }
 
-                 
                 m_installedIndexWriter.close();
             } catch (Exception err) {
             }
