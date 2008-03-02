@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.plugins;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 
 /**
  *
@@ -42,6 +44,30 @@ public class SimplePluginDescriptor {
     private String contributors;
 
     public SimplePluginDescriptor() {
+    }
+
+    public void print() {
+        StrBuilder str = new StrBuilder();
+        str.append("Id:" + id);
+        str.appendNewLine();
+        str.append("Builtin:" + builtin);
+        str.appendNewLine();
+        str.append("Category:" + category);
+        str.appendNewLine();
+        str.append("DisplayName:" + displayname);
+        str.appendNewLine();
+        str.append("Description:" + description);
+        str.appendNewLine();
+        str.append("Version:" + version);
+        str.appendNewLine();
+        str.append("License:" + license);
+        str.appendNewLine();
+        str.append("Author:" + author);
+        str.appendNewLine();
+        str.append("Date:" + date);
+        str.appendNewLine();
+        str.append("Homepage:" + homepage);
+        System.out.println(str.toString());
     }
 
     public String toString() {

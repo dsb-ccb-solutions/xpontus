@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.browser" version="0.0.1" vendor = "Yves Zoundi" class="net.sf.xpontus.plugins.browser.XPontusBrowserPlugin">
+<plugin id="plugin.browser" version="0.0.1" vendor="Yves Zoundi"  class="net.sf.xpontus.plugins.browser.XPontusBrowserPlugin">
     <attributes>
         <attribute id = "Built-in" value = "false"/>
         <attribute id="Category" value = "Tools"/>
@@ -23,10 +23,10 @@
         <library id="oro" path="lib/oro-2.0.8.jar" version="2.0.8" type="code" > 
             <export prefix="*"/>
         </library>  
-        <library id="lucene-core" path="lib/lucene-core-2.3.1" version="2.3.1" type="code" > 
+        <library id="lucene-core" path="lib/lucene-core-2.2.0.jar" version="2.3.1" type="code" > 
             <export prefix="*"/>
         </library> 
-        <library id="jpf-tools" path="lib/jpf-tools" version="1.5" type="code" > 
+        <library id="jpf-tools" path="lib/jpf-tools-1.5.jar" version="1.5" type="code" > 
             <export prefix="*"/>
         </library> 
     </runtime>
