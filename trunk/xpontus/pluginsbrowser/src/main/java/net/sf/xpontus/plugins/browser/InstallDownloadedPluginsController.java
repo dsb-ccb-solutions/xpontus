@@ -48,13 +48,14 @@ public class InstallDownloadedPluginsController {
         chooser.setFileFilter(new FileFilter() {
                 public boolean accept(File f) {
                     return (f.isDirectory() ||
-                    (f.getName().toLowerCase().endsWith(".zip")));
+                    (f.getName().toLowerCase().endsWith(".xptm")));
                 }
 
                 public String getDescription() {
-                    return "XPontus plugins archives(*.zip)";
+                    return "XPontus plugins modules(*.xptm)";
                 }
             });
+        chooser.setAcceptAllFileFilterUsed(false);
     }
 
     public PluginRegistry getRegistry() {
