@@ -42,6 +42,11 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
         return pluginsMap;
     }
 
+    public void reload(){
+        pluginsMap.clear();
+        resolvePlugins();
+    }
+    
     @Override
     public void resolvePlugins() {
         Object[] descriptors = XPontusPluginManager.getPluginManager()
@@ -94,7 +99,7 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
             
             
         }
-        PluginsUtils.initInstalledPluginsIndex();
-        PluginsUtils.shouldAddToIndex(pluginsMap);
+        PluginsUtils.getInstance().initInstalledPluginsIndex();
+        PluginsUtils.getInstance().shouldAddToIndex(pluginsMap);
     }
 }
