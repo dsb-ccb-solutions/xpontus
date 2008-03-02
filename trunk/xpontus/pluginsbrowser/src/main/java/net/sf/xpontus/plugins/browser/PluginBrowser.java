@@ -21,6 +21,7 @@
  */
 package net.sf.xpontus.plugins.browser;
 
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.awt.BorderLayout;
@@ -45,8 +46,6 @@ public class PluginBrowser extends javax.swing.JDialog {
     private JComponent downloadedPanel;
     private BrowserPanel installedPanel;
     private BrowserPanel availablePanel;
-//    private JComponent settingsPanel;
-//    private JComponent upgradesPanel;
     private JComponent buttonsPanel;
     private JButton closeButton;
     private JComponent noticePanel;
@@ -94,20 +93,16 @@ public class PluginBrowser extends javax.swing.JDialog {
 
         this.downloadedPanel = new DownloadedPanel();
         this.installedPanel = new BrowserPanel(new InstalledPluginsResolver(),
-                "Uninstall");
+                "Uninstall",
+                XPontusConfigurationConstantsIF.INSTALLED_PLUGINS_SEARCHINDEX_DIR.getAbsolutePath());
         this.availablePanel = new BrowserPanel(new AvailablePluginsResolver(),
-                "Install");
-//        this.settingsPanel = new PluginsSettingsPanel();
-//        this.upgradesPanel = new BrowserPanel(new UpgradesPluginResolver(),
-//                "Update");
-
-//        tabbedPane.addTab("Upgrades", upgradesPanel);
+                "Install",
+                XPontusConfigurationConstantsIF.AVAILABLE_PLUGINS_SEARCHINDEX_DIR.getAbsolutePath());
         tabbedPane.addTab("Available(" + availablePanel.getNbPlugins() + ")",
             availablePanel);
         tabbedPane.addTab("Downloaded", downloadedPanel);
         tabbedPane.addTab("Installed(" + installedPanel.getNbPlugins() + ")",
             installedPanel);
-//        tabbedPane.addTab("Settings", settingsPanel);
 
         add(noticePanel, BorderLayout.NORTH);
         add(tabbedPane, BorderLayout.CENTER);

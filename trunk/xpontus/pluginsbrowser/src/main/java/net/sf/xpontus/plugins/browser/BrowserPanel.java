@@ -21,10 +21,14 @@
  */
 package net.sf.xpontus.plugins.browser;
 
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -42,10 +46,10 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.html.HTMLEditorKit;
-import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 
 /**
@@ -56,23 +60,28 @@ public class BrowserPanel extends JComponent {
     private JScrollPane scrollPane;
     private JSplitPane splitPane;
     private JTable table;
-    private TableModel tableModel;
+    private DefaultTableModel tableModel;
     private JPanel northPanel;
     private JButton reloadButton;
     private JTextField searchTextField;
     private JButton searchButton;
     private JEditorPane editorPane;
     private JScrollPane editorScrollPane;
-    private Map<String, SimplePluginDescriptor> pluginsMap;
+    private final Map<String, SimplePluginDescriptor> pluginsMap;
+    private transient Map<String, SimplePluginDescriptor> currentMap;
     private PluginsTemplateRenderer ptr;
+    private String indexFile;
 
-    public BrowserPanel(AbstractPluginsResolver resolver, String title) {
+    public BrowserPanel(AbstractPluginsResolver resolver, String title,
+        String m_indexFile) {
         setLayout(new BorderLayout());
         ptr = new PluginsTemplateRenderer();
+        this.indexFile = m_indexFile;
 
         resolver.resolvePlugins();
 
         pluginsMap = resolver.getPluginDescriptorsMap();
+        currentMap = pluginsMap;
 
         java.util.Vector columns = new java.util.Vector(3);
 
@@ -126,7 +135,7 @@ public class BrowserPanel extends JComponent {
 
                     if (row != -1) {
                         String id = tableModel.getValueAt(row, 1).toString();
-                        SimplePluginDescriptor spd = pluginsMap.get(id);
+                        SimplePluginDescriptor spd = currentMap.get(id);
                         editorPane.setText(ptr.renderTemplate(spd));
                     }
                 }
@@ -138,9 +147,48 @@ public class BrowserPanel extends JComponent {
             table.setRowSelectionInterval(0, 0);
         }
 
-        searchButton = new JButton("Search");
-        reloadButton = new JButton("Reload");
         searchTextField = new JTextField(20);
+        
+        searchButton = new JButton("Search");
+        searchButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Map<String, SimplePluginDescriptor> searchResults = PluginsUtils.searchIndex(searchTextField.getText(), indexFile);
+
+                    boolean updateNeeded = false;
+
+                    if (searchResults.size() > 0) {
+                        updateNeeded = true;
+                        currentMap = searchResults;
+                    } else {
+                        if (!currentMap.equals(pluginsMap)) {
+                            currentMap = pluginsMap;
+                            updateNeeded = true;
+                        }
+                    }
+
+                    if (updateNeeded) {
+                        for(int i=0;i<tableModel.getRowCount();i++){
+                            tableModel.removeRow(i);
+                        }
+                        tableModel.fireTableDataChanged();
+                        
+
+                        for (Iterator<String> it = currentMap.keySet().iterator();
+                                it.hasNext();) {
+                            Vector m_row = new Vector();
+                            m_row.add(new Boolean(false)); 
+                            SimplePluginDescriptor spd = currentMap.get(it.next());
+                            m_row.add(spd.getId());
+                            m_row.add(spd.getCategory());
+                            m_row.add(spd.getBuiltin());
+                            tableModel.addRow(m_row);
+                        }
+                    }
+                }
+            });
+
+        reloadButton = new JButton("Reload");
+        
         scrollPane = new JScrollPane();
         scrollPane.getViewport().add(table);
 

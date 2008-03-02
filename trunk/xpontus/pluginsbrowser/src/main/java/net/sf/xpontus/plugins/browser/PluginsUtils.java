@@ -11,6 +11,10 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.search.Hits;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.store.FSDirectory;
 
 import org.java.plugin.util.IoUtil;
@@ -26,8 +30,10 @@ import java.net.URL;
 
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Vector;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -40,6 +46,59 @@ public class PluginsUtils {
     private static FSDirectory m_installedFSDirectory;
     private static IndexWriter m_installedIndexWriter;
     private static IndexReader m_installedIndexReader;
+    private static final String[] fields = {
+            "author", "license", "date", "contributors", "version", "homepage",
+            "description", "category", "builtin", "id", "displayname", "archive",
+            "packagename"
+        };
+
+    public static Map<String, SimplePluginDescriptor> searchIndex(String str,
+        String index) {
+        Map<String, SimplePluginDescriptor> results = new HashMap<String, SimplePluginDescriptor>();
+
+        if (str.trim().equals("")) {
+            return results;
+        }
+
+        IndexSearcher searcher = null;
+
+        try {
+            searcher = new IndexSearcher(m_installedFSDirectory);
+
+            MultiFieldQueryParser mparser = new MultiFieldQueryParser(fields,
+                    new UTF8AccentRemoverAnalyzer());
+            Query query = mparser.parse(str);
+
+            Hits hits = searcher.search(query);
+
+            for (int i = 0; i < hits.length(); i++) {
+                Document doc = hits.doc(i);
+                SimplePluginDescriptor spd = new SimplePluginDescriptor();
+                spd.setAuthor(doc.get("author"));
+                spd.setVersion(doc.get("version"));
+                spd.setId(doc.get("id"));
+                spd.setCategory(doc.get("category"));
+                spd.setBuiltin(doc.get("builtin"));
+                spd.setDate(doc.get("date"));
+                spd.setDisplayname(doc.get("displayname"));
+                spd.setHomepage(doc.get("homepage"));
+                spd.setLicense(doc.get("license"));
+                results.put(spd.getId(), spd);
+            }
+        } catch (Exception err) {
+            err.printStackTrace();
+        } finally {
+            if (searcher != null) {
+                try {
+                    searcher.close();
+                } catch (Exception err) {
+                    err.printStackTrace();
+                }
+            }
+        }
+
+        return results;
+    }
 
     public static void initInstalledPluginsIndex() {
         try {
@@ -52,8 +111,8 @@ public class PluginsUtils {
             m_installedFSDirectory = FSDirectory.getDirectory(XPontusConfigurationConstantsIF.INSTALLED_PLUGINS_SEARCHINDEX_DIR);
             create = IndexReader.indexExists(m_installedFSDirectory);
             m_installedIndexWriter = new IndexWriter(m_installedFSDirectory,
-                    create, new UTF8AccentRemoverAnalyzer()); 
-            
+                    create, new UTF8AccentRemoverAnalyzer());
+
             m_installedIndexReader = IndexReader.open(m_installedFSDirectory);
 
             Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -78,6 +137,13 @@ public class PluginsUtils {
                 SimplePluginDescriptor spd = it.next();
                 addToIndex(spd);
             }
+            
+            try{
+                m_installedIndexWriter.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -87,12 +153,13 @@ public class PluginsUtils {
 
             if (spd.getDate() == null) {
                 System.out.println("Adding date to:" + spd.getId());
+
                 Date s = new Date();
                 StringBuffer sb = new StringBuffer();
                 sb.append(s.getDay()).append("-").append(s.getMonth())
                   .append("-").append(s.getYear());
                 spd.setDate(sb.toString());
-            } 
+            }
 
             if (spd.getAuthor() == null) {
                 spd.setAuthor("Yves Zoundi");
@@ -104,9 +171,12 @@ public class PluginsUtils {
 
             doc.add(new Field("id", spd.getId(), Field.Store.YES,
                     Field.Index.UN_TOKENIZED));
+            doc.add(new Field("category", spd.getCategory(), Field.Store.YES, Field.Index.UN_TOKENIZED));
             doc.add(new Field("author", spd.getAuthor(), Field.Store.YES,
                     Field.Index.TOKENIZED));
             doc.add(new Field("displayname", spd.getDisplayname(),
+                    Field.Store.YES, Field.Index.TOKENIZED));
+            doc.add(new Field("version", spd.getVersion(),
                     Field.Store.YES, Field.Index.TOKENIZED));
             doc.add(new Field("description", spd.getDescription(),
                     Field.Store.YES, Field.Index.TOKENIZED));
@@ -116,9 +186,10 @@ public class PluginsUtils {
                     Field.Index.UN_TOKENIZED));
             doc.add(new Field("homepage", spd.getHomepage(), Field.Store.YES,
                     Field.Index.TOKENIZED));
+            doc.add(new Field("license", spd.getLicense(), Field.Store.YES,
+                    Field.Index.UN_TOKENIZED));
 
             m_installedIndexWriter.addDocument(doc);
-             
 
             m_installedIndexWriter.optimize();
         } catch (Exception err) {
