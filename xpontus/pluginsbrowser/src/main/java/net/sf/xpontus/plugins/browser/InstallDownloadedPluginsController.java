@@ -32,8 +32,8 @@ import javax.swing.table.DefaultTableModel;
 
 
 /**
- *
- * @author mrcheeks
+ * @version 0..0.1
+ * @author Yves Zoundi
  */
 public class InstallDownloadedPluginsController {
     private JFileChooser chooser = new JFileChooser();
@@ -45,16 +45,7 @@ public class InstallDownloadedPluginsController {
         chooser.setDialogTitle("Select XPontus plugin archive");
         chooser.setMultiSelectionEnabled(true);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.setFileFilter(new FileFilter() {
-                public boolean accept(File f) {
-                    return (f.isDirectory() ||
-                    (f.getName().toLowerCase().endsWith(".xptm")));
-                }
-
-                public String getDescription() {
-                    return "XPontus plugins modules(*.xptm)";
-                }
-            });
+        chooser.setFileFilter(new XPontusModuleFileFilter());
         chooser.setAcceptAllFileFilterUsed(false);
     }
 
