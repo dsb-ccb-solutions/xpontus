@@ -47,9 +47,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.text.html.HTMLEditorKit;
 
 
@@ -82,7 +80,7 @@ public class BrowserPanel extends JComponent {
         resolver.resolvePlugins();
 
         pluginsMap = resolver.getPluginDescriptorsMap();
-        currentMap = pluginsMap;
+        currentMap = new HashMap(pluginsMap);
 
         java.util.Vector columns = new java.util.Vector(3);
 
@@ -149,13 +147,17 @@ public class BrowserPanel extends JComponent {
         }
 
         searchTextField = new JTextField(20);
-        
+
         searchButton = new JButton("Search");
         searchButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    Map<String, SimplePluginDescriptor> searchResults = PluginsUtils.searchIndex(searchTextField.getText(), indexFile);
+                    Map<String, SimplePluginDescriptor> searchResults = PluginsUtils.searchIndex(searchTextField.getText(),
+                            indexFile);
 
                     boolean updateNeeded = false;
+
+                    System.out.println("Search results :" +
+                        searchResults.size());
 
                     if (searchResults.size() > 0) {
                         updateNeeded = true;
@@ -168,28 +170,31 @@ public class BrowserPanel extends JComponent {
                     }
 
                     if (updateNeeded) {
-                        for(int i=0;i<tableModel.getRowCount();i++){
-                            tableModel.removeRow(i);
+                        while (tableModel.getRowCount() > 0) {
+                            tableModel.removeRow(tableModel.getRowCount() - 1);
+
+                            tableModel.fireTableDataChanged();
                         }
-                        tableModel.fireTableDataChanged();
-                        
 
                         for (Iterator<String> it = currentMap.keySet().iterator();
                                 it.hasNext();) {
                             Vector m_row = new Vector();
-                            m_row.add(new Boolean(false)); 
+                            m_row.add(new Boolean(false));
+
                             SimplePluginDescriptor spd = currentMap.get(it.next());
                             m_row.add(spd.getId());
                             m_row.add(spd.getCategory());
                             m_row.add(spd.getBuiltin());
                             tableModel.addRow(m_row);
                         }
+                        
+                         tableModel.fireTableDataChanged();
                     }
                 }
             });
 
         reloadButton = new JButton("Reload");
-        
+
         scrollPane = new JScrollPane();
         scrollPane.getViewport().add(table);
 
