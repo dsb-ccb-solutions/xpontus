@@ -30,6 +30,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
@@ -158,10 +159,10 @@ public class BrowserPanel extends JComponent {
 
                     if (searchResults.size() > 0) {
                         updateNeeded = true;
-                        currentMap = searchResults;
+                        currentMap = new HashMap<String, SimplePluginDescriptor>(searchResults);
                     } else {
                         if (!currentMap.equals(pluginsMap)) {
-                            currentMap = pluginsMap;
+                            currentMap = new HashMap<String, SimplePluginDescriptor>(pluginsMap);
                             updateNeeded = true;
                         }
                     }
