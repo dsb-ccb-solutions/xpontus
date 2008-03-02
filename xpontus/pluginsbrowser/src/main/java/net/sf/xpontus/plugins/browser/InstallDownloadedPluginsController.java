@@ -47,7 +47,8 @@ public class InstallDownloadedPluginsController {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setFileFilter(new FileFilter() {
                 public boolean accept(File f) {
-                    return f.getName().toLowerCase().endsWith(".zip");
+                    return (f.isDirectory() ||
+                    (f.getName().toLowerCase().endsWith(".zip")));
                 }
 
                 public String getDescription() {
