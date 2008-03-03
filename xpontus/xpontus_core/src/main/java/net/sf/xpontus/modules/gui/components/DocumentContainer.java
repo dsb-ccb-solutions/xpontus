@@ -84,7 +84,7 @@ import net.sf.xpontus.constants.XPontusUIManagerConstantsIF;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class DocumentContainer implements Dockable {
+public class DocumentContainer implements IDocumentContainer {
     private JComponent documentPanel;
     private JStatusBar status;
     private JScrollPane scrollPane;

@@ -101,9 +101,7 @@ public class DocumentTabContainer {
                         currentEditor.setCaretPosition(currentEditor.getCaretPosition());
 
                         SyntaxDocument m_doc = (SyntaxDocument) currentEditor.getDocument();
-                        Object o = m_doc.getProperty(XPontusConstantsIF.OUTLINE_INFO);
-
-                        System.out.println("OUtline not empty:" + (o != null));
+                        Object o = m_doc.getProperty(XPontusConstantsIF.OUTLINE_INFO); 
 
                         if (o != null) {
                             DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
