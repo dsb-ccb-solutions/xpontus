@@ -59,14 +59,15 @@ public interface CodeCompletionIF {
     String getFileMode();
 
     /**
-     *
-     * @return
+     * Get the completion list at a given position in the document
+     * @param offset The position in the document
+     * @return The completion list at the given position in the document
      */
-    public List getCompletionList();
+    public List getCompletionList(int offset);
 
     /**
      *
-     * @param doc
+     * @param doc The document being edited
      */
     public void init(final Document doc);
 }

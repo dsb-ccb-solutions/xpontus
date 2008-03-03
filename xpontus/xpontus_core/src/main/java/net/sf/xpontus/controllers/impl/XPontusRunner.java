@@ -97,6 +97,7 @@ import net.sf.xpontus.actions.impl.SimpleValidationActionImpl;
 public class XPontusRunner {
 
     static {
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
         System.setSecurityManager(null);
         System.setProperty("javax.xml.transform.TransformerFactory",
                 "org.apache.xalan.processor.TransformerFactoryImpl");

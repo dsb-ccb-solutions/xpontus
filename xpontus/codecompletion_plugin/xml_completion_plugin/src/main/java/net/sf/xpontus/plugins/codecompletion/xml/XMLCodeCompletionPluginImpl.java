@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import javax.swing.text.Document;
 
 
 
@@ -53,6 +54,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     private Map nsTagListMap = new HashMap();
     private String completionInformation;
     private boolean parsingDone = false;
+    private transient Document doc;
 
     // interface to parse DTD or completion and store the completion information
     private ICompletionParser completionParser = new DTDCompletionParser();
@@ -95,7 +97,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
         }
     }
 
-    public synchronized List getCompletionList() {
+    public synchronized List getCompletionList(int offset) {
         List completionList = tagList;
 
         if (!isDTDCompletion) {
@@ -169,6 +171,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
     public void init(final javax.swing.text.Document doc) {
         System.out.println("Running code completion...");
+        this.doc = doc;
         String dtdLocation = null;
         String schemaLocation = null;
 
