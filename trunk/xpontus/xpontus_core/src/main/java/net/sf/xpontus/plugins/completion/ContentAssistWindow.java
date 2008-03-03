@@ -165,7 +165,7 @@ public class ContentAssistWindow {
     public static void complete(final JTextComponent editor,
         final CodeCompletionIF contentAssist, int off, final String str,
         final AttributeSet set) {
-        List completionData = contentAssist.getCompletionList();
+        List completionData = contentAssist.getCompletionList(off);
 
         final Document doc = editor.getDocument();
 
