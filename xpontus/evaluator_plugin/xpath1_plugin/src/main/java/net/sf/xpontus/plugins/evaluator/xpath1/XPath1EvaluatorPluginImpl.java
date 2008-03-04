@@ -23,7 +23,6 @@ package net.sf.xpontus.plugins.evaluator.xpath1;
 import com.ibm.icu.text.CharsetDetector;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.plugins.evaluator.CustomNamespaceContext;
 import net.sf.xpontus.plugins.evaluator.DOMAddLines;
 import net.sf.xpontus.plugins.evaluator.EvaluatorPluginIF;

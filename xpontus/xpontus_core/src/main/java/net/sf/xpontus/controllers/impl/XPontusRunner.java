@@ -91,6 +91,7 @@ import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JWindow;
 import javax.swing.UIManager;
+import net.sf.xpontus.plugins.perspectives.PerspectivePlugin;
 
 
 /**
@@ -209,7 +210,8 @@ public class XPontusRunner {
                 CodeCompletionPlugin.PLUGIN_IDENTIFIER,
                 QuickToolBarPlugin.PLUGIN_IDENTIFIER,
                 OutlinePlugin.PLUGIN_IDENTIFIER, PreviewPlugin.PLUGIN_IDENTIFIER,
-                PreferencesPlugin.PLUGIN_IDENTIFIER
+                PreferencesPlugin.PLUGIN_IDENTIFIER,
+                PerspectivePlugin.PLUGIN_IDENTIFIER
             };
 
         PluginManager manager = XPontusPluginManager.getPluginManager();
@@ -405,9 +407,9 @@ public class XPontusRunner {
                 "Install some plugins in the category documentation");
         }
 
-        DocumentAwareComponentHolder.getInstance()
-                                    .notifyComponents(new DocumentContainerChangeEvent(
-                null));
+//        DocumentAwareComponentHolder.getInstance()
+//                                    .notifyComponents(new DocumentContainerChangeEvent(
+//                null));
 
         new Thread(new Runnable() {
                 public void run() {

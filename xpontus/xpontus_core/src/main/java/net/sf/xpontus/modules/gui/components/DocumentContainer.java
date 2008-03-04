@@ -96,6 +96,11 @@ public class DocumentContainer implements IDocumentContainer {
     private final String image = "/net/sf/xpontus/icons/file.gif";
     private JComponent bottomPanel;
 
+    public JComponent getDocumentPanel() {
+        return documentPanel;
+    }
+
+    
     /**
      * Creates a new instance of EditorContainer
      */

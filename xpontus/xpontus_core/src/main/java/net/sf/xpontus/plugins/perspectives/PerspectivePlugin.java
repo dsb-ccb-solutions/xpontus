@@ -52,7 +52,7 @@ public class PerspectivePlugin extends XPontusPlugin {
     /**
      * The unique identifier of this plugin
      */
-    public static final String PLUGIN_IDENTIFIER = "plugin.core.perspective";
+    public static final String PLUGIN_IDENTIFIER = "plugin.core.perspectives";
 
     /**
      * The category of this plugin
@@ -91,6 +91,7 @@ public class PerspectivePlugin extends XPontusPlugin {
 
     // register a perspective
     private void initExtension(PerspectivePluginIF m_perspective) { 
+        System.out.println("Perspective:" + m_perspective.getName());
         availablePerspectives.add(m_perspective);
     }
 
