@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.core.perspectives.xml" vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.perspectives.xml.XMLPerspectivePlugin">
+    <attributes>
+        <attribute id = "Category" value="View"/>
+        <attribute id = "Built-in" value = "true"/>
+        <attribute id = "Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id = "Description" value = "XML perspective plugin"/>
+        <attribute id = "DisplayName" value = "Advanced view of XML documents"/>
+        <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
+        <attribute id = "date" value = "26-02-2008"/>
+    </attributes>
+    <requires>
+        <import plugin-id="plugin.core.perspectives" /> 
+    </requires>
+    <runtime>  
+        <library id="plugin.core.perspectives.xml.lib" path="lib/xmlperspective_plugin-1.0.0-pre1.jar" type="code">
+            <export prefix="*"/> 
+        </library> 
+    </runtime> 
+    <extension plugin-id="plugin.core.perspectives" point-id="perspectivepluginif" id="plugin.core.perspectives.xml">
+        <parameter id="class" value="net.sf.xpontus.plugins.perspectives.xml.XMLPerspectivePluginImpl" /> 
+    </extension>
+</plugin>

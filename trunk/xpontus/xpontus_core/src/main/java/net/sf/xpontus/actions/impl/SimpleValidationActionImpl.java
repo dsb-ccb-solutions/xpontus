@@ -23,10 +23,8 @@ package net.sf.xpontus.actions.impl;
 
 import com.ibm.icu.text.CharsetDetector;
 
-import net.sf.xpontus.actions.impl.DefaultDocumentAwareActionImpl;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 
 import org.apache.xerces.parsers.SAXParser;

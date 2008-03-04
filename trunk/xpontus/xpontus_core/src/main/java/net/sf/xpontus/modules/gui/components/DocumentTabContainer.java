@@ -395,7 +395,7 @@ public class DocumentTabContainer {
      */
     public void createEditorForNewFile() {
         IDocumentContainer container = PerspectiveHelper.createPerspective(
-                "file.xml");
+                "text/xml");
         container.setup();
         container.completeSetup();
         setupEditor(container);
