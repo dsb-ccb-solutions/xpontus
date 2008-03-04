@@ -63,10 +63,11 @@ public class BrowserPanel extends JComponent {
     private JPanel northPanel;
     private JButton reloadButton;
     private JTextField searchTextField;
+    private JComponent accessory;
     private JButton searchButton;
     private JEditorPane editorPane;
     private JScrollPane editorScrollPane;
-    private   Map<String, SimplePluginDescriptor> pluginsMap;
+    private Map<String, SimplePluginDescriptor> pluginsMap;
     private transient Map<String, SimplePluginDescriptor> currentMap;
     private PluginsTemplateRenderer ptr;
     private String indexFile;
@@ -153,7 +154,8 @@ public class BrowserPanel extends JComponent {
         searchButton = new JButton("Search");
         searchButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    Map<String, SimplePluginDescriptor> searchResults = PluginsUtils.getInstance().searchIndex(searchTextField.getText(),
+                    Map<String, SimplePluginDescriptor> searchResults = PluginsUtils.getInstance()
+                                                                                    .searchIndex(searchTextField.getText(),
                             indexFile);
 
                     boolean updateNeeded = false;
@@ -184,7 +186,6 @@ public class BrowserPanel extends JComponent {
                     pluginsMap = new HashMap(resolver.getPluginDescriptorsMap());
                     currentMap = new HashMap(pluginsMap);
                     reloadPluginsTable();
-                    
                 }
             });
 
@@ -243,29 +244,88 @@ public class BrowserPanel extends JComponent {
         add(splitPane, BorderLayout.CENTER);
     }
 
-    void reloadPluginsTable() {
-        while (tableModel.getRowCount() > 0) {
-            tableModel.removeRow(tableModel.getRowCount() - 1);
+    /**
+     * Returns the plugins table
+     * @return The plugins table
+     */
+    public JTable getTable() {
+        return table;
+    }
 
-            tableModel.fireTableDataChanged();
+    /**
+     * Returns the plugins map of the elements displayed in the table
+     * @return A map of the plugins
+     */
+    public Map<String, SimplePluginDescriptor> getPluginsHashMap() {
+        return currentMap;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public JComponent getAccessory() {
+        return accessory;
+    }
+
+    /**
+     * 
+     * @param accessory
+     */
+    public void setAccessory(JComponent accessory) {
+        // remove any existing accessory
+        if (this.accessory != null) {
+            remove(this.accessory);
         }
 
+        this.accessory = accessory;
+        
+        // add the accessory at the bottom
+        add(accessory, BorderLayout.SOUTH);
+        
+        // repaint the component
+        invalidate();
+        revalidate();
+        repaint();
+    }
+
+    void reloadPluginsTable() {
+        // clear search text
+        searchTextField.setText("");
+
+        // remove table rows
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(tableModel.getRowCount() - 1);
+        }
+
+        // notify the table that the data has changed
+        tableModel.fireTableDataChanged();
+
+        // add the new results to the table
         for (Iterator<String> it = currentMap.keySet().iterator();
                 it.hasNext();) {
-            Vector m_row = new Vector();
-            m_row.add(new Boolean(false));
-
             SimplePluginDescriptor spd = currentMap.get(it.next());
+
+            Vector m_row = new Vector();
+
+            m_row.add(new Boolean(false));
             m_row.add(spd.getId());
             m_row.add(spd.getCategory());
             m_row.add(spd.getBuiltin());
+
+            // add a new row in the plugins table
             tableModel.addRow(m_row);
         }
 
+        // notify the table that the data has changed
         tableModel.fireTableDataChanged();
     }
 
+    /**
+     * Returns the initial number of plugins (TODO update it when a plugin is added or removed)
+     * @return The initial number of plugins
+     */
     public String getNbPlugins() {
-        return "" + pluginsMap.size();
+        return "" + currentMap.size();
     }
 }

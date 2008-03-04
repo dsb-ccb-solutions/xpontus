@@ -3,7 +3,7 @@
 <plugin id="plugin.core.icons"  vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.icons.IconPlugin"> 
     <attributes>
         <attribute id = "Category" value="Look"/>
-        <attribute id = "Built-in" value = "false"/>
+        <attribute id = "Built-in" value = "true"/>
         <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
         <attribute id="Description" value = "Icons set plugin"/>
         <attribute id = "DisplayName" value = "Icons set plugin"/>      

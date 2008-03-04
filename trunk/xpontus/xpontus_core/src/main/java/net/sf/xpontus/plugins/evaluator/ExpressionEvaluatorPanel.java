@@ -30,7 +30,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
         
         initComponents();
         DefaultComboBoxModel mm = (DefaultComboBoxModel) this.engineList.getModel();
-        String engines[] = EvaluatorPluginConfiguration.getInstane().getEnginesNames();
+        String engines[] = EvaluatorPluginConfiguration.getInstance().getEnginesNames();
 
         for (int i = 0; i < engines.length; i++) {
             mm.addElement(engines[i]);
@@ -81,15 +81,14 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(expressionList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 239, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(engineList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .add(engineList, 0, 122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                 .add(evaluateButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(engineList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(expressionList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(expressionList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(engineList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
     private void evaluateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evaluateButtonActionPerformed
@@ -97,7 +96,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
         Thread m_worker = new Thread() {
 
             public void run() {
-                Hashtable t = (Hashtable) EvaluatorPluginConfiguration.getInstane().getEngines().get(engineList.getSelectedItem());
+                Hashtable t = (Hashtable) EvaluatorPluginConfiguration.getInstance().getEngines().get(engineList.getSelectedItem());
 
                 if (t == null) {
                     XPontusComponentsUtils.showErrorMessage("No plugins installed for that action");

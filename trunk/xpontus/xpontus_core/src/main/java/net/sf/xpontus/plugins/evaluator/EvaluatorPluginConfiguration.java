@@ -40,7 +40,7 @@ public class EvaluatorPluginConfiguration {
      *
      * @return
      */
-    public static EvaluatorPluginConfiguration getInstane() {
+    public static EvaluatorPluginConfiguration getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new EvaluatorPluginConfiguration();
         }

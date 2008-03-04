@@ -95,6 +95,7 @@ public class PluginBrowser extends javax.swing.JDialog {
         this.installedPanel = new BrowserPanel(new InstalledPluginsResolver(),
                 "Uninstall",
                 XPontusConfigurationConstantsIF.INSTALLED_PLUGINS_SEARCHINDEX_DIR.getAbsolutePath());
+        this.installedPanel.setAccessory(new InstalledPluginsAccessoryPanel(installedPanel));
         this.availablePanel = new BrowserPanel(new AvailablePluginsResolver(),
                 "Install",
                 XPontusConfigurationConstantsIF.AVAILABLE_PLUGINS_SEARCHINDEX_DIR.getAbsolutePath());

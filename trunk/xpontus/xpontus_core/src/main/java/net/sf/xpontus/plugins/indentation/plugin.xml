@@ -3,7 +3,7 @@
 <plugin id="plugin.core.indentation"  vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.indentation.IndentationPlugin"> 
     <attributes>
         <attribute id = "Category" value="Indentation"/>
-        <attribute id = "Built-in" value = "false"/>
+        <attribute id = "Built-in" value = "true"/>
         <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
         <attribute id="Description" value = "Indentation plugin"/>
         <attribute id = "DisplayName" value = "Indentation plugin"/>      
