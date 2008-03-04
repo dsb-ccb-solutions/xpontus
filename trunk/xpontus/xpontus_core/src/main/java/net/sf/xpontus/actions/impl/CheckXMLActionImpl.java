@@ -26,7 +26,6 @@ import com.ibm.icu.text.CharsetDetector;
 
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
@@ -48,6 +47,7 @@ import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
 import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 
@@ -115,7 +115,7 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
 
         OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
 
-        DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+        IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                   .getDocumentTabContainer()
                                                                                   .getCurrentDockable();
 

@@ -26,7 +26,6 @@ package net.sf.xpontus.controllers.impl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.model.CaretPosition;
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.syntax.SyntaxDocument;
 import net.sf.xpontus.utils.EditorUtilities;
 
@@ -36,6 +35,7 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**
@@ -43,12 +43,12 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi
  */
 public class ModificationHandler implements DocumentListener, CaretListener {
-    private DocumentContainer editor;
+    private IDocumentContainer editor;
 
     /** Creates a new instance of ModificationHandler
      * @param editor the document container
      */
-    public ModificationHandler(DocumentContainer editor) {
+    public ModificationHandler(IDocumentContainer editor) {
         this.editor = editor;
         editor.getEditorComponent().getDocument().addDocumentListener(this);
         editor.getEditorComponent()

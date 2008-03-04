@@ -20,7 +20,7 @@
  */
 package net.sf.xpontus.utils;
 
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**
@@ -28,13 +28,13 @@ import net.sf.xpontus.modules.gui.components.DocumentContainer;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DocumentContainerChangeEvent {
-    private DocumentContainer source;
+    private IDocumentContainer source;
 
-    public DocumentContainerChangeEvent(DocumentContainer source) {
+    public DocumentContainerChangeEvent(IDocumentContainer source) {
         this.source = source;
     }
 
-    public DocumentContainer getSource() {
+    public IDocumentContainer getSource() {
         return source;
     }
 }

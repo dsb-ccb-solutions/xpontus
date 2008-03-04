@@ -40,10 +40,12 @@ import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.plugins.evaluator.XPathResultsDockable;
 import net.sf.xpontus.plugins.ioc.IOCPlugin;
+import net.sf.xpontus.plugins.perspectives.PerspectiveHelper;
 import net.sf.xpontus.syntax.SyntaxDocument;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.FileHistoryList;
+import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.vfs.FileObject;
@@ -62,7 +64,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class DocumentTabContainer {
     protected static DockGroup group = new DockGroup("Editors");
-    private Vector<DocumentContainer> editors = new Vector<DocumentContainer>();
+    private Vector<IDocumentContainer> editors = new Vector<IDocumentContainer>();
     private boolean actionsEnabled = false;
     private DockingDesktop desktop;
     private JTextComponent currentEditor;
@@ -86,8 +88,8 @@ public class DocumentTabContainer {
                         return;
                     }
 
-                    if (selectedDockable instanceof DocumentContainer) {
-                        DocumentContainer container = (DocumentContainer) selectedDockable;
+                    if (selectedDockable instanceof IDocumentContainer) {
+                        IDocumentContainer container = (IDocumentContainer) selectedDockable;
                         container.getEditorComponent().grabFocus();
 
                         currentDockable = selectedDockable;
@@ -101,7 +103,7 @@ public class DocumentTabContainer {
                         currentEditor.setCaretPosition(currentEditor.getCaretPosition());
 
                         SyntaxDocument m_doc = (SyntaxDocument) currentEditor.getDocument();
-                        Object o = m_doc.getProperty(XPontusConstantsIF.OUTLINE_INFO); 
+                        Object o = m_doc.getProperty(XPontusConstantsIF.OUTLINE_INFO);
 
                         if (o != null) {
                             DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
@@ -128,11 +130,11 @@ public class DocumentTabContainer {
                     DockableState current = event.getCurrentState();
 
                     if ((current != null) &&
-                            (current.getDockable() instanceof DocumentContainer) &&
+                            (current.getDockable() instanceof IDocumentContainer) &&
                             event.getFutureState().isClosed()) {
                         closeAccepted = false;
 
-                        DocumentContainer editor = (DocumentContainer) current.getDockable();
+                        IDocumentContainer editor = (IDocumentContainer) current.getDockable();
                         SaveActionImpl saveAction = (SaveActionImpl) DefaultXPontusWindowImpl.getInstance()
                                                                                              .getIOCContainer()
                                                                                              .getBean(SaveActionImpl.BEAN_ALIAS);
@@ -173,7 +175,8 @@ public class DocumentTabContainer {
                                                         .notifyComponents(new DocumentContainerChangeEvent(
                                     editor));
                             editors.remove(editor);
-                            editors.get(editors.size() - 1).getEditorComponent().grabFocus();
+                            editors.get(editors.size() - 1).getEditorComponent()
+                                   .grabFocus();
                         }
                     } else if ((current != null) &&
                             (current.getDockable() instanceof OutlineViewDockable) &&
@@ -220,8 +223,8 @@ public class DocumentTabContainer {
      *
      * @return
      */
-    public DocumentContainer[] getEditorsAsArray() {
-        DocumentContainer[] editorsArray = new DocumentContainer[editors.size()];
+    public IDocumentContainer[] getEditorsAsArray() {
+        IDocumentContainer[] editorsArray = new IDocumentContainer[editors.size()];
         editors.copyInto(editorsArray);
 
         return editorsArray;
@@ -237,7 +240,7 @@ public class DocumentTabContainer {
     /**
      * @param editor
      */
-    public void setupEditor(DocumentContainer editor) {
+    public void setupEditor(IDocumentContainer editor) {
         DockingDesktop desk = DefaultXPontusWindowImpl.getInstance().getDesktop();
 
         if (editors.size() == 0) {
@@ -296,8 +299,9 @@ public class DocumentTabContainer {
                                                            .getDocument();
 
         CurrentLineHighlighter.install(currentEditor);
-        
-         System.out.println("OUTLINE BEGIN CODE");
+
+        System.out.println("OUTLINE BEGIN CODE");
+
         if (mDoc.getOutlinePlugin() != null) {
             Thread m_worker = new Thread() {
                     public void run() {
@@ -308,11 +312,10 @@ public class DocumentTabContainer {
 
             m_worker.setPriority(Thread.MIN_PRIORITY);
             m_worker.start();
-        }
-        else{
+        } else {
             System.out.println("NO OUTLINE TO BUILD");
         }
-         
+
         if (mDoc.getCodeCompletion() != null) {
             Thread m_worker = new Thread() {
                     public void run() {
@@ -323,8 +326,6 @@ public class DocumentTabContainer {
             m_worker.setPriority(Thread.MIN_PRIORITY);
             SwingUtilities.invokeLater(m_worker);
         }
-
-       
     }
 
     /**
@@ -335,7 +336,9 @@ public class DocumentTabContainer {
             return;
         }
 
-        DocumentContainer container = new DocumentContainer();
+         String mimeType = MimeTypesProvider.getInstance()
+                                               .getMimeType(file.getName());
+            IDocumentContainer container = PerspectiveHelper.createPerspective(mimeType); 
         container.setup(file);
         container.completeSetup();
         setupEditor(container);
@@ -355,10 +358,10 @@ public class DocumentTabContainer {
 
         FileHistoryList.addFile(fo.getName().getURI());
 
-        DocumentContainer[] openEditors = getEditorsAsArray();
-        DocumentContainer alreadyOpened = null;
+        IDocumentContainer[] openEditors = getEditorsAsArray();
+        IDocumentContainer alreadyOpened = null;
 
-        for (DocumentContainer dct : openEditors) {
+        for (IDocumentContainer dct : openEditors) {
             Object obj = dct.getEditorComponent()
                             .getClientProperty(XPontusConstantsIF.FILE_OBJECT);
 
@@ -377,7 +380,10 @@ public class DocumentTabContainer {
                 alreadyOpened.getEditorComponent().grabFocus();
             }
         } else {
-            DocumentContainer container = new DocumentContainer();
+            String mimeType = MimeTypesProvider.getInstance()
+                                               .getMimeType(fo.getName()
+                                                              .getBaseName());
+            IDocumentContainer container = PerspectiveHelper.createPerspective(mimeType);
             container.setup(fo);
             container.completeSetup();
             setupEditor(container);
@@ -388,7 +394,8 @@ public class DocumentTabContainer {
      *
      */
     public void createEditorForNewFile() {
-        DocumentContainer container = new DocumentContainer();
+        IDocumentContainer container = PerspectiveHelper.createPerspective(
+                "file.xml");
         container.setup();
         container.completeSetup();
         setupEditor(container);
@@ -398,7 +405,7 @@ public class DocumentTabContainer {
      * @param url
      */
     public void createEditorFromURL(java.net.URL url) {
-        DocumentContainer container = new DocumentContainer();
+        IDocumentContainer container = PerspectiveHelper.createPerspective(url.toExternalForm());
         container.setup(url);
         container.completeSetup();
         setupEditor(container);
