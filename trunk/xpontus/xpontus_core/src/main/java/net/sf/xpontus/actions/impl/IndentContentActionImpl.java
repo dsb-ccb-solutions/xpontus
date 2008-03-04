@@ -132,6 +132,7 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
 
                 dc.getStatusBar().setMessage("Formatting succeeded...");
                 odk.println("Indentation succeeded");
+                jtc.setCaretPosition(0);
             } catch (Exception ex) {
                 dc.getStatusBar().setMessage("Formatting failed...");
                 odk.println(ex.getMessage(), OutputDockable.RED_STYLE);

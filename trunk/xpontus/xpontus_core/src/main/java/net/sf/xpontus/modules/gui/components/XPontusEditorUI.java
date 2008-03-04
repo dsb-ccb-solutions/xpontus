@@ -37,12 +37,12 @@ public class XPontusEditorUI extends BasicEditorPaneUI {
     private final EditorKit kit;
 
     /** Creates a new instance of XPontusEditorUI
-     * @param tc The text component
+     * @param jtc The text component
      * @param ext The filename extension
      */
-    public XPontusEditorUI(JTextComponent tc, String ext) {
+    public XPontusEditorUI(JTextComponent jtc, String ext) {
         this.ext = ext;
-        kit = new SyntaxEditorkit(tc, ext);
+        kit = new SyntaxEditorkit(jtc, ext);
     }
 
     /**
@@ -50,7 +50,7 @@ public class XPontusEditorUI extends BasicEditorPaneUI {
      * @param tc The text component
      * @return The editorkit to use for this text component
      */
-    public EditorKit getEditorKit(JTextComponent tc) {
+    public EditorKit getEditorKit(JTextComponent jtc) {
         return kit;
     }
 }

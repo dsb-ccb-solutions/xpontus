@@ -295,6 +295,8 @@ public class DocumentTabContainer {
         final SyntaxDocument mDoc = (SyntaxDocument) editor.getEditorComponent()
                                                            .getDocument();
 
+        CurrentLineHighlighter.install(currentEditor);
+        
          System.out.println("OUTLINE BEGIN CODE");
         if (mDoc.getOutlinePlugin() != null) {
             Thread m_worker = new Thread() {
