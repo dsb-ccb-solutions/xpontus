@@ -22,7 +22,6 @@
 package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -38,6 +37,7 @@ import java.io.Writer;
 
 import javax.swing.JFileChooser;
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**
@@ -62,11 +62,11 @@ public class SaveAllActionImpl extends DefaultDocumentAwareActionImpl {
         if (answer == JFileChooser.APPROVE_OPTION) {
             DefaultXPontusWindowImpl w = DefaultXPontusWindowImpl.getInstance();
             DocumentTabContainer dtc = w.getDocumentTabContainer();
-            DocumentContainer[] dc = dtc.getEditorsAsArray();
+            IDocumentContainer[] dc = dtc.getEditorsAsArray();
 
             for (int i = 0; i < dc.length; i++) {
                 try {
-                    DocumentContainer document = dc[i];
+                    IDocumentContainer document = dc[i];
                     JTextComponent jtc = document.getEditorComponent();
                     FileObject fo = null;
                     OutputStream bos = fo.getContent().getOutputStream();

@@ -28,7 +28,6 @@ import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
@@ -42,7 +41,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.swing.text.JTextComponent;
-import javax.swing.text.PlainDocument;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**
@@ -69,7 +68,7 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
         DocumentTabContainer container = DefaultXPontusWindowImpl.getInstance()
                                                                  .getDocumentTabContainer();
 
-        DocumentContainer dc = (DocumentContainer) container.getCurrentDockable();
+        IDocumentContainer dc = (IDocumentContainer) container.getCurrentDockable();
 
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                               .getConsole();

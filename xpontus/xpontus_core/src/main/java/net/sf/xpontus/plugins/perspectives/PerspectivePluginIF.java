@@ -19,59 +19,32 @@
  *
  *
  */
-package net.sf.xpontus.modules.gui.components;
+package net.sf.xpontus.plugins.perspectives;
 
-import com.vlsolutions.swing.docking.Dockable;
-
-import org.apache.commons.vfs.FileObject;
-
-import javax.swing.text.JTextComponent;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**
- *
- * Interface for document containers
+ * Perspective interface to present a document
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public interface IDocumentContainer extends Dockable {
+public interface PerspectivePluginIF {
     /**
-     * 
-     * @return
+     * Returns the content type supported by this perspective
+     * @return The content type supported by this perspective
      */
-    public JTextComponent getEditorComponent();
+    public String getContentType();
 
     /**
-     * 
-     * @return
+     * Returns the name of this perspective
+     * @return The name of this perspective
      */
-    public JStatusBar getStatusBar();
+    public String getName();
 
     /**
-     * 
+     * Create a document container
+     * @return a new document container
      */
-    public void completeSetup();
-
-    /**
-     * 
-     * @param url
-     */
-    public void setup(java.net.URL url);
-    
-    /**
-     * 
-     * @param url
-     */
-    public void setup(java.io.File url);
-
-    /**
-     * 
-     */
-    public void setup();
-
-    /**
-     * 
-     * @param fo
-     */
-    public void setup(FileObject fo);
+    public IDocumentContainer createDocumentContainer();
 }

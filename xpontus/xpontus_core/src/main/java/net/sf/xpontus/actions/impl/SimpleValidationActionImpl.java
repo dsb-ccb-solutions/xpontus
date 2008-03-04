@@ -42,11 +42,9 @@ import org.xml.sax.SAXParseException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import java.net.URL;
 
-import javax.swing.Action;
-import javax.swing.ImageIcon;
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**
@@ -71,7 +69,7 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
                                                          .getDocumentTabContainer()
                                                          .getCurrentEditor();
 
-            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+            IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                       .getDocumentTabContainer()
                                                                                       .getCurrentDockable();
             container.getStatusBar().setMessage("Validating document...");
@@ -136,7 +134,7 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
                                                                   .getConsole();
             OutputDockable odk = (OutputDockable) console.getDockables()
                                                          .get(ConsoleOutputWindow.MESSAGES_WINDOW);
-            DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance()
+            IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                       .getDocumentTabContainer()
                                                                                       .getCurrentDockable();
             container.getStatusBar().setMessage("Document is invalid!");

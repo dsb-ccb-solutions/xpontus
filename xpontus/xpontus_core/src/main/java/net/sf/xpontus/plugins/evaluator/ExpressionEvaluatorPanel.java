@@ -11,7 +11,7 @@ import javax.swing.DefaultComboBoxModel;
 import net.sf.xpontus.actions.DocumentAwareComponentIF;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
@@ -105,7 +105,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
                     expressionList.setEnabled(false);
                     return;
                 }
-                DocumentContainer container = (DocumentContainer) DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentDockable();
+                IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentDockable();
 
                 container.getStatusBar().setMessage("Expression evaluation in progres...");
                 ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);

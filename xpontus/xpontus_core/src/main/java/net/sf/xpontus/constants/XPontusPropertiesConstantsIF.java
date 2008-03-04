@@ -39,7 +39,7 @@ public interface XPontusPropertiesConstantsIF {
     String XPONTUS_TOOLBAR_PROPERTY = "XPONTUS_TOOLBAR_PROPERTY";
 
     /**
-     * Property holding the transformation preview plugins 
+     * Property holding the transformation preview plugins
      */
     String XPONTUS_PREVIEW_PROPERTY = "XPONTUS_PREVIEW_PROPERTY";
 
@@ -69,10 +69,15 @@ public interface XPontusPropertiesConstantsIF {
     String XPONTUS_COMPLETION_ENGINES = "XPONTUS_COMPLETION_ENGINES";
 
     /**
+     * Property for xpontus perspectives
+     */
+    String XPONTUS_PERSPECTIVES = "XPONTUS_PERSPECTIVES";
+
+    /**
      * Property for outline engines
      */
     String XPONTUS_OUTLINE_ENGINES = "XPONTUS_OUTLINE_ENGINES";
-    
+
     /**
      * Property holding the "registered" preferences dialog components
      */
