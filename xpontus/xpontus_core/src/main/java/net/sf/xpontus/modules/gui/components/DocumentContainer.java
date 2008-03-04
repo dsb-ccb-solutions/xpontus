@@ -105,6 +105,8 @@ public class DocumentContainer implements IDocumentContainer {
         editor = new JEditorPane();
 
         editor.setRequestFocusEnabled(true);
+        
+        
         editor.setFocusable(true);
         status = new JStatusBar();
         editor.setCaretPosition(0);
