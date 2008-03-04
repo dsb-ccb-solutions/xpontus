@@ -95,6 +95,7 @@ public class PluginsTemplateRenderer {
             }
 
             context.put("vendor", vendor);
+            context.put("date", spd.getDate());
             context.put("built-in", spd.getBuiltin());
             context.put("category", spd.getCategory());
             context.put("description", spd.getDescription());

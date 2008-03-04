@@ -60,19 +60,31 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
                 pds.getLocation().toExternalForm());
 
             String id = pds.getId().toString();
-            String category = pds.getAttribute("Category").getValue().toString();
-            String homepage = pds.getAttribute("Homepage").getValue().toString();
-            String builtin = pds.getAttribute("Built-in").getValue().toString();
-            String displayname = pds.getAttribute("DisplayName").getValue()
-                                    .toString();
-            String description = pds.getAttribute("Description").getValue()
-                                    .toString();
+            String category = pds.getAttribute("Category").getValue();
+            String homepage = pds.getAttribute("Homepage").getValue();
+            String builtin = pds.getAttribute("Built-in").getValue();
+            String displayname = pds.getAttribute("DisplayName").getValue() ;
+            String description = pds.getAttribute("Description").getValue() ;
+            String license = pds.getAttribute("License").getValue();
+            String date = pds.getAttribute("date").getValue();
             String version = pds.getVersion().toString();
             SimplePluginDescriptor spd = new SimplePluginDescriptor();
 
             String vendor = "Yves Zoundi";
 
-            if (pds.getVendor() != null) {
+           
+            spd.setAuthor(vendor);
+            spd.setDate(date);
+            spd.setBuiltin(builtin);
+            spd.setCategory(category);
+            spd.setDescription(description);
+            spd.setDisplayname(displayname);
+            spd.setHomepage(homepage);
+            spd.setId(id);
+            spd.setLicense(license);
+            spd.setVersion(version);
+
+             if (pds.getVendor() != null) {
                 vendor = pds.getVendor();
             }
             
@@ -84,15 +96,7 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
                 spd.setLicense("UNKNOWN");
             }
 
-            spd.setAuthor(vendor);
-            spd.setBuiltin(builtin);
-            spd.setCategory(category);
-            spd.setDescription(description);
-            spd.setDisplayname(displayname);
-            spd.setHomepage(homepage);
-            spd.setId(id);
-            spd.setVersion(version);
-
+            
             if (!spd.getBuiltin().equals("true")) {
                 pluginsMap.put(id, spd);
             }

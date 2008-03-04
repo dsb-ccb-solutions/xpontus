@@ -82,6 +82,6 @@ public class EvaluatorPlugin extends XPontusPlugin {
             addEngine(m_plugin, classLoader);
         }
 
-        EvaluatorPluginConfiguration.getInstane().setEngines(engines);
+        EvaluatorPluginConfiguration.getInstance().setEngines(engines);
     }
 }
