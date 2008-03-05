@@ -25,6 +25,7 @@ import com.vlsolutions.swing.docking.DockGroup;
 import com.vlsolutions.swing.docking.DockKey;
 import com.vlsolutions.swing.docking.Dockable;
 
+import net.sf.xpontus.parsers.TokenNode;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.awt.Component;
@@ -42,14 +43,13 @@ import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import net.sf.xpontus.parsers.TokenNode;
+
 
 /**
  * @version 0.0.1
  * @author Yves Zoundi
  */
 public class OutlineViewDockable extends JScrollPane implements Dockable {
-
     private DockKey key = new DockKey("Outline ");
     private DefaultTreeModel model;
     private DefaultMutableTreeNode root;
@@ -90,22 +90,20 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
 
         // tree selection listener
         mTree.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2) {
+                        DefaultMutableTreeNode node = (DefaultMutableTreeNode) mTree.getLastSelectedPathComponent();
 
-            public void mouseClicked(MouseEvent e) {
+                        if (node == null) {
+                            return;
+                        }
 
-                if (e.getClickCount() == 2) {
-                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) mTree.getLastSelectedPathComponent();
-
-                    if (node == null) {
-                        return;
-                    }
-
-                    if (node instanceof TokenNode) {
-                        TokenNode nodeInfo = (TokenNode) node;
-                        gotoLine(nodeInfo.line, nodeInfo.column);
+                        if (node instanceof TokenNode) {
+                            TokenNode nodeInfo = (TokenNode) node;
+                            gotoLine(nodeInfo.line, nodeInfo.column);
+                        }
                     }
                 }
-            }
             });
     }
 
@@ -128,22 +126,24 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
 
     private void gotoLine(int line, int column) {
         System.out.println("Line:" + line + ",Column:" + column);
-        JTextComponent jtc = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentEditor();
+
+        JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
+                                                     .getDocumentTabContainer()
+                                                     .getCurrentEditor();
 
         Element element = jtc.getDocument().getDefaultRootElement();
 
         if (element.getElement(line) == null) {
             XPontusComponentsUtils.showErrorMessage(
-                    "element location not found");
+                "element location not found");
 
             return;
         }
 
-        
         // we need to remove some info from here
         line = line - 1;
         column = column - 1;
-        
+
         int lineOffset = element.getElement(line).getStartOffset();
 
         int tokenOffset = lineOffset + column;

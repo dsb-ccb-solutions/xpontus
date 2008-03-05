@@ -18,9 +18,11 @@
  */
 package net.sf.xpontus.plugins.validation.batchvalidation;
 
+import net.sf.xpontus.actions.impl.XPontusDialogActionImpl;
+
 import javax.swing.Action;
 import javax.swing.ImageIcon;
-import net.sf.xpontus.actions.impl.XPontusDialogActionImpl;
+
 
 /**
  * Action to display the batch validation dialog
@@ -28,17 +30,16 @@ import net.sf.xpontus.actions.impl.XPontusDialogActionImpl;
  * @version 0.0.1
  */
 public class BatchValidationAction extends XPontusDialogActionImpl {
-
     /**
      * Default constructor
      */
-    public BatchValidationAction(){
+    public BatchValidationAction() {
         setName("Batch Validation");
         setDescription("Batch Validation (XML)");
+
         ImageIcon icon = new ImageIcon(this.getClass().getResource("batch.gif"));
         this.putValue(Action.SMALL_ICON, icon);
         setDialogClassName(BatchValidationDialogView.class.getName());
         setWindowClassLoader(this.getClass().getClassLoader());
-    } 
-
+    }
 }

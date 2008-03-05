@@ -21,31 +21,27 @@
  */
 package net.sf.xpontus.plugins.lexer.xquery;
 
-
+import net.sf.xpontus.plugins.color.PlainColorProviderImpl;
 
 import java.awt.Color;
 
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
-import net.sf.xpontus.plugins.color.PlainColorProviderImpl;
 
 
 /**
  *
  * @author Yves Zoundi
  */
-public class XQueryColorProviderImpl extends PlainColorProviderImpl
-{
+public class XQueryColorProviderImpl extends PlainColorProviderImpl {
     /** Creates a new instance of XQueryColorProvider */
-    public XQueryColorProviderImpl()
-    {
+    public XQueryColorProviderImpl() {
         MutableAttributeSet keyword = new SimpleAttributeSet();
         StyleConstants.setForeground(keyword, Color.BLUE);
         StyleConstants.setBold(keyword, true);
 
-        int[] keywords = 
-            {
+        int[] keywords = {
                 XQueryParserConstants.DO, XQueryParserConstants.FOR,
                 XQueryParserConstants.INSTANCEOF, XQueryParserConstants.RETURNS,
                 XQueryParserConstants.NAMESPACE, XQueryParserConstants.DEFAULTT,
@@ -78,8 +74,7 @@ public class XQueryColorProviderImpl extends PlainColorProviderImpl
         MutableAttributeSet operator = new SimpleAttributeSet();
         StyleConstants.setForeground(operator, new Color(139, 69, 19));
 
-        int[] operators = 
-            {
+        int[] operators = {
                 XQueryParserConstants.L_PAREN, XQueryParserConstants.R_PAREN,
                 XQueryParserConstants.L_BRACE, XQueryParserConstants.R_BRACE,
                 XQueryParserConstants.L_BRACKET, XQueryParserConstants.R_BRACKET,
@@ -95,8 +90,7 @@ public class XQueryColorProviderImpl extends PlainColorProviderImpl
         StyleConstants.setBold(comment, true);
         StyleConstants.setItalic(comment, true);
 
-        int[] c = 
-            {
+        int[] c = {
                 XQueryParserConstants.START_MULTILINE_COMMENT,
                 XQueryParserConstants.IN_MULTILINE_COMMENT,
                 XQueryParserConstants.MULTILINE_COMMENT_CHAR,

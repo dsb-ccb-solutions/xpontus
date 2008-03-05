@@ -1,6 +1,6 @@
 /*
  * JGoodiesThemePluginImpl.java
- * 
+ *
  * Created on 17-Jul-2007, 7:09:46 PM
  *
  * Copyright (C) 2005-2007 Yves Zoundi
@@ -19,24 +19,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.plugins.themes.jgoodies;
 
-import java.util.Properties;
 import com.jgoodies.looks.plastic.*;
+
 import net.sf.xpontus.plugins.themes.ThemePluginIF;
+
+import java.util.Properties;
+
 
 /**
  * JGoodies theme implementation
  * @author Yves Zoundi
  */
-public class JGoodiesThemePluginImpl implements ThemePluginIF{
-
+public class JGoodiesThemePluginImpl implements ThemePluginIF {
     public JGoodiesThemePluginImpl() {
     }
 
     public String getAlias() {
-       return "JGoodies";
+        return "JGoodies";
     }
 
     public String getThemeFullClassQualifiedName() {
@@ -44,9 +45,9 @@ public class JGoodiesThemePluginImpl implements ThemePluginIF{
     }
 
     public Properties getPropertiesToSet() {
-       Properties props = new Properties();
-       props.put("Plastic.defaultTheme", "ExperienceBlue");
-       return props;
-    }
+        Properties props = new Properties();
+        props.put("Plastic.defaultTheme", "ExperienceBlue");
 
+        return props;
+    }
 }

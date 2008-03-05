@@ -26,23 +26,19 @@ import java.io.UnsupportedEncodingException;
  *
  * @author Brian Goetz, Quiotix
  */
-public class HtmlDumper extends HtmlVisitor
-{
+public class HtmlDumper extends HtmlVisitor {
     protected PrintWriter out;
 
-    public HtmlDumper(OutputStream os)
-    {
+    public HtmlDumper(OutputStream os) {
         out = new PrintWriter(os);
     }
 
     public HtmlDumper(OutputStream os, String encoding)
-        throws UnsupportedEncodingException
-    {
+        throws UnsupportedEncodingException {
         out = new PrintWriter(new OutputStreamWriter(os, encoding));
     }
 
-    public void finish()
-    {
+    public void finish() {
         out.flush();
     }
 
@@ -50,8 +46,7 @@ public class HtmlDumper extends HtmlVisitor
      *
      * @param t
      */
-    public void visit(HtmlDocument.Tag t)
-    {
+    public void visit(HtmlDocument.Tag t) {
         out.print(t);
     }
 
@@ -59,8 +54,7 @@ public class HtmlDumper extends HtmlVisitor
      *
      * @param t
      */
-    public void visit(HtmlDocument.EndTag t)
-    {
+    public void visit(HtmlDocument.EndTag t) {
         out.print(t);
     }
 
@@ -68,8 +62,7 @@ public class HtmlDumper extends HtmlVisitor
      *
      * @param c
      */
-    public void visit(HtmlDocument.Comment c)
-    {
+    public void visit(HtmlDocument.Comment c) {
         out.print(c);
     }
 
@@ -77,8 +70,7 @@ public class HtmlDumper extends HtmlVisitor
      *
      * @param t
      */
-    public void visit(HtmlDocument.Text t)
-    {
+    public void visit(HtmlDocument.Text t) {
         out.print(t);
     }
 
@@ -86,8 +78,7 @@ public class HtmlDumper extends HtmlVisitor
      *
      * @param n
      */
-    public void visit(HtmlDocument.Newline n)
-    {
+    public void visit(HtmlDocument.Newline n) {
         out.println();
     }
 
@@ -95,8 +86,7 @@ public class HtmlDumper extends HtmlVisitor
      *
      * @param a
      */
-    public void visit(HtmlDocument.Annotation a)
-    {
+    public void visit(HtmlDocument.Annotation a) {
         out.print(a);
     }
 }

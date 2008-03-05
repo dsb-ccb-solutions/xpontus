@@ -154,8 +154,9 @@ public class CompletionUtils {
             Element cacheFileElement = (Element) m_element.getElementsByTagName(
                     "cacheFile").item(0);
 
-            System.out.println("Got element:" + cacheFileElement.getTextContent());
-            
+            System.out.println("Got element:" +
+                cacheFileElement.getTextContent());
+
             return cacheFileElement.getTextContent();
         } catch (Exception err) {
             return null;

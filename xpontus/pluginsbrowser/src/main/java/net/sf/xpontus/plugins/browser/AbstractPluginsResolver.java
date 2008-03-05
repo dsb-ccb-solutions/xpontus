@@ -21,8 +21,9 @@
  */
 package net.sf.xpontus.plugins.browser;
 
-import java.util.Map;
 import net.sf.xpontus.plugins.SimplePluginDescriptor;
+
+import java.util.Map;
 
 
 /**
@@ -32,15 +33,16 @@ import net.sf.xpontus.plugins.SimplePluginDescriptor;
  */
 public abstract class AbstractPluginsResolver {
     /**
-     * 
+     *
      * @return The plugins map(id, model descriptor)
      */
     public abstract Map<String, SimplePluginDescriptor> getPluginDescriptorsMap();
+
     /**
      * load the plugins map
      */
-    public abstract  void resolvePlugins();
-    
+    public abstract void resolvePlugins();
+
     /**
      * Reload the plugins map
      */

@@ -43,12 +43,12 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class XMLIndentationPreferences implements PreferencesPluginIF {
-
     private IPreferencesPanel panel;
     private String preserveSpaceOptionP;
     private String omitCommentsOptionP;
@@ -73,35 +73,34 @@ public class XMLIndentationPreferences implements PreferencesPluginIF {
 
     public void saveSettings() {
         Properties props = new Properties();
-          
-          
-        props.put(XMLIndentationPreferencesConstantsIF.class.getName() +
-                "$" +
-                XMLIndentationPreferencesConstantsIF.OMIT_COMMENTS_OPTION,
-                omitCommentsOptionP);
 
-        props.put(XMLIndentationPreferencesConstantsIF.class.getName() +
-                "$" + XMLIndentationPreferencesConstantsIF.OMIT_DOCTYPE_OPTION,
-                omitDoctypeOptionP);
+        props.put(XMLIndentationPreferencesConstantsIF.class.getName() + "$" +
+            XMLIndentationPreferencesConstantsIF.OMIT_COMMENTS_OPTION,
+            omitCommentsOptionP);
 
-        props.put(XMLIndentationPreferencesConstantsIF.class.getName() +
-                "$" +
-                XMLIndentationPreferencesConstantsIF.OMIT_XML_DECLARATION_OPTION,
-                omitXmlDeclarationP);
+        props.put(XMLIndentationPreferencesConstantsIF.class.getName() + "$" +
+            XMLIndentationPreferencesConstantsIF.OMIT_DOCTYPE_OPTION,
+            omitDoctypeOptionP);
 
-        props.put(XMLIndentationPreferencesConstantsIF.class.getName() +
-                "$" +
-                XMLIndentationPreferencesConstantsIF.PRESERVE_SPACE_OPTION,
-                preserveSpaceOptionP);
+        props.put(XMLIndentationPreferencesConstantsIF.class.getName() + "$" +
+            XMLIndentationPreferencesConstantsIF.OMIT_XML_DECLARATION_OPTION,
+            omitXmlDeclarationP);
+
+        props.put(XMLIndentationPreferencesConstantsIF.class.getName() + "$" +
+            XMLIndentationPreferencesConstantsIF.PRESERVE_SPACE_OPTION,
+            preserveSpaceOptionP);
 
         System.out.println("Properties size:" + props.size());
         System.out.println("option:" + omitCommentsOptionP);
+
         Iterator it = props.keySet().iterator();
+
         while (it.hasNext()) {
             System.out.println("XP:" + it.next());
         }
+
         PropertiesConfigurationLoader.save(XMLIndentationPlugin.configfile,
-                props);
+            props);
     }
 
     public void loadSettings() {
@@ -110,7 +109,7 @@ public class XMLIndentationPreferences implements PreferencesPluginIF {
         omitCommentsOptionP = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
                 "$" +
                 XMLIndentationPreferencesConstantsIF.OMIT_COMMENTS_OPTION);
-         System.out.println("option:" + omitCommentsOptionP);
+        System.out.println("option:" + omitCommentsOptionP);
 
         omitDoctypeOptionP = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
                 "$" + XMLIndentationPreferencesConstantsIF.OMIT_DOCTYPE_OPTION);
@@ -123,16 +122,18 @@ public class XMLIndentationPreferences implements PreferencesPluginIF {
                 "$" +
                 XMLIndentationPreferencesConstantsIF.PRESERVE_SPACE_OPTION);
 
-        omitCommentsOption.setSelected(Boolean.valueOf(omitCommentsOptionP).booleanValue());
-        omitDocTypeOption.setSelected(Boolean.valueOf(omitDoctypeOptionP).booleanValue());
+        omitCommentsOption.setSelected(Boolean.valueOf(omitCommentsOptionP)
+                                              .booleanValue());
+        omitDocTypeOption.setSelected(Boolean.valueOf(omitDoctypeOptionP)
+                                             .booleanValue());
         omitXMLDeclarationOption.setSelected(Boolean.valueOf(
                 omitXmlDeclarationP).booleanValue());
-        preserveSpaceOption.setSelected(Boolean.valueOf(preserveSpaceOptionP).booleanValue());
+        preserveSpaceOption.setSelected(Boolean.valueOf(preserveSpaceOptionP)
+                                               .booleanValue());
     }
 
     public class XMLIndentationPreferencesPanel extends JComponent
-            implements IPreferencesPanel {
-
+        implements IPreferencesPanel {
         public XMLIndentationPreferencesPanel() {
             setLayout(new BorderLayout());
 
@@ -158,33 +159,33 @@ public class XMLIndentationPreferences implements PreferencesPluginIF {
             p.add(preserveSpaceOption);
 
             System.out.println("xml prop:" + omitCommentsOptionP + "," +
-                    Boolean.valueOf(omitCommentsOptionP));
+                Boolean.valueOf(omitCommentsOptionP));
 
             omitCommentsOption.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent arg0) {
-                    omitCommentsOptionP = Boolean.valueOf(omitCommentsOption.isSelected()).toString();
-                }
+                    public void actionPerformed(ActionEvent arg0) {
+                        omitCommentsOptionP = Boolean.valueOf(omitCommentsOption.isSelected())
+                                                     .toString();
+                    }
                 });
             omitDocTypeOption.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent arg0) {
-                    omitDoctypeOptionP = Boolean.valueOf(omitDocTypeOption.isSelected()).toString();
-                }
+                    public void actionPerformed(ActionEvent arg0) {
+                        omitDoctypeOptionP = Boolean.valueOf(omitDocTypeOption.isSelected())
+                                                    .toString();
+                    }
                 });
 
             omitXMLDeclarationOption.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent arg0) {
-                    omitXmlDeclarationP = Boolean.valueOf(omitXMLDeclarationOption.isSelected()).toString();
-                }
+                    public void actionPerformed(ActionEvent arg0) {
+                        omitXmlDeclarationP = Boolean.valueOf(omitXMLDeclarationOption.isSelected())
+                                                     .toString();
+                    }
                 });
 
             preserveSpaceOption.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent arg0) {
-                    preserveSpaceOptionP = Boolean.valueOf(preserveSpaceOption.isSelected()).toString();
-                }
+                    public void actionPerformed(ActionEvent arg0) {
+                        preserveSpaceOptionP = Boolean.valueOf(preserveSpaceOption.isSelected())
+                                                      .toString();
+                    }
                 });
 
             add(p, BorderLayout.CENTER);

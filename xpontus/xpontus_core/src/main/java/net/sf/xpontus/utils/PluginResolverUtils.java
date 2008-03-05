@@ -8,6 +8,8 @@ import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.beans.PropertyDescriptor;
 import java.beans.PropertyEditor;
@@ -20,8 +22,6 @@ import java.lang.reflect.Method;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 
 /**
@@ -56,43 +56,40 @@ public class PluginResolverUtils {
 
             String vendor = root.getAttribute("vendor");
             spd.setVersion((vendor != null) ? vendor : "Unknown");
-            
-            Element attributesNode = (Element) root.getElementsByTagName("attributes").item(0);
-            NodeList attributesList = attributesNode.getElementsByTagName("attribute");
-            for(int i=0;i<attributesList.getLength();i++){
+
+            Element attributesNode = (Element) root.getElementsByTagName(
+                    "attributes").item(0);
+            NodeList attributesList = attributesNode.getElementsByTagName(
+                    "attribute");
+
+            for (int i = 0; i < attributesList.getLength(); i++) {
                 Element attributeNode = (Element) attributesList.item(i);
                 String attributeId = attributeNode.getAttribute("id");
                 String attributeValue = attributeNode.getAttribute("value");
-                
-                if(attributeId.equals("Built-in")){
+
+                if (attributeId.equals("Built-in")) {
                     spd.setBuiltin(attributeValue);
-                }
-                else if(attributeId.equals("Category")){
-                     spd.setCategory(attributeValue);
-                }
-                else if(attributeId.equals("Homepage")){
-                     spd.setHomepage(attributeValue);
-                }
-                else if(attributeId.equals("Description")){
-                     spd.setDescription(attributeValue);
-                }
-                else if(attributeId.equals("DisplayName")){
-                     spd.setDisplayname(attributeValue);
-                }
-                else if(attributeId.equals("License")){ 
-                     spd.setLicense(attributeValue);
-                }
-                else if(attributeId.equals("date")){
+                } else if (attributeId.equals("Category")) {
+                    spd.setCategory(attributeValue);
+                } else if (attributeId.equals("Homepage")) {
+                    spd.setHomepage(attributeValue);
+                } else if (attributeId.equals("Description")) {
+                    spd.setDescription(attributeValue);
+                } else if (attributeId.equals("DisplayName")) {
+                    spd.setDisplayname(attributeValue);
+                } else if (attributeId.equals("License")) {
+                    spd.setLicense(attributeValue);
+                } else if (attributeId.equals("date")) {
                     spd.setDate(attributeValue);
-                }  
+                }
             }
         } catch (Exception err) {
         }
 
-        if(spd.getLicense() == null){
+        if (spd.getLicense() == null) {
             spd.setLicense("UNKNOWN");
         }
-        
+
         return spd;
     }
 

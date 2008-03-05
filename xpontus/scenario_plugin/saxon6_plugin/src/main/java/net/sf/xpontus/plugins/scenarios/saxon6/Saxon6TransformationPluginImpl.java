@@ -2,29 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.sf.xpontus.plugins.scenarios.saxon6;
 
 import com.ibm.icu.text.CharsetDetector;
-import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.Hashtable;
-import java.util.Iterator;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
+
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
@@ -34,12 +15,36 @@ import net.sf.xpontus.plugins.scenarios.ScenarioPluginIF;
 import net.sf.xpontus.plugins.scenarios.ScenarioPluginsConfiguration;
 import net.sf.xpontus.plugins.scenarios.TransformationErrorListener;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
+
+import java.util.Hashtable;
+import java.util.Iterator;
+
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 
 /**
  *
@@ -245,8 +250,6 @@ public class Saxon6TransformationPluginImpl implements ScenarioPluginIF {
             setParameters(tf, model.getParameters());
 
             TransformationErrorListener tel = new TransformationErrorListener();
-
-            
 
             tf.setErrorListener(tel);
 

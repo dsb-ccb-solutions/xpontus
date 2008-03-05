@@ -28,8 +28,8 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
 
 import net.sf.xpontus.actions.impl.ExitActionImpl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
-
 import net.sf.xpontus.plugins.ioc.IOCPlugin;
+
 import org.apache.commons.lang.text.StrBuilder;
 
 import java.awt.BorderLayout;
@@ -241,11 +241,11 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         frame.setVisible(false);
     }
 
-    public IOCPlugin getIOCContainer(){
+    public IOCPlugin getIOCContainer() {
         return this.iocContainer;
     }
-    
+
     public void setIOCContainer(IOCPlugin container) {
-       this.iocContainer = container;
+        this.iocContainer = container;
     }
 }

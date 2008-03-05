@@ -16,14 +16,12 @@ import java.util.*;
 import javax.swing.text.Segment;
 
 
-public class XQueryParser implements LexerPluginIF, XQueryParserConstants
-{
+public class XQueryParser implements LexerPluginIF, XQueryParserConstants {
     static private int[] jj_la1_0;
     static private int[] jj_la1_1;
     static private int[] jj_la1_2;
 
-    static
-    {
+    static {
         jj_la1_0();
         jj_la1_1();
         jj_la1_2();
@@ -41,13 +39,11 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
     private int jj_kind = -1;
     private IColorProvider colorer = new XQueryColorProviderImpl();
 
-    public XQueryParser()
-    {
+    public XQueryParser() {
         this((LexerInputStream) null);
     }
 
-    public XQueryParser(CharStream stream)
-    {
+    public XQueryParser(CharStream stream) {
         token_source = new XQueryParserTokenManager(stream);
         token = new Token();
         jj_ntk = -1;
@@ -57,8 +53,7 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
             jj_la1[i] = -1;
     }
 
-    public XQueryParser(XQueryParserTokenManager tm)
-    {
+    public XQueryParser(XQueryParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_ntk = -1;
@@ -68,26 +63,22 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
             jj_la1[i] = -1;
     }
 
-    public void ReInit(Reader reader)
-    {
+    public void ReInit(Reader reader) {
         ReInit(new LexerInputStream(reader));
     }
 
-    public int getLastTokenTypeOnLine(Segment text, int initialTokenType)
-    {
+    public int getLastTokenTypeOnLine(Segment text, int initialTokenType) {
         getTokens(text, initialTokenType, 0);
 
         return ((Token) tokens.get(tokens.size() - 1)).kind;
     }
 
-    public List getTokens(Segment text, int initialTokenType, int startOffset)
-    {
+    public List getTokens(Segment text, int initialTokenType, int startOffset) {
         tokens.clear();
 
         int state = DEFAULT;
 
-        switch (initialTokenType)
-        {
+        switch (initialTokenType) {
         case START_MULTILINE_COMMENT:
             state = IN_MULTILINE_COMMENT;
 
@@ -102,8 +93,7 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
             break;
         }
 
-        try
-        {
+        try {
             Reader reader = new CharArrayReader(text.array, text.offset,
                     text.count);
             ReInit(new LexerInputStream(reader));
@@ -111,13 +101,10 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
 
             Token currentToken = null;
 
-            while ((currentToken = getNextToken()).kind != XQueryParserConstants.EOF)
-            {
+            while ((currentToken = getNextToken()).kind != XQueryParserConstants.EOF) {
                 tokens.add(currentToken);
             }
-        }
-        catch (TokenMgrError err)
-        {
+        } catch (TokenMgrError err) {
             String mText = text.toString();
 
             int pos = this.token_source.input_stream.getColumn();
@@ -129,31 +116,26 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
             tokens.add(new Token(mText, initialTokenType));
         }
 
-        if (tokens.size() == 0)
-        {
+        if (tokens.size() == 0) {
             tokens.add(new Token("", initialTokenType));
         }
 
         return tokens;
     }
 
-    private static void jj_la1_0()
-    {
+    private static void jj_la1_0() {
         jj_la1_0 = new int[] {  };
     }
 
-    private static void jj_la1_1()
-    {
+    private static void jj_la1_1() {
         jj_la1_1 = new int[] {  };
     }
 
-    private static void jj_la1_2()
-    {
+    private static void jj_la1_2() {
         jj_la1_2 = new int[] {  };
     }
 
-    public void ReInit(CharStream stream)
-    {
+    public void ReInit(CharStream stream) {
         token_source.ReInit(stream);
         token = new Token();
         jj_ntk = -1;
@@ -163,8 +145,7 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
             jj_la1[i] = -1;
     }
 
-    public void ReInit(XQueryParserTokenManager tm)
-    {
+    public void ReInit(XQueryParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_ntk = -1;
@@ -174,23 +155,18 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
             jj_la1[i] = -1;
     }
 
-    final private Token jj_consume_token(int kind) throws ParseException
-    {
+    final private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
 
-        if ((oldToken = token).next != null)
-        {
+        if ((oldToken = token).next != null) {
             token = token.next;
-        }
-        else
-        {
+        } else {
             token = token.next = token_source.getNextToken();
         }
 
         jj_ntk = -1;
 
-        if (token.kind == kind)
-        {
+        if (token.kind == kind) {
             jj_gen++;
 
             return token;
@@ -201,14 +177,10 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
         throw generateParseException();
     }
 
-    final public Token getNextToken()
-    {
-        if (token.next != null)
-        {
+    final public Token getNextToken() {
+        if (token.next != null) {
             token = token.next;
-        }
-        else
-        {
+        } else {
             token = token.next = token_source.getNextToken();
         }
 
@@ -218,18 +190,13 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
         return token;
     }
 
-    final public Token getToken(int index)
-    {
+    final public Token getToken(int index) {
         Token t = token;
 
-        for (int i = 0; i < index; i++)
-        {
-            if (t.next != null)
-            {
+        for (int i = 0; i < index; i++) {
+            if (t.next != null) {
                 t = t.next;
-            }
-            else
-            {
+            } else {
                 t = t.next = token_source.getNextToken();
             }
         }
@@ -237,63 +204,48 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
         return t;
     }
 
-    final private int jj_ntk()
-    {
-        if ((jj_nt = token.next) == null)
-        {
+    final private int jj_ntk() {
+        if ((jj_nt = token.next) == null) {
             return (jj_ntk = (token.next = token_source.getNextToken()).kind);
-        }
-        else
-        {
+        } else {
             return (jj_ntk = jj_nt.kind);
         }
     }
 
-    public ParseException generateParseException()
-    {
+    public ParseException generateParseException() {
         jj_expentries.removeAllElements();
 
         boolean[] la1tokens = new boolean[90];
 
-        for (int i = 0; i < 90; i++)
-        {
+        for (int i = 0; i < 90; i++) {
             la1tokens[i] = false;
         }
 
-        if (jj_kind >= 0)
-        {
+        if (jj_kind >= 0) {
             la1tokens[jj_kind] = true;
             jj_kind = -1;
         }
 
-        for (int i = 0; i < 0; i++)
-        {
-            if (jj_la1[i] == jj_gen)
-            {
-                for (int j = 0; j < 32; j++)
-                {
-                    if ((jj_la1_0[i] & (1 << j)) != 0)
-                    {
+        for (int i = 0; i < 0; i++) {
+            if (jj_la1[i] == jj_gen) {
+                for (int j = 0; j < 32; j++) {
+                    if ((jj_la1_0[i] & (1 << j)) != 0) {
                         la1tokens[j] = true;
                     }
 
-                    if ((jj_la1_1[i] & (1 << j)) != 0)
-                    {
+                    if ((jj_la1_1[i] & (1 << j)) != 0) {
                         la1tokens[32 + j] = true;
                     }
 
-                    if ((jj_la1_2[i] & (1 << j)) != 0)
-                    {
+                    if ((jj_la1_2[i] & (1 << j)) != 0) {
                         la1tokens[64 + j] = true;
                     }
                 }
             }
         }
 
-        for (int i = 0; i < 90; i++)
-        {
-            if (la1tokens[i])
-            {
+        for (int i = 0; i < 90; i++) {
+            if (la1tokens[i]) {
                 jj_expentry = new int[1];
                 jj_expentry[0] = i;
                 jj_expentries.addElement(jj_expentry);
@@ -302,58 +254,48 @@ public class XQueryParser implements LexerPluginIF, XQueryParserConstants
 
         int[][] exptokseq = new int[jj_expentries.size()][];
 
-        for (int i = 0; i < jj_expentries.size(); i++)
-        {
+        for (int i = 0; i < jj_expentries.size(); i++) {
             exptokseq[i] = (int[]) jj_expentries.elementAt(i);
         }
 
         return new ParseException(token, exptokseq, tokenImage);
     }
 
-    final public void enable_tracing()
-    {
+    final public void enable_tracing() {
     }
 
-    final public void disable_tracing()
-    {
+    final public void disable_tracing() {
     }
 
-    public String getMimeType()
-    {
+    public String getMimeType() {
         return "text/xquery";
     }
 
-    public String getName()
-    {
+    public String getName() {
         return "XQuery Lexer";
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return "Syntax support for XQuery files";
     }
 
-    public String getLexerClassName()
-    {
+    public String getLexerClassName() {
         return getClass().getName();
     }
 
-    public boolean hasCodeCompletion()
-    {
+    public boolean hasCodeCompletion() {
         return false;
     }
 
-    public String getCodeCompletionClassName()
-    {
+    public String getCodeCompletionClassName() {
         return null;
     }
 
-    public IColorProvider getColorer()
-    {
+    public IColorProvider getColorer() {
         return colorer;
     }
 
     public String[] getSupportedExtensions() {
-        return new String[] {"xquery"};
+        return new String[] { "xquery" };
     }
 }

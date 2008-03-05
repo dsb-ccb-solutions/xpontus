@@ -1,6 +1,6 @@
 /*
  * DTDLexerPlugin.java
- * 
+ *
  * Created on 2007-08-07, 10:59:03
  *
  * Copyright (C) 2005-2008 Yves Zoundi
@@ -19,24 +19,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.plugins.lexer.dtd;
 
 import org.java.plugin.Plugin;
+
 
 /**
  *
  * @author Yves Zoundi
  */
-public class DTDLexerPlugin extends Plugin{
-
+public class DTDLexerPlugin extends Plugin {
     public DTDLexerPlugin() {
     }
 
-    protected void doStart() throws Exception { 
+    protected void doStart() throws Exception {
     }
 
-    protected void doStop() throws Exception { 
+    protected void doStop() throws Exception {
     }
-
 }

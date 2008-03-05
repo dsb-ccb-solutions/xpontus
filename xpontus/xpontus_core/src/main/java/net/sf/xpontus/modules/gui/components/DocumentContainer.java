@@ -33,6 +33,7 @@ import com.vlsolutions.swing.docking.DockKey;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
+import net.sf.xpontus.constants.XPontusUIManagerConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.controllers.impl.PopupHandler;
 import net.sf.xpontus.controllers.impl.XPontusUndoManager;
@@ -76,7 +77,6 @@ import javax.swing.UIManager;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.constants.XPontusUIManagerConstantsIF;
 
 
 /**
@@ -96,11 +96,6 @@ public class DocumentContainer implements IDocumentContainer {
     private final String image = "/net/sf/xpontus/icons/file.gif";
     private JComponent bottomPanel;
 
-    public JComponent getDocumentPanel() {
-        return documentPanel;
-    }
-
-    
     /**
      * Creates a new instance of EditorContainer
      */
@@ -110,21 +105,20 @@ public class DocumentContainer implements IDocumentContainer {
         editor = new JEditorPane();
 
         editor.setRequestFocusEnabled(true);
-        
-        
+
         editor.setFocusable(true);
         status = new JStatusBar();
         editor.setCaretPosition(0);
- 
 
         scrollPane = new JScrollPane(editor);
+
         Object lineProp = UIManager.get(XPontusUIManagerConstantsIF.XPONTUS_EDITOR_LINE_NUMBERS_VISIBLE_PROPERTY);
-        if(lineProp!=null){
-            if(lineProp.equals(Boolean.TRUE)){
+
+        if (lineProp != null) {
+            if (lineProp.equals(Boolean.TRUE)) {
                 scrollPane.setRowHeaderView(new LineView(editor));
             }
-        }
-        else{
+        } else {
             scrollPane.setRowHeaderView(new LineView(editor));
         }
 
@@ -152,6 +146,10 @@ public class DocumentContainer implements IDocumentContainer {
                 });
 
         documentPanel.add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    public JComponent getDocumentPanel() {
+        return documentPanel;
     }
 
     /**

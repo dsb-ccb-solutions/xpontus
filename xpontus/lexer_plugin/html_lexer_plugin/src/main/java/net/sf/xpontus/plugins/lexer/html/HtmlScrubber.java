@@ -26,8 +26,7 @@ import java.util.Iterator;
  * @author Brian Goetz, Quiotix
  * Additional contributions by: Thorsten Weber
  */
-public class HtmlScrubber extends HtmlVisitor
-{
+public class HtmlScrubber extends HtmlVisitor {
     public static final int TAGS_UPCASE = 1;
     public static final int TAGS_DOWNCASE = 2;
     public static final int ATTR_UPCASE = 4;
@@ -43,40 +42,32 @@ public class HtmlScrubber extends HtmlVisitor
     /** Create an HtmlScrubber with the default options (downcase tags and
      * tag attributes, strip out unnecessary quotes.)
      */
-    public HtmlScrubber()
-    {
+    public HtmlScrubber() {
         this(DEFAULT_OPTIONS);
     }
 
     /** Create an HtmlScrubber with the desired set of options.
      * @param flags A bitmask representing the desired scrubbing options
      */
-    public HtmlScrubber(int flags)
-    {
+    public HtmlScrubber(int flags) {
         this.flags = flags;
     }
 
-    private static boolean safeToUnquote(String qs)
-    {
+    private static boolean safeToUnquote(String qs) {
         int upperCount = 0;
         int lowerCount = 0;
         int idCount = 0;
 
-        for (int i = 1; i < (qs.length() - 1); i++)
-        {
+        for (int i = 1; i < (qs.length() - 1); i++) {
             char c = qs.charAt(i);
 
-            if (Character.isUnicodeIdentifierPart(c))
-            {
+            if (Character.isUnicodeIdentifierPart(c)) {
                 ++idCount;
             }
 
-            if (Character.isUpperCase(c))
-            {
+            if (Character.isUpperCase(c)) {
                 ++upperCount;
-            }
-            else if (Character.isLowerCase(c))
-            {
+            } else if (Character.isLowerCase(c)) {
                 ++lowerCount;
             }
         }
@@ -88,37 +79,28 @@ public class HtmlScrubber extends HtmlVisitor
         ((upperCount == 0) || (lowerCount == 0))));
     }
 
-    public void start()
-    {
+    public void start() {
         previousElement = null;
         inPreBlock = false;
     }
 
     /**
-     * 
-     * @param t 
+     *
+     * @param t
      */
-    public void visit(HtmlDocument.Tag t)
-    {
-        if ((flags & TAGS_UPCASE) != 0)
-        {
+    public void visit(HtmlDocument.Tag t) {
+        if ((flags & TAGS_UPCASE) != 0) {
             t.tagName = t.tagName.toUpperCase();
-        }
-        else if ((flags & TAGS_DOWNCASE) != 0)
-        {
+        } else if ((flags & TAGS_DOWNCASE) != 0) {
             t.tagName = t.tagName.toLowerCase();
         }
 
-        for (Iterator it = t.attributeList.attributes.iterator(); it.hasNext();)
-        {
+        for (Iterator it = t.attributeList.attributes.iterator(); it.hasNext();) {
             HtmlDocument.Attribute a = (HtmlDocument.Attribute) it.next();
 
-            if ((flags & ATTR_UPCASE) != 0)
-            {
+            if ((flags & ATTR_UPCASE) != 0) {
                 a.name = a.name.toUpperCase();
-            }
-            else if ((flags & ATTR_DOWNCASE) != 0)
-            {
+            } else if ((flags & ATTR_DOWNCASE) != 0) {
                 a.name = a.name.toLowerCase();
             }
 
@@ -127,8 +109,7 @@ public class HtmlScrubber extends HtmlVisitor
                     (a.value.charAt(a.value.length() - 1) == '\'')) ||
                     ((a.value.charAt(0) == '\"') &&
                     (a.value.charAt(a.value.length() - 1) == '\"'))) &&
-                    safeToUnquote(a.value))
-            {
+                    safeToUnquote(a.value)) {
                 a.value = a.value.substring(1, a.value.length() - 1);
             }
 
@@ -141,17 +122,13 @@ public class HtmlScrubber extends HtmlVisitor
     }
 
     /**
-     * 
-     * @param t 
+     *
+     * @param t
      */
-    public void visit(HtmlDocument.EndTag t)
-    {
-        if ((flags & TAGS_UPCASE) != 0)
-        {
+    public void visit(HtmlDocument.EndTag t) {
+        if ((flags & TAGS_UPCASE) != 0) {
             t.tagName = t.tagName.toUpperCase();
-        }
-        else if ((flags & TAGS_DOWNCASE) != 0)
-        {
+        } else if ((flags & TAGS_DOWNCASE) != 0) {
             t.tagName = t.tagName.toLowerCase();
         }
 
@@ -159,27 +136,23 @@ public class HtmlScrubber extends HtmlVisitor
     }
 
     /**
-     * 
-     * @param t 
+     *
+     * @param t
      */
-    public void visit(HtmlDocument.Text t)
-    {
+    public void visit(HtmlDocument.Text t) {
         if (((flags & TRIM_SPACES) != 0) && !inPreBlock &&
                 (previousElement instanceof HtmlDocument.Newline ||
                 previousElement instanceof HtmlDocument.Tag ||
                 previousElement instanceof HtmlDocument.EndTag ||
-                previousElement instanceof HtmlDocument.Comment))
-        {
+                previousElement instanceof HtmlDocument.Comment)) {
             int i;
 
             for (i = 0; i < t.text.length(); i++)
-                if ((t.text.charAt(i) != ' ') && (t.text.charAt(i) != '\t'))
-                {
+                if ((t.text.charAt(i) != ' ') && (t.text.charAt(i) != '\t')) {
                     break;
                 }
 
-            if (i > 0)
-            {
+            if (i > 0) {
                 t.text = t.text.substring(i);
             }
         }
@@ -189,48 +162,41 @@ public class HtmlScrubber extends HtmlVisitor
     }
 
     /**
-     * 
-     * @param c 
+     *
+     * @param c
      */
-    public void visit(HtmlDocument.Comment c)
-    {
+    public void visit(HtmlDocument.Comment c) {
         previousElement = c;
     }
 
     /**
-     * 
-     * @param n 
+     *
+     * @param n
      */
-    public void visit(HtmlDocument.Newline n)
-    {
+    public void visit(HtmlDocument.Newline n) {
         previousElement = n;
     }
 
     /**
-     * 
-     * @param a 
+     *
+     * @param a
      */
-    public void visit(HtmlDocument.Annotation a)
-    {
+    public void visit(HtmlDocument.Annotation a) {
         previousElement = a;
     }
 
     /**
-     * 
-     * @param bl 
+     *
+     * @param bl
      */
-    public void visit(HtmlDocument.TagBlock bl)
-    {
+    public void visit(HtmlDocument.TagBlock bl) {
         if (bl.startTag.tagName.equalsIgnoreCase("PRE") ||
                 bl.startTag.tagName.equalsIgnoreCase("SCRIPT") ||
-                bl.startTag.tagName.equalsIgnoreCase("STYLE"))
-        {
+                bl.startTag.tagName.equalsIgnoreCase("STYLE")) {
             inPreBlock = true;
             super.visit(bl);
             inPreBlock = false;
-        }
-        else
-        {
+        } else {
             super.visit(bl);
         }
     }

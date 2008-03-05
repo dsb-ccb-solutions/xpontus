@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.sf.xpontus.plugins.evaluator.xpath1;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.NamedNodeMap;
 import org.apache.xml.utils.PrefixResolver;
 
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+
 import javax.xml.namespace.NamespaceContext;
+
 
 /**
  * <meta name="usage" content="general"/>
@@ -18,19 +19,20 @@ import javax.xml.namespace.NamespaceContext;
  * for the XPath object.
  * This class delegates the resolution to the passed NamespaceContext
  */
-public class JAXPPrefixResolver implements PrefixResolver
-{
-
+public class JAXPPrefixResolver implements PrefixResolver {
+    /**
+     * The URI for the XML namespace.
+     * (Duplicate of that found in org.apache.xpath.XPathContext).
+     */
+    public static final String S_XMLNAMESPACEURI = "http://www.w3.org/XML/1998/namespace";
     private NamespaceContext namespaceContext;
-    
 
-    public JAXPPrefixResolver ( NamespaceContext nsContext ) {
+    public JAXPPrefixResolver(NamespaceContext nsContext) {
         this.namespaceContext = nsContext;
-    } 
+    }
 
-
-    public String getNamespaceForPrefix( String prefix ) {
-        return namespaceContext.getNamespaceURI( prefix );
+    public String getNamespaceForPrefix(String prefix) {
+        return namespaceContext.getNamespaceURI(prefix);
     }
 
     /**
@@ -43,21 +45,11 @@ public class JAXPPrefixResolver implements PrefixResolver
     }
 
     /**
-     * @see PrefixResolver#handlesNullPrefixes() 
+     * @see PrefixResolver#handlesNullPrefixes()
      */
     public boolean handlesNullPrefixes() {
         return false;
     }
-
-
-    /**
-     * The URI for the XML namespace.
-     * (Duplicate of that found in org.apache.xpath.XPathContext). 
-     */
-     
-    public static final String S_XMLNAMESPACEURI =
-        "http://www.w3.org/XML/1998/namespace";
-
 
     /**
      * Given a prefix and a Context Node, get the corresponding namespace.
@@ -70,7 +62,7 @@ public class JAXPPrefixResolver implements PrefixResolver
      * is not bound.
      */
     public String getNamespaceForPrefix(String prefix,
-                                      org.w3c.dom.Node namespaceContext) {
+        org.w3c.dom.Node namespaceContext) {
         Node parent = namespaceContext;
         String namespace = null;
 
@@ -79,10 +71,9 @@ public class JAXPPrefixResolver implements PrefixResolver
         } else {
             int type;
 
-            while ((null != parent) && (null == namespace)
-                && (((type = parent.getNodeType()) == Node.ELEMENT_NODE)
-                    || (type == Node.ENTITY_REFERENCE_NODE))) {
-
+            while ((null != parent) && (null == namespace) &&
+                    (((type = parent.getNodeType()) == Node.ELEMENT_NODE) ||
+                    (type == Node.ENTITY_REFERENCE_NODE))) {
                 if (type == Node.ELEMENT_NODE) {
                     NamedNodeMap nnm = parent.getAttributes();
 
@@ -93,10 +84,11 @@ public class JAXPPrefixResolver implements PrefixResolver
 
                         if (isPrefix || aname.equals("xmlns")) {
                             int index = aname.indexOf(':');
-                            String p =isPrefix ?aname.substring(index + 1) :"";
+                            String p = isPrefix ? aname.substring(index + 1) : "";
 
                             if (p.equals(prefix)) {
                                 namespace = attr.getNodeValue();
+
                                 break;
                             }
                         }
@@ -106,8 +98,7 @@ public class JAXPPrefixResolver implements PrefixResolver
                 parent = parent.getParentNode();
             }
         }
+
         return namespace;
     }
-
 }
-

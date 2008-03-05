@@ -9,10 +9,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 
-public class DTDColorProvider extends PlainColorProviderImpl
-{
-    public DTDColorProvider()
-    {
+public class DTDColorProvider extends PlainColorProviderImpl {
+    public DTDColorProvider() {
         // style for a comment
         MutableAttributeSet comment = new SimpleAttributeSet();
         StyleConstants.setBold(comment, true);
@@ -28,8 +26,7 @@ public class DTDColorProvider extends PlainColorProviderImpl
         int[] strs = { DTDParserConstants.TEXT_IN_STRING };
         addAll(strs, strStyle);
 
-        int[] _comments = 
-            {
+        int[] _comments = {
                 DTDParserConstants.COMMENT_END,
                 DTDParserConstants.TEXT_IN_COMMENT,
                 DTDParserConstants.COMMENT_START
@@ -47,8 +44,7 @@ public class DTDColorProvider extends PlainColorProviderImpl
         StyleConstants.setForeground(keyword, new Color(127, 0, 85));
         StyleConstants.setBold(keyword, true);
 
-        int[] keywords = 
-            {
+        int[] keywords = {
                 DTDParserConstants.ATTLIST, DTDParserConstants.ELEMENT,
                 DTDParserConstants.KW_IN_ELEMENT
             };

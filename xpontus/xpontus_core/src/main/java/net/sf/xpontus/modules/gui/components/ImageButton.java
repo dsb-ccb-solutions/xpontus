@@ -22,19 +22,19 @@
 package net.sf.xpontus.modules.gui.components;
 
 import java.awt.Dimension;
-
 import java.awt.Insets;
+
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
+
 
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ImageButton extends JButton {
-
     Dimension fixedSize = null;
 
     public ImageButton(Icon icon) {
@@ -43,6 +43,7 @@ public class ImageButton extends JButton {
         if (icon != null) {
             fixedSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
         }
+
         setContentAreaFilled(false);
         setBorderPainted(false);
         setFocusable(false);
@@ -55,6 +56,7 @@ public class ImageButton extends JButton {
         super(action);
 
         Icon icon = getIcon();
+
         if (icon != null) {
             fixedSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
         }

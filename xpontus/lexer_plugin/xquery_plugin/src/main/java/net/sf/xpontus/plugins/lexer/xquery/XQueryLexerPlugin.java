@@ -28,17 +28,13 @@ import org.java.plugin.Plugin;
  *
  * @author Yves Zoundi
  */
-public class XQueryLexerPlugin extends Plugin
-{
-    public XQueryLexerPlugin()
-    {
+public class XQueryLexerPlugin extends Plugin {
+    public XQueryLexerPlugin() {
     }
 
-    protected void doStart() throws Exception
-    {
+    protected void doStart() throws Exception {
     }
 
-    protected void doStop() throws Exception
-    {
+    protected void doStop() throws Exception {
     }
 }

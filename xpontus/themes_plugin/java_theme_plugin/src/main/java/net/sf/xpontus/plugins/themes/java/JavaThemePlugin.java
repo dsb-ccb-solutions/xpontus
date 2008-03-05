@@ -1,6 +1,6 @@
 /*
  * JavaThemePlugin.java
- * 
+ *
  * Created on 17-Jul-2007, 7:08:51 PM
  *
  * Copyright (C) 2005-2007 Yves Zoundi
@@ -19,17 +19,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.plugins.themes.java;
 
 import org.java.plugin.Plugin;
+
 
 /**
  * Java default look and feel theme implementation
  * @author Yves Zoundi
  */
-public class JavaThemePlugin extends Plugin{
-
+public class JavaThemePlugin extends Plugin {
     public JavaThemePlugin() {
     }
 
@@ -38,7 +37,6 @@ public class JavaThemePlugin extends Plugin{
     }
 
     protected void doStop() throws Exception {
-       log.info("JavaThemePlugin stopped...");
+        log.info("JavaThemePlugin stopped...");
     }
-
 }

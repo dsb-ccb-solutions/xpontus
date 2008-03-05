@@ -20,22 +20,24 @@
  */
 package net.sf.xpontus.plugins.codecompletion.html;
 
-import java.util.List;
-import javax.swing.text.Document;
 import net.sf.xpontus.plugins.completion.CodeCompletionIF;
+
+import java.util.List;
+
+import javax.swing.text.Document;
+
 
 /**
  * Code completion implementation for HTML files
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF{
-
+public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
     public String getMimeType() {
         return "text/html";
     }
 
-    public String getFileMode() { 
+    public String getFileMode() {
         return null;
     }
 
@@ -47,11 +49,10 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF{
         return null;
     }
 
-    public boolean isTrigger(String str) {  
-            return false;
+    public boolean isTrigger(String str) {
+        return false;
     }
 
-    public void init(Document doc) { 
+    public void init(Document doc) {
     }
-
 }

@@ -20,8 +20,11 @@
  *
  */
 package net.sf.xpontus.plugins.browser;
- 
-import org.apache.velocity.app.Velocity; 
+
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
+
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
 
 import java.io.InputStream;
@@ -29,11 +32,8 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
 
-
 import java.util.Iterator;
 import java.util.Map;
-import net.sf.xpontus.plugins.SimplePluginDescriptor;
-import org.apache.velocity.VelocityContext;
 
 
 /**
@@ -60,12 +60,10 @@ public class PluginsTemplateRenderer {
 
             if (!pluginInformation.containsKey("vendor")) {
                 context.put("vendor", "Yves Zoundi");
-            }
-            else{
-                if(pluginInformation.get("vendor") == null){
+            } else {
+                if (pluginInformation.get("vendor") == null) {
                     context.put("vendor", "Yves Zoundi");
-                }
-                else if(pluginInformation.get("vendor").trim().equals("")){
+                } else if (pluginInformation.get("vendor").trim().equals("")) {
                     context.put("vendor", "Yves Zoundi");
                 }
             }

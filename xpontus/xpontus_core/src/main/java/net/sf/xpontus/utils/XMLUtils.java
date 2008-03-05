@@ -137,7 +137,7 @@ public class XMLUtils {
         try {
             SAXParserFactory spf = SAXParserFactory.newInstance();
             SAXParser saxParser = spf.newSAXParser();
-            
+
             saxParser.parse(is, new DefaultHandler());
         } catch (Exception e) {
             valid = false;

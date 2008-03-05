@@ -53,7 +53,7 @@ public class PluginsSettingsPanel extends JComponent {
 
         updateMirrorsListModel = new DefaultComboBoxModel(UPDATE_OPTIONS);
         updateOptionsList = new JComboBox(updateMirrorsListModel);
-        mirrorsScrollPane = new JScrollPane(mirrorsList);       
+        mirrorsScrollPane = new JScrollPane(mirrorsList);
         mirrorsList.setSelectedIndex(0);
 
         leftPanel = new JPanel(new BorderLayout());
@@ -89,7 +89,7 @@ public class PluginsSettingsPanel extends JComponent {
 
         splitPane.setContinuousLayout(true);
         splitPane.setDividerLocation(0.25F);
-        
+
         splitPane.setResizeWeight(0.25F);
 
         add(splitPane, BorderLayout.CENTER);

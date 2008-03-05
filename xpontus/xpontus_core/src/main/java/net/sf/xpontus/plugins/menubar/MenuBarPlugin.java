@@ -109,11 +109,10 @@ public class MenuBarPlugin extends XPontusPlugin {
             List<Action> actions = map.get(m_MenuKey);
 
             for (int j = 0; j < actions.size(); j++) {
-               menu.add(actions.get(j)); 
+                menu.add(actions.get(j));
             }
         }
     }
- 
 
     public void init() throws Exception {
         JMenu menu = null;

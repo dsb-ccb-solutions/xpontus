@@ -29,6 +29,7 @@ import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
@@ -41,7 +42,6 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**
@@ -103,7 +103,6 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
         }
 
         jtc.putClientProperty(XPontusFileConstantsIF.FILE_LOCKED, Boolean.TRUE);
- 
 
         if (ht.containsKey(contentType)) {
             dc.getStatusBar().setMessage("Formatting document...");
@@ -122,7 +121,8 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
                     table.put(contentType, indenter);
                 } else {
                     indenter = (IndentationPluginIF) table.get(contentType);
-                } 
+                }
+
                 indenter.run();
                 jtc.putClientProperty(XPontusFileConstantsIF.FILE_LOCKED, null);
 

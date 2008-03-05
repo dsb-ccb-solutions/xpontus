@@ -23,6 +23,7 @@ package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.io.IOUtils;
@@ -37,7 +38,6 @@ import java.io.Writer;
 
 import javax.swing.JFileChooser;
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**

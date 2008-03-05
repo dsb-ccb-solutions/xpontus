@@ -24,12 +24,15 @@ package net.sf.xpontus.actions.impl;
 
 import com.ibm.icu.text.CharsetDetector;
 
+import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.NullEntityResolver;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -46,9 +49,6 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.constants.XPontusConstantsIF;
-import net.sf.xpontus.modules.gui.components.IDocumentContainer;
-import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 
 /**
@@ -97,16 +97,18 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
         JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
                                                      .getDocumentTabContainer()
                                                      .getCurrentEditor();
-        
-        
-        Object contentType = jtc.getClientProperty(XPontusConstantsIF.CONTENT_TYPE) ;
-        
-        if(contentType == null){
+
+        Object contentType = jtc.getClientProperty(XPontusConstantsIF.CONTENT_TYPE);
+
+        if (contentType == null) {
             return;
         }
-        
-        if(!contentType.equals("text/xml")){
-            XPontusComponentsUtils.showInformationMessage("The document is not an XML document \nor is not registered as one");;
+
+        if (!contentType.equals("text/xml")) {
+            XPontusComponentsUtils.showInformationMessage(
+                "The document is not an XML document \nor is not registered as one");
+            ;
+
             return;
         }
 
@@ -116,8 +118,8 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
         OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
 
         IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
-                                                                                  .getDocumentTabContainer()
-                                                                                  .getCurrentDockable();
+                                                                                    .getDocumentTabContainer()
+                                                                                    .getCurrentDockable();
 
         try {
             // read the document

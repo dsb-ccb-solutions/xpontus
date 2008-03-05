@@ -96,6 +96,7 @@ public class HTMLLexerPlugin extends Plugin {
                     Object m_key = it.next();
                     String m_value = (String) props.get(m_key);
                     System.out.println("Reading:" + m_key + ", to " + m_value);
+
                     Color c = ColorUtils.stringToColor(m_value);
                     XPontusConfig.put(m_key, c);
                 }

@@ -6,12 +6,12 @@ package net.sf.xpontus.parsers;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+
 /**
  *
  * @author mrcheeks
  */
 public class TokenNode extends DefaultMutableTreeNode {
-
     public int line;
     public int column;
 

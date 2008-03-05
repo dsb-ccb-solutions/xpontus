@@ -36,41 +36,41 @@ import javax.swing.text.JTextComponent;
  */
 public interface IDocumentContainer extends Dockable {
     /**
-     * 
+     *
      * @return
      */
     public JTextComponent getEditorComponent();
 
     /**
-     * 
+     *
      * @return
      */
     public JStatusBar getStatusBar();
 
     /**
-     * 
+     *
      */
     public void completeSetup();
 
     /**
-     * 
+     *
      * @param url
      */
     public void setup(java.net.URL url);
-    
+
     /**
-     * 
+     *
      * @param url
      */
     public void setup(java.io.File url);
 
     /**
-     * 
+     *
      */
     public void setup();
 
     /**
-     * 
+     *
      * @param fo
      */
     public void setup(FileObject fo);

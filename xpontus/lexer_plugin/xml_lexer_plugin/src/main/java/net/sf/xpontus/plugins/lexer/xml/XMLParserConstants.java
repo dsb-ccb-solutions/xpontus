@@ -6,7 +6,7 @@
  *
  * You can obtain a copy of the License at http://www.netbeans.org/cddl.html
  * or http://www.netbeans.org/cddl.txt.
- * 
+ *
  * When distributing Covered Code, include this CDDL Header Notice in each file
  * and include the License file at http://www.netbeans.org/cddl.txt.
  * If applicable, add the following below the CDDL Header, with the fields
@@ -17,253 +17,164 @@
  * Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
  * Microsystems, Inc. All Rights Reserved.
  */
-
 package net.sf.xpontus.plugins.lexer.xml;
 
 public interface XMLParserConstants {
-
-  int EOF = 0;
-  int TEXT = 1;
-  int CONTENT = 2;
-  int WS = 3;
-  int S = 4;
-  int NAME = 5;
-  int RSB = 6;
-  int TAG_START = 7;
-  int DECL_START = 8;
-  int PI_START = 9;
-  int CDATA_START = 10;
-  int COND_END_IN_DEFAULT = 11;
-  int DTD_END_IN_DEFAULT = 12;
-  int TEXT_IN_DEFAULT = 13;
-  int ERR_IN_DEFAULT = 14;
-  int TAG_NAME = 15;
-  int ERR_IN_TAG = 16;
-  int ATT_NAME = 17;
-  int ERR_IN_TAG_ATTLIST = 18;
-  int WS_IN_TAG_ATTLIST = 19;
-  int EQ_IN_TAG_ATTLIST = 20;
-  int TAG_END = 21;
-  int XML_TARGET = 22;
-  int PI_CONTENT_START = 23;
-  int PI_END = 24;
-  int ERR_IN_PI = 25;
-  int PI_TARGET = 26;
-  int PI_CONTENT_END = 27;
-  int TEXT_IN_PI_CONTENT = 28;
-  int ERR_IN_PI_CONTENT = 29;
-  int KW_IN_XML_DECL = 30;
-  int TEXT_IN_XML_DECL = 31;
-  int BR_IN_XML_DECL = 32;
-  int XML_DECL_END = 33;
-  int Q_IN_XML_DECL = 34;
-  int CDATA_END = 35;
-  int TEXT_IN_CDATA = 36;
-  int MARKUP_IN_CDATA = 37;
-  int CDATA_CONTENT = 38;
-  int ENTITY = 39;
-  int ATTLIST = 40;
-  int DOCTYPE = 41;
-  int ELEMENT = 42;
-  int NOTATION = 43;
-  int TEXT_IN_DECL = 44;
-  int WS_IN_DECL = 45;
-  int ERR_IN_DECL = 46;
-  int COND = 47;
-  int DECL_END = 48;
-  int KW_IN_ENTITY = 49;
-  int TEXT_IN_ENTITY = 50;
-  int ENTITY_END = 51;
-  int EMPTY = 52;
-  int PCDATA = 53;
-  int ANY = 54;
-  int TEXT_IN_ELEMENT = 55;
-  int ELEMENT_END = 56;
-  int SYSTEM_IN_NOTATION = 57;
-  int TEXT_IN_NOTATION = 58;
-  int ERR_IN_NOTATION = 59;
-  int NOTATION_END = 60;
-  int INCLUDE = 61;
-  int IGNORE = 62;
-  int TEXT_IN_COND = 63;
-  int ERR_IN_COND = 64;
-  int COND_END = 65;
-  int ERR_IN_ATTLIST = 66;
-  int REQUIRED = 67;
-  int IMPLIED = 68;
-  int FIXED = 69;
-  int ID_IN_ATTLIST = 70;
-  int CDATA = 71;
-  int IDREF = 72;
-  int IDREFS = 73;
-  int ENTITY_IN_ATTLIST = 74;
-  int ENTITIES = 75;
-  int NMTOKEN = 76;
-  int NMTOKENS = 77;
-  int NOTATION_IN_ATTLIST = 78;
-  int TEXT_IN_ATTLIST = 79;
-  int ATTLIST_END = 80;
-  int PUBLIC = 81;
-  int SYSTEM = 82;
-  int TEXT_IN_DOCTYPE = 83;
-  int ERR_IN_DOCTYPE = 84;
-  int DOCTYPE_END = 85;
-  int PREF_START = 86;
-  int TEXT_IN_PREF = 87;
-  int PREF_END = 88;
-  int GREF_START = 89;
-  int TEXT_IN_GREF = 90;
-  int ERR_IN_GREF = 91;
-  int GREF_END = 92;
-  int CHARS_START = 93;
-  int TEXT_IN_CHARS = 94;
-  int CHARS_END = 95;
-  int GREF_CHARS_START = 96;
-  int TEXT_IN_GREF_CHARS = 97;
-  int GREF_CHARS_END = 98;
-  int STRING_START = 99;
-  int TEXT_IN_STRING = 100;
-  int STRING_END = 101;
-  int GREF_STRING_START = 102;
-  int TEXT_IN_GREF_STRING = 103;
-  int GREF_STRING_END = 104;
-  int COMMENT_START = 105;
-  int TEXT_IN_COMMENT = 106;
-  int ERR_IN_COMMENT = 107;
-  int COMMENT_END = 108;
-
-  int IN_COMMENT = 0;
-  int IN_STRING = 1;
-  int IN_CHARS = 2;
-  int IN_GREF = 3;
-  int IN_GREF_STRING = 4;
-  int IN_GREF_CHARS = 5;
-  int IN_PREF = 6;
-  int IN_DOCTYPE = 7;
-  int IN_ATTLIST_DECL = 8;
-  int IN_COND = 9;
-  int IN_NOTATION = 10;
-  int IN_ELEMENT = 11;
-  int IN_ENTITY_DECL = 12;
-  int IN_DECL = 13;
-  int IN_CDATA = 14;
-  int IN_XML_DECL = 15;
-  int IN_PI_CONTENT = 16;
-  int IN_PI = 17;
-  int IN_TAG_ATTLIST = 18;
-  int IN_TAG = 19;
-  int DEFAULT = 20;
-
-  String[] tokenImage = {
-    "<EOF>",
-    "<TEXT>",
-    "<CONTENT>",
-    "<WS>",
-    "<S>",
-    "<NAME>",
-    "\"]\"",
-    "\"<\"",
-    "\"<!\"",
-    "\"<?\"",
-    "\"<![CDATA[\"",
-    "\"]]>\"",
-    "\"]>\"",
-    "<TEXT_IN_DEFAULT>",
-    "\"<<\"",
-    "<TAG_NAME>",
-    "<ERR_IN_TAG>",
-    "<ATT_NAME>",
-    "<ERR_IN_TAG_ATTLIST>",
-    "<WS_IN_TAG_ATTLIST>",
-    "\"=\"",
-    "<TAG_END>",
-    "\"xml\"",
-    "<PI_CONTENT_START>",
-    "\"?>\"",
-    "<ERR_IN_PI>",
-    "<PI_TARGET>",
-    "\"?>\"",
-    "<TEXT_IN_PI_CONTENT>",
-    "<ERR_IN_PI_CONTENT>",
-    "<KW_IN_XML_DECL>",
-    "<TEXT_IN_XML_DECL>",
-    "<BR_IN_XML_DECL>",
-    "\"?>\"",
-    "\"?\"",
-    "\"]]>\"",
-    "<TEXT_IN_CDATA>",
-    "<MARKUP_IN_CDATA>",
-    "<CDATA_CONTENT>",
-    "\"ENTITY\"",
-    "\"ATTLIST\"",
-    "\"DOCTYPE\"",
-    "\"ELEMENT\"",
-    "\"NOTATION\"",
-    "<TEXT_IN_DECL>",
-    "<WS_IN_DECL>",
-    "<ERR_IN_DECL>",
-    "\"[\"",
-    "\">\"",
-    "<KW_IN_ENTITY>",
-    "<TEXT_IN_ENTITY>",
-    "\">\"",
-    "\"EMPTY\"",
-    "\"#PCDATA\"",
-    "\"ANY\"",
-    "<TEXT_IN_ELEMENT>",
-    "\">\"",
-    "<SYSTEM_IN_NOTATION>",
-    "<TEXT_IN_NOTATION>",
-    "\"<\"",
-    "\">\"",
-    "\"INCLUDE\"",
-    "\"IGNORE\"",
-    "<TEXT_IN_COND>",
-    "<ERR_IN_COND>",
-    "\"[\"",
-    "<ERR_IN_ATTLIST>",
-    "\"#REQUIRED\"",
-    "\"#IMPLIED\"",
-    "\"#FIXED\"",
-    "\"ID\"",
-    "\"CDATA\"",
-    "\"IDREF\"",
-    "\"IDREFS\"",
-    "\"ENTITY\"",
-    "\"ENTITIES\"",
-    "\"NMTOKEN\"",
-    "\"NMTOKENS\"",
-    "\"NOTATION\"",
-    "<TEXT_IN_ATTLIST>",
-    "\">\"",
-    "\"PUBLIC\"",
-    "\"SYSTEM\"",
-    "<TEXT_IN_DOCTYPE>",
-    "<ERR_IN_DOCTYPE>",
-    "<DOCTYPE_END>",
-    "\"%\"",
-    "<TEXT_IN_PREF>",
-    "<PREF_END>",
-    "\"&\"",
-    "<TEXT_IN_GREF>",
-    "<ERR_IN_GREF>",
-    "<GREF_END>",
-    "\"\\\'\"",
-    "<TEXT_IN_CHARS>",
-    "\"\\\'\"",
-    "\"\\\'\"",
-    "<TEXT_IN_GREF_CHARS>",
-    "\"\\\'\"",
-    "\"\\\"\"",
-    "<TEXT_IN_STRING>",
-    "\"\\\"\"",
-    "\"\\\"\"",
-    "<TEXT_IN_GREF_STRING>",
-    "\"\\\"\"",
-    "\"<!--\"",
-    "<TEXT_IN_COMMENT>",
-    "<ERR_IN_COMMENT>",
-    "\"-->\"",
-  };
-
+    int EOF = 0;
+    int TEXT = 1;
+    int CONTENT = 2;
+    int WS = 3;
+    int S = 4;
+    int NAME = 5;
+    int RSB = 6;
+    int TAG_START = 7;
+    int DECL_START = 8;
+    int PI_START = 9;
+    int CDATA_START = 10;
+    int COND_END_IN_DEFAULT = 11;
+    int DTD_END_IN_DEFAULT = 12;
+    int TEXT_IN_DEFAULT = 13;
+    int ERR_IN_DEFAULT = 14;
+    int TAG_NAME = 15;
+    int ERR_IN_TAG = 16;
+    int ATT_NAME = 17;
+    int ERR_IN_TAG_ATTLIST = 18;
+    int WS_IN_TAG_ATTLIST = 19;
+    int EQ_IN_TAG_ATTLIST = 20;
+    int TAG_END = 21;
+    int XML_TARGET = 22;
+    int PI_CONTENT_START = 23;
+    int PI_END = 24;
+    int ERR_IN_PI = 25;
+    int PI_TARGET = 26;
+    int PI_CONTENT_END = 27;
+    int TEXT_IN_PI_CONTENT = 28;
+    int ERR_IN_PI_CONTENT = 29;
+    int KW_IN_XML_DECL = 30;
+    int TEXT_IN_XML_DECL = 31;
+    int BR_IN_XML_DECL = 32;
+    int XML_DECL_END = 33;
+    int Q_IN_XML_DECL = 34;
+    int CDATA_END = 35;
+    int TEXT_IN_CDATA = 36;
+    int MARKUP_IN_CDATA = 37;
+    int CDATA_CONTENT = 38;
+    int ENTITY = 39;
+    int ATTLIST = 40;
+    int DOCTYPE = 41;
+    int ELEMENT = 42;
+    int NOTATION = 43;
+    int TEXT_IN_DECL = 44;
+    int WS_IN_DECL = 45;
+    int ERR_IN_DECL = 46;
+    int COND = 47;
+    int DECL_END = 48;
+    int KW_IN_ENTITY = 49;
+    int TEXT_IN_ENTITY = 50;
+    int ENTITY_END = 51;
+    int EMPTY = 52;
+    int PCDATA = 53;
+    int ANY = 54;
+    int TEXT_IN_ELEMENT = 55;
+    int ELEMENT_END = 56;
+    int SYSTEM_IN_NOTATION = 57;
+    int TEXT_IN_NOTATION = 58;
+    int ERR_IN_NOTATION = 59;
+    int NOTATION_END = 60;
+    int INCLUDE = 61;
+    int IGNORE = 62;
+    int TEXT_IN_COND = 63;
+    int ERR_IN_COND = 64;
+    int COND_END = 65;
+    int ERR_IN_ATTLIST = 66;
+    int REQUIRED = 67;
+    int IMPLIED = 68;
+    int FIXED = 69;
+    int ID_IN_ATTLIST = 70;
+    int CDATA = 71;
+    int IDREF = 72;
+    int IDREFS = 73;
+    int ENTITY_IN_ATTLIST = 74;
+    int ENTITIES = 75;
+    int NMTOKEN = 76;
+    int NMTOKENS = 77;
+    int NOTATION_IN_ATTLIST = 78;
+    int TEXT_IN_ATTLIST = 79;
+    int ATTLIST_END = 80;
+    int PUBLIC = 81;
+    int SYSTEM = 82;
+    int TEXT_IN_DOCTYPE = 83;
+    int ERR_IN_DOCTYPE = 84;
+    int DOCTYPE_END = 85;
+    int PREF_START = 86;
+    int TEXT_IN_PREF = 87;
+    int PREF_END = 88;
+    int GREF_START = 89;
+    int TEXT_IN_GREF = 90;
+    int ERR_IN_GREF = 91;
+    int GREF_END = 92;
+    int CHARS_START = 93;
+    int TEXT_IN_CHARS = 94;
+    int CHARS_END = 95;
+    int GREF_CHARS_START = 96;
+    int TEXT_IN_GREF_CHARS = 97;
+    int GREF_CHARS_END = 98;
+    int STRING_START = 99;
+    int TEXT_IN_STRING = 100;
+    int STRING_END = 101;
+    int GREF_STRING_START = 102;
+    int TEXT_IN_GREF_STRING = 103;
+    int GREF_STRING_END = 104;
+    int COMMENT_START = 105;
+    int TEXT_IN_COMMENT = 106;
+    int ERR_IN_COMMENT = 107;
+    int COMMENT_END = 108;
+    int IN_COMMENT = 0;
+    int IN_STRING = 1;
+    int IN_CHARS = 2;
+    int IN_GREF = 3;
+    int IN_GREF_STRING = 4;
+    int IN_GREF_CHARS = 5;
+    int IN_PREF = 6;
+    int IN_DOCTYPE = 7;
+    int IN_ATTLIST_DECL = 8;
+    int IN_COND = 9;
+    int IN_NOTATION = 10;
+    int IN_ELEMENT = 11;
+    int IN_ENTITY_DECL = 12;
+    int IN_DECL = 13;
+    int IN_CDATA = 14;
+    int IN_XML_DECL = 15;
+    int IN_PI_CONTENT = 16;
+    int IN_PI = 17;
+    int IN_TAG_ATTLIST = 18;
+    int IN_TAG = 19;
+    int DEFAULT = 20;
+    String[] tokenImage = {
+            "<EOF>", "<TEXT>", "<CONTENT>", "<WS>", "<S>", "<NAME>", "\"]\"",
+            "\"<\"", "\"<!\"", "\"<?\"", "\"<![CDATA[\"", "\"]]>\"", "\"]>\"",
+            "<TEXT_IN_DEFAULT>", "\"<<\"", "<TAG_NAME>", "<ERR_IN_TAG>",
+            "<ATT_NAME>", "<ERR_IN_TAG_ATTLIST>", "<WS_IN_TAG_ATTLIST>", "\"=\"",
+            "<TAG_END>", "\"xml\"", "<PI_CONTENT_START>", "\"?>\"",
+            "<ERR_IN_PI>", "<PI_TARGET>", "\"?>\"", "<TEXT_IN_PI_CONTENT>",
+            "<ERR_IN_PI_CONTENT>", "<KW_IN_XML_DECL>", "<TEXT_IN_XML_DECL>",
+            "<BR_IN_XML_DECL>", "\"?>\"", "\"?\"", "\"]]>\"", "<TEXT_IN_CDATA>",
+            "<MARKUP_IN_CDATA>", "<CDATA_CONTENT>", "\"ENTITY\"", "\"ATTLIST\"",
+            "\"DOCTYPE\"", "\"ELEMENT\"", "\"NOTATION\"", "<TEXT_IN_DECL>",
+            "<WS_IN_DECL>", "<ERR_IN_DECL>", "\"[\"", "\">\"", "<KW_IN_ENTITY>",
+            "<TEXT_IN_ENTITY>", "\">\"", "\"EMPTY\"", "\"#PCDATA\"", "\"ANY\"",
+            "<TEXT_IN_ELEMENT>", "\">\"", "<SYSTEM_IN_NOTATION>",
+            "<TEXT_IN_NOTATION>", "\"<\"", "\">\"", "\"INCLUDE\"", "\"IGNORE\"",
+            "<TEXT_IN_COND>", "<ERR_IN_COND>", "\"[\"", "<ERR_IN_ATTLIST>",
+            "\"#REQUIRED\"", "\"#IMPLIED\"", "\"#FIXED\"", "\"ID\"", "\"CDATA\"",
+            "\"IDREF\"", "\"IDREFS\"", "\"ENTITY\"", "\"ENTITIES\"",
+            "\"NMTOKEN\"", "\"NMTOKENS\"", "\"NOTATION\"", "<TEXT_IN_ATTLIST>",
+            "\">\"", "\"PUBLIC\"", "\"SYSTEM\"", "<TEXT_IN_DOCTYPE>",
+            "<ERR_IN_DOCTYPE>", "<DOCTYPE_END>", "\"%\"", "<TEXT_IN_PREF>",
+            "<PREF_END>", "\"&\"", "<TEXT_IN_GREF>", "<ERR_IN_GREF>",
+            "<GREF_END>", "\"\\\'\"", "<TEXT_IN_CHARS>", "\"\\\'\"", "\"\\\'\"",
+            "<TEXT_IN_GREF_CHARS>", "\"\\\'\"", "\"\\\"\"", "<TEXT_IN_STRING>",
+            "\"\\\"\"", "\"\\\"\"", "<TEXT_IN_GREF_STRING>", "\"\\\"\"",
+            "\"<!--\"", "<TEXT_IN_COMMENT>", "<ERR_IN_COMMENT>", "\"-->\"",
+        };
 }

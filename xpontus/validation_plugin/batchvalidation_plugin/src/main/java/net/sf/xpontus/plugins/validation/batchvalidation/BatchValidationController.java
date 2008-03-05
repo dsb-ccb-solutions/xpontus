@@ -223,12 +223,13 @@ public class BatchValidationController {
      * Validate the selected paths
      */
     public void validateFiles() {
-        Thread worker = new Thread(){
-            public void run(){
-                 view.enableControlButtons(false);
+        Thread worker = new Thread() {
+                public void run() {
+                    view.enableControlButtons(false);
                     doValidateFiles();
-            }
-        };
+                }
+            };
+
         worker.setPriority(Thread.MIN_PRIORITY);
         worker.start();
     }
@@ -305,12 +306,12 @@ public class BatchValidationController {
         Component mainWindow = DefaultXPontusWindowImpl.getInstance()
                                                        .getDisplayComponent();
 
-//        final ProgressMonitor pm = new ProgressMonitor(mainWindow,
-//                "Progression", "", 0, nbFiles);
-//        pm.setMillisToDecideToPopup(1000);
-        
+        //        final ProgressMonitor pm = new ProgressMonitor(mainWindow,
+        //                "Progression", "", 0, nbFiles);
+        //        pm.setMillisToDecideToPopup(1000);
         ProgressMonitorHandler pmh = new ProgressMonitorHandler(0, nbFiles);
-        DefaultXPontusWindowImpl.getInstance().getStatusBar().addOperationComponent(pmh);
+        DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                .addOperationComponent(pmh);
 
         ConsoleOutputWindow outputWindow = DefaultXPontusWindowImpl.getInstance()
                                                                    .getConsole();
@@ -379,7 +380,7 @@ public class BatchValidationController {
 
             final int pos = i;
 
-            pmh.updateProgress(pos + 1); 
+            pmh.updateProgress(pos + 1);
 
             try {
                 errorHandler.setCurrentFile(m_file);
@@ -419,8 +420,9 @@ public class BatchValidationController {
 
         view.enableControlButtons(true);
         outputWindow.setFocus(MessagesWindowDockable.DOCKABLE_ID);
-        
-        DefaultXPontusWindowImpl.getInstance().getStatusBar().removeOperationComponent(pmh);
+
+        DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                .removeOperationComponent(pmh);
     }
 
     /**

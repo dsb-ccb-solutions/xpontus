@@ -6,6 +6,7 @@ package net.sf.xpontus.plugins.quicktoolbar;
 
 import net.sf.xpontus.actions.impl.InsertCDataActionImpl;
 import net.sf.xpontus.actions.impl.XMLCommentActionImpl;
+import net.sf.xpontus.modules.gui.components.ImageButton;
 import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.properties.PropertiesHolder;
 
@@ -17,7 +18,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import net.sf.xpontus.modules.gui.components.ImageButton;
 
 
 /**
@@ -41,7 +41,7 @@ public class DefaultQuickToolbarPluginImpl implements QuickToolBarPluginIF {
 
     public Component getComponent() {
         if (panel == null) {
-            panel = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
+            panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
             IOCPlugin pc = (IOCPlugin) PropertiesHolder.getPropertyValue(IOCPlugin.PLUGIN_IDENTIFIER);
 
