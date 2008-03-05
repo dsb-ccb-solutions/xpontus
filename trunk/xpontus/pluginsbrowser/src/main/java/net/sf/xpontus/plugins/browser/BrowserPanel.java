@@ -180,6 +180,7 @@ public class BrowserPanel extends JComponent {
 
         searchButton = new JButton(searchPluginsAction);
         searchTextField = new JTextField(20);
+        searchTextField.setToolTipText("You cannot search by a plugin identifier keyword");
         searchTextField.getInputMap()
                        .put(KeyStroke.getKeyStroke("ENTER"), "enter");
         searchTextField.getActionMap().put("enter", searchPluginsAction);
