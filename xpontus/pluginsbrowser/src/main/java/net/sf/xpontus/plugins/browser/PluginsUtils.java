@@ -86,11 +86,7 @@ public class PluginsUtils {
     public Map<String, SimplePluginDescriptor> searchIndex(String str,
         String index) {
         Map<String, SimplePluginDescriptor> results = new HashMap<String, SimplePluginDescriptor>();
-
-        if (!index.equals(
-                    XPontusConfigurationConstantsIF.INSTALLED_PLUGINS_SEARCHINDEX_DIR)) {
-            return results;
-        }
+ 
 
         if (str.trim().equals("")) {
             return results;
