@@ -27,7 +27,7 @@ import java.util.Properties;
  */
 public class FOPTransformationPlugin extends Plugin {
     static File configfile = null;
-    String packageName = getClass().getPackage() + "";
+    String packageName = getClass().getPackage().getName();
     File confdir = new File(XPontusConfigurationConstantsIF.XPONTUS_PREFERENCES_DIR,
             packageName);
 

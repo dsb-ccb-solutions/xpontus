@@ -34,7 +34,7 @@ import java.util.Properties;
  */
 public class HTMLLexerPlugin extends Plugin {
     static File configfile = null;
-    String packageName = getClass().getPackage() + "";
+    String packageName = getClass().getPackage().getName();
     File confdir = new File(XPontusConfigurationConstantsIF.XPONTUS_PREFERENCES_DIR,
             packageName);
 
@@ -55,25 +55,25 @@ public class HTMLLexerPlugin extends Plugin {
                 OutputStream bos = FileUtils.openOutputStream(configfile);
 
                 props.put(HMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                    HMLLexerPreferencesConstantsIF.STRING_PROPERTY, Color.red);
+                    HMLLexerPreferencesConstantsIF.STRING_PROPERTY, ColorUtils.colorToString(Color.red));
 
                 props.put(HMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                    HMLLexerPreferencesConstantsIF.ATTRIBUTE_PROPERTY, Color.RED);
+                    HMLLexerPreferencesConstantsIF.ATTRIBUTE_PROPERTY, ColorUtils.colorToString(Color.RED));
 
                 props.put(HMLLexerPreferencesConstantsIF.class.getName() + "$" +
                     HMLLexerPreferencesConstantsIF.COMMENT_PROPERTY,
-                    new Color(0, 139, 0));
+                    ColorUtils.colorToString(new Color(0, 139, 0)));
 
                 props.put(HMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                    HMLLexerPreferencesConstantsIF.TAGS_PROPERTY, Color.BLUE);
+                    HMLLexerPreferencesConstantsIF.TAGS_PROPERTY, ColorUtils.colorToString(Color.BLUE));
 
                 props.put(HMLLexerPreferencesConstantsIF.class.getName() + "$" +
                     HMLLexerPreferencesConstantsIF.DECLARATION_PROPERTY,
-                    Color.MAGENTA);
+                    ColorUtils.colorToString(Color.MAGENTA));
 
                 props.put(HMLLexerPreferencesConstantsIF.class.getName() + "$" +
                     HMLLexerPreferencesConstantsIF.ATTRIBUTES_PROPERTY,
-                    new Color(127, 0, 85));
+                    ColorUtils.colorToString(new Color(127, 0, 85)));
 
                 PropertiesConfigurationLoader.save(configfile, props);
 
@@ -94,8 +94,7 @@ public class HTMLLexerPlugin extends Plugin {
 
                 while (it.hasNext()) {
                     Object m_key = it.next();
-                    String m_value = (String) props.get(m_key);
-                    System.out.println("Reading:" + m_key + ", to " + m_value);
+                    String m_value = (String) props.get(m_key); 
 
                     Color c = ColorUtils.stringToColor(m_value);
                     XPontusConfig.put(m_key, c);

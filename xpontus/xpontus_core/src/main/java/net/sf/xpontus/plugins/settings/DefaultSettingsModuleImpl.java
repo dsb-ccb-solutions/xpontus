@@ -125,6 +125,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
                     while (it.hasNext()) {
                         Object m_key = it.next();
                         Object m_value = m_properties.get(m_key);
+                        System.out.println("cle:" + m_key + ",value:" + m_value);
                         XPontusConfig.put(m_key, m_value);
                     }
                 }

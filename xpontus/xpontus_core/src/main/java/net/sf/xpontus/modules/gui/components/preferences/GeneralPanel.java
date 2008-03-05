@@ -86,7 +86,7 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
             }
         });
 
-        toolbarIconsLabel.setText("  Toolbar icons");
+        toolbarIconsLabel.setText("  Toolbar style");
 
         toolbarSettingsList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons", "Text only", "Icons only" }));
         toolbarSettingsList.addItemListener(new java.awt.event.ItemListener() {
@@ -95,9 +95,9 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
             }
         });
 
-        menubarIconsLabel.setText("  Menubar icons");
+        menubarIconsLabel.setText("  Menubar style");
 
-        menubarStyleList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons" }));
+        menubarStyleList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons", "Text only" }));
         menubarStyleList.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 menubarStyleListItemStateChanged(evt);
@@ -176,13 +176,13 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
 
     private void toolbarSettingsListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_toolbarSettingsListItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            props.setProperty("defaultIconSet", iconSetList.getSelectedItem().toString());
+           configModel.setToolBarStyle(toolbarSettingsList.getSelectedItem().toString());
         }
     }//GEN-LAST:event_toolbarSettingsListItemStateChanged
 
     private void menubarStyleListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_menubarStyleListItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            props.setProperty("MenuBarLookAndFeel", iconSetList.getSelectedItem().toString());
+            configModel.setMenuBarStyle(menubarStyleList.getSelectedItem().toString());
         }
     }//GEN-LAST:event_menubarStyleListItemStateChanged
 

@@ -45,6 +45,7 @@ import java.util.Map;
 
 import javax.swing.Action;
 import javax.swing.JButton;
+import net.sf.xpontus.configuration.XPontusConfig;
 
 
 /**
@@ -63,6 +64,24 @@ public class ToolBarPlugin extends XPontusPlugin {
     private int y_pos = 0;
 
     protected void doStart() throws Exception {
+        
+        String confValue = XPontusConfig.getValue("xpontus.ToolbarIcons").toString();
+        
+        if(confValue.equals("Text only")){
+            textOnly = true;
+        }
+        else if(confValue.equals("Text and icons")){
+            textAndIcons = true;
+        } else if(confValue.equals("Icons only")){
+            iconsOnly = true;
+        }
+        
+        if(iconsOnly){
+            MAX_TOOLBAR_PER_LINE = 4;
+        }
+        
+        
+        
     }
 
     protected void doStop() throws Exception {
@@ -146,6 +165,13 @@ public class ToolBarPlugin extends XPontusPlugin {
                                  .equals(RecentFilesActionImpl.class.getName())) {
                     JButton m_button = new JButton(m_action);
                     m_button.setBorder(null);
+                    
+                    if(iconsOnly){
+                        m_button.setText(null);
+                    }
+                    if(textOnly){
+                        m_button.setIcon(null);
+                    }
                     tb.add(m_button);
                 }
             }

@@ -31,9 +31,7 @@ public class HTMLColorProviderImpl extends DefaultColorProvider {
                 HMLLexerPreferencesConstantsIF.ATTRIBUTES_PROPERTY
             };
 
-        for (int i = 0; i < props.length; i++) {
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~:" +
-                XPontusConfig.getValue(props[i]));
+        for (int i = 0; i < props.length; i++) { 
             colors[i] = (Color) XPontusConfig.getValue(props[i]);
         }
 
