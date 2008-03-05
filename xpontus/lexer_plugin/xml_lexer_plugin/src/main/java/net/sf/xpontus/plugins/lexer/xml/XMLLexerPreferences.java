@@ -58,9 +58,13 @@ public class XMLLexerPreferences implements PreferencesPluginIF {
     private IPreferencesPanel panel;
     private Color[] colors = new Color[XMLLexerPreferencesConstantsIF.AVAILABLE_PROPERTIES.length];
     private JTable table;
+    final String[] props = new String[XMLLexerPreferencesConstantsIF.AVAILABLE_PROPERTIES.length];
 
     public XMLLexerPreferences() {
-       
+        for (int i = 0; i < props.length; i++) {
+            props[i] = XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.AVAILABLE_PROPERTIES[i];
+        }
     }
 
     public String getPluginCategory() {
@@ -68,28 +72,14 @@ public class XMLLexerPreferences implements PreferencesPluginIF {
     }
 
     public IPreferencesPanel getPreferencesPanelComponent() {
-        if(panel == null){
-             panel = new XMLLexerPreferencesPanel();
+        if (panel == null) {
+            panel = new XMLLexerPreferencesPanel();
         }
+
         return panel;
     }
 
     public void saveSettings() {
-        String[] props = {
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.STRING_PROPERTY,
-                
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.COMMENT_PROPERTY,
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.TAGS_PROPERTY,
-                
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.DECLARATION_PROPERTY,
-                
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.ATTRIBUTES_PROPERTY
-            };
         Properties m_props = new Properties();
         TableModel m_model = table.getModel();
 
@@ -104,22 +94,6 @@ public class XMLLexerPreferences implements PreferencesPluginIF {
     }
 
     public void loadSettings() {
-        String[] props = {
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.STRING_PROPERTY,
-                
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.ATTRIBUTES_PROPERTY,
-                
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.COMMENT_PROPERTY,
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.TAGS_PROPERTY,
-                
-                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                XMLLexerPreferencesConstantsIF.DECLARATION_PROPERTY
-            };
-
         for (int i = 0; i < props.length; i++) {
             colors[i] = (Color) XPontusConfig.getValue(props[i]);
         }
@@ -145,13 +119,13 @@ public class XMLLexerPreferences implements PreferencesPluginIF {
             JPanel p = new JPanel(new GridLayout());
 
             TABLE_COLUMNS = new String[] { "TokenID", "Color" };
-            TABLE_DATA = new Object[][] {
-                    { "STRING", colors[0] },
-                    { "ATTRIBUTE", colors[1] },
-                    { "COMMENT", colors[2] },
-                    { "TAGS", colors[3] },
-                    { "DECLARATION", colors[4] }
-                };
+            TABLE_DATA = new Object[colors.length][colors.length];
+
+            for (int i = 0; i < colors.length; i++) {
+                TABLE_DATA[i][0] = XMLLexerPreferencesConstantsIF.AVAILABLE_PROPERTIES[i];
+                TABLE_DATA[i][1] = colors[i];
+            }
+
             table = new JTable(new ColorTableModel(TABLE_DATA, TABLE_COLUMNS));
 
             //Set up renderer and editor for the Favorite Color column.
