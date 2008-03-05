@@ -415,9 +415,9 @@ public class XPontusRunner {
                 "Install some plugins in the category documentation");
         }
 
-        //        DocumentAwareComponentHolder.getInstance()
-        //                                    .notifyComponents(new DocumentContainerChangeEvent(
-        //                null));
+                DocumentAwareComponentHolder.getInstance()
+                                            .notifyComponents(new DocumentContainerChangeEvent(
+                        null));
         if (showSplash) {
             SwingUtilities.invokeLater(new Runnable() {
                     public void run() {

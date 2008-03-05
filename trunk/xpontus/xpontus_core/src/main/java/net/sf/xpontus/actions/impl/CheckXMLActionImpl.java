@@ -55,7 +55,7 @@ import javax.swing.text.JTextComponent;
  * Check if the XML document is well-formed
  * @author Yves Zoundi
  */
-public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
+public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
     /** Namespaces feature id (http://xml.org/sax/features/namespaces). */
     protected static final String NAMESPACES_FEATURE_ID = "http://xml.org/sax/features/namespaces";
 
@@ -165,9 +165,5 @@ public class CheckXMLActionImpl extends XPontusDocumentAwareThreadedActionImpl {
             Toolkit.getDefaultToolkit().beep();
             console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
         }
-    }
-
-    public void onNotify(DocumentContainerChangeEvent evt) {
-        setEnabled(evt != null);
-    }
+    } 
 }
