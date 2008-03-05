@@ -37,7 +37,7 @@ public interface IDocumentationPluginIF {
     /**
      *
      * @param model
-     * @throws java.lang.Exception 
+     * @throws java.lang.Exception
      */
     void handle(DocumentationModel model) throws Exception;
 }

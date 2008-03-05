@@ -42,6 +42,7 @@ import com.thaiopensource.xml.sax.ErrorHandlerImpl;
 
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -66,7 +67,6 @@ import java.io.PrintStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**
@@ -141,8 +141,8 @@ public class SchemaGeneratorHandler {
         MessagesWindowDockable mconsole = (MessagesWindowDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
 
         IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
-                                                                                  .getDocumentTabContainer()
-                                                                                  .getCurrentDockable();
+                                                                                    .getDocumentTabContainer()
+                                                                                    .getCurrentDockable();
 
         try {
             SchemaGenerationModel model = view.getModel();

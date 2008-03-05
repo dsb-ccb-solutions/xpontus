@@ -58,8 +58,7 @@ public class URIUtil {
                     path.getChars(0, i, chars, 0);
                 }
 
-                bytes[b++] = (byte) (0xff &
-                     parseInt(path, i + 1, 2, 16));
+                bytes[b++] = (byte) (0xff & parseInt(path, i + 1, 2, 16));
                 i += 2;
 
                 continue;

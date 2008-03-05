@@ -336,9 +336,9 @@ public class DocumentTabContainer {
             return;
         }
 
-         String mimeType = MimeTypesProvider.getInstance()
-                                               .getMimeType(file.getName());
-            IDocumentContainer container = PerspectiveHelper.createPerspective(mimeType); 
+        String mimeType = MimeTypesProvider.getInstance()
+                                           .getMimeType(file.getName());
+        IDocumentContainer container = PerspectiveHelper.createPerspective(mimeType);
         container.setup(file);
         container.completeSetup();
         setupEditor(container);

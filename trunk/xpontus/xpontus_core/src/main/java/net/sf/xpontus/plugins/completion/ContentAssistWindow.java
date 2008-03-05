@@ -12,6 +12,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import java.text.Collator;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -137,7 +138,7 @@ public class ContentAssistWindow {
         int endOffset = off;
 
         List tokens = mDoc.getTokenListForLine(lineIndex);
- 
+
         Token currentToken = null;
         Token tagToken = null;
 
@@ -149,12 +150,10 @@ public class ContentAssistWindow {
             if (currentToken.endColumn > off) {
                 break;
             }
-
-           
         }
 
-        if (tagToken!=null) {
-            if(tagToken.kind == 15){ 
+        if (tagToken != null) {
+            if (tagToken.kind == 15) {
                 return tagToken.image;
             }
         }
@@ -172,7 +171,7 @@ public class ContentAssistWindow {
         if (str.equals(">")) {
             completeEndTag(editor, off, str, set);
         } else if (str.equals(" ")) {
-            String tagCompletionName = null;//tagInside(editor.getDocument(), off);
+            String tagCompletionName = null; //tagInside(editor.getDocument(), off);
 
             if (tagCompletionName != null) {
                 List attributeCompletion = contentAssist.getAttributesCompletionList(tagCompletionName);
@@ -183,7 +182,7 @@ public class ContentAssistWindow {
                 }
 
                 try {
-                     Collections.sort(completionData, new SimpleComparator());
+                    Collections.sort(completionData, new SimpleComparator());
                     completionList = new javax.swing.JList(completionData.toArray());
 
                     final int offset = off;
@@ -239,7 +238,7 @@ public class ContentAssistWindow {
                                 }
                             }
                         });
-                    completionList.setSelectedIndex(0); 
+                    completionList.setSelectedIndex(0);
 
                     javax.swing.JScrollPane completionPane = new javax.swing.JScrollPane(completionList);
 

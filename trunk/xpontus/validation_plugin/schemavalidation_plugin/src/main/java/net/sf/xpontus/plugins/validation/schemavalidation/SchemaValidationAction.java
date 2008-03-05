@@ -20,9 +20,10 @@
  */
 package net.sf.xpontus.plugins.validation.schemavalidation;
 
+import net.sf.xpontus.actions.impl.XPontusDialogActionImpl;
+
 import javax.swing.Action;
 import javax.swing.ImageIcon;
-import net.sf.xpontus.actions.impl.XPontusDialogActionImpl;
 
 
 /**
@@ -32,6 +33,7 @@ import net.sf.xpontus.actions.impl.XPontusDialogActionImpl;
 public class SchemaValidationAction extends XPontusDialogActionImpl {
     public SchemaValidationAction() {
         this.setName("External schema validation");
+
         ImageIcon icon = new ImageIcon(getClass().getResource("xsd16.gif"));
         this.putValue(Action.SMALL_ICON, icon);
         this.setDescription("External schema validation");

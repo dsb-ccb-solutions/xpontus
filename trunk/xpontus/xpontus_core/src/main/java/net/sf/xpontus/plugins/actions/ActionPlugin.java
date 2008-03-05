@@ -56,7 +56,6 @@ public class ActionPlugin extends XPontusPlugin {
     }
 
     protected void doStart() throws Exception {
-       
     }
 
     protected void doStop() throws Exception {

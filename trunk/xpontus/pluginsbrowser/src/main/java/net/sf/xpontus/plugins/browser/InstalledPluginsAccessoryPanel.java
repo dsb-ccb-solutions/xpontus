@@ -65,20 +65,20 @@ public class InstalledPluginsAccessoryPanel extends JComponent {
 
         uninstallButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    
                     StrBuilder tempMessage = new StrBuilder();
                     tempMessage.append("This feature has been disabled for now");
                     tempMessage.appendNewLine();
-                    tempMessage.append("The uninstallation cannot delete the plugin directory");
+                    tempMessage.append(
+                        "The uninstallation cannot delete the plugin directory");
                     tempMessage.appendNewLine();
                     tempMessage.append("This will be hopefully solved soon");
-                    
-                    if(true){
+
+                    if (true) {
                         XPontusComponentsUtils.showInformationMessage(tempMessage.toString());
+
                         return;
                     }
-                    
-                    
+
                     JTable m_table = panel.getTable();
                     int selected = m_table.getSelectedRow();
 
@@ -124,9 +124,8 @@ public class InstalledPluginsAccessoryPanel extends JComponent {
                                 sb.append(err.getMessage());
                                 throw new Exception(sb.toString());
                             }
-                            
+
                             panel.reloadPluginsTable();
-                            
                         } catch (Exception err) {
                             XPontusComponentsUtils.showErrorMessage(err.getMessage());
                         }

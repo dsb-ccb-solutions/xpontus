@@ -46,8 +46,6 @@ public class SchemaValidationController {
     public static final String SCHEMA_METHOD = "selectSchema";
     public static final String HANDLE_METHOD = "handle";
     public static final String CLOSE_METHOD = "closeWindow";
-    
-    
     private SchemaValidationView view;
     private JFileChooser chooser;
 
@@ -56,7 +54,6 @@ public class SchemaValidationController {
         this.view = view;
     }
 
-    
     /**
      *
      */
@@ -176,14 +173,16 @@ public class SchemaValidationController {
 
         String input = model.getInput();
         String schema = model.getSchema();
-        System.out.println( "use current document:" + (model.isUseCurrentDocument()));
+        System.out.println("use current document:" +
+            (model.isUseCurrentDocument()));
 
         StringBuffer sb = new StringBuffer();
 
         if (!model.isUseCurrentDocument() &&
                 (input.trim().equals("") || !new File(input).exists())) {
             sb.append("* The input file is missing or doesn't exist\n");
-        } 
+        }
+
         if (schema.trim().equals("") || !new File(schema).exists()) {
             sb.append("* The schema file is missing or doesn't exist");
         }

@@ -25,6 +25,7 @@ import com.ibm.icu.text.CharsetDetector;
 
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 
 import org.apache.xerces.parsers.SAXParser;
@@ -40,9 +41,7 @@ import org.xml.sax.SAXParseException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**
@@ -58,7 +57,7 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
     /**
      *
      */
-    public SimpleValidationActionImpl() { 
+    public SimpleValidationActionImpl() {
     }
 
     public void run() {
@@ -68,8 +67,8 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
                                                          .getCurrentEditor();
 
             IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
-                                                                                      .getDocumentTabContainer()
-                                                                                      .getCurrentDockable();
+                                                                                        .getDocumentTabContainer()
+                                                                                        .getCurrentDockable();
             container.getStatusBar().setMessage("Validating document...");
 
             InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
@@ -133,8 +132,8 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
             OutputDockable odk = (OutputDockable) console.getDockables()
                                                          .get(ConsoleOutputWindow.MESSAGES_WINDOW);
             IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
-                                                                                      .getDocumentTabContainer()
-                                                                                      .getCurrentDockable();
+                                                                                        .getDocumentTabContainer()
+                                                                                        .getCurrentDockable();
             container.getStatusBar().setMessage("Document is invalid!");
 
             String error = "" + details.toString() + "\n";

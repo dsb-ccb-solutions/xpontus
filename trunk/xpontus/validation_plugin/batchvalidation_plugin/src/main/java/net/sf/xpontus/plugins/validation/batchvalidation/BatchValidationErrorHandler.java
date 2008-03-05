@@ -37,18 +37,18 @@ class BatchValidationErrorHandler implements ErrorHandler {
     private StrBuilder errors = new StrBuilder();
     private FileObject fo;
     private int total = 0;
-    
-    public int getNumberOfErrors(){
-        return total;
-    }
 
     public BatchValidationErrorHandler() {
     }
 
-    public String getErrorMessages(){
+    public int getNumberOfErrors() {
+        return total;
+    }
+
+    public String getErrorMessages() {
         return errors.toString();
     }
-    
+
     public void reset() {
         errors.clear();
         total = 0;
@@ -60,7 +60,7 @@ class BatchValidationErrorHandler implements ErrorHandler {
 
     private void report(SAXParseException e) {
         total++;
-        
+
         int line = e.getLineNumber();
         int column = e.getColumnNumber();
         String message = e.getLocalizedMessage();

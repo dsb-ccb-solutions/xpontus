@@ -47,8 +47,6 @@ public class XPontusCaret extends DefaultCaret {
         painter = new MyHighlightPainter(java.awt.Color.LIGHT_GRAY);
     }
 
-   
-
     /**
      *
      * @return
@@ -68,6 +66,5 @@ public class XPontusCaret extends DefaultCaret {
         public MyHighlightPainter(java.awt.Color color) {
             super(color);
         }
-        
     }
 }

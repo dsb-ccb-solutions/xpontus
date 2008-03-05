@@ -90,7 +90,7 @@ public class PerspectivePlugin extends XPontusPlugin {
     }
 
     // register a perspective
-    private void initExtension(PerspectivePluginIF m_perspective) { 
+    private void initExtension(PerspectivePluginIF m_perspective) {
         System.out.println("Perspective:" + m_perspective.getName());
         availablePerspectives.add(m_perspective);
     }

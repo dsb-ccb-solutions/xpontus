@@ -28,12 +28,12 @@ import net.sf.xpontus.actions.impl.XPontusDocumentAwareThreadedActionImpl;
 import java.util.List;
 import java.util.Vector;
 
+
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DocumentAwareComponentHolder {
-
     private static DocumentAwareComponentHolder INSTANCE;
     private List<DocumentAwareComponentIF> componentList = new Vector<DocumentAwareComponentIF>();
 
@@ -47,14 +47,13 @@ public class DocumentAwareComponentHolder {
 
     public void notifyComponents(final DocumentContainerChangeEvent evt) {
         SwingWorker worker = new SwingWorker() {
+                public Object construct() {
+                    for (DocumentAwareComponentIF dai : componentList) {
+                        dai.onNotify(evt);
+                    }
 
-            public Object construct() {
-                for (DocumentAwareComponentIF dai : componentList) {
-                    dai.onNotify(evt);
+                    return null;
                 }
-
-                return null;
-            }
             };
 
         worker.start();

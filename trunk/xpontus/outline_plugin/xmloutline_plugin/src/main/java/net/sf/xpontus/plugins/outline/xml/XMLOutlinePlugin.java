@@ -1,6 +1,6 @@
 /*
  * XMLOutlinePlugin.java
- * 
+ *
  * Created on 2007-10-02, 18:17:13
  *
  * Copyright (C) 2005-2008 Yves Zoundi
@@ -19,21 +19,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.plugins.outline.xml;
 
 import org.java.plugin.Plugin;
+
 
 /**
  *
  * @author Yves Zoundi
  */
-public class XMLOutlinePlugin extends Plugin{
-
-    protected void doStart() throws Exception { 
+public class XMLOutlinePlugin extends Plugin {
+    protected void doStart() throws Exception {
     }
 
-    protected void doStop() throws Exception { 
+    protected void doStop() throws Exception {
     }
-
 }

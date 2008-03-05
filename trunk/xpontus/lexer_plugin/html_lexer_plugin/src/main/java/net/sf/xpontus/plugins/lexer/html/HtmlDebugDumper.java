@@ -13,12 +13,12 @@
  * for more details.
  */
 package net.sf.xpontus.plugins.lexer.html;
- 
+
+import net.sf.xpontus.syntax.*;
 
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter; 
-import net.sf.xpontus.syntax.*;
+import java.io.PrintWriter;
 
 
 /**
@@ -27,52 +27,42 @@ import net.sf.xpontus.syntax.*;
  *
  * @author Brian Goetz, Quiotix
  */
-public class HtmlDebugDumper extends HtmlVisitor
-{
+public class HtmlDebugDumper extends HtmlVisitor {
     protected PrintWriter out;
 
-    public HtmlDebugDumper(OutputStream os)
-    {
+    public HtmlDebugDumper(OutputStream os) {
         out = new PrintWriter(os);
     }
 
-    public void finish()
-    {
+    public void finish() {
         out.flush();
     }
 
-    public void visit(HtmlDocument.Tag t)
-    {
+    public void visit(HtmlDocument.Tag t) {
         out.print("Tag(" + t + ")");
     }
 
-    public void visit(HtmlDocument.EndTag t)
-    {
+    public void visit(HtmlDocument.EndTag t) {
         out.print("Tag(" + t + ")");
     }
 
-    public void visit(HtmlDocument.Comment c)
-    {
+    public void visit(HtmlDocument.Comment c) {
         out.print("Comment(" + c + ")");
     }
 
-    public void visit(HtmlDocument.Text t)
-    {
+    public void visit(HtmlDocument.Text t) {
         out.print(t);
     }
 
-    public void visit(HtmlDocument.Newline n)
-    {
+    public void visit(HtmlDocument.Newline n) {
         out.println("-NL-");
     }
 
-    public void visit(HtmlDocument.Annotation a)
-    {
+    public void visit(HtmlDocument.Annotation a) {
         out.print(a);
     }
 
-    public void visit(HtmlDocument.TagBlock bl)
-    {
+    public void visit(HtmlDocument.TagBlock bl) {
         out.print("<BLOCK>");
         visit(bl.startTag);
         visit(bl.body);
@@ -80,8 +70,7 @@ public class HtmlDebugDumper extends HtmlVisitor
         out.print("</BLOCK>");
     }
 
-    public static void main(String[] args) throws ParseException
-    {
+    public static void main(String[] args) throws ParseException {
         HtmlParser parser = new HtmlParser(new LexerInputStream(
                     new InputStreamReader(System.in)));
         HtmlDocument doc = parser.HtmlDocument();

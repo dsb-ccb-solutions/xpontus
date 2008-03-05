@@ -1,6 +1,6 @@
 /*
  * I18nPluginImpl.java
- * 
+ *
  * Created on 19-Jul-2007, 5:20:36 PM
  *
  * Copyright (C) 2005-2007 Yves Zoundi
@@ -19,41 +19,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.plugins.i18n;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+
 /**
  *
  * @author Owner
  */
-public class I18nPluginImpl implements I18nPluginIF{
-
+public class I18nPluginImpl implements I18nPluginIF {
     ResourceBundle bundle = null;
-    
+
     public I18nPluginImpl() {
     }
 
     public void init() {
-         
     }
 
     public void stop() {
-         
     }
 
     public void addResource(ResourceBundle res) {
-       
     }
 
     public ResourceBundle getBundle(String bundleName) {
-         return null;
+        return null;
     }
 
     public String getMessage(String key, Locale locale) {
-         return null;
+        return null;
     }
-
 }

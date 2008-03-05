@@ -13,7 +13,8 @@
  * for more details.
  */
 package net.sf.xpontus.plugins.lexer.html;
- 
+
+import net.sf.xpontus.syntax.LexerInputStream;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -23,7 +24,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
-import net.sf.xpontus.syntax.LexerInputStream;
 
 
 /**
@@ -35,17 +35,14 @@ import net.sf.xpontus.syntax.LexerInputStream;
  *
  * @author Brian Goetz, Quiotix
  */
-public class HtmlCollector extends HtmlVisitor
-{
+public class HtmlCollector extends HtmlVisitor {
     protected static Set dontMatch = new HashSet();
-    protected static String[] dontMatchStrings = 
-        {
+    protected static String[] dontMatchStrings = {
             "AREA", "BASE", "BASEFONT", "BR", "COL", "HR", "IMG", "INPUT",
             "ISINDEX", "LINK", "META", "P", "PARAM"
         };
 
-    static
-    {
+    static {
         for (int i = 0; i < dontMatchStrings.length; i++)
             dontMatch.add(dontMatchStrings[i]);
     }
@@ -54,8 +51,7 @@ public class HtmlCollector extends HtmlVisitor
     protected ElementStack elements;
     protected boolean collected;
 
-    protected int pushNode(HtmlDocument.HtmlElement e)
-    {
+    protected int pushNode(HtmlDocument.HtmlElement e) {
         elements.addElement(e);
 
         return elements.size() - 1;
@@ -65,8 +61,7 @@ public class HtmlCollector extends HtmlVisitor
      *
      * @param c
      */
-    public void visit(HtmlDocument.Comment c)
-    {
+    public void visit(HtmlDocument.Comment c) {
         pushNode(c);
     }
 
@@ -74,8 +69,7 @@ public class HtmlCollector extends HtmlVisitor
      *
      * @param t
      */
-    public void visit(HtmlDocument.Text t)
-    {
+    public void visit(HtmlDocument.Text t) {
         pushNode(t);
     }
 
@@ -83,8 +77,7 @@ public class HtmlCollector extends HtmlVisitor
      *
      * @param n
      */
-    public void visit(HtmlDocument.Newline n)
-    {
+    public void visit(HtmlDocument.Newline n) {
         pushNode(n);
     }
 
@@ -92,8 +85,7 @@ public class HtmlCollector extends HtmlVisitor
      *
      * @param t
      */
-    public void visit(HtmlDocument.Tag t)
-    {
+    public void visit(HtmlDocument.Tag t) {
         TagStackEntry ts = new TagStackEntry();
         int index;
 
@@ -101,8 +93,7 @@ public class HtmlCollector extends HtmlVisitor
         // stack if it's a tag we care about matching
         index = pushNode(t);
 
-        if (!t.emptyTag && !dontMatch.contains(t.tagName.toUpperCase()))
-        {
+        if (!t.emptyTag && !dontMatch.contains(t.tagName.toUpperCase())) {
             ts.tagName = t.tagName;
             ts.index = index;
             tagStack.addElement(ts);
@@ -115,16 +106,13 @@ public class HtmlCollector extends HtmlVisitor
      *
      * @param t
      */
-    public void visit(HtmlDocument.EndTag t)
-    {
+    public void visit(HtmlDocument.EndTag t) {
         int i;
 
-        for (i = tagStack.size() - 1; i >= 0; i--)
-        {
+        for (i = tagStack.size() - 1; i >= 0; i--) {
             TagStackEntry ts = (TagStackEntry) tagStack.elementAt(i);
 
-            if (t.tagName.equalsIgnoreCase(ts.tagName))
-            {
+            if (t.tagName.equalsIgnoreCase(ts.tagName)) {
                 HtmlDocument.TagBlock block;
                 HtmlDocument.ElementSequence blockElements;
                 HtmlDocument.Tag tag;
@@ -159,8 +147,7 @@ public class HtmlCollector extends HtmlVisitor
         ;
 
         // If we didn't find a match, just push the end tag
-        if (i < 0)
-        {
+        if (i < 0) {
             pushNode(t);
         }
     }
@@ -169,8 +156,7 @@ public class HtmlCollector extends HtmlVisitor
      *
      * @param bl
      */
-    public void visit(HtmlDocument.TagBlock bl)
-    {
+    public void visit(HtmlDocument.TagBlock bl) {
         HtmlCollector c = new HtmlCollector();
 
         c.start();
@@ -183,19 +169,16 @@ public class HtmlCollector extends HtmlVisitor
      *
      * @param s
      */
-    public void visit(HtmlDocument.ElementSequence s)
-    {
+    public void visit(HtmlDocument.ElementSequence s) {
         elements = new ElementStack(s.size());
         collected = false;
 
-        for (Iterator iterator = s.iterator(); iterator.hasNext();)
-        {
+        for (Iterator iterator = s.iterator(); iterator.hasNext();) {
             HtmlDocument.HtmlElement htmlElement = (HtmlDocument.HtmlElement) iterator.next();
             htmlElement.accept(this);
         }
 
-        if (collected)
-        {
+        if (collected) {
             s.setElements(elements);
         }
     }
@@ -205,46 +188,37 @@ public class HtmlCollector extends HtmlVisitor
      * @param args
      * @throws java.lang.Exception
      */
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         InputStream r = new FileInputStream(args[0]);
 
-        try
-        {
+        try {
             HtmlDocument document = new HtmlParser(new LexerInputStream(
                         new InputStreamReader(r))).HtmlDocument();
             document.accept(new HtmlScrubber());
             document.accept(new HtmlCollector());
             document.accept(new HtmlDumper(System.out));
-        }
-        finally
-        {
+        } finally {
             r.close();
         }
 
         ;
     }
 
-    private static class TagStackEntry
-    {
+    private static class TagStackEntry {
         String tagName;
         int index;
     }
 
-    private static class ElementStack extends Vector
-    {
-        ElementStack()
-        {
+    private static class ElementStack extends Vector {
+        ElementStack() {
             super();
         }
 
-        ElementStack(int n)
-        {
+        ElementStack(int n) {
             super(n);
         }
 
-        public void popN(int n)
-        {
+        public void popN(int n) {
             elementCount -= n;
         }
     }

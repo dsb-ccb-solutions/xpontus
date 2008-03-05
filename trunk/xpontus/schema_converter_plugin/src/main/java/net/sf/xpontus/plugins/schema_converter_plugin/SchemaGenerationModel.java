@@ -48,19 +48,18 @@ public class SchemaGenerationModel {
      *
      * @param x
      */
-    public void addPropertyChangeListener(PropertyChangeListener x)
-      {
+    public void addPropertyChangeListener(PropertyChangeListener x) {
         changeSupport.addPropertyChangeListener(x);
-      }
+    }
 
     /**
      *
      * @param x
      */
-    public void removePropertyChangeListener(PropertyChangeListener x)
-      {
+    public void removePropertyChangeListener(PropertyChangeListener x) {
         changeSupport.removePropertyChangeListener(x);
-      }
+    }
+
     /**
      *
      * @return

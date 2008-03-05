@@ -1,6 +1,6 @@
 /*
  * JavaThemePluginImpl.java
- * 
+ *
  * Created on 17-Jul-2007, 7:09:11 PM
  *
  * Copyright (C) 2005-2007 Yves Zoundi
@@ -19,19 +19,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 package net.sf.xpontus.plugins.themes.java;
 
-import java.util.Properties;
-import javax.swing.UIManager;
 import net.sf.xpontus.plugins.themes.ThemePluginIF;
+
+import java.util.Properties;
+
+import javax.swing.UIManager;
+
 
 /**
  *
  * @author Owner
  */
-public class JavaThemePluginImpl  implements ThemePluginIF{
-
+public class JavaThemePluginImpl implements ThemePluginIF {
     public JavaThemePluginImpl() {
     }
 
@@ -44,7 +45,6 @@ public class JavaThemePluginImpl  implements ThemePluginIF{
     }
 
     public Properties getPropertiesToSet() {
-       return null;
+        return null;
     }
-
 }

@@ -36,8 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-import javax.swing.text.Document;
 
+import javax.swing.text.Document;
 
 
 /**
@@ -172,6 +172,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     public void init(final javax.swing.text.Document doc) {
         System.out.println("Running code completion...");
         this.doc = doc;
+
         String dtdLocation = null;
         String schemaLocation = null;
 
@@ -191,7 +192,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
         try {
             if (dtdLocation != null) {
-                logger.info("Using dtd location to build completion database"); 
+                logger.info("Using dtd location to build completion database");
                 setCompletionParser(new DTDCompletionParser());
 
                 java.net.URL url = new java.net.URL(dtdLocation);

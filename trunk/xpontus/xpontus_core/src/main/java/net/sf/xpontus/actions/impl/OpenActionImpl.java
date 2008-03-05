@@ -21,15 +21,16 @@
  */
 package net.sf.xpontus.actions.impl;
 
-import java.io.File;
-import javax.swing.JFileChooser; 
-
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
+
+import java.io.File;
+
+import javax.swing.JFileChooser;
 
 
 /**
@@ -49,7 +50,7 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
 
     public void run() {
         if (chooser == null) {
-            chooser = new JFileChooser(); 
+            chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             chooser.setMultiSelectionEnabled(true);
         }
@@ -63,7 +64,7 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
                                                                .getDocumentTabContainer();
 
             try {
-                File[] files =   chooser.getSelectedFiles();
+                File[] files = chooser.getSelectedFiles();
 
                 for (int i = 0; i < files.length; i++) {
                     FileObject fo = VFS.getManager().toFileObject(files[i]);

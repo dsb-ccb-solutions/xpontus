@@ -80,8 +80,7 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
                 XMLIndentationPreferencesConstantsIF.OMIT_COMMENTS_OPTION);
 
         String omitDoctypeOption = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
-                "$" +
-                XMLIndentationPreferencesConstantsIF.OMIT_DOCTYPE_OPTION);
+                "$" + XMLIndentationPreferencesConstantsIF.OMIT_DOCTYPE_OPTION);
 
         String omitXmlDeclaration = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
                 "$" +
@@ -102,12 +101,13 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
             Document doc = builder.parse(src);
 
             OutputFormat formatter = new OutputFormat();
-            
-            formatter.setOmitXMLDeclaration(Boolean.getBoolean(omitXmlDeclaration));
+
+            formatter.setOmitXMLDeclaration(Boolean.getBoolean(
+                    omitXmlDeclaration));
             formatter.setOmitDocumentType(Boolean.getBoolean(omitDoctypeOption));
             formatter.setPreserveSpace(Boolean.getBoolean(preserveSpaceOption));
             formatter.setOmitComments(Boolean.getBoolean(omitCommentsOption));
-            
+
             formatter.setIndenting(true);
 
             ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();

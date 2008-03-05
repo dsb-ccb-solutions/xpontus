@@ -30,16 +30,14 @@ import java.util.List;
  * @author Brian Goetz, Quiotix
  * @see com.quiotix.html.parser.HtmlVisitor
  */
-public class HtmlDocument
-{
+public class HtmlDocument {
     ElementSequence elements;
 
     /**
      *
      * @param s
      */
-    public HtmlDocument(ElementSequence s)
-    {
+    public HtmlDocument(ElementSequence s) {
         elements = s;
     }
 
@@ -47,25 +45,19 @@ public class HtmlDocument
      *
      * @param v
      */
-    public void accept(HtmlVisitor v)
-    {
+    public void accept(HtmlVisitor v) {
         v.visit(this);
     }
 
-    private static String dequote(String s)
-    {
-        if (s == null)
-        {
+    private static String dequote(String s) {
+        if (s == null) {
             return "";
         }
 
         if ((s.startsWith("\"") && s.endsWith("\"")) ||
-                (s.startsWith("'") && s.endsWith("'")))
-        {
+                (s.startsWith("'") && s.endsWith("'"))) {
             return s.substring(1, s.length() - 1);
-        }
-        else
-        {
+        } else {
             return s;
         }
     }
@@ -82,16 +74,14 @@ public class HtmlDocument
     /**
      * Abstract class for HTML elements.  Enforces support for Visitors.
      */
-    public static abstract class HtmlElement
-    {
+    public static abstract class HtmlElement {
         public abstract void accept(HtmlVisitor v);
     }
 
     /**
      * HTML start tag.  Stores the tag name and a list of tag attributes.
      */
-    public static class Tag extends HtmlElement
-    {
+    public static class Tag extends HtmlElement {
         public String tagName;
         public AttributeList attributeList;
         public boolean emptyTag = false;
@@ -101,8 +91,7 @@ public class HtmlDocument
          * @param t
          * @param a
          */
-        public Tag(String t, AttributeList a)
-        {
+        public Tag(String t, AttributeList a) {
             tagName = t;
             attributeList = a;
         }
@@ -111,8 +100,7 @@ public class HtmlDocument
          *
          * @param b
          */
-        public void setEmpty(boolean b)
-        {
+        public void setEmpty(boolean b) {
             emptyTag = b;
         }
 
@@ -120,8 +108,7 @@ public class HtmlDocument
          *
          * @param v
          */
-        public void accept(HtmlVisitor v)
-        {
+        public void accept(HtmlVisitor v) {
             v.visit(this);
         }
 
@@ -130,8 +117,7 @@ public class HtmlDocument
          * @param name
          * @return
          */
-        public boolean hasAttribute(String name)
-        {
+        public boolean hasAttribute(String name) {
             return attributeList.contains(name);
         }
 
@@ -140,8 +126,7 @@ public class HtmlDocument
          * @param name
          * @return
          */
-        public boolean hasAttributeValue(String name)
-        {
+        public boolean hasAttributeValue(String name) {
             return attributeList.hasValue(name);
         }
 
@@ -150,8 +135,7 @@ public class HtmlDocument
          * @param name
          * @return
          */
-        public String getAttributeValue(String name)
-        {
+        public String getAttributeValue(String name) {
             return attributeList.getValue(name);
         }
 
@@ -159,13 +143,11 @@ public class HtmlDocument
          *
          * @return
          */
-        public int getLength()
-        {
+        public int getLength() {
             int length = 0;
 
             for (Iterator iterator = attributeList.attributes.iterator();
-                    iterator.hasNext();)
-            {
+                    iterator.hasNext();) {
                 Attribute attribute = (Attribute) iterator.next();
                 length += (1 + (attribute.getLength()));
             }
@@ -177,22 +159,19 @@ public class HtmlDocument
          *
          * @return
          */
-        public String toString()
-        {
+        public String toString() {
             StringBuffer s = new StringBuffer();
             s.append("<");
             s.append(tagName);
 
             for (Iterator iterator = attributeList.attributes.iterator();
-                    iterator.hasNext();)
-            {
+                    iterator.hasNext();) {
                 Attribute attribute = (Attribute) iterator.next();
                 s.append(" ");
                 s.append(attribute.toString());
             }
 
-            if (emptyTag)
-            {
+            if (emptyTag) {
                 s.append("/");
             }
 
@@ -205,16 +184,14 @@ public class HtmlDocument
     /**
      * Html end tag.  Stores only the tag name.
      */
-    public static class EndTag extends HtmlElement
-    {
+    public static class EndTag extends HtmlElement {
         public String tagName;
 
         /**
          *
          * @param t
          */
-        public EndTag(String t)
-        {
+        public EndTag(String t) {
             tagName = t;
         }
 
@@ -222,8 +199,7 @@ public class HtmlDocument
          *
          * @param v
          */
-        public void accept(HtmlVisitor v)
-        {
+        public void accept(HtmlVisitor v) {
             v.visit(this);
         }
 
@@ -231,13 +207,11 @@ public class HtmlDocument
          *
          * @return
          */
-        public int getLength()
-        {
+        public int getLength() {
             return 3 + tagName.length();
         }
 
-        public String toString()
-        {
+        public String toString() {
             return "</" + tagName + ">";
         }
     }
@@ -246,8 +220,7 @@ public class HtmlDocument
      * A tag block is a composite structure consisting of a start tag
      * a sequence of HTML elements, and a matching end tag.
      */
-    public static class TagBlock extends HtmlElement
-    {
+    public static class TagBlock extends HtmlElement {
         public Tag startTag;
         public EndTag endTag;
         public ElementSequence body;
@@ -258,8 +231,7 @@ public class HtmlDocument
          * @param aList
          * @param b
          */
-        public TagBlock(String name, AttributeList aList, ElementSequence b)
-        {
+        public TagBlock(String name, AttributeList aList, ElementSequence b) {
             startTag = new Tag(name, aList);
             endTag = new EndTag(name);
             body = b;
@@ -269,8 +241,7 @@ public class HtmlDocument
          *
          * @param v
          */
-        public void accept(HtmlVisitor v)
-        {
+        public void accept(HtmlVisitor v) {
             v.visit(this);
         }
     }
@@ -278,16 +249,14 @@ public class HtmlDocument
     /**
      * HTML comments.
      */
-    public static class Comment extends HtmlElement
-    {
+    public static class Comment extends HtmlElement {
         public String comment;
 
         /**
          *
          * @param c
          */
-        public Comment(String c)
-        {
+        public Comment(String c) {
             comment = c;
         }
 
@@ -295,8 +264,7 @@ public class HtmlDocument
          *
          * @param v
          */
-        public void accept(HtmlVisitor v)
-        {
+        public void accept(HtmlVisitor v) {
             v.visit(this);
         }
 
@@ -304,8 +272,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public int getLength()
-        {
+        public int getLength() {
             return 3 + comment.length();
         }
 
@@ -313,8 +280,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public String toString()
-        {
+        public String toString() {
             return "<!" + comment + ">";
         }
     }
@@ -322,16 +288,14 @@ public class HtmlDocument
     /**
      * Plain text
      */
-    public static class Text extends HtmlElement
-    {
+    public static class Text extends HtmlElement {
         public String text;
 
         /**
          *
          * @param t
          */
-        public Text(String t)
-        {
+        public Text(String t) {
             text = t;
         }
 
@@ -339,8 +303,7 @@ public class HtmlDocument
          *
          * @param v
          */
-        public void accept(HtmlVisitor v)
-        {
+        public void accept(HtmlVisitor v) {
             v.visit(this);
         }
 
@@ -348,8 +311,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public int getLength()
-        {
+        public int getLength() {
             return text.length();
         }
 
@@ -357,8 +319,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public String toString()
-        {
+        public String toString() {
             return text;
         }
     }
@@ -366,16 +327,14 @@ public class HtmlDocument
     /**
      * End of line indicator.
      */
-    public static class Newline extends HtmlElement
-    {
+    public static class Newline extends HtmlElement {
         public static final String NL = System.getProperty("line.separator");
 
         /**
          *
          * @param v
          */
-        public void accept(HtmlVisitor v)
-        {
+        public void accept(HtmlVisitor v) {
             v.visit(this);
         }
 
@@ -383,8 +342,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public int getLength()
-        {
+        public int getLength() {
             return NL.length();
         }
 
@@ -392,8 +350,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public String toString()
-        {
+        public String toString() {
             return NL;
         }
     }
@@ -401,21 +358,18 @@ public class HtmlDocument
     /**
      * A sequence of HTML elements.
      */
-    public static class ElementSequence
-    {
+    public static class ElementSequence {
         private List elements;
 
         /**
          *
          * @param n
          */
-        public ElementSequence(int n)
-        {
+        public ElementSequence(int n) {
             elements = new ArrayList(n);
         }
 
-        public ElementSequence()
-        {
+        public ElementSequence() {
             elements = new ArrayList();
         }
 
@@ -423,13 +377,11 @@ public class HtmlDocument
          *
          * @param o
          */
-        public void addElement(HtmlElement o)
-        {
+        public void addElement(HtmlElement o) {
             elements.add(o);
         }
 
-        public int size()
-        {
+        public int size() {
             return elements.size();
         }
 
@@ -437,8 +389,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public Iterator iterator()
-        {
+        public Iterator iterator() {
             return elements.iterator();
         }
 
@@ -446,8 +397,7 @@ public class HtmlDocument
          *
          * @param coll
          */
-        public void setElements(List coll)
-        {
+        public void setElements(List coll) {
             elements.clear();
             elements.addAll(coll);
         }
@@ -462,8 +412,7 @@ public class HtmlDocument
      * annotation to indicate that there is no corresponding start tag
      * for an end tag.
      */
-    public static class Annotation extends HtmlElement
-    {
+    public static class Annotation extends HtmlElement {
         String type;
         String text;
 
@@ -472,8 +421,7 @@ public class HtmlDocument
          * @param type
          * @param text
          */
-        public Annotation(String type, String text)
-        {
+        public Annotation(String type, String text) {
             this.type = type;
             this.text = text;
         }
@@ -482,8 +430,7 @@ public class HtmlDocument
          *
          * @param v
          */
-        public void accept(HtmlVisitor v)
-        {
+        public void accept(HtmlVisitor v) {
             v.visit(this);
         }
 
@@ -491,8 +438,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public int getLength()
-        {
+        public int getLength() {
             return 14 + type.length() + text.length();
         }
 
@@ -500,8 +446,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public String toString()
-        {
+        public String toString() {
             return "<!--NOTE(" + type + ") " + text + "-->";
         }
     }
@@ -509,8 +454,7 @@ public class HtmlDocument
     /**
      * A Tag Attribute.
      */
-    public static class Attribute
-    {
+    public static class Attribute {
         public String name;
         public String value;
         public boolean hasValue;
@@ -519,8 +463,7 @@ public class HtmlDocument
          *
          * @param n
          */
-        public Attribute(String n)
-        {
+        public Attribute(String n) {
             name = n;
             hasValue = false;
         }
@@ -530,8 +473,7 @@ public class HtmlDocument
          * @param n
          * @param v
          */
-        public Attribute(String n, String v)
-        {
+        public Attribute(String n, String v) {
             name = n;
             value = v;
             hasValue = true;
@@ -541,8 +483,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public int getLength()
-        {
+        public int getLength() {
             return (hasValue ? (name.length() + 1 + value.length())
                              : name.length());
         }
@@ -551,8 +492,7 @@ public class HtmlDocument
          *
          * @return
          */
-        public String toString()
-        {
+        public String toString() {
             return (hasValue ? (name + "=" + value) : name);
         }
     }
@@ -560,16 +500,14 @@ public class HtmlDocument
     /**
      * A List of Attributes.
      */
-    public static class AttributeList
-    {
+    public static class AttributeList {
         public List attributes = new ArrayList();
 
         /**
          *
          * @param a
          */
-        public void addAttribute(Attribute a)
-        {
+        public void addAttribute(Attribute a) {
             attributes.add(a);
         }
 
@@ -578,14 +516,11 @@ public class HtmlDocument
          * @param name
          * @return
          */
-        public boolean contains(String name)
-        {
-            for (Iterator iterator = attributes.iterator(); iterator.hasNext();)
-            {
+        public boolean contains(String name) {
+            for (Iterator iterator = attributes.iterator(); iterator.hasNext();) {
                 Attribute attribute = (Attribute) iterator.next();
 
-                if (attribute.name.equalsIgnoreCase(name))
-                {
+                if (attribute.name.equalsIgnoreCase(name)) {
                     return true;
                 }
             }
@@ -598,15 +533,12 @@ public class HtmlDocument
          * @param name
          * @return
          */
-        public boolean hasValue(String name)
-        {
-            for (Iterator iterator = attributes.iterator(); iterator.hasNext();)
-            {
+        public boolean hasValue(String name) {
+            for (Iterator iterator = attributes.iterator(); iterator.hasNext();) {
                 Attribute attribute = (Attribute) iterator.next();
 
                 if (attribute.name.equalsIgnoreCase(name) &&
-                        attribute.hasValue)
-                {
+                        attribute.hasValue) {
                     return true;
                 }
             }
@@ -619,15 +551,12 @@ public class HtmlDocument
          * @param name
          * @return
          */
-        public String getValue(String name)
-        {
-            for (Iterator iterator = attributes.iterator(); iterator.hasNext();)
-            {
+        public String getValue(String name) {
+            for (Iterator iterator = attributes.iterator(); iterator.hasNext();) {
                 Attribute attribute = (Attribute) iterator.next();
 
                 if (attribute.name.equalsIgnoreCase(name) &&
-                        attribute.hasValue)
-                {
+                        attribute.hasValue) {
                     return dequote(attribute.value);
                 }
             }

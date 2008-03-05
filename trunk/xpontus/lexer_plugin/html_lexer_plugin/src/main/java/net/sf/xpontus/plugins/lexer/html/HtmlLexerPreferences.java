@@ -27,6 +27,8 @@ import net.sf.xpontus.modules.gui.components.preferences.ColorTableModel;
 import net.sf.xpontus.modules.gui.components.preferences.ColorTableRenderer;
 import net.sf.xpontus.modules.gui.components.preferences.IPreferencesPanel;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
+import net.sf.xpontus.utils.ColorUtils;
+import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,7 +37,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 
 import java.io.File;
+
 import java.util.Properties;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -43,8 +47,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
-import net.sf.xpontus.utils.ColorUtils;
-import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 
 /**
@@ -54,7 +56,8 @@ import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 public class HtmlLexerPreferences implements PreferencesPluginIF {
     private IPreferencesPanel panel;
     private Color[] colors = new Color[6];
-private JTable table;
+    private JTable table;
+
     public HtmlLexerPreferences() {
     }
 
@@ -91,14 +94,15 @@ private JTable table;
             };
         Properties m_props = new Properties();
         TableModel m_model = table.getModel();
-        for(int i=0;i<m_model.getRowCount();i++){
+
+        for (int i = 0; i < m_model.getRowCount(); i++) {
             Color c = (Color) m_model.getValueAt(i, 1);
             m_props.put(props[i], ColorUtils.colorToString(c));
             XPontusConfig.put(props[i], c);
         }
+
         File propertiesFile = HTMLLexerPlugin.configfile;
         PropertiesConfigurationLoader.save(propertiesFile, m_props);
-        
     }
 
     public void loadSettings() {
@@ -128,7 +132,6 @@ private JTable table;
 
     public class HtmlLexerPreferencesPanel extends JComponent
         implements IPreferencesPanel {
-        
         private JScrollPane sp;
         private final String[] TABLE_COLUMNS;
         private final Object[][] TABLE_DATA;

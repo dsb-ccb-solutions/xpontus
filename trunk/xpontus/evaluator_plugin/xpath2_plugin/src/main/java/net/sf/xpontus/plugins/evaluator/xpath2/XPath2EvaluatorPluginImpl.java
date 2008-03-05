@@ -21,17 +21,18 @@
 package net.sf.xpontus.plugins.evaluator.xpath2;
 
 import net.sf.saxon.Configuration;
+import net.sf.saxon.dom.NodeOverNodeInfo;
 import net.sf.saxon.om.NodeInfo;
 import net.sf.saxon.xpath.NamespaceContextImpl;
 import net.sf.saxon.xpath.StandaloneContext;
 import net.sf.saxon.xpath.XPathEvaluator;
-import net.sf.saxon.dom.NodeOverNodeInfo;
+
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.plugins.evaluator.DOMAddLines;
 import net.sf.xpontus.plugins.evaluator.EvaluatorPluginIF;
 import net.sf.xpontus.utils.NamespaceResolverHandler;
 
 import org.apache.xerces.parsers.SAXParser;
-
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -46,13 +47,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
- 
+
 import javax.swing.text.JTextComponent;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
-import net.sf.xpontus.plugins.evaluator.DOMAddLines;
 
 
 /**
@@ -77,10 +77,9 @@ public class XPath2EvaluatorPluginImpl implements EvaluatorPluginIF {
             InputStream is = new BufferedInputStream(new ByteArrayInputStream(
                         texte.getBytes()));
 
-//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-//
-//            dbf.setValidating(false);
-
+            //            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            //
+            //            dbf.setValidating(false);
             final Map nsMap = new HashMap();
 
             SAXParser parser = new SAXParser();
@@ -96,14 +95,11 @@ public class XPath2EvaluatorPluginImpl implements EvaluatorPluginIF {
                         new BufferedInputStream(
                             new ByteArrayInputStream(texte.getBytes()))));
 
-            
-            
             Configuration config = new Configuration();
-            config.setLineNumbering(true); 
+            config.setLineNumbering(true);
 
             XPathEvaluator xpath = new XPathEvaluator(config);
-            
-            
+
             NodeInfo info = xpath.setSource(mSource);
 
             StandaloneContext std = new StandaloneContext(info);
@@ -120,26 +116,28 @@ public class XPath2EvaluatorPluginImpl implements EvaluatorPluginIF {
 
             xpath.setNamespaceContext(contextImpl);
 
-            final List list = xpath.evaluate(expression); 
+            final List list = xpath.evaluate(expression);
 
             NodeList nodeList2 = new NodeList() {
+                    public Node item(int arg0) {
+                        NodeInfo info = (NodeInfo) list.get(arg0);
 
-                public Node item(int arg0) {
-                    NodeInfo info = (NodeInfo)list.get(arg0);
-                    return NodeOverNodeInfo.wrap(info).getNextSibling();
-                }
+                        return NodeOverNodeInfo.wrap(info).getNextSibling();
+                    }
 
-                public int getLength() {
-                   return list.size();
-                }
-            };
+                    public int getLength() {
+                        return list.size();
+                    }
+                };
 
             DOMAddLines da = new DOMAddLines(new InputSource(
                         new BufferedInputStream(
                             new ByteArrayInputStream(texte.getBytes()))));
+
             return new Object[] { nodeList2, da };
         } catch (Exception e) {
             e.printStackTrace();
+
             return null;
         }
     }

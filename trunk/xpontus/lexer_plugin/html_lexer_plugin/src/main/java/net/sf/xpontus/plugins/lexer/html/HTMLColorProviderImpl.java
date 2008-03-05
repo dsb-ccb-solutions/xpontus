@@ -32,7 +32,8 @@ public class HTMLColorProviderImpl extends DefaultColorProvider {
             };
 
         for (int i = 0; i < props.length; i++) {
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~:" + XPontusConfig.getValue(props[i]));
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~:" +
+                XPontusConfig.getValue(props[i]));
             colors[i] = (Color) XPontusConfig.getValue(props[i]);
         }
 

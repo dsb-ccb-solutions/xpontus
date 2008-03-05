@@ -32,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.beans.EventHandler;
 
 import java.io.File;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -68,11 +69,6 @@ public class DownloadedPanel extends JComponent {
     private Map<String, SimplePluginDescriptor> pluginsMap;
     private Map<String, File> filesMap;
 
-    public Map<String, File> getFilesMap() {
-        return filesMap;
-    }
-
-    
     public DownloadedPanel() {
         setLayout(new BorderLayout());
         ptr = new PluginsTemplateRenderer();
@@ -90,7 +86,7 @@ public class DownloadedPanel extends JComponent {
                 ActionListener.class, ctrl, "addPlugin"));
 
         installPluginsButton = new JButton("Install");
-        
+
         installPluginsButton.addActionListener((ActionListener) EventHandler.create(
                 ActionListener.class, ctrl, "installPlugin"));
 
@@ -113,7 +109,7 @@ public class DownloadedPanel extends JComponent {
                         return getValueAt(0, c).getClass();
                     }
 
-                   public boolean isCellEditable(int row, int column) {
+                    public boolean isCellEditable(int row, int column) {
                         return (column == 0);
                     }
                 };
@@ -161,6 +157,10 @@ public class DownloadedPanel extends JComponent {
         panel = new JPanel(layout);
         panel.add(installPluginsButton);
         add(panel, BorderLayout.SOUTH);
+    }
+
+    public Map<String, File> getFilesMap() {
+        return filesMap;
     }
 
     public JTable getPluginDetailsTable() {

@@ -121,42 +121,40 @@ public class DTDCompletionParser implements ICompletionParser {
 
             DTDParser parser = null;
 
-//            String cacheURL = CompletionUtils.getFileCompletionCache(uri);
-//
-//            if (cacheURL != null) {
-//                System.out.println("Using cache for DTD completion parsing...");
-//                parserURL = new File(cacheURL).toURL();
-//            }
-
+            //            String cacheURL = CompletionUtils.getFileCompletionCache(uri);
+            //
+            //            if (cacheURL != null) {
+            //                System.out.println("Using cache for DTD completion parsing...");
+            //                parserURL = new File(cacheURL).toURL();
+            //            }
             parser = new DTDParser(parserURL);
 
             DTD dtd = parser.parse();
 
-//            if (cacheURL == null) {
-//                try {
-//                    System.out.println("Caching completion to cache");
-//
-//                    String str = CachingUtils.getCachedURL(uri);
-//                    File cacheFile = new File(XPontusConfigurationConstantsIF.GRAMMAR_CACHING_DIR,
-//                            str);
-//                    System.out.println("cacheFile:" +
-//                        cacheFile.getAbsolutePath());
-//
-//                    Writer m_writer = new OutputStreamWriter(FileUtils.openOutputStream(
-//                                cacheFile));
-//                    PrintWriter pw = new PrintWriter(m_writer);
-//                    dtd.write(pw);
-//                    IOUtils.closeQuietly(pw);
-//                    IOUtils.closeQuietly(m_writer);
-//                    CompletionUtils.addCompletionInfo(uri,
-//                        cacheFile.getAbsolutePath());
-//                } catch (Exception cachingException) {
-//                    cachingException.printStackTrace();
-//                }
-//            } else {
-//                System.out.println("Using code completion from cache...");
-//            }
-
+            //            if (cacheURL == null) {
+            //                try {
+            //                    System.out.println("Caching completion to cache");
+            //
+            //                    String str = CachingUtils.getCachedURL(uri);
+            //                    File cacheFile = new File(XPontusConfigurationConstantsIF.GRAMMAR_CACHING_DIR,
+            //                            str);
+            //                    System.out.println("cacheFile:" +
+            //                        cacheFile.getAbsolutePath());
+            //
+            //                    Writer m_writer = new OutputStreamWriter(FileUtils.openOutputStream(
+            //                                cacheFile));
+            //                    PrintWriter pw = new PrintWriter(m_writer);
+            //                    dtd.write(pw);
+            //                    IOUtils.closeQuietly(pw);
+            //                    IOUtils.closeQuietly(m_writer);
+            //                    CompletionUtils.addCompletionInfo(uri,
+            //                        cacheFile.getAbsolutePath());
+            //                } catch (Exception cachingException) {
+            //                    cachingException.printStackTrace();
+            //                }
+            //            } else {
+            //                System.out.println("Using code completion from cache...");
+            //            }
             Object[] obj = dtd.getItems();
 
             System.out.println("nb:items:" + obj.length);

@@ -6,46 +6,37 @@ import net.sf.xpontus.syntax.Token;
 import net.sf.xpontus.syntax.TokenMgrError;
 
 
-public class XQueryParserTokenManager implements XQueryParserConstants
-{
-    static final long[] jjbitVec0 = 
-        {
+public class XQueryParserTokenManager implements XQueryParserConstants {
+    static final long[] jjbitVec0 = {
             0x1ff00000fffffffeL, 0xffffffffffffc000L, 0xffffffffL,
             0x600000000000000L
         };
     static final long[] jjbitVec2 = { 0x0L, 0x0L, 0x0L, 0xff7fffffff7fffffL };
-    static final long[] jjbitVec3 = 
-        {
+    static final long[] jjbitVec3 = {
             0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
         };
-    static final long[] jjbitVec4 = 
-        {
+    static final long[] jjbitVec4 = {
             0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffL, 0x0L
         };
-    static final long[] jjbitVec5 = 
-        {
+    static final long[] jjbitVec5 = {
             0xffffffffffffffffL, 0xffffffffffffffffL, 0x0L, 0x0L
         };
     static final long[] jjbitVec6 = { 0x3fffffffffffL, 0x0L, 0x0L, 0x0L };
     static final long[] jjbitVec7 = { 0x1600L, 0x0L, 0x0L, 0x0L };
-    static final long[] jjbitVec8 = 
-        {
+    static final long[] jjbitVec8 = {
             0x0L, 0xffc000000000L, 0x0L, 0xffc000000000L
         };
-    static final long[] jjbitVec9 = 
-        {
+    static final long[] jjbitVec9 = {
             0x0L, 0x3ff00000000L, 0x0L, 0x3ff000000000000L
         };
-    static final long[] jjbitVec10 = 
-        {
+    static final long[] jjbitVec10 = {
             0x0L, 0xffc000000000L, 0x0L, 0xff8000000000L
         };
     static final long[] jjbitVec11 = { 0x0L, 0xffc000000000L, 0x0L, 0x0L };
     static final long[] jjbitVec12 = { 0x0L, 0x3ff0000L, 0x0L, 0x3ff0000L };
     static final long[] jjbitVec13 = { 0x0L, 0x3ffL, 0x0L, 0x0L };
     static final int[] jjnextStates = { 13, 14, 15, 10, 11, };
-    public static final String[] jjstrLiteralImages = 
-        {
+    public static final String[] jjstrLiteralImages = {
             "", "\40", "\11", "\12", "\15", "\14", "\144\157", "\146\157\162",
             "\151\156\163\164\141\156\143\145\157\146",
             "\162\145\164\165\162\156\163",
@@ -74,12 +65,10 @@ public class XQueryParserTokenManager implements XQueryParserConstants
             "\57", "\57\57", "\76", null, "\74", null, null, null, "\44",
             "\72\75", "\134", null, null, null, "\50\72", "\72\51", null,
         };
-    public static final String[] lexStateNames = 
-        {
+    public static final String[] lexStateNames = {
             "DEFAULT", "IN_MULTILINE_COMMENT",
         };
-    public static final int[] jjnewLexState = 
-        {
+    public static final int[] jjnewLexState = {
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -99,58 +88,47 @@ public class XQueryParserTokenManager implements XQueryParserConstants
     int jjmatchedPos;
     int jjmatchedKind;
 
-    public XQueryParserTokenManager(CharStream stream)
-    {
+    public XQueryParserTokenManager(CharStream stream) {
         input_stream = stream;
     }
 
-    public XQueryParserTokenManager(CharStream stream, int lexState)
-    {
+    public XQueryParserTokenManager(CharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    public void setDebugStream(java.io.PrintStream ds)
-    {
+    public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
     private final int jjStopStringLiteralDfa_0(int pos, long active0,
-        long active1)
-    {
-        switch (pos)
-        {
+        long active1) {
+        switch (pos) {
         case 0:
 
-            if ((active1 & 0x20L) != 0L)
-            {
+            if ((active1 & 0x20L) != 0L) {
                 return 10;
             }
 
-            if ((active0 & 0x20000000000000L) != 0L)
-            {
+            if ((active0 & 0x20000000000000L) != 0L) {
                 return 1;
             }
 
-            if ((active0 & 0x1ffffffdffffc0L) != 0L)
-            {
+            if ((active0 & 0x1ffffffdffffc0L) != 0L) {
                 jjmatchedKind = 54;
 
                 return 1;
             }
 
-            if ((active1 & 0x600L) != 0L)
-            {
+            if ((active1 & 0x600L) != 0L) {
                 return 3;
             }
 
-            if ((active1 & 0x2000L) != 0L)
-            {
+            if ((active1 & 0x2000L) != 0L) {
                 return 5;
             }
 
-            if ((active1 & 0x10L) != 0L)
-            {
+            if ((active1 & 0x10L) != 0L) {
                 return 17;
             }
 
@@ -158,15 +136,12 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 1:
 
-            if ((active0 & 0x8840049020140L) != 0L)
-            {
+            if ((active0 & 0x8840049020140L) != 0L) {
                 return 1;
             }
 
-            if ((active0 & 0x177bffb4fdfe80L) != 0L)
-            {
-                if (jjmatchedPos != 1)
-                {
+            if ((active0 & 0x177bffb4fdfe80L) != 0L) {
+                if (jjmatchedPos != 1) {
                     jjmatchedKind = 54;
                     jjmatchedPos = 1;
                 }
@@ -178,16 +153,14 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 2:
 
-            if ((active0 & 0x14bfff34d9ff00L) != 0L)
-            {
+            if ((active0 & 0x14bfff34d9ff00L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 2;
 
                 return 1;
             }
 
-            if ((active0 & 0x3400080240080L) != 0L)
-            {
+            if ((active0 & 0x3400080240080L) != 0L) {
                 return 1;
             }
 
@@ -195,13 +168,11 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 3:
 
-            if ((active0 & 0x114c30002000L) != 0L)
-            {
+            if ((active0 & 0x114c30002000L) != 0L) {
                 return 1;
             }
 
-            if ((active0 & 0x14aeb304d9df00L) != 0L)
-            {
+            if ((active0 & 0x14aeb304d9df00L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 3;
 
@@ -212,13 +183,11 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 4:
 
-            if ((active0 & 0x228104880000L) != 0L)
-            {
+            if ((active0 & 0x228104880000L) != 0L) {
                 return 1;
             }
 
-            if ((active0 & 0x148c320051df00L) != 0L)
-            {
+            if ((active0 & 0x148c320051df00L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 4;
 
@@ -229,15 +198,12 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 5:
 
-            if ((active0 & 0x200510200L) != 0L)
-            {
+            if ((active0 & 0x200510200L) != 0L) {
                 return 1;
             }
 
-            if ((active0 & 0x148c300000dd00L) != 0L)
-            {
-                if (jjmatchedPos != 5)
-                {
+            if ((active0 & 0x148c300000dd00L) != 0L) {
+                if (jjmatchedPos != 5) {
                     jjmatchedKind = 54;
                     jjmatchedPos = 5;
                 }
@@ -249,13 +215,11 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 6:
 
-            if ((active0 & 0x1000004a00L) != 0L)
-            {
+            if ((active0 & 0x1000004a00L) != 0L) {
                 return 1;
             }
 
-            if ((active0 & 0x148c2000009500L) != 0L)
-            {
+            if ((active0 & 0x148c2000009500L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 6;
 
@@ -266,16 +230,14 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 7:
 
-            if ((active0 & 0x148c2000008500L) != 0L)
-            {
+            if ((active0 & 0x148c2000008500L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 7;
 
                 return 1;
             }
 
-            if ((active0 & 0x1000L) != 0L)
-            {
+            if ((active0 & 0x1000L) != 0L) {
                 return 1;
             }
 
@@ -283,16 +245,14 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 8:
 
-            if ((active0 & 0x4082000000100L) != 0L)
-            {
+            if ((active0 & 0x4082000000100L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 8;
 
                 return 1;
             }
 
-            if ((active0 & 0x10840000008400L) != 0L)
-            {
+            if ((active0 & 0x10840000008400L) != 0L) {
                 return 1;
             }
 
@@ -300,16 +260,14 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 9:
 
-            if ((active0 & 0x4002000000000L) != 0L)
-            {
+            if ((active0 & 0x4002000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 9;
 
                 return 1;
             }
 
-            if ((active0 & 0x80000000100L) != 0L)
-            {
+            if ((active0 & 0x80000000100L) != 0L) {
                 return 1;
             }
 
@@ -317,13 +275,11 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 10:
 
-            if ((active0 & 0x4000000000000L) != 0L)
-            {
+            if ((active0 & 0x4000000000000L) != 0L) {
                 return 1;
             }
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 10;
 
@@ -334,8 +290,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 11:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 11;
 
@@ -346,8 +301,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 12:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 12;
 
@@ -358,8 +312,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 13:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 13;
 
@@ -370,8 +323,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 14:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 14;
 
@@ -382,8 +334,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 15:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 15;
 
@@ -394,8 +345,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 16:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 16;
 
@@ -406,8 +356,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 17:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 17;
 
@@ -418,8 +367,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 18:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 18;
 
@@ -430,8 +378,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 19:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 19;
 
@@ -442,8 +389,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 20:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 jjmatchedKind = 54;
                 jjmatchedPos = 20;
 
@@ -457,41 +403,33 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         }
     }
 
-    private final int jjStartNfa_0(int pos, long active0, long active1)
-    {
+    private final int jjStartNfa_0(int pos, long active0, long active1) {
         return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0, active1),
             pos + 1);
     }
 
-    private final int jjStopAtPos(int pos, int kind)
-    {
+    private final int jjStopAtPos(int pos, int kind) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
 
         return pos + 1;
     }
 
-    private final int jjStartNfaWithStates_0(int pos, int kind, int state)
-    {
+    private final int jjStartNfaWithStates_0(int pos, int kind, int state) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             return pos + 1;
         }
 
         return jjMoveNfa_0(state, pos + 1);
     }
 
-    private final int jjMoveStringLiteralDfa0_0()
-    {
-        switch (curChar)
-        {
+    private final int jjMoveStringLiteralDfa0_0() {
+        switch (curChar) {
         case 9:
             return jjStopAtPos(0, 2);
 
@@ -637,25 +575,19 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         }
     }
 
-    private final int jjMoveStringLiteralDfa1_0(long active0, long active1)
-    {
-        try
-        {
+    private final int jjMoveStringLiteralDfa1_0(long active0, long active1) {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(0, active0, active1);
 
             return 1;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 46:
 
-            if ((active1 & 0x8L) != 0L)
-            {
+            if ((active1 & 0x8L) != 0L) {
                 return jjStopAtPos(1, 67);
             }
 
@@ -663,8 +595,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 47:
 
-            if ((active1 & 0x400L) != 0L)
-            {
+            if ((active1 & 0x400L) != 0L) {
                 return jjStopAtPos(1, 74);
             }
 
@@ -672,8 +603,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 58:
 
-            if ((active1 & 0x800000L) != 0L)
-            {
+            if ((active1 & 0x800000L) != 0L) {
                 return jjStopAtPos(1, 87);
             }
 
@@ -681,12 +611,9 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 61:
 
-            if ((active1 & 0x40L) != 0L)
-            {
+            if ((active1 & 0x40L) != 0L) {
                 return jjStopAtPos(1, 70);
-            }
-            else if ((active1 & 0x40000L) != 0L)
-            {
+            } else if ((active1 & 0x40000L) != 0L) {
                 return jjStopAtPos(1, 82);
             }
 
@@ -702,8 +629,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 102:
 
-            if ((active0 & 0x8000000L) != 0L)
-            {
+            if ((active0 & 0x8000000L) != 0L) {
                 return jjStartNfaWithStates_0(1, 27, 1);
             }
 
@@ -721,8 +647,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 110:
 
-            if ((active0 & 0x40000000L) != 0L)
-            {
+            if ((active0 & 0x40000000L) != 0L) {
                 jjmatchedKind = 30;
                 jjmatchedPos = 1;
             }
@@ -732,12 +657,9 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 111:
 
-            if ((active0 & 0x40L) != 0L)
-            {
+            if ((active0 & 0x40L) != 0L) {
                 return jjStartNfaWithStates_0(1, 6, 1);
-            }
-            else if ((active0 & 0x8000000000000L) != 0L)
-            {
+            } else if ((active0 & 0x8000000000000L) != 0L) {
                 return jjStartNfaWithStates_0(1, 51, 1);
             }
 
@@ -746,8 +668,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 114:
 
-            if ((active0 & 0x20000L) != 0L)
-            {
+            if ((active0 & 0x20000L) != 0L) {
                 return jjStartNfaWithStates_0(1, 17, 1);
             }
 
@@ -756,8 +677,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 115:
 
-            if ((active0 & 0x1000000L) != 0L)
-            {
+            if ((active0 & 0x1000000L) != 0L) {
                 jjmatchedKind = 24;
                 jjmatchedPos = 1;
             }
@@ -785,37 +705,28 @@ public class XQueryParserTokenManager implements XQueryParserConstants
     }
 
     private final int jjMoveStringLiteralDfa2_0(long old0, long active0,
-        long old1, long active1)
-    {
-        if (((active0 &= old0) | (active1 &= old1)) == 0L)
-        {
+        long old1, long active1) {
+        if (((active0 &= old0) | (active1 &= old1)) == 0L) {
             return jjStartNfa_0(0, old0, old1);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(1, active0, 0L);
 
             return 2;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 99:
             return jjMoveStringLiteralDfa3_0(active0, 0x40000100000L);
 
         case 100:
 
-            if ((active0 & 0x400000000000L) != 0L)
-            {
+            if ((active0 & 0x400000000000L) != 0L) {
                 return jjStartNfaWithStates_0(2, 46, 1);
-            }
-            else if ((active0 & 0x2000000000000L) != 0L)
-            {
+            } else if ((active0 & 0x2000000000000L) != 0L) {
                 return jjStartNfaWithStates_0(2, 49, 1);
             }
 
@@ -844,12 +755,9 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 114:
 
-            if ((active0 & 0x80L) != 0L)
-            {
+            if ((active0 & 0x80L) != 0L) {
                 return jjStartNfaWithStates_0(2, 7, 1);
-            }
-            else if ((active0 & 0x40000L) != 0L)
-            {
+            } else if ((active0 & 0x40000L) != 0L) {
                 return jjStartNfaWithStates_0(2, 18, 1);
             }
 
@@ -860,12 +768,9 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 116:
 
-            if ((active0 & 0x200000L) != 0L)
-            {
+            if ((active0 & 0x200000L) != 0L) {
                 return jjStartNfaWithStates_0(2, 21, 1);
-            }
-            else if ((active0 & 0x80000000L) != 0L)
-            {
+            } else if ((active0 & 0x80000000L) != 0L) {
                 return jjStartNfaWithStates_0(2, 31, 1);
             }
 
@@ -876,8 +781,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 118:
 
-            if ((active0 & 0x1000000000000L) != 0L)
-            {
+            if ((active0 & 0x1000000000000L) != 0L) {
                 return jjStartNfaWithStates_0(2, 48, 1);
             }
 
@@ -893,26 +797,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(1, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa3_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa3_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(1, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(2, active0, 0L);
 
             return 3;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 97:
             return jjMoveStringLiteralDfa4_0(active0, 0x20000000800L);
 
@@ -921,20 +819,13 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 101:
 
-            if ((active0 & 0x20000000L) != 0L)
-            {
+            if ((active0 & 0x20000000L) != 0L) {
                 return jjStartNfaWithStates_0(3, 29, 1);
-            }
-            else if ((active0 & 0x400000000L) != 0L)
-            {
+            } else if ((active0 & 0x400000000L) != 0L) {
                 return jjStartNfaWithStates_0(3, 34, 1);
-            }
-            else if ((active0 & 0x4000000000L) != 0L)
-            {
+            } else if ((active0 & 0x4000000000L) != 0L) {
                 return jjStartNfaWithStates_0(3, 38, 1);
-            }
-            else if ((active0 & 0x100000000000L) != 0L)
-            {
+            } else if ((active0 & 0x100000000000L) != 0L) {
                 return jjStartNfaWithStates_0(3, 44, 1);
             }
 
@@ -951,8 +842,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 110:
 
-            if ((active0 & 0x10000000L) != 0L)
-            {
+            if ((active0 & 0x10000000L) != 0L) {
                 return jjStartNfaWithStates_0(3, 28, 1);
             }
 
@@ -969,16 +859,11 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 116:
 
-            if ((active0 & 0x2000L) != 0L)
-            {
+            if ((active0 & 0x2000L) != 0L) {
                 return jjStartNfaWithStates_0(3, 13, 1);
-            }
-            else if ((active0 & 0x800000000L) != 0L)
-            {
+            } else if ((active0 & 0x800000000L) != 0L) {
                 return jjStartNfaWithStates_0(3, 35, 1);
-            }
-            else if ((active0 & 0x10000000000L) != 0L)
-            {
+            } else if ((active0 & 0x10000000000L) != 0L) {
                 return jjStartNfaWithStates_0(3, 40, 1);
             }
 
@@ -994,26 +879,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(2, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa4_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa4_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(2, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(3, active0, 0L);
 
             return 4;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 97:
             return jjMoveStringLiteralDfa5_0(active0, 0x100L);
 
@@ -1022,16 +901,11 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 101:
 
-            if ((active0 & 0x4000000L) != 0L)
-            {
+            if ((active0 & 0x4000000L) != 0L) {
                 return jjStartNfaWithStates_0(4, 26, 1);
-            }
-            else if ((active0 & 0x100000000L) != 0L)
-            {
+            } else if ((active0 & 0x100000000L) != 0L) {
                 return jjStartNfaWithStates_0(4, 32, 1);
-            }
-            else if ((active0 & 0x200000000000L) != 0L)
-            {
+            } else if ((active0 & 0x200000000000L) != 0L) {
                 return jjStartNfaWithStates_0(4, 45, 1);
             }
 
@@ -1045,8 +919,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 110:
 
-            if ((active0 & 0x80000L) != 0L)
-            {
+            if ((active0 & 0x80000L) != 0L) {
                 return jjStartNfaWithStates_0(4, 19, 1);
             }
 
@@ -1057,8 +930,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 114:
 
-            if ((active0 & 0x800000L) != 0L)
-            {
+            if ((active0 & 0x800000L) != 0L) {
                 return jjStartNfaWithStates_0(4, 23, 1);
             }
 
@@ -1069,8 +941,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 116:
 
-            if ((active0 & 0x20000000000L) != 0L)
-            {
+            if ((active0 & 0x20000000000L) != 0L) {
                 return jjStartNfaWithStates_0(4, 41, 1);
             }
 
@@ -1081,8 +952,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 121:
 
-            if ((active0 & 0x8000000000L) != 0L)
-            {
+            if ((active0 & 0x8000000000L) != 0L) {
                 return jjStartNfaWithStates_0(4, 39, 1);
             }
 
@@ -1095,26 +965,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(3, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa5_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa5_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(3, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(4, active0, 0L);
 
             return 5;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 98:
             return jjMoveStringLiteralDfa6_0(active0, 0x8000L);
 
@@ -1123,8 +987,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 101:
 
-            if ((active0 & 0x400000L) != 0L)
-            {
+            if ((active0 & 0x400000L) != 0L) {
                 return jjStartNfaWithStates_0(5, 22, 1);
             }
 
@@ -1141,8 +1004,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 110:
 
-            if ((active0 & 0x200000000L) != 0L)
-            {
+            if ((active0 & 0x200000000L) != 0L) {
                 jjmatchedKind = 33;
                 jjmatchedPos = 5;
             }
@@ -1157,8 +1019,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 116:
 
-            if ((active0 & 0x100000L) != 0L)
-            {
+            if ((active0 & 0x100000L) != 0L) {
                 return jjStartNfaWithStates_0(5, 20, 1);
             }
 
@@ -1166,8 +1027,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 121:
 
-            if ((active0 & 0x10000L) != 0L)
-            {
+            if ((active0 & 0x10000L) != 0L) {
                 return jjStartNfaWithStates_0(5, 16, 1);
             }
 
@@ -1180,26 +1040,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(4, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa6_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa6_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(4, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(5, active0, 0L);
 
             return 6;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 97:
             return jjMoveStringLiteralDfa7_0(active0, 0x400L);
 
@@ -1223,8 +1077,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 115:
 
-            if ((active0 & 0x200L) != 0L)
-            {
+            if ((active0 & 0x200L) != 0L) {
                 return jjStartNfaWithStates_0(6, 9, 1);
             }
 
@@ -1232,16 +1085,11 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 116:
 
-            if ((active0 & 0x800L) != 0L)
-            {
+            if ((active0 & 0x800L) != 0L) {
                 return jjStartNfaWithStates_0(6, 11, 1);
-            }
-            else if ((active0 & 0x4000L) != 0L)
-            {
+            } else if ((active0 & 0x4000L) != 0L) {
                 return jjStartNfaWithStates_0(6, 14, 1);
-            }
-            else if ((active0 & 0x1000000000L) != 0L)
-            {
+            } else if ((active0 & 0x1000000000L) != 0L) {
                 return jjStartNfaWithStates_0(6, 36, 1);
             }
 
@@ -1257,26 +1105,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(5, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa7_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa7_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(5, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(6, active0, 0L);
 
             return 7;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 99:
             return jjMoveStringLiteralDfa8_0(active0, 0x800000000400L);
 
@@ -1288,8 +1130,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 110:
 
-            if ((active0 & 0x1000L) != 0L)
-            {
+            if ((active0 & 0x1000L) != 0L) {
                 return jjStartNfaWithStates_0(7, 12, 1);
             }
 
@@ -1305,34 +1146,25 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(6, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa8_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa8_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(6, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(7, active0, 0L);
 
             return 8;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 101:
 
-            if ((active0 & 0x400L) != 0L)
-            {
+            if ((active0 & 0x400L) != 0L) {
                 return jjStartNfaWithStates_0(8, 10, 1);
-            }
-            else if ((active0 & 0x8000L) != 0L)
-            {
+            } else if ((active0 & 0x8000L) != 0L) {
                 return jjStartNfaWithStates_0(8, 15, 1);
             }
 
@@ -1340,8 +1172,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 103:
 
-            if ((active0 & 0x40000000000L) != 0L)
-            {
+            if ((active0 & 0x40000000000L) != 0L) {
                 return jjStartNfaWithStates_0(8, 42, 1);
             }
 
@@ -1355,8 +1186,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 115:
 
-            if ((active0 & 0x10000000000000L) != 0L)
-            {
+            if ((active0 & 0x10000000000000L) != 0L) {
                 return jjStartNfaWithStates_0(8, 52, 1);
             }
 
@@ -1364,8 +1194,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 116:
 
-            if ((active0 & 0x800000000000L) != 0L)
-            {
+            if ((active0 & 0x800000000000L) != 0L) {
                 return jjStartNfaWithStates_0(8, 47, 1);
             }
 
@@ -1378,33 +1207,26 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(7, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa9_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa9_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(7, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(8, active0, 0L);
 
             return 9;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 99:
             return jjMoveStringLiteralDfa10_0(active0, 0x4000000000000L);
 
         case 102:
 
-            if ((active0 & 0x100L) != 0L)
-            {
+            if ((active0 & 0x100L) != 0L) {
                 return jjStartNfaWithStates_0(9, 8, 1);
             }
 
@@ -1412,8 +1234,7 @@ public class XQueryParserTokenManager implements XQueryParserConstants
 
         case 103:
 
-            if ((active0 & 0x80000000000L) != 0L)
-            {
+            if ((active0 & 0x80000000000L) != 0L) {
                 return jjStartNfaWithStates_0(9, 43, 1);
             }
 
@@ -1426,33 +1247,26 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(8, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa10_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa10_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(8, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(9, active0, 0L);
 
             return 10;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 95:
             return jjMoveStringLiteralDfa11_0(active0, 0x2000000000L);
 
         case 101:
 
-            if ((active0 & 0x4000000000000L) != 0L)
-            {
+            if ((active0 & 0x4000000000000L) != 0L) {
                 return jjStartNfaWithStates_0(10, 50, 1);
             }
 
@@ -1465,26 +1279,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(9, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa11_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa11_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(9, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(10, active0, 0L);
 
             return 11;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 105:
             return jjMoveStringLiteralDfa12_0(active0, 0x2000000000L);
 
@@ -1495,26 +1303,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(10, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa12_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa12_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(10, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(11, active0, 0L);
 
             return 12;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 110:
             return jjMoveStringLiteralDfa13_0(active0, 0x2000000000L);
 
@@ -1525,26 +1327,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(11, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa13_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa13_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(11, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(12, active0, 0L);
 
             return 13;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 115:
             return jjMoveStringLiteralDfa14_0(active0, 0x2000000000L);
 
@@ -1555,26 +1351,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(12, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa14_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa14_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(12, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(13, active0, 0L);
 
             return 14;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 116:
             return jjMoveStringLiteralDfa15_0(active0, 0x2000000000L);
 
@@ -1585,26 +1375,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(13, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa15_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa15_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(13, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(14, active0, 0L);
 
             return 15;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 114:
             return jjMoveStringLiteralDfa16_0(active0, 0x2000000000L);
 
@@ -1615,26 +1399,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(14, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa16_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa16_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(14, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(15, active0, 0L);
 
             return 16;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 117:
             return jjMoveStringLiteralDfa17_0(active0, 0x2000000000L);
 
@@ -1645,26 +1423,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(15, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa17_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa17_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(15, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(16, active0, 0L);
 
             return 17;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 99:
             return jjMoveStringLiteralDfa18_0(active0, 0x2000000000L);
 
@@ -1675,26 +1447,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(16, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa18_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa18_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(16, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(17, active0, 0L);
 
             return 18;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 116:
             return jjMoveStringLiteralDfa19_0(active0, 0x2000000000L);
 
@@ -1705,26 +1471,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(17, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa19_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa19_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(17, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(18, active0, 0L);
 
             return 19;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 105:
             return jjMoveStringLiteralDfa20_0(active0, 0x2000000000L);
 
@@ -1735,26 +1495,20 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(18, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa20_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa20_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(18, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(19, active0, 0L);
 
             return 20;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 111:
             return jjMoveStringLiteralDfa21_0(active0, 0x2000000000L);
 
@@ -1765,30 +1519,23 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(19, active0, 0L);
     }
 
-    private final int jjMoveStringLiteralDfa21_0(long old0, long active0)
-    {
-        if ((active0 &= old0) == 0L)
-        {
+    private final int jjMoveStringLiteralDfa21_0(long old0, long active0) {
+        if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(19, old0, 0L);
         }
 
-        try
-        {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             jjStopStringLiteralDfa_0(20, active0, 0L);
 
             return 21;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 110:
 
-            if ((active0 & 0x2000000000L) != 0L)
-            {
+            if ((active0 & 0x2000000000L) != 0L) {
                 return jjStartNfaWithStates_0(21, 37, 1);
             }
 
@@ -1801,47 +1548,36 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         return jjStartNfa_0(20, active0, 0L);
     }
 
-    private final void jjCheckNAdd(int state)
-    {
-        if (jjrounds[state] != jjround)
-        {
+    private final void jjCheckNAdd(int state) {
+        if (jjrounds[state] != jjround) {
             jjstateSet[jjnewStateCnt++] = state;
             jjrounds[state] = jjround;
         }
     }
 
-    private final void jjAddStates(int start, int end)
-    {
-        do
-        {
+    private final void jjAddStates(int start, int end) {
+        do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
-        }
-        while (start++ != end);
+        } while (start++ != end);
     }
 
-    private final void jjCheckNAddTwoStates(int state1, int state2)
-    {
+    private final void jjCheckNAddTwoStates(int state1, int state2) {
         jjCheckNAdd(state1);
         jjCheckNAdd(state2);
     }
 
-    private final void jjCheckNAddStates(int start, int end)
-    {
-        do
-        {
+    private final void jjCheckNAddStates(int start, int end) {
+        do {
             jjCheckNAdd(jjnextStates[start]);
-        }
-        while (start++ != end);
+        } while (start++ != end);
     }
 
-    private final void jjCheckNAddStates(int start)
-    {
+    private final void jjCheckNAddStates(int start) {
         jjCheckNAdd(jjnextStates[start]);
         jjCheckNAdd(jjnextStates[start + 1]);
     }
 
-    private final int jjMoveNfa_0(int startState, int curPos)
-    {
+    private final int jjMoveNfa_0(int startState, int curPos) {
         int[] nextStates;
         int startsAt = 0;
         jjnewStateCnt = 17;
@@ -1852,34 +1588,24 @@ public class XQueryParserTokenManager implements XQueryParserConstants
         int j;
         int kind = 0x7fffffff;
 
-        for (;;)
-        {
-            if (++jjround == 0x7fffffff)
-            {
+        for (;;) {
+            if (++jjround == 0x7fffffff) {
                 ReInitRounds();
             }
 
-            if (curChar < 64)
-            {
+            if (curChar < 64) {
                 long l = 1L << curChar;
 MatchLoop: 
-                do
-                {
-                    switch (jjstateSet[--i])
-                    {
+                do {
+                    switch (jjstateSet[--i]) {
                     case 10:
 
-                        if (curChar == 62)
-                        {
-                            if (kind > 80)
-                            {
+                        if (curChar == 62) {
+                            if (kind > 80) {
                                 kind = 80;
                             }
-                        }
-                        else if (curChar == 60)
-                        {
-                            if (kind > 79)
-                            {
+                        } else if (curChar == 60) {
+                            if (kind > 79) {
                                 kind = 79;
                             }
                         }
@@ -1888,35 +1614,22 @@ MatchLoop:
 
                     case 0:
 
-                        if ((0x3ff000000000000L & l) != 0L)
-                        {
-                            if (kind > 85)
-                            {
+                        if ((0x3ff000000000000L & l) != 0L) {
+                            if (kind > 85) {
                                 kind = 85;
                             }
 
                             jjCheckNAddStates(0, 2);
-                        }
-                        else if (curChar == 61)
-                        {
+                        } else if (curChar == 61) {
                             jjAddStates(3, 4);
-                        }
-                        else if (curChar == 34)
-                        {
+                        } else if (curChar == 34) {
                             jjCheckNAddTwoStates(7, 8);
-                        }
-                        else if (curChar == 60)
-                        {
+                        } else if (curChar == 60) {
                             jjstateSet[jjnewStateCnt++] = 5;
-                        }
-                        else if (curChar == 47)
-                        {
+                        } else if (curChar == 47) {
                             jjstateSet[jjnewStateCnt++] = 3;
-                        }
-                        else if (curChar == 45)
-                        {
-                            if (kind > 54)
-                            {
+                        } else if (curChar == 45) {
+                            if (kind > 54) {
                                 kind = 54;
                             }
 
@@ -1927,14 +1640,10 @@ MatchLoop:
 
                     case 17:
 
-                        if ((0x7ff600000000000L & l) != 0L)
-                        {
+                        if ((0x7ff600000000000L & l) != 0L) {
                             jjCheckNAddTwoStates(7, 8);
-                        }
-                        else if (curChar == 34)
-                        {
-                            if (kind > 84)
-                            {
+                        } else if (curChar == 34) {
+                            if (kind > 84) {
                                 kind = 84;
                             }
                         }
@@ -1943,13 +1652,11 @@ MatchLoop:
 
                     case 1:
 
-                        if ((0x3ff200000000000L & l) == 0L)
-                        {
+                        if ((0x3ff200000000000L & l) == 0L) {
                             break;
                         }
 
-                        if (kind > 54)
-                        {
+                        if (kind > 54) {
                             kind = 54;
                         }
 
@@ -1959,8 +1666,7 @@ MatchLoop:
 
                     case 2:
 
-                        if (curChar == 47)
-                        {
+                        if (curChar == 47) {
                             jjstateSet[jjnewStateCnt++] = 3;
                         }
 
@@ -1968,8 +1674,7 @@ MatchLoop:
 
                     case 3:
 
-                        if ((curChar == 62) && (kind > 76))
-                        {
+                        if ((curChar == 62) && (kind > 76)) {
                             kind = 76;
                         }
 
@@ -1977,8 +1682,7 @@ MatchLoop:
 
                     case 4:
 
-                        if (curChar == 60)
-                        {
+                        if (curChar == 60) {
                             jjstateSet[jjnewStateCnt++] = 5;
                         }
 
@@ -1986,8 +1690,7 @@ MatchLoop:
 
                     case 5:
 
-                        if ((curChar == 47) && (kind > 78))
-                        {
+                        if ((curChar == 47) && (kind > 78)) {
                             kind = 78;
                         }
 
@@ -1995,8 +1698,7 @@ MatchLoop:
 
                     case 6:
 
-                        if (curChar == 34)
-                        {
+                        if (curChar == 34) {
                             jjCheckNAddTwoStates(7, 8);
                         }
 
@@ -2004,8 +1706,7 @@ MatchLoop:
 
                     case 7:
 
-                        if ((0x7ff600000000000L & l) != 0L)
-                        {
+                        if ((0x7ff600000000000L & l) != 0L) {
                             jjCheckNAddTwoStates(7, 8);
                         }
 
@@ -2013,8 +1714,7 @@ MatchLoop:
 
                     case 8:
 
-                        if ((curChar == 34) && (kind > 84))
-                        {
+                        if ((curChar == 34) && (kind > 84)) {
                             kind = 84;
                         }
 
@@ -2022,8 +1722,7 @@ MatchLoop:
 
                     case 9:
 
-                        if (curChar == 61)
-                        {
+                        if (curChar == 61) {
                             jjAddStates(3, 4);
                         }
 
@@ -2031,8 +1730,7 @@ MatchLoop:
 
                     case 11:
 
-                        if ((curChar == 62) && (kind > 80))
-                        {
+                        if ((curChar == 62) && (kind > 80)) {
                             kind = 80;
                         }
 
@@ -2040,13 +1738,11 @@ MatchLoop:
 
                     case 12:
 
-                        if ((0x3ff000000000000L & l) == 0L)
-                        {
+                        if ((0x3ff000000000000L & l) == 0L) {
                             break;
                         }
 
-                        if (kind > 85)
-                        {
+                        if (kind > 85) {
                             kind = 85;
                         }
 
@@ -2056,13 +1752,11 @@ MatchLoop:
 
                     case 13:
 
-                        if ((0x3ff000000000000L & l) == 0L)
-                        {
+                        if ((0x3ff000000000000L & l) == 0L) {
                             break;
                         }
 
-                        if (kind > 85)
-                        {
+                        if (kind > 85) {
                             kind = 85;
                         }
 
@@ -2072,8 +1766,7 @@ MatchLoop:
 
                     case 14:
 
-                        if ((0x3ff000000000000L & l) != 0L)
-                        {
+                        if ((0x3ff000000000000L & l) != 0L) {
                             jjCheckNAddTwoStates(14, 15);
                         }
 
@@ -2081,8 +1774,7 @@ MatchLoop:
 
                     case 15:
 
-                        if (curChar == 46)
-                        {
+                        if (curChar == 46) {
                             jjCheckNAdd(16);
                         }
 
@@ -2090,13 +1782,11 @@ MatchLoop:
 
                     case 16:
 
-                        if ((0x3ff000000000000L & l) == 0L)
-                        {
+                        if ((0x3ff000000000000L & l) == 0L) {
                             break;
                         }
 
-                        if (kind > 86)
-                        {
+                        if (kind > 86) {
                             kind = 86;
                         }
 
@@ -2107,27 +1797,20 @@ MatchLoop:
                     default:
                         break;
                     }
-                }
-                while (i != startsAt);
-            }
-            else if (curChar < 128)
-            {
+                } while (i != startsAt);
+            } else if (curChar < 128) {
                 long l = 1L << (curChar & 077);
 MatchLoop: 
-                do
-                {
-                    switch (jjstateSet[--i])
-                    {
+                do {
+                    switch (jjstateSet[--i]) {
                     case 0:
                     case 1:
 
-                        if ((0x7fffffe87fffffeL & l) == 0L)
-                        {
+                        if ((0x7fffffe87fffffeL & l) == 0L) {
                             break;
                         }
 
-                        if (kind > 54)
-                        {
+                        if (kind > 54) {
                             kind = 54;
                         }
 
@@ -2138,8 +1821,7 @@ MatchLoop:
                     case 17:
                     case 7:
 
-                        if ((0x7fffffe97fffffeL & l) != 0L)
-                        {
+                        if ((0x7fffffe97fffffeL & l) != 0L) {
                             jjCheckNAddTwoStates(7, 8);
                         }
 
@@ -2148,37 +1830,28 @@ MatchLoop:
                     default:
                         break;
                     }
-                }
-                while (i != startsAt);
-            }
-            else
-            {
+                } while (i != startsAt);
+            } else {
                 int hiByte = (int) (curChar >> 8);
                 int i1 = hiByte >> 6;
                 long l1 = 1L << (hiByte & 077);
                 int i2 = (curChar & 0xff) >> 6;
                 long l2 = 1L << (curChar & 077);
 MatchLoop: 
-                do
-                {
-                    switch (jjstateSet[--i])
-                    {
+                do {
+                    switch (jjstateSet[--i]) {
                     case 0:
 
-                        if (jjCanMove_0(hiByte, i1, i2, l1, l2))
-                        {
-                            if (kind > 54)
-                            {
+                        if (jjCanMove_0(hiByte, i1, i2, l1, l2)) {
+                            if (kind > 54) {
                                 kind = 54;
                             }
 
                             jjCheckNAdd(1);
                         }
 
-                        if (jjCanMove_1(hiByte, i1, i2, l1, l2))
-                        {
-                            if (kind > 85)
-                            {
+                        if (jjCanMove_1(hiByte, i1, i2, l1, l2)) {
+                            if (kind > 85) {
                                 kind = 85;
                             }
 
@@ -2190,8 +1863,7 @@ MatchLoop:
                     case 17:
                     case 7:
 
-                        if (jjCanMove_0(hiByte, i1, i2, l1, l2))
-                        {
+                        if (jjCanMove_0(hiByte, i1, i2, l1, l2)) {
                             jjCheckNAddTwoStates(7, 8);
                         }
 
@@ -2199,13 +1871,11 @@ MatchLoop:
 
                     case 1:
 
-                        if (!jjCanMove_0(hiByte, i1, i2, l1, l2))
-                        {
+                        if (!jjCanMove_0(hiByte, i1, i2, l1, l2)) {
                             break;
                         }
 
-                        if (kind > 54)
-                        {
+                        if (kind > 54) {
                             kind = 54;
                         }
 
@@ -2215,13 +1885,11 @@ MatchLoop:
 
                     case 12:
 
-                        if (!jjCanMove_1(hiByte, i1, i2, l1, l2))
-                        {
+                        if (!jjCanMove_1(hiByte, i1, i2, l1, l2)) {
                             break;
                         }
 
-                        if (kind > 85)
-                        {
+                        if (kind > 85) {
                             kind = 85;
                         }
 
@@ -2231,13 +1899,11 @@ MatchLoop:
 
                     case 13:
 
-                        if (!jjCanMove_1(hiByte, i1, i2, l1, l2))
-                        {
+                        if (!jjCanMove_1(hiByte, i1, i2, l1, l2)) {
                             break;
                         }
 
-                        if (kind > 85)
-                        {
+                        if (kind > 85) {
                             kind = 85;
                         }
 
@@ -2247,8 +1913,7 @@ MatchLoop:
 
                     case 14:
 
-                        if (jjCanMove_1(hiByte, i1, i2, l1, l2))
-                        {
+                        if (jjCanMove_1(hiByte, i1, i2, l1, l2)) {
                             jjCheckNAddTwoStates(14, 15);
                         }
 
@@ -2256,13 +1921,11 @@ MatchLoop:
 
                     case 16:
 
-                        if (!jjCanMove_1(hiByte, i1, i2, l1, l2))
-                        {
+                        if (!jjCanMove_1(hiByte, i1, i2, l1, l2)) {
                             break;
                         }
 
-                        if (kind > 86)
-                        {
+                        if (kind > 86) {
                             kind = 86;
                         }
 
@@ -2273,12 +1936,10 @@ MatchLoop:
                     default:
                         break;
                     }
-                }
-                while (i != startsAt);
+                } while (i != startsAt);
             }
 
-            if (kind != 0x7fffffff)
-            {
+            if (kind != 0x7fffffff) {
                 jjmatchedKind = kind;
                 jjmatchedPos = curPos;
                 kind = 0x7fffffff;
@@ -2287,26 +1948,20 @@ MatchLoop:
             ++curPos;
 
             if ((i = jjnewStateCnt) == (startsAt = 17 -
-                        (jjnewStateCnt = startsAt)))
-            {
+                        (jjnewStateCnt = startsAt))) {
                 return curPos;
             }
 
-            try
-            {
+            try {
                 curChar = input_stream.readChar();
-            }
-            catch (java.io.IOException e)
-            {
+            } catch (java.io.IOException e) {
                 return curPos;
             }
         }
     }
 
-    private final int jjMoveStringLiteralDfa0_1()
-    {
-        switch (curChar)
-        {
+    private final int jjMoveStringLiteralDfa0_1() {
+        switch (curChar) {
         case 58:
             return jjMoveStringLiteralDfa1_1(0x1000000L);
 
@@ -2315,23 +1970,17 @@ MatchLoop:
         }
     }
 
-    private final int jjMoveStringLiteralDfa1_1(long active1)
-    {
-        try
-        {
+    private final int jjMoveStringLiteralDfa1_1(long active1) {
+        try {
             curChar = input_stream.readChar();
-        }
-        catch (java.io.IOException e)
-        {
+        } catch (java.io.IOException e) {
             return 1;
         }
 
-        switch (curChar)
-        {
+        switch (curChar) {
         case 41:
 
-            if ((active1 & 0x1000000L) != 0L)
-            {
+            if ((active1 & 0x1000000L) != 0L) {
                 return jjStopAtPos(1, 88);
             }
 
@@ -2345,10 +1994,8 @@ MatchLoop:
     }
 
     private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
-        long l1, long l2)
-    {
-        switch (hiByte)
-        {
+        long l1, long l2) {
+        switch (hiByte) {
         case 0:
             return ((jjbitVec2[i2] & l2) != 0L);
 
@@ -2366,8 +2013,7 @@ MatchLoop:
 
         default:
 
-            if ((jjbitVec0[i1] & l1) != 0L)
-            {
+            if ((jjbitVec0[i1] & l1) != 0L) {
                 return true;
             }
 
@@ -2376,10 +2022,8 @@ MatchLoop:
     }
 
     private static final boolean jjCanMove_1(int hiByte, int i1, int i2,
-        long l1, long l2)
-    {
-        switch (hiByte)
-        {
+        long l1, long l2) {
+        switch (hiByte) {
         case 6:
             return ((jjbitVec9[i2] & l2) != 0L);
 
@@ -2397,14 +2041,10 @@ MatchLoop:
 
         default:
 
-            if ((jjbitVec7[i1] & l1) != 0L)
-            {
-                if ((jjbitVec8[i2] & l2) == 0L)
-                {
+            if ((jjbitVec7[i1] & l1) != 0L) {
+                if ((jjbitVec8[i2] & l2) == 0L) {
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
@@ -2413,16 +2053,14 @@ MatchLoop:
         }
     }
 
-    public void ReInit(CharStream stream)
-    {
+    public void ReInit(CharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
         input_stream = stream;
         ReInitRounds();
     }
 
-    private final void ReInitRounds()
-    {
+    private final void ReInitRounds() {
         int i;
         jjround = 0x80000001;
 
@@ -2430,28 +2068,22 @@ MatchLoop:
             jjrounds[i] = 0x80000000;
     }
 
-    public void ReInit(CharStream stream, int lexState)
-    {
+    public void ReInit(CharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    public void SwitchTo(int lexState)
-    {
-        if ((lexState >= 2) || (lexState < 0))
-        {
+    public void SwitchTo(int lexState) {
+        if ((lexState >= 2) || (lexState < 0)) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : " +
                 lexState + ". State unchanged.",
                 TokenMgrError.INVALID_LEXICAL_STATE);
-        }
-        else
-        {
+        } else {
             curLexState = lexState;
         }
     }
 
-    protected Token jjFillToken()
-    {
+    protected Token jjFillToken() {
         Token t = Token.newToken(jjmatchedKind);
         t.kind = jjmatchedKind;
 
@@ -2465,30 +2097,24 @@ MatchLoop:
         return t;
     }
 
-    public Token getNextToken()
-    {
+    public Token getNextToken() {
         int kind;
         Token specialToken = null;
         Token matchedToken;
         int curPos = 0;
 
 EOFLoop: 
-        for (;;)
-        {
-            try
-            {
+        for (;;) {
+            try {
                 curChar = input_stream.BeginToken();
-            }
-            catch (java.io.IOException e)
-            {
+            } catch (java.io.IOException e) {
                 jjmatchedKind = 0;
                 matchedToken = jjFillToken();
 
                 return matchedToken;
             }
 
-            switch (curLexState)
-            {
+            switch (curLexState) {
             case 0:
                 jjmatchedKind = 0x7fffffff;
                 jjmatchedPos = 0;
@@ -2501,25 +2127,21 @@ EOFLoop:
                 jjmatchedPos = 0;
                 curPos = jjMoveStringLiteralDfa0_1();
 
-                if ((jjmatchedPos == 0) && (jjmatchedKind > 89))
-                {
+                if ((jjmatchedPos == 0) && (jjmatchedKind > 89)) {
                     jjmatchedKind = 89;
                 }
 
                 break;
             }
 
-            if (jjmatchedKind != 0x7fffffff)
-            {
-                if ((jjmatchedPos + 1) < curPos)
-                {
+            if (jjmatchedKind != 0x7fffffff) {
+                if ((jjmatchedPos + 1) < curPos) {
                     input_stream.backup(curPos - jjmatchedPos - 1);
                 }
 
                 matchedToken = jjFillToken();
 
-                if (jjnewLexState[jjmatchedKind] != -1)
-                {
+                if (jjnewLexState[jjmatchedKind] != -1) {
                     curLexState = jjnewLexState[jjmatchedKind];
                 }
 
@@ -2531,29 +2153,22 @@ EOFLoop:
             String error_after = null;
             boolean EOFSeen = false;
 
-            try
-            {
+            try {
                 input_stream.readChar();
                 input_stream.backup(1);
-            }
-            catch (java.io.IOException e1)
-            {
+            } catch (java.io.IOException e1) {
                 EOFSeen = true;
                 error_after = (curPos <= 1) ? "" : input_stream.GetImage();
 
-                if ((curChar == '\n') || (curChar == '\r'))
-                {
+                if ((curChar == '\n') || (curChar == '\r')) {
                     error_line++;
                     error_column = 0;
-                }
-                else
-                {
+                } else {
                     error_column++;
                 }
             }
 
-            if (!EOFSeen)
-            {
+            if (!EOFSeen) {
                 input_stream.backup(1);
                 error_after = (curPos <= 1) ? "" : input_stream.GetImage();
             }

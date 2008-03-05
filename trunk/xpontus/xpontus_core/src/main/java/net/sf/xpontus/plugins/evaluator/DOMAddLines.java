@@ -62,7 +62,6 @@ public class DOMAddLines extends DOMParser {
     private XMLLocator locator;
 
     public DOMAddLines(InputSource src) {
-       
         //fNodeExpansion = FULL; // faster than: this.setFeature("http://apache.org/xml/features/defer-node-expansion", false);
         try {
             this.setFeature("http://apache.org/xml/features/dom/defer-node-expansion",
