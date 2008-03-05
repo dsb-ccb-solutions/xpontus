@@ -1,4 +1,4 @@
-package net.sf.xpontus.plugins.lexer;
+package net.sf.xpontus.plugins.perspectives;
 
 
 /**
