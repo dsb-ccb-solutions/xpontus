@@ -1,7 +1,4 @@
 /*
- * XPontusToolbarConstants.java
- *
- * Created on 23-Aug-2007, 8:05:37 AM
  *
  *
  * Copyright (C) 2005-2008 Yves Zoundi
@@ -20,39 +17,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
+ *
  */
-package net.sf.xpontus.constants;
+package net.sf.xpontus.plugins.perspectives.xml;
 
 
 /**
- * Interface for toolbar constants
- * @version 0.0.1
- * @author Yves Zoundi
+ *
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public interface XPontusToolbarConstantsIF {
-    /**
-     * Toolbar name for general actions
-     */
-    String TB_GENERAL = "GENERAL";
-    String TB_VALIDATION = "VALIDATION";
-
-    /**
-     * Toolbar name fholding edit actions
-     */
-    String TB_EDIT = "EDIT";
-
-    /**
-     * Toolbar name holding scenarios actions
-     */
-    String TB_SCENARIOS = "SCENARIOS";
-
-    /**
-     * Toolbar name holding tools actions
-     */
-    String TB_TOOLS = "TOOLS";
-
-    /**
-     * Toolbar name holding help actions
-     */
-    String TB_HELP = "HELP";
+public class DocumentViewChangeEvent {
 }

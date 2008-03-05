@@ -16,16 +16,12 @@ import javax.swing.Icon;
  *
  * @author yvzou
  */
-public class EditorPanelDialog extends AbstractDialogPage
-{
-    public EditorPanelDialog(String name, Icon icon)
-    {
+public class EditorPanelDialog extends AbstractDialogPage {
+    public EditorPanelDialog(String name, Icon icon) {
         super(name, icon);
     }
 
-    @Override
-    public void lazyInitialize()
-    {
+    public void lazyInitialize() {
         setLayout(new BorderLayout());
 
         BannerPanel bannerPanel = new BannerPanel(getName());

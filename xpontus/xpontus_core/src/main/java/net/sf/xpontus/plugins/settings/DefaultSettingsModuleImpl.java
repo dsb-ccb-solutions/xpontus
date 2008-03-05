@@ -25,6 +25,7 @@ import com.vlsolutions.swing.docking.DefaultDockableContainerFactory;
 import com.vlsolutions.swing.docking.DockableContainerFactory;
 import com.vlsolutions.swing.docking.TabbedDockableContainer;
 
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
@@ -115,6 +116,17 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
 
                     OutputStream out = new FileOutputStream(output);
                     IOUtils.copy(is, out);
+                }
+
+                if (!outName.equals("mimetypes.properties")) {
+                    Properties m_properties = PropertiesConfigurationLoader.load(output);
+                    Iterator it = m_properties.keySet().iterator();
+
+                    while (it.hasNext()) {
+                        Object m_key = it.next();
+                        Object m_value = m_properties.get(m_key);
+                        XPontusConfig.put(m_key, m_value);
+                    }
                 }
             }
         } catch (Exception err) {

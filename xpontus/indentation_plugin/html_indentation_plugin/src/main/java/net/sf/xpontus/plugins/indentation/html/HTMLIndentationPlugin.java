@@ -78,7 +78,8 @@ public class HTMLIndentationPlugin extends Plugin {
                     "true");
 
                 props.put(HTMLIndenterPluginConstantsIF.class.getName() + "$" +
-                    HTMLIndenterPluginConstantsIF.ENCODING_PROPERTY, "AUTODETECT");
+                    HTMLIndenterPluginConstantsIF.ENCODING_PROPERTY,
+                    "AUTODETECT");
 
                 PropertiesConfigurationLoader.save(configfile, props);
             } else {

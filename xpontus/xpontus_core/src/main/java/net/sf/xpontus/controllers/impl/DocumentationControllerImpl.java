@@ -19,7 +19,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.controllers.impl;
- 
+
 import com.sun.java.help.impl.SwingWorker;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
@@ -52,23 +52,27 @@ public class DocumentationControllerImpl {
      * The method name to select an input file
      */
     public static final String INPUT_METHOD = "selectInput";
+
     /**
      * The method name to select an output directory
      */
     public static final String OUTPUT_METHOD = "selectOutput";
+
     /**
      * The method name to select a css stylesheet
      */
     public static final String CSS_METHOD = "selectCss";
+
     /**
      * The method name to close the documentation generator dialog
      */
     public static final String CLOSE_METHOD = "closeWindow";
+
     /**
      * The method name to generate the documentation
      */
     public static final String HANDLE_METHOD = "handle";
-    
+
     // private members
     private DocumentationView view;
     private JFileChooser chooser;
@@ -154,7 +158,6 @@ public class DocumentationControllerImpl {
      */
     public void handle() {
         SwingWorker sw = new SwingWorker() {
-                @Override
                 public Object construct() {
                     String type = view.getModel().getType();
 

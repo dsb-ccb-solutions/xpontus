@@ -21,9 +21,10 @@
  */
 package net.sf.xpontus.plugins.browser;
 
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
+
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 
 /**
@@ -33,16 +34,13 @@ import net.sf.xpontus.plugins.SimplePluginDescriptor;
 public class UpgradesPluginResolver extends AbstractPluginsResolver {
     private Map<String, SimplePluginDescriptor> pluginsMap = new HashMap<String, SimplePluginDescriptor>();
 
-    @Override
     public Map<String, SimplePluginDescriptor> getPluginDescriptorsMap() {
         return pluginsMap;
     }
 
-    @Override
     public void resolvePlugins() {
     }
 
-    @Override
-    public void reload() { 
+    public void reload() {
     }
 }

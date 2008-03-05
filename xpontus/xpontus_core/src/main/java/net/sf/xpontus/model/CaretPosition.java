@@ -32,13 +32,13 @@ public class CaretPosition {
     private int column;
 
     /**
-     * 
+     *
      */
     public CaretPosition() {
     }
 
     /**
-     * 
+     *
      * @param line
      * @param column
      */
@@ -48,7 +48,7 @@ public class CaretPosition {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public int getColumn() {
@@ -56,7 +56,7 @@ public class CaretPosition {
     }
 
     /**
-     * 
+     *
      * @param column
      */
     public void setColumn(int column) {
@@ -64,7 +64,7 @@ public class CaretPosition {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public int getLine() {
@@ -72,14 +72,13 @@ public class CaretPosition {
     }
 
     /**
-     * 
+     *
      * @param line
      */
     public void setLine(int line) {
         this.line = line;
     }
 
-    @Override
     public String toString() {
         return line + ":" + column;
     }

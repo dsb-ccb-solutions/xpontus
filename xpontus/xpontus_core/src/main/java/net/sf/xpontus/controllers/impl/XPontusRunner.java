@@ -46,6 +46,7 @@ import net.sf.xpontus.actions.impl.ViewMessagesWindowActionImpl;
 import net.sf.xpontus.actions.impl.ViewOutlineWindowActionImpl;
 import net.sf.xpontus.actions.impl.ViewToolbarActionImpl;
 import net.sf.xpontus.actions.impl.ViewXPathWindowActionImpl;
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -65,6 +66,7 @@ import net.sf.xpontus.plugins.lexer.LexerPlugin;
 import net.sf.xpontus.plugins.menubar.MenuBarPlugin;
 import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
 import net.sf.xpontus.plugins.outline.OutlinePlugin;
+import net.sf.xpontus.plugins.perspectives.PerspectivePlugin;
 import net.sf.xpontus.plugins.preferences.PreferencesPlugin;
 import net.sf.xpontus.plugins.preview.PreviewPlugin;
 import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPlugin;
@@ -90,8 +92,8 @@ import java.util.Vector;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import net.sf.xpontus.plugins.perspectives.PerspectivePlugin;
 
 
 /**
@@ -113,6 +115,7 @@ public class XPontusRunner {
             "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
     }
 
+    static JWindow splash;
     private DefaultXPontusWindowImpl m_window;
 
     private XPontusRunner() {
@@ -185,13 +188,18 @@ public class XPontusRunner {
 
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-        final JWindow splash = new SplashScreen();
-        new Thread(new Runnable() {
-                public void run() {
-                    splash.setLocationRelativeTo(splash.getOwner());
-                    splash.setVisible(true);
-                }
-            }).start();
+        boolean showSplash = XPontusConfig.getValue(
+                "xpontus.showSplashScreenOnStartup").toString().equals("true");
+
+        if (showSplash) {
+            SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        splash = new SplashScreen();
+                        splash.setLocationRelativeTo(splash.getOwner());
+                        splash.setVisible(true);
+                    }
+                });
+        }
 
         XPontusPluginManager controller = new XPontusPluginManager();
 
@@ -407,18 +415,17 @@ public class XPontusRunner {
                 "Install some plugins in the category documentation");
         }
 
-//        DocumentAwareComponentHolder.getInstance()
-//                                    .notifyComponents(new DocumentContainerChangeEvent(
-//                null));
-
-        new Thread(new Runnable() {
-                public void run() {
-                    splash.dispose();
-                }
-            }).start();
+        //        DocumentAwareComponentHolder.getInstance()
+        //                                    .notifyComponents(new DocumentContainerChangeEvent(
+        //                null));
+        if (showSplash) {
+            SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        splash.dispose();
+                    }
+                });
+        }
 
         window.activateComponent();
-
-        final Class m_class = settings.getClass();
     }
 }

@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 package net.sf.xpontus.plugins.scenarios;
-  
 
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -35,7 +34,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
-import javax.swing.JTable; 
+import javax.swing.JTable;
 
 
 /**
@@ -93,8 +92,8 @@ public class ScenarioEditorController {
      */
     public ScenarioEditorController(ScenarioEditorView view) {
         this.view = view;
-        chooser = new  JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY); 
+        chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     }
 
     // check if a scenario already exists with the specified name
@@ -124,7 +123,7 @@ public class ScenarioEditorController {
 
         int rep = chooser.showOpenDialog(c);
 
-        if (rep ==  JFileChooser.APPROVE_OPTION) {
+        if (rep == JFileChooser.APPROVE_OPTION) {
             try {
                 String path = chooser.getSelectedFile().getAbsolutePath();
                 view.getModel().setInput(path);
@@ -145,7 +144,7 @@ public class ScenarioEditorController {
 
         int rep = chooser.showOpenDialog(c);
 
-        if (rep ==  JFileChooser.APPROVE_OPTION) {
+        if (rep == JFileChooser.APPROVE_OPTION) {
             try {
                 String path = chooser.getSelectedFile().getAbsolutePath();
                 view.getModel().setOutput(path);
@@ -179,7 +178,7 @@ public class ScenarioEditorController {
         }
 
         table.revalidate();
-        table.repaint(); 
+        table.repaint();
     }
 
     /**
@@ -191,7 +190,7 @@ public class ScenarioEditorController {
 
         int rep = chooser.showOpenDialog(c);
 
-        if (rep ==  JFileChooser.APPROVE_OPTION) {
+        if (rep == JFileChooser.APPROVE_OPTION) {
             try {
                 String path = chooser.getSelectedFile().getAbsolutePath();
                 view.getModel().setXsl(path);
@@ -202,7 +201,7 @@ public class ScenarioEditorController {
     }
 
     /**
-     * Returns the plugin to use for the XSLT transformation 
+     * Returns the plugin to use for the XSLT transformation
      * @param proc The xslt processor to use
      * @return The plugin for the XSLT transformation
      */
