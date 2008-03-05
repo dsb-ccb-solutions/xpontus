@@ -7,6 +7,7 @@ import java.awt.Color;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+import net.sf.xpontus.configuration.XPontusConfig;
 
 
 /**
@@ -18,22 +19,47 @@ public class XMLColorProviderImpl extends PlainColorProviderImpl {
      * Default constructor
      */
     public XMLColorProviderImpl() {
-        MutableAttributeSet keyword = new SimpleAttributeSet();
-        StyleConstants.setForeground(keyword, Color.BLUE);
+        
+        Color[] colors = new Color[6];
+        String[] props = {
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.STRING_PROPERTY, 
+                
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.COMMENT_PROPERTY,
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.TAGS_PROPERTY,
+                
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.DECLARATION_PROPERTY,
+                
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.ATTRIBUTES_PROPERTY
+            };
 
-        int[] keywords = { XMLParserConstants.TAG_NAME };
+        for (int i = 0; i < props.length; i++) { 
+            colors[i] = (Color) XPontusConfig.getValue(props[i]);
+        }
+        
+        MutableAttributeSet keyword = new SimpleAttributeSet();
+        StyleConstants.setForeground(keyword, colors[2]);
 
         MutableAttributeSet attStyle = new SimpleAttributeSet();
-        StyleConstants.setForeground(attStyle, new Color(127, 0, 85));
-
-        addAll(keywords, keyword);
+        StyleConstants.setForeground(attStyle, colors[4]);
 
         MutableAttributeSet comment = new SimpleAttributeSet();
-        StyleConstants.setForeground(comment, new Color(0, 100, 0));
+        StyleConstants.setForeground(comment, colors[1]);
         StyleConstants.setItalic(comment, true);
 
         MutableAttributeSet xmlDeclStyle = new SimpleAttributeSet();
-        StyleConstants.setForeground(xmlDeclStyle, Color.MAGENTA);
+        StyleConstants.setForeground(xmlDeclStyle, colors[3]);
+
+        MutableAttributeSet stringStyle = new SimpleAttributeSet();
+        StyleConstants.setForeground(stringStyle, colors[0]);
+
+        int[] keywords = { XMLParserConstants.TAG_NAME };
+
+        addAll(keywords, keyword);
 
         int[] xmlDeclTokenIds = {
                 XMLParserConstants.PI_START, XMLParserConstants.XML_TARGET,
@@ -50,9 +76,6 @@ public class XMLColorProviderImpl extends PlainColorProviderImpl {
                 XMLParserConstants.ERR_IN_DOCTYPE
             };
         addAll(xmlDeclTokenIds, xmlDeclStyle);
-
-        MutableAttributeSet stringStyle = new SimpleAttributeSet();
-        StyleConstants.setForeground(stringStyle, Color.RED);
 
         int[] stringTokenIds = {
                 XMLParserConstants.TEXT_IN_GREF_CHARS,

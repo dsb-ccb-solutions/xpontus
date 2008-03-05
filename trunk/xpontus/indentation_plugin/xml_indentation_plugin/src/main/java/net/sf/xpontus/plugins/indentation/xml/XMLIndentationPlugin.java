@@ -46,7 +46,7 @@ import java.util.Properties;
  */
 public class XMLIndentationPlugin extends Plugin {
     static File configfile = null;
-    String packageName = getClass().getPackage() + "";
+    String packageName = getClass().getPackage().getName();
     File confdir = new File(XPontusConfigurationConstantsIF.XPONTUS_PREFERENCES_DIR,
             packageName);
 

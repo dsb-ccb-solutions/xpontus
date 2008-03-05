@@ -43,6 +43,8 @@ import java.util.Map;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import net.sf.xpontus.configuration.XPontusConfig;
 
 
 /**
@@ -53,10 +55,16 @@ public class MenuBarPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "menubarpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.menubar";
     public static final String PLUGIN_CATEGORY = "Menubar";
-    boolean newmenu = false;
+    private boolean newmenu = false;
+    private boolean textOnly = false;
     private Map menuMap = new HashMap();
 
     protected void doStart() throws Exception {
+         String confValue = XPontusConfig.getValue("xpontus.MenuBarLookAndFeel").toString();
+        
+        if(confValue.equals("Text only")){
+            textOnly = true;
+        }
     }
 
     protected void doStop() throws Exception {
@@ -109,7 +117,10 @@ public class MenuBarPlugin extends XPontusPlugin {
             List<Action> actions = map.get(m_MenuKey);
 
             for (int j = 0; j < actions.size(); j++) {
-                menu.add(actions.get(j));
+                JMenuItem m_item = menu.add(actions.get(j));
+                if(textOnly){
+                    m_item.setIcon(null);
+                }
             }
         }
     }

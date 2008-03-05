@@ -21,11 +21,14 @@
  */
 package net.sf.xpontus.plugins.lexer.xml;
 
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.preferences.ColorTableEditor;
 import net.sf.xpontus.modules.gui.components.preferences.ColorTableModel;
 import net.sf.xpontus.modules.gui.components.preferences.ColorTableRenderer;
 import net.sf.xpontus.modules.gui.components.preferences.IPreferencesPanel;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
+import net.sf.xpontus.utils.ColorUtils;
+import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,12 +36,17 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 
+import java.io.File;
+
+import java.util.Properties;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 
 /**
@@ -48,9 +56,11 @@ import javax.swing.JTable;
  */
 public class XMLLexerPreferences implements PreferencesPluginIF {
     private IPreferencesPanel panel;
+    private Color[] colors = new Color[XMLLexerPreferencesConstantsIF.AVAILABLE_PROPERTIES.length];
+    private JTable table;
 
     public XMLLexerPreferences() {
-        panel = new XMLLexerPreferencesPanel();
+       
     }
 
     public String getPluginCategory() {
@@ -58,18 +68,65 @@ public class XMLLexerPreferences implements PreferencesPluginIF {
     }
 
     public IPreferencesPanel getPreferencesPanelComponent() {
+        if(panel == null){
+             panel = new XMLLexerPreferencesPanel();
+        }
         return panel;
     }
 
     public void saveSettings() {
+        String[] props = {
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.STRING_PROPERTY,
+                
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.COMMENT_PROPERTY,
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.TAGS_PROPERTY,
+                
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.DECLARATION_PROPERTY,
+                
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.ATTRIBUTES_PROPERTY
+            };
+        Properties m_props = new Properties();
+        TableModel m_model = table.getModel();
+
+        for (int i = 0; i < m_model.getRowCount(); i++) {
+            Color c = (Color) m_model.getValueAt(i, 1);
+            m_props.put(props[i], ColorUtils.colorToString(c));
+            XPontusConfig.put(props[i], c);
+        }
+
+        File propertiesFile = XMLLexerPlugin.configfile;
+        PropertiesConfigurationLoader.save(propertiesFile, m_props);
     }
 
     public void loadSettings() {
+        String[] props = {
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.STRING_PROPERTY,
+                
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.ATTRIBUTES_PROPERTY,
+                
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.COMMENT_PROPERTY,
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.TAGS_PROPERTY,
+                
+                XMLLexerPreferencesConstantsIF.class.getName() + "$" +
+                XMLLexerPreferencesConstantsIF.DECLARATION_PROPERTY
+            };
+
+        for (int i = 0; i < props.length; i++) {
+            colors[i] = (Color) XPontusConfig.getValue(props[i]);
+        }
     }
 
     public class XMLLexerPreferencesPanel extends JComponent
         implements IPreferencesPanel {
-        private JTable table;
         private JScrollPane sp;
         private final String[] TABLE_COLUMNS;
         private final Object[][] TABLE_DATA;
@@ -89,11 +146,11 @@ public class XMLLexerPreferences implements PreferencesPluginIF {
 
             TABLE_COLUMNS = new String[] { "TokenID", "Color" };
             TABLE_DATA = new Object[][] {
-                    { "STRING", Color.RED },
-                    { "XML DECLARATIONS", Color.MAGENTA },
-                    { "COMMENT", new Color(0, 100, 0) },
-                    { "TAGS", Color.BLUE },
-                    { "ATTRIBUTES", new Color(127, 0, 85) }
+                    { "STRING", colors[0] },
+                    { "ATTRIBUTE", colors[1] },
+                    { "COMMENT", colors[2] },
+                    { "TAGS", colors[3] },
+                    { "DECLARATION", colors[4] }
                 };
             table = new JTable(new ColorTableModel(TABLE_DATA, TABLE_COLUMNS));
 
