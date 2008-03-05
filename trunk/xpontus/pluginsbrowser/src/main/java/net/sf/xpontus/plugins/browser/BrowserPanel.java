@@ -35,6 +35,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -44,6 +46,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -115,7 +118,6 @@ public class BrowserPanel extends JComponent {
         editorScrollPane.getViewport().add(editorPane);
 
         tableModel = new DefaultTableModel(rows, columns) {
-                    @Override
                     public boolean isCellEditable(int row, int column) {
                         return (column == 0);
                     }
@@ -149,10 +151,7 @@ public class BrowserPanel extends JComponent {
             table.setRowSelectionInterval(0, 0);
         }
 
-        searchTextField = new JTextField(20);
-
-        searchButton = new JButton("Search");
-        searchButton.addActionListener(new ActionListener() {
+        Action searchPluginsAction = new AbstractAction("Search") {
                 public void actionPerformed(ActionEvent e) {
                     Map<String, SimplePluginDescriptor> searchResults = PluginsUtils.getInstance()
                                                                                     .searchIndex(searchTextField.getText(),
@@ -177,7 +176,13 @@ public class BrowserPanel extends JComponent {
                         reloadPluginsTable();
                     }
                 }
-            });
+            };
+
+        searchButton = new JButton(searchPluginsAction);
+        searchTextField = new JTextField(20);
+        searchTextField.getInputMap()
+                       .put(KeyStroke.getKeyStroke("ENTER"), "enter");
+        searchTextField.getActionMap().put("enter", searchPluginsAction);
 
         reloadButton = new JButton("Reload");
         reloadButton.addActionListener(new ActionListener() {
@@ -261,7 +266,7 @@ public class BrowserPanel extends JComponent {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public JComponent getAccessory() {
@@ -269,7 +274,7 @@ public class BrowserPanel extends JComponent {
     }
 
     /**
-     * 
+     *
      * @param accessory
      */
     public void setAccessory(JComponent accessory) {
@@ -279,10 +284,10 @@ public class BrowserPanel extends JComponent {
         }
 
         this.accessory = accessory;
-        
+
         // add the accessory at the bottom
         add(accessory, BorderLayout.SOUTH);
-        
+
         // repaint the component
         invalidate();
         revalidate();

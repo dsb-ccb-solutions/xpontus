@@ -39,7 +39,6 @@ public interface IPreferencesPanel {
      *
      * @return
      */
-    @Override
     public String toString();
 
     /**

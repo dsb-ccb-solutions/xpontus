@@ -1213,7 +1213,6 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
     }
 
     public static class TabListCellRenderer2 extends DefaultListCellRenderer {
-        @Override
         public Component getListCellRendererComponent(JList list, Object value,
             int index, boolean isSelected, boolean cellHasFocus) {
             if (value instanceof JideTabbedPane) {
@@ -1223,7 +1222,7 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
                 Icon icon = tabbedPane.getIconAt(index);
                 JLabel label = new JLabel(title);
                 label.setToolTipText(tooltip);
-                label.setIcon(icon); 
+                label.setIcon(icon);
 
                 if (isSelected) {
                     label.setForeground(Color.BLUE);

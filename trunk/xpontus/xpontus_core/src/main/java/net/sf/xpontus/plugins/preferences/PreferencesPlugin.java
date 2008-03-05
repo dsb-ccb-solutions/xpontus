@@ -46,6 +46,10 @@ public class PreferencesPlugin extends XPontusPlugin {
      *
      */
     public static final String EXTENSION_POINT_NAME = "preferencespluginif";
+
+    /**
+     *
+     */
     public static final String PLUGIN_CATEGORY = "Tools";
 
     /**

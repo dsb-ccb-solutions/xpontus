@@ -68,9 +68,9 @@ public interface XPontusConfigurationConstantsIF {
      *
      */
     File GRAMMAR_CACHING_DIR = new File(XPONTUS_HOME_DIR, "grammars");
-    
+
     /**
-     * 
+     *
      */
     File GRAMMAR_CACHING_DESCRIPTOR = new File(XPONTUS_HOME_DIR, "grammars.xml");
 

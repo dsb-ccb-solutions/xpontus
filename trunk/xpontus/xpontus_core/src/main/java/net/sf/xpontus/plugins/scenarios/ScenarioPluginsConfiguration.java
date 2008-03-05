@@ -58,12 +58,11 @@ public class ScenarioPluginsConfiguration {
         System.out.println("Looking for plugin called:" + name);
 
         Iterator<String> names = enginesMap.keySet().iterator();
-        while(names.hasNext()){
+
+        while (names.hasNext()) {
             System.out.println("engine:" + names.next());
         }
-        
-        
-        
+
         try {
             Hashtable t = (Hashtable) enginesMap.get(name);
             String m_name = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME);

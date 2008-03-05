@@ -37,17 +37,15 @@ import java.util.Map;
 public class InstalledPluginsResolver extends AbstractPluginsResolver {
     private Map<String, SimplePluginDescriptor> pluginsMap = new HashMap<String, SimplePluginDescriptor>();
 
-    @Override
     public Map<String, SimplePluginDescriptor> getPluginDescriptorsMap() {
         return pluginsMap;
     }
 
-    public void reload(){
+    public void reload() {
         pluginsMap.clear();
         resolvePlugins();
     }
-    
-    @Override
+
     public void resolvePlugins() {
         Object[] descriptors = XPontusPluginManager.getPluginManager()
                                                    .getRegistry()
@@ -63,8 +61,8 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
             String category = pds.getAttribute("Category").getValue();
             String homepage = pds.getAttribute("Homepage").getValue();
             String builtin = pds.getAttribute("Built-in").getValue();
-            String displayname = pds.getAttribute("DisplayName").getValue() ;
-            String description = pds.getAttribute("Description").getValue() ;
+            String displayname = pds.getAttribute("DisplayName").getValue();
+            String description = pds.getAttribute("Description").getValue();
             String license = pds.getAttribute("License").getValue();
             String date = pds.getAttribute("date").getValue();
             String version = pds.getVersion().toString();
@@ -72,7 +70,6 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
 
             String vendor = "Yves Zoundi";
 
-           
             spd.setAuthor(vendor);
             spd.setDate(date);
             spd.setBuiltin(builtin);
@@ -84,11 +81,11 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
             spd.setLicense(license);
             spd.setVersion(version);
 
-             if (pds.getVendor() != null) {
+            if (pds.getVendor() != null) {
                 vendor = pds.getVendor();
             }
-            
-            if(spd.getAuthor() == null){
+
+            if (spd.getAuthor() == null) {
                 spd.setAuthor("Yves Zoundi");
             }
 
@@ -96,13 +93,11 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
                 spd.setLicense("UNKNOWN");
             }
 
-            
             if (!spd.getBuiltin().equals("true")) {
                 pluginsMap.put(id, spd);
             }
-            
-            
         }
+
         PluginsUtils.getInstance().initInstalledPluginsIndex();
         PluginsUtils.getInstance().shouldAddToIndex(pluginsMap);
     }

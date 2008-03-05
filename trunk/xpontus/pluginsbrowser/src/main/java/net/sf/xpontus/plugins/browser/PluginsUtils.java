@@ -13,6 +13,8 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -63,6 +65,10 @@ public class PluginsUtils {
                         if (m_installedIndexWriter != null) {
                             m_installedIndexWriter.close();
                         }
+
+                        if (m_installedFSDirectory != null) {
+                            m_installedFSDirectory.close();
+                        }
                     } catch (Exception err) {
                     }
                 }
@@ -81,6 +87,11 @@ public class PluginsUtils {
         String index) {
         Map<String, SimplePluginDescriptor> results = new HashMap<String, SimplePluginDescriptor>();
 
+        if (!index.equals(
+                    XPontusConfigurationConstantsIF.INSTALLED_PLUGINS_SEARCHINDEX_DIR)) {
+            return results;
+        }
+
         if (str.trim().equals("")) {
             return results;
         }
@@ -88,13 +99,13 @@ public class PluginsUtils {
         IndexSearcher searcher = null;
 
         try {
-            searcher = new IndexSearcher(m_installedFSDirectory);
+            searcher = new IndexSearcher(m_installedIndexReader);
 
             Analyzer m_analyzer = new UTF8AccentRemoverAnalyzer();
 
-            MultiFieldQueryParser mparser = new MultiFieldQueryParser(fields,
-                    m_analyzer);
-            Query query = mparser.parse(str);
+            QueryParser parser = new MultiFieldQueryParser(fields, m_analyzer);
+
+            Query query = parser.parse(str);
 
             Hits hits = searcher.search(query);
 
@@ -210,6 +221,9 @@ public class PluginsUtils {
                 spd.setLicense("http://www.gnu.org/licenses/gpl-2.0.txt");
             }
 
+            System.out.println("Building index document for plugin:" +
+                spd.getId());
+
             //            spd.print();
             doc.add(new Field("id", spd.getId(), Field.Store.YES,
                     Field.Index.TOKENIZED));
@@ -224,21 +238,16 @@ public class PluginsUtils {
             doc.add(new Field("description", spd.getDescription(),
                     Field.Store.YES, Field.Index.TOKENIZED));
             doc.add(new Field("builtin", spd.getBuiltin(), Field.Store.YES,
-                    Field.Index.UN_TOKENIZED));
+                    Field.Index.TOKENIZED));
             doc.add(new Field("date", spd.getDate(), Field.Store.YES,
-                    Field.Index.UN_TOKENIZED));
+                    Field.Index.TOKENIZED));
             doc.add(new Field("homepage", spd.getHomepage(), Field.Store.YES,
                     Field.Index.TOKENIZED));
             doc.add(new Field("license", spd.getLicense(), Field.Store.YES,
                     Field.Index.TOKENIZED));
-            //
-            //            System.out.println("doc is not null:" + (doc != null));
-            System.out.println("IndexWriter not null:" +
-                (m_installedIndexWriter != null));
 
             m_installedIndexWriter.addDocument(doc);
             m_installedIndexWriter.optimize();
-            System.out.println("Added:" + spd.getId());
         } catch (Exception err) {
             err.printStackTrace();
         }

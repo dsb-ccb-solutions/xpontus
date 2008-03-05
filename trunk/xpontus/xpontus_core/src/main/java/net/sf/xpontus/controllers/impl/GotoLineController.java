@@ -37,11 +37,12 @@ public class GotoLineController {
      * Method name to go to a line
      */
     public static final String GOTO_LINE_METHOD = "gotoLine";
+
     /**
      * Method name to close the dialog window
      */
     public static final String CLOSE_WINDOW_METHOD = "closeWindow";
-    
+
     // private members
     private GotoLineView view;
 

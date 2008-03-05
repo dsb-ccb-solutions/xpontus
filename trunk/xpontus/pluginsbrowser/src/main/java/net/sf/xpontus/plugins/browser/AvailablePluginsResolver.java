@@ -175,15 +175,11 @@ public class AvailablePluginsResolver extends AbstractPluginsResolver {
                     if (spd.getLicense() == null) {
                         spd.setLicense("UNKNOWN");
                     }
-
-                   
-                    
                 }
             }
         }
     }
 
-    @Override
     public void resolvePlugins() {
         try {
             File cacheDir = XPontusConfigurationConstantsIF.XPONTUS_CACHE_DIR;
@@ -205,7 +201,6 @@ public class AvailablePluginsResolver extends AbstractPluginsResolver {
         }
     }
 
-    @Override
-    public void reload() { 
+    public void reload() {
     }
 }

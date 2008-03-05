@@ -2,16 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.sf.xpontus.utils;
+
 
 /**
  *
  * @author mrcheeks
  */
-
 import java.awt.Component;
 import java.awt.GridBagLayout;
+
 
 /**
  * An extension of GridBagLayout to allow describing constraints with a string.
@@ -29,13 +29,12 @@ import java.awt.GridBagLayout;
  * @author pfnguyen
  */
 public class StringGridBagLayout extends GridBagLayout {
-    @Override
     public void addLayoutComponent(Component comp, Object constraints) {
         if (constraints instanceof String) {
             String paramString = (String) constraints;
             constraints = new StringGridBagConstraints(paramString);
         }
+
         super.addLayoutComponent(comp, constraints);
     }
-    
 }

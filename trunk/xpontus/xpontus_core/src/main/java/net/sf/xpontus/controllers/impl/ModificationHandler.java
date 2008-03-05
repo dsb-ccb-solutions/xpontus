@@ -26,6 +26,7 @@ package net.sf.xpontus.controllers.impl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.model.CaretPosition;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.syntax.SyntaxDocument;
 import net.sf.xpontus.utils.EditorUtilities;
 
@@ -35,7 +36,6 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 
 /**

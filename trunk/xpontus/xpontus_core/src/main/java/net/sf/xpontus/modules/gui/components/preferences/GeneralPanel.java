@@ -7,9 +7,14 @@ package net.sf.xpontus.modules.gui.components.preferences;
 
 import java.awt.Component;
 import java.awt.event.ItemEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.Iterator;
 import java.util.Properties;
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+import net.sf.xpontus.model.preferences.GeneralOptionModel;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
 import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
@@ -23,7 +28,7 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     public GeneralPanel() {
         initComponents();
     }
- 
+
     public String toString() {
         return getTitle();
     }
@@ -83,7 +88,7 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
 
         toolbarIconsLabel.setText("  Toolbar icons");
 
-        toolbarSettingsList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons" }));
+        toolbarSettingsList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Text and icons", "Text only", "Icons only" }));
         toolbarSettingsList.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 toolbarSettingsListItemStateChanged(evt);
@@ -150,22 +155,22 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
         );
     }// </editor-fold>//GEN-END:initComponents
     private void showSplashScreenOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showSplashScreenOptionActionPerformed
-        props.setProperty("showSplashScreenOnStartup", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
+        configModel.setShowSplash(showSplashScreenOption.isSelected());
     }//GEN-LAST:event_showSplashScreenOptionActionPerformed
 
     private void showConfirmDialogOnExitOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showConfirmDialogOnExitOptionActionPerformed
-        props.setProperty("showConfirmDialogOnExit", Boolean.valueOf(showSplashScreenOption.isEnabled()).toString());
+        configModel.setShowConfirmDialogOnExit(showSplashScreenOption.isSelected());
     }//GEN-LAST:event_showConfirmDialogOnExitOptionActionPerformed
 
     private void themeListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_themeListItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            props.setProperty("defaultTheme", themeList.getSelectedItem().toString());
+            configModel.setDefaultTheme(themeList.getSelectedItem().toString());
         }
     }//GEN-LAST:event_themeListItemStateChanged
 
     private void iconSetListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_iconSetListItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            props.setProperty("defaultIconSet", iconSetList.getSelectedItem().toString());
+            configModel.setDefaultIconSet(iconSetList.getSelectedItem().toString());
         }
     }//GEN-LAST:event_iconSetListItemStateChanged
 
@@ -193,7 +198,6 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
     private javax.swing.JLabel toolbarIconsLabel;
     private javax.swing.JComboBox toolbarSettingsList;
     // End of variables declaration//GEN-END:variables
-    
     public String getTitle() {
         return "General";
     }
@@ -208,43 +212,95 @@ public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPane
 
     public void saveSettings() {
         PropertiesConfigurationLoader.save(config, props);
+        Iterator m_iterator = props.keySet().iterator();
+        while (m_iterator.hasNext()) {
+            Object m_key = m_iterator.next();
+            Object m_value = props.get(m_key);
+            XPontusConfig.put(m_key, m_value);
+        }
     }
 
     public void loadSettings() {
-       
-        // load the properties file
         props = PropertiesConfigurationLoader.load(config);
-        
-        this.showSplashScreenOnStartup = Boolean.valueOf(props.get("showSplashScreenOnStartup").toString());
-        this.showTipsOnStartup = Boolean.valueOf(props.get("showTipsOnStartup").toString());
-        this.showConfirmDialogOnExit = Boolean.valueOf(props.get("showConfirmDialogOnExit").toString());
-        this.defaultTheme = props.get("defaultTheme").toString();
-        this.defaultIconSet = props.get("defaultIconSet").toString();
-        this.toolbarConfig = props.get("ToolbarIcons").toString();
-        this.menubarConfig = props.get("MenuBarLookAndFeel").toString();
-        
-        // update controls
-        this.showSplashScreenOption.setSelected(showTipsOnStartup);
-        this.showConfirmDialogOnExitOption.setSelected(showConfirmDialogOnExit);
-        this.themeList.setSelectedItem(defaultTheme);
-        this.iconSetList.setSelectedItem(defaultIconSet);
-        this.toolbarSettingsList.setSelectedItem(toolbarConfig);
-        this.menubarStyleList.setSelectedItem(menubarConfig);
+
+        configModel.setDefaultIconSet(XPontusConfig.getValue("xpontus.defaultIconSet").toString());
+        configModel.setDefaultTheme(XPontusConfig.getValue("xpontus.defaultTheme").toString());
+        configModel.setMenuBarStyle(XPontusConfig.getValue("xpontus.MenuBarLookAndFeel").toString());
+        configModel.setShowConfirmDialogOnExit(Boolean.valueOf(XPontusConfig.getValue("xpontus.showConfirmDialogOnExit").toString()));
+        configModel.setShowSplash(Boolean.valueOf(XPontusConfig.getValue("xpontus.showSplashScreenOnStartup").toString()));
+        configModel.setToolBarStyle(XPontusConfig.getValue("xpontus.ToolbarIcons").toString());
+
+        this.showSplashScreenOption.setSelected(configModel.isShowSplash());
+        this.showConfirmDialogOnExitOption.setSelected(configModel.isShowConfirmDialogOnExit());
+        this.themeList.setSelectedItem(configModel.getDefaultTheme());
+        this.iconSetList.setSelectedItem(configModel.getDefaultIconSet());
+        this.toolbarSettingsList.setSelectedItem(configModel.getToolBarStyle());
+        this.menubarStyleList.setSelectedItem(configModel.getMenuBarStyle());
+
+
+        configModel.addPropertyChangeListener("defaultIconSet",
+                new PropertyChangeListener() {
+
+                    public void propertyChange(PropertyChangeEvent pce) {
+                        props.put("xpontus.defaultIconSet", configModel.getDefaultIconSet());
+
+                    }
+                });
+
+        configModel.addPropertyChangeListener("showSplash",
+                new PropertyChangeListener() {
+
+                    public void propertyChange(PropertyChangeEvent pce) {
+                        props.put("xpontus.showSplashScreenOnStartup", Boolean.valueOf(configModel.isShowSplash()).toString());
+
+                    }
+                });
+
+        configModel.addPropertyChangeListener("showConfirmDialogOnExit",
+                new PropertyChangeListener() {
+
+                    public void propertyChange(PropertyChangeEvent pce) {
+                        props.put("xpontus.showConfirmDialogOnExit", Boolean.valueOf(configModel.isShowConfirmDialogOnExit()).toString());
+
+                    }
+                });
+
+        configModel.addPropertyChangeListener("defaultTheme",
+                new PropertyChangeListener() {
+
+                    public void propertyChange(PropertyChangeEvent pce) {
+                        props.put("xpontus.defaultTheme", configModel.getDefaultTheme());
+
+                    }
+                });
+
+        configModel.addPropertyChangeListener("toolBarStyle",
+                new PropertyChangeListener() {
+
+                    public void propertyChange(PropertyChangeEvent pce) {
+                        props.put("xpontus.ToolbarIcons", configModel.getToolBarStyle());
+
+                    }
+                });
+
+
+        configModel.addPropertyChangeListener("menuBarStyle",
+                new PropertyChangeListener() {
+
+                    public void propertyChange(PropertyChangeEvent pce) {
+                        props.put("xpontus.MenuBarLookAndFeel", configModel.getMenuBarStyle());
+
+                    }
+                });
+
     }
 
     public IPreferencesPanel getPreferencesPanelComponent() {
         return this;
     }
-    
     private final File config = XPontusConfigurationConstantsIF.GENERAL_PREFERENCES_FILE;
     private Properties props;
-    private String menubarConfig;
-    private String toolbarConfig;
-    private String defaultIconSet;
-    private String defaultTheme;
-    private boolean showConfirmDialogOnExit;
-    private boolean showTipsOnStartup;
-    private boolean showSplashScreenOnStartup;
+    private GeneralOptionModel configModel = new GeneralOptionModel();
 
     public Component getJComponent() {
         return this;

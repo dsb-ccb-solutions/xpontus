@@ -42,7 +42,6 @@ public class XPontusUndoManager extends CompoundEdit {
         return ((UndoableEdit) edits.elementAt(m_IdxAdd)).getPresentationName();
     }
 
-    @Override
     public boolean addEdit(UndoableEdit anEdit) {
         if (edits.size() > m_IdxAdd) {
             edits.setElementAt(anEdit, m_IdxAdd++);

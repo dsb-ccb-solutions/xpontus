@@ -62,31 +62,26 @@ import javax.xml.transform.stream.StreamSource;
  *
  * @author Yves Zoundi <yveszoundit at users dot sf dot net>
  */
-public class DefaultScenarioPluginImpl implements ScenarioPluginIF
-{
+public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     /**
      *
      */
     public static final String SIMPLE_JAXP_TRANSFORMATION = "Output type (XML, HTML, Text)";
     private Log log = LogFactory.getLog(DefaultScenarioPluginImpl.class);
 
-    public String getName()
-    {
+    public String getName() {
         return "Xalan 2.7.0:" + SIMPLE_JAXP_TRANSFORMATION;
     }
 
-    public String[] getProcessors()
-    {
+    public String[] getProcessors() {
         return new String[] { "Xalan 2.7.0:" + SIMPLE_JAXP_TRANSFORMATION };
     }
 
-    public String[] getTransformationTypes()
-    {
+    public String[] getTransformationTypes() {
         return new String[] { "Simple (XML, HTML, Text)" };
     }
 
-    public String[] getOutputTypes()
-    {
+    public String[] getOutputTypes() {
         return new String[] { "XML", "HTML", "Text" };
     }
 
@@ -95,14 +90,11 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
      * @param tf
      * @param parameters
      */
-    public void setParameters(Transformer tf, Hashtable parameters)
-    {
-        if (parameters != null)
-        {
+    public void setParameters(Transformer tf, Hashtable parameters) {
+        if (parameters != null) {
             Iterator it = parameters.keySet().iterator();
 
-            while (it.hasNext())
-            {
+            while (it.hasNext()) {
                 String m_key = it.next().toString();
                 Object m_value = parameters.get(m_key);
                 tf.setParameter(m_key, m_value);
@@ -117,18 +109,14 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
      * @throws java.lang.Exception
      */
     public Reader getReader(DetachableScenarioModel model)
-        throws Exception
-    {
+        throws Exception {
         InputStream bis = null;
         CharsetDetector detector = new CharsetDetector();
 
-        if (model.isExternalDocument())
-        {
+        if (model.isExternalDocument()) {
             FileObject fo = VFS.getManager().resolveFile(model.getInput());
             bis = new BufferedInputStream(fo.getContent().getInputStream());
-        }
-        else
-        {
+        } else {
             String txt = DefaultXPontusWindowImpl.getInstance()
                                                  .getDocumentTabContainer()
                                                  .getCurrentEditor().getText();
@@ -141,12 +129,9 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
         return detector.detect().getReader();
     }
 
-    public void handleScenario(DetachableScenarioModel model)
-    {
-        try
-        {
-            if (!isValidModel(model, true))
-            {
+    public void handleScenario(DetachableScenarioModel model) {
+        try {
+            if (!isValidModel(model, true)) {
                 return;
             }
 
@@ -169,12 +154,9 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
 
             Templates translet = null;
 
-            try
-            {
+            try {
                 translet = tFactory.newTemplates(sSource);
-            }
-            catch (TransformerConfigurationException tce)
-            {
+            } catch (TransformerConfigurationException tce) {
                 throw new Exception("Error compiling stylesheet:" +
                     tce.getMessage());
             }
@@ -191,12 +173,9 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
 
             OutputStream bos = null;
 
-            if (outputFo instanceof LocalFile)
-            {
+            if (outputFo instanceof LocalFile) {
                 bos = new FileOutputStream(outputFo.getName().getPath());
-            }
-            else
-            {
+            } else {
                 bos = outputFo.getContent().getOutputStream();
             }
 
@@ -220,24 +199,18 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
 
             OutputDockable odk = (OutputDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
 
-            if (!tel.getErrors().equals(""))
-            {
+            if (!tel.getErrors().equals("")) {
                 odk.println("Some errors occured...", OutputDockable.RED_STYLE);
 
                 odk.println(tel.getErrors(), OutputDockable.RED_STYLE);
-            }
-            else
-            {
+            } else {
                 odk.println("Transformation finished!");
 
-                if (tel.warningsFound())
-                {
+                if (tel.warningsFound()) {
                     odk.println("Warnings:" + tel.getWarnings());
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Transformation failed:\n" +
                 e.getMessage());
@@ -250,12 +223,9 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
      * @param table
      * @return
      */
-    public boolean isValidType(String type, String[] table)
-    {
-        for (int i = 0; i < table.length; i++)
-        {
-            if (table[i].equals(type))
-            {
+    public boolean isValidType(String type, String[] table) {
+        for (int i = 0; i < table.length; i++) {
+            if (table[i].equals(type)) {
                 return true;
             }
         }
@@ -268,16 +238,13 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
      * @param table
      * @return
      */
-    public String getSupportedTypesAsString(String[] table)
-    {
+    public String getSupportedTypesAsString(String[] table) {
         StringBuffer sb = new StringBuffer();
 
-        for (int i = 0; i < table.length; i++)
-        {
+        for (int i = 0; i < table.length; i++) {
             sb.append(table[i]);
 
-            if (i != (table.length - 1))
-            {
+            if (i != (table.length - 1)) {
                 sb.append(", ");
             }
         }
@@ -286,37 +253,28 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
     }
 
     public boolean isValidModel(DetachableScenarioModel model,
-        boolean transformationMode)
-    {
+        boolean transformationMode) {
         log.info("Validating the model before execution");
 
         StringBuffer errors = new StringBuffer();
 
-        if (model.getOutput().trim().equals(""))
-        {
+        if (model.getOutput().trim().equals("")) {
             errors.append("The output file has not been specified\n");
         }
 
-        if (model.getXsl().trim().equals(""))
-        {
+        if (model.getXsl().trim().equals("")) {
             errors.append("The script/stylesheet file has not been specified\n");
         }
 
-        if (model.isExternalDocument())
-        {
-            if (model.getInput().trim().equals(""))
-            {
+        if (model.isExternalDocument()) {
+            if (model.getInput().trim().equals("")) {
                 errors.append("The input document is invalid\n");
             }
-        }
-        else
-        {
-            if (transformationMode)
-            {
+        } else {
+            if (transformationMode) {
                 if (DefaultXPontusWindowImpl.getInstance()
                                                 .getDocumentTabContainer()
-                                                .getCurrentEditor() == null)
-                {
+                                                .getCurrentEditor() == null) {
                     errors.append(
                         "You want to run the scenario against the current\n");
                     errors.append(
@@ -326,14 +284,12 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
         }
 
         if (!ScenarioPluginsConfiguration.getInstance().getProcessorList()
-                                             .contains(model.getProcessor()))
-        {
+                                             .contains(model.getProcessor())) {
             errors.append(
                 "The processor for this transformation is not found\n");
         }
 
-        if (errors.length() > 0)
-        {
+        if (errors.length() > 0) {
             XPontusComponentsUtils.showErrorMessage(errors.toString());
 
             return false;
@@ -342,8 +298,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF
         return true;
     }
 
-    public void setSystemProperties()
-    {
+    public void setSystemProperties() {
         System.setProperty("javax.xml.transform.TransformerFactory",
             "org.apache.xalan.processor.TransformerFactoryImpl");
         // the default processor to use is xalan        

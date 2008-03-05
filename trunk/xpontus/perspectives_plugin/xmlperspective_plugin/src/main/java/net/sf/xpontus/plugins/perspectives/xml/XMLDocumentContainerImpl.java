@@ -23,6 +23,10 @@ package net.sf.xpontus.plugins.perspectives.xml;
 
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
 
+import org.apache.xerces.util.DOMUtil;
+
+import org.jcp.xml.dsig.internal.dom.DOMUtils;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -39,6 +43,8 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -59,6 +65,7 @@ public class XMLDocumentContainerImpl extends DocumentContainer {
     private JComponent viewPanel;
     private JComponent elementPanel;
     private JComponent attributesPanel;
+    private JComponent compPanel;
 
     public XMLDocumentContainerImpl() {
         super();
@@ -110,13 +117,20 @@ public class XMLDocumentContainerImpl extends DocumentContainer {
         verticalSplitPane.setDividerLocation(0.5F);
         verticalSplitPane.setResizeWeight(0.5F);
 
-        JPanel compPanel = new JPanel(new BorderLayout());
+        compPanel = new JPanel(new BorderLayout());
         compPanel.add(topPanel, BorderLayout.NORTH);
 
         compPanel.add(verticalSplitPane, BorderLayout.CENTER);
 
         tabbedPane.addTab("Source view", getDocumentPanel());
         tabbedPane.addTab("Tree View", compPanel);
+
+        tabbedPane.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    if (tabbedPane.getSelectedComponent().equals(compPanel)) {
+                    }
+                }
+            });
     }
 
     public Border createTitledBorder(String title) {

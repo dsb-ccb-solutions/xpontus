@@ -16,7 +16,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
-import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusUIManagerConstantsIF;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
 import net.sf.xpontus.utils.PropertiesConfigurationLoader;
@@ -32,8 +31,7 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
      * 
      * @return
      */
-    @Override
-    public String toString() {
+     public String toString() {
         return getTitle();
     }
 

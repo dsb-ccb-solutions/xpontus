@@ -2,18 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.sf.xpontus.utils;
+
 
 /**
  *
  * @author mrcheeks
  */
-
 import java.awt.GridBagConstraints;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+
 
 /**
  *
@@ -22,18 +23,10 @@ import java.util.regex.Pattern;
 public class StringGridBagConstraints extends GridBagConstraints {
     private final static String NUMBER_REGEX = "[0-9]*\\.?[0-9]+";
     private final static Pattern NUMBER_PATTERN = Pattern.compile(NUMBER_REGEX);
-    private final static HashMap<String, Integer> anchorConstants =
-        new HashMap<String, Integer>();
-    private final static HashMap<String, Integer> fillConstants =
-        new HashMap<String, Integer>();
-    private final static HashMap<String, Integer> gridConstants =
-        new HashMap<String, Integer>();
-    private final static HashMap<String, Map<String, Integer>> constants =
-        new HashMap<String, Map<String, Integer>>();
-
-    public StringGridBagConstraints(String constraints) {
-        parse(constraints);
-    }
+    private final static HashMap<String, Integer> anchorConstants = new HashMap<String, Integer>();
+    private final static HashMap<String, Integer> fillConstants = new HashMap<String, Integer>();
+    private final static HashMap<String, Integer> gridConstants = new HashMap<String, Integer>();
+    private final static HashMap<String, Map<String, Integer>> constants = new HashMap<String, Map<String, Integer>>();
 
     static {
         anchorConstants.put("C", GridBagConstraints.CENTER);
@@ -70,22 +63,19 @@ public class StringGridBagConstraints extends GridBagConstraints {
 
         anchorConstants.put("FLS", GridBagConstraints.FIRST_LINE_START);
         anchorConstants.put("FIRST_LINE_START",
-                GridBagConstraints.FIRST_LINE_START);
+            GridBagConstraints.FIRST_LINE_START);
         anchorConstants.put("FLE", GridBagConstraints.FIRST_LINE_END);
-        anchorConstants.put("FIRST_LINE_END",
-                GridBagConstraints.FIRST_LINE_END);
+        anchorConstants.put("FIRST_LINE_END", GridBagConstraints.FIRST_LINE_END);
         anchorConstants.put("FIRSTLINESTART",
-                GridBagConstraints.FIRST_LINE_START);
-        anchorConstants.put("FIRSTLINEEND",
-                GridBagConstraints.FIRST_LINE_END);
+            GridBagConstraints.FIRST_LINE_START);
+        anchorConstants.put("FIRSTLINEEND", GridBagConstraints.FIRST_LINE_END);
 
         anchorConstants.put("LLS", GridBagConstraints.LAST_LINE_START);
         anchorConstants.put("LAST_LINE_START",
-                GridBagConstraints.LAST_LINE_START);
+            GridBagConstraints.LAST_LINE_START);
         anchorConstants.put("LLE", GridBagConstraints.LAST_LINE_END);
         anchorConstants.put("LAST_LINE_END", GridBagConstraints.LAST_LINE_END);
-        anchorConstants.put("LASTLINESTART",
-                GridBagConstraints.LAST_LINE_START);
+        anchorConstants.put("LASTLINESTART", GridBagConstraints.LAST_LINE_START);
         anchorConstants.put("LASTLINEEND", GridBagConstraints.LAST_LINE_END);
 
         fillConstants.put("NONE", GridBagConstraints.NONE);
@@ -104,14 +94,18 @@ public class StringGridBagConstraints extends GridBagConstraints {
         copyKeys(gridConstants, constants);
     }
 
+    public StringGridBagConstraints(String constraints) {
+        parse(constraints);
+    }
+
     private static void copyKeys(Map<String, Integer> map,
-            Map<String, Map<String, Integer>> keys) {
+        Map<String, Map<String, Integer>> keys) {
         for (String key : map.keySet())
             keys.put(key, map);
     }
 
-    /** 
-     * Utility method to load the specified constraints into the constraints 
+    /**
+     * Utility method to load the specified constraints into the constraints
      * object.
      * @param paramString
      * @param c
@@ -124,11 +118,14 @@ public class StringGridBagConstraints extends GridBagConstraints {
         boolean gotHeight = false;
         boolean gotIpadX = false;
         boolean gotWeightX = false;
+
         for (int i = 0, j = params.length; i < j; i++) {
             String param = params[i].trim();
+
             if (NUMBER_PATTERN.matcher(param).matches()) {
                 if (param.indexOf(".") != -1) {
                     double value = Double.parseDouble(param);
+
                     if (gotWeightX) {
                         c.weighty = value;
                     } else {
@@ -137,6 +134,7 @@ public class StringGridBagConstraints extends GridBagConstraints {
                     }
                 } else {
                     int value = Integer.parseInt(param);
+
                     if (!gotX) {
                         c.gridx = value;
                         gotX = true;
@@ -158,49 +156,67 @@ public class StringGridBagConstraints extends GridBagConstraints {
                 }
             } else if (param.startsWith("(")) {
                 if (param.endsWith(")")) { // set all 4
-                    int value = Integer.parseInt(
-                            param.substring(1, param.length() - 1));
+
+                    int value = Integer.parseInt(param.substring(1,
+                                param.length() - 1));
                     c.insets.top = value;
                     c.insets.left = value;
                     c.insets.bottom = value;
                     c.insets.right = value;
                 } else {
                     boolean hitEnd = false;
+
                     for (int pos = 0; !hitEnd; pos++, i++) {
                         param = params[i].trim();
-                        if (param.startsWith("("))
+
+                        if (param.startsWith("(")) {
                             param = param.substring(1);
+                        }
 
                         if (param.endsWith(")")) {
                             param = param.substring(0, param.length() - 1);
                             hitEnd = true;
                         }
+
                         int value = Integer.parseInt(param);
+
                         switch (pos) {
                         case 0:
                             c.insets.top = c.insets.bottom = value;
+
                             break;
+
                         case 1:
                             c.insets.left = c.insets.right = value;
+
                             break;
+
                         case 2:
                             c.insets.bottom = value;
+
                             break;
+
                         case 3:
                             c.insets.right = value;
+
                             break;
                         }
                     }
+
                     i--; // step back one for the outer loop
                 }
             } else {
                 param = param.toUpperCase();
-                if (!constants.containsKey(param))
+
+                if (!constants.containsKey(param)) {
                     throw new IllegalArgumentException(param);
+                }
+
                 // since relative is shared with grid position and size, make
                 // a special case for it here
                 if (param.startsWith("REL")) {
                     int value = gridConstants.get(param);
+
                     if (!gotX) {
                         c.gridx = value;
                         gotX = true;
@@ -220,6 +236,7 @@ public class StringGridBagConstraints extends GridBagConstraints {
                 } else {
                     Map<String, Integer> map = constants.get(param);
                     int value = map.get(param);
+
                     if (map == gridConstants) {
                         if (!gotWidth) {
                             c.gridwidth = value;
@@ -229,8 +246,7 @@ public class StringGridBagConstraints extends GridBagConstraints {
                             gotHeight = true;
                         } else {
                             throw new IllegalArgumentException(String.format(
-                                    "Not expecting '%s' at index %d",
-                                    param, i));
+                                    "Not expecting '%s' at index %d", param, i));
                         }
                     } else if (map == anchorConstants) {
                         c.anchor = value;

@@ -67,7 +67,6 @@ public class XPontusPluginManager implements XPontusControllerIF {
      * @throws java.lang.Exception
      */
     public XPontusPluginManager() throws Exception {
-       
         manager = ObjectFactory.newInstance().createManager();
 
         manager.publishPlugins(getBuiltinPluginLocations());
