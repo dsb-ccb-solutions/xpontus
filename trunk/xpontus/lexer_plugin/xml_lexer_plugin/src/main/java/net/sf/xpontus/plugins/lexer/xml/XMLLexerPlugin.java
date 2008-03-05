@@ -70,18 +70,20 @@ public class XMLLexerPlugin extends Plugin {
                 OutputStream bos = FileUtils.openOutputStream(configfile);
 
                 props.put(XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                    XMLLexerPreferencesConstantsIF.STRING_PROPERTY, ColorUtils.colorToString(Color.red));
+                    XMLLexerPreferencesConstantsIF.STRING_PROPERTY,
+                    ColorUtils.colorToString(Color.red));
 
                 props.put(XMLLexerPreferencesConstantsIF.class.getName() + "$" +
                     XMLLexerPreferencesConstantsIF.ATTRIBUTES_PROPERTY,
-                    ColorUtils.colorToString(Color.RED));
+                    ColorUtils.colorToString(new Color(205, 102, 0)));
 
                 props.put(XMLLexerPreferencesConstantsIF.class.getName() + "$" +
                     XMLLexerPreferencesConstantsIF.COMMENT_PROPERTY,
-                    ColorUtils.colorToString(new Color(0, 139, 0)));
+                    ColorUtils.colorToString(new Color(0, 100, 0)));
 
                 props.put(XMLLexerPreferencesConstantsIF.class.getName() + "$" +
-                    XMLLexerPreferencesConstantsIF.TAGS_PROPERTY, ColorUtils.colorToString(Color.BLUE));
+                    XMLLexerPreferencesConstantsIF.TAGS_PROPERTY,
+                    ColorUtils.colorToString(Color.BLUE));
 
                 props.put(XMLLexerPreferencesConstantsIF.class.getName() + "$" +
                     XMLLexerPreferencesConstantsIF.DECLARATION_PROPERTY,
@@ -106,7 +108,7 @@ public class XMLLexerPlugin extends Plugin {
 
                 while (it.hasNext()) {
                     Object m_key = it.next();
-                    String m_value = (String) props.get(m_key); 
+                    String m_value = (String) props.get(m_key);
 
                     Color c = ColorUtils.stringToColor(m_value);
                     XPontusConfig.put(m_key, c);

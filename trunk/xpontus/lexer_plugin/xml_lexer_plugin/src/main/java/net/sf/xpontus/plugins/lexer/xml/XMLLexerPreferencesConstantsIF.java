@@ -36,4 +36,13 @@ public interface XMLLexerPreferencesConstantsIF {
             STRING_PROPERTY, DECLARATION_PROPERTY, COMMENT_PROPERTY,
             TAGS_PROPERTY, ATTRIBUTES_PROPERTY
         };
+    
+    int STRING_COLOR_INDEX = 0;
+    int DECLARATION_COLOR_INDEX = 1;
+    int COMMENT_COLOR_INDEX = 2;
+    int TAGS_COLOR_INDEX = 3;
+    int ATTRIBUTES_COLOR_INDEX = 4;
+    
+    
+    
 }
