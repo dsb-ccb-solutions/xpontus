@@ -30,6 +30,7 @@ import com.jidesoft.swing.SearchableUtils;
 import com.vlsolutions.swing.docking.*;
 import com.vlsolutions.swing.docking.DockKey;
 
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
@@ -42,6 +43,7 @@ import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPluginIF;
 import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.syntax.LineView;
 import net.sf.xpontus.syntax.SyntaxDocument;
+import net.sf.xpontus.utils.GUIUtils;
 import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -54,6 +56,7 @@ import org.apache.commons.vfs.VFS;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 
 import java.io.BufferedInputStream;
@@ -103,6 +106,10 @@ public class DocumentContainer implements IDocumentContainer {
         documentPanel = new JPanel();
         documentPanel.setLayout(new BorderLayout());
         editor = new JEditorPane();
+        editor.setFont((Font) XPontusConfig.getValue("EditorPane.Font"));
+        System.out.println("Document Font set to:" +
+            GUIUtils.fontToString(
+                (Font) XPontusConfig.getValue("EditorPane.Font")));
 
         editor.setRequestFocusEnabled(true);
 
@@ -112,13 +119,10 @@ public class DocumentContainer implements IDocumentContainer {
 
         scrollPane = new JScrollPane(editor);
 
-        Object lineProp = UIManager.get(XPontusUIManagerConstantsIF.XPONTUS_EDITOR_LINE_NUMBERS_VISIBLE_PROPERTY);
+        boolean lineProp = Boolean.parseBoolean(XPontusConfig.getValue(
+                    "displayLineNumbers").toString());
 
-        if (lineProp != null) {
-            if (lineProp.equals(Boolean.TRUE)) {
-                scrollPane.setRowHeaderView(new LineView(editor));
-            }
-        } else {
+        if (lineProp) {
             scrollPane.setRowHeaderView(new LineView(editor));
         }
 

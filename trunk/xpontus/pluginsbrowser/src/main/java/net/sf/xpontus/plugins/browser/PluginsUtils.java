@@ -95,7 +95,7 @@ public class PluginsUtils {
         IndexSearcher searcher = null;
 
         try {
-            searcher = new IndexSearcher(m_installedIndexReader);
+            searcher = new IndexSearcher(m_installedFSDirectory);
 
             Analyzer m_analyzer = new UTF8AccentRemoverAnalyzer();
 
@@ -110,7 +110,7 @@ public class PluginsUtils {
                 SimplePluginDescriptor spd = new SimplePluginDescriptor();
                 spd.setAuthor(doc.get("author"));
                 spd.setVersion(doc.get("version"));
-                spd.setId(doc.get("id"));
+                spd.setId(doc.get("uid"));
                 spd.setCategory(doc.get("category"));
                 spd.setBuiltin(doc.get("builtin"));
                 spd.setDate(doc.get("date"));
@@ -221,7 +221,7 @@ public class PluginsUtils {
                 spd.getId());
 
             //            spd.print();
-            doc.add(new Field("id", spd.getId(), Field.Store.YES,
+            doc.add(new Field("uid", spd.getId(), Field.Store.YES,
                     Field.Index.TOKENIZED));
             doc.add(new Field("category", spd.getCategory(), Field.Store.YES,
                     Field.Index.TOKENIZED));

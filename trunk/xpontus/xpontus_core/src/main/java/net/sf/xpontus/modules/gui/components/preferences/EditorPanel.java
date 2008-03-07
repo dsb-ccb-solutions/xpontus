@@ -14,10 +14,10 @@ import java.util.Iterator;
 import java.util.Properties;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.UIManager;
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
-import net.sf.xpontus.constants.XPontusUIManagerConstantsIF;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
+import net.sf.xpontus.utils.GUIUtils;
 import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -67,10 +67,12 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
 
     public void saveSettings() {
         properties.put("displayLineNumbers", Boolean.valueOf(displayLineNumbersOption.isSelected()) + "");
+        properties.put("EditorPane.Font", GUIUtils.fontToString(fontValueLabel.getFont()));
         
+        XPontusConfig.put("EditorPane.Font", fontValueLabel.getFont());
+        System.out.println("Setting font to:" + GUIUtils.fontToString(fontValueLabel.getFont()));
         
-        
-        UIManager.put(XPontusUIManagerConstantsIF.XPONTUS_EDITOR_LINE_NUMBERS_VISIBLE_PROPERTY, Boolean.valueOf(displayLineNumbersOption.isSelected()));
+        XPontusConfig.put("displayLineNumbers", Boolean.valueOf(displayLineNumbersOption.isSelected()).toString());
         
         PropertiesConfigurationLoader.save(propertiesFile, properties);
     }
@@ -81,17 +83,11 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         properties = PropertiesConfigurationLoader.load(propertiesFile); 
         
         System.out.println("Editor props:" + properties.size());
-        String[] f = properties.getProperty("Font").split(",");
+        String[] f = properties.getProperty("EditorPane.Font").split(",");
         String family = f[0].trim();
         String style1 = f[1].trim();
-        int style = Font.PLAIN;
-        
-        if(style1.trim().equals("Bold")){
-            style = Font.BOLD;
-        }
-        else if(style1.trim().equals("Bold Italic")){
-            style  = 3;
-        }
+        int style = Integer.parseInt(style1);
+         
         int size = Integer.parseInt(f[2].trim());
         
         this.displayLineNumbers = Boolean.valueOf(properties.getProperty("displayLineNumbers"));
@@ -135,8 +131,8 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
             }
         });
 
-        fontValueLabel.setFont(UIManager.getFont("EditorPane.font"));
-        fontValueLabel.setText(getStringFont(UIManager.getFont("EditorPane.font")));
+        fontValueLabel.setFont((Font)XPontusConfig.getValue("EditorPane.Font"));
+        fontValueLabel.setText(getStringFont((Font)XPontusConfig.getValue("EditorPane.Font")));
 
         tabSizeLabel.setText("Tab size");
 
@@ -209,13 +205,14 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     }// </editor-fold>//GEN-END:initComponents
     private void chooseFontButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFontButtonActionPerformed
         Component frame = XPontusComponentsUtils.getTopComponent().getDisplayComponent();
-        Font selectedFont = UIManager.getFont("EditorPane.font");
+        Font selectedFont = (Font)XPontusConfig.getValue("EditorPane.Font");
 
         Font f = JFontChooser.showDialog(frame, "Select font", selectedFont);
         if (f != null) {
             fontValueLabel.setText(getStringFont(f));
             fontValueLabel.setFont(f);
-            fontValueLabel.repaint();
+            fontValueLabel.repaint(); 
+            
         }
 }//GEN-LAST:event_chooseFontButtonActionPerformed
 

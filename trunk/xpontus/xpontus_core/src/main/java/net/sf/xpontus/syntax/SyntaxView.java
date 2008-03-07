@@ -1,9 +1,13 @@
 package net.sf.xpontus.syntax;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.font.TextAttribute;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
@@ -67,7 +71,24 @@ public class SyntaxView extends PlainView {
         JTextComponent editor, TabExpander e) {
         MutableAttributeSet style = doc.getStyleForType(token.kind);
         g.setColor(StyleConstants.getForeground(style));
-        g.setFont(editor.getFont());
+
+        Font font = editor.getFont();
+
+        Map<TextAttribute, Object> atts = new HashMap<TextAttribute, Object>();
+
+        if (StyleConstants.isBold(style)) {
+            atts.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD);
+        }
+
+        if (StyleConstants.isUnderline(style)) {
+            atts.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        }
+
+        if (StyleConstants.isItalic(style)) {
+            atts.put(TextAttribute.POSTURE, TextAttribute.POSTURE_OBLIQUE);
+        }
+
+        g.setFont(font.deriveFont(atts));
 
         Segment seg = new Segment(token.image.toCharArray(), 0,
                 token.image.length());
