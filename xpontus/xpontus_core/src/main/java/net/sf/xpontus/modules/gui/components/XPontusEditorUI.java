@@ -26,6 +26,7 @@ import net.sf.xpontus.syntax.SyntaxEditorkit;
 import javax.swing.plaf.basic.BasicEditorPaneUI;
 import javax.swing.text.EditorKit;
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.utils.GUIUtils;
 
 
 /**
@@ -41,7 +42,8 @@ public class XPontusEditorUI extends BasicEditorPaneUI {
      * @param ext The filename extension
      */
     public XPontusEditorUI(JTextComponent jtc, String ext) {
-        this.ext = ext;
+        this.ext = ext; 
+        System.out.println("EditorPane font:" + GUIUtils.fontToString(jtc.getFont()));
         kit = new SyntaxEditorkit(jtc, ext);
     }
 
@@ -51,6 +53,7 @@ public class XPontusEditorUI extends BasicEditorPaneUI {
      * @return The editorkit to use for this text component
      */
     public EditorKit getEditorKit(JTextComponent jtc) {
+        System.out.println("EditorPane font:" + GUIUtils.fontToString(jtc.getFont()));
         return kit;
     }
 }

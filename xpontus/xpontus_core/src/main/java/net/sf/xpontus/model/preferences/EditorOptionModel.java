@@ -24,14 +24,12 @@ package net.sf.xpontus.model.preferences;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 
-import java.awt.Font;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.io.File;
 
-import javax.swing.UIManager;
 
 
 /**
@@ -41,7 +39,7 @@ import javax.swing.UIManager;
 public class EditorOptionModel extends ConfigurationModel {
     private boolean showLineNumbers = true;
     private Long tabSize = new Long(4);
-    private String fontName = "Monospaced";
+    private String fontName = "Dialog";
     private String fontSize = 12 + "";
     private int cursorRate = 500;
     private PropertyChangeSupport changeSupport;
@@ -145,9 +143,7 @@ public class EditorOptionModel extends ConfigurationModel {
     public void setFontName(String newValue) {
         String oldValue = fontName;
         fontName = newValue;
-        changeSupport.firePropertyChange("fontName", oldValue, newValue);
-        UIManager.put("EditorPane.font",
-            new Font(fontName, Font.PLAIN, Integer.parseInt(fontSize)));
+        changeSupport.firePropertyChange("fontName", oldValue, newValue); 
     }
 
     /**
@@ -165,8 +161,6 @@ public class EditorOptionModel extends ConfigurationModel {
     public void setFontSize(String newValue) {
         String oldValue = fontSize;
         fontSize = newValue;
-        changeSupport.firePropertyChange("fontSize", oldValue, newValue);
-        UIManager.put("EditorPane.font",
-            new Font(fontName, Font.PLAIN, Integer.parseInt(fontSize)));
+        changeSupport.firePropertyChange("fontSize", oldValue, newValue); 
     }
 }

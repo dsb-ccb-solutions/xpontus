@@ -3,10 +3,8 @@
     
     <properties>
         <author email="yveszoundi AT users DOT sf DOT net">Yves Zoundi</author>
-        <title>Homepage</title>        
-    </properties>
-     
-    
+        <title>Homepage</title>    
+    </properties> 
     <body> 
        <section name = "Information">
             <p>I plan to release a snapshot version of XPontus 1.0.0-pre1 in early 2008. It will a Java Web Start only release with as less bugs as possible. It will allow me to get a quick feedback before the official release.</p>

@@ -103,10 +103,10 @@
     <Component class="javax.swing.JLabel" name="fontValueLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="UIManager.getFont(&quot;EditorPane.font&quot;)" type="code"/>
+          <Connection code="(Font)XPontusConfig.getValue(&quot;EditorPane.Font&quot;)" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="getStringFont(UIManager.getFont(&quot;EditorPane.font&quot;))" type="code"/>
+          <Connection code="getStringFont((Font)XPontusConfig.getValue(&quot;EditorPane.Font&quot;))" type="code"/>
         </Property>
       </Properties>
     </Component>

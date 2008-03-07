@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import java.util.Iterator;
 import java.util.Properties;
 
 
@@ -51,7 +52,7 @@ public class PropertiesConfigurationLoader {
     public static void save(File propertiesFile, Properties props) {
         try {
             OutputStream bos = FileUtils.openOutputStream(propertiesFile);
-            props.save(bos, null);
+            props.store(bos, null);
             IOUtils.closeQuietly(bos);
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -70,7 +71,7 @@ public class PropertiesConfigurationLoader {
             log.error(e.getMessage());
         }
 
-        System.out.println("Properties:" + properties.size());
+       
 
         return properties;
     }

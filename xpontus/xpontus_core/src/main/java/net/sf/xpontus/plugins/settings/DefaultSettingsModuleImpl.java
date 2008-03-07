@@ -26,6 +26,7 @@ import com.vlsolutions.swing.docking.DockableContainerFactory;
 import com.vlsolutions.swing.docking.TabbedDockableContainer;
 
 import net.sf.xpontus.configuration.XPontusConfig;
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
@@ -49,6 +50,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.UIManager;
+import net.sf.xpontus.utils.GUIUtils;
 
 
 /**
@@ -83,7 +85,17 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     }
 
     public void init() {
-        UIManager.put("EditorPane.font", new Font("Monospaced", Font.PLAIN, 13));
+        Properties m_props = PropertiesConfigurationLoader.load(XPontusConfigurationConstantsIF.EDITOR_PREFERENCES_FILE);
+        
+         
+        
+        String[] f = m_props.get("EditorPane.Font").toString().split(",");
+        String family = f[0].trim();
+        String style1 = f[1].trim();
+        int style = Integer.parseInt(style1);
+        int size = Integer.parseInt(f[2].trim());
+        Font m_font = new Font(family, style, size);
+        
 
         File[] configsDirectories = {
                 XPontusConstantsIF.XPONTUS_PLUGINS_DATA_DIR,
@@ -125,8 +137,11 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
                     while (it.hasNext()) {
                         Object m_key = it.next();
                         Object m_value = m_properties.get(m_key);
-                        System.out.println("cle:" + m_key + ",value:" + m_value);
-                        XPontusConfig.put(m_key, m_value);
+                        System.out.println("cle:" + m_key + ",value:" +
+                            m_value);
+                         
+                            XPontusConfig.put(m_key, m_value); 
+                        
                     }
                 }
             }
@@ -134,6 +149,9 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
             err.printStackTrace();
         }
 
+        XPontusConfig.put("EditorPane.Font", m_font);
+        System.out.println("Default font:" + GUIUtils.fontToString((Font)XPontusConfig.getValue("EditorPane.Font")));
+         
         Map map = new HashMap();
         map.put(ROLE, this);
         PropertiesHolder.registerProperty(XPontusSettings.KEY, map);
