@@ -24,6 +24,7 @@ package net.sf.xpontus.plugins.completion;
 import java.util.List;
 
 import javax.swing.text.Document;
+import javax.swing.text.JTextComponent;
 
 
 /**
@@ -46,6 +47,7 @@ public interface CodeCompletionIF {
      */
     public boolean isTrigger(String str);
 
+    public void setTextComponent(JTextComponent jtc);
     /**
      *
      * @return
