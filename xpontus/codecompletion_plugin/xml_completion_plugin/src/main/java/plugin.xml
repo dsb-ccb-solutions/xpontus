@@ -12,7 +12,7 @@
     </attributes>
     <requires>
         <import plugin-id="plugin.core.outline.xml" />
-         <import plugin-id="plugin.core.completion" />
+        <import plugin-id="plugin.core.completion" />
     </requires>
     <runtime> 
         <library id="plugin.core.completion.xml.lib" path="lib/xml_completion_plugin-1.0-0-pre1.jar" type="code" > 

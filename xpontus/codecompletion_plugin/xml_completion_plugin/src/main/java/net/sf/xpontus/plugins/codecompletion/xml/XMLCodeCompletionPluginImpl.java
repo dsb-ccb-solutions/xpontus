@@ -101,7 +101,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
         }
     }
 
-    public synchronized List getCompletionList(int offset) {
+    public synchronized List getCompletionList(String trigger, int offset) {
         List completionList = tagList;
 
         if (!isDTDCompletion) {
@@ -309,7 +309,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     public static void complete(final JTextComponent editor,
         final CodeCompletionIF contentAssist, int off, final String str,
         final AttributeSet set) {
-        List completionData = contentAssist.getCompletionList(off);
+        List completionData = contentAssist.getCompletionList(str, off);
 
         final Document doc = editor.getDocument();
 
