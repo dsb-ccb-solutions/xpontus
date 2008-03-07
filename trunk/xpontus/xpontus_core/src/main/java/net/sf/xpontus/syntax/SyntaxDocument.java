@@ -151,6 +151,7 @@ public class SyntaxDocument extends PlainDocument {
 
     public void setCodeCompletion(CodeCompletionIF plugin) {
         this.plugin = plugin;
+        plugin.setTextComponent(editor);
     }
 
     public CodeCompletionIF getCodeCompletion() {
