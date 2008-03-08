@@ -24,6 +24,7 @@ package net.sf.xpontus.utils;
 import org.apache.commons.lang.text.StrBuilder;
 
 import java.awt.Font;
+import java.awt.Window;
 
 
 /**
@@ -61,11 +62,32 @@ public class GUIUtils {
     public static String fontToString(Font m_font) {
         StrBuilder sb = new StrBuilder();
         sb.append(m_font.getFamily());
-        sb.append(","); 
-        sb.append("" + m_font.getStyle()); 
-        sb.append(",");  
+        sb.append(",");
+        sb.append("" + m_font.getStyle());
+        sb.append(",");
         sb.append(m_font.getSize());
 
         return sb.toString();
+    }
+
+    /**
+         * This function calls Component.setFocusableWindowState (in java >= 1.4) to  keep GUI
+         * consistent with java 1.3.x
+         *
+         * @param aObj TODO: DOCUMENT ME!
+         * @param aFlag TODO: DOCUMENT ME!
+         */
+    public static final void setFocusableWindowState(Window aObj, boolean aFlag) {
+        try {
+            //try to call setFocusableWindowState (true) on java 1.4 while staying compatible with Java 1.3
+            aObj.getClass()
+                .getMethod("setFocusableWindowState",
+                new Class[] { Boolean.TYPE })
+                .invoke(aObj,
+                new Object[] { aFlag ? Boolean.TRUE : Boolean.FALSE });
+        } catch (java.lang.NoSuchMethodException ex) {
+        } catch (java.lang.IllegalAccessException ex) {
+        } catch (java.lang.reflect.InvocationTargetException ex) {
+        }
     }
 }

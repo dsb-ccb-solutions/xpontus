@@ -22,6 +22,7 @@
 package net.sf.xpontus.plugins.codecompletion.xml;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
+import net.sf.xpontus.parsers.TokenNode;
 import net.sf.xpontus.plugins.completion.CodeCompletionIF;
 import net.sf.xpontus.syntax.SyntaxDocument;
 
@@ -40,7 +41,10 @@ import java.util.Vector;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
+import javax.swing.text.Utilities;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 
 /**
@@ -53,11 +57,10 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     private Log logger = LogFactory.getLog(XMLCodeCompletionPluginImpl.class);
     private List tagList = new Vector();
     private boolean isDTDCompletion = false;
-    private boolean isSchemaCompletion = false;
     private Map nsTagListMap = new HashMap();
     private String completionInformation;
-    private boolean parsingDone = false;
     private transient Document doc;
+    private XMLTokenWalker walker = new XMLTokenWalker();
 
     // interface to parse DTD or completion and store the completion information
     private ICompletionParser completionParser = new DTDCompletionParser();
@@ -83,6 +86,20 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
         return info;
     }
 
+    public synchronized List getTagsCompletionList(String tagName) {
+        System.out.println("Completion size:" + tagList.size());
+
+        TagInfo tagInfo = getTagInfo(tagName);
+
+        final List emptyList = new ArrayList();
+
+        if (tagInfo == null) {
+            return emptyList;
+        }
+
+        return Arrays.asList(tagInfo.getChildTagNames());
+    }
+
     public synchronized List getAttributesCompletionList(String tagName) {
         List completionList = tagList;
 
@@ -104,22 +121,49 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     public synchronized List getCompletionList(String trigger, int offset) {
         List completionList = tagList;
 
-        if (!isDTDCompletion) {
-            if ((completionList == null) || (completionList.size() == 0)) {
-                int taille = nsTagListMap.keySet().size();
+        if (trigger.equals(">")) {
+            completeEndTag(offset, trigger, null);
 
-                if (taille > 0) {
-                    //                    completionList = new Vector((List)nsTagListMap.values().iterator().next());
-                    List m = (List) nsTagListMap.values().iterator().next();
-                    completionList = m;
-                }
-            } else {
-                completionList = (List) nsTagListMap.get(nsTagListMap.keySet()
-                                                                     .iterator());
+            return null;
+        } else {
+            // check for attributes completion
+            if (trigger.equals(" ")) {
+            }
+            // check for elements completion
+            else if (trigger.equals("<")) {
+                SyntaxDocument syntaxDocument = (SyntaxDocument) jtc.getDocument();
+                int line = syntaxDocument.getDefaultRootElement()
+                                         .getElementIndex(offset);
+                Element element = Utilities.getParagraphElement(jtc, offset);
+                int column = offset - element.getStartOffset();
+                Object o = syntaxDocument.getProperty(XPontusConstantsIF.OUTLINE_INFO);
+
+                if (o != null) {
+                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
+                    walker.setPositionInformation(line, column);
+                    System.out.println("LINE INFORMATION:" + line + "," +
+                        column);
+                    walker.walk(node);
+
+                    TokenNode tn = walker.getNearestTokenNode();
+
+                    if (tn != null) {
+                        return getTagsCompletionList(tn.toString());
+                    } 
+                }  
+
+                //               
+                //                List tokenList = syntaxDocument.getTokenListForLine(line);
+                //                for(int i=0;i<tokenList.size();i++){
+                //                    Token token = (Token) tokenList.get(i);
+                //                    StrBuilder sb = new StrBuilder();
+                //                    sb.append("TOKEN:" + token.image + ",Line:" + token.beginLine + ",Column:" + token.beginColumn);
+                //                    System.out.println(sb.toString()); 
+                //                }
             }
         }
 
-        return completionList;
+        return null;
     }
 
     /**
@@ -140,19 +184,15 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
     public void updateAssistInfo(final String pubid, final String uri,
         final Reader r) {
-        System.out.println("updating pubid with:" + uri);
-
         if ((completionInformation == null) ||
                 !(completionInformation.equals(uri))) {
             completionInformation = uri;
 
             Thread t = new Thread() {
                     public void run() {
-                        parsingDone = false;
                         tagList.clear();
                         completionParser.init(tagList, nsTagListMap);
                         completionParser.updateCompletionInfo(pubid, uri, r);
-                        parsingDone = true;
                     }
                 };
 
@@ -305,7 +345,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
         return result;
     }
-    
+
     public static void complete(final JTextComponent editor,
         final CodeCompletionIF contentAssist, int off, final String str,
         final AttributeSet set) {
@@ -313,175 +353,175 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
         final Document doc = editor.getDocument();
 
-//        if (str.equals(">")) {
-//            completeEndTag(editor, off, str, set);
-//        } else if (str.equals(" ")) {
-//            String tagCompletionName = null; //tagInside(editor.getDocument(), off);
-//
-//            if (tagCompletionName != null) {
-//                List attributeCompletion = contentAssist.getAttributesCompletionList(tagCompletionName);
-//                completionData = attributeCompletion;
-//
-//                if ((completionData == null) || (completionData.size() == 0)) {
-//                    return;
-//                }
-//
-//                try {
-//                    Collections.sort(completionData, new SimpleComparator());
-//                    completionList = new javax.swing.JList(completionData.toArray());
-//
-//                    final int offset = off;
-//
-//                    completionList.addMouseListener(new java.awt.event.MouseAdapter() {
-//                            public void mouseReleased(
-//                                java.awt.event.MouseEvent e) {
-//                                try {
-//                                    if (e.getClickCount() == 2) {
-//                                        doc.insertString(editor.getCaretPosition(),
-//                                            completionList.getSelectedValue()
-//                                                          .toString(), set);
-//                                        completionMenu.setVisible(false);
-//                                    }
-//                                } catch (javax.swing.text.BadLocationException ex) {
-//                                    ex.printStackTrace();
-//                                }
-//                            }
-//                        });
-//                    completionList.addKeyListener(new java.awt.event.KeyAdapter() {
-//                            public void keyReleased(java.awt.event.KeyEvent e) {
-//                                switch (e.getKeyCode()) {
-//                                //                                case KeyEvent.VK_SPACE:
-//                                //                                    completionMenu.setVisible(false);
-//                                //
-//                                //                                    break;
-//                                case KeyEvent.VK_BACK_SPACE:
-//                                    completionMenu.setVisible(false);
-//
-//                                    break;
-//
-//                                case KeyEvent.VK_ESCAPE:
-//                                    completionMenu.setVisible(false);
-//
-//                                    break;
-//
-//                                case java.awt.event.KeyEvent.VK_ENTER:
-//
-//                                    try {
-//                                        doc.insertString(editor.getCaretPosition(),
-//                                            completionList.getSelectedValue()
-//                                                          .toString(), null);
-//
-//                                        completionMenu.setVisible(false);
-//                                    } catch (javax.swing.text.BadLocationException ex) {
-//                                        ex.printStackTrace();
-//                                    }
-//
-//                                    break;
-//
-//                                default:
-//                                    break;
-//                                }
-//                            }
-//                        });
-//                    completionList.setSelectedIndex(0);
-//
-//                    javax.swing.JScrollPane completionPane = new javax.swing.JScrollPane(completionList);
-//
-//                    completionMenu = new javax.swing.JPopupMenu();
-//                    completionMenu.add(completionPane);
-//
-//                    int dotPosition = editor.getCaretPosition();
-//                    Rectangle popupLocation = editor.modelToView(dotPosition);
-//
-//                    completionList.setVisibleRowCount((completionData.size() > 10)
-//                        ? 10 : completionData.size());
-//                    completionMenu.show(editor, popupLocation.x, popupLocation.y);
-//                    completionList.grabFocus();
-//                } catch (Exception npe) {
-//                }
-//            }
-//        } else {
-//            if ((completionData == null) || (completionData.size() == 0)) {
-//                return;
-//            }
-//
-//            try {
-//                Collections.sort(completionData, new SimpleComparator());
-//                completionList = new javax.swing.JList(completionData.toArray());
-//
-//                final int offset = off;
-//
-//                completionList.addMouseListener(new java.awt.event.MouseAdapter() {
-//                        public void mouseReleased(java.awt.event.MouseEvent e) {
-//                            try {
-//                                if (e.getClickCount() == 2) {
-//                                    doc.insertString(editor.getCaretPosition(),
-//                                        completionList.getSelectedValue()
-//                                                      .toString(), set);
-//                                    completionMenu.setVisible(false);
-//                                }
-//                            } catch (javax.swing.text.BadLocationException ex) {
-//                                ex.printStackTrace();
-//                            }
-//                        }
-//                    });
-//                completionList.addKeyListener(new java.awt.event.KeyAdapter() {
-//                        public void keyReleased(java.awt.event.KeyEvent e) {
-//                            switch (e.getKeyCode()) {
-//                            case KeyEvent.VK_SPACE:
-//                                completionMenu.setVisible(false);
-//
-//                                break;
-//
-//                            case KeyEvent.VK_BACK_SPACE:
-//                                completionMenu.setVisible(false);
-//
-//                                break;
-//
-//                            case KeyEvent.VK_ESCAPE:
-//                                completionMenu.setVisible(false);
-//
-//                                break;
-//
-//                            case java.awt.event.KeyEvent.VK_ENTER:
-//
-//                                try {
-//                                    doc.insertString(editor.getCaretPosition(),
-//                                        completionList.getSelectedValue()
-//                                                      .toString(), null);
-//
-//                                    completionMenu.setVisible(false);
-//                                } catch (javax.swing.text.BadLocationException ex) {
-//                                    ex.printStackTrace();
-//                                }
-//
-//                                break;
-//
-//                            default:
-//                                break;
-//                            }
-//                        }
-//                    });
-//                completionList.setSelectedIndex(0);
-//
-//                javax.swing.JScrollPane completionPane = new javax.swing.JScrollPane(completionList);
-//
-//                completionMenu = new javax.swing.JPopupMenu();
-//                completionMenu.add(completionPane);
-//
-//                int dotPosition = editor.getCaretPosition();
-//                Rectangle popupLocation = editor.modelToView(dotPosition);
-//
-//                completionList.setVisibleRowCount((completionData.size() > 10)
-//                    ? 10 : completionData.size());
-//                completionMenu.show(editor, popupLocation.x, popupLocation.y);
-//                completionList.grabFocus();
-//            } catch (Exception ex) {
-//                java.util.logging.Logger.getLogger("global")
-//                                        .log(java.util.logging.Level.SEVERE,
-//                    ex.getMessage(), ex);
-//            }
-//        }
+        //        if (str.equals(">")) {
+        //            completeEndTag(editor, off, str, set);
+        //        } else if (str.equals(" ")) {
+        //            String tagCompletionName = null; //tagInside(editor.getDocument(), off);
+        //
+        //            if (tagCompletionName != null) {
+        //                List attributeCompletion = contentAssist.getAttributesCompletionList(tagCompletionName);
+        //                completionData = attributeCompletion;
+        //
+        //                if ((completionData == null) || (completionData.size() == 0)) {
+        //                    return;
+        //                }
+        //
+        //                try {
+        //                    Collections.sort(completionData, new SimpleComparator());
+        //                    completionList = new javax.swing.JList(completionData.toArray());
+        //
+        //                    final int offset = off;
+        //
+        //                    completionList.addMouseListener(new java.awt.event.MouseAdapter() {
+        //                            public void mouseReleased(
+        //                                java.awt.event.MouseEvent e) {
+        //                                try {
+        //                                    if (e.getClickCount() == 2) {
+        //                                        doc.insertString(editor.getCaretPosition(),
+        //                                            completionList.getSelectedValue()
+        //                                                          .toString(), set);
+        //                                        completionMenu.setVisible(false);
+        //                                    }
+        //                                } catch (javax.swing.text.BadLocationException ex) {
+        //                                    ex.printStackTrace();
+        //                                }
+        //                            }
+        //                        });
+        //                    completionList.addKeyListener(new java.awt.event.KeyAdapter() {
+        //                            public void keyReleased(java.awt.event.KeyEvent e) {
+        //                                switch (e.getKeyCode()) {
+        //                                //                                case KeyEvent.VK_SPACE:
+        //                                //                                    completionMenu.setVisible(false);
+        //                                //
+        //                                //                                    break;
+        //                                case KeyEvent.VK_BACK_SPACE:
+        //                                    completionMenu.setVisible(false);
+        //
+        //                                    break;
+        //
+        //                                case KeyEvent.VK_ESCAPE:
+        //                                    completionMenu.setVisible(false);
+        //
+        //                                    break;
+        //
+        //                                case java.awt.event.KeyEvent.VK_ENTER:
+        //
+        //                                    try {
+        //                                        doc.insertString(editor.getCaretPosition(),
+        //                                            completionList.getSelectedValue()
+        //                                                          .toString(), null);
+        //
+        //                                        completionMenu.setVisible(false);
+        //                                    } catch (javax.swing.text.BadLocationException ex) {
+        //                                        ex.printStackTrace();
+        //                                    }
+        //
+        //                                    break;
+        //
+        //                                default:
+        //                                    break;
+        //                                }
+        //                            }
+        //                        });
+        //                    completionList.setSelectedIndex(0);
+        //
+        //                    javax.swing.JScrollPane completionPane = new javax.swing.JScrollPane(completionList);
+        //
+        //                    completionMenu = new javax.swing.JPopupMenu();
+        //                    completionMenu.add(completionPane);
+        //
+        //                    int dotPosition = editor.getCaretPosition();
+        //                    Rectangle popupLocation = editor.modelToView(dotPosition);
+        //
+        //                    completionList.setVisibleRowCount((completionData.size() > 10)
+        //                        ? 10 : completionData.size());
+        //                    completionMenu.show(editor, popupLocation.x, popupLocation.y);
+        //                    completionList.grabFocus();
+        //                } catch (Exception npe) {
+        //                }
+        //            }
+        //        } else {
+        //            if ((completionData == null) || (completionData.size() == 0)) {
+        //                return;
+        //            }
+        //
+        //            try {
+        //                Collections.sort(completionData, new SimpleComparator());
+        //                completionList = new javax.swing.JList(completionData.toArray());
+        //
+        //                final int offset = off;
+        //
+        //                completionList.addMouseListener(new java.awt.event.MouseAdapter() {
+        //                        public void mouseReleased(java.awt.event.MouseEvent e) {
+        //                            try {
+        //                                if (e.getClickCount() == 2) {
+        //                                    doc.insertString(editor.getCaretPosition(),
+        //                                        completionList.getSelectedValue()
+        //                                                      .toString(), set);
+        //                                    completionMenu.setVisible(false);
+        //                                }
+        //                            } catch (javax.swing.text.BadLocationException ex) {
+        //                                ex.printStackTrace();
+        //                            }
+        //                        }
+        //                    });
+        //                completionList.addKeyListener(new java.awt.event.KeyAdapter() {
+        //                        public void keyReleased(java.awt.event.KeyEvent e) {
+        //                            switch (e.getKeyCode()) {
+        //                            case KeyEvent.VK_SPACE:
+        //                                completionMenu.setVisible(false);
+        //
+        //                                break;
+        //
+        //                            case KeyEvent.VK_BACK_SPACE:
+        //                                completionMenu.setVisible(false);
+        //
+        //                                break;
+        //
+        //                            case KeyEvent.VK_ESCAPE:
+        //                                completionMenu.setVisible(false);
+        //
+        //                                break;
+        //
+        //                            case java.awt.event.KeyEvent.VK_ENTER:
+        //
+        //                                try {
+        //                                    doc.insertString(editor.getCaretPosition(),
+        //                                        completionList.getSelectedValue()
+        //                                                      .toString(), null);
+        //
+        //                                    completionMenu.setVisible(false);
+        //                                } catch (javax.swing.text.BadLocationException ex) {
+        //                                    ex.printStackTrace();
+        //                                }
+        //
+        //                                break;
+        //
+        //                            default:
+        //                                break;
+        //                            }
+        //                        }
+        //                    });
+        //                completionList.setSelectedIndex(0);
+        //
+        //                javax.swing.JScrollPane completionPane = new javax.swing.JScrollPane(completionList);
+        //
+        //                completionMenu = new javax.swing.JPopupMenu();
+        //                completionMenu.add(completionPane);
+        //
+        //                int dotPosition = editor.getCaretPosition();
+        //                Rectangle popupLocation = editor.modelToView(dotPosition);
+        //
+        //                completionList.setVisibleRowCount((completionData.size() > 10)
+        //                    ? 10 : completionData.size());
+        //                completionMenu.show(editor, popupLocation.x, popupLocation.y);
+        //                completionList.grabFocus();
+        //            } catch (Exception ex) {
+        //                java.util.logging.Logger.getLogger("global")
+        //                                        .log(java.util.logging.Level.SEVERE,
+        //                    ex.getMessage(), ex);
+        //            }
+        //        }
     }
 
     public void setTextComponent(JTextComponent jtc) {

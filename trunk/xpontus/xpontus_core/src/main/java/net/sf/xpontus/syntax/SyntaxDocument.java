@@ -375,7 +375,7 @@ public class SyntaxDocument extends PlainDocument {
         int endOffset = elem.getEndOffset() - 1;
 
         try {
-            getText(startOffset, endOffset - startOffset, seg);
+            getText(startOffset, endOffset - startOffset, seg); 
         } catch (BadLocationException ble) {
             ble.printStackTrace();
 
@@ -417,7 +417,7 @@ public class SyntaxDocument extends PlainDocument {
         super.insertString(off, str, set);
 
         if ((plugin != null) && plugin.isTrigger(str)) {
-            ContentAssistWindow.complete(editor, plugin, off, str, set);
+            ContentAssistWindow.getInstance().complete(editor, plugin, off, str, set);
         }
     }
 }

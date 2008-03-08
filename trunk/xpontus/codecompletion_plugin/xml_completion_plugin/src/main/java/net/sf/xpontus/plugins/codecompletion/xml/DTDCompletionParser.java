@@ -33,19 +33,12 @@ import com.wutka.dtd.DTDName;
 import com.wutka.dtd.DTDParser;
 import com.wutka.dtd.DTDSequence;
 
-import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
-import net.sf.xpontus.utils.CompletionUtils;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Reader;
-import java.io.Writer;
 
 import java.net.URL;
 
@@ -119,45 +112,13 @@ public class DTDCompletionParser implements ICompletionParser {
                 parserURL = new URL(uri);
             }
 
-            DTDParser parser = null;
-
-            //            String cacheURL = CompletionUtils.getFileCompletionCache(uri);
-            //
-            //            if (cacheURL != null) {
-            //                System.out.println("Using cache for DTD completion parsing...");
-            //                parserURL = new File(cacheURL).toURL();
-            //            }
+            DTDParser parser = null; 
+            
             parser = new DTDParser(parserURL);
 
             DTD dtd = parser.parse();
-
-            //            if (cacheURL == null) {
-            //                try {
-            //                    System.out.println("Caching completion to cache");
-            //
-            //                    String str = CachingUtils.getCachedURL(uri);
-            //                    File cacheFile = new File(XPontusConfigurationConstantsIF.GRAMMAR_CACHING_DIR,
-            //                            str);
-            //                    System.out.println("cacheFile:" +
-            //                        cacheFile.getAbsolutePath());
-            //
-            //                    Writer m_writer = new OutputStreamWriter(FileUtils.openOutputStream(
-            //                                cacheFile));
-            //                    PrintWriter pw = new PrintWriter(m_writer);
-            //                    dtd.write(pw);
-            //                    IOUtils.closeQuietly(pw);
-            //                    IOUtils.closeQuietly(m_writer);
-            //                    CompletionUtils.addCompletionInfo(uri,
-            //                        cacheFile.getAbsolutePath());
-            //                } catch (Exception cachingException) {
-            //                    cachingException.printStackTrace();
-            //                }
-            //            } else {
-            //                System.out.println("Using code completion from cache...");
-            //            }
-            Object[] obj = dtd.getItems();
-
-            System.out.println("nb:items:" + obj.length);
+            
+            Object[] obj = dtd.getItems(); 
 
             for (int i = 0; i < obj.length; i++) {
                 if (obj[i] instanceof DTDElement) {
@@ -209,11 +170,8 @@ public class DTDCompletionParser implements ICompletionParser {
                     }
 
                     tagList.add(tagInfo);
-
-                    // TODO root tag is an element that was found at first.
-                }
-
-                System.out.println("TagList:" + tagList.size());
+ 
+                } 
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
