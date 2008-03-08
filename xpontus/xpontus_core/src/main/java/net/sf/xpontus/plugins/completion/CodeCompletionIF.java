@@ -65,7 +65,7 @@ public interface CodeCompletionIF {
      * @param offset The position in the document
      * @return The completion list at the given position in the document
      */
-    public List getCompletionList(int offset);
+    public List getCompletionList(String trigger, int offset);
 
     /**
      *

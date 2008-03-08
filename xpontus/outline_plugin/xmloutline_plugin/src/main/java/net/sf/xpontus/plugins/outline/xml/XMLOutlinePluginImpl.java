@@ -66,9 +66,7 @@ public class XMLOutlinePluginImpl implements OutlinePluginIF {
             final OutlineViewDockable outline = DefaultXPontusWindowImpl.getInstance()
                                                                         .getOutline();
 
-            final Document mDoc = doc;
-
-            System.out.println("~~~~~~ PARSER DATA ");
+            final Document mDoc = doc; 
 
             String dtdLocation = parser.getDtdLocation();
             String schemaLocation = parser.getSchemaLocation();
