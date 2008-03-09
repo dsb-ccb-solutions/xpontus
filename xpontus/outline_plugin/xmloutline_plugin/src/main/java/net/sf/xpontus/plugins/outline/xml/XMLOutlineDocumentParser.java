@@ -37,8 +37,7 @@ public class XMLOutlineDocumentParser {
     /** Default parser configuration (org.apache.xerces.parsers.XIncludeAwareParserConfiguration). */
     protected static final String DEFAULT_PARSER_CONFIG = "org.apache.xerces.parsers.XIncludeAwareParserConfiguration";
     protected static final String NAMESPACE_PREFIXES_FEATURE_ID = "http://xml.org/sax/features/namespace-prefixes";
-    private org.apache.xerces.xni.XMLLocator m_locator;
-    private java.util.Stack stack = new java.util.Stack();
+    private org.apache.xerces.xni.XMLLocator m_locator; 
     private DefaultMutableTreeNode current;
     private DefaultMutableTreeNode root;
     private XMLParserConfiguration parser;

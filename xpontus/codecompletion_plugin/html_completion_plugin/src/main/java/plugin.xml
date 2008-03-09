@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
+<plugin id="plugin.core.completion.html" version="0.0.1" class="net.sf.xpontus.plugins.codecompletion.html.HTMLCodeCompletionPlugin">
+    <attributes>
+        <attribute id = "Built-in" value = "false"/>
+        <attribute id="Category" value = "Completion"/>  
+        <attribute id = "Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id = "Description" value = "Code completion support for HTML documents"/>
+        <attribute id = "DisplayName" value = "HTML code completion"/>
+        <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
+        <attribute id = "date" value = "26-02-2008"/>
+    </attributes>
+    <requires>
+        <import plugin-id="plugin.core.outline.html" />
+        <import plugin-id="plugin.core.completion" />
+    </requires>
+    <runtime> 
+        <library id="plugin.core.completion.html.lib" path="lib/html_completion_plugin-1.0-SNAPSHOT.jar
+" type="code" > 
+            <export prefix="*"/>
+        </library>  
+        <library id="dtdparser" path="lib/dtdparser-1.21.jar" type="code" > 
+            <export prefix="*"/>
+        </library>  
+    </runtime>
+    <extension plugin-id="plugin.core.completion" point-id="completionpluginif"  id="plugin.core.completion.html">
+        <parameter id="class"  value="net.sf.xpontus.plugins.codecompletion.html.HTMLCodeCompletionPluginImpl" /> 
+    </extension>
+    
+</plugin>

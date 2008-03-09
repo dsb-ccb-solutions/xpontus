@@ -42,7 +42,6 @@ import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPluginIF;
 import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.syntax.LineView;
 import net.sf.xpontus.syntax.SyntaxDocument;
-import net.sf.xpontus.utils.GUIUtils;
 import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -268,6 +267,10 @@ public class DocumentContainer implements IDocumentContainer {
         if ((m_ext == null) || m_ext.trim().equals("")) {
             ext = "file.txt";
         }
+        
+        if(m_ext!=null){
+            m_ext = m_ext.toLowerCase();
+        }
 
         String mm = MimeTypesProvider.getInstance().getMimeType(ext);
 
@@ -308,6 +311,10 @@ public class DocumentContainer implements IDocumentContainer {
                 doc.putProperty("BUILTIN_COMPLETION", "XSL");
             } else if (m_ext.endsWith("xsd")) {
                 doc.putProperty("BUILTIN_COMPLETION", "XSD");
+            }
+            else if (m_ext.endsWith("html") || m_ext.endsWith("htm")) {
+                System.out.println("Adding builin completion for html");
+                doc.putProperty("BUILTIN_COMPLETION", "HTML");
             }
         }
 

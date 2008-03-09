@@ -68,7 +68,7 @@ public class XMLTokenWalker {
         return nearestTokenNode;
     }
 
-    void setPositionInformation(Document doc, int offset, int lineInfo,
+  public  void setPositionInformation(Document doc, int offset, int lineInfo,
         int columnInfo) {
         this.line = lineInfo + 1;
         this.offset = offset;
