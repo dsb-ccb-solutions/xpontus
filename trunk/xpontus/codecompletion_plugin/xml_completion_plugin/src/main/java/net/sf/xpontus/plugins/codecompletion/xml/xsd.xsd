@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="xs" xmlns:tns="xs">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:group name="annotated">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="annotation"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="annotated">
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:attributeGroup>
+  <xs:group name="schemaTop">
+    <xs:choice>
+      <xs:group ref="redefinable"/>
+      <xs:group ref="topLevelElement"/>
+      <xs:group ref="topLevelAttribute"/>
+      <xs:element ref="notation"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="redefinable">
+    <xs:choice>
+      <xs:group ref="topLevelSimpleType"/>
+      <xs:group ref="topLevelComplexType"/>
+      <xs:group ref="namedGroup"/>
+      <xs:group ref="namedAttributeGroup"/>
+    </xs:choice>
+  </xs:group>
+  <xs:simpleType name="formChoice">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="qualified"/>
+      <xs:enumeration value="unqualified"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- KK: merge the two -->
+  <xs:simpleType name="reducedDerivationControl">
+    <xs:restriction>
+      <xs:simpleType>
+        <xs:list>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="extension"/>
+              <xs:enumeration value="restriction"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:list>
+      </xs:simpleType>
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="derivationSet">
+    <xs:union memberTypes="reducedDerivationControl">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="#all"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:element name="schema">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="include"/>
+          <xs:element ref="import"/>
+          <xs:element ref="redefine"/>
+          <xs:element ref="annotation"/>
+        </xs:choice>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:group ref="schemaTop"/>
+          <xs:element ref="annotation"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:token"/>
+      <xs:attribute name="finalDefault" type="derivationSet"/>
+      <xs:attribute name="blockDefault" type="blockSet"/>
+      <xs:attribute name="attributeFormDefault" type="formChoice"/>
+      <xs:attribute name="elementFormDefault" type="formChoice"/>
+      <xs:attribute name="id" type="xs:ID"/>
+      <xs:attribute ref="xml:lang"/>
+      <xs:attribute name="targetNamespace" type="xs:anyURI"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="allNNI">
+    <xs:union memberTypes="xs:nonNegativeInteger">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="unbounded"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:attributeGroup name="occurs">
+    <xs:attribute name="minOccurs" type="xs:nonNegativeInteger"/>
+    <xs:attribute name="maxOccurs" type="allNNI"/>
+  </xs:attributeGroup>
+  <xs:group name="typeDefParticle">
+    <xs:choice>
+      <xs:group ref="groupRef"/>
+      <xs:element ref="all"/>
+      <xs:element ref="choice"/>
+      <xs:element ref="sequence"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="nestedParticle">
+    <xs:choice>
+      <xs:group ref="localElement"/>
+      <xs:group ref="groupRef"/>
+      <xs:element ref="choice"/>
+      <xs:element ref="sequence"/>
+      <xs:element ref="any"/>
+    </xs:choice>
+  </xs:group>
+  <xs:attributeGroup name="fixedOrDefault">
+    <xs:attribute name="fixed"/>
+    <xs:attribute name="default"/>
+  </xs:attributeGroup>
+  <xs:group name="attributeType">
+    <xs:sequence>
+      <xs:group minOccurs="0" ref="localSimpleType"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="attributeType">
+    <xs:attribute name="type" type="xs:QName"/>
+  </xs:attributeGroup>
+  <xs:group name="localAttribute">
+    <xs:sequence>
+      <xs:element name="attribute">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="annotated"/>
+            <xs:group minOccurs="0" ref="attributeType"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="annotated"/>
+          <xs:attribute name="use">
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:enumeration value="optional"/>
+                <xs:enumeration value="prohibited"/>
+                <xs:enumeration value="required"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attributeGroup ref="fixedOrDefault"/>
+          <xs:attribute name="ref" type="xs:QName"/>
+          <xs:attribute name="name" type="xs:NCName"/>
+          <xs:attribute name="form" type="formChoice"/>
+          <xs:attributeGroup ref="attributeType"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="topLevelAttribute">
+    <xs:sequence>
+      <xs:element name="attribute">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="annotated"/>
+            <xs:group ref="attributeType"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="annotated"/>
+          <xs:attribute name="name" use="required" type="xs:NCName"/>
+          <xs:attributeGroup ref="fixedOrDefault"/>
+          <xs:attributeGroup ref="attributeType"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="attrDecls">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="localAttribute"/>
+        <xs:group ref="attributeGroupRef"/>
+      </xs:choice>
+      <xs:element minOccurs="0" ref="anyAttribute"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="anyAttribute" type="wildcard"/>
+  <xs:group name="complexTypeModel">
+    <xs:choice>
+      <xs:element ref="simpleContent"/>
+      <xs:choice>
+        <xs:element ref="complexContent"/>
+        <xs:sequence>
+          <xs:group minOccurs="0" ref="typeDefParticle"/>
+          <xs:group ref="attrDecls"/>
+        </xs:sequence>
+      </xs:choice>
+    </xs:choice>
+  </xs:group>
+  <xs:attributeGroup name="complexTypeModel">
+    <xs:attribute name="mixed" type="xs:boolean"/>
+  </xs:attributeGroup>
+  <xs:complexType name="complexType">
+    <xs:sequence>
+      <xs:group ref="annotated"/>
+      <xs:group ref="complexTypeModel"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="annotated"/>
+    <xs:attributeGroup ref="complexTypeModel"/>
+  </xs:complexType>
+  <xs:group name="topLevelComplexType">
+    <xs:sequence>
+      <xs:element name="complexType">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="complexType">
+              <xs:attribute name="name" use="required" type="xs:NCName"/>
+              <xs:attribute name="abstract" type="xs:boolean"/>
+              <xs:attribute name="block" type="derivationSet"/>
+              <xs:attribute name="final" type="derivationSet"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="localComplexType">
+    <xs:sequence>
+      <xs:element name="complexType" type="complexType"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="complexRestriction">
+    <xs:sequence>
+      <xs:element name="restriction">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="annotated"/>
+            <xs:group minOccurs="0" ref="typeDefParticle"/>
+            <xs:group ref="attrDecls"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="annotated"/>
+          <xs:attribute name="base" use="required" type="xs:QName"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:complexType name="extensionType">
+    <xs:group ref="annotated"/>
+    <xs:attributeGroup ref="annotated"/>
+    <xs:attribute name="base" use="required" type="xs:QName"/>
+  </xs:complexType>
+  <xs:group name="complexExtension">
+    <xs:sequence>
+      <xs:element name="extension">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="extensionType">
+              <xs:sequence>
+                <xs:group minOccurs="0" ref="typeDefParticle"/>
+                <xs:group ref="attrDecls"/>
+              </xs:sequence>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="complexContent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="annotated"/>
+        <xs:choice>
+          <xs:group ref="complexRestriction"/>
+          <xs:group ref="complexExtension"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attributeGroup ref="annotated"/>
+      <xs:attribute name="mixed" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="simpleRestriction">
+    <xs:sequence>
+      <xs:element name="restriction">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="annotated"/>
+            <xs:group ref="simpleRestrictionModel"/>
+            <xs:group ref="attrDecls"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="annotated"/>
+          <xs:attributeGroup ref="simpleRestrictionModel"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="simpleExtension">
+    <xs:sequence>
+      <xs:element name="extension">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="extensionType">
+              <xs:group ref="attrDecls"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="simpleContent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="annotated"/>
+        <xs:choice>
+          <xs:group ref="simpleRestriction"/>
+          <xs:group ref="simpleExtension"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attributeGroup ref="annotated"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="blockSet">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="#all"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:enumeration value="extension"/>
+                  <xs:enumeration value="restriction"/>
+                  <xs:enumeration value="substitution"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:group name="element">
+    <xs:sequence>
+      <xs:group ref="annotated"/>
+      <xs:choice minOccurs="0">
+        <xs:group ref="localSimpleType"/>
+        <xs:group ref="localComplexType"/>
+      </xs:choice>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="identityConstraint"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="element">
+    <xs:attributeGroup ref="annotated"/>
+    <xs:attributeGroup ref="fixedOrDefault"/>
+    <xs:attribute name="nillable" type="xs:boolean"/>
+    <xs:attribute name="block" type="blockSet"/>
+    <xs:attribute name="type" type="xs:QName"/>
+  </xs:attributeGroup>
+  <xs:group name="topLevelElement">
+    <xs:sequence>
+      <xs:element name="element">
+        <xs:complexType>
+          <xs:group ref="element"/>
+          <xs:attributeGroup ref="element"/>
+          <xs:attribute name="name" use="required" type="xs:NCName"/>
+          <xs:attribute name="substitutionGroup" type="xs:QName"/>
+          <xs:attribute name="abstract" type="xs:boolean"/>
+          <xs:attribute name="final" type="derivationSet"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="localElement">
+    <xs:sequence>
+      <xs:element name="element">
+        <xs:complexType>
+          <xs:group minOccurs="0" ref="element"/>
+          <xs:attributeGroup ref="occurs"/>
+          <xs:attribute name="ref" type="xs:QName"/>
+          <xs:attributeGroup ref="element"/>
+          <xs:attribute name="name" type="xs:NCName"/>
+          <xs:attribute name="form" type="formChoice"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="namedGroup">
+    <xs:sequence>
+      <xs:element name="group">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="annotated"/>
+            <xs:choice>
+              <xs:element name="all" type="allModel"/>
+              <xs:element name="choice" type="simpleExplicitGroup"/>
+              <xs:element name="sequence" type="simpleExplicitGroup"/>
+            </xs:choice>
+          </xs:sequence>
+          <xs:attributeGroup ref="annotated"/>
+          <xs:attribute name="name" use="required" type="xs:NCName"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="groupRef">
+    <xs:sequence>
+      <xs:element name="group">
+        <xs:complexType>
+          <xs:group ref="annotated"/>
+          <xs:attributeGroup ref="annotated"/>
+          <xs:attributeGroup ref="occurs"/>
+          <xs:attribute name="ref" use="required" type="xs:QName"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:complexType name="explicitGroup">
+    <xs:sequence>
+      <xs:group ref="annotated"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="nestedParticle"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="annotated"/>
+    <xs:attributeGroup ref="occurs"/>
+  </xs:complexType>
+  <xs:complexType name="simpleExplicitGroup">
+    <xs:sequence>
+      <xs:group ref="annotated"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="nestedParticle"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="annotated"/>
+  </xs:complexType>
+  <xs:complexType name="allModel">
+    <xs:sequence>
+      <xs:group ref="annotated"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="element">
+        <xs:complexType>
+          <xs:group minOccurs="0" ref="element"/>
+          <xs:attribute name="minOccurs">
+            <xs:simpleType>
+              <xs:restriction base="xs:nonNegativeInteger">
+                <xs:enumeration value="0"/>
+                <xs:enumeration value="1"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="maxOccurs">
+            <xs:simpleType>
+              <xs:restriction base="xs:nonNegativeInteger">
+                <xs:enumeration value="0"/>
+                <xs:enumeration value="1"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="ref" type="xs:QName"/>
+          <xs:attributeGroup ref="element"/>
+          <xs:attribute name="name" type="xs:NCName"/>
+          <xs:attribute name="form" type="formChoice"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="annotated"/>
+  </xs:complexType>
+  <xs:element name="all">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="allModel">
+          <xs:attribute name="minOccurs">
+            <xs:simpleType>
+              <xs:restriction base="xs:nonNegativeInteger">
+                <xs:enumeration value="0"/>
+                <xs:enumeration value="1"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="maxOccurs">
+            <xs:simpleType>
+              <xs:restriction base="xs:nonNegativeInteger">
+                <xs:enumeration value="1"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="choice" type="explicitGroup"/>
+  <xs:element name="sequence" type="explicitGroup"/>
+  <xs:complexType name="wildcard">
+    <xs:group ref="annotated"/>
+    <xs:attributeGroup ref="annotated"/>
+    <xs:attribute name="namespace">
+      <xs:simpleType>
+        <xs:union>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="##any"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="##other"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:union memberTypes="xs:anyURI">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                      <xs:enumeration value="##targetNamespace"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                  <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                      <xs:enumeration value="##local"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:union>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="processContents">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="lax"/>
+          <xs:enumeration value="skip"/>
+          <xs:enumeration value="strict"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="any">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="wildcard">
+          <xs:attributeGroup ref="occurs"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="namedAttributeGroup">
+    <xs:sequence>
+      <xs:element name="attributeGroup">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="annotated"/>
+            <xs:group ref="attrDecls"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="annotated"/>
+          <xs:attribute name="name" use="required" type="xs:NCName"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="attributeGroupRef">
+    <xs:sequence>
+      <xs:element name="attributeGroup">
+        <xs:complexType>
+          <xs:group ref="annotated"/>
+          <xs:attributeGroup ref="annotated"/>
+          <xs:attribute name="ref" use="required" type="xs:QName"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="include">
+    <xs:complexType>
+      <xs:group ref="annotated"/>
+      <xs:attributeGroup ref="annotated"/>
+      <xs:attribute name="schemaLocation" use="required" type="xs:anyURI"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="redefine">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="annotation"/>
+        <xs:group ref="redefinable"/>
+      </xs:choice>
+      <xs:attribute name="id" type="xs:ID"/>
+      <xs:attribute name="schemaLocation" use="required" type="xs:anyURI"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="import">
+    <xs:complexType>
+      <xs:group ref="annotated"/>
+      <xs:attributeGroup ref="annotated"/>
+      <xs:attribute name="schemaLocation" type="xs:anyURI"/>
+      <xs:attribute name="namespace" type="xs:anyURI"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="selector">
+    <xs:complexType>
+      <xs:group ref="annotated"/>
+      <xs:attributeGroup ref="annotated"/>
+      <xs:attribute name="xpath" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:pattern value="(\.//)?(((child::)?((\i\c*:)?(\i\c*|\*)))|\.)(/(((child::)?((\i\c*:)?(\i\c*|\*)))|\.))*(\|(\.//)?(((child::)?((\i\c*:)?(\i\c*|\*)))|\.)(/(((child::)?((\i\c*:)?(\i\c*|\*)))|\.))*)*"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="field">
+    <xs:complexType>
+      <xs:group ref="annotated"/>
+      <xs:attributeGroup ref="annotated"/>
+      <xs:attribute name="xpath" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:pattern value="(\.//)?((((child::)?((\i\c*:)?(\i\c*|\*)))|\.)/)*((((child::)?((\i\c*:)?(\i\c*|\*)))|\.)|((attribute::|@)((\i\c*:)?(\i\c*|\*))))(\|(\.//)?((((child::)?((\i\c*:)?(\i\c*|\*)))|\.)/)*((((child::)?((\i\c*:)?(\i\c*|\*)))|\.)|((attribute::|@)((\i\c*:)?(\i\c*|\*)))))*"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="keybase">
+    <xs:sequence>
+      <xs:group ref="annotated"/>
+      <xs:element ref="selector"/>
+      <xs:element maxOccurs="unbounded" ref="field"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="annotated"/>
+    <xs:attribute name="name" use="required" type="xs:NCName"/>
+  </xs:complexType>
+  <xs:element name="identityConstraint" abstract="true" type="keybase"/>
+  <xs:element name="unique" substitutionGroup="identityConstraint"/>
+  <xs:element name="key" substitutionGroup="identityConstraint"/>
+  <xs:element name="keyref" substitutionGroup="identityConstraint">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="keybase">
+          <xs:attribute name="refer" use="required" type="xs:QName"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="notation">
+    <xs:complexType>
+      <xs:group ref="annotated"/>
+      <xs:attributeGroup ref="annotated"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="public" use="required" type="xs:token"/>
+      <xs:attribute name="system" type="xs:anyURI"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="appinfo">
+    <xs:complexType>
+      <xs:attribute name="source" type="xs:anyURI"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="documentation">
+    <xs:complexType>
+      <xs:attribute name="source" type="xs:anyURI"/>
+      <xs:attribute ref="xml:lang"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="annotation">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="documentation"/>
+        <xs:element ref="appinfo"/>
+      </xs:choice>
+      <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="simpleDerivation">
+    <xs:choice>
+      <xs:group ref="simpleRestriction"/>
+      <xs:element ref="list"/>
+      <xs:element ref="union"/>
+    </xs:choice>
+  </xs:group>
+  <xs:simpleType name="simpleDerivationSet">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="#all"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:list>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="list"/>
+              <xs:enumeration value="union"/>
+              <xs:enumeration value="restriction"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:list>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:complexType name="simpleType">
+    <xs:sequence>
+      <xs:group ref="annotated"/>
+      <xs:group ref="simpleDerivation"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="annotated"/>
+  </xs:complexType>
+  <xs:group name="topLevelSimpleType">
+    <xs:sequence>
+      <xs:element name="simpleType">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="simpleType">
+              <xs:attribute name="name" use="required" type="xs:NCName"/>
+              <xs:attribute name="final" type="simpleDerivationSet"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="localSimpleType">
+    <xs:sequence>
+      <xs:element name="simpleType" type="simpleType"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="rangeFacets">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element ref="minExclusive"/>
+          <xs:element ref="minInclusive"/>
+        </xs:choice>
+        <xs:choice>
+          <xs:element ref="maxExclusive"/>
+          <xs:element ref="maxInclusive"/>
+        </xs:choice>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="digitFacets">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="totalDigits"/>
+      <xs:element minOccurs="0" ref="fractionDigits"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="lengthFacets">
+    <xs:choice>
+      <xs:element ref="length"/>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="minLength"/>
+        <xs:element ref="maxLength"/>
+      </xs:choice>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="commonFacets">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="enumeration"/>
+      <xs:group minOccurs="0" ref="whiteSpaceCollapse"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="pattern"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="simpleRestrictionModel">
+    <xs:sequence>
+      <xs:group minOccurs="0" ref="localSimpleType"/>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="rangeFacets"/>
+        <xs:choice>
+          <xs:element ref="totalDigits"/>
+          <xs:element ref="fractionDigits"/>
+        </xs:choice>
+        <xs:group ref="lengthFacets"/>
+        <xs:group ref="whiteSpace"/>
+        <xs:element ref="enumeration"/>
+        <xs:element ref="pattern"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="simpleRestrictionModel">
+    <xs:attribute name="base" type="xs:QName"/>
+  </xs:attributeGroup>
+  <xs:element name="list">
+    <xs:complexType>
+      <xs:group ref="annotated"/>
+      <xs:attributeGroup ref="annotated"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="union">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="annotated"/>
+        <xs:choice>
+          <xs:group minOccurs="0" maxOccurs="unbounded" ref="localSimpleType"/>
+          <xs:group maxOccurs="unbounded" ref="localSimpleType"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attributeGroup ref="annotated"/>
+      <xs:attribute name="memberTypes">
+        <xs:simpleType>
+          <xs:union>
+            <xs:simpleType>
+              <xs:restriction>
+                <xs:simpleType>
+                  <xs:list itemType="xs:QName"/>
+                </xs:simpleType>
+                <xs:minLength value="1"/>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:length value="0"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:union>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="facet">
+    <xs:group ref="annotated"/>
+    <xs:attributeGroup ref="annotated"/>
+    <xs:attribute name="fixed" type="xs:boolean"/>
+  </xs:complexType>
+  <xs:complexType name="noFixedFacet">
+    <xs:group ref="annotated"/>
+    <xs:attributeGroup ref="annotated"/>
+    <xs:attribute name="value" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="rangeFacet">
+    <xs:complexContent>
+      <xs:extension base="facet">
+        <xs:attribute name="value" use="required">
+          <xs:simpleType>
+            <xs:union memberTypes="xs:decimal xs:float xs:double xs:duration xs:dateTime xs:time xs:date xs:gYearMonth xs:gYear xs:gMonthDay xs:gMonth xs:gDay"/>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="minExclusive" type="rangeFacet"/>
+  <xs:element name="minInclusive" type="rangeFacet"/>
+  <xs:element name="maxExclusive" type="rangeFacet"/>
+  <xs:element name="maxInclusive" type="rangeFacet"/>
+  <xs:complexType name="numFacet">
+    <xs:complexContent>
+      <xs:extension base="facet">
+        <xs:attribute name="value" use="required" type="xs:nonNegativeInteger"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="totalDigits">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="facet">
+          <xs:attribute name="value" use="required" type="xs:positiveInteger"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fractionDigits" type="numFacet"/>
+  <xs:element name="length" type="numFacet"/>
+  <xs:element name="minLength" type="numFacet"/>
+  <xs:element name="maxLength" type="numFacet"/>
+  <xs:element name="enumeration" type="noFixedFacet"/>
+  <xs:group name="whiteSpace">
+    <xs:sequence>
+      <xs:element name="whiteSpace">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="facet">
+              <xs:attribute name="value" use="required">
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="preserve"/>
+                    <xs:enumeration value="replace"/>
+                    <xs:enumeration value="collapse"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="whiteSpaceReplaceOrCollapse">
+    <xs:sequence>
+      <xs:element name="whiteSpace">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="facet">
+              <xs:attribute name="value" use="required">
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="replace"/>
+                    <xs:enumeration value="collapse"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="whiteSpaceCollapse">
+    <xs:sequence>
+      <xs:element name="whiteSpace">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="facet">
+              <xs:attribute name="value" use="required">
+                <xs:simpleType>
+                  <xs:restriction base="xs:token">
+                    <xs:enumeration value="collapse"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="pattern" type="noFixedFacet"/>
+</xs:schema>

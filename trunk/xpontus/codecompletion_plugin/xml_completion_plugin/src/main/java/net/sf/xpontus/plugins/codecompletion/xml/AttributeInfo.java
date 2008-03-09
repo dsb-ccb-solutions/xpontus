@@ -27,7 +27,7 @@ import java.util.ArrayList;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class AttributeInfo {
+public class AttributeInfo implements Comparable{
     public static final int NONE = 0;
     public static final int ALIGN = 1;
     public static final int VALIGN = 2;
@@ -104,5 +104,9 @@ public class AttributeInfo {
 
     public String[] getValues() {
         return (String[]) this.values.toArray(new String[this.values.size()]);
+    }
+
+    public int compareTo(Object o) {
+       return attributeName.compareTo(o.toString());
     }
 }

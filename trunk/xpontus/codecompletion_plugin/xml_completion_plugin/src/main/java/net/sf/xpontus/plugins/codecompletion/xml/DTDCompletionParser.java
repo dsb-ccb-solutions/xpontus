@@ -33,7 +33,6 @@ import com.wutka.dtd.DTDName;
 import com.wutka.dtd.DTDParser;
 import com.wutka.dtd.DTDSequence;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -112,13 +111,13 @@ public class DTDCompletionParser implements ICompletionParser {
                 parserURL = new URL(uri);
             }
 
-            DTDParser parser = null; 
-            
+            DTDParser parser = null;
+
             parser = new DTDParser(parserURL);
 
             DTD dtd = parser.parse();
-            
-            Object[] obj = dtd.getItems(); 
+
+            Object[] obj = dtd.getItems();
 
             for (int i = 0; i < obj.length; i++) {
                 if (obj[i] instanceof DTDElement) {
@@ -139,7 +138,8 @@ public class DTDCompletionParser implements ICompletionParser {
                         DTDSequence seq = (DTDSequence) item;
                         setChildTagName(tagInfo, seq.getItem());
                     } else if (item instanceof DTDMixed) {
-                        // #PCDATA
+                        DTDMixed mix = (DTDMixed) item;
+                        setChildTagName(tagInfo, mix.getItem());
                     }
 
                     while (ite.hasNext()) {
@@ -170,11 +170,23 @@ public class DTDCompletionParser implements ICompletionParser {
                     }
 
                     tagList.add(tagInfo);
- 
-                } 
+                }
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
+        }
+
+        find();
+    }
+
+    private void find() {
+        for (int i = 0; i < tagList.size(); i++) {
+            TagInfo t = (TagInfo) tagList.get(i);
+
+            if (t.getTagName().equals("xsl:template")) {
+                System.out.println("xsl:template," +
+                    t.getChildTagNames().length);
+            }
         }
     }
 
@@ -188,9 +200,12 @@ public class DTDCompletionParser implements ICompletionParser {
         for (int i = 0; i < items.length; i++) {
             if (items[i] instanceof DTDName) {
                 DTDName dtdName = (DTDName) items[i];
+                System.out.println("adding:" + dtdName.getValue() + " to " +
+                    tagInfo.getTagName());
                 tagInfo.addChildTagName(dtdName.getValue());
             } else if (items[i] instanceof DTDChoice) {
                 DTDChoice dtdChoise = (DTDChoice) items[i];
+
                 setChildTagName(tagInfo, dtdChoise.getItem());
             }
         }
