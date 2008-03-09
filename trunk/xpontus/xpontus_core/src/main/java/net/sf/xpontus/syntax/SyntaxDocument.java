@@ -94,17 +94,22 @@ public class SyntaxDocument extends PlainDocument {
         Hashtable _map = (Hashtable) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_COMPLETION_ENGINES);
 
         if (_map.size() > 0) {
-            String completion_key = _map.keySet().iterator().next().toString();
-            Hashtable m_map = (Hashtable) _map.get(completion_key);
+            Object mimeType = editor.getClientProperty(XPontusConstantsIF.CONTENT_TYPE);
 
-            try {
-                String m_classname = m_map.get(XPontusConstantsIF.OBJECT_CLASSNAME)
-                                          .toString();
-                ClassLoader loader = (ClassLoader) m_map.get(XPontusConstantsIF.CLASS_LOADER);
-                setCodeCompletion((CodeCompletionIF) Class.forName(
-                        m_classname, true, loader).newInstance());
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (mimeType != null) {
+                if (_map.containsKey(mimeType)) { 
+                    Hashtable m_map = (Hashtable) _map.get(mimeType);
+
+                    try {
+                        String m_classname = m_map.get(XPontusConstantsIF.OBJECT_CLASSNAME)
+                                                  .toString();
+                        ClassLoader loader = (ClassLoader) m_map.get(XPontusConstantsIF.CLASS_LOADER);
+                        setCodeCompletion((CodeCompletionIF) Class.forName(
+                                m_classname, true, loader).newInstance());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
 
@@ -151,6 +156,8 @@ public class SyntaxDocument extends PlainDocument {
 
     public void setCodeCompletion(CodeCompletionIF plugin) {
         this.plugin = plugin;
+        System.out.println("Code completion set to:" +
+            plugin.getClass().getName());
         plugin.setTextComponent(editor);
     }
 
@@ -375,7 +382,7 @@ public class SyntaxDocument extends PlainDocument {
         int endOffset = elem.getEndOffset() - 1;
 
         try {
-            getText(startOffset, endOffset - startOffset, seg); 
+            getText(startOffset, endOffset - startOffset, seg);
         } catch (BadLocationException ble) {
             ble.printStackTrace();
 
@@ -417,7 +424,8 @@ public class SyntaxDocument extends PlainDocument {
         super.insertString(off, str, set);
 
         if ((plugin != null) && plugin.isTrigger(str)) {
-            ContentAssistWindow.getInstance().complete(editor, plugin, off, str, set);
+            ContentAssistWindow.getInstance()
+                               .complete(editor, plugin, off, str, set);
         }
     }
 }

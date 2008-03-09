@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>outline_plugin</artifactId>
+        <groupId>net.sf.xpontus.plugins.outline</groupId>
+        <version>1.0.0-pre1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sf.xpontus.plugins.outline.html</groupId>
+    <artifactId>htmloutline_plugin</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0-pre1</version>
+    <name>HTML Outline</name>
+    <description>Plugin to display HTML code structure</description> 
+    <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+            <groupId>net.sf.xpontus</groupId>
+            <artifactId>xpontus_core</artifactId>
+            <version>1.0.0-pre1</version>
+            <scope>compile</scope>
+        </dependency>
+    <dependency>
+            <groupId>net.sf.xpontus.plugins.indentation.html</groupId>
+            <artifactId>html_indentation_plugin</artifactId>
+            <version>1.0.0-pre1</version>
+            <scope>compile</scope>
+        </dependency>
+    
+    
+  </dependencies>
+</project>
