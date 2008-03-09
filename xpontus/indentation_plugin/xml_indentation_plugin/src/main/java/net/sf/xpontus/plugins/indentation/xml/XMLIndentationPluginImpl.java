@@ -41,8 +41,10 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 
+import java.io.Writer;
 import javax.swing.text.JTextComponent;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -107,11 +109,12 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
             formatter.setOmitDocumentType(Boolean.getBoolean(omitDoctypeOption));
             formatter.setPreserveSpace(Boolean.getBoolean(preserveSpaceOption));
             formatter.setOmitComments(Boolean.getBoolean(omitCommentsOption));
-
             formatter.setIndenting(true);
+formatter.setEncoding("UTF-8");
 
             ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
-            XMLSerializer serializer = new XMLSerializer(out, formatter);
+            Writer m_writer = new OutputStreamWriter(out, "UTF-8");
+            XMLSerializer serializer = new XMLSerializer(m_writer, formatter);
             serializer.serialize(doc);
 
             byte[] b = out.toByteArray();
@@ -123,8 +126,13 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
                             b));
                 chd.setText(newIs);
                 jtc.read(chd.detect().getReader(), null);
-            } else {
-            }
+            } 
+            
+            // close opened stream
+            m_writer.flush();
+            m_writer.close();
+            out.flush();
+            out.close();
         } catch (Exception e) {
             throw e;
         }
