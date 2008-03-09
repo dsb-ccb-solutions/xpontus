@@ -22,5 +22,6 @@
   <description>Plugin to display document structure in a docked window</description>
   <modules>
     <module>xmloutline_plugin</module>
+    <module>htmloutline_plugin</module>
   </modules>
 </project>
