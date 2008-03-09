@@ -20,11 +20,13 @@
  */
 package net.sf.xpontus.plugins.codecompletion.html;
 
+import javax.swing.text.JTextComponent;
 import net.sf.xpontus.plugins.completion.CodeCompletionIF;
 
 import java.util.List;
 
 import javax.swing.text.Document;
+import net.sf.xpontus.constants.XPontusMimeConstantsIF;
 
 
 /**
@@ -34,16 +36,14 @@ import javax.swing.text.Document;
  */
 public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
     public String getMimeType() {
-        return "text/html";
+        return XPontusMimeConstantsIF.TEXT_XML;
     }
 
     public String getFileMode() {
         return null;
     }
 
-    public List getCompletionList(int offset) {
-        return null;
-    }
+    
 
     public List getAttributesCompletionList(String tagCompletionName) {
         return null;
@@ -54,5 +54,11 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
     }
 
     public void init(Document doc) {
+    }
+
+    public void setTextComponent(JTextComponent jtc) { 
+    }
+
+    public List getCompletionList(String trigger, int offset) { 
     }
 }

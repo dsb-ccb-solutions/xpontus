@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.apache.xerces.impl.xs.SchemaGrammar;
 import org.apache.xerces.impl.xs.XMLSchemaLoader;
+import org.apache.xerces.impl.xs.XSParticleDecl;
 import org.apache.xerces.xni.parser.XMLInputSource;
 import org.apache.xerces.xs.XSAttributeDeclaration;
 import org.apache.xerces.xs.XSAttributeUse;
@@ -33,11 +34,11 @@ import org.apache.xerces.xs.XSConstants;
 import org.apache.xerces.xs.XSElementDeclaration;
 import org.apache.xerces.xs.XSModelGroup;
 import org.apache.xerces.xs.XSNamedMap;
-import org.apache.xerces.xs.XSObject;
 import org.apache.xerces.xs.XSObjectList;
 import org.apache.xerces.xs.XSParticle;
 import org.apache.xerces.xs.XSTerm;
 import org.apache.xerces.xs.XSTypeDefinition;
+import org.apache.xerces.xs.XSWildcard;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -46,6 +47,7 @@ import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -83,6 +85,11 @@ public class XSDCompletionParser implements ICompletionParser {
 
             // clear at first
             String targetNS = grammer.getTargetNamespace();
+
+            if (targetNS == null) {
+                targetNS = "DEFAULT_PREFIX_MAPPING";
+            }
+
             nsTagListMap.put(targetNS, new ArrayList());
 
             List tagList = (List) nsTagListMap.get(targetNS);
@@ -100,37 +107,43 @@ public class XSDCompletionParser implements ICompletionParser {
     }
 
     private void parseXSDElement(List tagList, XSElementDeclaration element) {
-        TagInfo tagInfo = new TagInfo(element.getName(), true);
+        String name = element.getName();
+
+        if (element.getNamespace() != null) {
+            name = element.getNamespace() + ":" + name;
+        }
+
+        TagInfo tagInfo = new TagInfo(name, true);
 
         if (tagList.contains(tagInfo)) {
             return;
         }
 
         tagList.add(tagInfo);
+        System.out.println("Adding:" + tagInfo.getTagName());
 
-        XSTypeDefinition type = element.getTypeDefinition();
+        XSTypeDefinition typedef = element.getTypeDefinition();
 
-        if (type instanceof XSComplexTypeDefinition) {
-            XSParticle particle = ((XSComplexTypeDefinition) type).getParticle();
+        if (typedef.getTypeCategory() == XSTypeDefinition.COMPLEX_TYPE) {
+            XSComplexTypeDefinition complex = (XSComplexTypeDefinition) typedef;
+
+            XSParticle particle = complex.getParticle();
 
             if (particle != null) {
-                XSTerm term = particle.getTerm();
+                XSTerm particleTerm = particle.getTerm();
 
-                if (term instanceof XSElementDeclaration) {
-                    parseXSDElement(tagList, (XSElementDeclaration) term);
-                    tagInfo.addChildTagName(((XSElementDeclaration) term).getName());
-                }
-
-                if (term instanceof XSModelGroup) {
-                    parseXSModelGroup(tagInfo, tagList, (XSModelGroup) term);
+                if (particleTerm instanceof XSWildcard) {
+                } else {
+                    xsTermToElementDecl(tagInfo, particleTerm);
                 }
             }
 
-            XSObjectList attrs = ((XSComplexTypeDefinition) type).getAttributeUses();
+            XSObjectList attrs = complex.getAttributeUses();
 
             for (int i = 0; i < attrs.getLength(); i++) {
                 XSAttributeUse attrUse = (XSAttributeUse) attrs.item(i);
                 XSAttributeDeclaration attr = attrUse.getAttrDeclaration();
+
                 AttributeInfo attrInfo = new AttributeInfo(attr.getName(),
                         true, AttributeInfo.NONE, attrUse.getRequired());
                 tagInfo.addAttributeInfo(attrInfo);
@@ -138,25 +151,59 @@ public class XSDCompletionParser implements ICompletionParser {
         }
     }
 
-    private void parseXSModelGroup(TagInfo tagInfo, List tagList,
-        XSModelGroup term) {
-        XSObjectList list = ((XSModelGroup) term).getParticles();
+    private void xsElementToElementDecl(TagInfo info,
+        XSElementDeclaration element) {
+        String name = element.getName();
 
-        for (int i = 0; i < list.getLength(); i++) {
-            XSObject obj = list.item(i);
+        if (element.getNamespace() != null) {
+            System.out.println("Namespace:" + element.getNamespace());
+        }
 
-            if (obj instanceof XSParticle) {
-                XSTerm term2 = ((XSParticle) obj).getTerm();
+        TagInfo elementDecl = new TagInfo(name, true);
 
-                if (term2 instanceof XSElementDeclaration) {
-                    parseXSDElement(tagList, (XSElementDeclaration) term2);
-                    tagInfo.addChildTagName(((XSElementDeclaration) term2).getName());
-                }
+        info.addChildTagName(name);
+        System.out.println("Adding child:" + name + " to parent " + info.getTagName());
 
-                if (term2 instanceof XSModelGroup) {
-                    parseXSModelGroup(tagInfo, tagList, (XSModelGroup) term2);
+        XSTypeDefinition typedef = element.getTypeDefinition();
+
+        if (typedef.getTypeCategory() == XSTypeDefinition.COMPLEX_TYPE) {
+            XSComplexTypeDefinition complex = (XSComplexTypeDefinition) typedef;
+
+            XSParticle particle = complex.getParticle();
+
+            if (particle != null) {
+                XSTerm particleTerm = particle.getTerm();
+
+                if (particleTerm instanceof XSWildcard) {
+                } else {
+                    xsTermToElementDecl(elementDecl, particleTerm);
                 }
             }
+
+            XSObjectList attributes = complex.getAttributeUses();
+
+            for (int i = 0; i < attributes.getLength(); i++) {
+                XSAttributeUse attr = (XSAttributeUse) attributes.item(i);
+                boolean required = attr.getRequired();
+
+                AttributeInfo attrInfo = new AttributeInfo(attr.getName(),
+                        true, AttributeInfo.NONE, required);
+                elementDecl.addAttributeInfo(attrInfo);
+            }
+        }
+    } //}}}
+
+    //{{{ xsTermToElementDecl() method
+    private void xsTermToElementDecl(TagInfo info, XSTerm term) {
+        if (term instanceof XSElementDeclaration) {
+            xsElementToElementDecl(info, (XSElementDeclaration) term);
+        } else if (term instanceof XSModelGroup) {
+            //            XSObjectList content = ((XSModelGroup) term).getParticles();
+            //
+            //            for (int i = 0; i < content.getLength(); i++) {
+            //                XSTerm childTerm = ((XSParticleDecl) content.item(i)).getTerm();
+            //                xsTermToElementDecl(info, childTerm);
+            //            }
         }
     }
 }

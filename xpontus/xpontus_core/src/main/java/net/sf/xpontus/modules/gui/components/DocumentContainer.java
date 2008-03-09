@@ -34,7 +34,6 @@ import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusFileConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
-import net.sf.xpontus.constants.XPontusUIManagerConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.controllers.impl.PopupHandler;
 import net.sf.xpontus.controllers.impl.XPontusUndoManager;
@@ -76,7 +75,6 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.JTextComponent;
@@ -107,9 +105,6 @@ public class DocumentContainer implements IDocumentContainer {
         documentPanel.setLayout(new BorderLayout());
         editor = new JEditorPane();
         editor.setFont((Font) XPontusConfig.getValue("EditorPane.Font"));
-        System.out.println("Document Font set to:" +
-            GUIUtils.fontToString(
-                (Font) XPontusConfig.getValue("EditorPane.Font")));
 
         editor.setRequestFocusEnabled(true);
 
@@ -307,6 +302,15 @@ public class DocumentContainer implements IDocumentContainer {
         editor.setUI(new XPontusEditorUI(editor, ext));
 
         SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
+
+        if (m_ext != null) {
+            if (m_ext.endsWith("xsl")) {
+                doc.putProperty("BUILTIN_COMPLETION", "XSL");
+            } else if (m_ext.endsWith("xsd")) {
+                doc.putProperty("BUILTIN_COMPLETION", "XSD");
+            }
+        }
+
         doc.setLoading(true);
 
         if ((fileinfo != null) && !fileinfo.trim().equals("")) {
