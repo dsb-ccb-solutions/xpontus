@@ -21,10 +21,26 @@
  */
 package net.sf.xpontus.utils;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.text.StrBuilder;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Window;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.StringReader;
+
+import java.net.URL;
+
+import java.util.Iterator;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 
 /**
@@ -32,9 +48,11 @@ import java.awt.Window;
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class GUIUtils {
+public class GUIUtils
+{
     // the constructor should not be called
-    private GUIUtils() {
+    private GUIUtils()
+    {
     }
 
     /**
@@ -42,7 +60,8 @@ public class GUIUtils {
      * @param fontString the font information
      * @return a font from a string descriptor
      */
-    public static Font getFontFromString(String fontString) {
+    public static Font getFontFromString(String fontString)
+    {
         String[] m_table = fontString.split(",");
 
         String m_family = m_table[0];
@@ -59,7 +78,8 @@ public class GUIUtils {
      * @param m_font The font to convert
      * @return a String from a font
      */
-    public static String fontToString(Font m_font) {
+    public static String fontToString(Font m_font)
+    {
         StrBuilder sb = new StrBuilder();
         sb.append(m_font.getFamily());
         sb.append(",");
@@ -77,17 +97,179 @@ public class GUIUtils {
          * @param aObj TODO: DOCUMENT ME!
          * @param aFlag TODO: DOCUMENT ME!
          */
-    public static final void setFocusableWindowState(Window aObj, boolean aFlag) {
-        try {
+    public static final void setFocusableWindowState(Window aObj, boolean aFlag)
+    {
+        try
+        {
             //try to call setFocusableWindowState (true) on java 1.4 while staying compatible with Java 1.3
             aObj.getClass()
                 .getMethod("setFocusableWindowState",
                 new Class[] { Boolean.TYPE })
                 .invoke(aObj,
                 new Object[] { aFlag ? Boolean.TRUE : Boolean.FALSE });
-        } catch (java.lang.NoSuchMethodException ex) {
-        } catch (java.lang.IllegalAccessException ex) {
-        } catch (java.lang.reflect.InvocationTargetException ex) {
         }
+        catch (java.lang.NoSuchMethodException ex)
+        {
+        }
+        catch (java.lang.IllegalAccessException ex)
+        {
+        }
+        catch (java.lang.reflect.InvocationTargetException ex)
+        {
+        }
+    }
+
+    public static void installDragAndDropSupport(Component component)
+    {
+        new DropTarget(component,
+            new DropTargetAdapter()
+            {
+                public void drop(DropTargetDropEvent e)
+                {
+                    try
+                    {
+                        Transferable t = e.getTransferable();
+                        e.acceptDrop(e.getDropAction());
+
+                        DataFlavor[] flavors = e.getCurrentDataFlavors();
+                        URL fileURL = null;
+                        java.util.List fileList = null;
+                        String dndString = null;
+                        DataFlavor urlFlavor = null;
+                        DataFlavor listFlavor = null;
+                        DataFlavor stringFlavor = null;
+
+                        if (flavors != null)
+                        {
+                            for (int i = 0; i < flavors.length; i++)
+                            {
+                                // System.out.println(flavors[i]);
+                                if (flavors[i].getRepresentationClass() == java.net.URL.class)
+                                {
+                                    urlFlavor = flavors[i];
+                                }
+                                else if (flavors[i].getRepresentationClass() == java.util.List.class)
+                                {
+                                    listFlavor = flavors[i];
+                                }
+                                else if (flavors[i].getRepresentationClass() == java.lang.String.class)
+                                {
+                                    stringFlavor = flavors[i];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("flavors == null");
+
+                            return;
+                        }
+
+                        if (stringFlavor != null)
+                        {
+                            try
+                            {
+                                Object obj = e.getTransferable()
+                                              .getTransferData(stringFlavor);
+
+                                if (obj instanceof String)
+                                {
+                                    dndString = (String) obj;
+                                }
+                            }
+                            catch (Throwable tr)
+                            {
+                            }
+
+                            if (dndString != null)
+                            {
+                                StringReader reader = new StringReader(dndString.trim());
+                                BufferedReader mReader = new BufferedReader(reader);
+
+                                String line = null;
+
+                                while ((line = mReader.readLine()) != null)
+                                {
+                                    URL url = new URL(line.trim());
+                                    System.out.println("String");
+
+                                    if (url.getProtocol().equals("file"))
+                                    {
+                                        DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().createEditorFromFile(new File(
+                                                url.getPath()));
+                                    }
+                                    else
+                                    {
+                                        DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().createEditorFromURL(url); 
+                                    }
+                                }
+                            }
+                        }
+
+                        try
+                        {
+                            Object obj = e.getTransferable()
+                                          .getTransferData(urlFlavor);
+
+                            if (obj instanceof URL)
+                            {
+                                fileURL = (URL) obj;
+                            }
+                        }
+                        catch (Throwable tr)
+                        {
+                        }
+
+                        if (fileURL != null)
+                        {
+                            URL url = fileURL;
+                            System.out.println("file");
+                           DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().createEditorFromURL(url); 
+                        }
+
+                        try
+                        {
+                            Object obj = e.getTransferable()
+                                          .getTransferData(listFlavor);
+
+                            if (obj instanceof java.util.List)
+                            {
+                                fileList = (java.util.List) obj;
+                            }
+                        }
+                        catch (Throwable tr)
+                        {
+                        }
+
+                        if (fileList != null)
+                        {
+                            Iterator it = fileList.iterator();
+
+                            while (it.hasNext())
+                            {
+                                Object file = it.next();
+
+                                if (file instanceof File)
+                                {
+                                    DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().createEditorFromFile((File) file); 
+                                }
+                            }
+                        }
+
+                        try
+                        {
+                            e.dropComplete(true);
+                        }
+                        catch (Throwable tr)
+                        {
+                            System.out.println("???? " + t);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //                    ex.printStackTrace();
+                    }
+                }
+            });
     }
 }

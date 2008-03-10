@@ -43,6 +43,7 @@ import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
+import net.sf.xpontus.utils.GUIUtils;
 
 
 /**
@@ -172,6 +173,7 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
 
         // default pane
         pane = new DefaultPane();
+        GUIUtils.installDragAndDropSupport(pane.getComponent());
 
         // add the pane to the desktop
         desktop.addDockable(pane);

@@ -89,6 +89,9 @@ public class SyntaxDocument extends PlainDocument {
         seg = new Segment();
         DEFAULT_STYLE = new SimpleAttributeSet();
         this.lexer = support.getLexer();
+        
+        System.out.println("Lexer class:" + this.lexer.getClass().getName());
+        
         endTokens = new DynamicIntArray(500);
 
         Hashtable _map = (Hashtable) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_COMPLETION_ENGINES);
