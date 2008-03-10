@@ -6,6 +6,7 @@ package net.sf.xpontus.plugins.scenarios.saxon6;
 
 import com.ibm.icu.text.CharsetDetector;
 
+import com.icl.saxon.TransformerFactoryImpl;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
@@ -210,7 +211,7 @@ public class Saxon6TransformationPluginImpl implements ScenarioPluginIF {
             setSystemProperties();
 
             // initialize the xslt processor
-            TransformerFactory tFactory = TransformerFactory.newInstance();
+            TransformerFactory tFactory = new TransformerFactoryImpl();
 
             FileObject fo = VFS.getManager().resolveFile(model.getXsl());
 
@@ -219,7 +220,7 @@ public class Saxon6TransformationPluginImpl implements ScenarioPluginIF {
             detector.setText(new BufferedInputStream(fo.getContent()
                                                        .getInputStream()));
 
-            Source sSource = new StreamSource(detector.detect().getReader());
+            Source sSource = new StreamSource(fo.getURL().toExternalForm());
 
             Templates translet = null;
 
@@ -280,15 +281,11 @@ public class Saxon6TransformationPluginImpl implements ScenarioPluginIF {
     }
 
     public void setSystemProperties() {
-        log.info("Settings system properties before running the scenario");
-        System.setProperty("javax.xml.transform.TransformerFactory",
-            "com.icl.saxon.TransformerFactoryImpl");
+        log.info("Settings system properties before running the scenario"); 
         // the default processor to use is xalan        
         System.setProperty("org.xml.sax.parser",
             "org.apache.xerces.parsers.SAXParser");
         System.setProperty("javax.xml.parsers.SAXParserFactory",
-            "org.apache.xerces.jaxp.SAXParserFactoryImpl");
-        System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
-            "om.icl.saxon.om.DocumentBuilderFactoryImpl");
+            "org.apache.xerces.jaxp.SAXParserFactoryImpl"); 
     }
 }
