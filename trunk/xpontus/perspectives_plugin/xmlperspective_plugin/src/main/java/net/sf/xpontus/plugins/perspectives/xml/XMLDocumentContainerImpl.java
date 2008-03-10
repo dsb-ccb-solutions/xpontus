@@ -23,10 +23,6 @@ package net.sf.xpontus.plugins.perspectives.xml;
 
 import net.sf.xpontus.modules.gui.components.DocumentContainer;
 
-import org.apache.xerces.util.DOMUtil;
-
-import org.jcp.xml.dsig.internal.dom.DOMUtils;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
