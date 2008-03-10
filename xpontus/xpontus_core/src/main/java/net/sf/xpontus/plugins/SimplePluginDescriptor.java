@@ -42,10 +42,20 @@ public class SimplePluginDescriptor {
     private String license;
     private String date;
     private String contributors;
+    private String dependencies;
 
     public SimplePluginDescriptor() {
     }
 
+    public String getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(String dependencies) {
+        this.dependencies = dependencies;
+    }
+
+    
     public void print() {
         StrBuilder str = new StrBuilder();
         str.append("Id:" + id);

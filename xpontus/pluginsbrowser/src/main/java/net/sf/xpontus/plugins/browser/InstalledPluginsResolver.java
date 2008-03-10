@@ -21,13 +21,18 @@
  */
 package net.sf.xpontus.plugins.browser;
 
+import java.util.Collection;
 import net.sf.xpontus.controllers.impl.XPontusPluginManager;
 import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
 import org.java.plugin.registry.PluginDescriptor;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import org.apache.commons.lang.text.StrBuilder;
+import org.java.plugin.registry.PluginAttribute;
+import org.java.plugin.registry.PluginPrerequisite;
 
 
 /**
@@ -80,6 +85,26 @@ public class InstalledPluginsResolver extends AbstractPluginsResolver {
             spd.setId(id);
             spd.setLicense(license);
             spd.setVersion(version);
+            
+            Collection<PluginPrerequisite> deps = pds.getPrerequisites();
+            if(deps.size() > 0){
+                StrBuilder sb = new StrBuilder();
+                Iterator<PluginPrerequisite> ppIt = deps.iterator();
+                while(ppIt.hasNext()){
+                    PluginPrerequisite pp = ppIt.next();
+                    sb.append(pp.getPluginId()  );
+                    PluginDescriptor ad = XPontusPluginManager.getPluginManager()
+                                                   .getRegistry().getPluginDescriptor(pp.getPluginId());
+                    PluginAttribute pat = ad.getAttribute("Built-in");
+                    if(pat!=null){
+                        if(pat.getValue().equals("true")){
+                            sb.append("(Builtin)");
+                        }
+                    } 
+                    sb.append("<br/>");
+                }
+                spd.setDependencies(sb.toString());
+            }
 
             if (pds.getVendor() != null) {
                 vendor = pds.getVendor();

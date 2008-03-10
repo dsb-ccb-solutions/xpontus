@@ -49,6 +49,7 @@
                     <a href="$homepage">$homepage</a> 
                 </td> 
             </tr> 
+
             <tr> 
                 <td> 
                     <strong>License</strong> 
@@ -63,5 +64,8 @@
         <br/>  
         <h3>Description</h3>  
         <p>$description</p> 
+
+        <h4>Dependencies</h4>
+        <p>$dependencies</p>
     </body> 
 </html>

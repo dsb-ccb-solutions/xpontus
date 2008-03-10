@@ -33,10 +33,10 @@ import javax.swing.filechooser.FileFilter;
 public class XPontusModuleFileFilter extends FileFilter {
     public boolean accept(File f) {
         return (f.isDirectory() ||
-        (f.getName().toLowerCase().endsWith(".xptm")));
+        (f.getName().toLowerCase().endsWith(".zip")));
     }
 
     public String getDescription() {
-        return "XPontus plugins modules(*.xptm)";
+        return "XPontus plugins modules(*.zip)";
     }
 }

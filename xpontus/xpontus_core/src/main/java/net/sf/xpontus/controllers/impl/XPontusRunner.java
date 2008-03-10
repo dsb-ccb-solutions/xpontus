@@ -192,13 +192,16 @@ public class XPontusRunner {
                 "xpontus.showSplashScreenOnStartup").toString().equals("true");
 
         if (showSplash) {
-            SwingUtilities.invokeLater(new Runnable() {
+            Thread worker = new Thread() {
                     public void run() {
                         splash = new SplashScreen();
                         splash.setLocationRelativeTo(splash.getOwner());
                         splash.setVisible(true);
                     }
-                });
+                };
+
+            worker.setPriority(Thread.MIN_PRIORITY);
+            worker.start();
         }
 
         XPontusPluginManager controller = new XPontusPluginManager();
@@ -415,15 +418,19 @@ public class XPontusRunner {
                 "Install some plugins in the category documentation");
         }
 
-                DocumentAwareComponentHolder.getInstance()
-                                            .notifyComponents(new DocumentContainerChangeEvent(
-                        null));
+        DocumentAwareComponentHolder.getInstance()
+                                    .notifyComponents(new DocumentContainerChangeEvent(
+                null));
+
         if (showSplash) {
-            SwingUtilities.invokeLater(new Runnable() {
+            Thread worker = new Thread() {
                     public void run() {
                         splash.dispose();
                     }
-                });
+                };
+
+            worker.setPriority(Thread.MIN_PRIORITY);
+            worker.start();
         }
 
         window.activateComponent();
