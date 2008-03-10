@@ -54,7 +54,11 @@ public interface XPontusTopComponentIF {
      */
     void activateComponent();
 
-    public void setIOCContainer(IOCPlugin container);
+    /**
+     * 
+     * @param container
+     */
+    void setIOCContainer(IOCPlugin container);
 
     /**
      * deactivate the component
