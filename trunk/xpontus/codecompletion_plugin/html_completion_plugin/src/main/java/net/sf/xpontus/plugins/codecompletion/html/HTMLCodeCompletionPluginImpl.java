@@ -77,6 +77,8 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
     }
 
     protected TagInfo getTagInfo(String name) {
+        name = name.toLowerCase();
+        
         TagInfo info = null;
 
         for (int i = 0; i < tagList.size(); i++) {
@@ -93,7 +95,7 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
     public synchronized List getTagsCompletionList(String tagName) {
         System.out.println("Trying to get code completion for tag:" + tagName);
 
-        TagInfo tagInfo = getTagInfo(tagName);
+        TagInfo tagInfo = getTagInfo(tagName.toLowerCase());
 
         final List emptyList = new ArrayList();
 

@@ -77,6 +77,7 @@ import javax.swing.KeyStroke;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.JTextComponent;
+import net.sf.xpontus.utils.GUIUtils;
 
 
 /**
@@ -106,6 +107,8 @@ public class DocumentContainer implements IDocumentContainer {
         editor.setFont((Font) XPontusConfig.getValue("EditorPane.Font"));
 
         editor.setRequestFocusEnabled(true);
+        
+        GUIUtils.installDragAndDropSupport(editor);
 
         editor.setFocusable(true);
         status = new JStatusBar();
@@ -286,7 +289,6 @@ public class DocumentContainer implements IDocumentContainer {
                 String className = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME);
 
                 try {
-                    System.out.println("Adding quicktoolbar plugin lookup");
 
                     QuickToolBarPluginIF qbp = (QuickToolBarPluginIF) Class.forName(className,
                             true, cl).newInstance();
@@ -313,7 +315,7 @@ public class DocumentContainer implements IDocumentContainer {
                 doc.putProperty("BUILTIN_COMPLETION", "XSD");
             }
             else if (m_ext.endsWith("html") || m_ext.endsWith("htm")) {
-                System.out.println("Adding builin completion for html");
+                
                 doc.putProperty("BUILTIN_COMPLETION", "HTML");
             }
         }

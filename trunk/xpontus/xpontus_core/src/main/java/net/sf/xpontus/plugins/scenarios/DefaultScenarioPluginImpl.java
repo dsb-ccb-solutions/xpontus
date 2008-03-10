@@ -135,6 +135,8 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
                 return;
             }
 
+            DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("Transformation in progress...");
+            
             log.info("Getting ready for transformation");
 
             // set the processor properties for JAXP
@@ -150,13 +152,14 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
             detector.setText(new BufferedInputStream(fo.getContent()
                                                        .getInputStream()));
 
-            Source sSource = new StreamSource(detector.detect().getReader());
+            Source sSource = new StreamSource(fo.getURL().toExternalForm());
 
             Templates translet = null;
 
             try {
                 translet = tFactory.newTemplates(sSource);
             } catch (TransformerConfigurationException tce) {
+                tce.printStackTrace();
                 throw new Exception("Error compiling stylesheet:" +
                     tce.getMessage());
             }
@@ -204,6 +207,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
 
                 odk.println(tel.getErrors(), OutputDockable.RED_STYLE);
             } else {
+                DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("Transformation finished!");
                 odk.println("Transformation finished!");
 
                 if (tel.warningsFound()) {
@@ -211,10 +215,11 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
                 }
             }
         } catch (Exception e) {
+            DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("Transformation failed! - See messages window");
             e.printStackTrace();
             throw new RuntimeException("Transformation failed:\n" +
                 e.getMessage());
-        }
+        } 
     }
 
     /**
