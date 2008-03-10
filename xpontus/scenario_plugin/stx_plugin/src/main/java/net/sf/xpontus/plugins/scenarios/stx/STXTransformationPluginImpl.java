@@ -219,7 +219,7 @@ public class STXTransformationPluginImpl implements ScenarioPluginIF {
             detector.setText(new BufferedInputStream(fo.getContent()
                                                        .getInputStream()));
 
-            Source sSource = new StreamSource(detector.detect().getReader());
+            Source sSource = new StreamSource(fo.getURL().toExternalForm());
 
             Templates translet = null;
 
