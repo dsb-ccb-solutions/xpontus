@@ -30,6 +30,7 @@ import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
 import net.sf.xpontus.utils.NullEntityResolver;
 
+import com.ibm.icu.text.CharsetMatch;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 
@@ -37,7 +38,6 @@ import org.w3c.dom.Document;
 
 import org.xml.sax.InputSource;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -74,7 +74,8 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
         byte[] buf = jtc.getText().getBytes();
         chd.setText(new ByteArrayInputStream(buf));
 
-        Reader reader = chd.detect().getReader();
+       CharsetMatch match = chd.detect();
+        Reader reader = match.getReader();
 
         String omitCommentsOption = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
                 "$" +
@@ -103,15 +104,15 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
 
             OutputFormat formatter = new OutputFormat();
 
-//            formatter.setOmitXMLDeclaration(Boolean.getBoolean(
-//                    omitXmlDeclaration));
-//            formatter.setOmitDocumentType(Boolean.getBoolean(omitDoctypeOption));
-//            formatter.setPreserveSpace(Boolean.getBoolean(preserveSpaceOption));
-//            formatter.setOmitComments(Boolean.getBoolean(omitCommentsOption));
-//            
-//            formatter.setIndenting(true);
+            formatter.setOmitXMLDeclaration(Boolean.getBoolean(
+                    omitXmlDeclaration));
+            formatter.setOmitDocumentType(Boolean.getBoolean(omitDoctypeOption));
+            formatter.setPreserveSpace(Boolean.getBoolean(preserveSpaceOption));
+            formatter.setOmitComments(Boolean.getBoolean(omitCommentsOption));
 
-            ByteArrayOutputStream out = new java.io.ByteArrayOutputStream(); 
+            formatter.setIndenting(true);
+
+            ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
             XMLSerializer serializer = new XMLSerializer(out, formatter);
             serializer.serialize(doc);
 
@@ -122,7 +123,8 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
 
                 InputStream newIs = new ByteArrayInputStream(b);
                 chd.setText(newIs);
-                jtc.read(chd.detect().getReader(), null);
+                match = chd.detect();
+                jtc.read(match.getReader(), match.getName());
             } else {
             }
         } catch (Exception e) {
