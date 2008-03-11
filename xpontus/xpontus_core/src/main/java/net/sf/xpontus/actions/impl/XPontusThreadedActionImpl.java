@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import javax.swing.SwingUtilities;
+
 
 /**
  * Event handling with threading support
@@ -36,6 +38,6 @@ public abstract class XPontusThreadedActionImpl
      * Handle the event in a thread
      */
     public void execute() {
-        new Thread(this).start();
+        SwingUtilities.invokeLater(this);
     }
 }
