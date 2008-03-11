@@ -95,7 +95,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
         list.addKeyListener(this);
         list.getInputMap().clear();
         scroll.getInputMap().clear();
-        maxHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight(); 
+        this.maxHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         list.setFocusable(true);
         this.setFocusable(true);
     }
@@ -122,16 +122,16 @@ public class CompletionWindow extends JWindow implements KeyListener,
             }
 
             setLocation(p);
-            
+
         } catch (BadLocationException ble) {
         }
 
         setVisible(true);
-        
-        
-        
+
+
+
         this.requestFocus();
-        
+
         list.grabFocus();
     }
 
@@ -177,28 +177,22 @@ public class CompletionWindow extends JWindow implements KeyListener,
                 if (k != -1) {
                     list.setSelectedIndex(k);
                     list.ensureIndexIsVisible(k);
-                    insertChar(ch);
+                    insertChar(ch, false);
                 } else {
-                    insertCharacterAndDispose(ch);
+                    insertChar(ch, true);
                 }
             }
         }
     }
 
-    private void insertChar(char ch) {
+    private void insertChar(char ch, boolean dispose) {
         try {
             jtc.getDocument().insertString(jtc.getCaretPosition(),
                     Character.toString(ch), null);
-        } catch (BadLocationException ex) {
-        }
-    }
-
-    private void insertCharacterAndDispose(char ch) {
-        try {
-            jtc.getDocument().insertString(jtc.getCaretPosition(),
-                    Character.toString(ch), null);
-            setVisible(false);
-            jtc.grabFocus();
+            if (dispose) {
+                setVisible(false);
+                jtc.grabFocus();
+            }
         } catch (BadLocationException ex) {
         }
     }
@@ -280,6 +274,8 @@ public class CompletionWindow extends JWindow implements KeyListener,
 
         public void updateData(Collection liste) {
             Object[] sort = liste.toArray();
+
+            // must ensure the object implements comparable
             Arrays.sort(sort);
             data.clear();
 
@@ -288,6 +284,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
             }
 
             fireContentsChanged(list, 0, sort.length);
+
             list.revalidate();
             list.setSelectedIndex(0);
             list.ensureIndexIsVisible(0);

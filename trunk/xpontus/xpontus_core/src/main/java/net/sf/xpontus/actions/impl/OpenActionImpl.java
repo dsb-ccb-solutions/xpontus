@@ -31,6 +31,7 @@ import org.apache.commons.vfs.VFS;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import net.sf.xpontus.utils.GUIUtils;
 
 
 /**
@@ -53,6 +54,7 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
             chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             chooser.setMultiSelectionEnabled(true);
+            GUIUtils.installDefaultFilters(chooser);
         }
 
         int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
