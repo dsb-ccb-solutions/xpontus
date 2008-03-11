@@ -37,6 +37,8 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JList;
@@ -47,23 +49,25 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
 
-
 /**
  *
  * @author Yves Zoundi
  */
 public class CompletionWindow extends JWindow implements KeyListener,
-    ListSelectionListener, FocusListener, MouseListener {
+        ListSelectionListener, FocusListener, MouseListener {
+
     private static CompletionWindow INSTANCE;
     private JList list;
     private CompletionListModel model;
     private JScrollPane scroll;
     private int maxHeight = -1;
     private JTextComponent jtc;
+    protected String m_key = "";
+    protected long m_time = 0;
+    public int CHAR_DELTA = 1000;
 
     public CompletionWindow() {
-        super((Frame) XPontusComponentsUtils.getTopComponent()
-                                            .getDisplayComponent());
+        super((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent());
         initComponents();
     }
 
@@ -103,15 +107,13 @@ public class CompletionWindow extends JWindow implements KeyListener,
             Point p = new Point(jtc.getLocationOnScreen());
             p.translate(caretBounds.x, caretBounds.y + caretBounds.height);
 
-            if ((p.getY() + scroll.getHeight()) > Toolkit.getDefaultToolkit()
-                                                             .getScreenSize()
-                                                             .getHeight()) {
+            if ((p.getY() + scroll.getHeight()) > Toolkit.getDefaultToolkit().getScreenSize().getHeight()) {
                 p.translate(0,
-                    (int) (-scroll.getHeight() - caretBounds.getHeight()));
+                        (int) (-scroll.getHeight() - caretBounds.getHeight()));
             }
 
             int outOfSight = (int) ((p.getX() + scroll.getWidth()) -
-                Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+                    Toolkit.getDefaultToolkit().getScreenSize().getWidth());
 
             if (outOfSight > 0) {
                 p.translate(-outOfSight, 0);
@@ -125,11 +127,13 @@ public class CompletionWindow extends JWindow implements KeyListener,
     }
 
     private void insertSelection() {
-        String selectedMethode = ((String) list.getSelectedValue());
+        String m_selection = ((String) list.getSelectedValue());
+
+        m_selection = m_selection.substring(m_key.length());
 
         try {
-            jtc.getDocument()
-               .insertString(jtc.getCaretPosition(), selectedMethode, null);
+            jtc.getDocument().insertString(jtc.getCaretPosition(), m_selection,
+                    null);
             setVisible(false);
         } catch (Exception err) {
         }
@@ -151,22 +155,67 @@ public class CompletionWindow extends JWindow implements KeyListener,
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             if (model.getSize() > 0) {
                 list.setSelectedIndex((model.getSize() +
-                    list.getSelectedIndex()) % model.getSize());
+                        list.getSelectedIndex()) % model.getSize());
             }
         } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             setVisible(false);
             jtc.grabFocus();
         } else {
             if (e.getKeyChar() != KeyEvent.CHAR_UNDEFINED) {
-                try {
-                    jtc.getDocument()
-                       .insertString(jtc.getCaretPosition(),
-                        "" + e.getKeyChar(), null);
-                    setVisible(false);
-                } catch (Exception err) {
+                char ch = e.getKeyChar();
+                int k = lookup(ch);
+
+                if (k != -1) {
+                    list.setSelectedIndex(k);
+                    list.ensureIndexIsVisible(k);
+                    insertChar(ch);
+                } else {
+                    insertCharacterAndDispose(ch);
                 }
             }
         }
+    }
+
+    private void insertChar(char ch) {
+        try {
+            jtc.getDocument().insertString(jtc.getCaretPosition(),
+                    Character.toString(ch), null);
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    private void insertCharacterAndDispose(char ch) {
+        try {
+            jtc.getDocument().insertString(jtc.getCaretPosition(),
+                    Character.toString(ch), null);
+            setVisible(false);
+            jtc.grabFocus();
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    public int lookup(char ch) {
+        int index = -1;
+
+        if ((m_time + CHAR_DELTA) < System.currentTimeMillis()) {
+            m_key = "";
+        }
+
+        m_time = System.currentTimeMillis();
+
+        m_key += Character.toLowerCase(ch);
+
+        for (int k = 0; k < model.getSize(); k++) {
+            String str = ((String) model.getElementAt(k)).toLowerCase();
+
+            if (str.startsWith(m_key)) {
+                index = k;
+
+                break;
+            }
+        }
+
+        return index;
     }
 
     public void keyReleased(KeyEvent e) {
@@ -205,6 +254,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
     }
 
     public class CompletionListModel extends AbstractListModel {
+
         private ArrayList data;
 
         public CompletionListModel() {
@@ -229,7 +279,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
             }
 
             fireContentsChanged(list, 0, sort.length);
-            list.revalidate();            
+            list.revalidate();
             list.setSelectedIndex(0);
             list.ensureIndexIsVisible(0);
         }
