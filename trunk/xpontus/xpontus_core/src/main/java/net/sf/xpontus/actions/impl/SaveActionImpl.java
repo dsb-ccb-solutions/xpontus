@@ -43,21 +43,14 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi
  */
 public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
-    public static final String BEAN_ALIAS = "action.save";
-    private JFileChooser chooser = null;
+    public static final String BEAN_ALIAS = "action.save"; 
 
     /** Creates a new instance of SaveActionImpl */
     public SaveActionImpl() {
-        chooser = new JFileChooser();
-        chooser.setDialogTitle("Save as");
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     }
 
     public void saveDocument() {
-        JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
-                                                        .getDocumentTabContainer()
-                                                        .getCurrentEditor();
-
+      
         int rep = JOptionPane.showConfirmDialog(DefaultXPontusWindowImpl.getInstance()
                                                                         .getDisplayComponent(),
                 "The file has been modified. Do you want to save it?",
