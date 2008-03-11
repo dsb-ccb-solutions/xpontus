@@ -95,7 +95,8 @@ public class CompletionWindow extends JWindow implements KeyListener,
         list.addKeyListener(this);
         list.getInputMap().clear();
         scroll.getInputMap().clear();
-        maxHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        maxHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight(); 
+        list.setFocusable(true);
     }
 
     public void showWindow(JTextComponent jtc) {
@@ -120,6 +121,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
             }
 
             setLocation(p);
+            list.grabFocus();
         } catch (BadLocationException ble) {
         }
 
