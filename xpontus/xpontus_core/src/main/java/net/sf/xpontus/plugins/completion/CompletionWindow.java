@@ -37,13 +37,12 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JWindow;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
@@ -86,6 +85,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
     private void initComponents() {
         model = new CompletionListModel();
         list = new JList(model);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.addFocusListener(this);
         list.addListSelectionListener(this);
         list.addMouseListener(this);
@@ -97,6 +97,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
         scroll.getInputMap().clear();
         maxHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight(); 
         list.setFocusable(true);
+        this.setFocusable(true);
     }
 
     public void showWindow(JTextComponent jtc) {
@@ -121,11 +122,17 @@ public class CompletionWindow extends JWindow implements KeyListener,
             }
 
             setLocation(p);
-            list.grabFocus();
+            
         } catch (BadLocationException ble) {
         }
 
         setVisible(true);
+        
+        
+        
+        this.requestFocus();
+        
+        list.grabFocus();
     }
 
     private void insertSelection() {
