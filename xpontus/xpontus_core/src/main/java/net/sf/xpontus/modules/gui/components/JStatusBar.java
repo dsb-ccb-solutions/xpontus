@@ -77,6 +77,7 @@ public class JStatusBar extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(400, 25));
         setLayout(new java.awt.GridBagLayout());
     }// </editor-fold>//GEN-END:initComponents
+    
     public void addOperationComponent(JComponent c) {
         operationPanel.add(c);
         operationPanel.invalidate();
