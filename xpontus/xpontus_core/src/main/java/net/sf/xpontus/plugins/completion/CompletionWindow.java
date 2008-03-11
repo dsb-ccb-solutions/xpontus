@@ -64,6 +64,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
     protected String m_key = "";
     protected long m_time = 0;
     public int CHAR_DELTA = 1000;
+    int pos = 0;
 
     public CompletionWindow() {
         super((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent());
@@ -80,6 +81,11 @@ public class CompletionWindow extends JWindow implements KeyListener,
         }
 
         return INSTANCE;
+    }
+
+    private void closeWindow() {
+        setVisible(false);
+        jtc.grabFocus();
     }
 
     private void initComponents() {
@@ -120,7 +126,8 @@ public class CompletionWindow extends JWindow implements KeyListener,
             if (outOfSight > 0) {
                 p.translate(-outOfSight, 0);
             }
-
+            final int t = jtc.getCaretPosition() + 1;
+            pos = t;
             setLocation(p);
 
         } catch (BadLocationException ble) {
@@ -138,25 +145,23 @@ public class CompletionWindow extends JWindow implements KeyListener,
     private void insertSelection() {
         String m_selection = ((String) list.getSelectedValue());
 
-        m_selection = m_selection.substring(m_key.length());
+        int position = jtc.getCaretPosition();
 
-        try {
-            jtc.getDocument().insertString(jtc.getCaretPosition(), m_selection,
-                    null);
-            setVisible(false);
-        } catch (Exception err) {
+        int diff = position + 1 - pos ;
+
+        if (diff > 0) { 
+            m_selection = m_selection.substring(position - pos +1);
         }
+
+        insertText(m_selection, true);
     }
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             insertSelection();
-
-            setVisible(false);
-            jtc.grabFocus();
+            closeWindow();
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            setVisible(false);
-            jtc.grabFocus();
+            closeWindow();
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             if (model.getSize() > 0) {
                 list.setSelectedIndex((list.getSelectedIndex()) % model.getSize());
@@ -167,8 +172,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
                         list.getSelectedIndex()) % model.getSize());
             }
         } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-            setVisible(false);
-            jtc.grabFocus();
+            closeWindow();
         } else {
             if (e.getKeyChar() != KeyEvent.CHAR_UNDEFINED) {
                 char ch = e.getKeyChar();
@@ -177,21 +181,20 @@ public class CompletionWindow extends JWindow implements KeyListener,
                 if (k != -1) {
                     list.setSelectedIndex(k);
                     list.ensureIndexIsVisible(k);
-                    insertChar(ch, false);
+                    insertText(Character.toString(ch), false);
                 } else {
-                    insertChar(ch, true);
+                    insertText(Character.toString(ch), true);
                 }
             }
         }
     }
 
-    private void insertChar(char ch, boolean dispose) {
+    private void insertText(String ch, boolean dispose) {
         try {
             jtc.getDocument().insertString(jtc.getCaretPosition(),
-                    Character.toString(ch), null);
+                    ch, null);
             if (dispose) {
-                setVisible(false);
-                jtc.grabFocus();
+                closeWindow();
             }
         } catch (BadLocationException ex) {
         }
