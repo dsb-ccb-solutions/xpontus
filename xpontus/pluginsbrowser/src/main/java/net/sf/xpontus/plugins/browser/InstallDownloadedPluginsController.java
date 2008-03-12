@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.plugins.browser;
 
+import java.awt.Dimension;
+import java.awt.Frame;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.controllers.impl.XPontusPluginManager;
 import net.sf.xpontus.plugins.SimplePluginDescriptor;
@@ -33,6 +35,8 @@ import org.java.plugin.registry.PluginRegistry;
 import java.io.File;
 import java.io.InputStream;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 
 import java.util.HashSet;
@@ -40,8 +44,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import org.java.plugin.registry.PluginDescriptor;
 
@@ -51,7 +59,7 @@ import org.java.plugin.registry.PluginDescriptor;
  */
 public class InstallDownloadedPluginsController {
 
-    private JFileChooser chooser = new JFileChooser();
+    private JFileChooser chooser;
     private DownloadedPanel view;
     private PluginRegistry registry;
 
@@ -170,6 +178,37 @@ public class InstallDownloadedPluginsController {
         m_model.removeRow(selected);
     }
 
+    public Object licenseAccepted(String license) {
+        JScrollPane sp = new JScrollPane();
+        Dimension dimension = new Dimension(300, 300);
+        sp.setMinimumSize(dimension);
+        sp.setPreferredSize(dimension);
+
+        JTextArea licenseField = new JTextArea();
+        licenseField.setEditable(false);
+        licenseField.setLineWrap(true);
+
+        try {
+            InputStream is = new URL(license).openStream();
+            Reader reader = new InputStreamReader(is);
+            licenseField.read(reader, null);
+        } catch (Exception e) {
+            licenseField.setText("Cannot get license text information");
+        }
+
+        sp.getViewport().add(licenseField);
+
+        Frame frame = (Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent();
+        JOptionPane pane = new JOptionPane(sp, JOptionPane.PLAIN_MESSAGE, JOptionPane.YES_NO_OPTION, null, new Object[]{"Yes", "No"});
+
+        JDialog dialog = pane.createDialog(frame, "License agreement");
+        dialog.show();
+
+        Object selectedValue = pane.getValue();
+
+        return selectedValue;
+    }
+
     public void installPlugin() {
         JTable table = view.getPluginsTable();
         int selected = table.getSelectedRow();
@@ -185,10 +224,18 @@ public class InstallDownloadedPluginsController {
         File pluginArchive = view.getFilesMap().get(id);
 
         try {
-            addManifests(new File[]{pluginArchive});
-            PluginDescriptor pds = XPontusPluginManager.getPluginManager().getRegistry().getPluginDescriptor(id);
-            SimplePluginDescriptor spd = PluginsUtils.getInstance().toSimplePluginDescriptor(pds);
-            PluginsUtils.getInstance().addToIndex(spd);
+            Object answer = licenseAccepted(view.getPluginsMap().get(id).getLicense());
+
+            if (answer == null || answer.equals("No")) {
+                System.out.println("License not accepted");
+                XPontusComponentsUtils.showErrorMessage("You must agree with the license terms");
+            } else {
+                System.out.println("License accepted");
+                addManifests(new File[]{pluginArchive});
+                PluginDescriptor pds = XPontusPluginManager.getPluginManager().getRegistry().getPluginDescriptor(id);
+                SimplePluginDescriptor spd = PluginsUtils.toSimplePluginDescriptor(pds);
+                PluginsUtils.getInstance().addToIndex(spd);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             XPontusComponentsUtils.showErrorMessage(e.getMessage());

@@ -23,12 +23,12 @@ import java.lang.reflect.Method;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-
 /**
  *
  * @author mrcheeks
  */
 public class PluginResolverUtils {
+
     private static PropertyDescriptor[] pd;
 
     public static SimplePluginDescriptor resolvePlugins(InputStream is) {
@@ -59,8 +59,25 @@ public class PluginResolverUtils {
 
             Element attributesNode = (Element) root.getElementsByTagName(
                     "attributes").item(0);
+
             NodeList attributesList = attributesNode.getElementsByTagName(
                     "attribute");
+
+            Element requiresNode = (Element) root.getElementsByTagName(
+                    "requires").item(0);
+
+            NodeList depsList = requiresNode.getElementsByTagName(
+                    "import");
+
+            StringBuilder depBuilder = new StringBuilder();
+
+            for (int i = 0; i < depsList.getLength(); i++) {
+                Element depNode = (Element) depsList.item(i);
+                String depValue = depNode.getAttribute("plugin-id");
+                depBuilder.append(depValue + "<br/>");
+            }
+
+            spd.setDependencies(depBuilder.toString());
 
             for (int i = 0; i < attributesList.getLength(); i++) {
                 Element attributeNode = (Element) attributesList.item(i);
@@ -83,6 +100,8 @@ public class PluginResolverUtils {
                     spd.setDate(attributeValue);
                 }
             }
+
+
         } catch (Exception err) {
         }
 
@@ -104,7 +123,7 @@ public class PluginResolverUtils {
     }
 
     private static void setProperty(Object bean, PropertyDescriptor p,
-        String value) {
+            String value) {
         Class propType = p.getPropertyType();
 
         PropertyEditor editor = PropertyEditorManager.findEditor(propType);
@@ -121,7 +140,7 @@ public class PluginResolverUtils {
         Object result = editor.getValue();
 
         try {
-            setter.invoke(bean, new Object[] { result });
+            setter.invoke(bean, new Object[]{result});
         } catch (IllegalAccessException e) {
             throw new SecurityException(e);
         } catch (InvocationTargetException e) {
