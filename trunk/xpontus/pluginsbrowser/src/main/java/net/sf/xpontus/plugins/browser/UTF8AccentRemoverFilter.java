@@ -23,21 +23,15 @@ package net.sf.xpontus.plugins.browser;
 
 import org.apache.lucene.analysis.Token;
 
-/**
- *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
- */
 import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
 
 
 /**
- * <p>Titre : UTF8AccentRemoverFilter  </p>
- * <p>Description : Class used by Lius framework (http://sourceforge.net/projects/lius/)</p>
- * <p>Société : Universite Laval library</p>
- * @author Rida Benjelloun (rida.benjelloun@gmail.com)
- * @version 1.0
+ *
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
+
 public class UTF8AccentRemoverFilter extends TokenFilter {
     public UTF8AccentRemoverFilter(TokenStream input) {
         super(input);

@@ -26,7 +26,6 @@ import net.sf.xpontus.plugins.SimplePluginDescriptor;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.text.StrBuilder;
 
 import org.java.plugin.registry.PluginDescriptor;
