@@ -40,13 +40,22 @@ public class InstallDownloadedPluginsController {
     private DownloadedPanel view;
     private PluginRegistry registry;
 
+    public JFileChooser getFileChooser() {
+
+        if (chooser == null) {
+            chooser = new JFileChooser();
+            chooser.setDialogTitle("Select XPontus plugin archive");
+            chooser.setMultiSelectionEnabled(true);
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.setFileFilter(new XPontusModuleFileFilter());
+            chooser.setAcceptAllFileFilterUsed(false);
+        }
+
+        return chooser;
+    }
+
     public InstallDownloadedPluginsController() {
-        chooser = new JFileChooser();
-        chooser.setDialogTitle("Select XPontus plugin archive");
-        chooser.setMultiSelectionEnabled(true);
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.setFileFilter(new XPontusModuleFileFilter());
-        chooser.setAcceptAllFileFilterUsed(false);
+
     }
 
     public PluginRegistry getRegistry() {
@@ -172,7 +181,7 @@ public class InstallDownloadedPluginsController {
     }
 
     public void addPlugin() {
-        int rep = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent().getDisplayComponent());
+        int rep = getFileChooser().showOpenDialog(XPontusComponentsUtils.getTopComponent().getDisplayComponent());
 
 
         if (rep == JFileChooser.APPROVE_OPTION) {
