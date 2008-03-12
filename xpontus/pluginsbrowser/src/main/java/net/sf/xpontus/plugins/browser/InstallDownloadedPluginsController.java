@@ -27,15 +27,15 @@ import java.util.Set;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
-
+import org.java.plugin.registry.PluginDescriptor;
 
 /**
  * @version 0..0.1
  * @author Yves Zoundi
  */
 public class InstallDownloadedPluginsController {
+
     private JFileChooser chooser = new JFileChooser();
     private DownloadedPanel view;
     private PluginRegistry registry;
@@ -66,7 +66,7 @@ public class InstallDownloadedPluginsController {
     }
 
     private void collectManifests(final File file, final Set manifests,
-        final Set archives) throws Exception {
+            final Set archives) throws Exception {
         String name = file.getName().toLowerCase();
 
         if (name.endsWith(".jpa")) {
@@ -105,9 +105,8 @@ public class InstallDownloadedPluginsController {
                 collectManifests(files[i], manifests, archives);
             }
 
-            Map<String, Identity> m_map = getRegistry()
-                                              .register((URL[]) manifests.toArray(
-                        new URL[manifests.size()]));
+            Map<String, Identity> m_map = getRegistry().register((URL[]) manifests.toArray(
+                    new URL[manifests.size()]));
 
             if (m_map.size() > 0) {
                 Iterator<String> it = m_map.keySet().iterator();
@@ -128,9 +127,8 @@ public class InstallDownloadedPluginsController {
                     }
 
                     try {
-                        PluginsUtils.getInstance()
-                                    .unzip(archiveFile.getAbsolutePath(),
-                            destFolder.getAbsolutePath());
+                        PluginsUtils.getInstance().unzip(archiveFile.getAbsolutePath(),
+                                destFolder.getAbsolutePath());
                     } catch (Exception err) {
                         throw new Exception("Error extracting plugin archive");
                     }
@@ -163,7 +161,10 @@ public class InstallDownloadedPluginsController {
         File pluginArchive = view.getFilesMap().get(id);
 
         try {
-            addManifests(new File[] { pluginArchive });
+            addManifests(new File[]{pluginArchive});
+            PluginDescriptor pds = XPontusPluginManager.getPluginManager().getRegistry().getPluginDescriptor(id);
+            SimplePluginDescriptor spd = PluginsUtils.getInstance().toSimplePluginDescriptor(pds);
+            PluginsUtils.getInstance().addToIndex(spd);
         } catch (Exception e) {
             e.printStackTrace();
             XPontusComponentsUtils.showErrorMessage(e.getMessage());
@@ -171,24 +172,17 @@ public class InstallDownloadedPluginsController {
     }
 
     public void addPlugin() {
-        int rep = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
-                                                               .getDisplayComponent());
+        int rep = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent().getDisplayComponent());
 
-        DefaultTableModel m_model = (DefaultTableModel) view.getPluginsTable()
-                                                            .getModel();
 
         if (rep == JFileChooser.APPROVE_OPTION) {
             File[] selectedFiles = chooser.getSelectedFiles();
 
-            DefaultTableModel tableModel = (DefaultTableModel) view.getPluginsTable()
-                                                                   .getModel();
+            DefaultTableModel tableModel = (DefaultTableModel) view.getPluginsTable().getModel();
 
             for (File selectedFile : selectedFiles) {
                 try {
-                    //PluginArchiver.unpack(selectedFile.toURL(), new File("/home/mrcheeks/Tests/cvs/maven-jpf-plugin/target/site"));
-                    FileObject fo = VFS.getManager().toFileObject(selectedFile);
-                    URL manifestURL = PluginsUtils.getInstance()
-                                                  .getManifestUrl(selectedFile);
+                    URL manifestURL = PluginsUtils.getInstance().getManifestUrl(selectedFile);
 
                     if (manifestURL != null) {
                         InputStream is = manifestURL.openStream();
@@ -197,10 +191,10 @@ public class InstallDownloadedPluginsController {
                         if (spd.getId() != null) {
                             view.getFilesMap().put(spd.getId(), selectedFile);
                             view.getPluginsMap().put(spd.getId(), spd);
-                            tableModel.addRow(new Object[] {
-                                    new Boolean(false), spd.getId(),
-                                    spd.getCategory(), spd.getBuiltin()
-                                });
+                            tableModel.addRow(new Object[]{
+                                new Boolean(false), spd.getId(),
+                                spd.getCategory(), spd.getBuiltin()
+                            });
                         }
                     }
                 } catch (Exception err) {

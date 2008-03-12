@@ -14,7 +14,6 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -31,6 +30,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -38,40 +38,47 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
+import net.sf.xpontus.controllers.impl.XPontusPluginManager;
+import org.apache.commons.lang.text.StrBuilder;
+import org.apache.lucene.index.Term;
+import org.java.plugin.registry.PluginAttribute;
+import org.java.plugin.registry.PluginDescriptor;
+import org.java.plugin.registry.PluginPrerequisite;
 
 /**
  *
  * @author mrcheeks
  */
 public class PluginsUtils {
+
     private static PluginsUtils INSTANCE;
     private FSDirectory m_installedFSDirectory;
     private IndexWriter m_installedIndexWriter;
     private IndexReader m_installedIndexReader;
     private final String[] fields = {
-            "author", "license", "date", "version", "homepage", "description",
-            "category", "builtin", "id", "displayname",
-        };
+        "author", "license", "date", "version", "homepage", "description",
+        "category", "builtin", "uid", "displayname"
+    };
 
     private PluginsUtils() {
         Runtime.getRuntime().addShutdownHook(new Thread() {
-                public void run() {
-                    try {
-                        if (m_installedIndexReader != null) {
-                            m_installedIndexReader.close();
-                        }
 
-                        if (m_installedIndexWriter != null) {
-                            m_installedIndexWriter.close();
-                        }
-
-                        if (m_installedFSDirectory != null) {
-                            m_installedFSDirectory.close();
-                        }
-                    } catch (Exception err) {
+            public void run() {
+                try {
+                    if (m_installedIndexReader != null) {
+                        m_installedIndexReader.close();
                     }
+
+                    if (m_installedIndexWriter != null) {
+                        m_installedIndexWriter.close();
+                    }
+
+                    if (m_installedFSDirectory != null) {
+                        m_installedFSDirectory.close();
+                    }
+                } catch (Exception err) {
                 }
+            }
             });
     }
 
@@ -84,9 +91,9 @@ public class PluginsUtils {
     }
 
     public Map<String, SimplePluginDescriptor> searchIndex(String str,
-        String index) {
+            String index) {
         Map<String, SimplePluginDescriptor> results = new HashMap<String, SimplePluginDescriptor>();
- 
+
 
         if (str.trim().equals("")) {
             return results;
@@ -162,9 +169,7 @@ public class PluginsUtils {
     public void shouldAddToIndex(Map<String, SimplePluginDescriptor> map) {
         if (m_installedIndexReader.numDocs() == 0) {
             try {
-                Analyzer m_analyzer = new UTF8AccentRemoverAnalyzer();
-                m_installedIndexWriter = new IndexWriter(m_installedFSDirectory,
-                        false, m_analyzer);
+
 
                 Iterator<SimplePluginDescriptor> it = map.values().iterator();
 
@@ -176,14 +181,70 @@ public class PluginsUtils {
                     }
                 }
 
-                m_installedIndexWriter.close();
+
             } catch (Exception err) {
             }
         }
     }
+    
+    public static SimplePluginDescriptor toSimplePluginDescriptor(PluginDescriptor pds){ 
+            String id = pds.getId().toString();
+            String category = pds.getAttribute("Category").getValue();
+            String homepage = pds.getAttribute("Homepage").getValue();
+            String builtin = pds.getAttribute("Built-in").getValue();
+            String displayname = pds.getAttribute("DisplayName").getValue();
+            String description = pds.getAttribute("Description").getValue();
+            String license = pds.getAttribute("License").getValue();
+            String date = pds.getAttribute("date").getValue();
+            String version = pds.getVersion().toString();
+            SimplePluginDescriptor spd = new SimplePluginDescriptor();
+
+            String vendor = "Yves Zoundi";
+
+            spd.setAuthor(vendor);
+            spd.setDate(date);
+            spd.setBuiltin(builtin);
+            spd.setCategory(category);
+            spd.setDescription(description);
+            spd.setDisplayname(displayname);
+            spd.setHomepage(homepage);
+            spd.setId(id);
+            spd.setLicense(license);
+            spd.setVersion(version);
+            
+            Collection<PluginPrerequisite> deps = pds.getPrerequisites();
+            if(deps.size() > 0){
+                StrBuilder sb = new StrBuilder();
+                Iterator<PluginPrerequisite> ppIt = deps.iterator();
+                while(ppIt.hasNext()){
+                    PluginPrerequisite pp = ppIt.next();
+                    sb.append(pp.getPluginId()  );
+                    PluginDescriptor ad = XPontusPluginManager.getPluginManager()
+                                                   .getRegistry().getPluginDescriptor(pp.getPluginId());
+                    PluginAttribute pat = ad.getAttribute("Built-in");
+                    if(pat!=null){
+                        if(pat.getValue().equals("true")){
+                            sb.append("(Builtin)");
+                        }
+                    } 
+                    sb.append("<br/>");
+                }
+                spd.setDependencies(sb.toString());
+            }
+            return spd;
+    }
+
+    public void removeFromIndex(String pluginId) throws Exception {
+        m_installedIndexReader.deleteDocuments(new Term("uid", pluginId));
+    }
 
     public void addToIndex(SimplePluginDescriptor spd) {
         try {
+
+            Analyzer m_analyzer = new UTF8AccentRemoverAnalyzer();
+            m_installedIndexWriter = new IndexWriter(m_installedFSDirectory,
+                    false, m_analyzer);
+
             System.out.println("Adding :" + spd.getId());
 
             System.out.println("---------------------------------");
@@ -195,8 +256,7 @@ public class PluginsUtils {
 
                 Date s = new Date();
                 StringBuffer sb = new StringBuffer();
-                sb.append(s.getDay()).append("-").append(s.getMonth())
-                  .append("-").append(s.getYear());
+                sb.append(s.getDay()).append("-").append(s.getMonth()).append("-").append(s.getYear());
                 spd.setDate(sb.toString());
             }
 
@@ -218,7 +278,7 @@ public class PluginsUtils {
             }
 
             System.out.println("Building index document for plugin:" +
-                spd.getId());
+                    spd.getId());
 
             //            spd.print();
             doc.add(new Field("uid", spd.getId(), Field.Store.YES,
@@ -244,13 +304,15 @@ public class PluginsUtils {
 
             m_installedIndexWriter.addDocument(doc);
             m_installedIndexWriter.optimize();
+
+            m_installedIndexWriter.close();
         } catch (Exception err) {
             err.printStackTrace();
         }
     }
 
     public void unzip(String zipFilename, String outdir)
-        throws IOException {
+            throws IOException {
         System.out.println("In unzip method...");
 
         ZipFile zipFile = new ZipFile(zipFilename);
@@ -275,10 +337,11 @@ public class PluginsUtils {
             } else {
                 InputStream zipin = zipFile.getInputStream(entry);
                 BufferedOutputStream fileout = new BufferedOutputStream(new FileOutputStream(outdir +
-                            File.separator + entry.getName()));
+                        File.separator + entry.getName()));
 
-                while ((len = zipin.read(buffer)) >= 0)
+                while ((len = zipin.read(buffer)) >= 0) {
                     fileout.write(buffer, 0, len);
+                }
 
                 zipin.close();
                 fileout.flush();
@@ -310,14 +373,14 @@ public class PluginsUtils {
             }
 
             URL url = new URL("jar:" //$NON-NLS-1$
-                     +IoUtil.file2url(file).toExternalForm() + "!/plugin.xml"); //$NON-NLS-1$
+                    + IoUtil.file2url(file).toExternalForm() + "!/plugin.xml"); //$NON-NLS-1$
 
             if (IoUtil.isResourceExists(url)) {
                 return url;
             }
 
             url = new URL("jar:" //$NON-NLS-1$
-                     +IoUtil.file2url(file).toExternalForm() +
+                    + IoUtil.file2url(file).toExternalForm() +
                     "!/plugin-fragment.xml"); //$NON-NLS-1$
 
             if (IoUtil.isResourceExists(url)) {
@@ -325,7 +388,7 @@ public class PluginsUtils {
             }
 
             url = new URL("jar:" //$NON-NLS-1$
-                     +IoUtil.file2url(file).toExternalForm() +
+                    + IoUtil.file2url(file).toExternalForm() +
                     "!/META-INF/plugin.xml"); //$NON-NLS-1$
 
             if (IoUtil.isResourceExists(url)) {
@@ -333,14 +396,14 @@ public class PluginsUtils {
             }
 
             url = new URL("jar:" //$NON-NLS-1$
-                     +IoUtil.file2url(file).toExternalForm() +
+                    + IoUtil.file2url(file).toExternalForm() +
                     "!/META-INF/plugin-fragment.xml"); //$NON-NLS-1$
 
             if (IoUtil.isResourceExists(url)) {
                 return url;
             }
         } catch (MalformedURLException mue) {
-            // ignore
+        // ignore
         }
 
         return null;
