@@ -57,7 +57,7 @@ public class PluginsUtils {
     private IndexReader m_installedIndexReader;
     private final String[] fields = {
         "author", "license", "date", "version", "homepage", "description",
-        "category", "builtin", "uid", "displayname"
+        "category", "builtin", "uid", "displayname", "dependencies"
     };
 
     private PluginsUtils() {
@@ -125,6 +125,7 @@ public class PluginsUtils {
                 spd.setHomepage(doc.get("homepage"));
                 spd.setLicense(doc.get("license"));
                 spd.setDescription(doc.get("description"));
+                spd.setDependencies(doc.get("dependencies"));
                 results.put(spd.getId(), spd);
             }
         } catch (Exception err) {
@@ -300,6 +301,8 @@ public class PluginsUtils {
             doc.add(new Field("homepage", spd.getHomepage(), Field.Store.YES,
                     Field.Index.TOKENIZED));
             doc.add(new Field("license", spd.getLicense(), Field.Store.YES,
+                    Field.Index.TOKENIZED));
+             doc.add(new Field("dependencies", spd.getDependencies(), Field.Store.YES,
                     Field.Index.TOKENIZED));
 
             m_installedIndexWriter.addDocument(doc);
