@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
 
 
@@ -53,8 +55,18 @@ public class ExitActionImpl extends AbstractXPontusActionImpl {
          * All the pending operations must terminate
          *
          */
+        
+        
+        // save all opened documents
+        final IDocumentContainer[] editors = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getEditorsAsArray();
+        for(IDocumentContainer editor : editors){
+            DefaultXPontusWindowImpl.getInstance().getDesktop().close(editor);
+        }
+        
+        // save settings 
         DefaultSettingsModuleImpl.getInstance().shutdown();
 
+        // terminate the application
         System.exit(0);
     }
 }
