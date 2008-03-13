@@ -124,9 +124,9 @@ public class InstallDownloadedPluginsController {
         }
     }
 
-    void addManifests(final File[] files) throws Exception {
+    Map addManifests(final File[] files) throws Exception {
         if (files.length == 0) {
-            return;
+            return null;
         }
 
         try {
@@ -166,8 +166,12 @@ public class InstallDownloadedPluginsController {
                     }
                 }
             }
-        } finally {
-        }
+            return m_map;
+            
+        }  
+        catch(Exception e){
+            throw e;
+        } 
     }
 
     public void findRowForPlugin(String id) {
@@ -214,11 +218,17 @@ public class InstallDownloadedPluginsController {
         int selected = table.getSelectedRow();
 
         if (selected == -1) {
+            XPontusComponentsUtils.showErrorMessage("No plugin selected for installation");
             return;
         }
 
         DefaultTableModel m_model = (DefaultTableModel) table.getModel();
 
+        Boolean toInstall = (Boolean) m_model.getValueAt(selected, 0);
+        if(!toInstall.booleanValue()){
+            XPontusComponentsUtils.showErrorMessage("Please check the checbox to select the plugin for installation");
+            return;
+        }
         String id = (String) m_model.getValueAt(selected, 1);
 
         File pluginArchive = view.getFilesMap().get(id);
@@ -231,10 +241,21 @@ public class InstallDownloadedPluginsController {
                 XPontusComponentsUtils.showErrorMessage("You must agree with the license terms");
             } else {
                 System.out.println("License accepted");
-                addManifests(new File[]{pluginArchive});
+                Object o = addManifests(new File[]{pluginArchive});
+                if(o==null){
+                    return;
+                }
+                else{
+                    Map<String,Identity> mm = (Map<String, Identity>) o;
+                    if(mm.size() == 0){
+                        XPontusComponentsUtils.showWarningMessage("No plugins added, maybe the plugin was already installed?");
+                        return;
+                    }
+                }
                 PluginDescriptor pds = XPontusPluginManager.getPluginManager().getRegistry().getPluginDescriptor(id);
                 SimplePluginDescriptor spd = PluginsUtils.toSimplePluginDescriptor(pds);
                 PluginsUtils.getInstance().addToIndex(spd);
+                XPontusComponentsUtils.showInformationMessage("The plugin will be loaded when XPontus restarts");
             }
         } catch (Exception e) {
             e.printStackTrace();

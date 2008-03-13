@@ -34,6 +34,7 @@ import java.io.Writer;
 
 import java.util.Iterator;
 import java.util.Map;
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 
 
 /**
@@ -106,6 +107,27 @@ public class PluginsTemplateRenderer {
 
             InputStream is = getClass().getResourceAsStream("template.vm");
             Velocity.evaluate(context, writer, "browser_template_renderer",
+                new InputStreamReader(is));
+
+            return writer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
+    }
+    
+    
+    public String renderMissingFeatureTemplate() {
+        try {
+            Context context = new VelocityContext();
+
+            Writer writer = new StringWriter();
+ 
+            context.put("pluginsdir", XPontusConfigurationConstantsIF.XPONTUS_PLUGINS_DIR.getAbsolutePath());
+
+            InputStream is = getClass().getResourceAsStream("missing.vm");
+            Velocity.evaluate(context, writer, "missing_template_renderer",
                 new InputStreamReader(is));
 
             return writer.toString();
