@@ -55,7 +55,6 @@ public class SimplePluginDescriptor {
         this.dependencies = dependencies;
     }
 
-    
     public void print() {
         StrBuilder str = new StrBuilder();
         str.append("Id:" + id);

@@ -27,7 +27,6 @@ import java.io.Reader;
  * the character position of the token in the input, as required by Lucene's
  * {@link org.apache.lucene.analysis.Token} API.
  */
-
 /**
  * @author Yves Zoundi
  *

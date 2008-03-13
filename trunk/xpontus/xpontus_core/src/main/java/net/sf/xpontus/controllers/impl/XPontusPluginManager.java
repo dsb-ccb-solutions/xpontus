@@ -141,8 +141,7 @@ public class XPontusPluginManager implements XPontusControllerIF {
             files = path.listFiles(new FileFilter() {
                         public boolean accept(File pathname) {
                             if (pathname.isFile()) {
-                                String name = pathname.getName()
-                                                      .toLowerCase(Locale.US);
+                                String name = pathname.getName().toLowerCase(Locale.US);
 
                                 return name.endsWith(".jar") ||
                                 name.endsWith(".zip");

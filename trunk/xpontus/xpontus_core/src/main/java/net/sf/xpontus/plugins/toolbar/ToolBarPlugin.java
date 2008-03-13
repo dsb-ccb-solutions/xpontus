@@ -27,6 +27,7 @@ import com.vlsolutions.swing.toolbars.ToolBarPanel;
 import com.vlsolutions.swing.toolbars.VLToolBar;
 
 import net.sf.xpontus.actions.impl.*;
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.XPontusPlugin;
 
@@ -45,7 +46,6 @@ import java.util.Map;
 
 import javax.swing.Action;
 import javax.swing.JButton;
-import net.sf.xpontus.configuration.XPontusConfig;
 
 
 /**
@@ -64,24 +64,20 @@ public class ToolBarPlugin extends XPontusPlugin {
     private int y_pos = 0;
 
     protected void doStart() throws Exception {
-        
-        String confValue = XPontusConfig.getValue("xpontus.ToolbarIcons").toString();
-        
-        if(confValue.equals("Text only")){
+        String confValue = XPontusConfig.getValue("xpontus.ToolbarIcons")
+                                        .toString();
+
+        if (confValue.equals("Text only")) {
             textOnly = true;
-        }
-        else if(confValue.equals("Text and icons")){
+        } else if (confValue.equals("Text and icons")) {
             textAndIcons = true;
-        } else if(confValue.equals("Icons only")){
+        } else if (confValue.equals("Icons only")) {
             iconsOnly = true;
         }
-        
-        if(iconsOnly){
+
+        if (iconsOnly) {
             MAX_TOOLBAR_PER_LINE = 4;
         }
-        
-        
-        
     }
 
     protected void doStop() throws Exception {
@@ -161,17 +157,18 @@ public class ToolBarPlugin extends XPontusPlugin {
             for (int j = 0; j < tbActions.size(); j++) {
                 Action m_action = (Action) tbActions.get(j);
 
-                if (!m_action.getClass().getName()
-                                 .equals(RecentFilesActionImpl.class.getName())) {
+                if (!m_action.getClass().getName().equals(RecentFilesActionImpl.class.getName())) {
                     JButton m_button = new JButton(m_action);
                     m_button.setBorder(null);
-                    
-                    if(iconsOnly){
+
+                    if (iconsOnly) {
                         m_button.setText(null);
                     }
-                    if(textOnly){
+
+                    if (textOnly) {
                         m_button.setIcon(null);
                     }
+
                     tb.add(m_button);
                 }
             }

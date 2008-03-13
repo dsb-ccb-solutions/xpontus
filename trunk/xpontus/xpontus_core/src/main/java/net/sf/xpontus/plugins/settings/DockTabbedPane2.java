@@ -129,6 +129,7 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
                         tabIcon.setIcon((Icon) e.getNewValue());
 
                         JTabbedPaneSmartIcon newIcon = tabIcon.copy();
+
                         // we create a copy to trigger a repaint event
                         setIconAt(tab, newIcon);
                     }
@@ -142,6 +143,7 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
                         tabIcon.setLabel(label);
 
                         JTabbedPaneSmartIcon newIcon = tabIcon.copy();
+
                         // we create a copy to trigger a repaint event
                         setIconAt(tab, newIcon);
                         SwingUtilities.invokeLater(new Runnable() {
@@ -256,8 +258,8 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
         for (int i = 0; i < getTabCount(); i++) {
             Dockable d = getDockableAt(i);
 
-            if ((d != null //2006/12/07
-                ) && d.getDockKey().equals(key)) {
+            if ((d != null) //2006/12/07
+                     &&d.getDockKey().equals(key)) {
                 return i;
             }
         }
@@ -303,6 +305,7 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
                 if (key.isCloseEnabled()) {
                     JMenuItem mItem = new JMenuItem(TabbedContainerActions.createCloseAction(
                                 d, desktop));
+
                     //                    mItem.setPressedIcon(new ImageIcon(getClass()
                     //                                                           .getResource("close16.gif")));
                     popup.add(mItem);
@@ -346,6 +349,7 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
 
     private Dockable findDockableAt(MouseEvent e) {
         Point p = e.getPoint();
+
         // find the tab  on which the mouse has been pressed
         popupTab = -1;
 
@@ -401,6 +405,7 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
         }
 
         closeAction.setEnabled(key.isCloseEnabled());
+
         // add a tooltip
         closeAction.putValue(AbstractAction.SHORT_DESCRIPTION,
             UIManager.get("DockTabbedPane.closeButtonText"));
@@ -413,6 +418,7 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
         if (tab >= getTabCount()) {
             //addTab(key.getName(), key.getIcon(), (Component)dc, key.getTooltip());
             addTab("", smartIcon, (Component) dc, key.getTooltip());
+
             //addTab(key.getName(),smartIcon, (Component) dc, key.getTooltip());
             tab = getTabCount() - 1;
         } else {
@@ -508,7 +514,6 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
         }
 
         // not in the main zone, check for tabs positions
-
         // (but reject first if groups are not compatible)
         DockableDragSource s = event.getDragSource();
         Dockable d = s.getDockable();
@@ -1143,6 +1148,7 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
             }
 
             remove((Component) dc);
+
             // clean up key / actions references / listeners
             closeActions.remove(dockable.getDockKey());
             dockable.getDockKey().removePropertyChangeListener(keyChangeListener);
@@ -1161,6 +1167,7 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
                 }
             });
         removeTabAt(index);
+
         // clean up key / actions references / listeners
         closeActions.remove(dockable.getDockKey());
         dockable.getDockKey().removePropertyChangeListener(keyChangeListener);

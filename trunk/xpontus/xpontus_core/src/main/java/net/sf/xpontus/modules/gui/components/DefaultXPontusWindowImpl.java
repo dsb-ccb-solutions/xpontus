@@ -29,6 +29,7 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
 import net.sf.xpontus.actions.impl.ExitActionImpl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.plugins.ioc.IOCPlugin;
+import net.sf.xpontus.utils.GUIUtils;
 
 import org.apache.commons.lang.text.StrBuilder;
 
@@ -43,7 +44,6 @@ import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
-import net.sf.xpontus.utils.GUIUtils;
 
 
 /**
@@ -70,8 +70,7 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
 
         frame = new JFrame();
 
-        URL logoURL = getClass()
-                          .getResource("/net/sf/xpontus/icons/icone.png");
+        URL logoURL = getClass().getResource("/net/sf/xpontus/icons/icone.png");
         frame.setIconImage(Toolkit.getDefaultToolkit().createImage(logoURL));
 
         frame.addWindowListener(new WindowAdapter() {
@@ -79,6 +78,8 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
                     new ExitActionImpl().execute();
                 }
             });
+        frame.setFocusableWindowState(true);
+        frame.setFocusable(true);
 
         StrBuilder b = new StrBuilder();
 

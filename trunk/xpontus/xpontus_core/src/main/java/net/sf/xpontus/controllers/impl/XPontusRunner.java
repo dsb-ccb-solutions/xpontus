@@ -106,6 +106,7 @@ public class XPontusRunner {
         System.setSecurityManager(null);
         System.setProperty("javax.xml.transform.TransformerFactory",
             "org.apache.xalan.processor.TransformerFactoryImpl");
+
         // the default processor to use is xalan        
         System.setProperty("org.xml.sax.parser",
             "org.apache.xerces.parsers.SAXParser");
@@ -404,8 +405,7 @@ public class XPontusRunner {
             toolbarPlugin.initExtension(scenariosToolbarExt);
 
             if (EvaluatorPluginConfiguration.getInstance().getEngines().size() > 0) {
-                toolbarPlugin.getOrCreateToolBar("xpath")
-                             .add(new ExpressionEvaluatorPanel());
+                toolbarPlugin.getOrCreateToolBar("xpath").add(new ExpressionEvaluatorPanel());
             }
 
             ((XPontusPlugin) manager.getPlugin(ActionPlugin.PLUGIN_IDENTIFIER)).init();
@@ -418,8 +418,7 @@ public class XPontusRunner {
                 "Install some plugins in the category documentation");
         }
 
-        DocumentAwareComponentHolder.getInstance()
-                                    .notifyComponents(new DocumentContainerChangeEvent(
+        DocumentAwareComponentHolder.getInstance().notifyComponents(new DocumentContainerChangeEvent(
                 null));
 
         if (showSplash) {

@@ -15,6 +15,7 @@ public class URIUtil {
     private final static String __CHARSET = "UTF-8";
 
     /* ------------------------------------------------------------ */
+
     /** Encode a URI path.
      * This is the same encoding offered by URLEncoder, except that
      * the '/' character is not encoded.
@@ -106,6 +107,7 @@ public class URIUtil {
     }
 
     /* ------------------------------------------------------------ */
+
     /** Parse an int from a substring.
      * Negative numbers are not handled.
      * @param s String
@@ -147,6 +149,7 @@ public class URIUtil {
     }
 
     /* ------------------------------------------------------------ */
+
     /** Parse an int from a byte array of ascii characters.
      * Negative numbers are not handled.
      * @param b byte array
@@ -233,6 +236,7 @@ public class URIUtil {
     }
 
     /* ------------------------------------------------------------ */
+
     /** Encode a URI path.
      * @param path The path the encode
      * @param buf StringBuffer to encode path into (or null)

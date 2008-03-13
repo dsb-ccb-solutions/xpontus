@@ -57,7 +57,7 @@ public class ScenarioPluginsConfiguration {
     public ScenarioPluginIF getEngineForName(String name) {
         System.out.println("Looking for plugin called:" + name);
 
-        Iterator<String> names = enginesMap.keySet().iterator();
+        Iterator < String > names = enginesMap.keySet().iterator();
 
         while (names.hasNext()) {
             System.out.println("engine:" + names.next());

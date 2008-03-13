@@ -42,6 +42,7 @@ import net.sf.xpontus.plugins.quicktoolbar.QuickToolBarPluginIF;
 import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.syntax.LineView;
 import net.sf.xpontus.syntax.SyntaxDocument;
+import net.sf.xpontus.utils.GUIUtils;
 import net.sf.xpontus.utils.MimeTypesProvider;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -77,7 +78,6 @@ import javax.swing.KeyStroke;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.utils.GUIUtils;
 
 
 /**
@@ -103,14 +103,16 @@ public class DocumentContainer implements IDocumentContainer {
     public DocumentContainer() {
         documentPanel = new JPanel();
         documentPanel.setLayout(new BorderLayout());
+        documentPanel.setFocusable(true);
+        documentPanel.setRequestFocusEnabled(true);
+
         editor = new JEditorPane();
         editor.setFont((Font) XPontusConfig.getValue("EditorPane.Font"));
-
+        editor.setFocusable(true);
         editor.setRequestFocusEnabled(true);
-        
+
         GUIUtils.installDragAndDropSupport(editor);
 
-        editor.setFocusable(true);
         status = new JStatusBar();
         editor.setCaretPosition(0);
 
@@ -214,8 +216,7 @@ public class DocumentContainer implements IDocumentContainer {
 
         try {
             CharsetDetector detector = new CharsetDetector();
-            InputStream is = getClass()
-                                 .getResourceAsStream("/net/sf/xpontus/templates/template.xml");
+            InputStream is = getClass().getResourceAsStream("/net/sf/xpontus/templates/template.xml");
             detector.setText(new BufferedInputStream(is));
 
             try {
@@ -270,8 +271,8 @@ public class DocumentContainer implements IDocumentContainer {
         if ((m_ext == null) || m_ext.trim().equals("")) {
             ext = "file.txt";
         }
-        
-        if(m_ext!=null){
+
+        if (m_ext != null) {
             m_ext = m_ext.toLowerCase();
         }
 
@@ -289,7 +290,6 @@ public class DocumentContainer implements IDocumentContainer {
                 String className = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME);
 
                 try {
-
                     QuickToolBarPluginIF qbp = (QuickToolBarPluginIF) Class.forName(className,
                             true, cl).newInstance();
                     documentPanel.add(qbp.getComponent(), BorderLayout.NORTH);
@@ -313,9 +313,7 @@ public class DocumentContainer implements IDocumentContainer {
                 doc.putProperty("BUILTIN_COMPLETION", "XSL");
             } else if (m_ext.endsWith("xsd")) {
                 doc.putProperty("BUILTIN_COMPLETION", "XSD");
-            }
-            else if (m_ext.endsWith("html") || m_ext.endsWith("htm")) {
-                
+            } else if (m_ext.endsWith("html") || m_ext.endsWith("htm")) {
                 doc.putProperty("BUILTIN_COMPLETION", "HTML");
             }
         }

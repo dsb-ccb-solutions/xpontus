@@ -4,8 +4,6 @@
  */
 package net.sf.xpontus.plugins.completion;
 
-
-
 import java.util.List;
 
 import javax.swing.text.AttributeSet;
@@ -45,7 +43,7 @@ public class ContentAssistWindow {
         }
 
         if (completionData.size() > 0) {
-            CompletionWindow window = CompletionWindow.getInstance(); 
+            CompletionWindow window = CompletionWindow.getInstance();
             window.getCompletionListModel().updateData(completionData);
             window.showWindow(jtc);
         }

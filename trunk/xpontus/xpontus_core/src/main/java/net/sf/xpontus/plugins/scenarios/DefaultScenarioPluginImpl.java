@@ -136,7 +136,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
             }
 
             DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("Transformation in progress...");
-            
+
             log.info("Getting ready for transformation");
 
             // set the processor properties for JAXP
@@ -207,7 +207,8 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
 
                 odk.println(tel.getErrors(), OutputDockable.RED_STYLE);
             } else {
-                DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("Transformation finished!");
+                DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                        .setMessage("Transformation finished!");
                 odk.println("Transformation finished!");
 
                 if (tel.warningsFound()) {
@@ -219,7 +220,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
             e.printStackTrace();
             throw new RuntimeException("Transformation failed:\n" +
                 e.getMessage());
-        } 
+        }
     }
 
     /**
@@ -306,6 +307,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     public void setSystemProperties() {
         System.setProperty("javax.xml.transform.TransformerFactory",
             "org.apache.xalan.processor.TransformerFactoryImpl");
+
         // the default processor to use is xalan        
         System.setProperty("org.xml.sax.parser",
             "org.apache.xerces.parsers.SAXParser");

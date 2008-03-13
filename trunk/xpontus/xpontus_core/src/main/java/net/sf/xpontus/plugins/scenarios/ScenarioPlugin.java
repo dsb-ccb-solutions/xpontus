@@ -57,8 +57,7 @@ public class ScenarioPlugin extends XPontusPlugin {
 
         Collection plugins = scenarioPluginExtPoint.getConnectedExtensions();
 
-        ScenarioPluginsConfiguration.getInstance()
-                                    .addEngine(new DefaultScenarioPluginImpl(),
+        ScenarioPluginsConfiguration.getInstance().addEngine(new DefaultScenarioPluginImpl(),
             this.getClass().getClassLoader());
 
         for (Iterator it = plugins.iterator(); it.hasNext();) {
@@ -68,8 +67,8 @@ public class ScenarioPlugin extends XPontusPlugin {
             String className = ext.getParameter("class").valueAsString();
             Class cl = loader.loadClass(className);
             ScenarioPluginIF m_plugin = (ScenarioPluginIF) cl.newInstance();
-            ScenarioPluginsConfiguration.getInstance()
-                                        .addEngine(m_plugin, loader);
+            ScenarioPluginsConfiguration.getInstance().addEngine(m_plugin,
+                loader);
         }
     }
 

@@ -43,17 +43,16 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi
  */
 public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
-    public static final String BEAN_ALIAS = "action.save"; 
+    public static final String BEAN_ALIAS = "action.save";
 
     /** Creates a new instance of SaveActionImpl */
     public SaveActionImpl() {
     }
 
-    public void saveDocument() {
-      
+    public void saveDocument(String title) {
         int rep = JOptionPane.showConfirmDialog(DefaultXPontusWindowImpl.getInstance()
                                                                         .getDisplayComponent(),
-                "The file has been modified. Do you want to save it?",
+                "The file " + title + " has been modified. Do you want to save it?",
                 "Save document?", JOptionPane.YES_NO_OPTION);
 
         if (rep == JOptionPane.YES_OPTION) {

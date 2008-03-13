@@ -144,7 +144,7 @@ public class DocumentTabContainer {
 
                         if (mh != null) {
                             if (mh.equals(Boolean.TRUE)) {
-                                saveAction.saveDocument();
+                                saveAction.saveDocument(editor.getDockKey().getTooltip());
                             }
                         }
 
