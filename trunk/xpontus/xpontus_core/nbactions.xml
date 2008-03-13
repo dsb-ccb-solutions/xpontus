@@ -22,4 +22,13 @@
                 <maven.test.skip>true</maven.test.skip>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-signxpontus</actionName>
+            <displayName>signxpontus</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>webstart:jnlp</goal>
+            </goals>
+        </action>
     </actions>
