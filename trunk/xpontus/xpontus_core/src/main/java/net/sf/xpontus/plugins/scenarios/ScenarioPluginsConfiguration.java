@@ -66,9 +66,7 @@ public class ScenarioPluginsConfiguration {
         try {
             Hashtable t = (Hashtable) enginesMap.get(name);
             String m_name = (String) t.get(XPontusConstantsIF.OBJECT_CLASSNAME);
-            ClassLoader m_loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
-
-            m_loader.getResource("/org/apache/avalon/framework/logger/Logger");
+            ClassLoader m_loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER); 
 
             ScenarioPluginIF plugin = (ScenarioPluginIF) m_loader.loadClass(m_name)
                                                                  .newInstance();

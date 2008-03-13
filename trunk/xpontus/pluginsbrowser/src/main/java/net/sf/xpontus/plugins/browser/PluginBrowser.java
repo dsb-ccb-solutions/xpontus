@@ -73,7 +73,7 @@ public class PluginBrowser extends javax.swing.JDialog {
     private void initComponents() {
         setLayout(new BorderLayout());
 
-        setTitle("Plugins Manager");
+        setTitle("Plugins Manager (Still under heavy development)");
 
         this.tabbedPane = new JTabbedPane();
 

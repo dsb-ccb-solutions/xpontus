@@ -356,16 +356,18 @@ public class PluginsUtils {
                 }
             } else {
                 InputStream zipin = zipFile.getInputStream(entry);
-                BufferedOutputStream fileout = new BufferedOutputStream(new FileOutputStream(outdir +
-                        File.separator + entry.getName()));
+                String path = outdir +
+                        File.separator + entry.getName();
+                System.out.println("Extracting:" + path);
+                BufferedOutputStream fileout = new BufferedOutputStream(new FileOutputStream(path));
 
                 while ((len = zipin.read(buffer)) >= 0) {
                     fileout.write(buffer, 0, len);
                 }
 
-                zipin.close();
+               
                 fileout.flush();
-                fileout.close();
+                fileout.close(); 
             }
         }
     }

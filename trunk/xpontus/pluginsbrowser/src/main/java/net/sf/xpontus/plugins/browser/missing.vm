@@ -1,0 +1,23 @@
+<html> 
+    <head></head>
+    <body> 
+        <div style="width:100%;border:1px solid;border-width: 1px;"> 
+            <h2>Missing feature</h2> 
+        </div>   
+        <p>
+            This feature has been disabled for now 
+                I didn't finished writing andtesting all the features of the plugin manager yet.
+                The uninstallation cannot delete the plugin directory.
+                The uninstallation doesn't check for plugins dependencies. This will be hopefully solved soon.</p>
+
+                <p style="color:red;font-weight:bold;">You can remove some plugins by hand by deleting the directories located here:</p>
+                <p style="color:red;font-weight:bold;">$pluginsdir</p>
+
+                <p><b><u>If you think that you deleted something important and the application doesn't start</u></b>, download again the plugins.zip
+            file available from the software homepage. Some installation instructions will guide you for the installation.</p>
+                
+            <p style"font-weight:bold;color:blue;">The next release will fix that inconvenience</p>
+
+        </p> 
+    </body> 
+</html>
