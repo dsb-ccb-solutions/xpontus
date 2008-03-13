@@ -23,8 +23,8 @@
  */
 package net.sf.xpontus.controllers.impl;
 
-import com.vlsolutions.swing.docking.DockingPreferences;
 
+import java.awt.Color;
 import net.sf.xpontus.actions.impl.AbstractXPontusActionImpl;
 import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
 import net.sf.xpontus.actions.impl.CopyActionImpl;
@@ -178,31 +178,27 @@ public class XPontusRunner {
      * @param args  command line arguments
      * @throws java.lang.Exception An exception
      */
-    public static void main(String[] args) throws Exception {
-        // set the bookmarks file for the file browser
-        DockingPreferences.setDottedDesktopStyle();
+    public static void main(String[] args) throws Exception { 
 
         // initialize the settings
         SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();
         settings.init();
-        settings.start();
-
+        settings.start(); 
+        
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         boolean showSplash = XPontusConfig.getValue(
                 "xpontus.showSplashScreenOnStartup").toString().equals("true");
 
         if (showSplash) {
-            Thread worker = new Thread() {
-                    public void run() {
-                        splash = new SplashScreen();
+            SwingUtilities.invokeLater(new Runnable() {
+
+                public void run() {
+                     splash = new SplashScreen();
                         splash.setLocationRelativeTo(splash.getOwner());
                         splash.setVisible(true);
-                    }
-                };
-
-            worker.setPriority(Thread.MIN_PRIORITY);
-            worker.start();
+                }
+            });  
         }
 
         XPontusPluginManager controller = new XPontusPluginManager();
@@ -422,16 +418,15 @@ public class XPontusRunner {
                 null));
 
         if (showSplash) {
-            Thread worker = new Thread() {
-                    public void run() {
-                        splash.dispose();
-                    }
-                };
+            SwingUtilities.invokeLater(new Runnable() {
 
-            worker.setPriority(Thread.MIN_PRIORITY);
-            worker.start();
+                public void run() {
+                    splash.dispose();
+                }
+            }); 
         }
 
+        System.out.println("Time to activate the main window");
         window.activateComponent();
     }
 }
