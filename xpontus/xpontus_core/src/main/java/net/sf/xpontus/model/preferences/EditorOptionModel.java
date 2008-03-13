@@ -24,12 +24,10 @@ package net.sf.xpontus.model.preferences;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.io.File;
-
 
 
 /**
@@ -143,7 +141,7 @@ public class EditorOptionModel extends ConfigurationModel {
     public void setFontName(String newValue) {
         String oldValue = fontName;
         fontName = newValue;
-        changeSupport.firePropertyChange("fontName", oldValue, newValue); 
+        changeSupport.firePropertyChange("fontName", oldValue, newValue);
     }
 
     /**
@@ -161,6 +159,6 @@ public class EditorOptionModel extends ConfigurationModel {
     public void setFontSize(String newValue) {
         String oldValue = fontSize;
         fontSize = newValue;
-        changeSupport.firePropertyChange("fontSize", oldValue, newValue); 
+        changeSupport.firePropertyChange("fontSize", oldValue, newValue);
     }
 }

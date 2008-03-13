@@ -89,9 +89,9 @@ public class SyntaxDocument extends PlainDocument {
         seg = new Segment();
         DEFAULT_STYLE = new SimpleAttributeSet();
         this.lexer = support.getLexer();
-        
+
         System.out.println("Lexer class:" + this.lexer.getClass().getName());
-        
+
         endTokens = new DynamicIntArray(500);
 
         Hashtable _map = (Hashtable) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_COMPLETION_ENGINES);
@@ -100,7 +100,7 @@ public class SyntaxDocument extends PlainDocument {
             Object mimeType = editor.getClientProperty(XPontusConstantsIF.CONTENT_TYPE);
 
             if (mimeType != null) {
-                if (_map.containsKey(mimeType)) { 
+                if (_map.containsKey(mimeType)) {
                     Hashtable m_map = (Hashtable) _map.get(mimeType);
 
                     try {
@@ -427,8 +427,8 @@ public class SyntaxDocument extends PlainDocument {
         super.insertString(off, str, set);
 
         if ((plugin != null) && plugin.isTrigger(str)) {
-            ContentAssistWindow.getInstance()
-                               .complete(editor, plugin, off, str, set);
+            ContentAssistWindow.getInstance().complete(editor, plugin, off,
+                str, set);
         }
     }
 }

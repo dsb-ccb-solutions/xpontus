@@ -32,8 +32,7 @@ import javax.swing.WindowConstants;
  *
  * @author yvzou
  */
-public class GotoLineView extends JDialog
-{
+public class GotoLineView extends JDialog {
     private JPanel bottomPanel;
     private JButton closeButton;
     private JLabel columnLabel;
@@ -50,8 +49,7 @@ public class GotoLineView extends JDialog
      * @param parent
      * @param modal
      */
-    public GotoLineView(java.awt.Frame parent, boolean modal)
-    {
+    public GotoLineView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         controller = new GotoLineController(this);
         initComponents();
@@ -60,24 +58,20 @@ public class GotoLineView extends JDialog
         this.columnNumberTF.setValue(new Integer(1));
     }
 
-    public GotoLineView()
-    {
+    public GotoLineView() {
         this((Frame) XPontusComponentsUtils.getTopComponent()
                                            .getDisplayComponent(), false);
     }
 
-    public int getLine()
-    {
+    public int getLine() {
         return Integer.parseInt(this.lineNumberTF.getValue().toString());
     }
 
-    public int getColumn()
-    {
+    public int getColumn() {
         return Integer.parseInt(this.columnNumberTF.getValue().toString());
     }
 
-    private void initComponents()
-    {
+    private void initComponents() {
         setLayout(new BorderLayout());
 
         detailsPanel = new JPanel(new GridBagLayout());
@@ -160,10 +154,8 @@ public class GotoLineView extends JDialog
         add(compPanel, BorderLayout.CENTER);
         detailsPanel.setVisible(false);
 
-        detailsButton.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent e)
-                {
+        detailsButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
                     detailsPanel.setVisible(!detailsPanel.isVisible());
                 }
             });

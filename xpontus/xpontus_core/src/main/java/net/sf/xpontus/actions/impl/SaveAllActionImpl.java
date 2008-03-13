@@ -55,29 +55,30 @@ public class SaveAllActionImpl extends DefaultDocumentAwareActionImpl {
     }
 
     public void run() {
-        Component c = XPontusComponentsUtils.getTopComponent()
-                                            .getDisplayComponent();
-        int answer = chooser.showSaveDialog(c);
-
-        if (answer == JFileChooser.APPROVE_OPTION) {
-            DefaultXPontusWindowImpl w = DefaultXPontusWindowImpl.getInstance();
-            DocumentTabContainer dtc = w.getDocumentTabContainer();
-            IDocumentContainer[] dc = dtc.getEditorsAsArray();
-
-            for (int i = 0; i < dc.length; i++) {
-                try {
-                    IDocumentContainer document = dc[i];
-                    JTextComponent jtc = document.getEditorComponent();
-                    FileObject fo = null;
-                    OutputStream bos = fo.getContent().getOutputStream();
-                    Writer writer = new FileWriter("/home/mrcheeks/test.txt");
-                    jtc.write(new OutputStreamWriter(bos));
-                    IOUtils.closeQuietly(writer);
-                    IOUtils.closeQuietly(bos);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
+        // I'LL DEAL WITH THAT LATER
+        //        Component c = XPontusComponentsUtils.getTopComponent()
+        //                                            .getDisplayComponent();
+        //        int answer = chooser.showSaveDialog(c);
+        //
+        //        if (answer == JFileChooser.APPROVE_OPTION) {
+        //            DefaultXPontusWindowImpl w = DefaultXPontusWindowImpl.getInstance();
+        //            DocumentTabContainer dtc = w.getDocumentTabContainer();
+        //            IDocumentContainer[] dc = dtc.getEditorsAsArray();
+        //
+        //            for (int i = 0; i < dc.length; i++) {
+        //                try {
+        //                    IDocumentContainer document = dc[i];
+        //                    JTextComponent jtc = document.getEditorComponent();
+        //                    FileObject fo = null;
+        //                    OutputStream bos = fo.getContent().getOutputStream();
+        //                    Writer writer = new FileWriter("/home/mrcheeks/test.txt");
+        //                    jtc.write(new OutputStreamWriter(bos));
+        //                    IOUtils.closeQuietly(writer);
+        //                    IOUtils.closeQuietly(bos);
+        //                } catch (Exception ex) {
+        //                    ex.printStackTrace();
+        //                }
+        //            }
+        //        }
     }
 }

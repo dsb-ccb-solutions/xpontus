@@ -21,8 +21,10 @@
  */
 package net.sf.xpontus.plugins.completion;
 
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
+import java.awt.Component;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -39,22 +41,25 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.AbstractListModel;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JWindow;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
+
 
 /**
  *
  * @author Yves Zoundi
  */
 public class CompletionWindow extends JWindow implements KeyListener,
-        ListSelectionListener, FocusListener, MouseListener {
-
+    ListSelectionListener, FocusListener, MouseListener {
     private static CompletionWindow INSTANCE;
     private JList list;
     private CompletionListModel model;
@@ -67,7 +72,8 @@ public class CompletionWindow extends JWindow implements KeyListener,
     int pos = 0;
 
     public CompletionWindow() {
-        super((Frame) XPontusComponentsUtils.getTopComponent().getDisplayComponent());
+        super((Frame) XPontusComponentsUtils.getTopComponent()
+                                            .getDisplayComponent());
         initComponents();
     }
 
@@ -84,8 +90,15 @@ public class CompletionWindow extends JWindow implements KeyListener,
     }
 
     private void closeWindow() {
-        setVisible(false);
-        jtc.grabFocus();
+        SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    setVisible(false);
+
+                    jtc.requestFocusInWindow();
+                    jtc.requestFocus();
+                    jtc.grabFocus();
+                }
+            });
     }
 
     private void initComponents() {
@@ -101,7 +114,8 @@ public class CompletionWindow extends JWindow implements KeyListener,
         list.addKeyListener(this);
         list.getInputMap().clear();
         scroll.getInputMap().clear();
-        this.maxHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        this.maxHeight = (int) Toolkit.getDefaultToolkit().getScreenSize()
+                                      .getHeight();
         list.setFocusable(true);
         this.setFocusable(true);
     }
@@ -115,27 +129,27 @@ public class CompletionWindow extends JWindow implements KeyListener,
             Point p = new Point(jtc.getLocationOnScreen());
             p.translate(caretBounds.x, caretBounds.y + caretBounds.height);
 
-            if ((p.getY() + scroll.getHeight()) > Toolkit.getDefaultToolkit().getScreenSize().getHeight()) {
+            if ((p.getY() + scroll.getHeight()) > Toolkit.getDefaultToolkit()
+                                                             .getScreenSize()
+                                                             .getHeight()) {
                 p.translate(0,
-                        (int) (-scroll.getHeight() - caretBounds.getHeight()));
+                    (int) (-scroll.getHeight() - caretBounds.getHeight()));
             }
 
             int outOfSight = (int) ((p.getX() + scroll.getWidth()) -
-                    Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+                Toolkit.getDefaultToolkit().getScreenSize().getWidth());
 
             if (outOfSight > 0) {
                 p.translate(-outOfSight, 0);
             }
+
             final int t = jtc.getCaretPosition() + 1;
             pos = t;
             setLocation(p);
-
         } catch (BadLocationException ble) {
         }
 
         setVisible(true);
-
-
 
         this.requestFocus();
 
@@ -147,10 +161,10 @@ public class CompletionWindow extends JWindow implements KeyListener,
 
         int position = jtc.getCaretPosition();
 
-        int diff = position + 1 - pos ;
+        int diff = (position + 1) - pos;
 
-        if (diff > 0) { 
-            m_selection = m_selection.substring(position - pos +1);
+        if (diff > 0) {
+            m_selection = m_selection.substring(position - pos + 1);
         }
 
         insertText(m_selection, true);
@@ -169,7 +183,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             if (model.getSize() > 0) {
                 list.setSelectedIndex((model.getSize() +
-                        list.getSelectedIndex()) % model.getSize());
+                    list.getSelectedIndex()) % model.getSize());
             }
         } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             closeWindow();
@@ -191,8 +205,8 @@ public class CompletionWindow extends JWindow implements KeyListener,
 
     private void insertText(String ch, boolean dispose) {
         try {
-            jtc.getDocument().insertString(jtc.getCaretPosition(),
-                    ch, null);
+            jtc.getDocument().insertString(jtc.getCaretPosition(), ch, null);
+
             if (dispose) {
                 closeWindow();
             }
@@ -238,7 +252,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
     }
 
     public void focusLost(FocusEvent e) {
-        setVisible(false);
+        closeWindow();
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -260,7 +274,6 @@ public class CompletionWindow extends JWindow implements KeyListener,
     }
 
     public class CompletionListModel extends AbstractListModel {
-
         private ArrayList data;
 
         public CompletionListModel() {

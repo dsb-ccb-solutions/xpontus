@@ -62,7 +62,7 @@ public class SyntaxSupportFactory {
 
         System.out.println("syntaxSupport path:" + path);
         System.out.println("syntax support mime type:" + mimeType);
-        
+
         try {
             if (map.containsKey(mimeType)) {
                 Hashtable v = (Hashtable) map.get(mimeType);

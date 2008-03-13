@@ -165,5 +165,5 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
             Toolkit.getDefaultToolkit().beep();
             console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
         }
-    } 
+    }
 }

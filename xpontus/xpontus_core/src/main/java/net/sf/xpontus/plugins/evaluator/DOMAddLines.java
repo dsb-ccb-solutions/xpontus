@@ -222,7 +222,6 @@ public class DOMAddLines extends DOMParser {
     } // sortAttributes(NamedNodeMap):Attr[]
 
     /* Methods that we override */
-
     /*   We override startElement callback  from DocumentHandler */
     public void startElement(QName elementQName, XMLAttributes attrList,
         Augmentations augs) throws XNIException {

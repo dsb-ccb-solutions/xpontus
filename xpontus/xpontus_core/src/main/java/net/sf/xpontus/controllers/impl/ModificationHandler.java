@@ -51,8 +51,8 @@ public class ModificationHandler implements DocumentListener, CaretListener {
     public ModificationHandler(IDocumentContainer editor) {
         this.editor = editor;
         editor.getEditorComponent().getDocument().addDocumentListener(this);
-        editor.getEditorComponent()
-              .putClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER, this);
+        editor.getEditorComponent().putClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER,
+            this);
         editor.getEditorComponent().addCaretListener(this);
     }
 
@@ -70,8 +70,7 @@ public class ModificationHandler implements DocumentListener, CaretListener {
 
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    editor.getEditorComponent()
-                          .putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
+                    editor.getEditorComponent().putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
                         Boolean.valueOf(modified));
 
                     String msg = "Document modified";

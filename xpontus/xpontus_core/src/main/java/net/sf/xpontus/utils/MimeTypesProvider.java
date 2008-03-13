@@ -48,8 +48,7 @@ public class MimeTypesProvider {
             if (!mimeTypesFile.exists()) {
                 java.io.OutputStream os = null;
 
-                java.io.InputStream is = getClass()
-                                             .getResourceAsStream("/net/sf/xpontus/configuration/mimetypes.properties");
+                java.io.InputStream is = getClass().getResourceAsStream("/net/sf/xpontus/configuration/mimetypes.properties");
                 os = new FileOutputStream(mimeTypesFile);
                 IOUtils.copy(is, os);
                 IOUtils.closeQuietly(is);

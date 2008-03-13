@@ -143,8 +143,8 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
         } else {
             odk.println("no indenter engine for content type:" + contentType,
                 OutputDockable.RED_STYLE);
-            getLogger()
-                .warn("no indenter engine for content type:" + contentType);
+            getLogger().warn("no indenter engine for content type:" +
+                contentType);
         }
     }
 }

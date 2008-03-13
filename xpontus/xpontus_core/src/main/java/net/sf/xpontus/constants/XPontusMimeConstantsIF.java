@@ -37,10 +37,10 @@ public interface XPontusMimeConstantsIF {
      * Mime type for XML documents
      */
     String TEXT_XML = "text/xml";
-    
-     /**
-     * Mime type for HTML documents
-     */
+
+    /**
+    * Mime type for HTML documents
+    */
     String TEXT_HTML = "text/html";
 
     /**

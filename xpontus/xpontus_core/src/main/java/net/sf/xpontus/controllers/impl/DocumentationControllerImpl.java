@@ -118,8 +118,7 @@ public class DocumentationControllerImpl {
                                                                   .getDisplayComponent());
 
         if (answer == JFileChooser.APPROVE_OPTION) {
-            view.getModel()
-                .setOutput(chooser.getSelectedFile().getAbsolutePath());
+            view.getModel().setOutput(chooser.getSelectedFile().getAbsolutePath());
         }
     }
 
@@ -175,8 +174,7 @@ public class DocumentationControllerImpl {
                     }
 
                     Hashtable t = (Hashtable) DocConfiguration.getInstane()
-                                                              .getEngines()
-                                                              .get(type);
+                                                              .getEngines().get(type);
                     ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
                     String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME)
                                         .toString();

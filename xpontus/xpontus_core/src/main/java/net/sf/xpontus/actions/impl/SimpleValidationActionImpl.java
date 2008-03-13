@@ -77,8 +77,7 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
                 XMLGrammarPool pool = new XMLGrammarPoolImpl();
                 SymbolTable table = new SymbolTable();
                 parser = new SAXParser(table, pool);
-                
-                
+
                 parser.setFeature("http://xml.org/sax/features/use-entity-resolver2",
                     true);
                 parser.setFeature("http://apache.org/xml/features/validation/schema",
@@ -107,8 +106,7 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
 
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                                   .getConsole();
-            OutputDockable odk = (OutputDockable) console.getDockables()
-                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
+            OutputDockable odk = (OutputDockable) console.getDockables().get(ConsoleOutputWindow.MESSAGES_WINDOW);
 
             if (handler.getErrors().length() == 0) {
                 container.getStatusBar().setMessage("Document is valid!");
@@ -131,8 +129,7 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
 
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                                   .getConsole();
-            OutputDockable odk = (OutputDockable) console.getDockables()
-                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
+            OutputDockable odk = (OutputDockable) console.getDockables().get(ConsoleOutputWindow.MESSAGES_WINDOW);
             IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                         .getDocumentTabContainer()
                                                                                         .getCurrentDockable();

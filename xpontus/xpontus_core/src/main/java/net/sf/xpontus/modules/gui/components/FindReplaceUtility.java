@@ -112,7 +112,9 @@ public final class FindReplaceUtility {
     static {
         FIND_REPLACE_DIALOG.setResizable(false);
         FIND_REPLACE_DIALOG.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
         // is next line needed at all?
+
         /* KeyStroke keyStroke = */ KeyStroke.getKeyStroke("enter");
 
         KeyAdapter keyAdapter = new KeyAdapter() {
@@ -469,6 +471,7 @@ public final class FindReplaceUtility {
             if (pos > -1) {
                 String pattern = (String) FIND_FIELD.getSelectedItem();
                 textComponent.requestFocus();
+
                 //                textComponent.setCaretPosition(pos);
                 //                textComponent.moveCaretPosition(pos + pattern.length());
                 textComponent.select(pos, pos + pattern.length());

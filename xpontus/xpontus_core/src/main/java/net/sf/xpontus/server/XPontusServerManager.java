@@ -128,6 +128,7 @@ public class XPontusServerManager {
 
     // test the server inside the documentation tool and documentation inside
     // if the server is idupdated verify the document
+
     /**
      * Causes the server to start its server socket and to listen for client
      * connections. If a client is accepted the server reads its input stream

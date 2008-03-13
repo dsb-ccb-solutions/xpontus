@@ -55,7 +55,7 @@ public interface XPontusTopComponentIF {
     void activateComponent();
 
     /**
-     * 
+     *
      * @param container
      */
     void setIOCContainer(IOCPlugin container);

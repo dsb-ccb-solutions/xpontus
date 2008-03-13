@@ -92,6 +92,7 @@ public class ScenarioExecutionController {
                                                                                     .getEngineForName(proc);
 
                             logger.info("Transformation the profile");
+
                             // run the transformation profile
                             m_plugin.handleScenario(dsm);
 
@@ -103,6 +104,7 @@ public class ScenarioExecutionController {
                             logger.info("Transformation done");
                         } catch (Exception e) {
                             logger.fatal("An error occured...");
+
                             // print the error
                             logger.fatal(e.getMessage());
                             odk.println(e.getMessage(), OutputDockable.RED_STYLE);

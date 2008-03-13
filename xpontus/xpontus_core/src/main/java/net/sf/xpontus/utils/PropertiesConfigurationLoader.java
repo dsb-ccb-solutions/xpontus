@@ -71,8 +71,6 @@ public class PropertiesConfigurationLoader {
             log.error(e.getMessage());
         }
 
-       
-
         return properties;
     }
 }
