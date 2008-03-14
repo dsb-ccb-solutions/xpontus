@@ -22,7 +22,7 @@
     </faq> 
 
 
- <faq id="why-xpontus">
+   <faq id="why-xpontus">
       <question>
        Well is the code completion here or not?
       </question>

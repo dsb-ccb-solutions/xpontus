@@ -33,16 +33,19 @@ import java.io.OutputStreamWriter;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import net.sf.xpontus.controllers.impl.XPontusRunner;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 /**
  *
  * @author Yves Zoundi
  */
 public class XPontusServerManager {
+
     public static final int PORT = 9876;
     private static final String EOT = ".";
-
     /** The server socket instance. */
     private static ServerSocket server;
     private static String theme = null;
@@ -67,7 +70,7 @@ public class XPontusServerManager {
         try {
             Socket socket = new Socket("localhost", PORT);
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
-                        socket.getOutputStream()));
+                    socket.getOutputStream()));
 
             for (int i = 0; i < args.length; i++) {
                 out.write((new File(args[i])).getAbsolutePath());
@@ -106,10 +109,10 @@ public class XPontusServerManager {
         if (!attach(args)) {
             if (startServerIfNeeded) {
                 System.err.println(
-                    "XPontus Server not yet started - starting now ...");
+                        "XPontus Server not yet started - starting now ...");
 
                 try {
-                    //                    initApp(args);
+                    XPontusRunner.main(args);
                     listen();
                 } catch (Exception e) {
                 }
@@ -128,7 +131,6 @@ public class XPontusServerManager {
 
     // test the server inside the documentation tool and documentation inside
     // if the server is idupdated verify the document
-
     /**
      * Causes the server to start its server socket and to listen for client
      * connections. If a client is accepted the server reads its input stream
@@ -146,7 +148,7 @@ public class XPontusServerManager {
                 do {
                     Socket socket = server.accept();
                     BufferedReader in = new BufferedReader(new InputStreamReader(
-                                socket.getInputStream()));
+                            socket.getInputStream()));
 
                     while (!socket.isClosed() && !socket.isInputShutdown()) {
                         sleep(100);
@@ -162,12 +164,20 @@ public class XPontusServerManager {
                                 break;
                             }
 
-                            //                            INSTANCE.getPane()
-                            //                                    .createEditorFromFile(new File(line));
+                            openFiles(new String[]{line});
+
+                        //                            INSTANCE.getPane()
+                        //                                    .createEditorFromFile(new File(line));
                         } catch (RuntimeException e) {
                             e.printStackTrace();
                         }
                     }
+                    
+                    JFrame f = (JFrame) DefaultXPontusWindowImpl.getInstance().getDisplayComponent();
+                     // show the editor frame
+                    f.setExtendedState(JFrame.NORMAL);
+                    f.toFront();
+                    f.setVisible(true);
                 } while (true);
             }
         } catch (Exception e) {
@@ -181,21 +191,25 @@ public class XPontusServerManager {
         }
     }
 
-    private static void openFiles(String[] args) {
-        if (args != null) {
-            for (int i = 0; i < args.length; i++) {
-                String fileName = args[i];
-                File f = new File(fileName);
+    private static void openFiles(final String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
 
-                //                if (f.exists())
-                //                {
-                //                    INSTANCE.getPane().createEditorFromFile(f);
-                //                }
-                //                else
-                //                {
-                //                    System.err.println("File not found: " + fileName);
-                //                }
+            public void run() {
+                if (args != null) {
+                    for (int i = 0; i < args.length; i++) {
+                        String fileName = args[i];
+                        try {
+                            File f = new File(fileName);
+                            if (f.exists()) {
+                                DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().createEditorFromFile(f);
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
             }
-        }
+        });
+
     }
 }

@@ -95,6 +95,7 @@ public interface XPontusConfigurationConstantsIF {
      */
     File XPONTUS_PLUGINS_DIR = new File(XPONTUS_HOME_DIR, "plugins");
 
+     
     /**
      * XPontus preferences directory
      */
