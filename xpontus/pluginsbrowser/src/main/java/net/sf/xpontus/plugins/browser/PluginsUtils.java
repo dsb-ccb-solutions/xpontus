@@ -106,6 +106,11 @@ public class PluginsUtils {
 
         return INSTANCE;
     }
+    
+    public String dependenciesMet(){
+        return null;
+    }
+    
 
     public Map<String, SimplePluginDescriptor> searchIndex(String str,
             String index) {

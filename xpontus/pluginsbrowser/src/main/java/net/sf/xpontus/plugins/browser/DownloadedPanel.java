@@ -131,7 +131,7 @@ public class DownloadedPanel extends JComponent {
         this.descriptionScrollPane = new JScrollPane(pluginDescriptionPane);
 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                detailsScrollPane, pluginDescriptionPane);
+                detailsScrollPane, descriptionScrollPane);
         splitPane.setDividerLocation(0.5);
         splitPane.setOneTouchExpandable(true);
         splitPane.setContinuousLayout(true);
