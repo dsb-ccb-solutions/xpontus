@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    
+    <properties>
+        <author email="yveszoundi.AT.users.DOT.sf.DOT.net">Yves Zoundi</author>
+        <title>Overview</title>        
+    </properties>
+    
+    <meta name="keyword" content="XSL, java"/>
+    
+    <body> 
+        <section name ="Overview">
+            <p>The goal of this plugin is to create a features complete plugin manager for XPontus XML Editor.</p>
+            <p>I started working on it, but I'm far from being done</p> 
+            <ul>
+                <li>Search installed plugins using Apache Lucene(DONE)</li>
+                <li>Check for required dependencies before install/uninstalling plugins</li>
+                <li>Search available plugins</li>
+                <li>Search upgradeable plugins</li>
+                <li>Fetch plugins without installing</li>
+                <li>Configure settings(update every day, select mirror, etc.)</li>
+            </ul> 
+            <p><a href = "http://jakarta.apache.org/commons/vfs/">Commons VFS</a> is used for filesystem abstractions.</p>
+        </section> 
+        
+    </body>
+</document>

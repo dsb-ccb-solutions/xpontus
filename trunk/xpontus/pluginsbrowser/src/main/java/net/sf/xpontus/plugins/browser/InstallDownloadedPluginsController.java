@@ -51,6 +51,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.lang.text.StrBuilder;
 import org.java.plugin.registry.PluginDescriptor;
 
 /**
@@ -137,41 +138,15 @@ public class InstallDownloadedPluginsController {
                 collectManifests(files[i], manifests, archives);
             }
 
+
             Map<String, Identity> m_map = getRegistry().register((URL[]) manifests.toArray(
                     new URL[manifests.size()]));
 
-            if (m_map.size() > 0) {
-                Iterator<String> it = m_map.keySet().iterator();
-
-                while (it.hasNext()) {
-                    String cle = it.next();
-
-                    Identity m_id = m_map.get(cle);
-                    String pluginIdentifier = m_id.getId();
-
-                    File archiveFile = view.getFilesMap().get(pluginIdentifier);
-
-                    File destFolder = new File(XPontusConfigurationConstantsIF.XPONTUS_PLUGINS_DIR,
-                            pluginIdentifier);
-
-                    if (!destFolder.exists()) {
-                        destFolder.mkdirs();
-                    }
-
-                    try {
-                        PluginsUtils.getInstance().unzip(archiveFile.getAbsolutePath(),
-                                destFolder.getAbsolutePath());
-                    } catch (Exception err) {
-                        throw new Exception("Error extracting plugin archive");
-                    }
-                }
-            }
             return m_map;
-            
-        }  
-        catch(Exception e){
+
+        } catch (Exception e) {
             throw e;
-        } 
+        }
     }
 
     public void findRowForPlugin(String id) {
@@ -225,7 +200,7 @@ public class InstallDownloadedPluginsController {
         DefaultTableModel m_model = (DefaultTableModel) table.getModel();
 
         Boolean toInstall = (Boolean) m_model.getValueAt(selected, 0);
-        if(!toInstall.booleanValue()){
+        if (!toInstall.booleanValue()) {
             XPontusComponentsUtils.showErrorMessage("Please check the checbox to select the plugin for installation");
             return;
         }
@@ -240,26 +215,76 @@ public class InstallDownloadedPluginsController {
                 System.out.println("License not accepted");
                 XPontusComponentsUtils.showErrorMessage("You must agree with the license terms");
             } else {
-                System.out.println("License accepted");
-                Object o = addManifests(new File[]{pluginArchive});
-                if(o==null){
+                XPontusComponentsUtils.showWarningMessage("The installation feature is just a demo. Too many bugs....");
+                if (true) {
                     return;
                 }
-                else{
-                    Map<String,Identity> mm = (Map<String, Identity>) o;
-                    if(mm.size() == 0){
+                Object o = addManifests(new File[]{pluginArchive});
+                if (o == null) {
+                    return;
+                } else {
+                    Map<String, Identity> m_map = (Map<String, Identity>) o;
+                    if (m_map.size() < 1) {
+
                         XPontusComponentsUtils.showWarningMessage("No plugins added, maybe the plugin was already installed?");
                         return;
+                    } else {
+                        if (m_map.size() > 0) {
+                            Iterator<String> it = m_map.keySet().iterator();
+
+                            while (it.hasNext()) {
+                                String cle = it.next();
+
+                                Identity m_id = m_map.get(cle);
+                                String pluginIdentifier = m_id.getId();
+
+
+                                File archiveFile = view.getFilesMap().get(pluginIdentifier);
+
+                                File destFolder = new File(XPontusConfigurationConstantsIF.XPONTUS_PLUGINS_DIR,
+                                        pluginIdentifier);
+
+                                if (!destFolder.exists()) {
+                                    destFolder.mkdirs();
+                                }
+
+                                try {
+                                    PluginsUtils.getInstance().unzip(archiveFile.getAbsolutePath(),
+                                            destFolder.getAbsolutePath());
+                                } catch (Exception err) {
+                                    throw new Exception("Error extracting plugin archive");
+                                }
+                            }
+                        }
                     }
                 }
                 PluginDescriptor pds = XPontusPluginManager.getPluginManager().getRegistry().getPluginDescriptor(id);
                 SimplePluginDescriptor spd = PluginsUtils.toSimplePluginDescriptor(pds);
                 PluginsUtils.getInstance().addToIndex(spd);
-                XPontusComponentsUtils.showInformationMessage("The plugin will be loaded when XPontus restarts");
+            //XPontusComponentsUtils.showInformationMessage("The plugin will be loaded when XPontus restarts");
             }
         } catch (Exception e) {
+            StrBuilder buf = new StrBuilder();
+
+            if (e instanceof IllegalArgumentException) {
+                buf.append("Please check if you are not missing");
+                buf.appendNewLine();
+                buf.append("a required plugin dependency");
+                buf.appendNewLine();
+                buf.append("XPontus cannot handle it for now!");
+                buf.appendNewLine();
+            }
+
+            buf.append(e.getMessage());
+            XPontusComponentsUtils.showErrorMessage(buf.toString());
             e.printStackTrace();
-            XPontusComponentsUtils.showErrorMessage(e.getMessage());
+
+            try {
+
+                getRegistry().unregister(new String[]{id});
+            } catch (Exception oo) {
+            }
+
         }
     }
 
