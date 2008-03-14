@@ -52,12 +52,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-
 /**
  * XPontus plugin manager
  * @author Yves Zoundi
  */
 public class XPontusPluginManager implements XPontusControllerIF {
+
     private static String PLUGINS = "plugins";
     private static PluginManager manager;
     private Log log = LogFactory.getLog(XPontusPluginManager.class);
@@ -139,19 +139,20 @@ public class XPontusPluginManager implements XPontusControllerIF {
 
         if (path.isDirectory() && path.getName().equals(PLUGINS)) {
             files = path.listFiles(new FileFilter() {
-                        public boolean accept(File pathname) {
-                            if (pathname.isFile()) {
-                                String name = pathname.getName().toLowerCase(Locale.US);
 
-                                return name.endsWith(".jar") ||
+                public boolean accept(File pathname) {
+                    if (pathname.isFile()) {
+                        String name = pathname.getName().toLowerCase(Locale.US);
+
+                        return name.endsWith(".jar") ||
                                 name.endsWith(".zip");
-                            }
+                    }
 
-                            return pathname.isDirectory();
-                        }
-                    });
+                    return pathname.isDirectory();
+                }
+            });
         } else if (path.isFile()) {
-            files = new File[] { path };
+            files = new File[]{path};
         }
 
         if (files == null) {
@@ -172,7 +173,7 @@ public class XPontusPluginManager implements XPontusControllerIF {
 
                 log.info("Plugin: " + file + " -> " + loc);
 
-                // System.out.println(file + " -> " + loc);
+            // System.out.println(file + " -> " + loc);
             } catch (MalformedURLException err) {
                 log.error("MalformedURLException:" + err.getMessage());
             }
@@ -240,6 +241,25 @@ public class XPontusPluginManager implements XPontusControllerIF {
      */
     public PluginLocation[] getPluginLocations() {
         List locations = new ArrayList();
+
+        String iswebstart = System.getProperty("xpontusisjavawebstart");
+
+        if (iswebstart == null) {
+            System.out.println("Not in webstart mode trying to load the system plugins");
+            try {
+                File systemPluginsDir = new File("plugins");
+                if (systemPluginsDir.exists()) {
+                    DefaultSettingsModuleImpl.XPONTUS_SYSTEM_PLUGIN_DIR = systemPluginsDir;
+                    System.out.println("Loading system plugins");
+                    locations.addAll(Arrays.asList(getPluginLocations(systemPluginsDir)));
+                } else {
+                    System.out.println("System plugins directory cannot be found in path :" + systemPluginsDir.getAbsolutePath());
+                }
+            } catch (Exception exe) {
+            // ignore it for now
+            }
+
+        }
 
         // "~/.xpontus/plugins"
         File mainPluginsDir = XPontusConstantsIF.XPONTUS_PLUGINS_DIR;

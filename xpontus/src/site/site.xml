@@ -36,6 +36,7 @@
             <item name = "Installation" href = "installation.html"/> 
             <item name = "Screenshots" href = "screenshots.html"/>
             <item name = "Downloads" href = "http://sourceforge.net/project/showfiles.php?group_id=118253"/>            
+            <item name = "Thanks" href = "thanks.html"/>
         </menu>        
         <menu name = "Project information"> 
             <item name = "XPontus Team" href = "team-list.html"/>

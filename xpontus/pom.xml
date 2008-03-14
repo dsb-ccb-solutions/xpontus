@@ -34,19 +34,18 @@
     </mailingLists> 
     <developers>       
         <developer>
-            <id>mrcheeks</id>
+            <id>yveszoundi</id>
             <name>Yves Zoundi</name>          
-            <organization>Universite Laval Library</organization>
-            <organizationUrl>http://www.bibl.ulaval.ca/mieux/</organizationUrl>
+            <organizationUrl>http://yveszoundi.blogspot.com</organizationUrl>
             <email>yveszoundi AT users DOT sf DOT net</email>    
             <roles>
-                <role>Developer,Project manager</role>
+                <role>Main Developer</role>
+                <role>Project manager</role>
             </roles>
         </developer>
         <developer>
             <id>mohadib</id>
-            <name>Jason Davis</name>
-            <organization>OpenActive</organization>
+            <name>Jason Davis</name> 
             <organizationUrl>http://openactive.org</organizationUrl>
             <email>mohadib AT users DOT sf DOT net</email>
             <roles>
@@ -55,14 +54,21 @@
         </developer>
         <developer>
             <id>delvinj</id>
-            <name>Daniel Johnson</name>
-            <organizationUrl>http://jedit.sf.net</organizationUrl>
-            <email>delvinj AT users DOT sf DOT net</email>
-            <organization>JEdit</organization>
+            <name>Daniel Johnson</name> 
+            <email>delvinj AT users DOT sf DOT net</email> 
             <roles>
                 <role>Developer</role>
             </roles>
         </developer>
+         <developer>
+            <id>r0bsf</id>
+            <name>Robert O'Connor</name> 
+            <organizationUrl>http://robbyoconnor.blogspot.com</organizationUrl>
+            <email>rob AT mybawx DOT org</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer> 
     </developers>
     <contributors>
         <contributor>
@@ -94,7 +100,18 @@
         <module>preview_plugin</module>
         <module>scripting_plugin</module>
         <module>xmlsecurity</module>
-    <module>pluginsbrowser</module>
-    <module>perspectives_plugin</module>
-  </modules>   
+        <module>pluginsbrowser</module>
+        <module>perspectives_plugin</module>
+    </modules>   
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId> 
+                <configuration>
+                    <locales>en</locales> 
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

@@ -4,101 +4,58 @@
     <properties>
         <author email="yveszoundi.AT.users.DOT.sf.DOT.net">Yves Zoundi</author>
         <title>Features</title>        
-    </properties>
+    </properties> 
     
-    
-    
-    <body> 
+    <body>  
         
-        
-        <section name = "Features">
-            <table align ="center" width="80%">
-                <tr>
-                    <th width="25%">Module</th>
-                    <th width="55%">Description and status</th>
-                </tr>
-                <tr>
-                    <td width="25%"><strong>The core IDE</strong></td>   
-                    <td width="55%"><p>Some basic text editing features are still missing.</p>
-                        <ul>
-                            <li>As I moved from local filesystem usage to commons-vfs for filesystem abstractions, you cannot save a document yet.</li>
-                            <li>Printing bugs present in 1.0.0-rc3 will be fixed. Some people reported that they can't print multiple pages. In Ubuntu to be able to print you have to downgrade your version of cups to 1.2.8(cups or java bug??).</li>
-                    </ul></td> 
-                </tr>
-                
-                <tr>
-                    <td width="25%"><strong>Code completion</strong></td>   
-                    <td width="55%"><p>The basic functionality is ready. It is not fast and efficient, might be slow. The completion is not intelligent yet. You get a full list of elements/attributes in the suggestion list.</p>
-                    <p>Code completion wasn't designed as a plugin so I have to refractor the old code I have.</p></td> 
-                </tr>
-                
-                
-                
-                <tr>
-                    <td width="25%"><strong>XPontus plugin's browser</strong></td>   
-                    <td width="55%"> <p>It allows you to install , remove, update or query available plugins</p></td> 
-                </tr>
-                
-                
-                <tr>
-                    <td width="25%"><strong>XPontus icons plugin</strong></td>   
-                    <td width="55%">It allows you to use a different icon theme</td> 
-                </tr>
-                
-                
-                <tr>
-                    <td width="25%"><strong>XPontus themes plugin</strong></td>   
-                    <td width="55%">It allows you to use different look and feels for the editor : Windows look and feel, etc.</td> 
-                </tr>
-                
-                
-                <tr>
-                    <td width="25%"><strong>XPontus virtual file system plugin</strong></td>   
-                    <td width="55%"><p>It allows the editor to open a local or remote files. It will support the following protocols : Local, Samba, SSH, HTTP, HTTPS, FTP</p></td> 
-                </tr>
-                
-                
-                <tr>
-                    <td width="25%"><strong>Schema converter/generator plugin</strong></td>   
-                    <td width="55%"><p>The schema converter plugin allows you to generate/convert files into differents formats. Supported formats are : DTD, XML Schema, Relax NG, XML.</p></td> 
-                </tr>
-                
-                
-                <tr>
-                    <td width="25%"><strong>Documentation generator plugin</strong></td>   
-                    <td width="55%">
-                        <ul>
-                            <li> It supports generating documentation from DTDS or XML Schemas. It only supports single files.</li>
-                            <li> The XSL documentation generator plugin is not added yet. It depends on my other project Jxsltdoc.</li>
-                        </ul>
-                    </td> 
-                </tr>
-                
-                
-                <tr>
-                    <td width="25%"><strong>Lexer plugin</strong></td>   
-                    <td width="55%">The lexer plugin is responsible for syntax coloring. For now there is XML and HTML files are supported.</td> 
-                </tr>
-                
-                <tr>
-                    <td width="25%"><strong>Validation plugin</strong></td>   
-                    <td width="55%">It allows you to validate files. 3 sub-plugins are available for now : Simple xml validation, Batch XML validation, External Schema validation</td> 
-                </tr>
-                
-                <tr>
-                    <td width="25%"><strong>Users transformations plugin</strong></td>   
-                    <td width="55%">It allows you to manage transformations profiles and execute them. The following engines are available : Xalan 2.7.0, Saxon 6.5.4, Saxon 8, XQuery, STX, Apache FO </td> 
-                </tr>
-                
-                <tr>
-                    <td width="25%"><strong>Expression evaluator plugin</strong></td>   
-                    <td width="55%">The expression evaluator plugin allows you evaluate 3 kind of expressions : XPath 1.0, XPath 2.0 and XQuery</td> 
-                </tr>
-                
-                
-            </table>
-        </section> 
-        
-        
+        <section name = "Features"> 
+            <subsection name = "Modularity">
+                <p>XPontus is now built on top of a plugin framework to allow a modular development. Most of XPontus features are provided as plugins.</p>
+            </subsection>
+             <subsection name= "Code completion">
+                 <p>For general XML files code completion is built on the fly when a DTD or schema is associated to the document. XSL completion is provided using a DTD embedded in the XML code completion plugin.</p>
+                <p>For HTML files, an embedded DTD is used to create the code completion database.</p> 
+            </subsection>
+            <subsection name= "XPath support">
+                <p>XPath 1.0 plugin is shipped.</p>
+            </subsection>
+            <subsection name= "Syntax highlighting">
+               <p>Syntax coloring is enabled for XML and HTML files</p>
+            </subsection>
+            <subsection name = "XSL transformations">
+                <p>Like in the previous versions, XSL transformations are available(PDF, HTML, XML, SVG, TEXT).</p>
+            </subsection>
+            <subsection name= "Validation"> 
+                <ul>
+                    <li>The Simple validation plugin can validate an opened document only</li>
+                    <li>The Batch XML validation can accept a list of files and/or directories and validate them based on some file extensions patterns(*.xml, *.xsl)</li>                     
+                </ul>
+            </subsection> 
+            <subsection name="Code structure browser">
+                <p>XPontus can display the hierarchic structure of XML and HTML files</p>
+            </subsection>
+            <subsection name="Code indentation">
+                <p>Code indentation is available for XML and HTML files.</p>
+            </subsection>
+            <subsection name = "File system abstractions">
+                <p>XPontus will be able to use file system abstraction which means that a FTP file and a local file will be look all the same to the application.</p>
+            </subsection>
+            <subsection name = "Schema generation/conversion">
+                <p>The software can generate DTDS, XML schemas, Relax NG grammars from XML files.</p>
+            </subsection>
+            <subsection name ="Documentation generator">
+                <p>XPontus features 2 types of documentation generators:</p>
+                <ul>
+                    <li>an XML schema documentation generator</li>
+                    <li>a DTD documentation generator</li> 
+                </ul>
+            </subsection> 
+            <subsection name = "Multiple installers">
+                <p>Installers are available for Windows, Linux(Debian/Ubuntu, Suse/Fedora, Slackware), Unix, FreeBSD, Mac OS. There is also a cross platform installer</p>
+            </subsection>
+            <subsection name = "Platform interoperability">
+                <p>As XPontus is written Java, it runs on most platforms such as Windows, Linux/Unix, FreeBSD, MacOS.</p>
+            </subsection>
+        </section>  
     </body>
 </document>

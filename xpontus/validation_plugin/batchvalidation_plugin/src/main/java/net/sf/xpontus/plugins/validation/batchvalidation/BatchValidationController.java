@@ -20,7 +20,6 @@ package net.sf.xpontus.plugins.validation.batchvalidation;
 
 import com.ibm.icu.text.CharsetDetector;
 
-import com.sun.java.help.impl.SwingWorker;
 
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -60,7 +59,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
-import javax.swing.ProgressMonitor;
 
 
 /**

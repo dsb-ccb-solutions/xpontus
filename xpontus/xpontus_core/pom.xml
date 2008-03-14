@@ -30,7 +30,7 @@
                                 <manifest>
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib</classpathPrefix>
-                                    <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
+                                    <mainClass>net.sf.xpontus.server.XPontusServerManager</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
@@ -315,7 +315,7 @@
                     </execution>
                 </executions> 
                 <configuration>       
-                    <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
+                    <mainClass>net.sf.xpontus.server.XPontusServerManager</mainClass>
                 </configuration>
             </plugin>    
             <plugin>
@@ -333,7 +333,7 @@
                     <outputDirectory>${project.build.directory}/${project.build.finalName}/webstart</outputDirectory> 
                     <jnlp>
                         <outputFile>xpontus.jnlp</outputFile> 
-                        <mainClass>net.sf.xpontus.controllers.impl.XPontusRunner</mainClass>
+                        <mainClass>net.sf.xpontus.server.XPontusServerManager</mainClass>
                     </jnlp> 
                     <sign>
                         <keystore>${basedir}/xpontus</keystore>

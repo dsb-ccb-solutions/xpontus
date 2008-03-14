@@ -18,4 +18,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <description>Plugin support for Jython</description>
 </project>

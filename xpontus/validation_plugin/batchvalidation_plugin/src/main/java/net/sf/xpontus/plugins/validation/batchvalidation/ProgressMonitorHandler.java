@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 
 import java.net.URL;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -42,10 +43,16 @@ public class ProgressMonitorHandler extends JComponent {
         this.min = min;
         this.max = max;
 
-        Dimension dim = new Dimension(70, 20);
         progressBar = new JProgressBar(min, max);
-        progressBar.setMinimumSize(dim);
-        progressBar.setPreferredSize(dim);
+        progressBar.setBorder(BorderFactory.createEmptyBorder());
+
+        Dimension m_dimension = new Dimension(20, 5);
+        progressBar.setMinimumSize(m_dimension);
+        progressBar.setPreferredSize(m_dimension);
+
+        progressBar.setBorderPainted(true);
+        progressBar.setStringPainted(true);
+        progressBar.setString("");
 
         URL iconURL = getClass().getResource("close-button.png");
         Icon sIcon = new ImageIcon(iconURL);
@@ -70,7 +77,7 @@ public class ProgressMonitorHandler extends JComponent {
 
         add(cancelButton, gbc);
 
-        gbc = new GridBagConstraints(1, 0, 1, 2, 0.5, 1,
+        gbc = new GridBagConstraints(1, 0, 1, 2, 0.8, 1,
                 GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL,
                 new Insets(2, 2, 2, 2), 0, 0);
 
@@ -78,12 +85,15 @@ public class ProgressMonitorHandler extends JComponent {
     }
 
     public void updateProgress(final int value2) {
-        SwingUtilities.invokeLater(new Runnable() {
+        Thread worker = new Thread() {
                 public void run() {
                     value = value2;
                     progressBar.setValue(value2);
                 }
-            });
+            };
+
+        worker.setPriority(Thread.MIN_PRIORITY);
+        worker.start();
     }
 
     public boolean isCanceled() {

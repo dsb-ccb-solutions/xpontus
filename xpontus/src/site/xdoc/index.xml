@@ -6,32 +6,36 @@
         <title>Homepage</title>    
     </properties> 
     <body> 
-       <section name = "Information">
-            <p>I plan to release a snapshot version of XPontus 1.0.0-pre1 in early 2008. It will a Java Web Start only release with as less bugs as possible. It will allow me to get a quick feedback before the official release.</p>
+       <section name = "News">
+            <p>The 1.0.0-pre1 version of XPontus will be out next week(17-03-2008).</p> 
+		<p style="font-weight:bold;color:blue;font-size:+1"><a href="http://xpontus.sf.net/snapshot">TRY OUT THE LATEST UPCOMING RELEASE SNAPSHOT HERE (Last updated 13/03/2008 07:45 AM)</a></p>
+		<p><strong><em>Changelog: Warning and notifications about the plugin manager behaviour. It's there but not stable/usefull yet.</em></strong></p>
+		<p><span style="color:red">If you have issues with the Java Web Start snapshot, remove your .xpontus folder and download the <u>plugins.zip</u> file again</span>.</p>
+
+		<p style="font-weight:bold;color:blue;font-size:+1">The Java Web Start snapshot is updated on a regular basis. So if you see that the application is trying to update, please redownload and install the plugins.zip file as mentionned in the snapshot download page(above).</p>
+
+		<p>A first draft of the <strong><a href="dev_guide.pdf">DEVELOPER GUIDE</a></strong> is on the way.</p>
         </section>
         
         <section name ="Overview">
             <p>XPontus XML Editor is a simple XML Editor with lots of features. It aims to become "the" free alternative to
-            commercial XML IDES such as XMLSPy or Oxygen XML Editor, or Exchanger XML Editor.</p>
-            <p>I focus the development on simplicity and speed. I try to optimize the code for low specs pcs. This is why most features will be available as modules.
-            The editor will never become a monster beast with 100mb to download at least for now :-0.</p> 
-        </section>
-        
-        <section name = "About the new branch">
-            <p>This is a complete rewrite of the previous beta and release candidates. Lots of new features
-                were requested again and again. It was very difficult to add new features in a modular 
-                manner without touching the code base. I learned a lot from my first coding attempts 
-                and I feel more experienced now. I hope that the brand new version will be great.
-            The latest news about XPontus development can be found on my <a target = "_blank" href = "http://yveszoundi.blogspot.com">blog</a>.</p>
-        </section> 
+            commercial XML IDES such as XMLSPy or Oxygen XML Editor, or Exchanger XML Editor without the "Entreprise features" for now.</p> 
+        </section>        
         
         <section name ="Features">
-            <p>XPontus tries to provide you the features you would expect in a real XML IDE in a familiar and conviviable manner.</p>
-            <p>I work on the usability and look at other applications to inspire myself when I design the application. So when
-            you choose to use XPontus XML Editor, you are not completely lost. </p>
-            <p>XPontus is not just an XML Editor no more, it is becoming a framework with pluggable modules. The plugin framework used
-            to create XPontus plugins is <a target = "_blank" href = "http://jpf.sf.net">JPF</a>.</p>
+            <p>XPontus tries to provide you the features you would expect of a real XML IDE in a familiar and conviviable manner.</p>
+           
+            <p>Have a look at the <a href="features.html">features</a> page for more details.</p>
         </section>
+        
+        <section name = "Goals">
+            <ul> 
+                <li>Become a full featured XML Editor.</li>
+                <li>Integrate easily in popular IDES such as Eclipse and Netbeans</li>
+                <li>Integrate easily into other applications requiring XML needs</li> 
+            </ul>
+        </section> 
+        
         
     </body>
 </document>

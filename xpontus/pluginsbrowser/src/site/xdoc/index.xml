@@ -14,13 +14,15 @@
             <p>I started working on it, but I'm far from being done</p> 
             <ul>
                 <li>Search installed plugins using Apache Lucene(DONE)</li>
+                <li>Reload plugins</li>
                 <li>Check for required dependencies before install/uninstalling plugins</li>
                 <li>Search available plugins</li>
                 <li>Search upgradeable plugins</li>
                 <li>Fetch plugins without installing</li>
                 <li>Configure settings(update every day, select mirror, etc.)</li>
-            </ul> 
-            <p><a href = "http://jakarta.apache.org/commons/vfs/">Commons VFS</a> is used for filesystem abstractions.</p>
+            </ul>  
+            
+            <p><img src="images/pluginmanager.png"/></p>
         </section> 
         
     </body>

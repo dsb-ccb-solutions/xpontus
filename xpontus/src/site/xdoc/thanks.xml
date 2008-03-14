@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+
+<properties>
+    <author email="yveszoundi.AT.users.DOT.sf.DOT.net">Yves Zoundi</author>
+    <title>Thanks to all of you</title>        
+</properties>
+
+
+<meta name="keyword" content="XSL, java"/>
+
+<body> 
+<section name = "Thank you">
+<p>Without other great existing software I couldn't have kept on with XPontus XML Editor development</p>
+<ul>
+    <li><a href="http://www.ej-technologies.com/products/install4j/overview.html">ej-technologies</a> for granting XPontus a license of install4j, an advanced cross-platform installer.</li>  
+    <li><a href="http://www.vlsolutions.com/en/products/docking/">VLSolutions</a> offers a GPL license of its docking framework.</li>
+    <li><a href="http://www.jidesoft.com/products/oss.htm">JIDE</a> has lots of professional Java Swing components offered under the GPL license.</li>
+    <li>Thanks to all members of the XPontus team. <a href="http://openactive.org/">Jason Davis</a> helped me a lot with the syntax coloring logic.</li>
+    <li><a href="http://designapama.blogspot.com/">Apama design</a> created the new logo of XPontus XML Editor.</li>
+   
+</ul>
+
+<ul>
+     <li>Thanks to other people who contributed one way or an other to the project.</li>
+    <li>Thanks to you users for downloading XPontus, suggesting improvements, filling bug reports. I didn't expect that many downloads of the software as it was still beta with limited features.</li>
+</ul>
+
+</section>  
+</body>
+</document>

@@ -62,6 +62,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     public static final String ROLE = DefaultSettingsModuleImpl.class.getName() +
         ".ROLE";
     private static DefaultSettingsModuleImpl INSTANCE;
+    public static File XPONTUS_SYSTEM_PLUGIN_DIR;
 
     //    private ObjectContainer container;
     private String dbFile;
