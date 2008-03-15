@@ -34,6 +34,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
@@ -85,8 +86,11 @@ public class XPathResultsDockable extends OutputDockable {
 
     public void setResultsModel(TableModel model) {
         xpathResultsTable.setModel(model);
+        String m_title = "Results (" + model.getRowCount() + ")";
+        xpathResultsTable.getColumnModel().getColumn(0).setHeaderValue(m_title); 
         xpathResultsTable.revalidate();
         xpathResultsTable.repaint();
+        
     }
 
     /**

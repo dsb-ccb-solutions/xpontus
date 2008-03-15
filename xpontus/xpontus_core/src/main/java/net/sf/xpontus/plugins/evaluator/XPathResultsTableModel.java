@@ -89,6 +89,8 @@ public class XPathResultsTableModel extends AbstractTableModel {
 
             data[i][0] = res;
         }
+        
+        
     }
 
     /* (non-Javadoc)
