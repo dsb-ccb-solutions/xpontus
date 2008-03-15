@@ -44,8 +44,10 @@ import java.net.URL;
 
 import java.util.Iterator;
 
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
+import org.apache.commons.collections.map.ListOrderedMap;
 
 
 /**
@@ -59,7 +61,10 @@ public class GUIUtils {
     }
 
     public static FileFilter createFilter(final String description,
-        final String[] patterns) {
+        final List patterns) {
+        
+        System.out.println("description:" + description);
+        
         FileFilter m_filter = new FileFilter() {
                 public boolean accept(File f) {
                     WildcardFileFilter a = new WildcardFileFilter(patterns,
@@ -79,14 +84,49 @@ public class GUIUtils {
 
         return m_filter;
     }
+    
+    private static FileFilter[] m_filters;
 
+    private static void initFilters(){
+        if(m_filters == null){
+            MimeTypesProvider provider = MimeTypesProvider.getInstance();
+            ListOrderedMap types = provider.getTypes();
+            m_filters = new FileFilter[types.size()];
+            
+            Iterator m_it = types.keySet().iterator();
+            for(int i=0;m_it.hasNext();i++){
+                String mime = m_it.next().toString();
+                List files = (List) types.get(mime);
+                m_filters[i] = createFilter(mime, files);
+            }
+            
+            
+            
+        }
+    }
     public static void installDefaultFilters(JFileChooser chooser) {
-        chooser.addChoosableFileFilter(createFilter("XML Files",
-                new String[] { "*.xml", "*.xhtml" }));
-        chooser.addChoosableFileFilter(createFilter("XSL stylesheets",
-                new String[] { "*.xsl", "*.xslt" }));
-        chooser.addChoosableFileFilter(createFilter("HTML Files",
-                new String[] { "*.html", "*.htm" }));
+        initFilters();
+//        Hashtable mimesMap = MimeTypesProvider.getInstance().getContentTypesMap();
+//        Iterator it = mimesMap.keySet().iterator();
+//        
+//        while(it.hasNext()){
+//            Object o = it.next();
+//            Object val = mimesMap.get(o);
+//            System.out.println(o + " " + val);
+//        }
+        
+        
+        for(FileFilter m_filter: m_filters){
+             chooser.addChoosableFileFilter(m_filter); 
+        }
+//        
+//        
+//        chooser.addChoosableFileFilter(createFilter("XML Files",
+//                new String[] { "*.xml", "*.xhtml" }));
+//        chooser.addChoosableFileFilter(createFilter("XSL stylesheets",
+//                new String[] { "*.xsl", "*.xslt" }));
+//        chooser.addChoosableFileFilter(createFilter("HTML Files",
+//                new String[] { "*.html", "*.htm" }));
         chooser.setFileFilter(chooser.getAcceptAllFileFilter());
     }
 

@@ -28,8 +28,9 @@ import org.apache.commons.io.IOUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import javax.activation.FileTypeMap;
+import java.util.Hashtable;
 import javax.activation.MimetypesFileTypeMap;
+import org.apache.commons.collections.map.ListOrderedMap;
 
 
 /**
@@ -38,7 +39,7 @@ import javax.activation.MimetypesFileTypeMap;
  */
 public class MimeTypesProvider {
     private static MimeTypesProvider INSTANCE;
-    private FileTypeMap provider;
+    private XPontusMimetypesFileTypeMap provider;
 
     private MimeTypesProvider() {
         File mimeTypesFile = new File(XPontusConstantsIF.XPONTUS_HOME_DIR,
@@ -56,6 +57,7 @@ public class MimeTypesProvider {
             }
 
             provider = new XPontusMimetypesFileTypeMap(mimeTypesFile.getAbsolutePath());
+            
             MimetypesFileTypeMap.setDefaultFileTypeMap(provider);
         } catch (Exception err) {
             err.printStackTrace();
@@ -98,5 +100,13 @@ public class MimeTypesProvider {
         }
 
         return INSTANCE;
+    }
+    
+    public Hashtable getContentTypesMap() {
+        return provider.getContentTypesMap();
+    }
+    
+    public ListOrderedMap getTypes(){
+        return provider.getTypes();
     }
 }
