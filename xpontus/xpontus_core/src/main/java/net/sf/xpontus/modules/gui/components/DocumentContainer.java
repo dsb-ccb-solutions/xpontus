@@ -374,7 +374,7 @@ public class DocumentContainer implements IDocumentContainer {
      */
     public void init() {
         DockingDesktop desk = ((DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent()).getDesktop();
-
+        
         closeAllInTab = TabbedContainerActions.createCloseAllAction(this, desk);
         closeAllOtherInTab = TabbedContainerActions.createCloseAllOtherAction(this,
                 desk);

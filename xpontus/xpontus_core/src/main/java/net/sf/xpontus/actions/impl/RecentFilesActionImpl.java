@@ -69,9 +69,7 @@ public class RecentFilesActionImpl extends AbstractXPontusActionImpl
     private void fillSubMenu() {
         menu.removeAll();
 
-        List<String> files = FileHistoryList.getFileHistoryList();
-
-        System.out.println("recent:" + files.size());
+        List<String> files = FileHistoryList.getFileHistoryList(); 
 
         for (final String path : files) {
             final JMenuItem item = new JMenuItem(path);
