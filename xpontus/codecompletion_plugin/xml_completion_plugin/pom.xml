@@ -29,6 +29,12 @@
             <artifactId>dtdparser</artifactId>
             <version>1.21</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.dynvocation.selfip</groupId>
+            <artifactId>xsd4j</artifactId>
+            <version>0.3</version>
+            <scope>compile</scope>
         </dependency> 
     </dependencies>
     <build>
