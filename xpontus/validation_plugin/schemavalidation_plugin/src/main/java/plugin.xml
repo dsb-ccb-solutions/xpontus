@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 1.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.core.menubar.schemavalidationplugin" version="0.0.1" class="net.sf.xpontus.plugins.validation.schemavalidation.SchemaValidationPlugin">      
+<plugin id="plugin.core.menubar.schemavalidationplugin" vendor="Yves Zoundi" version="0.0.1" class="net.sf.xpontus.plugins.validation.schemavalidation.SchemaValidationPlugin">      
      <attributes>
         <attribute id = "Category" value="Validation"/>
         <attribute id = "Built-in" value = "false"/>
@@ -10,8 +10,8 @@
         <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
         <attribute id = "date" value = "26-02-2008"/>
     </attributes>
-    <requires>
-        <import plugin-id="plugin.core.menubar" />
+     <requires>
+        <import plugin-id="plugin.core.actions" />
     </requires>
     <runtime> 
         <library id="schemavalidationplugin" path="lib/schemavalidation_plugin-1.0.0-pre1.jar" type="code">
@@ -30,7 +30,7 @@
             <export prefix="*"/> 
         </library> 
     </runtime>
-    <extension plugin-id="plugin.core.menubar" point-id="menubarpluginif" id="schemavalidationplugin">
+     <extension plugin-id="plugin.core.actions" point-id="actionpluginif" id="schemavalidationplugin">
         <parameter id="class" value="net.sf.xpontus.plugins.validation.schemavalidation.SchemaValidationPluginImpl" /> 
     </extension>
 </plugin>

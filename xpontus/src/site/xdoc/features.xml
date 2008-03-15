@@ -29,6 +29,7 @@
                 <ul>
                     <li>The Simple validation plugin can validate an opened document only</li>
                     <li>The Batch XML validation can accept a list of files and/or directories and validate them based on some file extensions patterns(*.xml, *.xsl)</li>                     
+                    <li>he External schema validation plugin validates a file against an external schema(ie when the document has no associated schema)</li>
                 </ul>
             </subsection> 
             <subsection name="Code structure browser">

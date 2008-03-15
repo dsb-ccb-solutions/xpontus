@@ -49,11 +49,11 @@ import java.io.OutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
-
 
 /**
  * Action to save a document under a new name
@@ -61,6 +61,7 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
+
     public static final String BEAN_ALIAS = "action.saveas";
     private JFileChooser chooser;
 
@@ -77,18 +78,16 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
             chooser = new JFileChooser();
         }
 
-        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                           .getDocumentTabContainer();
+        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer();
 
         chooser.setDialogTitle("Save " +
-            dtc.getCurrentDockable().getDockKey().getName());
+                dtc.getCurrentDockable().getDockKey().getName());
 
         doSave();
     }
 
     public void doSave() {
-        int answer = chooser.showSaveDialog(XPontusComponentsUtils.getTopComponent()
-                                                                  .getDisplayComponent());
+        int answer = chooser.showSaveDialog(XPontusComponentsUtils.getTopComponent().getDisplayComponent());
 
         // open the selected files
         if (answer == JFileChooser.APPROVE_OPTION) {
@@ -123,11 +122,9 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
      * @param fo
      * @throws java.lang.Exception
      */
-    public void save(FileObject fo) throws Exception {
+    public void save(final FileObject fo) throws Exception {
         // get the current document
-        IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
-                                                                                    .getDocumentTabContainer()
-                                                                                    .getCurrentDockable();
+        IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentDockable();
 
         final JTextComponent editor = container.getEditorComponent();
 
@@ -149,8 +146,7 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
         String m_ext = FilenameUtils.getExtension(fo.getName().getBaseName());
 
         // dummy mime type detection
-        String mm = MimeTypesProvider.getInstance().getMimeType(fo.getName()
-                                                                  .getBaseName());
+        String mm = MimeTypesProvider.getInstance().getMimeType(fo.getName().getBaseName());
 
         final Object currentMime = editor.getClientProperty(XPontusConstantsIF.CONTENT_TYPE);
 
@@ -160,11 +156,19 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
         // add information about the file location
         editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo);
 
-        Dockable dc = DefaultXPontusWindowImpl.getInstance()
-                                              .getDocumentTabContainer()
-                                              .getCurrentDockable();
-        dc.getDockKey().setTooltip(fo.getURL().toExternalForm());
-        dc.getDockKey().setName(fo.getName().getBaseName());
+        final Dockable dc = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentDockable();
+
+        SwingUtilities.invokeLater(new Runnable() {
+
+            public void run() {
+                try { 
+                    dc.getDockKey().setTooltip(fo.getURL().toExternalForm());
+                    dc.getDockKey().setName(fo.getName().getBaseName());
+                } catch (Exception exe) {
+                // do nothing
+                }
+            }
+        });
 
         // removed the modified flag
         ModificationHandler handler = (ModificationHandler) editor.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);
@@ -201,10 +205,11 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
                 editor.putClientProperty(XPontusConstantsIF.UNDO_MANAGER, _undo);
 
                 editor.getDocument().addUndoableEditListener(new UndoableEditListener() {
-                        public void undoableEditHappened(
+
+                    public void undoableEditHappened(
                             UndoableEditEvent event) {
-                            ((XPontusUndoManager) editor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER)).addEdit(event.getEdit());
-                        }
+                        ((XPontusUndoManager) editor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER)).addEdit(event.getEdit());
+                    }
                     });
             }
         }

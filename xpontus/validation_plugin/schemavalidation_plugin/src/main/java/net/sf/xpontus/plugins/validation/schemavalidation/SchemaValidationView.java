@@ -33,6 +33,7 @@ public class SchemaValidationView extends javax.swing.JDialog {
         adapter = new BeanAdapter(model, true); 
         controller = new SchemaValidationController(this);
         initComponents();
+        inputButton.setEnabled(false);
     }
     
     public SchemaValidationView(){
@@ -81,6 +82,7 @@ public class SchemaValidationView extends javax.swing.JDialog {
                 SchemaValidationController.INPUT_METHOD)
         );
 
+        inputTF.setEditable(false);
         Bindings.bind(inputTF, adapter.getValueModel("input"));
 
         useCurrentDocumentOption.setText("Use current document");
@@ -98,34 +100,34 @@ public class SchemaValidationView extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout inputPanelLayout = new javax.swing.GroupLayout(inputPanel);
+        org.jdesktop.layout.GroupLayout inputPanelLayout = new org.jdesktop.layout.GroupLayout(inputPanel);
         inputPanel.setLayout(inputPanelLayout);
         inputPanelLayout.setHorizontalGroup(
-            inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inputPanelLayout.createSequentialGroup()
+            inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(inputPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(inputPanelLayout.createSequentialGroup()
-                        .addComponent(inputButton)
-                        .addGap(51, 51, 51)
-                        .addComponent(inputTF, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
-                    .addGroup(inputPanelLayout.createSequentialGroup()
-                        .addComponent(useCurrentDocumentOption)
-                        .addGap(33, 33, 33)
-                        .addComponent(useExternalDocumentOption)))
+                .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(inputPanelLayout.createSequentialGroup()
+                        .add(inputButton)
+                        .add(51, 51, 51)
+                        .add(inputTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
+                    .add(inputPanelLayout.createSequentialGroup()
+                        .add(useCurrentDocumentOption)
+                        .add(33, 33, 33)
+                        .add(useExternalDocumentOption)))
                 .addContainerGap())
         );
         inputPanelLayout.setVerticalGroup(
-            inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inputPanelLayout.createSequentialGroup()
+            inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(inputPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputButton)
-                    .addComponent(inputTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(useCurrentDocumentOption)
-                    .addComponent(useExternalDocumentOption))
+                .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(inputButton)
+                    .add(inputTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                .add(inputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(useCurrentDocumentOption)
+                    .add(useExternalDocumentOption))
                 .addContainerGap())
         );
 
@@ -139,26 +141,27 @@ public class SchemaValidationView extends javax.swing.JDialog {
                 SchemaValidationController.SCHEMA_METHOD)
         );
 
+        schemaTF.setEditable(false);
         Bindings.bind(schemaTF, adapter.getValueModel("schema"));
 
-        javax.swing.GroupLayout schemaPanelLayout = new javax.swing.GroupLayout(schemaPanel);
+        org.jdesktop.layout.GroupLayout schemaPanelLayout = new org.jdesktop.layout.GroupLayout(schemaPanel);
         schemaPanel.setLayout(schemaPanelLayout);
         schemaPanelLayout.setHorizontalGroup(
-            schemaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(schemaPanelLayout.createSequentialGroup()
+            schemaPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(schemaPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(schemaButton)
-                .addGap(51, 51, 51)
-                .addComponent(schemaTF, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .add(schemaButton)
+                .add(51, 51, 51)
+                .add(schemaTF, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                 .addContainerGap())
         );
         schemaPanelLayout.setVerticalGroup(
-            schemaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(schemaPanelLayout.createSequentialGroup()
-                .addGroup(schemaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(schemaButton)
-                    .addComponent(schemaTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+            schemaPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(schemaPanelLayout.createSequentialGroup()
+                .add(schemaPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(schemaButton)
+                    .add(schemaTF, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(21, 21, 21))
         );
 
         validateButton.setText("Validate");
@@ -179,28 +182,28 @@ public class SchemaValidationView extends javax.swing.JDialog {
         );
         bottomPanel.add(cancelButton);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(schemaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
-                .addGap(22, 22, 22))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(schemaPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(inputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(bottomPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+                .add(22, 22, 22))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(schemaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bottomPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(inputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(schemaPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 79, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(bottomPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

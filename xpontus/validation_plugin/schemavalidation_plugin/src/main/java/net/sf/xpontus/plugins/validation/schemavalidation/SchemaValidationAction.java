@@ -32,8 +32,7 @@ import javax.swing.ImageIcon;
  */
 public class SchemaValidationAction extends XPontusDialogActionImpl {
     public SchemaValidationAction() {
-        this.setName("External schema validation");
-
+        this.setName("External schema validation"); 
         ImageIcon icon = new ImageIcon(getClass().getResource("xsd16.gif"));
         this.putValue(Action.SMALL_ICON, icon);
         this.setDescription("External schema validation");

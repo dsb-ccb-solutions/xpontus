@@ -13,7 +13,7 @@
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="2"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
@@ -27,7 +27,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="schemaPanel" alignment="0" max="32767" attributes="1"/>
                   <Component id="inputPanel" alignment="0" min="-2" max="-2" attributes="1"/>
-                  <Component id="bottomPanel" alignment="0" pref="452" max="32767" attributes="1"/>
+                  <Component id="bottomPanel" alignment="0" pref="467" max="32767" attributes="1"/>
               </Group>
               <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
           </Group>
@@ -106,6 +106,9 @@
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="inputTF">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(inputTF, adapter.getValueModel(&quot;input&quot;));"/>
           </AuxValues>
@@ -150,7 +153,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="schemaButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                  <Component id="schemaTF" pref="278" max="32767" attributes="0"/>
+                  <Component id="schemaTF" pref="293" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -177,6 +180,9 @@
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="schemaTF">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Bindings.bind(schemaTF, adapter.getValueModel(&quot;schema&quot;));"/>
           </AuxValues>

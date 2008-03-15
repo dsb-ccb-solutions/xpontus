@@ -32,7 +32,8 @@ import org.apache.commons.vfs.VFS;
 import java.io.File;
 
 import javax.swing.JFileChooser;
-
+import javax.swing.text.JTextComponent;
+import net.sf.xpontus.constants.XPontusConstantsIF;
 
 /**
  * @version 0.0.1
@@ -40,6 +41,7 @@ import javax.swing.JFileChooser;
  * @author Yves Zoundi
  */
 public class OpenActionImpl extends XPontusThreadedActionImpl {
+
     public static final String BEAN_ALIAS = "action.open";
     private JFileChooser chooser; //vfsb;
 
@@ -57,13 +59,32 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
             GUIUtils.installDefaultFilters(chooser);
         }
 
-        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
-                                                                  .getDisplayComponent());
+        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer();
+
+
+
+
+        if (dtc.getCurrentEditor() != null) {
+            JTextComponent jtc = dtc.getCurrentEditor();
+            Object obj = jtc.getClientProperty(XPontusConstantsIF.FILE_OBJECT);
+            if (obj != null) {
+                try {
+                    FileObject fo = (FileObject)obj;
+                    File m_file = new File(fo.getURL().getFile());
+                    chooser.setCurrentDirectory(m_file.getParentFile());
+                } catch (Exception err) {
+
+                }
+            }
+        }
+
+        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent().getDisplayComponent());
 
         // open the selected files
         if (answer == javax.swing.JFileChooser.APPROVE_OPTION) {
-            DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                               .getDocumentTabContainer();
+
+
+
 
             try {
                 File[] files = chooser.getSelectedFiles();
