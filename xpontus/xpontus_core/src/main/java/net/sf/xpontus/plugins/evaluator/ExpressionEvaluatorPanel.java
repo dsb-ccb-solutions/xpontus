@@ -42,7 +42,11 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
     }
 
     public String getExpression() {
-        return this.expressionList.getSelectedItem().toString();
+        Object o = this.expressionList.getSelectedItem();
+        if(o == null){
+            return null;
+        }
+        return o.toString();
     }
 
     /** This method is called from within the constructor to
@@ -103,6 +107,11 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
                     evaluateButton.setEnabled(false);
                     engineList.setEnabled(false);
                     expressionList.setEnabled(false);
+                    return;
+                }
+                
+                if(getExpression()==null || getExpression().trim().equals("")){
+                    XPontusComponentsUtils.showErrorMessage("No expression supplied!");
                     return;
                 }
                 IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentDockable();
