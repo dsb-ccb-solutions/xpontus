@@ -29,7 +29,7 @@ import java.util.Vector;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class TagInfo {
+public class TagInfo implements Comparable{
     public static final int NONE = 0;
     public static final int EVENT = 1;
     public static final int FORM = 2;
@@ -145,5 +145,9 @@ public class TagInfo {
      */
     public String[] getChildTagNames() {
         return (String[]) children.toArray(new String[children.size()]);
+    }
+    
+     public int compareTo(Object o) {
+       return tagName.compareTo(o.toString());
     }
 }

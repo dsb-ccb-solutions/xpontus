@@ -23,19 +23,20 @@ package net.sf.xpontus.plugins.codecompletion.xml;
 
 import net.sf.xpontus.parsers.TokenNode;
 
-import org.apache.commons.lang.text.StrBuilder;
 
 import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-
+import net.sf.xpontus.constants.XPontusConstantsIF;
+import org.apache.commons.lang.math.IntRange;
+import org.apache.commons.lang.text.StrBuilder;
 
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class XMLTokenWalker {
+
     private int column;
     private int offset = 0;
     private int line;
@@ -43,74 +44,103 @@ public class XMLTokenWalker {
     private Document doc;
 
     public TokenNode getNearestTokenNode() {
-        if (nearestTokenNode == null) {
-            System.out.println("token node is null");
+//        if (nearestTokenNode == null) {
+//            Object o = doc.getProperty(XPontusConstantsIF.OUTLINE_INFO);
+//
+//            if (o != null) {
+//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
+//                if (node.getChildCount() > 0) {
+//                    nearestTokenNode = (TokenNode)node.getChildAt(0);
+//                }
+//            }  
+//        } 
 
-            return null;
-        }
+//        return nearestTokenNode;
 
-        System.out.println("CompletionToken:" + nearestTokenNode.toString());
 
-        if (nearestTokenNode.endLine != -1) {
-            System.out.println("endLine of token:" + nearestTokenNode.endLine);
-
-            if (nearestTokenNode.endLine < line) {
-                TreeNode parent = nearestTokenNode.getParent();
-
-                if (parent instanceof TokenNode) {
-                    nearestTokenNode = (TokenNode) parent;
-                }
-            }
-        } else {
-            System.out.println("No end information");
-        }
-
+//    }
+//
+//        System.out.println("CompletionToken:" + nearestTokenNode.toString());
+//
+//        if (nearestTokenNode.endLine != -1) {
+//            System.out.println("endLine of token:" + nearestTokenNode.endLine);
+//
+//            if (nearestTokenNode.endLine < line) {
+//                TreeNode parent = nearestTokenNode.getParent();
+//
+//                if (parent instanceof TokenNode) {
+//                    nearestTokenNode = (TokenNode) parent;
+//                }
+//            }
+//        } else {
+//            System.out.println("No end information");
+//        }
         return nearestTokenNode;
     }
 
-  public  void setPositionInformation(Document doc, int offset, int lineInfo,
-        int columnInfo) {
+    public void setPositionInformation(Document doc, int offset, int lineInfo,
+            int columnInfo) {
         this.line = lineInfo + 1;
         this.offset = offset;
         this.column = columnInfo + 2;
         this.doc = doc;
 
         System.out.println("Offset:" + offset + ",Line max is:" + this.line +
-            "," + this.column);
-        nearestTokenNode = null;
+                "," + this.column);
+        nearestTokenNode =
+                null;
     }
 
     public void walk(DefaultMutableTreeNode n) {
         int total = n.getChildCount();
 
-        for (int i = 0; i < total; i++) {
+        for (int i = 0; i <
+                total; i++) {
             TokenNode tn = (TokenNode) n.getChildAt(i);
-            int tokenLine = tn.line;
-            int tokenColumn = tn.column;
-
-            if (tokenLine > line) {
-                System.out.println("ligne depassee :" + tokenLine);
-
+            int offsets[] = getTokenNodeOffset(tn);
+            
+            if(offsets[0] > (offset+2)){
                 break;
             }
-
-            if ((tokenLine == line) && (tokenColumn > column)) {
-                break;
-            }
-
-            if ((tokenLine < line) ||
-                    ((tokenLine == line) && (tokenColumn < column))) {
-                if (nearestTokenNode != null) {
+            
+            if (nearestTokenNode != null) {
                     if (isBestMatch(tn)) {
                         nearestTokenNode = tn;
                     }
+
                 } else {
                     nearestTokenNode = tn;
                 }
-            }
+            
+//            int tokenLine = tn.line;
+//            int tokenColumn = tn.column;
+//
+//            if (tokenLine > line) {
+//                System.out.println("ligne depassee :" + tokenLine);
+//
+//                break;
+//            }
+//
+//            if ((tokenLine == line) && (tokenColumn > column)) {
+//                break;
+//            }
+
+//            if ((tokenLine < line) ||
+//                    ((tokenLine == line) && (tokenColumn < column))) {
+//                if (nearestTokenNode != null) {
+//                    if (isBestMatch(tn)) {
+//                        nearestTokenNode = tn;
+//                    }
+//
+//                } else {
+//                    nearestTokenNode = tn;
+//                }
+//
+//            }
 
             walk(tn);
         }
+
     }
 
     public void printToken(TokenNode n) {
@@ -139,13 +169,13 @@ public class XMLTokenWalker {
             offsets[1] = offsets[0];
         } else {
             int lineOffset2 = element.getElement(n.endLine - 1).getStartOffset();
-            offsets[1] = lineOffset2 + m_column + 1;
+            offsets[1] = lineOffset2 + m_column;
         }
 
         return offsets;
     }
-    
-    public boolean isInInterVall(int[] pos){
+
+    public boolean isInInterVall(int[] pos) {
         
         return offset > pos[0] && offset < pos[1];
     }
@@ -157,16 +187,21 @@ public class XMLTokenWalker {
         printToken(tn);
 
         int[] offsets = getTokenNodeOffset(tn);
-        System.out.println("Current interval:" + offsets[0] + "," + offsets[1]);
-        
-        int[] offsets2 = getTokenNodeOffset(nearestTokenNode);
-        
-        if(isInInterVall(offsets) && isInInterVall(offsets2)){
-            int diff = offsets[1] - offsets[0];
-            int diff2 = offsets2[1] - offsets2[0];
-            return diff < diff2;
-        }
+        System.out.println("Interval:" + offsets[0] + "," + offsets[1]);
 
-        return (offset > offsets[0]) && (offset < offsets[1]);
+        IntRange m_range = new IntRange(offsets[0], offsets[1]);
+
+        return m_range.containsInteger(offset);
+//        System.out.println("Current interval:" + offsets[0] + "," + offsets[1]);
+//        
+//        int[] offsets2 = getTokenNodeOffset(nearestTokenNode);
+//        
+//        if(isInInterVall(offsets) && isInInterVall(offsets2)){
+//            int diff = offsets[1] - offsets[0];
+//            int diff2 = offsets2[1] - offsets2[0];
+//            return diff < diff2;
+//        }
+//
+//        return (offset > offsets[0]) && (offset < offsets[1]);
     }
 }

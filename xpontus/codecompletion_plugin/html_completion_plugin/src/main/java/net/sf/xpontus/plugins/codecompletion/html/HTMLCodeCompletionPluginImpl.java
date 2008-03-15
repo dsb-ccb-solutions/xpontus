@@ -174,6 +174,9 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
                     if (tn != null) {
                         return getTagsCompletionList(tn.toString());
                     }
+                    else{
+                        return tagList;
+                    }
                 }
             }
         }
