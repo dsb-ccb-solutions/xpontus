@@ -62,14 +62,14 @@ public class ModificationHandler implements DocumentListener, CaretListener {
      */
     public void setModified(final boolean modified) {
         JTextComponent jtc = editor.getEditorComponent();
-        Object locked = jtc.getClientProperty(XPontusFileConstantsIF.FILE_LOCKED);
-
+        Object locked = jtc.getClientProperty(XPontusFileConstantsIF.FILE_LOCKED); 
+        
         if (locked != null) {
             return;
         }
 
         SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
+                public void run() { 
                     editor.getEditorComponent().putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
                         Boolean.valueOf(modified));
 

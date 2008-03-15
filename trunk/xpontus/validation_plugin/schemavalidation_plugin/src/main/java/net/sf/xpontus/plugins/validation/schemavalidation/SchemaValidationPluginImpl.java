@@ -21,30 +21,39 @@
 package net.sf.xpontus.plugins.validation.schemavalidation;
 
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
-import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Vector;
+import javax.swing.Action;
+import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
+import net.sf.xpontus.plugins.actions.ActionPluginIF;
 
 /**
  * Schema validation plugin implementation
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  * @version 0.0.1
  */
-public class SchemaValidationPluginImpl implements MenuBarPluginIF {
+public class SchemaValidationPluginImpl implements ActionPluginIF {
+
     private List menunames = new ArrayList();
     private Map actionMap = new HashMap();
+    private Map tbMap = new HashMap(1);
 
     public SchemaValidationPluginImpl() {
         menunames.add(XPontusMenuConstantsIF.TOOLS_MENU_ID);
 
-        List actions = new ArrayList();
-        actions.add(new SchemaValidationAction());
+        Action m_action = new SchemaValidationAction();
 
+        List actions = new ArrayList();
+        actions.add(m_action);
         actionMap.put(XPontusMenuConstantsIF.TOOLS_MENU_ID, actions);
+
+        List tbActions = new Vector(1);
+        tbActions.add(m_action);
+        tbMap.put(XPontusToolbarConstantsIF.TB_VALIDATION, tbActions);
     }
 
     public List getMenuNames() {
@@ -53,5 +62,13 @@ public class SchemaValidationPluginImpl implements MenuBarPluginIF {
 
     public Map getActionMap() {
         return actionMap;
+    }
+
+    public String[] getToolBarNames() {
+        return new String[]{XPontusToolbarConstantsIF.TB_VALIDATION};
+    }
+
+    public Map getActions() {
+        return tbMap;
     }
 }

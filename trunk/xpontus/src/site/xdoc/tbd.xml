@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    
+    <properties>
+        <author email="yveszoundi.AT.users.DOT.sf.DOT.net">Yves Zoundi</author>
+        <title>TODO</title>        
+    </properties>
+    
+    
+    <meta name="keyword" content="XSL, java"/>
+    
+    <body> 
+        <section name = "TODO">
+             <subsection name = "Plugins manager">
+               <p>Write a tool such as synaptic to manage plugins(upgrade, install, 
+               uninstall, add mirror, resolve dependencies, etc.)</p> 
+            </subsection>
+             <subsection name = "Code completion">
+               <li>There are issues with code completion based on XML schemas</li>
+               <li>Code completion should find all the time the absolute path of a DTD or schema 
+               if the path is relative in the XML document</li>
+            </subsection>
+            <subsection name = "XPath">
+               <li>Improve xpath 1.0 support</li>
+               <li>Complete the XPath 2.0 and XQuery plugins in the Query evaluator plugin</li>
+            </subsection>
+            <subsection name = "File System Abstractions(gui)">
+                <p><a href="http://vfsjfilechooser.sf.net">VFSJFileChooser</a> will be added
+                as a plugin. All supported network protocols shouldn't be provided all at once in a fat zip or jar files. If the user doesn't want 
+                to have webdav support for example, the webdav libraries shouldn't be installed.</p> 
+            </subsection>
+             <subsection name = "Look and feel">
+               <li>Finish the look and feel plugin to provide themes as plugins</li>
+               <li>Finish the icons sets plugin so that the user can choose a different set of icons</li>
+            </subsection>
+            <subsection name = "XML digital signature">
+               <p>Add XML digital signature support</p>
+            </subsection>
+            <subsection name = "Caching">
+                <li>Store DTDs and Schemas to the user hard drive when parsing or validating a document.</li>
+               <li>Making sure that all plugins reuse cached DTDs or XML Schemas</li>
+            </subsection>
+            <subsection name = "Architecture">
+                <li>Add more Java interfaces so that XPontus integration get flexible. Too much calls/casts on the main window for utilities methods</li>
+            </subsection>  
+        </section>  
+    </body>
+</document>

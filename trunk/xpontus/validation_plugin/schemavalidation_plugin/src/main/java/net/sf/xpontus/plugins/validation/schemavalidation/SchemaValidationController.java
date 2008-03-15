@@ -22,6 +22,7 @@ package net.sf.xpontus.plugins.validation.schemavalidation;
 
 import com.sun.msv.verifier.ValidityViolation;
 
+import java.awt.Toolkit;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
@@ -35,13 +36,16 @@ import java.io.File;
 import java.io.StringReader;
 
 import javax.swing.JFileChooser;
-
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
+import org.apache.commons.lang.text.StrBuilder;
 
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class SchemaValidationController {
+
     public static final String INPUT_METHOD = "selectInput";
     public static final String SCHEMA_METHOD = "selectSchema";
     public static final String HANDLE_METHOD = "handle";
@@ -67,9 +71,10 @@ public class SchemaValidationController {
      *
      */
     public void selectInput() {
-        if (isOpenedDialog()) {
+        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent().getDisplayComponent());
+
+        if (answer == JFileChooser.APPROVE_OPTION) {
             view.getModel().setInput(chooser.getSelectedFile().getAbsolutePath());
-            ;
         }
     }
 
@@ -77,26 +82,11 @@ public class SchemaValidationController {
      *
      */
     public void selectSchema() {
-        if (isOpenedDialog()) {
-            view.getModel()
-                .setSchema(chooser.getSelectedFile().getAbsolutePath());
-            ;
-        }
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean isOpenedDialog() {
-        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
-                                                                  .getDisplayComponent());
+        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent().getDisplayComponent());
 
         if (answer == JFileChooser.APPROVE_OPTION) {
-            return true;
+            view.getModel().setSchema(chooser.getSelectedFile().getAbsolutePath());
         }
-
-        return false;
     }
 
     /**
@@ -120,39 +110,72 @@ public class SchemaValidationController {
      */
     public void handle() {
         if (isValid()) {
+
+            if (view.getModel().isUseCurrentDocument()) {
+                if (DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentEditor() == null) {
+
+
+
+                    XPontusComponentsUtils.showErrorMessage("You choose to perform validation against the opened document but no document seems to be opened...");
+
+
+
+                    return;
+                }
+            }
+
+            closeWindow();
+
+            DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("Starting validation against schema...");
+
+            ConsoleOutputWindow outputWindow = DefaultXPontusWindowImpl.getInstance().getConsole();
+            OutputDockable console = (OutputDockable) outputWindow.getDockables().get(ConsoleOutputWindow.MESSAGES_WINDOW);
+
+
             try {
                 VerifierFactory factory = new com.sun.msv.verifier.jarv.TheFactoryImpl();
 
                 // compile a schema
-                Schema schema = factory.compileSchema(view.getModel().getSchema());
+                Schema schema = factory.compileSchema(new File(view.getModel().getSchema()));
 
                 InputSource src = null;
 
                 // parse the document
                 if (view.getModel().isUseCurrentDocument()) {
-                    String texte = DefaultXPontusWindowImpl.getInstance()
-                                                           .getDocumentTabContainer()
-                                                           .getCurrentEditor()
-                                                           .getText();
+                    String texte = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentEditor().getText();
                     StringReader sr = new StringReader(texte);
                     src = new InputSource(sr);
                 } else {
                     src = new InputSource(new java.io.FileInputStream(
-                                view.getModel().getInput()));
+                            view.getModel().getInput()));
                 }
 
                 Verifier verifier = schema.newVerifier();
                 boolean b = verifier.verify(src);
 
-                if (b) {
-                    System.out.println("The document is valid");
-                } else {
-                    System.out.println("The document is invalid");
+                String mValid = "The document is valid";
+
+                if (!b) {
+                    mValid = "The document is invalid";
                 }
+
+                console.println(mValid);
+                DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage(mValid);
+
             } catch (ValidityViolation e) {
-                e.printStackTrace();
+                StrBuilder msg = new StrBuilder();
+                msg.append("The document is invalid!");
+                msg.appendNewLine();
+                msg.append("Error around line : " + e.getLineNumber() + ",column:" + e.getColumnNumber());
+                msg.appendNewLine();
+                msg.append(e.getMessage());
+                console.println(msg.toString(), OutputDockable.RED_STYLE);
             } catch (Exception e) {
-                e.printStackTrace();
+                console.println(e.getMessage(), OutputDockable.RED_STYLE);
+            }
+            finally{
+                Toolkit.getDefaultToolkit().beep();
+                DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("Validation finished! (see the messages window)");
             }
         }
     }
@@ -174,7 +197,7 @@ public class SchemaValidationController {
         String input = model.getInput();
         String schema = model.getSchema();
         System.out.println("use current document:" +
-            (model.isUseCurrentDocument()));
+                (model.isUseCurrentDocument()));
 
         StringBuffer sb = new StringBuffer();
 

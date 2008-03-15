@@ -299,14 +299,12 @@ public class BatchValidationController {
 
         view.setVisible(false);
 
-        log.info("There are " + nbFiles + " to validate");
+        log.info("There is(are) " + nbFiles + " to validate");
 
         Component mainWindow = DefaultXPontusWindowImpl.getInstance()
                                                        .getDisplayComponent();
 
-        //        final ProgressMonitor pm = new ProgressMonitor(mainWindow,
-        //                "Progression", "", 0, nbFiles);
-        //        pm.setMillisToDecideToPopup(1000);
+         
         ProgressMonitorHandler pmh = new ProgressMonitorHandler(0, nbFiles);
         DefaultXPontusWindowImpl.getInstance().getStatusBar()
                                 .addOperationComponent(pmh);
@@ -329,6 +327,10 @@ public class BatchValidationController {
                 parser.setFeature("http://xml.org/sax/features/validation", true);
                 parser.setFeature("http://xml.org/sax/features/namespaces", true);
                 parser.setFeature("http://apache.org/xml/features/validation/schema",
+                    true);
+                parser.setFeature("http://apache.org/xml/features/honour-all-schemaLocations",
+                    true);
+                parser.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
                     true);
                 parser.setErrorHandler(errorHandler);
                 parser.setFeature("http://apache.org/xml/features/validation/dynamic",
@@ -361,7 +363,7 @@ public class BatchValidationController {
                                             .setMessage("All files are valid!");
                 } else {
                     console.println("There is(are) " + nbErrors +
-                        " invalid file(s)");
+                        " errors(s)");
                     console.println(errorHandler.getErrorMessages(),
                         OutputDockable.RED_STYLE);
 
@@ -408,7 +410,7 @@ public class BatchValidationController {
             DefaultXPontusWindowImpl.getInstance().getStatusBar()
                                     .setMessage("All files are valid!");
         } else {
-            console.println("There is(are) " + nbErrors + " invalid file(s)");
+            console.println("There is(are) " + nbErrors + " errors(s)");
             console.println(errorHandler.getErrorMessages(),
                 OutputDockable.RED_STYLE);
 
