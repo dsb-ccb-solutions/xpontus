@@ -36,13 +36,14 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.activation.*;
-
+import org.apache.commons.collections.map.ListOrderedMap;
 
 /**
  * @version 0.0.1
  * @author Yves Zoundi
  */
 public class XPontusMimetypesFileTypeMap extends FileTypeMap {
+
     private static final String DEFAULT_TYPE = "text/plain";
     private Hashtable contentTypesMap = new Hashtable();
     private final Map types = new HashMap();
@@ -51,11 +52,11 @@ public class XPontusMimetypesFileTypeMap extends FileTypeMap {
     }
 
     public XPontusMimetypesFileTypeMap(String mimeTypeFileName)
-        throws IOException {
+            throws IOException {
         this();
 
         BufferedReader reader = new BufferedReader(new FileReader(
-                    mimeTypeFileName));
+                mimeTypeFileName));
 
         try {
             String line;
@@ -69,7 +70,7 @@ public class XPontusMimetypesFileTypeMap extends FileTypeMap {
             try {
                 reader.close();
             } catch (IOException e1) {
-                // ignore to allow original cause through
+            // ignore to allow original cause through
             }
 
             throw e;
@@ -82,12 +83,16 @@ public class XPontusMimetypesFileTypeMap extends FileTypeMap {
         try {
             loadStream(is);
         } catch (IOException e) {
-            // ignore as the spec's signature says we can't throw IOException - doh!
+        // ignore as the spec's signature says we can't throw IOException - doh!
         }
     }
 
     public Hashtable getContentTypesMap() {
         return contentTypesMap;
+    }
+
+    public ListOrderedMap getTypes() {
+        return mimetypesList;
     }
 
     private void loadStream(InputStream is) throws IOException {
@@ -117,7 +122,12 @@ public class XPontusMimetypesFileTypeMap extends FileTypeMap {
         while (tok.hasMoreTokens()) {
             String fileType = tok.nextToken();
             types.put(fileType, contentType);
-
+            if(!mimetypesList.containsKey(contentType)){
+                mimetypesList.put(contentType, new ArrayList());
+            }
+            List mli = (List) mimetypesList.get(contentType);
+            mli.add("*." + fileType);
+            
             List li = new ArrayList();
 
             if (!contentTypesMap.contains(contentType)) {
@@ -128,9 +138,12 @@ public class XPontusMimetypesFileTypeMap extends FileTypeMap {
 
             if (!li.contains(fileType)) {
                 li.add(fileType);
+
             }
         }
     }
+    
+    private ListOrderedMap mimetypesList = new ListOrderedMap();
 
     public String getContentType(File f) {
         return getContentType(f.getName());
