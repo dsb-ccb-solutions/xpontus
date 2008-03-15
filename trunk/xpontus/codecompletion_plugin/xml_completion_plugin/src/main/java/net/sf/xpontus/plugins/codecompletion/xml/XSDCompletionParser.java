@@ -93,7 +93,7 @@ public class XSDCompletionParser implements ICompletionParser {
             nsTagListMap.put(targetNS, new ArrayList());
 
             List tagList = (List) nsTagListMap.get(targetNS);
-            System.out.println("namespace:" + targetNS);
+//            System.out.println("namespace:" + targetNS);
 
             XSNamedMap map = grammer.getComponents(XSConstants.ELEMENT_DECLARATION);
 
@@ -120,7 +120,7 @@ public class XSDCompletionParser implements ICompletionParser {
         }
 
         tagList.add(tagInfo);
-        System.out.println("Adding:" + tagInfo.getTagName());
+//        System.out.println("Adding:" + tagInfo.getTagName());
 
         XSTypeDefinition typedef = element.getTypeDefinition();
 
@@ -156,13 +156,13 @@ public class XSDCompletionParser implements ICompletionParser {
         String name = element.getName();
 
         if (element.getNamespace() != null) {
-            System.out.println("Namespace:" + element.getNamespace());
+//            System.out.println("Namespace:" + element.getNamespace());
         }
 
         TagInfo elementDecl = new TagInfo(name, true);
 
         info.addChildTagName(name);
-        System.out.println("Adding child:" + name + " to parent " + info.getTagName());
+//        System.out.println("Adding child:" + name + " to parent " + info.getTagName());
 
         XSTypeDefinition typedef = element.getTypeDefinition();
 
