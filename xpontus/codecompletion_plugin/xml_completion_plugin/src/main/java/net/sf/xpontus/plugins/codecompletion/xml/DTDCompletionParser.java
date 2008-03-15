@@ -176,19 +176,19 @@ public class DTDCompletionParser implements ICompletionParser {
             logger.error(e.getMessage());
         }
 
-        find();
+//        find();
     }
 
-    private void find() {
-        for (int i = 0; i < tagList.size(); i++) {
-            TagInfo t = (TagInfo) tagList.get(i);
-
-            if (t.getTagName().equals("xsl:template")) {
-                System.out.println("xsl:template," +
-                    t.getChildTagNames().length);
-            }
-        }
-    }
+//    private void find() {
+//        for (int i = 0; i < tagList.size(); i++) {
+//            TagInfo t = (TagInfo) tagList.get(i);
+//
+//            if (t.getTagName().equals("xsl:template")) {
+//                System.out.println("xsl:template," +
+//                    t.getChildTagNames().length);
+//            }
+//        }
+//    }
 
     /**
           * Sets a child tag name to TagInfo.
@@ -199,9 +199,7 @@ public class DTDCompletionParser implements ICompletionParser {
     private void setChildTagName(TagInfo tagInfo, DTDItem[] items) {
         for (int i = 0; i < items.length; i++) {
             if (items[i] instanceof DTDName) {
-                DTDName dtdName = (DTDName) items[i];
-                System.out.println("adding:" + dtdName.getValue() + " to " +
-                    tagInfo.getTagName());
+                DTDName dtdName = (DTDName) items[i]; 
                 tagInfo.addChildTagName(dtdName.getValue());
             } else if (items[i] instanceof DTDChoice) {
                 DTDChoice dtdChoise = (DTDChoice) items[i];
