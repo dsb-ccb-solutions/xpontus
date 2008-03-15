@@ -197,6 +197,9 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                     if (tn != null) {
                         return getTagsCompletionList(tn.toString());
                     }
+                    else{
+                        return tagList;
+                    }
                 }
             }
         }
