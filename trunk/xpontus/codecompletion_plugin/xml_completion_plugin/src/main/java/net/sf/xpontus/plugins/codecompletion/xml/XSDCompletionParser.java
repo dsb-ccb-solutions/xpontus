@@ -25,20 +25,24 @@ import org.apache.commons.logging.LogFactory;
 
 import org.apache.xerces.impl.xs.SchemaGrammar;
 import org.apache.xerces.impl.xs.XMLSchemaLoader;
-import org.apache.xerces.impl.xs.XSParticleDecl;
 import org.apache.xerces.xni.parser.XMLInputSource;
 import org.apache.xerces.xs.XSAttributeDeclaration;
 import org.apache.xerces.xs.XSAttributeUse;
 import org.apache.xerces.xs.XSComplexTypeDefinition;
-import org.apache.xerces.xs.XSConstants;
 import org.apache.xerces.xs.XSElementDeclaration;
 import org.apache.xerces.xs.XSModelGroup;
-import org.apache.xerces.xs.XSNamedMap;
 import org.apache.xerces.xs.XSObjectList;
 import org.apache.xerces.xs.XSParticle;
 import org.apache.xerces.xs.XSTerm;
 import org.apache.xerces.xs.XSTypeDefinition;
 import org.apache.xerces.xs.XSWildcard;
+
+import org.dynvocation.lib.xsd4j.XSDAttribute;
+import org.dynvocation.lib.xsd4j.XSDElement;
+import org.dynvocation.lib.xsd4j.XSDParser;
+import org.dynvocation.lib.xsd4j.XSDSchema;
+import org.dynvocation.lib.xsd4j.XSDSequence;
+import org.dynvocation.lib.xsd4j.XSDType;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -47,7 +51,6 @@ import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -57,153 +60,118 @@ import java.util.Vector;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XSDCompletionParser implements ICompletionParser {
+public class XSDCompletionParser implements ICompletionParser
+{
     private Log logger = LogFactory.getLog(XSDCompletionParser.class);
     private List tagList = new Vector();
     private Map nsTagListMap = new HashMap();
 
     /** Creates a new instance of XSDCompletionParser */
-    public XSDCompletionParser() {
+    public XSDCompletionParser()
+    {
     }
 
-    public void init(List tagList, Map nsTagListMap) {
+    public void init(List tagList, Map nsTagListMap)
+    {
         this.tagList = tagList;
         this.nsTagListMap = nsTagListMap;
     }
 
     /**
-    *
-    * @param pubid
-    * @param uri
-    * @param in
-    */
-    public void updateCompletionInfo(String pubid, String uri, Reader in) {
-        try {
-            InputStream is = new URL(uri).openStream();
-            SchemaGrammar grammer = (SchemaGrammar) new XMLSchemaLoader().loadGrammar(new XMLInputSource(
-                        null, null, null, is, null));
+     *
+     * @param pubid
+     * @param uri
+     * @param in
+     */
+    public void updateCompletionInfo(String pubid, String uri, Reader in)
+    {
+        try
+        {
+            XSDSchema schema = new XSDParser().parseSchemaFile(uri,
+                    XSDParser.PARSER_FLAT);
+
+            List<XSDElement> elements = schema.getElements();
 
             // clear at first
-            String targetNS = grammer.getTargetNamespace();
+            String targetNS = schema.getTargetNamespace();
 
-            if (targetNS == null) {
+            if (targetNS == null)
+            {
                 targetNS = "DEFAULT_PREFIX_MAPPING";
             }
 
-            nsTagListMap.put(targetNS, new ArrayList());
+            List m_list = new ArrayList();
 
-            List tagList = (List) nsTagListMap.get(targetNS);
-//            System.out.println("namespace:" + targetNS);
+            nsTagListMap.put(targetNS, m_list);
 
-            XSNamedMap map = grammer.getComponents(XSConstants.ELEMENT_DECLARATION);
+            List<XSDElement> topElements = schema.getElements();
 
-            for (int i = 0; i < map.getLength(); i++) {
-                XSElementDeclaration element = (XSElementDeclaration) map.item(i);
-                parseXSDElement(tagList, element);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            traverse(m_list, elements, null);
+        }
+        catch (Exception err)
+        {
         }
     }
 
-    private void parseXSDElement(List tagList, XSElementDeclaration element) {
-        String name = element.getName();
-
-        if (element.getNamespace() != null) {
-            name = element.getNamespace() + ":" + name;
-        }
-
-        TagInfo tagInfo = new TagInfo(name, true);
-
-        if (tagList.contains(tagInfo)) {
+    public static void traverse(List tags, List<XSDElement> elements,
+        TagInfo parent)
+    {
+        if (elements == null)
+        {
             return;
         }
 
-        tagList.add(tagInfo);
-//        System.out.println("Adding:" + tagInfo.getTagName());
+        for (Object o : elements)
+        {
+            XSDElement element = (XSDElement) o;
 
-        XSTypeDefinition typedef = element.getTypeDefinition();
+            String tagName = element.getName().getLocalPart();
+            TagInfo tag = new TagInfo(tagName, true);
 
-        if (typedef.getTypeCategory() == XSTypeDefinition.COMPLEX_TYPE) {
-            XSComplexTypeDefinition complex = (XSComplexTypeDefinition) typedef;
-
-            XSParticle particle = complex.getParticle();
-
-            if (particle != null) {
-                XSTerm particleTerm = particle.getTerm();
-
-                if (particleTerm instanceof XSWildcard) {
-                } else {
-                    xsTermToElementDecl(tagInfo, particleTerm);
-                }
+            if (!tags.contains(tag))
+            {
+                tags.add(tag);
+                System.out.println("Adding tag:" + tagName);
             }
 
-            XSObjectList attrs = complex.getAttributeUses();
+            if (parent != null)
+            {
+                parent.addChildTagName(tagName);
+            } 
 
-            for (int i = 0; i < attrs.getLength(); i++) {
-                XSAttributeUse attrUse = (XSAttributeUse) attrs.item(i);
-                XSAttributeDeclaration attr = attrUse.getAttrDeclaration();
+            XSDType m_type = element.getType();
 
-                AttributeInfo attrInfo = new AttributeInfo(attr.getName(),
-                        true, AttributeInfo.NONE, attrUse.getRequired());
-                tagInfo.addAttributeInfo(attrInfo);
+            if (m_type != null)
+            {
+                if (m_type.getAttributes() != null)
+                {
+                    List<XSDAttribute> attributes = m_type.getAttributes();
+                    traverseAttributes(tag, attributes);
+                }
+
+                XSDSequence m_sequence = m_type.getSequence();
+
+                if (m_sequence != null)
+                {
+                    System.out.println("recursion....");
+                    traverse(tags, m_sequence.getElements(), tag);
+                }
             }
         }
     }
 
-    private void xsElementToElementDecl(TagInfo info,
-        XSElementDeclaration element) {
-        String name = element.getName();
-
-        if (element.getNamespace() != null) {
-//            System.out.println("Namespace:" + element.getNamespace());
+    public static void traverseAttributes(TagInfo tagInfo,
+        List<XSDAttribute> attributes)
+    {
+        if (attributes == null)
+        {
+            return;
         }
 
-        TagInfo elementDecl = new TagInfo(name, true);
-
-        info.addChildTagName(name);
-//        System.out.println("Adding child:" + name + " to parent " + info.getTagName());
-
-        XSTypeDefinition typedef = element.getTypeDefinition();
-
-        if (typedef.getTypeCategory() == XSTypeDefinition.COMPLEX_TYPE) {
-            XSComplexTypeDefinition complex = (XSComplexTypeDefinition) typedef;
-
-            XSParticle particle = complex.getParticle();
-
-            if (particle != null) {
-                XSTerm particleTerm = particle.getTerm();
-
-                if (particleTerm instanceof XSWildcard) {
-                } else {
-                    xsTermToElementDecl(elementDecl, particleTerm);
-                }
-            }
-
-            XSObjectList attributes = complex.getAttributeUses();
-
-            for (int i = 0; i < attributes.getLength(); i++) {
-                XSAttributeUse attr = (XSAttributeUse) attributes.item(i);
-                boolean required = attr.getRequired();
-
-                AttributeInfo attrInfo = new AttributeInfo(attr.getName(),
-                        true, AttributeInfo.NONE, required);
-                elementDecl.addAttributeInfo(attrInfo);
-            }
-        }
-    } //}}}
-
-    //{{{ xsTermToElementDecl() method
-    private void xsTermToElementDecl(TagInfo info, XSTerm term) {
-        if (term instanceof XSElementDeclaration) {
-            xsElementToElementDecl(info, (XSElementDeclaration) term);
-        } else if (term instanceof XSModelGroup) {
-            //            XSObjectList content = ((XSModelGroup) term).getParticles();
-            //
-            //            for (int i = 0; i < content.getLength(); i++) {
-            //                XSTerm childTerm = ((XSParticleDecl) content.item(i)).getTerm();
-            //                xsTermToElementDecl(info, childTerm);
-            //            }
+        for (XSDAttribute attribute : attributes)
+        {
+            String m_name = attribute.getName().getLocalPart();
+            tagInfo.addAttributeInfo(new AttributeInfo(m_name, true));
         }
     }
 }

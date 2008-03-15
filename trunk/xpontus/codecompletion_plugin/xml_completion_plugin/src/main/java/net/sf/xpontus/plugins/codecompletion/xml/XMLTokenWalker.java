@@ -99,7 +99,7 @@ public class XMLTokenWalker {
             TokenNode tn = (TokenNode) n.getChildAt(i);
             int offsets[] = getTokenNodeOffset(tn);
             
-            if(offsets[0] > (offset+2)){
+            if(offsets[0] > (offset)){
                 break;
             }
             
@@ -156,6 +156,9 @@ public class XMLTokenWalker {
     public int[] getTokenNodeOffset(TokenNode n) {
         Element element = doc.getDefaultRootElement();
 
+        System.out.println("walking:" + n.toString());
+        printToken(n);
+        
         // we need to remove some info from here
         int m_line = n.line - 1;
         int m_column = n.column - 1;
