@@ -21,20 +21,30 @@
  */
 package net.sf.xpontus.utils;
 
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import com.vlsolutions.swing.docking.DockingUtilities;
+import com.vlsolutions.swing.docking.TabbedDockableContainer;
 
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.DocumentContainer;
+import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
+
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.lang.text.StrBuilder;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -43,11 +53,16 @@ import java.io.StringReader;
 import java.net.URL;
 
 import java.util.Iterator;
-
 import java.util.List;
+import java.util.Vector;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
-import org.apache.commons.collections.map.ListOrderedMap;
+import javax.swing.text.JTextComponent;
 
 
 /**
@@ -56,15 +71,18 @@ import org.apache.commons.collections.map.ListOrderedMap;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class GUIUtils {
+    private static FileFilter[] m_filters;
+    private static final String ACTION_SWITCH_WINDOW = "switchwindow"; //NOI18N
+    private static Action switchWindowAction;
+
     // the constructor should not be called
     private GUIUtils() {
     }
 
     public static FileFilter createFilter(final String description,
         final List patterns) {
-        
         System.out.println("description:" + description);
-        
+
         FileFilter m_filter = new FileFilter() {
                 public boolean accept(File f) {
                     WildcardFileFilter a = new WildcardFileFilter(patterns,
@@ -84,49 +102,46 @@ public class GUIUtils {
 
         return m_filter;
     }
-    
-    private static FileFilter[] m_filters;
 
-    private static void initFilters(){
-        if(m_filters == null){
+    private static void initFilters() {
+        if (m_filters == null) {
             MimeTypesProvider provider = MimeTypesProvider.getInstance();
             ListOrderedMap types = provider.getTypes();
             m_filters = new FileFilter[types.size()];
-            
+
             Iterator m_it = types.keySet().iterator();
-            for(int i=0;m_it.hasNext();i++){
+
+            for (int i = 0; m_it.hasNext(); i++) {
                 String mime = m_it.next().toString();
                 List files = (List) types.get(mime);
                 m_filters[i] = createFilter(mime, files);
             }
-            
-            
-            
         }
     }
+
     public static void installDefaultFilters(JFileChooser chooser) {
         initFilters();
-//        Hashtable mimesMap = MimeTypesProvider.getInstance().getContentTypesMap();
-//        Iterator it = mimesMap.keySet().iterator();
-//        
-//        while(it.hasNext()){
-//            Object o = it.next();
-//            Object val = mimesMap.get(o);
-//            System.out.println(o + " " + val);
-//        }
-        
-        
-        for(FileFilter m_filter: m_filters){
-             chooser.addChoosableFileFilter(m_filter); 
+
+        //        Hashtable mimesMap = MimeTypesProvider.getInstance().getContentTypesMap();
+        //        Iterator it = mimesMap.keySet().iterator();
+        //        
+        //        while(it.hasNext()){
+        //            Object o = it.next();
+        //            Object val = mimesMap.get(o);
+        //            System.out.println(o + " " + val);
+        //        }
+        for (FileFilter m_filter : m_filters) {
+            chooser.addChoosableFileFilter(m_filter);
         }
-//        
-//        
-//        chooser.addChoosableFileFilter(createFilter("XML Files",
-//                new String[] { "*.xml", "*.xhtml" }));
-//        chooser.addChoosableFileFilter(createFilter("XSL stylesheets",
-//                new String[] { "*.xsl", "*.xslt" }));
-//        chooser.addChoosableFileFilter(createFilter("HTML Files",
-//                new String[] { "*.html", "*.htm" }));
+
+        //        
+        //        
+        //        chooser.addChoosableFileFilter(createFilter("XML Files",
+        //                new String[] { "*.xml", "*.xhtml" }));
+        //        chooser.addChoosableFileFilter(createFilter("XSL stylesheets",
+        //                new String[] { "*.xsl", "*.xslt" }));
+        //        chooser.addChoosableFileFilter(createFilter("HTML Files",
+        //                new String[] { "*.html", "*.htm" }));
         chooser.setFileFilter(chooser.getAcceptAllFileFilter());
     }
 
@@ -145,6 +160,56 @@ public class GUIUtils {
         Font m_font = new Font(m_family, m_style, m_size);
 
         return m_font;
+    }
+
+    private static void initSwitchWindowAction() {
+        switchWindowAction = new AbstractAction(ACTION_SWITCH_WINDOW) {
+                    public void actionPerformed(ActionEvent e) {
+                        //                JOptionPane.showMessageDialog(null, "Action....");
+                        DocumentTabContainer docContainer = DefaultXPontusWindowImpl.getInstance()
+                                                                                    .getDocumentTabContainer();
+
+                        Vector<IDocumentContainer> v = docContainer.getEditorsAsVector();
+                        final int msize = v.size();
+                        final int msize2 = v.size() - 1;
+
+                        if ((msize == 0) || (msize < 1)) {
+                            Toolkit.getDefaultToolkit().beep();
+
+                            return;
+                        }
+
+                        int index = v.indexOf(docContainer.getCurrentDockable());
+
+                        int pos = 0;
+
+                        if (index != msize2) {
+                            pos = index + 1;
+                        }
+
+                        IDocumentContainer toSelect = v.get(pos);
+
+                        TabbedDockableContainer container = DockingUtilities.findTabbedDockableContainer(toSelect);
+
+                        if (container != null) {
+                            container.setSelectedDockable(toSelect);
+                            toSelect.getEditorComponent().requestFocus();
+                            toSelect.getEditorComponent().grabFocus();
+                        }
+                    }
+                };
+    }
+
+    public static void installWindowSwitcher(JTextComponent editor) {
+        if (switchWindowAction == null) {
+            initSwitchWindowAction();
+        }
+
+        editor.getActionMap().put(ACTION_SWITCH_WINDOW, switchWindowAction);
+
+        editor.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+              .put(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.ALT_MASK),
+            ACTION_SWITCH_WINDOW);
     }
 
     /**
@@ -175,7 +240,8 @@ public class GUIUtils {
             //try to call setFocusableWindowState (true) on java 1.4 while staying compatible with Java 1.3
             aObj.getClass()
                 .getMethod("setFocusableWindowState",
-                new Class[] { Boolean.TYPE }).invoke(aObj,
+                new Class[] { Boolean.TYPE })
+                .invoke(aObj,
                 new Object[] { aFlag ? Boolean.TRUE : Boolean.FALSE });
         } catch (java.lang.NoSuchMethodException ex) {
         } catch (java.lang.IllegalAccessException ex) {
@@ -252,7 +318,8 @@ public class GUIUtils {
                         }
 
                         try {
-                            Object obj = e.getTransferable().getTransferData(urlFlavor);
+                            Object obj = e.getTransferable()
+                                          .getTransferData(urlFlavor);
 
                             if (obj instanceof URL) {
                                 fileURL = (URL) obj;
@@ -269,7 +336,8 @@ public class GUIUtils {
                         }
 
                         try {
-                            Object obj = e.getTransferable().getTransferData(listFlavor);
+                            Object obj = e.getTransferable()
+                                          .getTransferData(listFlavor);
 
                             if (obj instanceof java.util.List) {
                                 fileList = (java.util.List) obj;

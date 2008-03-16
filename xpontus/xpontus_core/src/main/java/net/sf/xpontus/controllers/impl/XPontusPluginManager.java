@@ -52,12 +52,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+
 /**
  * XPontus plugin manager
  * @author Yves Zoundi
  */
-public class XPontusPluginManager implements XPontusControllerIF {
-
+public class XPontusPluginManager implements XPontusControllerIF
+{
     private static String PLUGINS = "plugins";
     private static PluginManager manager;
     private Log log = LogFactory.getLog(XPontusPluginManager.class);
@@ -66,33 +67,42 @@ public class XPontusPluginManager implements XPontusControllerIF {
      * The default constructor
      * @throws java.lang.Exception
      */
-    public XPontusPluginManager() throws Exception {
+    public XPontusPluginManager() throws Exception
+    {
         manager = ObjectFactory.newInstance().createManager();
 
         manager.publishPlugins(getBuiltinPluginLocations());
         manager.publishPlugins(getPluginLocations());
     }
 
-    public static PluginManager getPluginManager() {
-        if (manager == null) {
+    public static PluginManager getPluginManager()
+    {
+        if (manager == null)
+        {
             throw new RuntimeException("Plugin manager not registered yet!");
         }
 
         return manager;
     }
 
-    public void startApplication() {
+    public void startApplication()
+    {
         PluginRegistry registry = manager.getRegistry();
         Collection descriptors = registry.getPluginDescriptors();
         Object[] descriptorsArray = descriptors.toArray();
 
-        for (int i = 0; i < descriptorsArray.length; i++) {
+        for (int i = 0; i < descriptorsArray.length; i++)
+        {
             PluginDescriptor descriptor = (PluginDescriptor) descriptorsArray[i];
 
-            if (!manager.isPluginActivated(descriptor)) {
-                try {
+            if (!manager.isPluginActivated(descriptor))
+            {
+                try
+                {
                     manager.activatePlugin(descriptor.getId());
-                } catch (PluginLifecycleException err) {
+                }
+                catch (PluginLifecycleException err)
+                {
                     log.error("PluginLifecycleException", err);
                     err.printStackTrace();
                 }
@@ -103,20 +113,26 @@ public class XPontusPluginManager implements XPontusControllerIF {
     /**
      *  Stop the application
      */
-    public void stopApplication() {
+    public void stopApplication()
+    {
         XPontusComponentsUtils.getTopComponent().deactivateComponent();
 
         PluginRegistry registry = manager.getRegistry();
         Collection descriptors = registry.getPluginDescriptors();
         Object[] descriptorsArray = descriptors.toArray();
 
-        for (int i = 0; i < descriptorsArray.length; i++) {
+        for (int i = 0; i < descriptorsArray.length; i++)
+        {
             PluginDescriptor descriptor = (PluginDescriptor) descriptorsArray[i];
 
-            if (manager.isPluginActivated(descriptor)) {
-                try {
+            if (manager.isPluginActivated(descriptor))
+            {
+                try
+                {
                     manager.deactivatePlugin(descriptor.getId());
-                } catch (Exception err) {
+                }
+                catch (Exception err)
+                {
                     log.error("Exception", err);
                 }
             }
@@ -130,51 +146,65 @@ public class XPontusPluginManager implements XPontusControllerIF {
      * @param path
      * @return
      */
-    public PluginLocation[] getPluginLocations(File path) {
-        if ((path == null) || !path.exists()) {
+    public PluginLocation[] getPluginLocations(File path)
+    {
+        if ((path == null) || !path.exists())
+        {
             return new PluginLocation[0];
         }
 
         File[] files = null;
 
-        if (path.isDirectory() && path.getName().equals(PLUGINS)) {
-            files = path.listFiles(new FileFilter() {
+        if (path.isDirectory() && path.getName().equals(PLUGINS))
+        {
+            files = path.listFiles(new FileFilter()
+                    {
+                        public boolean accept(File pathname)
+                        {
+                            if (pathname.isFile())
+                            {
+                                String name = pathname.getName()
+                                                      .toLowerCase(Locale.US);
 
-                public boolean accept(File pathname) {
-                    if (pathname.isFile()) {
-                        String name = pathname.getName().toLowerCase(Locale.US);
-
-                        return name.endsWith(".jar") ||
+                                return name.endsWith(".jar") ||
                                 name.endsWith(".zip");
-                    }
+                            }
 
-                    return pathname.isDirectory();
-                }
-            });
-        } else if (path.isFile()) {
-            files = new File[]{path};
+                            return pathname.isDirectory();
+                        }
+                    });
+        }
+        else if (path.isFile())
+        {
+            files = new File[] { path };
         }
 
-        if (files == null) {
+        if (files == null)
+        {
             return new PluginLocation[0];
         }
 
         List locations = new ArrayList();
 
-        for (int i = 0; i < files.length; i++) {
+        for (int i = 0; i < files.length; i++)
+        {
             File file = files[i];
 
-            try {
+            try
+            {
                 PluginLocation loc = StandardPluginLocation.create(file);
 
-                if (loc != null) {
+                if (loc != null)
+                {
                     locations.add(loc);
                 }
 
                 log.info("Plugin: " + file + " -> " + loc);
 
-            // System.out.println(file + " -> " + loc);
-            } catch (MalformedURLException err) {
+                // System.out.println(file + " -> " + loc);
+            }
+            catch (MalformedURLException err)
+            {
                 log.error("MalformedURLException:" + err.getMessage());
             }
         }
@@ -187,15 +217,19 @@ public class XPontusPluginManager implements XPontusControllerIF {
      * @param context
      * @return
      */
-    public PluginLocation getPluginLocation(String context) {
+    public PluginLocation getPluginLocation(String context)
+    {
         URL u_context = getClass().getResource(context);
         URL u_manifest = getClass().getResource(context + "plugin.xml");
 
         PluginLocation loc = null;
 
-        try {
+        try
+        {
             loc = new StandardPluginLocation(u_context, u_manifest);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             System.out.println("context:" + context);
         }
 
@@ -206,7 +240,8 @@ public class XPontusPluginManager implements XPontusControllerIF {
      * Add built in plugins
      * @return The list of built in plugins locations
      */
-    public PluginLocation[] getBuiltinPluginLocations() {
+    public PluginLocation[] getBuiltinPluginLocations()
+    {
         java.lang.String conf = "/net/sf/xpontus/plugins/plugins.txt";
         java.io.InputStream is = getClass().getResourceAsStream(conf);
 
@@ -214,20 +249,26 @@ public class XPontusPluginManager implements XPontusControllerIF {
 
         List locations = new ArrayList();
 
-        try {
+        try
+        {
             it = IOUtils.lineIterator(is, "UTF-8");
 
-            while (it.hasNext()) {
+            while (it.hasNext())
+            {
                 String line = it.nextLine();
                 System.out.println("Location:" + line);
 
                 PluginLocation loc = getPluginLocation(line);
                 locations.add(loc);
             }
-        } catch (IOException ex) {
+        }
+        catch (IOException ex)
+        {
             ex.printStackTrace();
             log.error(ex.getMessage());
-        } finally {
+        }
+        finally
+        {
             IOUtils.closeQuietly(is);
             LineIterator.closeQuietly(it);
         }
@@ -239,32 +280,51 @@ public class XPontusPluginManager implements XPontusControllerIF {
      *
      * @return
      */
-    public PluginLocation[] getPluginLocations() {
+    public PluginLocation[] getPluginLocations()
+    {
         List locations = new ArrayList();
 
         String iswebstart = System.getProperty("xpontusisjavawebstart");
 
-        if (iswebstart == null) {
-            System.out.println("Not in webstart mode trying to load the system plugins");
-            try {
+        if (iswebstart == null)
+        {
+            System.out.println(
+                "Not in webstart mode trying to load the system plugins");
+
+            try
+            {
                 File systemPluginsDir = new File("plugins");
-                if (systemPluginsDir.exists()) {
+
+                if (systemPluginsDir.exists())
+                {
                     DefaultSettingsModuleImpl.XPONTUS_SYSTEM_PLUGIN_DIR = systemPluginsDir;
                     System.out.println("Loading system plugins");
-                    locations.addAll(Arrays.asList(getPluginLocations(systemPluginsDir)));
-                } else {
-                    System.out.println("System plugins directory cannot be found in path :" + systemPluginsDir.getAbsolutePath());
+                    locations.addAll(Arrays.asList(getPluginLocations(
+                                systemPluginsDir)));
                 }
-            } catch (Exception exe) {
-            // ignore it for now
+                else
+                {
+                    System.out.println(
+                        "System plugins directory cannot be found in path :" +
+                        systemPluginsDir.getAbsolutePath());
+                }
             }
-
+            catch (Exception exe)
+            {
+                // ignore it for now
+            }
         }
+        else
+        {
+            // "~/.xpontus/plugins"
+            File mainPluginsDir = XPontusConstantsIF.XPONTUS_PLUGINS_DIR;
 
-        // "~/.xpontus/plugins"
-        File mainPluginsDir = XPontusConstantsIF.XPONTUS_PLUGINS_DIR;
+            locations.addAll(Arrays.asList(getPluginLocations(mainPluginsDir)));
+        }
+         // "~/.xpontus/plugins"
+            File mainPluginsDir = XPontusConstantsIF.XPONTUS_PLUGINS_DIR;
 
-        locations.addAll(Arrays.asList(getPluginLocations(mainPluginsDir)));
+            locations.addAll(Arrays.asList(getPluginLocations(mainPluginsDir)));
 
         return (PluginLocation[]) locations.toArray(new PluginLocation[0]);
     }

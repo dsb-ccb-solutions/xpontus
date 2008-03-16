@@ -50,6 +50,9 @@ public class XMLCommentActionImpl extends DefaultDocumentAwareActionImpl {
         try {
             doc.insertString(end, " -->", null);
             doc.insertString(debut, "<!-- ", null);
+            editor.setCaretPosition(end + " -->".length() + "<!-- ".length());
+            editor.requestFocus();
+            editor.grabFocus();
         } catch (Exception e) {
             e.printStackTrace();
         }

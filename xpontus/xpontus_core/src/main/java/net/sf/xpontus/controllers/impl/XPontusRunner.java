@@ -90,12 +90,9 @@ import java.util.Vector;
 
 import javax.swing.Action;
 import javax.swing.JMenu;
-import javax.swing.JOptionPane;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import org.apache.commons.io.IOUtils;
-import org.java.plugin.Plugin;
 
 /**
  * Main class of the program
@@ -415,8 +412,7 @@ public class XPontusRunner {
                 });
         }
 
-        System.out.println("Time to activate the main window");
-        window.activateComponent();
+         window.activateComponent();
 
         SwingUtilities.invokeLater(new Runnable() {
 
@@ -434,16 +430,6 @@ public class XPontusRunner {
                     }
                 }
             }
-        });
-
-        try{
-           Plugin p = XPontusPluginManager.getPluginManager().getPlugin("plugin.browser"); 
-        }
-        catch(Exception aoe){
-           int rep = JOptionPane.showConfirmDialog(DefaultXPontusWindowImpl.getInstance().getDisplayComponent(), "The plugins manager is not installed\n Do you want to install it?");
-           if(rep == JOptionPane.YES_OPTION){
-               
-           }
-        }
+        }); 
     }
 }

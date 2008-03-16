@@ -85,8 +85,7 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
 
         b.append(XPontusConstantsIF.APPLICATION_NAME);
         b.append(" ");
-        b.append(XPontusConstantsIF.APPLICATION_VERSION);
-        b.append(" 2008 SNAPSHOT EDITION");
+        b.append(XPontusConstantsIF.APPLICATION_VERSION); 
         WINDOW_TITLE = b.toString();
 
         frame.setTitle(WINDOW_TITLE);

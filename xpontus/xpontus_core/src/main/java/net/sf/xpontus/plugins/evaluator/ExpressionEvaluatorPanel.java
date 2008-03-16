@@ -6,12 +6,15 @@
 package net.sf.xpontus.plugins.evaluator;
 
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Hashtable;
 import javax.swing.DefaultComboBoxModel;
 import net.sf.xpontus.actions.DocumentAwareComponentIF;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.IDocumentContainer;
+import net.sf.xpontus.modules.gui.components.MemoryComboBox;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.DocumentAwareComponentHolder;
@@ -27,7 +30,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
 
     /** Creates new form ExpressionEvaluatorPanel */
     public ExpressionEvaluatorPanel() {
-        
+
         initComponents();
         DefaultComboBoxModel mm = (DefaultComboBoxModel) this.engineList.getModel();
         String engines[] = EvaluatorPluginConfiguration.getInstance().getEnginesNames();
@@ -39,11 +42,33 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
             this.engineList.setSelectedIndex(0);
         }
         registerComponent();
+
+        java.awt.event.KeyAdapter adapter = new java.awt.event.KeyAdapter() {
+
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+
+                    Object str = expressionList.getEditor().getItem();
+                    if (str == null) {
+                        return;
+                    }
+                    evaluateButtonActionPerformed(null);
+                }
+            }
+        };
+        expressionList.getEditor().getEditorComponent().addKeyListener(adapter);
+
+        expressionList.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {
+
+            }
+        });
     }
 
     public String getExpression() {
         Object o = this.expressionList.getSelectedItem();
-        if(o == null){
+        if (o == null) {
             return null;
         }
         return o.toString();
@@ -58,7 +83,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
     private void initComponents() {
 
         evaluateButton = new javax.swing.JButton();
-        expressionList = new javax.swing.JComboBox();
+        expressionList = new MemoryComboBox(10);
         engineList = new javax.swing.JComboBox();
 
         evaluateButton.setText("Evaluate");
@@ -109,11 +134,15 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
                     expressionList.setEnabled(false);
                     return;
                 }
-                
-                if(getExpression()==null || getExpression().trim().equals("")){
+
+                if (getExpression() == null || getExpression().trim().equals("")) {
                     XPontusComponentsUtils.showErrorMessage("No expression supplied!");
                     return;
                 }
+
+                ((MemoryComboBox) expressionList).addItem(getExpression());
+
+
                 IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getCurrentDockable();
 
                 container.getStatusBar().setMessage("Expression evaluation in progres...");
@@ -152,13 +181,12 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
     private javax.swing.JButton evaluateButton;
     private javax.swing.JComboBox expressionList;
     // End of variables declaration//GEN-END:variables
-    
     public void registerComponent() {
         DocumentAwareComponentHolder.getInstance().register(this);
     }
 
-    public void onNotify(DocumentContainerChangeEvent evt) { 
-        boolean b = (evt.getSource()!=null); 
+    public void onNotify(DocumentContainerChangeEvent evt) {
+        boolean b = (evt.getSource() != null);
         evaluateButton.setEnabled(b);
         expressionList.setEnabled(b);
         engineList.setEnabled(b);
