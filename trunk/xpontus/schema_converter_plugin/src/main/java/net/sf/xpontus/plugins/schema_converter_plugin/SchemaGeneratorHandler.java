@@ -66,6 +66,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
 
 
@@ -131,11 +132,6 @@ public class SchemaGeneratorHandler {
     }
 
     private void generateSchema() {
-        DefaultXPontusWindowImpl.getInstance().getStatusBar()
-                                .setMessage("Generating schema...");
-
-        view.setVisible(false);
-
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                               .getConsole();
         MessagesWindowDockable mconsole = (MessagesWindowDockable) console.getDockableById(MessagesWindowDockable.DOCKABLE_ID);
@@ -146,26 +142,39 @@ public class SchemaGeneratorHandler {
 
         try {
             SchemaGenerationModel model = view.getModel();
-            InputFormat inFormat = null;
-            OutputFormat of = null;
 
-            if (model.getInputType().equalsIgnoreCase("rng")) {
-                inFormat = new SAXParseInputFormat();
-            } else if (model.getInputType().equalsIgnoreCase("rnc")) {
-                inFormat = new CompactParseInputFormat();
-            } else if (model.getInputType().equalsIgnoreCase("dtd")) {
-                inFormat = new DtdInputFormat();
-            } else if (model.getInputType().equalsIgnoreCase("xml")) {
-                inFormat = new XmlInputFormat();
+            boolean isValid = transformationIsValid(model);
+
+            if (!isValid) {
+                return;
             }
 
-            if (model.getOutputType().equalsIgnoreCase("dtd")) {
+            DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                    .setMessage("Generating schema...");
+
+            view.setVisible(false);
+
+            InputFormat inFormat = null;
+            OutputFormat of = null;
+ 
+            
+            if (model.getInputType().equalsIgnoreCase("RELAX NG Grammar")) {
+                inFormat = new SAXParseInputFormat();
+            } else if (model.getInputType().equalsIgnoreCase("RELAX NG Compact Grammar")) {
+                inFormat = new CompactParseInputFormat();
+            } else if (model.getInputType().equalsIgnoreCase("DTD")) {
+                inFormat = new DtdInputFormat();
+            } else if (model.getInputType().equalsIgnoreCase("XML")) {
+                inFormat = new XmlInputFormat();
+            }
+ 
+            if (model.getOutputType().equalsIgnoreCase("DTD")) {
                 of = new DtdOutputFormat();
-            } else if (model.getOutputType().equalsIgnoreCase("rng")) {
+            } else if (model.getOutputType().equalsIgnoreCase("Relax NG Grammar")) {
                 of = new RngOutputFormat();
-            } else if (model.getOutputType().equalsIgnoreCase("xsd")) {
+            } else if (model.getOutputType().equalsIgnoreCase("XML Schema")) {
                 of = new XsdOutputFormat();
-            } else if (model.getOutputType().equalsIgnoreCase("rnc")) {
+            } else if (model.getOutputType().equalsIgnoreCase("Relax NG Compact Grammar")) {
                 of = new RncOutputFormat();
             }
 
@@ -196,8 +205,8 @@ public class SchemaGeneratorHandler {
 
                 IOUtils.copy(m_inputStream, m_outputStream);
 
-                m_inputStream.close();
-                m_outputStream.close();
+                IOUtils.closeQuietly(m_outputStream);
+                IOUtils.closeQuietly(m_inputStream);
 
                 try {
                     sc = inFormat.load(UriOrFile.toUri(tmp.getAbsolutePath()),
@@ -232,6 +241,8 @@ public class SchemaGeneratorHandler {
                     new File(view.getModel().getOutputURI()),
                     model.getOutputType().toLowerCase(),
                     DEFAULT_OUTPUT_ENCODING, DEFAULT_LINE_LENGTH, DEFAULT_INDENT);
+            
+           
             of.output(sc, od, new String[0],
                 model.getInputType().toLowerCase(), eh);
 
@@ -239,19 +250,25 @@ public class SchemaGeneratorHandler {
 
             DefaultXPontusWindowImpl.getInstance().getStatusBar()
                                     .setMessage("Schema generated sucessfully!");
+
+            if (model.isOpenInEditor()) {
+                XPontusComponentsUtils.showWarningMessage(
+                    "The document will NOT be opened in the editor sorry for that!\n You need to open it yourself.");
+            }
         } catch (Exception ex) {
             DefaultXPontusWindowImpl.getInstance().getStatusBar()
                                     .setMessage("Error generating schema, Please see the messages window!");
             ex.printStackTrace();
 
-            StringBuffer sb = new StringBuffer();
-            sb.append("Error generating schema\n");
+            StrBuilder sb = new StrBuilder();
+            sb.append("Error generating schema");
+            sb.appendNewLine();
 
             if (ex instanceof SAXParseException) {
                 SAXParseException spe = (SAXParseException) ex;
                 sb.append("Error around line " + spe.getLineNumber());
                 sb.append(", column " + spe.getColumnNumber());
-                sb.append("\n");
+                sb.appendNewLine();
             }
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -304,7 +321,39 @@ public class SchemaGeneratorHandler {
         }
     }
 
-    public boolean transformationIsValid() {
-        return false;
+    public boolean transformationIsValid(SchemaGenerationModel model) {
+        boolean m_valid = true;
+
+        StrBuilder sb = new StrBuilder();
+
+        if (model.isUseExternalDocument()) {
+            if (model.getInputURI().trim().equals("")) {
+                sb.append("* You must specify an input file");
+                sb.appendNewLine();
+                m_valid = false;
+            }
+        } else {
+            if (DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer()
+                                            .getCurrentEditor() == null) {
+                sb.append(
+                    "* You choose to generate a schema for the opened document but no document is opened");
+                sb.appendNewLine();
+                m_valid = false;
+            }
+        }
+
+        if (model.getOutputURI().trim().equals("")) {
+            sb.append("* You must specify an output file");
+            sb.appendNewLine();
+            m_valid = false;
+        }
+
+        if (!m_valid) {
+            XPontusComponentsUtils.showErrorMessage(
+                "Some required information is missing\n" + sb.toString());
+             
+        }
+
+        return m_valid;
     }
 }

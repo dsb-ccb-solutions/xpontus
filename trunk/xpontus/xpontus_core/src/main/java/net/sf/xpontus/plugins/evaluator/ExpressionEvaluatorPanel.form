@@ -56,6 +56,9 @@
           <Dimension value="[74, 20]"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MemoryComboBox(10);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JComboBox" name="engineList">
       <Properties>

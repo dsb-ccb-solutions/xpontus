@@ -32,12 +32,15 @@ import net.sf.xpontus.model.ConfigurationModel;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
 import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.utils.FileHistoryList;
+import net.sf.xpontus.utils.GUIUtils;
 import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.text.StrBuilder;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,7 +53,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.UIManager;
-import net.sf.xpontus.utils.GUIUtils;
 
 
 /**
@@ -86,18 +88,6 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     }
 
     public void init() {
-        Properties m_props = PropertiesConfigurationLoader.load(XPontusConfigurationConstantsIF.EDITOR_PREFERENCES_FILE);
-        
-         
-        
-        String[] f = m_props.get("EditorPane.Font").toString().split(",");
-        String family = f[0].trim();
-        String style1 = f[1].trim();
-        int style = Integer.parseInt(style1);
-        int size = Integer.parseInt(f[2].trim());
-        Font m_font = new Font(family, style, size);
-        
-
         File[] configsDirectories = {
                 XPontusConstantsIF.XPONTUS_PLUGINS_DATA_DIR,
                 XPontusConstantsIF.XPONTUS_PREFERENCES_DIR,
@@ -125,10 +115,30 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
                         outName);
 
                 if (!output.exists()) {
-                    InputStream is = getClass().getResourceAsStream(loc);
+                    if (loc.equals(locations[0])) {
+                        Properties hackProps = new Properties();
+                        InputStream is = getClass().getResourceAsStream(loc);
+                        hackProps.load(is); 
 
-                    OutputStream out = new FileOutputStream(output);
-                    IOUtils.copy(is, out);
+                        Font hackFont = UIManager.getFont("EditorPane.font");
+                        StrBuilder strFont = new StrBuilder(); 
+
+                        strFont.append(hackFont.getFamily() + "," +
+                            hackFont.getStyle() + "," + hackFont.getSize());
+                        hackProps.put("EditorPane.Font", strFont.toString());
+
+                        OutputStream out = new FileOutputStream(output);
+                        hackProps.store(out, null);
+                        out.close();
+                        is.close();
+                    } else {
+                        InputStream is = getClass().getResourceAsStream(loc);
+
+                        OutputStream out = new FileOutputStream(output);
+                        IOUtils.copy(is, out);
+                        out.close();
+                        is.close();
+                    }
                 }
 
                 if (!outName.equals("mimetypes.properties")) {
@@ -140,9 +150,8 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
                         Object m_value = m_properties.get(m_key);
                         System.out.println("cle:" + m_key + ",value:" +
                             m_value);
-                         
-                            XPontusConfig.put(m_key, m_value); 
-                        
+
+                        XPontusConfig.put(m_key, m_value);
                     }
                 }
             }
@@ -150,9 +159,20 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
             err.printStackTrace();
         }
 
+        Properties m_props = PropertiesConfigurationLoader.load(XPontusConfigurationConstantsIF.EDITOR_PREFERENCES_FILE);
+
+        String[] f = m_props.get("EditorPane.Font").toString().split(",");
+        String family = f[0].trim();
+        String style1 = f[1].trim();
+        int style = Integer.parseInt(style1);
+        int size = Integer.parseInt(f[2].trim());
+        Font m_font = new Font(family, style, size);
+
         XPontusConfig.put("EditorPane.Font", m_font);
-        System.out.println("Default font:" + GUIUtils.fontToString((Font)XPontusConfig.getValue("EditorPane.Font")));
-         
+        System.out.println("Default font:" +
+            GUIUtils.fontToString(
+                (Font) XPontusConfig.getValue("EditorPane.Font")));
+
         Map map = new HashMap();
         map.put(ROLE, this);
         PropertiesHolder.registerProperty(XPontusSettings.KEY, map);

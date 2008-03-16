@@ -56,6 +56,9 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import java.io.BufferedInputStream;
@@ -66,11 +69,14 @@ import java.io.InputStreamReader;
 
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Vector;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -149,6 +155,8 @@ public class DocumentContainer implements IDocumentContainer {
                 });
 
         documentPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+        GUIUtils.installWindowSwitcher(editor);
     }
 
     public JComponent getDocumentPanel() {
@@ -216,7 +224,8 @@ public class DocumentContainer implements IDocumentContainer {
 
         try {
             CharsetDetector detector = new CharsetDetector();
-            InputStream is = getClass().getResourceAsStream("/net/sf/xpontus/templates/template.xml");
+            InputStream is = getClass()
+                                 .getResourceAsStream("/net/sf/xpontus/templates/template.xml");
             detector.setText(new BufferedInputStream(is));
 
             try {
@@ -374,7 +383,7 @@ public class DocumentContainer implements IDocumentContainer {
      */
     public void init() {
         DockingDesktop desk = ((DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent()).getDesktop();
-        
+
         closeAllInTab = TabbedContainerActions.createCloseAllAction(this, desk);
         closeAllOtherInTab = TabbedContainerActions.createCloseAllOtherAction(this,
                 desk);

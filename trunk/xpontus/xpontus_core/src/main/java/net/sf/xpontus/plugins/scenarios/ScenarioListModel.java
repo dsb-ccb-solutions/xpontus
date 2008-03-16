@@ -40,6 +40,9 @@ public class ScenarioListModel extends ConfigurationModel {
      * @return the destination file
      */
     public File getFileToSaveTo() {
+        if(!XPontusConfigurationConstantsIF.XPONTUS_SCENARIOS_FILE.getParentFile().exists()){
+            XPontusConfigurationConstantsIF.XPONTUS_SCENARIOS_FILE.getParentFile().mkdirs();
+        }
         return XPontusConfigurationConstantsIF.XPONTUS_SCENARIOS_FILE;
     }
 

@@ -47,6 +47,8 @@ public class InsertCDataActionImpl extends DefaultDocumentAwareActionImpl {
         try {
             editor.getDocument().insertString(pos, "<![CDATA[  ]]>", null);
             editor.setCaretPosition(pos + 10);
+            editor.requestFocus();
+            editor.grabFocus();
         } catch (Exception e) {
             e.printStackTrace();
         }
