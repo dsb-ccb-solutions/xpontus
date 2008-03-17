@@ -56,9 +56,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import java.io.BufferedInputStream;
@@ -69,20 +66,18 @@ import java.io.InputStreamReader;
 
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.Vector;
 
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
+import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
 
 
@@ -196,7 +191,8 @@ public class DocumentContainer implements IDocumentContainer {
      * @param url
      */
     public void setup(java.net.URL url) {
-        try {
+        try { 
+            
             FileObject fo = VFS.getManager().resolveFile(url.toExternalForm());
             setup(fo, url.toExternalForm(), null);
         } catch (IOException ex) {

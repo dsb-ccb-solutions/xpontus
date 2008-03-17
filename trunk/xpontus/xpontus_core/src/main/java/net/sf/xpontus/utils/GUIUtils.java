@@ -72,8 +72,9 @@ import javax.swing.text.JTextComponent;
  */
 public class GUIUtils {
     private static FileFilter[] m_filters;
-    private static final String ACTION_SWITCH_WINDOW = "switchwindow"; //NOI18N
-    private static Action switchWindowAction;
+    private static final String ACTION_SWITCH_NEXT_WINDOW = "next-window"; //NOI18N
+    private static final String ACTION_SWITCH_PREVIOUS_WINDOW = "previous-window"; //NOI18N
+    private static Action nextWindowAction, previousWindowAction;
 
     // the constructor should not be called
     private GUIUtils() {
@@ -162,54 +163,27 @@ public class GUIUtils {
         return m_font;
     }
 
-    private static void initSwitchWindowAction() {
-        switchWindowAction = new AbstractAction(ACTION_SWITCH_WINDOW) {
-                    public void actionPerformed(ActionEvent e) {
-                        //                JOptionPane.showMessageDialog(null, "Action....");
-                        DocumentTabContainer docContainer = DefaultXPontusWindowImpl.getInstance()
-                                                                                    .getDocumentTabContainer();
-
-                        Vector<IDocumentContainer> v = docContainer.getEditorsAsVector();
-                        final int msize = v.size();
-                        final int msize2 = v.size() - 1;
-
-                        if ((msize == 0) || (msize < 1)) {
-                            Toolkit.getDefaultToolkit().beep();
-
-                            return;
-                        }
-
-                        int index = v.indexOf(docContainer.getCurrentDockable());
-
-                        int pos = 0;
-
-                        if (index != msize2) {
-                            pos = index + 1;
-                        }
-
-                        IDocumentContainer toSelect = v.get(pos);
-
-                        TabbedDockableContainer container = DockingUtilities.findTabbedDockableContainer(toSelect);
-
-                        if (container != null) {
-                            container.setSelectedDockable(toSelect);
-                            toSelect.getEditorComponent().requestFocus();
-                            toSelect.getEditorComponent().grabFocus();
-                        }
-                    }
-                };
+    private static void initSwitchWindowActions() {
+        
+        nextWindowAction = new SwitchWindowAction(ACTION_SWITCH_NEXT_WINDOW, true);
+        previousWindowAction = new SwitchWindowAction(ACTION_SWITCH_NEXT_WINDOW, false);
     }
 
     public static void installWindowSwitcher(JTextComponent editor) {
-        if (switchWindowAction == null) {
-            initSwitchWindowAction();
+        if (nextWindowAction == null) {
+            initSwitchWindowActions();
         }
 
-        editor.getActionMap().put(ACTION_SWITCH_WINDOW, switchWindowAction);
+        editor.getActionMap().put(ACTION_SWITCH_NEXT_WINDOW, nextWindowAction);
+        editor.getActionMap().put(ACTION_SWITCH_PREVIOUS_WINDOW, previousWindowAction);
+
 
         editor.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
-              .put(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.ALT_MASK),
-            ACTION_SWITCH_WINDOW);
+              .put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP, ActionEvent.CTRL_MASK),
+            ACTION_SWITCH_NEXT_WINDOW);
+        editor.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+              .put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN, ActionEvent.CTRL_MASK),
+            ACTION_SWITCH_PREVIOUS_WINDOW);
     }
 
     /**
