@@ -35,9 +35,18 @@ public class SwitchWindowAction extends AbstractAction {
         DocumentTabContainer docContainer = DefaultXPontusWindowImpl.getInstance()
                                                                     .getDocumentTabContainer();
 
-        Vector<IDocumentContainer> v = docContainer.getEditorsAsVector();
-        final int msize = v.size();
-        final int msize2 = v.size() - 1;
+        IDocumentContainer editorContainer = (IDocumentContainer) docContainer.getCurrentDockable();
+
+        TabbedDockableContainer container = DockingUtilities.findTabbedDockableContainer(editorContainer);
+
+        if (container == null) {
+            Toolkit.getDefaultToolkit().beep();
+
+            return;
+        }
+
+        final int msize = container.getTabCount();
+        final int msize2 = msize - 1;
 
         if ((msize == 0) || (msize < 1)) {
             Toolkit.getDefaultToolkit().beep();
@@ -45,7 +54,7 @@ public class SwitchWindowAction extends AbstractAction {
             return;
         }
 
-        int index = v.indexOf(docContainer.getCurrentDockable());
+        int index = container.indexOfDockable(editorContainer);
 
         int pos = 0;
 
@@ -61,14 +70,10 @@ public class SwitchWindowAction extends AbstractAction {
             }
         }
 
-        IDocumentContainer toSelect = v.get(pos);
+        IDocumentContainer toSelect = (IDocumentContainer) container.getDockableAt(pos);
 
-        TabbedDockableContainer container = DockingUtilities.findTabbedDockableContainer(toSelect);
-
-        if (container != null) {
-            container.setSelectedDockable(toSelect);
-            toSelect.getEditorComponent().requestFocus();
-            toSelect.getEditorComponent().grabFocus();
-        }
+        container.setSelectedDockable(toSelect);
+        toSelect.getEditorComponent().requestFocus();
+        toSelect.getEditorComponent().grabFocus();
     }
 }
