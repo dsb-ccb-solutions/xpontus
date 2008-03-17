@@ -22,6 +22,7 @@ package net.sf.xpontus.plugins.evaluator;
 
 import com.vlsolutions.swing.docking.DockKey;
 
+import java.awt.event.ActionEvent;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -31,10 +32,12 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.JTableHeader;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
@@ -48,12 +51,11 @@ public class XPathResultsDockable extends OutputDockable {
     public static final String DOCKABLE_ID = "XPATH_WINDOW";
     private DockKey m_key;
     private JScrollPane scrollPane;
-    private JTable xpathResultsTable;
+    private JTable xpathResultsTable; 
 
     public XPathResultsDockable() {
         super();
-        xpathResultsTable = new JTable();
-
+        xpathResultsTable = new JTable(); 
         Dimension m_dimension = new Dimension(300, 100);
         xpathResultsTable.setPreferredScrollableViewportSize(m_dimension);
 
@@ -79,7 +81,7 @@ public class XPathResultsDockable extends OutputDockable {
                                 gotoLine(lineinfo);
                             }
                         }
-                    }
+                    } 
                 }
             });
     }
