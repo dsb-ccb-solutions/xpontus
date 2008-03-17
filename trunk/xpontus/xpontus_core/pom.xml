@@ -12,6 +12,12 @@
         <artifactId>xpontus</artifactId>
         <version>1.0.0-pre1</version> 
     </parent> 
+     <repositories>
+        <repository>
+            <id>maven-xpontus-repository</id>
+            <url>http://xpontus.sourceforge.net/maven/repository</url>
+        </repository>
+    </repositories>
     <profiles>
         <profile>
             <id>netbeans-public</id>
