@@ -45,7 +45,9 @@ public interface XPontusConfigurationConstantsIF {
     /**
      * XPontus configuration directory
      */
-    File XPONTUS_HOME_DIR = new File(USER_HOME_DIR, ".xpontus");
+    File XPONTUS_HOME_DIR1 = new File(USER_HOME_DIR, ".xpontus");
+    
+    File XPONTUS_HOME_DIR = new File(XPONTUS_HOME_DIR1, "1.0.0-pre1alpha1");
 
     /**
      *
