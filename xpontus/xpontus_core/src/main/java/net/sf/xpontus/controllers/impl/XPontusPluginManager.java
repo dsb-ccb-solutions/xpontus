@@ -320,11 +320,7 @@ public class XPontusPluginManager implements XPontusControllerIF
             File mainPluginsDir = XPontusConstantsIF.XPONTUS_PLUGINS_DIR;
 
             locations.addAll(Arrays.asList(getPluginLocations(mainPluginsDir)));
-        }
-         // "~/.xpontus/plugins"
-            File mainPluginsDir = XPontusConstantsIF.XPONTUS_PLUGINS_DIR;
-
-            locations.addAll(Arrays.asList(getPluginLocations(mainPluginsDir)));
+        } 
 
         return (PluginLocation[]) locations.toArray(new PluginLocation[0]);
     }
