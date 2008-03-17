@@ -58,6 +58,15 @@
                 <role>Developer</role>
             </roles>
         </developer>
+         <developer>
+            <id>anktastic</id>
+            <name>Andres Kievsky</name> 
+            <organizationUrl>http://fixingsoftware.blogspot.com/</organizationUrl>
+            <email>anktastic AT users DOT sf DOT net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
         <developer>
             <id>delvinj</id>
             <name>Daniel Johnson</name> 
