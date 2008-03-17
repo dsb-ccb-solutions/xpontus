@@ -38,6 +38,7 @@ public class SchemaGenerationAction extends XPontusDialogActionImpl {
      */
     public SchemaGenerationAction() {
         setName("Schema converter");
+        setDescription("Generate DTD / XML Schema");
         setDialogClassName(SchemaGeneratorView.class.getName());
 
         URL url = getClass().getResource("Export16.gif");
