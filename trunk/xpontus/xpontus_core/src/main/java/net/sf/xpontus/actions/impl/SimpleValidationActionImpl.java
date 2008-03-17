@@ -23,6 +23,7 @@ package net.sf.xpontus.actions.impl;
 
 import com.ibm.icu.text.CharsetDetector;
 
+import java.awt.Toolkit;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.IDocumentContainer;
@@ -138,6 +139,9 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
             String error = "" + details.toString() + "\n";
 
             odk.println(error + e.getMessage(), OutputDockable.RED_STYLE);
+        }
+        finally{
+            Toolkit.getDefaultToolkit().beep();
         }
     }
 

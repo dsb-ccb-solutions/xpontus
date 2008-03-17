@@ -23,6 +23,8 @@
  */
 package net.sf.xpontus.constants;
 
+import org.apache.commons.lang.SystemUtils;
+
 import java.io.File;
 
 
@@ -33,20 +35,14 @@ import java.io.File;
  */
 public interface XPontusConfigurationConstantsIF {
     /**
-         * The user home directory string
-         */
-    String USER_HOME_STRING = System.getProperty("user.home");
-
-    /**
      * The user home directory
      */
-    File USER_HOME_DIR = new File(USER_HOME_STRING);
+    File USER_HOME_DIR = SystemUtils.getUserHome();
 
     /**
      * XPontus configuration directory
      */
     File XPONTUS_HOME_DIR1 = new File(USER_HOME_DIR, ".xpontus");
-    
     File XPONTUS_HOME_DIR = new File(XPONTUS_HOME_DIR1, "1.0.0-pre1alpha1");
 
     /**
@@ -97,7 +93,6 @@ public interface XPontusConfigurationConstantsIF {
      */
     File XPONTUS_PLUGINS_DIR = new File(XPONTUS_HOME_DIR, "plugins");
 
-     
     /**
      * XPontus preferences directory
      */

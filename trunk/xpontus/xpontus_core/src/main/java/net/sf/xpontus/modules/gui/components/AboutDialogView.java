@@ -26,7 +26,9 @@ package net.sf.xpontus.modules.gui.components;
 import java.awt.Frame;
 import javax.swing.text.html.HTMLEditorKit;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.text.StrBuilder;
 
 /**
@@ -50,16 +52,16 @@ public class AboutDialogView extends javax.swing.JDialog {
         sb.append("<html><head></head><body>");
 
         sb.append("<p style=\"margin-top: 0\"><strong>Product version</strong> : ");
-        sb.append("XPontus XML Editor 1.0.0-pre1");
+        sb.append(XPontusConstantsIF.APPLICATION_NAME + " " + XPontusConstantsIF.APPLICATION_VERSION);
         sb.append("</p>");
 
         sb.append("<p style=\"margin-top: 0\"><strong>Java</strong> : ");
-        sb.append(System.getProperty("java.version") + " " + System.getProperty("java.vendor"));
+        sb.append(SystemUtils.JAVA_VERSION + " " + SystemUtils.JAVA_VENDOR);
         sb.append("</p>");
 
 
         sb.append("<p style=\"margin-top: 0\"><strong>System</strong> : ");
-        sb.append(System.getProperty("os.name") + " " + System.getProperty("os.version"));
+        sb.append(SystemUtils.OS_NAME + " " + SystemUtils.OS_VERSION);        
         sb.append("</p>");
 
 
