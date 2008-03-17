@@ -12,6 +12,12 @@
         <name>XPontus Team</name>
         <url>http://yveszoundi.blogspot.com</url>
     </organization> 
+      <repositories>
+        <repository>
+            <id>maven-xpontus-repository</id>
+            <url>http://xpontus.sourceforge.net/maven/repository</url>
+        </repository>
+    </repositories>
     <licenses>
         <license>
             <name>GPL</name>
