@@ -45,6 +45,7 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.PlainDocument;
 import javax.swing.text.Segment;
 import javax.swing.text.SimpleAttributeSet;
+import net.sf.xpontus.configuration.XPontusConfig;
 
 
 /**
@@ -90,6 +91,8 @@ public class SyntaxDocument extends PlainDocument {
         DEFAULT_STYLE = new SimpleAttributeSet();
         this.lexer = support.getLexer();
 
+         
+        putProperty(PlainDocument.tabSizeAttribute, Integer.valueOf( XPontusConfig.getValue("editor.tabsize").toString()));
         System.out.println("Lexer class:" + this.lexer.getClass().getName());
 
         endTokens = new DynamicIntArray(500);

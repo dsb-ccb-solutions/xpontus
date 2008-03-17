@@ -21,16 +21,13 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.Shape;
+import net.sf.xpontus.configuration.XPontusConfig;
+
 import java.awt.event.FocusEvent;
 
-import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
 import javax.swing.text.Highlighter.HighlightPainter;
-import javax.swing.text.JTextComponent;
 
 
 /**
@@ -43,7 +40,8 @@ public class XPontusCaret extends DefaultCaret {
 
     /** Creates a new instance of XPontusCaret */
     public XPontusCaret() {
-        this.setBlinkRate(700);
+        this.setBlinkRate(Integer.valueOf(XPontusConfig.getValue(
+                    "cursorBlinkRate").toString()));
         painter = new MyHighlightPainter(java.awt.Color.LIGHT_GRAY);
     }
 

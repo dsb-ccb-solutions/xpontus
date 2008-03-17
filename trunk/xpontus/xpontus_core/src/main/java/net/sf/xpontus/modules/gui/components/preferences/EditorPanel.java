@@ -67,12 +67,19 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
 
     public void saveSettings() {
         properties.put("displayLineNumbers", Boolean.valueOf(displayLineNumbersOption.isSelected()) + "");
-        properties.put("EditorPane.Font", GUIUtils.fontToString(fontValueLabel.getFont()));
-        
-        XPontusConfig.put("EditorPane.Font", fontValueLabel.getFont());
-        System.out.println("Setting font to:" + GUIUtils.fontToString(fontValueLabel.getFont()));
-        
         XPontusConfig.put("displayLineNumbers", Boolean.valueOf(displayLineNumbersOption.isSelected()).toString());
+        
+        properties.put("EditorPane.Font", GUIUtils.fontToString(fontValueLabel.getFont()));
+        XPontusConfig.put("EditorPane.Font", fontValueLabel.getFont()); 
+        
+        properties.put("editor.tabsize", tabSizeTF.getValue().toString());
+        XPontusConfig.put("editor.tabsize", properties.getProperty("editor.tabsize")); 
+        
+        properties.put("cursorBlinkRate", cursorBlinkRateValues.getValue().toString());
+        XPontusConfig.put("cursorBlinkRate", properties.getProperty("cursorBlinkRate"));
+        
+        properties.put("DefaultXMLEncoding", encodingList.getSelectedItem().toString());
+        XPontusConfig.put("DefaultXMLEncoding", properties.getProperty("DefaultXMLEncoding")); 
         
         PropertiesConfigurationLoader.save(propertiesFile, properties);
     }
@@ -94,13 +101,14 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         this.editorFont = new Font(family, style, size);
         this.cursorBlinkRate = Integer.parseInt(properties.getProperty("cursorBlinkRate"));
         this.defaultXMLEncoding = properties.getProperty("DefaultXMLEncoding").toString();
+        this.tabsize = Integer.valueOf(properties.getProperty("editor.tabsize"));
         
         this.displayLineNumbersOption.setSelected(displayLineNumbers);
         this.fontValueLabel.setText(getStringFont(editorFont) );
         this.fontValueLabel.setFont(editorFont);
         this.encodingList.setSelectedItem(defaultXMLEncoding);
-        this.cursorBlinkRateValues.setValue(Integer.valueOf(cursorBlinkRate));
-        this.tabSizeTF.setValue(Integer.valueOf(size));
+        this.cursorBlinkRateValues.setValue(Integer.valueOf(cursorBlinkRate));        
+        this.tabSizeTF.setValue(tabsize);
     }
     
     /** This method is called from within the constructor to
@@ -211,8 +219,7 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
         if (f != null) {
             fontValueLabel.setText(getStringFont(f));
             fontValueLabel.setFont(f);
-            fontValueLabel.repaint(); 
-            
+            fontValueLabel.repaint();  
         }
 }//GEN-LAST:event_chooseFontButtonActionPerformed
 
@@ -263,5 +270,6 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
     private int cursorBlinkRate;
     private boolean displayLineNumbers;
     private Font editorFont;
+    private Integer tabsize;
     private String defaultXMLEncoding;
 }
