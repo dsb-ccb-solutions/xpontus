@@ -352,7 +352,7 @@ public class BatchValidationController {
                 int nbErrors = errorHandler.getNumberOfErrors();
 
                 String strMessage = "There is(are) " + nbErrors +
-                    " invalid file(s). Please consult the messages window";
+                    " errors(s). Please consult the messages window";
 
                 console.println("Batch Validation report",
                     OutputDockable.BLUE_STYLE);
@@ -399,7 +399,7 @@ public class BatchValidationController {
         int nbErrors = errorHandler.getNumberOfErrors();
 
         String strMessage = "There is(are) " + nbErrors +
-            " invalid file(s). Please consult the messages window";
+            " errors(s). Please consult the messages window";
 
         console.println("Batch Validation report", OutputDockable.BLUE_STYLE);
 

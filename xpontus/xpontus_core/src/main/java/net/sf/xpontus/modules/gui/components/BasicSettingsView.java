@@ -120,7 +120,7 @@ public class BasicSettingsView extends javax.swing.JDialog {
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setTitle("Settings(not finished)");
+        setTitle("Settings");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
