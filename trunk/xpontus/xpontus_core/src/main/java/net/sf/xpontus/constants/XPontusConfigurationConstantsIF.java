@@ -43,38 +43,41 @@ public interface XPontusConfigurationConstantsIF {
      * XPontus configuration directory
      */
     File XPONTUS_HOME_DIR1 = new File(USER_HOME_DIR, ".xpontus");
+    
+    /**
+     * The settings directory for this version
+     */
     File XPONTUS_HOME_DIR = new File(XPONTUS_HOME_DIR1, "1.0.0.1");
 
     /**
-     *
+     * The Lucene directory to search plugins
      */
     File PLUGINS_SEARCHINDEX_DIR = new File(XPONTUS_HOME_DIR, "searchindex");
 
     /**
-     *
+     * The lucene index to search available plugins
      */
     File AVAILABLE_PLUGINS_SEARCHINDEX_DIR = new File(PLUGINS_SEARCHINDEX_DIR,
             "availableplugins");
 
     /**
-     *
+     * The Lucene index to search installed plugins
      */
     File INSTALLED_PLUGINS_SEARCHINDEX_DIR = new File(PLUGINS_SEARCHINDEX_DIR,
             "installedplugins");
 
     /**
-     *
+     * The directory which will store XML Schemas or DTD
      */
     File GRAMMAR_CACHING_DIR = new File(XPONTUS_HOME_DIR, "grammars");
 
     /**
-     *
+     * The XML catalog which will hold the location of cached grammars
      */
     File GRAMMAR_CACHING_DESCRIPTOR = new File(XPONTUS_HOME_DIR, "grammars.xml");
 
     /**
-     *
-     *
+     * The file history configuration file 
      */
     File RECENT_FILES_HISTORY_FILE = new File(XPONTUS_HOME_DIR, "history");
 
