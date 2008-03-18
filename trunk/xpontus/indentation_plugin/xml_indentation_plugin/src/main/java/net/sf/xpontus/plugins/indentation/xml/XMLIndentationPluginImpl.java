@@ -24,19 +24,21 @@
 package net.sf.xpontus.plugins.indentation.xml;
 
 import com.ibm.icu.text.CharsetDetector;
+import com.ibm.icu.text.CharsetMatch;
 
 import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
 import net.sf.xpontus.utils.NullEntityResolver;
 
-import com.ibm.icu.text.CharsetMatch;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 
 import org.w3c.dom.Document;
 
 import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -47,6 +49,13 @@ import javax.swing.text.JTextComponent;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamResult;
 
 
 /**
@@ -74,7 +83,7 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
         byte[] buf = jtc.getText().getBytes();
         chd.setText(new ByteArrayInputStream(buf));
 
-       CharsetMatch match = chd.detect();
+        CharsetMatch match = chd.detect();
         Reader reader = match.getReader();
 
         String omitCommentsOption = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
@@ -93,28 +102,37 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
                 XMLIndentationPreferencesConstantsIF.PRESERVE_SPACE_OPTION);
 
         try {
-            DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
-            fact.setValidating(false);
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
-            DocumentBuilder builder = fact.newDocumentBuilder();
-            builder.setEntityResolver(NullEntityResolver.getInstance());
+            XMLReader r = XMLReaderFactory.createXMLReader();
+            r.setFeature("http://xml.org/sax/features/validation", false);
+            r.setEntityResolver(NullEntityResolver.getInstance());
 
             InputSource src = new InputSource(reader);
-            Document doc = builder.parse(src);
+
+            Source saxSrc = new SAXSource(r, src);
 
             OutputFormat formatter = new OutputFormat();
+            //
+            //            formatter.setOmitXMLDeclaration(Boolean.getBoolean(
+            //                    omitXmlDeclaration));
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+                omitXmlDeclaration);
 
-            formatter.setOmitXMLDeclaration(Boolean.getBoolean(
-                    omitXmlDeclaration));
-            formatter.setOmitDocumentType(Boolean.getBoolean(omitDoctypeOption));
-            formatter.setPreserveSpace(Boolean.getBoolean(preserveSpaceOption));
-            formatter.setOmitComments(Boolean.getBoolean(omitCommentsOption));
-
-            formatter.setIndenting(true);
-
+            //            formatter.setOmitDocumentType(Boolean.getBoolean(omitDoctypeOption));
+            //            formatter.setPreserveSpace(Boolean.getBoolean(preserveSpaceOption));
+            //            formatter.setOmitComments(Boolean.getBoolean(omitCommentsOption));
+            //
+            //            formatter.setIndenting(true);
             ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
-            XMLSerializer serializer = new XMLSerializer(out, formatter);
-            serializer.serialize(doc);
+
+            //            XMLSerializer serializer = new XMLSerializer(out, formatter);
+            //            serializer.serialize(doc);
+            Result m_result = new StreamResult(out);
+
+            transformer.transform(saxSrc, m_result);
 
             byte[] b = out.toByteArray();
 
