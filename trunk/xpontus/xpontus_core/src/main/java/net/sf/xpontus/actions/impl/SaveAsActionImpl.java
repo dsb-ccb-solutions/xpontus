@@ -187,7 +187,7 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
                 if (m_ext != null) {
                     Document doc = editor.getDocument();
 
-                    if (m_ext.toLowerCase().endsWith("xsl")) {
+                    if (m_ext.toLowerCase().endsWith("xsl") || m_ext.toLowerCase().endsWith("xslt")) {
                         doc.putProperty("BUILTIN_COMPLETION", "XSL");
                     } else if (m_ext.toLowerCase().endsWith("xsd")) {
                         doc.putProperty("BUILTIN_COMPLETION", "XSD");

@@ -314,7 +314,7 @@ public class DocumentContainer implements IDocumentContainer {
         SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
 
         if (m_ext != null) {
-            if (m_ext.endsWith("xsl")) {
+            if (m_ext.endsWith("xsl") || (m_ext.endsWith("xslt")) ){
                 doc.putProperty("BUILTIN_COMPLETION", "XSL");
             } else if (m_ext.endsWith("xsd")) {
                 doc.putProperty("BUILTIN_COMPLETION", "XSD");
