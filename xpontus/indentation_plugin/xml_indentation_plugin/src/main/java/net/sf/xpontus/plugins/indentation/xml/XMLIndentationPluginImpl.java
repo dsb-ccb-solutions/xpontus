@@ -43,8 +43,11 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 
+import java.io.StringWriter;
+import java.util.Vector;
 import javax.swing.text.JTextComponent;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -56,6 +59,9 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import org.apache.xalan.processor.TransformerFactoryImpl;
+import org.xml.sax.helpers.DefaultHandler;
 
 
 /**
@@ -63,6 +69,8 @@ import javax.xml.transform.stream.StreamResult;
  * @author Yves Zoundi
  */
 public class XMLIndentationPluginImpl implements IndentationPluginIF {
+    private static final IndentingTransformerImpl TRANSFORMER = new IndentingTransformerImpl();
+    
     public XMLIndentationPluginImpl() {
     }
 
@@ -80,11 +88,11 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
                                                      .getCurrentEditor();
 
         CharsetDetector chd = new CharsetDetector();
-        byte[] buf = jtc.getText().getBytes();
-        chd.setText(new ByteArrayInputStream(buf));
-
-        CharsetMatch match = chd.detect();
-        Reader reader = match.getReader();
+//        byte[] buf = jtc.getText().getBytes();
+//        chd.setText(new ByteArrayInputStream(buf));
+//
+//        CharsetMatch match = chd.detect();
+//        Reader reader = match.getReader();
 
         String omitCommentsOption = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
                 "$" +
@@ -102,48 +110,35 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
                 XMLIndentationPreferencesConstantsIF.PRESERVE_SPACE_OPTION);
 
         try {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            TransformerFactory transformerFactory = TransformerFactory.newInstance(); 
+//            Transformer t = transformerFactory.newTransformer() ;
+//            t.setOutputProperty(OutputKeys.INDENT, "yes");  
+////            XMLReader r = XMLReaderFactory.createXMLReader();
+////            r.setFeature("http://xml.org/sax/features/validation", false);
+////            r.setEntityResolver(NullEntityResolver.getInstance());  
+////            r.setContentHandler(new DefaultHandler());
+////            InputSource src = new InputSource(reader); 
+//            Source saxSrc = new StreamSource(reader);//new SAXSource(r, src);   
+//            ByteArrayOutputStream out = new java.io.ByteArrayOutputStream(); 
+            StringWriter m_writer = new StringWriter();
+//            Result m_result = new StreamResult(m_writer); 
+//            t.transform(saxSrc, m_result);
+//            m_writer.close();
+//            out.close();
+            TRANSFORMER.indentXml(jtc.getText(), m_writer, 4, false, new Vector());
+//            TRANSFORMER.indentXml(omitXmlDeclaration, m_writer);
 
-            XMLReader r = XMLReaderFactory.createXMLReader();
-            r.setFeature("http://xml.org/sax/features/validation", false);
-            r.setEntityResolver(NullEntityResolver.getInstance());
-
-            InputSource src = new InputSource(reader);
-
-            Source saxSrc = new SAXSource(r, src);
-
-            OutputFormat formatter = new OutputFormat();
-            //
-            //            formatter.setOmitXMLDeclaration(Boolean.getBoolean(
-            //                    omitXmlDeclaration));
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
-                omitXmlDeclaration);
-
-            //            formatter.setOmitDocumentType(Boolean.getBoolean(omitDoctypeOption));
-            //            formatter.setPreserveSpace(Boolean.getBoolean(preserveSpaceOption));
-            //            formatter.setOmitComments(Boolean.getBoolean(omitCommentsOption));
-            //
-            //            formatter.setIndenting(true);
-            ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
-
-            //            XMLSerializer serializer = new XMLSerializer(out, formatter);
-            //            serializer.serialize(doc);
-            Result m_result = new StreamResult(out);
-
-            transformer.transform(saxSrc, m_result);
-
-            byte[] b = out.toByteArray();
+            byte[] b = m_writer.toString().getBytes();
 
             if (b.length > 0) {
-                jtc.getDocument().remove(0, jtc.getDocument().getLength());
-
-                InputStream newIs = new ByteArrayInputStream(b);
-                chd.setText(newIs);
-                match = chd.detect();
-                jtc.read(match.getReader(), match.getName());
-            } else {
+                jtc.getDocument().remove(0, jtc.getDocument().getLength()); 
+                chd = new CharsetDetector();
+                chd.setText(b); 
+                jtc.read(chd.detect().getReader(), null);
+                System.out.println("done");
+            }  
+            else{
+                System.out.println("Nothing done");
             }
         } catch (Exception e) {
             throw e;
