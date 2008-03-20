@@ -24,44 +24,20 @@
 package net.sf.xpontus.plugins.indentation.xml;
 
 import com.ibm.icu.text.CharsetDetector;
-import com.ibm.icu.text.CharsetMatch;
 
 import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
-import net.sf.xpontus.utils.NullEntityResolver;
 
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
 
-import org.w3c.dom.Document;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
 
 import java.io.StringWriter;
 import java.util.Vector;
 import javax.swing.text.JTextComponent;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import org.apache.xalan.processor.TransformerFactoryImpl;
-import org.xml.sax.helpers.DefaultHandler;
 
 
 /**
