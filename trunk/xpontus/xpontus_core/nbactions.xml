@@ -6,12 +6,9 @@
                 <packaging>jar</packaging>
             </packagings>
             <goals>
-                <goal>package</goal>
-                <goal>org.codehaus.mevenide:netbeans-run-plugin:LATEST:run-jar</goal>
+                <goal>exec:java</goal>
+                
             </goals>
-            <properties>
-                <netbeans.jar.run.jvmparams>-Dxpontusisjavawebstart=true</netbeans.jar.run.jvmparams>
-            </properties>
         </action>
         <action>
             <actionName>build</actionName>
@@ -47,6 +44,18 @@
                 <jpda.listen>true</jpda.listen>
                 <netbeans.jar.run.jvmparams>-Dxpontusisjavawebstart=true</netbeans.jar.run.jvmparams>
                 <netbeans.jar.run.debugparams>-Xdebug -Djava.compiler=none -Xnoagent -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address}</netbeans.jar.run.debugparams>
+            </properties>
+        </action>
+        <action>
+            <actionName>run.single</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>exec:java</goal>
+            </goals>
+            <properties>
+                <exec.mainClass>${packageClassName}</exec.mainClass>
             </properties>
         </action>
     </actions>
