@@ -170,8 +170,8 @@ public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
         int tabPlacement = UIManager.getInt(
                 "TabbedDockableContainer.tabPlacement");
         setTabListCellRenderer(new TabListCellRenderer2());
-        this.setColorTheme(COLOR_THEME_WINXP);
-        this.setTabShape(SHAPE_WINDOWS);
+        this.setColorTheme(this.COLOR_THEME_VSNET);
+        this.setTabShape(this.SHAPE_VSNET);
         setTabLayoutPolicy(SCROLL_TAB_LAYOUT);
 
         setTabPlacement(tabPlacement);

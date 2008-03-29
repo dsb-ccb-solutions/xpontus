@@ -35,7 +35,6 @@ import org.java.plugin.registry.PluginRegistry;
 import org.java.plugin.util.IoUtil;
 
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -57,7 +56,6 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.HTMLEditorKit;
-import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.controllers.impl.PopupHandler;
 
 /**
@@ -139,8 +137,7 @@ public class InstalledPluginsAccessoryPanel extends JComponent {
                     PluginRegistry registry = XPontusPluginManager.getPluginManager().getRegistry();
                     PluginDescriptor m_pluginDescriptor = registry.getPluginDescriptor(pluginId);
                     URL m_pluginDescriptorLocation = m_pluginDescriptor.getLocation();
-                    File m_pluginDescriptorFile = IoUtil.url2file(m_pluginDescriptorLocation);
-                    File m_pluginInstallationDirectory = m_pluginDescriptorFile.getParentFile();
+                    File m_pluginDescriptorFile = IoUtil.url2file(m_pluginDescriptorLocation); 
 
                     try {
                         try {

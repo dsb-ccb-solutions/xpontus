@@ -20,7 +20,7 @@
     <resources>
         <j2se href="http://java.sun.com/products/autodl/j2se"
             initial-heap-size="32m" max-heap-size="256m" version="1.5+"/>
-        <property name="xpontus.isJavaWebStartLaunch" value="true"/> 
+        <property name="xpontusisjavawebstart" value="true"/> 
      $dependencies
   </resources>
     <application-desc main-class="$mainClass"/>
