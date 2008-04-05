@@ -21,7 +21,7 @@
  */
 package net.sf.xpontus.plugins.menubar;
 
-import net.sf.xpontus.actions.impl.*;
+import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
@@ -44,7 +44,6 @@ import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import net.sf.xpontus.configuration.XPontusConfig;
 
 
 /**
@@ -57,17 +56,27 @@ public class MenuBarPlugin extends XPontusPlugin {
     public static final String PLUGIN_CATEGORY = "Menubar";
     private boolean newmenu = false;
     private boolean textOnly = false;
-    private Map menuMap = new HashMap();
+    private Map<String, Object> menuMap;
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
-         String confValue = XPontusConfig.getValue("xpontus.MenuBarLookAndFeel").toString();
-        
-        if(confValue.equals("Text only")){
+        menuMap = new HashMap<String, Object>();
+
+        String confValue = XPontusConfig.getValue("xpontus.MenuBarLookAndFeel")
+                                        .toString();
+
+        if (confValue.equals("Text only")) {
             textOnly = true;
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
+        menuMap.clear();
     }
 
     /**
@@ -118,13 +127,17 @@ public class MenuBarPlugin extends XPontusPlugin {
 
             for (int j = 0; j < actions.size(); j++) {
                 JMenuItem m_item = menu.add(actions.get(j));
-                if(textOnly){
+
+                if (textOnly) {
                     m_item.setIcon(null);
                 }
             }
         }
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         JMenu menu = null;
 

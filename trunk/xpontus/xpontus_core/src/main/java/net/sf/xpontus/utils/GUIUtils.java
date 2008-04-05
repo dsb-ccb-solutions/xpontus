@@ -21,22 +21,8 @@
  */
 package net.sf.xpontus.utils;
 
-import com.vlsolutions.swing.docking.DockingUtilities;
-import com.vlsolutions.swing.docking.TabbedDockableContainer;
-
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.DocumentContainer;
-import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
-import net.sf.xpontus.modules.gui.components.IDocumentContainer;
-
-import org.apache.commons.collections.map.ListOrderedMap;
-import org.apache.commons.io.IOCase;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.commons.lang.text.StrBuilder;
-
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -45,24 +31,26 @@ import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.StringReader;
-
 import java.net.URL;
-
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.JTextComponent;
+
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+
+import org.apache.commons.collections.map.ListOrderedMap;
+import org.apache.commons.io.IOCase;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.commons.lang.text.StrBuilder;
 
 
 /**
@@ -123,7 +111,7 @@ public class GUIUtils {
     public static void installDefaultFilters(JFileChooser chooser) {
         initFilters();
 
-        //        Hashtable mimesMap = MimeTypesProvider.getInstance().getContentTypesMap();
+        //        Hashtable mimesMap = MimeTypesProvider.createInstance().getContentTypesMap();
         //        Iterator it = mimesMap.keySet().iterator();
         //        
         //        while(it.hasNext()){
@@ -165,8 +153,8 @@ public class GUIUtils {
 
     private static void initSwitchWindowActions() {
         
-        nextWindowAction = new SwitchWindowAction(ACTION_SWITCH_NEXT_WINDOW, true);
-        previousWindowAction = new SwitchWindowAction(ACTION_SWITCH_NEXT_WINDOW, false);
+        nextWindowAction = new net.sf.xpontus.actions.impl.SwitchWindowAction(ACTION_SWITCH_NEXT_WINDOW, true);
+        previousWindowAction = new net.sf.xpontus.actions.impl.SwitchWindowAction(ACTION_SWITCH_NEXT_WINDOW, false);
     }
 
     public static void installWindowSwitcher(JTextComponent editor) {

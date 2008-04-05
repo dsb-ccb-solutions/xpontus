@@ -21,6 +21,7 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 import net.sf.xpontus.utils.GUIUtils;
@@ -31,9 +32,9 @@ import org.apache.commons.vfs.VFS;
 
 import java.io.File;
 
-import javax.swing.JFileChooser;
+import javax.swing.*;
 import javax.swing.text.JTextComponent;
-import net.sf.xpontus.constants.XPontusConstantsIF;
+
 
 /**
  * @version 0.0.1
@@ -41,7 +42,6 @@ import net.sf.xpontus.constants.XPontusConstantsIF;
  * @author Yves Zoundi
  */
 public class OpenActionImpl extends XPontusThreadedActionImpl {
-
     public static final String BEAN_ALIAS = "action.open";
     private JFileChooser chooser; //vfsb;
 
@@ -59,33 +59,28 @@ public class OpenActionImpl extends XPontusThreadedActionImpl {
             GUIUtils.installDefaultFilters(chooser);
         }
 
-        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer();
-
-
-
+        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
+                                                           .getDocumentTabContainer();
 
         if (dtc.getCurrentEditor() != null) {
             JTextComponent jtc = dtc.getCurrentEditor();
             Object obj = jtc.getClientProperty(XPontusConstantsIF.FILE_OBJECT);
+
             if (obj != null) {
                 try {
-                    FileObject fo = (FileObject)obj;
+                    FileObject fo = (FileObject) obj;
                     File m_file = new File(fo.getURL().getFile());
                     chooser.setCurrentDirectory(m_file.getParentFile());
                 } catch (Exception err) {
-
                 }
             }
         }
 
-        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent().getDisplayComponent());
+        int answer = chooser.showOpenDialog(XPontusComponentsUtils.getTopComponent()
+                                                                  .getDisplayComponent());
 
         // open the selected files
         if (answer == javax.swing.JFileChooser.APPROVE_OPTION) {
-
-
-
-
             try {
                 File[] files = chooser.getSelectedFiles();
 

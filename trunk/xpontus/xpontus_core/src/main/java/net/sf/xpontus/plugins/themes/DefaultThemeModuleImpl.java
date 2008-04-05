@@ -41,14 +41,23 @@ public class DefaultThemeModuleImpl implements ThemePluginIF {
         CLASSNAME = UIManager.getCrossPlatformLookAndFeelClassName();
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.themes.ThemePluginIF#getAlias()
+     */
     public String getAlias() {
         return ALIAS;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.themes.ThemePluginIF#getThemeFullClassQualifiedName()
+     */
     public String getThemeFullClassQualifiedName() {
         return CLASSNAME;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.themes.ThemePluginIF#getPropertiesToSet()
+     */
     public Properties getPropertiesToSet() {
         return null;
     }

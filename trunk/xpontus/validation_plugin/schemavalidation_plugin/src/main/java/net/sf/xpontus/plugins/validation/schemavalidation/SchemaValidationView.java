@@ -6,16 +6,14 @@
 
 package net.sf.xpontus.plugins.validation.schemavalidation;
 
-import com.jgoodies.binding.adapter.Bindings;
-import com.jgoodies.binding.adapter.ComboBoxAdapter;
-import com.jgoodies.binding.beans.BeanAdapter;
-import com.jgoodies.binding.value.ValueHolder;
-import com.jgoodies.binding.value.ValueModel;
 import java.awt.Frame;
 import java.awt.event.ActionListener;
 import java.beans.EventHandler;
-import java.util.ArrayList;
+
 import net.sf.xpontus.utils.XPontusComponentsUtils;
+
+import com.jgoodies.binding.adapter.Bindings;
+import com.jgoodies.binding.beans.BeanAdapter;
 
 /**
  *

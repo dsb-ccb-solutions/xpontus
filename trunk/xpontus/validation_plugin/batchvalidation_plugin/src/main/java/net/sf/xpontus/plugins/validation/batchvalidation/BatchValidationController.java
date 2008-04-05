@@ -18,38 +18,11 @@
  */
 package net.sf.xpontus.plugins.validation.batchvalidation;
 
-import com.ibm.icu.text.CharsetDetector;
-
-
-import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
-import net.sf.xpontus.modules.gui.components.OutputDockable;
-import net.sf.xpontus.utils.XPontusComponentsUtils;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.vfs.FileContent;
-import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.FileType;
-import org.apache.commons.vfs.VFS;
-
-import org.apache.xerces.parsers.SAXParser;
-import org.apache.xerces.parsers.XIncludeAwareParserConfiguration;
-import org.apache.xerces.util.XMLGrammarPoolImpl;
-import org.apache.xerces.xni.grammars.XMLGrammarPool;
-import org.apache.xerces.xni.parser.XMLParserConfiguration;
-
-import org.xml.sax.InputSource;
-
-import java.awt.Component;
 import java.awt.Toolkit;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
@@ -59,6 +32,26 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
+import net.sf.xpontus.utils.GrammarPoolHolder;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.vfs.FileContent;
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.FileType;
+import org.apache.commons.vfs.VFS;
+import org.apache.xerces.parsers.SAXParser;
+import org.apache.xerces.util.SymbolTable;
+import org.apache.xerces.xni.grammars.XMLGrammarPool;
+import org.xml.sax.InputSource;
+
+import com.ibm.icu.text.CharsetDetector;
 
 
 /**
@@ -301,10 +294,6 @@ public class BatchValidationController {
 
         log.info("There is(are) " + nbFiles + " to validate");
 
-        Component mainWindow = DefaultXPontusWindowImpl.getInstance()
-                                                       .getDisplayComponent();
-
-         
         ProgressMonitorHandler pmh = new ProgressMonitorHandler(0, nbFiles);
         DefaultXPontusWindowImpl.getInstance().getStatusBar()
                                 .addOperationComponent(pmh);
@@ -316,12 +305,11 @@ public class BatchValidationController {
 
         if (parser == null) {
             try {
-                XMLParserConfiguration config = new XIncludeAwareParserConfiguration();
-                XMLGrammarPool grammarPool = new XMLGrammarPoolImpl();
-                final String GRAMMAR_POOL_PROPERTY = "http://apache.org/xml/properties/internal/grammar-pool";
-                config.setProperty(GRAMMAR_POOL_PROPERTY, grammarPool);
-
-                parser = new SAXParser(config);
+                SymbolTable table = GrammarPoolHolder.getInstance()
+                                                     .getSymbolTable();
+                XMLGrammarPool pool = GrammarPoolHolder.getInstance()
+                                                       .getGrammarPool();
+                parser = new SAXParser(table, pool);
                 errorHandler = new BatchValidationErrorHandler();
 
                 parser.setFeature("http://xml.org/sax/features/validation", true);
@@ -362,8 +350,7 @@ public class BatchValidationController {
                     DefaultXPontusWindowImpl.getInstance().getStatusBar()
                                             .setMessage("All files are valid!");
                 } else {
-                    console.println("There is(are) " + nbErrors +
-                        " errors(s)");
+                    console.println("There is(are) " + nbErrors + " errors(s)");
                     console.println(errorHandler.getErrorMessages(),
                         OutputDockable.RED_STYLE);
 

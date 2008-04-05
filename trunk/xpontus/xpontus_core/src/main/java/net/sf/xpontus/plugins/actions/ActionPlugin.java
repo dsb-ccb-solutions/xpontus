@@ -55,9 +55,15 @@ public class ActionPlugin extends XPontusPlugin {
     public ActionPlugin() {
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
     }
 

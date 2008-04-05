@@ -56,6 +56,7 @@ import java.util.Locale;
 /**
  * XPontus plugin manager
  * @author Yves Zoundi
+ * @version 0.0.1
  */
 public class XPontusPluginManager implements XPontusControllerIF
 {
@@ -75,6 +76,9 @@ public class XPontusPluginManager implements XPontusControllerIF
         manager.publishPlugins(getPluginLocations());
     }
 
+    /**
+     * @return
+     */
     public static PluginManager getPluginManager()
     {
         if (manager == null)
@@ -85,6 +89,9 @@ public class XPontusPluginManager implements XPontusControllerIF
         return manager;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.controllers.XPontusControllerIF#startApplication()
+     */
     public void startApplication()
     {
         PluginRegistry registry = manager.getRegistry();
@@ -110,8 +117,9 @@ public class XPontusPluginManager implements XPontusControllerIF
         }
     }
 
-    /**
-     *  Stop the application
+    
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.controllers.XPontusControllerIF#stopApplication()
      */
     public void stopApplication()
     {
@@ -141,8 +149,8 @@ public class XPontusPluginManager implements XPontusControllerIF
         manager.shutdown();
     }
 
+    
     /**
-     *
      * @param path
      * @return
      */

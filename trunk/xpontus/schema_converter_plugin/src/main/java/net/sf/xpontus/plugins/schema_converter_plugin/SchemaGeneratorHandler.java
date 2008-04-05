@@ -22,8 +22,34 @@
  */
 package net.sf.xpontus.plugins.schema_converter_plugin;
 
-import com.ibm.icu.text.CharsetDetector;
+import java.awt.Toolkit;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 
+import javax.swing.JFileChooser;
+import javax.swing.text.JTextComponent;
+
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.IDocumentContainer;
+import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
+import net.sf.xpontus.modules.gui.components.OutputDockable;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.text.StrBuilder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.xml.sax.SAXParseException;
+
+import com.ibm.icu.text.CharsetDetector;
 import com.thaiopensource.relaxng.edit.SchemaCollection;
 import com.thaiopensource.relaxng.input.InputFormat;
 import com.thaiopensource.relaxng.input.dtd.DtdInputFormat;
@@ -37,40 +63,8 @@ import com.thaiopensource.relaxng.output.dtd.DtdOutputFormat;
 import com.thaiopensource.relaxng.output.rnc.RncOutputFormat;
 import com.thaiopensource.relaxng.output.rng.RngOutputFormat;
 import com.thaiopensource.relaxng.output.xsd.XsdOutputFormat;
-
 import com.thaiopensource.util.UriOrFile;
-
 import com.thaiopensource.xml.sax.ErrorHandlerImpl;
-
-import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.IDocumentContainer;
-import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
-import net.sf.xpontus.modules.gui.components.OutputDockable;
-import net.sf.xpontus.utils.XPontusComponentsUtils;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.text.StrBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.xml.sax.SAXParseException;
-
-import java.awt.Toolkit;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-
-import javax.swing.JFileChooser;
-import javax.swing.text.JTextComponent;
 
 /**
  *

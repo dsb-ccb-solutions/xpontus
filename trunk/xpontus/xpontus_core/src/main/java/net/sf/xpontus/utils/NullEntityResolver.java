@@ -1,5 +1,5 @@
 /*
- *
+ * NullEntityResolver.java
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
@@ -44,9 +44,9 @@ public class NullEntityResolver implements EntityResolver {
 
     /**
      *
-     * @return
+     * @return a new instance of this class
      */
-    public static NullEntityResolver getInstance() {
+    public static NullEntityResolver createInstance() {
         if (INSTANCE == null) {
             INSTANCE = new NullEntityResolver();
         }
@@ -55,12 +55,12 @@ public class NullEntityResolver implements EntityResolver {
     }
 
     /**
-     *
+     * 
      * @param publicId
      * @param systemId
      * @return
-     * @throws org.xml.sax.SAXException
-     * @throws java.io.IOException
+     * @throws SAXException
+     * @throws IOException
      */
     public InputSource resolveEntity(String publicId, String systemId)
         throws SAXException, IOException {

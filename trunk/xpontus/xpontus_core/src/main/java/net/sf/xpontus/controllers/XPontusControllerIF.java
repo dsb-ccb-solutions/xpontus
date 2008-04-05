@@ -24,6 +24,7 @@ package net.sf.xpontus.controllers;
 
 /**
  * Interface for the main controller of the application
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public interface XPontusControllerIF {

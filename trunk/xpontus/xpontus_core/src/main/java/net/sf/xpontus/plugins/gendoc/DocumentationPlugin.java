@@ -44,7 +44,7 @@ public class DocumentationPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "gendocpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.gendoc";
     public static final String PLUGIN_CATEGORY = "Documentation";
-    private Map engines = new HashMap();
+    private Map<String, Object> engines;
 
     public DocumentationPlugin() {
     }
@@ -56,7 +56,7 @@ public class DocumentationPlugin extends XPontusPlugin {
      * @param loader
      */
     private void addEngine(IDocumentationPluginIF m_plugin, ClassLoader loader) {
-        Hashtable t = new Hashtable();
+        Hashtable<String, Object> t = new Hashtable<String, Object>();
 
         t.put(XPontusConstantsIF.CLASS_LOADER, loader);
         t.put(XPontusConstantsIF.OBJECT_CLASSNAME, m_plugin.getClass().getName());
@@ -87,8 +87,10 @@ public class DocumentationPlugin extends XPontusPlugin {
     }
 
     protected void doStart() throws Exception {
+    	 engines = new HashMap<String, Object>();
     }
 
     protected void doStop() throws Exception {
+    	engines.clear();
     }
 }

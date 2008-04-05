@@ -30,7 +30,8 @@ import java.util.Hashtable;
 
 /**
  * Scenario model for user transformations
- * @author Yves Zoundi
+ * @version 0.0.1
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ScenarioModel extends ObservableModel {
     private String input = "";
@@ -42,13 +43,22 @@ public class ScenarioModel extends ObservableModel {
     private Hashtable parameters = new Hashtable();
     private boolean preview = false;
 
+    /**
+     * 
+     */
     public ScenarioModel() {
     }
 
+    /**
+     * @return
+     */
     public boolean isPreview() {
         return preview;
     }
 
+    /**
+     * @param preview
+     */
     public void setPreview(boolean preview) {
         this.preview = preview;
         updateView();
@@ -175,6 +185,9 @@ public class ScenarioModel extends ObservableModel {
         updateView();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
         return this.alias;
     }

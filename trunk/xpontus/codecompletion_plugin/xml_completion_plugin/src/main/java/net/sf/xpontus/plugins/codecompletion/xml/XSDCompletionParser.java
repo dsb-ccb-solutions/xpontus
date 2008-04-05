@@ -20,40 +20,21 @@
  */
 package net.sf.xpontus.plugins.codecompletion.xml;
 
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.xerces.impl.xs.SchemaGrammar;
-import org.apache.xerces.impl.xs.XMLSchemaLoader;
-import org.apache.xerces.xni.parser.XMLInputSource;
-import org.apache.xerces.xs.XSAttributeDeclaration;
-import org.apache.xerces.xs.XSAttributeUse;
-import org.apache.xerces.xs.XSComplexTypeDefinition;
-import org.apache.xerces.xs.XSElementDeclaration;
-import org.apache.xerces.xs.XSModelGroup;
-import org.apache.xerces.xs.XSObjectList;
-import org.apache.xerces.xs.XSParticle;
-import org.apache.xerces.xs.XSTerm;
-import org.apache.xerces.xs.XSTypeDefinition;
-import org.apache.xerces.xs.XSWildcard;
-
 import org.dynvocation.lib.xsd4j.XSDAttribute;
 import org.dynvocation.lib.xsd4j.XSDElement;
 import org.dynvocation.lib.xsd4j.XSDParser;
 import org.dynvocation.lib.xsd4j.XSDSchema;
 import org.dynvocation.lib.xsd4j.XSDSequence;
 import org.dynvocation.lib.xsd4j.XSDType;
-
-import java.io.InputStream;
-import java.io.Reader;
-
-import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 
 
 /**

@@ -22,7 +22,13 @@
  */
 package net.sf.xpontus.actions.impl;
 
-import com.ibm.icu.text.CharsetDetector;
+import java.awt.Toolkit;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.Reader;
+
+import javax.swing.text.JTextComponent;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
@@ -30,25 +36,15 @@ import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
-import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.NullEntityResolver;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.io.IOUtils;
-
 import org.apache.xerces.parsers.SAXParser;
-
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
-import java.awt.Toolkit;
-
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.Reader;
-
-import javax.swing.text.JTextComponent;
+import com.ibm.icu.text.CharsetDetector;
 
 
 /**
@@ -139,7 +135,7 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
             parser.setFeature(DYNAMIC_VALIDATION_FEATURE_ID, false);
             parser.setFeature(SCHEMA_VALIDATION_FEATURE_ID, false);
             parser.setFeature(VALIDATE_ANNOTATIONS_ID, false);
-            parser.setEntityResolver(NullEntityResolver.getInstance());
+            parser.setEntityResolver(NullEntityResolver.createInstance());
 
             parser.parse(new InputSource(m_reader));
 

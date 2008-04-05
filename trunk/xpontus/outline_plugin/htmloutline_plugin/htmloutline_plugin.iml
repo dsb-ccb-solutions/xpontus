@@ -171,15 +171,15 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="commons-lang:commons-lang:2.3">
+      <library name="commons-lang:commons-lang:2.4">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -275,15 +275,15 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="com.jidesoft:jide-oss:2.2.1.11">
+      <library name="com.jidesoft:jide-oss:2.2.2.02">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.1.11/jide-oss-2.2.1.11.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.2.02/jide-oss-2.2.2.02.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.1.11/jide-oss-2.2.1.11-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.2.02/jide-oss-2.2.2.02-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.1.11/jide-oss-2.2.1.11-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.2.02/jide-oss-2.2.2.02-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -301,19 +301,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="html_indentation_plugin" exported="" />
-    <orderEntry type="module-library" exported="">
-      <library name="nekohtml:nekohtml:0.9.5">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/nekohtml/nekohtml/0.9.5/nekohtml-0.9.5.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/nekohtml/nekohtml/0.9.5/nekohtml-0.9.5-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/nekohtml/nekohtml/0.9.5/nekohtml-0.9.5-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntryProperties />
   </component>
 </module>

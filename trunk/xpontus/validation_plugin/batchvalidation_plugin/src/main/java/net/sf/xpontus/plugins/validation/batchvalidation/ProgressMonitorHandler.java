@@ -4,8 +4,6 @@
  */
 package net.sf.xpontus.plugins.validation.batchvalidation;
 
-import net.sf.xpontus.modules.gui.components.ImageButton;
-
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -13,7 +11,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.net.URL;
 
 import javax.swing.BorderFactory;
@@ -22,7 +19,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
+
+import net.sf.xpontus.modules.gui.components.ImageButton;
 
 
 /**

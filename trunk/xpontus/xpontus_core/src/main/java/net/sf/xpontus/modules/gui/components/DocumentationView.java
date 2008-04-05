@@ -12,7 +12,7 @@ import com.jgoodies.binding.value.ValueModel;
 import java.awt.Frame;
 import java.awt.event.ActionListener;
 import java.beans.EventHandler;
-import net.sf.xpontus.controllers.impl.DocumentationControllerImpl;
+
 import net.sf.xpontus.model.DocumentationModel;
 import net.sf.xpontus.plugins.gendoc.DocConfiguration;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
@@ -29,7 +29,7 @@ public class DocumentationView extends javax.swing.JDialog {
      */
     public DocumentationView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        controller = new DocumentationControllerImpl(this);
+        controller = new net.sf.xpontus.controllers.impl.DocumentationController(this);
         model = new DocumentationModel();
         adapter = new BeanAdapter(model, true);
         
@@ -92,7 +92,7 @@ public class DocumentationView extends javax.swing.JDialog {
             (ActionListener)EventHandler.create(
                 ActionListener.class,
                 controller,
-                DocumentationControllerImpl.INPUT_METHOD)
+                net.sf.xpontus.controllers.impl.DocumentationController.INPUT_METHOD)
         );
 
         srcTF.setEditable(false);
@@ -104,7 +104,7 @@ public class DocumentationView extends javax.swing.JDialog {
             (ActionListener)EventHandler.create(
                 ActionListener.class,
                 controller,
-                DocumentationControllerImpl.OUTPUT_METHOD)
+                net.sf.xpontus.controllers.impl.DocumentationController.OUTPUT_METHOD)
         );
 
         destTF.setEditable(false);
@@ -120,7 +120,7 @@ public class DocumentationView extends javax.swing.JDialog {
             (ActionListener)EventHandler.create(
                 ActionListener.class,
                 controller,
-                DocumentationControllerImpl.CSS_METHOD)
+                net.sf.xpontus.controllers.impl.DocumentationController.CSS_METHOD)
         );
 
         cssTF.setEditable(false);
@@ -215,7 +215,7 @@ public class DocumentationView extends javax.swing.JDialog {
             (ActionListener)EventHandler.create(
                 ActionListener.class,
                 controller,
-                DocumentationControllerImpl.HANDLE_METHOD)
+                net.sf.xpontus.controllers.impl.DocumentationController.HANDLE_METHOD)
         );
         buttonsPanel.add(generateButton);
 
@@ -224,7 +224,7 @@ public class DocumentationView extends javax.swing.JDialog {
             (ActionListener)EventHandler.create(
                 ActionListener.class,
                 controller,
-                DocumentationControllerImpl.CLOSE_METHOD)
+                net.sf.xpontus.controllers.impl.DocumentationController.CLOSE_METHOD)
         );
         buttonsPanel.add(cancelButton);
 
@@ -254,7 +254,7 @@ public class DocumentationView extends javax.swing.JDialog {
     private javax.swing.JTextField srcTF;
     // End of variables declaration//GEN-END:variables
     private ComboBoxAdapter typeAdapter;
-    private DocumentationControllerImpl controller;
+    private net.sf.xpontus.controllers.impl.DocumentationController controller;
     private DocumentationModel model;
     private BeanAdapter adapter;
 }

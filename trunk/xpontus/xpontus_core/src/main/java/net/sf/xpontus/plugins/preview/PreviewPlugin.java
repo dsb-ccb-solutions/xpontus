@@ -52,8 +52,11 @@ public class PreviewPlugin extends XPontusPlugin {
      *
      */
     public static final String PLUGIN_IDENTIFIER = "plugin.core.preview";
-    private Map previewers;
+    private Map<String, Object> previewers;
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_PREVIEW_PROPERTY,
             previewers);
@@ -78,14 +81,23 @@ public class PreviewPlugin extends XPontusPlugin {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
-        previewers = new HashMap();
+        previewers = new HashMap<String, Object>();
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
         previewers.clear();
     }
 
+    /**
+     * @param m_preview
+     */
     private void initExtension(PreviewPluginIF m_preview) {
         m_preview = null;
     }

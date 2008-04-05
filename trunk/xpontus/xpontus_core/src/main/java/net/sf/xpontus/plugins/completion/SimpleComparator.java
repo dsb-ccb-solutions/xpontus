@@ -21,10 +21,6 @@
  */
 package net.sf.xpontus.plugins.completion;
 
-import org.apache.commons.collections.ComparatorUtils;
-
-import org.springframework.util.comparator.ComparableComparator;
-
 import java.util.Comparator;
 
 

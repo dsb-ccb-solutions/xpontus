@@ -23,8 +23,6 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
-import net.sf.xpontus.plugins.scenarios.ScenarioModel;
-
 
 /**
  * Scenario plugin interface

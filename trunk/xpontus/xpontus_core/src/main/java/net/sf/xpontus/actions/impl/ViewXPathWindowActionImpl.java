@@ -21,24 +21,26 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.plugins.evaluator.XPathResultsDockable;
+
 import com.vlsolutions.swing.docking.Dockable;
 import com.vlsolutions.swing.docking.DockableState;
 import com.vlsolutions.swing.docking.DockingConstants;
 import com.vlsolutions.swing.docking.DockingDesktop;
 
-import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
-import net.sf.xpontus.plugins.evaluator.XPathResultsDockable;
-
 
 /**
- *
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ViewXPathWindowActionImpl extends AbstractXPontusActionImpl {
     public static final String BEAN_ALIAS = "action.viewxpathwindow";
 
+    /**
+     * @return
+     */
     public Dockable getFirstDockedConsole() {
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                               .getConsole();
@@ -58,6 +60,9 @@ public class ViewXPathWindowActionImpl extends AbstractXPontusActionImpl {
         return dc;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.XPontusActionIF#execute()
+     */
     public void execute() {
         DockingDesktop desktop = DefaultXPontusWindowImpl.getInstance()
                                                          .getDesktop();

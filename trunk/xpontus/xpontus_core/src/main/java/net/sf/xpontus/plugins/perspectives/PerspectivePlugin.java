@@ -21,7 +21,6 @@
  */
 package net.sf.xpontus.plugins.perspectives;
 
-import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
 import net.sf.xpontus.properties.PropertiesHolder;
@@ -34,7 +33,6 @@ import org.java.plugin.registry.PluginRegistry;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,6 +60,9 @@ public class PerspectivePlugin extends XPontusPlugin {
     // the list of all registered perspectives to render documents
     private List<PerspectivePluginIF> availablePerspectives;
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_PERSPECTIVES,
             availablePerspectives);
@@ -95,11 +96,17 @@ public class PerspectivePlugin extends XPontusPlugin {
         availablePerspectives.add(m_perspective);
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
         // create a new hashtable to store registered perspectives 
         availablePerspectives = new ArrayList<PerspectivePluginIF>();
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
         // clear the registered perspectives and free resources
         availablePerspectives.clear();

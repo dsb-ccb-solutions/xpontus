@@ -37,8 +37,7 @@ import javax.swing.JOptionPane;
 public class XPontusComponentsUtils {
     public static int ERROR_MESSAGE_TYPE = JOptionPane.ERROR_MESSAGE;
     public static final int INFORMATION_MESSAGE_TYPE = JOptionPane.INFORMATION_MESSAGE;
-    private static Object m_obj = null;
-    private static String TOP_COMPONENT_FACTORY_METHOD = "getInstance";
+    private static String TOP_COMPONENT_FACTORY_METHOD = "createInstance";
 
     /** Creates a new instance of XPontusComponentsUtils */
     private XPontusComponentsUtils() {

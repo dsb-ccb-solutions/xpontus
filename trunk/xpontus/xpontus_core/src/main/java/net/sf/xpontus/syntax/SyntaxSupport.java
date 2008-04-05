@@ -1,5 +1,5 @@
 /*
- * SyntaxInfo.java
+ * SyntaxSupport.java
  *
  * Created on December 22, 2006, 1:05 AM
  *
@@ -22,11 +22,13 @@
 package net.sf.xpontus.syntax;
 
 
-/**
- *
- * @author Owner
- */
-public class SyntaxSupport {
+ /**
+  * Class SyntaxSupport ...
+  *
+  * @author Yves Zoundi
+  * Created on Apr 5, 2008
+  */
+ public class SyntaxSupport {
     private ILexer lexer;
     private IColorProvider colorProvider;
 
@@ -34,40 +36,53 @@ public class SyntaxSupport {
     public SyntaxSupport() {
     }
 
-    /**
-     * @param lexer
-     * @param colorProvider
-     */
-    public SyntaxSupport(ILexer lexer, IColorProvider colorProvider) {
+     /**
+      * Constructor SyntaxSupport creates a new SyntaxSupport instance.
+      *
+      * @param lexer of type ILexer
+      * @param colorProvider of type IColorProvider
+      */
+     public SyntaxSupport(ILexer lexer, IColorProvider colorProvider) {
         setLexer(lexer);
         setColorProvider(colorProvider);
     }
 
     /**
-     * @param lexer
+     * Method setLexer sets the lexer of this SyntaxSupport object.
+     *
+     * @param lexer the lexer of this SyntaxSupport object.
+     *
      */
     public void setLexer(ILexer lexer) {
         this.lexer = lexer;
     }
 
-    /**
-     * @return
-     */
-    public ILexer getLexer() {
+     /**
+      * Method getLexer returns the lexer of this SyntaxSupport object.
+      *
+      * @return the lexer (type ILexer) of this SyntaxSupport object.
+      */
+     public ILexer getLexer() {
         return lexer;
     }
 
+
     /**
-     * @return
+     * Method getColorProvider returns the colorProvider of this SyntaxSupport object.
+     *
+     * @return the colorProvider (type IColorProvider) of this SyntaxSupport object.
      */
     public IColorProvider getColorProvider() {
         return colorProvider;
     }
 
-    /**
-     * @param colorProvider
-     */
-    public void setColorProvider(IColorProvider colorProvider) {
+     /**
+      * Method setColorProvider sets the colorProvider of this SyntaxSupport object.
+      *
+      * @param colorProvider the colorProvider of this SyntaxSupport object.
+      *
+      */
+     public void setColorProvider(IColorProvider colorProvider) {
         this.colorProvider = colorProvider;
     }
 }

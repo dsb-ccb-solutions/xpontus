@@ -45,19 +45,23 @@ public class IndentationPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "indentationpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.indentation";
     public static final String PLUGIN_CATEGORY = "Indentation";
-    private Hashtable indenters = new Hashtable();
+    private Hashtable<Object, Object> indenters;
 
     /** Creates a new instance of IndentationModule */
     public IndentationPlugin() {
     }
 
+    /**
+     * @param plugin
+     * @param classLoader
+     */
     public void initExtension(IndentationPluginIF plugin,
         ClassLoader classLoader) {
         String mimeType = plugin.getMimeType();
         String name = plugin.getName();
         String m_className = plugin.getClass().getName();
 
-        Hashtable m_map = new Hashtable();
+        Hashtable<Object, Object> m_map = new Hashtable<Object, Object>();
 
         m_map.put(XPontusConstantsIF.OBJECT_NAME, name);
         m_map.put(XPontusConstantsIF.CLASS_LOADER, classLoader);
@@ -69,6 +73,9 @@ public class IndentationPlugin extends XPontusPlugin {
         indenters.put(mimeType, m_map);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_INDENTATION_ENGINES,
             indenters);
@@ -93,9 +100,16 @@ public class IndentationPlugin extends XPontusPlugin {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
+    	 indenters = new Hashtable<Object, Object>();
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
         indenters.clear();
     }

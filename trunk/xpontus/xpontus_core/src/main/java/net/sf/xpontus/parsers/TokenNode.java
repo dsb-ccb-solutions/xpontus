@@ -17,6 +17,11 @@ public class TokenNode extends DefaultMutableTreeNode {
     public int endLine = -1;
     public int endColumn = -1;
 
+    /**
+     * @param aNode
+     * @param line
+     * @param column
+     */
     public TokenNode(String aNode, int line, int column) {
         this.setUserObject(aNode);
         this.line = line;

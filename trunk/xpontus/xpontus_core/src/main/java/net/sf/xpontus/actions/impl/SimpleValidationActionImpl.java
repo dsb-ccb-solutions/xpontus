@@ -23,21 +23,23 @@ package net.sf.xpontus.actions.impl;
 
 import com.ibm.icu.text.CharsetDetector;
 
-import java.awt.Toolkit;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.modules.gui.components.OutputDockable;
+import net.sf.xpontus.utils.DocumentContainerChangeEvent;
+import net.sf.xpontus.utils.GrammarPoolHolder;
 
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.util.SymbolTable;
-import org.apache.xerces.util.XMLGrammarPoolImpl;
 import org.apache.xerces.xni.grammars.XMLGrammarPool;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import java.awt.Toolkit;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -50,7 +52,8 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  * @version 0.0.1
  */
-public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
+public class SimpleValidationActionImpl
+    extends XPontusDocumentAwareThreadedActionImpl {
     public static final String BEAN_ALIAS = "action.validate";
     private SAXParser parser;
     private ValidationHandler handler;
@@ -75,8 +78,10 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
             InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
 
             if (parser == null) {
-                XMLGrammarPool pool = new XMLGrammarPoolImpl();
-                SymbolTable table = new SymbolTable();
+                SymbolTable table = GrammarPoolHolder.getInstance()
+                                                     .getSymbolTable();
+                XMLGrammarPool pool = GrammarPoolHolder.getInstance()
+                                                       .getGrammarPool();
                 parser = new SAXParser(table, pool);
 
                 parser.setFeature("http://xml.org/sax/features/use-entity-resolver2",
@@ -107,7 +112,8 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
 
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                                   .getConsole();
-            OutputDockable odk = (OutputDockable) console.getDockables().get(ConsoleOutputWindow.MESSAGES_WINDOW);
+            OutputDockable odk = (OutputDockable) console.getDockables()
+                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
 
             if (handler.getErrors().length() == 0) {
                 container.getStatusBar().setMessage("Document is valid!");
@@ -130,7 +136,8 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
 
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                                   .getConsole();
-            OutputDockable odk = (OutputDockable) console.getDockables().get(ConsoleOutputWindow.MESSAGES_WINDOW);
+            OutputDockable odk = (OutputDockable) console.getDockables()
+                                                         .get(ConsoleOutputWindow.MESSAGES_WINDOW);
             IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                         .getDocumentTabContainer()
                                                                                         .getCurrentDockable();
@@ -139,9 +146,16 @@ public class SimpleValidationActionImpl extends DefaultDocumentAwareActionImpl {
             String error = "" + details.toString() + "\n";
 
             odk.println(error + e.getMessage(), OutputDockable.RED_STYLE);
-        }
-        finally{
+        } finally {
             Toolkit.getDefaultToolkit().beep();
+        }
+    }
+
+    public void onNotify(DocumentContainerChangeEvent evt) {
+        if (evt.getSource() == null) {
+            setEnabled(false);
+        } else {
+            setEnabled(true);
         }
     }
 

@@ -27,7 +27,7 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 
 /**
- *
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public abstract class SimpleDocumentAwareActionImpl
@@ -36,10 +36,16 @@ public abstract class SimpleDocumentAwareActionImpl
         registerComponent();
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.DocumentAwareComponentIF#registerComponent()
+     */
     public void registerComponent() {
         DocumentAwareComponentHolder.getInstance().register(this);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.DocumentAwareComponentIF#onNotify(net.sf.xpontus.utils.DocumentContainerChangeEvent)
+     */
     public void onNotify(DocumentContainerChangeEvent evt) {
         if (evt.getSource() == null) {
             setEnabled(false);

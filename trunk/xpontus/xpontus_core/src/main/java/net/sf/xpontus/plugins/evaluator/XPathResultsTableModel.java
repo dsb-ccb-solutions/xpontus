@@ -100,6 +100,9 @@ public class XPathResultsTableModel extends AbstractTableModel {
         return numColumns;
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.AbstractTableModel#getColumnName(int)
+     */
     public String getColumnName(int columnIndex) {
         return columns[columnIndex];
     }

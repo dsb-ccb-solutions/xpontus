@@ -33,10 +33,13 @@ import javax.swing.JButton;
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
- */
+ */ 
 public class ImageButton extends JButton {
     Dimension fixedSize = null;
 
+    /**
+     * @param icon
+     */
     public ImageButton(Icon icon) {
         super(icon);
 
@@ -52,6 +55,9 @@ public class ImageButton extends JButton {
         setBorder(BorderFactory.createEmptyBorder());
     }
 
+    /**
+     * @param action
+     */
     public ImageButton(Action action) {
         super(action);
 
@@ -62,6 +68,9 @@ public class ImageButton extends JButton {
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.JComponent#getMinimumSize()
+     */
     public Dimension getMinimumSize() {
         if (fixedSize == null) {
             return super.getMinimumSize();
@@ -70,6 +79,9 @@ public class ImageButton extends JButton {
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.JComponent#getMaximumSize()
+     */
     public Dimension getMaximumSize() {
         if (fixedSize == null) {
             return super.getMaximumSize();
@@ -78,6 +90,9 @@ public class ImageButton extends JButton {
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.JComponent#getPreferredSize()
+     */
     public Dimension getPreferredSize() {
         if (fixedSize == null) {
             return super.getPreferredSize();

@@ -55,7 +55,7 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
      */
     public static final String BEAN_ALIAS = "action.indent";
     private boolean hasplugins = true;
-    private Hashtable table = new Hashtable();
+    private Hashtable<String, IndentationPluginIF> table = new Hashtable<String, IndentationPluginIF>();
 
     public IndentContentActionImpl() {
     }
@@ -143,8 +143,8 @@ public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl {
         } else {
             odk.println("no indenter engine for content type:" + contentType,
                 OutputDockable.RED_STYLE);
-            getLogger().warn("no indenter engine for content type:" +
-                contentType);
+            getLogger()
+                .warn("no indenter engine for content type:" + contentType);
         }
     }
 }

@@ -33,7 +33,6 @@ import org.java.plugin.registry.ExtensionPoint;
 import org.java.plugin.registry.PluginDescriptor;
 import org.java.plugin.registry.PluginRegistry;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -49,7 +48,7 @@ public class LexerPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "lexerpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.lexer";
     public static final String PLUGIN_CATEGORY = "Lexer";
-    private Map lexerMap = new HashMap();
+    private Map<String, Object> lexerMap;
 
     public LexerPlugin() {
     }
@@ -61,7 +60,7 @@ public class LexerPlugin extends XPontusPlugin {
      * @param loader
      */
     private void addLexer(LexerPluginIF lexer, ClassLoader loader) {
-        Hashtable t = new Hashtable();
+        Hashtable<String, Object> t = new Hashtable<String, Object>();
 
         t.put(LexerPropertiesConstantsIF.CLASS_LOADER, loader);
         t.put(LexerPropertiesConstantsIF.LEXER_CLASSNAME,
@@ -87,6 +86,9 @@ public class LexerPlugin extends XPontusPlugin {
         MimeTypesProvider.getInstance().addMimeTypes(mime_types);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
@@ -113,12 +115,25 @@ public class LexerPlugin extends XPontusPlugin {
             lexerMap);
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
+        lexerMap = new HashMap<String, Object>();
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
+        lexerMap.clear();
     }
 
+    /**
+     * @param mimeType
+     * @param supportedExtensions
+     * @return
+     */
     private String createMimeTypes(String mimeType, String[] supportedExtensions) {
         StringBuffer sb = new StringBuffer(mimeType + " ");
 

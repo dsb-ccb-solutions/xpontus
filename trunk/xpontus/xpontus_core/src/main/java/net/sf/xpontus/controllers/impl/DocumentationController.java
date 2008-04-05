@@ -47,7 +47,7 @@ import javax.swing.JFileChooser;
  * The controller for the documentation generator dialog
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class DocumentationControllerImpl {
+public class DocumentationController {
     /**
      * The method name to select an input file
      */
@@ -81,7 +81,7 @@ public class DocumentationControllerImpl {
      * Create a controller for the specified documentation generator dialog
      * @param view The documentation generator dialog
      */
-    public DocumentationControllerImpl(DocumentationView view) {
+    public DocumentationController(DocumentationView view) {
         this();
         this.view = view;
     }
@@ -89,7 +89,7 @@ public class DocumentationControllerImpl {
     /**
      * Default constructor
      */
-    public DocumentationControllerImpl() {
+    public DocumentationController() {
         chooser = new JFileChooser();
         chooser.setMultiSelectionEnabled(false);
     }

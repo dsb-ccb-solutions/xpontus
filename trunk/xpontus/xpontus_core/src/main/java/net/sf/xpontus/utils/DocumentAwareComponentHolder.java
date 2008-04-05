@@ -23,7 +23,6 @@ package net.sf.xpontus.utils;
 import com.sun.java.help.impl.SwingWorker;
 
 import net.sf.xpontus.actions.DocumentAwareComponentIF;
-import net.sf.xpontus.actions.impl.XPontusDocumentAwareThreadedActionImpl;
 
 import java.util.List;
 import java.util.Vector;
@@ -37,6 +36,9 @@ public class DocumentAwareComponentHolder {
     private static DocumentAwareComponentHolder INSTANCE;
     private List<DocumentAwareComponentIF> componentList = new Vector<DocumentAwareComponentIF>();
 
+    /**
+     * @return
+     */
     public static DocumentAwareComponentHolder getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new DocumentAwareComponentHolder();
@@ -45,6 +47,9 @@ public class DocumentAwareComponentHolder {
         return INSTANCE;
     }
 
+    /**
+     * @param evt
+     */
     public void notifyComponents(final DocumentContainerChangeEvent evt) {
         SwingWorker worker = new SwingWorker() {
                 public Object construct() {
@@ -59,6 +64,9 @@ public class DocumentAwareComponentHolder {
         worker.start();
     }
 
+    /**
+     * @param dac
+     */
     public void register(DocumentAwareComponentIF dac) {
         componentList.add(dac);
     }

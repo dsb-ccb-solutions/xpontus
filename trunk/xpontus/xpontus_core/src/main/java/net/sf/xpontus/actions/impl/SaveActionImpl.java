@@ -29,11 +29,12 @@ import net.sf.xpontus.utils.FileHistoryList;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.provider.local.LocalFile;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
 
@@ -44,6 +45,8 @@ import javax.swing.text.JTextComponent;
  */
 public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.save";
+    private static final Pattern ENCODING_PATTERN = Pattern.compile(
+            "(?<=encoding=\")[^\"]*(?=\")");
 
     /** Creates a new instance of SaveActionImpl */
     public SaveActionImpl() {
@@ -52,7 +55,8 @@ public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
     public void saveDocument(String title) {
         int rep = JOptionPane.showConfirmDialog(DefaultXPontusWindowImpl.getInstance()
                                                                         .getDisplayComponent(),
-                "The file " + title + " has been modified. Do you want to save it?",
+                "The file " + title +
+                " has been modified. Do you want to save it?",
                 "Save document?", JOptionPane.YES_NO_OPTION);
 
         if (rep == JOptionPane.YES_OPTION) {
@@ -89,7 +93,23 @@ public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
                     bos = fo.getContent().getOutputStream();
                 }
 
-                bos.write(editor.getText().getBytes());
+                String encoding = "UTF-8";
+
+                String m_encoding = getEncoding(editor.getText());
+
+                if (!m_encoding.trim().equals("")) {
+                    encoding = m_encoding;
+                }
+
+                OutputStreamWriter m_writer = new OutputStreamWriter(bos,
+                        encoding);
+
+                m_writer.write(editor.getText());
+
+                //bos.write(editor.getText().getBytes());
+                m_writer.flush();
+
+                m_writer.close();
 
                 bos.flush();
 
@@ -99,6 +119,24 @@ public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
                 handler.setModified(false);
             }
         } catch (Exception e) {
+        }
+    }
+
+    private String getEncoding(String xml) throws IOException {
+        BufferedReader reader = null;
+
+        try {
+            reader = new BufferedReader(new InputStreamReader(
+                        new ByteArrayInputStream(xml.getBytes())));
+
+            String prolog = reader.readLine();
+            Matcher matcher = ENCODING_PATTERN.matcher(prolog);
+
+            return matcher.find() ? matcher.group() : "";
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
         }
     }
 }

@@ -66,7 +66,7 @@ public class DOMAddLines extends DOMParser {
         try {
             this.setFeature("http://apache.org/xml/features/dom/defer-node-expansion",
                 false);
-            this.setEntityResolver(NullEntityResolver.getInstance());
+            this.setEntityResolver(NullEntityResolver.createInstance());
             this.parse(src);
             out = new PrintWriter(new OutputStreamWriter(System.out, "UTF8"));
         } catch (IOException e) {

@@ -42,7 +42,7 @@ public interface XPontusConstantsIF extends XPontusConfigurationConstantsIF,
     /**
      * The software's version
      */
-    String APPLICATION_VERSION = "1.0.0.1";
+    String APPLICATION_VERSION = "1.0.0.2";
 
     /**
      *

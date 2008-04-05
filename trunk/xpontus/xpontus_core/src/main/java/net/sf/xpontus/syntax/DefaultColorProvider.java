@@ -1,5 +1,5 @@
 /*
- * ColorProvider.java
+ * DefaultColorProvider.java
  *
  * Created on December 17, 2006, 2:56 PM
  *
@@ -25,7 +25,8 @@ import javax.swing.text.MutableAttributeSet;
 
 
 /**
- *
+ * Default syntax coloring style
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class DefaultColorProvider implements IColorProvider {
@@ -36,9 +37,9 @@ public class DefaultColorProvider implements IColorProvider {
     }
 
     /**
-     *
-     * @param tokenIds
-     * @param style
+     * Apply a style to tokens
+     * @param tokenIds  the token ids
+     * @param style a style to apply to the tokens
      */
     public void addAll(int[] tokenIds, MutableAttributeSet style) {
         for (int i = 0; i < tokenIds.length; i++) {
@@ -47,17 +48,17 @@ public class DefaultColorProvider implements IColorProvider {
     }
 
     /**
-     *
-     * @param tokenId
-     * @param style
+     * Apply a style to a token
+     * @param tokenId  The token identifier
+     * @param style the style to apply
      */
     public void addStyle(int tokenId, MutableAttributeSet style) {
         this.styles.put(new Integer(tokenId), style);
     }
 
     /**
-     *
-     * @return
+     * Returns the styles map
+     * @return the styles map
      */
     public java.util.Map getStyles() {
         return styles;

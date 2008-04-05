@@ -52,6 +52,11 @@ public interface XPontusMenuConstantsIF {
      * The tools menu id
      */
     String TOOLS_MENU_ID = "TOOLS_MENU_ID";
+
+    /**
+     *
+     * The plugin menu id
+     */
     String PLUGINS_MENU_ID = "PLUGINS_MENU_ID";
 
     /**

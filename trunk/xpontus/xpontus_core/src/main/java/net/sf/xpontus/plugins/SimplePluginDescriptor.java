@@ -47,10 +47,16 @@ public class SimplePluginDescriptor {
     public SimplePluginDescriptor() {
     }
 
+    /**
+     * @return
+     */
     public String getDependencies() {
         return dependencies;
     }
 
+    /**
+     * @param dependencies
+     */
     public void setDependencies(String dependencies) {
         this.dependencies = dependencies;
     }
@@ -79,110 +85,191 @@ public class SimplePluginDescriptor {
         System.out.println(str.toString());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
         return id;
     }
 
+    /**
+     * @return
+     */
     public String getPackagename() {
         return packagename;
     }
 
+    /**
+     * @param packagename
+     */
     public void setPackagename(String packagename) {
         this.packagename = packagename;
     }
 
+    /**
+     * @return
+     */
     public String getArchive() {
         return archive;
     }
 
+    /**
+     * @param archive
+     */
     public void setArchive(String archive) {
         this.archive = archive;
     }
 
+    /**
+     * @return
+     */
     public String getContributors() {
         return contributors;
     }
 
+    /**
+     * @param contributors
+     */
     public void setContributors(String contributors) {
         this.contributors = contributors;
     }
 
+    /**
+     * @return
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * @param date
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     * @return
+     */
     public String getLicense() {
         return license;
     }
 
+    /**
+     * @param license
+     */
     public void setLicense(String license) {
         this.license = license;
     }
 
+    /**
+     * @return
+     */
     public String getAuthor() {
         return author;
     }
 
+    /**
+     * @param author
+     */
     public void setAuthor(String author) {
         this.author = author;
     }
 
+    /**
+     * @return
+     */
     public String getBuiltin() {
         return builtin;
     }
 
+    /**
+     * @param builtin
+     */
     public void setBuiltin(String builtin) {
         this.builtin = builtin;
     }
 
+    /**
+     * @return
+     */
     public String getCategory() {
         return category;
     }
 
+    /**
+     * @param category
+     */
     public void setCategory(String category) {
         this.category = category;
     }
 
+    /**
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * @return
+     */
     public String getDisplayname() {
         return displayname;
     }
 
+    /**
+     * @param displayname
+     */
     public void setDisplayname(String displayname) {
         this.displayname = displayname;
     }
 
+    /**
+     * @return
+     */
     public String getHomepage() {
         return homepage;
     }
 
+    /**
+     * @param homepage
+     */
     public void setHomepage(String homepage) {
         this.homepage = homepage;
     }
 
+    /**
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * @return
+     */
     public String getVersion() {
         return version;
     }
 
+    /**
+     * @param version
+     */
     public void setVersion(String version) {
         this.version = version;
     }

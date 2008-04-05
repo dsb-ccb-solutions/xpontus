@@ -46,14 +46,24 @@ public class ScenarioPluginsConfiguration {
     private ScenarioPluginsConfiguration() {
     }
 
+    /**
+     * @param enginesMap
+     */
     public void setEnginesMap(Map enginesMap) {
         this.enginesMap = enginesMap;
     }
 
+    /**
+     * @return
+     */
     public List getEngines() {
         return engines;
     }
 
+    /**
+     * @param name
+     * @return
+     */
     public ScenarioPluginIF getEngineForName(String name) {
         System.out.println("Looking for plugin called:" + name);
 
@@ -85,6 +95,10 @@ public class ScenarioPluginsConfiguration {
         }
     }
 
+    /**
+     * @param plugin
+     * @param loader
+     */
     public void addEngine(ScenarioPluginIF plugin, ClassLoader loader) {
         engines.add(plugin);
 

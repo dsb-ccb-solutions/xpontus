@@ -1,27 +1,40 @@
+/**
+ * SyntaxView.java
+ *
+ * Created on 4-Aug-2007, 10:18:31 AM
+ *
+ *
+ * Copyright (C) 2005-2008 Yves Zoundi
+ *
+ * This library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ */
 package net.sf.xpontus.syntax;
 
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.font.TextAttribute;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.text.Element;
-import javax.swing.text.JTextComponent;
-import javax.swing.text.MutableAttributeSet;
-import javax.swing.text.PlainView;
-import javax.swing.text.Segment;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.TabExpander;
-import javax.swing.text.Utilities;
+import javax.swing.text.*;
 
 
 /**
  * A Swing view implementation that colorizes lines of a SyntaxDocument using a
- * TokenMarker.
  *
  * This class should not be used directly; a SyntaxEditorKit should be used
  * instead.

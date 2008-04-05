@@ -47,6 +47,9 @@ public interface CodeCompletionIF {
      */
     public boolean isTrigger(String str);
 
+    /**
+     * @param jtc
+     */
     public void setTextComponent(JTextComponent jtc);
 
     /**

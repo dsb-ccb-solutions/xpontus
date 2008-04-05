@@ -21,10 +21,16 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.vlsolutions.swing.docking.Dockable;
-import com.vlsolutions.swing.docking.DockingConstants;
-import com.vlsolutions.swing.docking.DockingDesktop;
-import com.vlsolutions.swing.toolbars.ToolBarContainer;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.net.URL;
+
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.SwingUtilities;
 
 import net.sf.xpontus.actions.impl.ExitActionImpl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
@@ -33,17 +39,10 @@ import net.sf.xpontus.utils.GUIUtils;
 
 import org.apache.commons.lang.text.StrBuilder;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import java.net.URL;
-
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.SwingUtilities;
+import com.vlsolutions.swing.docking.Dockable;
+import com.vlsolutions.swing.docking.DockingConstants;
+import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.toolbars.ToolBarContainer;
 
 
 /**
@@ -166,7 +165,7 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         statusbar = new JStatusBar();
 
         // create the menubar
-        menubar = new JMenuBar();
+        menubar = new JMenuBar();  
 
         // create the toolbar
         toolbar = ToolBarContainer.createDefaultContainer(true, true, true, true);
@@ -225,8 +224,12 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
     }
 
     /** activate xpontus window */
-    public void activateComponent() {
+    public void activateComponent() {    	
         frame.pack();
+        
+        menubar.revalidate();
+        
+        menubar.repaint();
 
         frame.setLocationRelativeTo(frame.getOwner());
 

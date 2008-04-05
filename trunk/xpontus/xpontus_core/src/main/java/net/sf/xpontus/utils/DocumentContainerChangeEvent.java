@@ -30,10 +30,16 @@ import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 public class DocumentContainerChangeEvent {
     private IDocumentContainer source;
 
+    /**
+     * @param source
+     */
     public DocumentContainerChangeEvent(IDocumentContainer source) {
         this.source = source;
     }
 
+    /**
+     * @return
+     */
     public IDocumentContainer getSource() {
         return source;
     }

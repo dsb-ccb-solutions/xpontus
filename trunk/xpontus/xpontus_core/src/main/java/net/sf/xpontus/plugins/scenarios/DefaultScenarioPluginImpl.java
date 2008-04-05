@@ -39,7 +39,6 @@ import org.apache.commons.vfs.provider.local.LocalFile;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -69,18 +68,30 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     public static final String SIMPLE_JAXP_TRANSFORMATION = "Output type (XML, HTML, Text)";
     private Log log = LogFactory.getLog(DefaultScenarioPluginImpl.class);
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.scenarios.ScenarioPluginIF#getName()
+     */
     public String getName() {
         return "Xalan 2.7.0:" + SIMPLE_JAXP_TRANSFORMATION;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.scenarios.ScenarioPluginIF#getProcessors()
+     */
     public String[] getProcessors() {
         return new String[] { "Xalan 2.7.0:" + SIMPLE_JAXP_TRANSFORMATION };
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.scenarios.ScenarioPluginIF#getTransformationTypes()
+     */
     public String[] getTransformationTypes() {
         return new String[] { "Simple (XML, HTML, Text)" };
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.scenarios.ScenarioPluginIF#getOutputTypes()
+     */
     public String[] getOutputTypes() {
         return new String[] { "XML", "HTML", "Text" };
     }
@@ -129,13 +140,17 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         return detector.detect().getReader();
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.scenarios.ScenarioPluginIF#handleScenario(net.sf.xpontus.plugins.scenarios.DetachableScenarioModel)
+     */
     public void handleScenario(DetachableScenarioModel model) {
         try {
             if (!isValidModel(model, true)) {
                 return;
             }
 
-            DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("Transformation in progress...");
+            DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                    .setMessage("Transformation in progress...");
 
             log.info("Getting ready for transformation");
 
@@ -216,7 +231,8 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
                 }
             }
         } catch (Exception e) {
-            DefaultXPontusWindowImpl.getInstance().getStatusBar().setMessage("Transformation failed! - See messages window");
+            DefaultXPontusWindowImpl.getInstance().getStatusBar()
+                                    .setMessage("Transformation failed! - See messages window");
             e.printStackTrace();
             throw new RuntimeException("Transformation failed:\n" +
                 e.getMessage());
@@ -258,6 +274,9 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         return sb.toString();
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.scenarios.ScenarioPluginIF#isValidModel(net.sf.xpontus.plugins.scenarios.DetachableScenarioModel, boolean)
+     */
     public boolean isValidModel(DetachableScenarioModel model,
         boolean transformationMode) {
         log.info("Validating the model before execution");
@@ -304,6 +323,9 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.scenarios.ScenarioPluginIF#setSystemProperties()
+     */
     public void setSystemProperties() {
         System.setProperty("javax.xml.transform.TransformerFactory",
             "org.apache.xalan.processor.TransformerFactoryImpl");

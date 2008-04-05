@@ -21,14 +21,23 @@
  */
 package net.sf.xpontus.plugins.settings;
 
-import com.vlsolutions.swing.docking.DefaultDockableContainerFactory;
-import com.vlsolutions.swing.docking.DockableContainerFactory;
-import com.vlsolutions.swing.docking.TabbedDockableContainer;
+import java.awt.Font;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.swing.UIManager;
 
 import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
+import net.sf.xpontus.modules.gui.components.JideDockTabbedPane;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
 import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.utils.FileHistoryList;
@@ -39,20 +48,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.text.StrBuilder;
 
-import java.awt.Font;
-import java.awt.Toolkit;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.swing.UIManager;
+import com.vlsolutions.swing.docking.DefaultDockableContainerFactory;
+import com.vlsolutions.swing.docking.DockableContainerFactory;
+import com.vlsolutions.swing.docking.TabbedDockableContainer;
 
 
 /**
@@ -213,6 +211,9 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
         return bean.load();
     }
 
+    /**
+     * 
+     */
     private void initDefaultSettings() {
         Properties props = null;
 
@@ -230,7 +231,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     public class XPontusDockableContainerFactory
         extends DefaultDockableContainerFactory {
         public TabbedDockableContainer createTabbedDockableContainer() {
-            return new DockTabbedPane2();
+            return new JideDockTabbedPane();
         }
     }
 }

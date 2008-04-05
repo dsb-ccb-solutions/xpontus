@@ -21,8 +21,6 @@
  */
 package net.sf.xpontus.plugins.toolbar;
 
-import java.awt.Component;
-
 import java.util.Map;
 
 
@@ -31,7 +29,13 @@ import java.util.Map;
  * @author Yves Zoundi
  */
 public interface ToolBarPluginIF {
+    /**
+     * @return
+     */
     String[] getToolBarNames();
 
+    /**
+     * @return
+     */
     Map getActions();
 }

@@ -28,6 +28,7 @@ import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
 
 /**
  * Action to terminate the program
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class ExitActionImpl extends AbstractXPontusActionImpl {

@@ -56,8 +56,11 @@ public class PreferencesPlugin extends XPontusPlugin {
      *
      */
     public static final String PLUGIN_IDENTIFIER = "plugin.core.preferences";
-    private Hashtable settings;
+    private Hashtable<String, Object> settings;
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_PREFERENCES_PANELS,
             settings);
@@ -82,19 +85,28 @@ public class PreferencesPlugin extends XPontusPlugin {
             PreferencesPluginIF pref = (PreferencesPluginIF) cl.newInstance();
             String id = pref.getPreferencesPanelComponent().getId();
             String category = pref.getPluginCategory();
-            Hashtable t = new Hashtable();
+
+            Hashtable<String, Object> t = new Hashtable<String, Object>();
+
             t.put("category", category);
             t.put("id", id);
             t.put(XPontusConstantsIF.OBJECT_CLASSNAME, cl.getName());
             t.put(XPontusConstantsIF.CLASS_LOADER, classLoader);
+
             settings.put(id, t);
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
-        settings = new Hashtable();
+        settings = new Hashtable<String, Object>();
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
         settings.clear();
     }

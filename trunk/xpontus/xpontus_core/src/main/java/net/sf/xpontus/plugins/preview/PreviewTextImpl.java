@@ -57,10 +57,16 @@ public class PreviewTextImpl implements PreviewPluginIF {
         return "text/plain";
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.preview.PreviewPluginIF#getName()
+     */
     public String getName() {
         return "Plain text previewer";
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.preview.PreviewPluginIF#preview(net.sf.xpontus.plugins.scenarios.DetachableScenarioModel)
+     */
     public void preview(DetachableScenarioModel model) {
         Frame m_frame = (Frame) XPontusComponentsUtils.getTopComponent()
                                                       .getDisplayComponent();

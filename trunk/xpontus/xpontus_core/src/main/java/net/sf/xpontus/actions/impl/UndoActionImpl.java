@@ -37,9 +37,15 @@ import javax.swing.text.JTextComponent;
 public class UndoActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.undo";
 
+    /**
+     * Default constructor
+     */
     public UndoActionImpl() {
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     public void run() {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
