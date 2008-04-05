@@ -46,7 +46,7 @@ public class NullEntityResolver implements EntityResolver {
      *
      * @return a new instance of this class
      */
-    public static NullEntityResolver createInstance() {
+    public static NullEntityResolver getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new NullEntityResolver();
         }

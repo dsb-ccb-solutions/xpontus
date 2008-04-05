@@ -286,6 +286,8 @@ public class DocumentContainer implements IDocumentContainer {
 
             editor.putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
                 Boolean.FALSE);
+
+            editor.setCaretPosition(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -111,7 +111,7 @@ public class GUIUtils {
     public static void installDefaultFilters(JFileChooser chooser) {
         initFilters();
 
-        //        Hashtable mimesMap = MimeTypesProvider.createInstance().getContentTypesMap();
+        //        Hashtable mimesMap = MimeTypesProvider.getInstance().getContentTypesMap();
         //        Iterator it = mimesMap.keySet().iterator();
         //        
         //        while(it.hasNext()){

@@ -36,7 +36,7 @@ public class PluginResolverUtils {
             dbf.setValidating(false);
 
             DocumentBuilder db = dbf.newDocumentBuilder();
-            db.setEntityResolver(NullEntityResolver.createInstance());
+            db.setEntityResolver(NullEntityResolver.getInstance());
 
             Document doc = db.parse(is);
 

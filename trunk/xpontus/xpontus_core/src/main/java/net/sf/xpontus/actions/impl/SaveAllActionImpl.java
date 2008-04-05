@@ -45,7 +45,7 @@ public class SaveAllActionImpl extends DefaultDocumentAwareActionImpl {
         //        int answer = chooser.showSaveDialog(c);
         //
         //        if (answer == JFileChooser.APPROVE_OPTION) {
-        //            DefaultXPontusWindowImpl w = DefaultXPontusWindowImpl.createInstance();
+        //            DefaultXPontusWindowImpl w = DefaultXPontusWindowImpl.getInstance();
         //            DocumentTabContainer dtc = w.getDocumentTabContainer();
         //            IDocumentContainer[] dc = dtc.getEditorsAsArray();
         //
