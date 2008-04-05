@@ -135,7 +135,7 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
             parser.setFeature(DYNAMIC_VALIDATION_FEATURE_ID, false);
             parser.setFeature(SCHEMA_VALIDATION_FEATURE_ID, false);
             parser.setFeature(VALIDATE_ANNOTATIONS_ID, false);
-            parser.setEntityResolver(NullEntityResolver.createInstance());
+            parser.setEntityResolver(NullEntityResolver.getInstance());
 
             parser.parse(new InputSource(m_reader));
 

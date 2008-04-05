@@ -52,7 +52,7 @@ public class DocumentationPlugin extends XPontusPlugin {
     /**
      *
      *
-     * @param lexer
+     * @param m_plugin
      * @param loader
      */
     private void addEngine(IDocumentationPluginIF m_plugin, ClassLoader loader) {

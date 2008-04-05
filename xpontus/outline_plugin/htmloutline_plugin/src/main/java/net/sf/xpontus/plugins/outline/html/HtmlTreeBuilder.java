@@ -75,7 +75,7 @@ public class HtmlTreeBuilder {
                                     .setMessage("Done reading document structure");
 
             HTMLTreeParser parser = new HTMLTreeParser();
-            parser.setEntityResolver(NullEntityResolver.createInstance());
+            parser.setEntityResolver(NullEntityResolver.getInstance());
             parser.setErrorHandler(new ErrorHandler() {
 
                 public void warning(SAXParseException exception) throws SAXException {

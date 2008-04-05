@@ -97,7 +97,7 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
             fact.setValidating(false);
 
             DocumentBuilder builder = fact.newDocumentBuilder();
-            builder.setEntityResolver(NullEntityResolver.createInstance());
+            builder.setEntityResolver(NullEntityResolver.getInstance());
 
             InputSource src = new InputSource(reader);
             Document doc = builder.parse(src);

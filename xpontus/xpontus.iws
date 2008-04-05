@@ -16,289 +16,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/XPathResultDescriptor.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/XPathResultDescriptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/dtd_plugin/dtd_plugin.iml" afterPath="$PROJECT_DIR$/lexer_plugin/dtd_plugin/dtd_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusPluginManager.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusPluginManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/icons_plugin/icons_plugin.iml" afterPath="$PROJECT_DIR$/icons_plugin/icons_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/xquery_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/lexer_plugin/xquery_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/beanshell_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scripting_plugin/beanshell_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SelectAllActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SelectAllActionImpl.java" />
-      <change type="MOVED" beforePath="C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\utils\SwitchWindowAction.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SwitchWindowAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/xmloutline_plugin/pom.xml" afterPath="$PROJECT_DIR$/outline_plugin/xmloutline_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/SimpleComparator.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/SimpleComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/SyntaxSupport.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/SyntaxSupport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/xquery_plugin/xquery_plugin (net.sf.xpontus.plugins.lexer.xquery).iml" afterPath="$PROJECT_DIR$/lexer_plugin/xquery_plugin/xquery_plugin (net.sf.xpontus.plugins.lexer.xquery).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/stx_plugin/pom.xml" afterPath="$PROJECT_DIR$/scenario_plugin/stx_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/themes_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/IDocumentContainer.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/IDocumentContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/StringGridBagConstraints.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/StringGridBagConstraints.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/xquery_plugin/xquery_plugin (net.sf.xpontus.plugins.evaluator.xquery).iml" afterPath="$PROJECT_DIR$/evaluator_plugin/xquery_plugin/xquery_plugin (net.sf.xpontus.plugins.evaluator.xquery).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/html_indentation_plugin/pom.xml" afterPath="$PROJECT_DIR$/indentation_plugin/html_indentation_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/DefaultColorProvider.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/DefaultColorProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/xml_completion_plugin.iml" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/xml_completion_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/indentation_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml" />
-      <change type="MOVED" beforePath="C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\controllers\impl\DocumentationControllerImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/DocumentationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/lexer_plugin.iml" afterPath="$PROJECT_DIR$/lexer_plugin/lexer_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/groovy_plugin/groovy_plugin.iml" afterPath="$PROJECT_DIR$/scripting_plugin/groovy_plugin/groovy_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/ILexer.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/ILexer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/parsers/TokenNode.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/parsers/TokenNode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quicktoolbar_plugin/quicktoolbar_plugin.iml" afterPath="$PROJECT_DIR$/quicktoolbar_plugin/quicktoolbar_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/JStatusBar.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/JStatusBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/html_completion_plugin/html_completion_plugin.iml" afterPath="$PROJECT_DIR$/codecompletion_plugin/html_completion_plugin/html_completion_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xmlsecurity/pom.xml" afterPath="$PROJECT_DIR$/xmlsecurity/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/tcljava_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scripting_plugin/tcljava_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/menubar/MenuBarPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/menubar/MenuBarPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/xpath2_plugin/xpath2_plugin.iml" afterPath="$PROJECT_DIR$/evaluator_plugin/xpath2_plugin/xpath2_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/xquery_plugin/pom.xml" afterPath="$PROJECT_DIR$/lexer_plugin/xquery_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/htmloutline_plugin.iml" afterPath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/htmloutline_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xmlsecurity/xmlsecurity.iml" afterPath="$PROJECT_DIR$/xmlsecurity/xmlsecurity.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/network_base_plugin/network_base_plugin.iml" afterPath="$PROJECT_DIR$/vfs_plugin/network_base_plugin/network_base_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/xpontus_core.iml" afterPath="$PROJECT_DIR$/xpontus_core/xpontus_core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/groovy_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scripting_plugin/groovy_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioPluginIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioPluginIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/dtd_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/lexer_plugin/dtd_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveAllActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveAllActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes_plugin/jgoodies_theme_plugin/jgoodies_theme_plugin.iml" afterPath="$PROJECT_DIR$/themes_plugin/jgoodies_theme_plugin/jgoodies_theme_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/MemoryComboBox.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/MemoryComboBox.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/indentation/IndentationPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/indentation/IndentationPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/EvaluatorPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/EvaluatorPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/xquery_plugin/xquery_plugin (net.sf.xpontus.plugins.scenario.xquery).iml" afterPath="$PROJECT_DIR$/scenario_plugin/xquery_plugin/xquery_plugin (net.sf.xpontus.plugins.scenario.xquery).iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/jxsltdoc_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/gendoc_plugin/jxsltdoc_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/dtddoc_plugin/pom.xml" afterPath="$PROJECT_DIR$/gendoc_plugin/dtddoc_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/saxon8_plugin/saxon8_plugin.iml" afterPath="$PROJECT_DIR$/scenario_plugin/saxon8_plugin/saxon8_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusDialogActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusDialogActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/pom.xml" afterPath="$PROJECT_DIR$/codecompletion_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/actions/ActionPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/actions/ActionPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes_plugin/java_theme_plugin/pom.xml" afterPath="$PROJECT_DIR$/themes_plugin/java_theme_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/codecompletion_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/pom.xml" afterPath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes_plugin/java_theme_plugin/java_theme_plugin.iml" afterPath="$PROJECT_DIR$/themes_plugin/java_theme_plugin/java_theme_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/gendoc/DocumentationPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/gendoc/DocumentationPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/xmloutline_plugin/xmloutline_plugin.iml" afterPath="$PROJECT_DIR$/outline_plugin/xmloutline_plugin/xmloutline_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/jython_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scripting_plugin/jython_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/batchvalidation_plugin.iml" afterPath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/batchvalidation_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/TransformationErrorListener.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/TransformationErrorListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/lexer_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quicktoolbar_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/quicktoolbar_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CreateNewFileActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CreateNewFileActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/icons_plugin/pom.xml" afterPath="$PROJECT_DIR$/icons_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/jython_plugin/jython_plugin.iml" afterPath="$PROJECT_DIR$/scripting_plugin/jython_plugin/jython_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus.iws" afterPath="$PROJECT_DIR$/xpontus.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/pom.xml" afterPath="$PROJECT_DIR$/xpontus_core/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluginsbrowser/pluginsbrowser.iml" afterPath="$PROJECT_DIR$/pluginsbrowser/pluginsbrowser.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/pom.xml" afterPath="$PROJECT_DIR$/lexer_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/gendoc_plugin.iml" afterPath="$PROJECT_DIR$/gendoc_plugin/gendoc_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/DOMAddLines.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/DOMAddLines.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentationView.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentationView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/DetachableScenarioModel.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/DetachableScenarioModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/toolbar/ToolBarPluginIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/toolbar/ToolBarPluginIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/quicktoolbar/QuickToolBarPluginIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/quicktoolbar/QuickToolBarPluginIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/icons_plugin/java_icons_plugin/pom.xml" afterPath="$PROJECT_DIR$/icons_plugin/java_icons_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/preview_plugin/pom.xml" afterPath="$PROJECT_DIR$/preview_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusUndoManager.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusUndoManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/quicktoolbar/QuickToolBarPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/quicktoolbar/QuickToolBarPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/DocumentContainerChangeEvent.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/DocumentContainerChangeEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/network_base_plugin/pom.xml" afterPath="$PROJECT_DIR$/vfs_plugin/network_base_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationController.java" afterPath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/perspectives/PerspectivePlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/perspectives/PerspectivePlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus.ipr" afterPath="$PROJECT_DIR$/xpontus.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/xpath2_plugin/pom.xml" afterPath="$PROJECT_DIR$/evaluator_plugin/xpath2_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xmlsecurity/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/xmlsecurity/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/pom.xml" afterPath="$PROJECT_DIR$/outline_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/html_lexer_plugin/html_lexer_plugin.iml" afterPath="$PROJECT_DIR$/lexer_plugin/html_lexer_plugin/html_lexer_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/PropertiesConfigurationLoader.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/PropertiesConfigurationLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/outline/OutlinePlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/outline/OutlinePlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/settings/DefaultSettingsModuleImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/settings/DefaultSettingsModuleImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/network_base_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/vfs_plugin/network_base_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/xmloutline_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/outline_plugin/xmloutline_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ViewToolbarActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ViewToolbarActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/schemavalidation_plugin/schemavalidation_plugin.iml" afterPath="$PROJECT_DIR$/validation_plugin/schemavalidation_plugin/schemavalidation_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CheckXMLActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CheckXMLActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/InsertCDataActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/InsertCDataActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/SimplePluginDescriptor.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/SimplePluginDescriptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/pom.xml" afterPath="$PROJECT_DIR$/scenario_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDCompletionParser.java" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDCompletionParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/ioc/SpringIOCModuleImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/ioc/SpringIOCModuleImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/xpath1_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/evaluator_plugin/xpath1_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusDocumentAwareThreadedActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusDocumentAwareThreadedActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/XPathResultsDockable.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/XPathResultsDockable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/scripting_plugin.iml" afterPath="$PROJECT_DIR$/scripting_plugin/scripting_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/IndentContentActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/IndentContentActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/UndoActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/UndoActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ViewMessagesWindowActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ViewMessagesWindowActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/xml_lexer_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/lexer_plugin/xml_lexer_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/GotoLineController.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/GotoLineController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/saxon6_plugin/saxon6_plugin.iml" afterPath="$PROJECT_DIR$/scenario_plugin/saxon6_plugin/saxon6_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SimpleValidationActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SimpleValidationActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/html_completion_plugin/pom.xml" afterPath="$PROJECT_DIR$/codecompletion_plugin/html_completion_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/DetachableScenarioModelConverter.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/DetachableScenarioModelConverter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/ssh_plugin/ssh_plugin.iml" afterPath="$PROJECT_DIR$/vfs_plugin/ssh_plugin/ssh_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/jython_plugin/pom.xml" afterPath="$PROJECT_DIR$/scripting_plugin/jython_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/xml_lexer_plugin/pom.xml" afterPath="$PROJECT_DIR$/lexer_plugin/xml_lexer_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/pom.xml" afterPath="$PROJECT_DIR$/scripting_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusWindowImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusWindowImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/icons_plugin/java_icons_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/icons_plugin/java_icons_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/tcljava_plugin/tcljava_plugin.iml" afterPath="$PROJECT_DIR$/scripting_plugin/tcljava_plugin/tcljava_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/NullEntityResolver.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/NullEntityResolver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes_plugin/themes_plugin.iml" afterPath="$PROJECT_DIR$/themes_plugin/themes_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preview/PreviewTextImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preview/PreviewTextImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/icons_plugin/eclipse_icons_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/icons_plugin/eclipse_icons_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/schema_converter_plugin/pom.xml" afterPath="$PROJECT_DIR$/schema_converter_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioExecutionController.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioExecutionController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/schemavalidation_plugin/pom.xml" afterPath="$PROJECT_DIR$/validation_plugin/schemavalidation_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/icons_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/icons_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/preview_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/preview_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusConstantsIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusConstantsIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/perspectives_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/perspectives_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/src/main/java/net/sf/xpontus/plugins/outline/html/HtmlTreeBuilder.java" afterPath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/src/main/java/net/sf/xpontus/plugins/outline/html/HtmlTreeBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/dtddoc_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/gendoc_plugin/dtddoc_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/schemavalidation_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/validation_plugin/schemavalidation_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/themes/DefaultThemeModuleImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/themes/DefaultThemeModuleImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/xsddoc_plugin/xsddoc_plugin.iml" afterPath="$PROJECT_DIR$/gendoc_plugin/xsddoc_plugin/xsddoc_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes_plugin/pom.xml" afterPath="$PROJECT_DIR$/themes_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/toolbar/ToolBarPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/toolbar/ToolBarPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/ImageButton.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/ImageButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/CodeCompletionPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/CodeCompletionPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/saxon6_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scenario_plugin/saxon6_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusDocumentAwareDialogActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusDocumentAwareDialogActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/LineView.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/LineView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/ssh_plugin/pom.xml" afterPath="$PROJECT_DIR$/vfs_plugin/ssh_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/tcljava_plugin/pom.xml" afterPath="$PROJECT_DIR$/scripting_plugin/tcljava_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioManagerController.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioManagerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/fop_plugin/pom.xml" afterPath="$PROJECT_DIR$/scenario_plugin/fop_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioPluginsConfiguration.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioPluginsConfiguration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/outline_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/ioc/IOCPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/ioc/IOCPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/actions/ActionPluginIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/actions/ActionPluginIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/fop_plugin/fop_plugin.iml" afterPath="$PROJECT_DIR$/scenario_plugin/fop_plugin/fop_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/OpenActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/OpenActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/outline_plugin.iml" afterPath="$PROJECT_DIR$/outline_plugin/outline_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/ssh_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/vfs_plugin/ssh_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/SyntaxEditorkit.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/SyntaxEditorkit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/icons_plugin/eclipse_icons_plugin/eclipse_icons_plugin.iml" afterPath="$PROJECT_DIR$/icons_plugin/eclipse_icons_plugin/eclipse_icons_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluginsbrowser/pom.xml" afterPath="$PROJECT_DIR$/pluginsbrowser/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/preview_plugin/preview_plugin.iml" afterPath="$PROJECT_DIR$/preview_plugin/preview_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/xml_indentation_plugin/xml_indentation_plugin.iml" afterPath="$PROJECT_DIR$/indentation_plugin/xml_indentation_plugin/xml_indentation_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/xsddoc_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/gendoc_plugin/xsddoc_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preview/PreviewPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preview/PreviewPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/schema_converter_plugin/src/main/java/net/sf/xpontus/plugins/schema_converter_plugin/SchemaGeneratorHandler.java" afterPath="$PROJECT_DIR$/schema_converter_plugin/src/main/java/net/sf/xpontus/plugins/schema_converter_plugin/SchemaGeneratorHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/quicktoolbar/DefaultQuickToolbarPluginImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/quicktoolbar/DefaultQuickToolbarPluginImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusMenuConstantsIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusMenuConstantsIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/indentation_plugin.iml" afterPath="$PROJECT_DIR$/indentation_plugin/indentation_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/xpath2_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/evaluator_plugin/xpath2_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/i18n_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/i18n_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scenario_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/smb_plugin/smb_plugin.iml" afterPath="$PROJECT_DIR$/vfs_plugin/smb_plugin/smb_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preferences/PreferencesPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preferences/PreferencesPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/html_indentation_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/indentation_plugin/html_indentation_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/smb_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/vfs_plugin/smb_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/XPontusActionIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/XPontusActionIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/icons_plugin/eclipse_icons_plugin/pom.xml" afterPath="$PROJECT_DIR$/icons_plugin/eclipse_icons_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/smb_plugin/pom.xml" afterPath="$PROJECT_DIR$/vfs_plugin/smb_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/DocumentAwareComponentIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/DocumentAwareComponentIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/perspectives_plugin/pom.xml" afterPath="$PROJECT_DIR$/perspectives_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/FindReplaceActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/FindReplaceActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/EvaluatorPluginIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/EvaluatorPluginIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/html_indentation_plugin/html_indentation_plugin.iml" afterPath="$PROJECT_DIR$/indentation_plugin/html_indentation_plugin/html_indentation_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/schema_converter_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/schema_converter_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ViewXPathWindowActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ViewXPathWindowActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/schemavalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/schemavalidation/SchemaValidationView.java" afterPath="$PROJECT_DIR$/validation_plugin/schemavalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/schemavalidation/SchemaValidationView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/SyntaxView.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/SyntaxView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preview/PreviewPluginIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preview/PreviewPluginIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/HelpActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/HelpActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preferences/PreferencesPluginIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/preferences/PreferencesPluginIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SimpleDocumentAwareActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SimpleDocumentAwareActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/saxon8_plugin/pom.xml" afterPath="$PROJECT_DIR$/scenario_plugin/saxon8_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/beanshell_plugin/pom.xml" afterPath="$PROJECT_DIR$/scripting_plugin/beanshell_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/XPontusCaret.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/XPontusCaret.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/scenario_plugin.iml" afterPath="$PROJECT_DIR$/scenario_plugin/scenario_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/perspectives_plugin/perspectives_plugin.iml" afterPath="$PROJECT_DIR$/perspectives_plugin/perspectives_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/vfs_plugin.iml" afterPath="$PROJECT_DIR$/vfs_plugin/vfs_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes_plugin/java_theme_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/themes_plugin/java_theme_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus.iml" afterPath="$PROJECT_DIR$/xpontus.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CutActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CutActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/model/DocumentationModel.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/model/DocumentationModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/groovy_plugin/pom.xml" afterPath="$PROJECT_DIR$/scripting_plugin/groovy_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/popupcontext/PopupContextPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/popupcontext/PopupContextPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/perspectives/DefaultPerspectiveImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/perspectives/DefaultPerspectiveImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/html_lexer_plugin/src/main/java/net/sf/xpontus/plugins/lexer/html/HtmlParserTokenManager.java" afterPath="$PROJECT_DIR$/lexer_plugin/html_lexer_plugin/src/main/java/net/sf/xpontus/plugins/lexer/html/HtmlParserTokenManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/beanshell_plugin/beanshell_plugin.iml" afterPath="$PROJECT_DIR$/scripting_plugin/beanshell_plugin/beanshell_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/xquery_plugin/pom.xml" afterPath="$PROJECT_DIR$/scenario_plugin/xquery_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/server/XPontusServerManager.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/server/XPontusServerManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes_plugin/jgoodies_theme_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/themes_plugin/jgoodies_theme_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/saxon6_plugin/pom.xml" afterPath="$PROJECT_DIR$/scenario_plugin/saxon6_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/themes_plugin/jgoodies_theme_plugin/pom.xml" afterPath="$PROJECT_DIR$/themes_plugin/jgoodies_theme_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quicktoolbar_plugin/pom.xml" afterPath="$PROJECT_DIR$/quicktoolbar_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/evaluator_plugin.iml" afterPath="$PROJECT_DIR$/evaluator_plugin/evaluator_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/OutlineViewDockable.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/OutlineViewDockable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/GUIUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/GUIUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/DefaultScenarioPluginImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/DefaultScenarioPluginImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/xml_lexer_plugin/xml_lexer_plugin.iml" afterPath="$PROJECT_DIR$/lexer_plugin/xml_lexer_plugin/xml_lexer_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripting_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scripting_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/jxsltdoc_plugin/jxsltdoc_plugin.iml" afterPath="$PROJECT_DIR$/gendoc_plugin/jxsltdoc_plugin/jxsltdoc_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/DocumentAwareComponentHolder.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/DocumentAwareComponentHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/fop_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scenario_plugin/fop_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/pom.xml" afterPath="$PROJECT_DIR$/indentation_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/lexer/LexerPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/lexer/LexerPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/themes/ThemePlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/themes/ThemePlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/xpath2_plugin/src/main/java/net/sf/xpontus/plugins/evaluator/xpath2/XPath2EvaluatorPluginImpl.java" afterPath="$PROJECT_DIR$/evaluator_plugin/xpath2_plugin/src/main/java/net/sf/xpontus/plugins/evaluator/xpath2/XPath2EvaluatorPluginImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/pom.xml" afterPath="$PROJECT_DIR$/validation_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusThreadedActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusThreadedActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveAsActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveAsActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/vfs_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vfs_plugin/pom.xml" afterPath="$PROJECT_DIR$/vfs_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/dtddoc_plugin/dtddoc_plugin.iml" afterPath="$PROJECT_DIR$/gendoc_plugin/dtddoc_plugin/dtddoc_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/schema_converter_plugin/schema_converter_plugin.iml" afterPath="$PROJECT_DIR$/schema_converter_plugin/schema_converter_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/XPontusControllerIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/XPontusControllerIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/perspectives_plugin/xmlperspective_plugin/pom.xml" afterPath="$PROJECT_DIR$/perspectives_plugin/xmlperspective_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/pom.xml" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/evaluator_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/CodeCompletionIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/CodeCompletionIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/XPathResultsTableModel.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/XPathResultsTableModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/xpath1_plugin/pom.xml" afterPath="$PROJECT_DIR$/evaluator_plugin/xpath1_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/validation_plugin.iml" afterPath="$PROJECT_DIR$/validation_plugin/validation_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/validation_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/xpath1_plugin/xpath1_plugin.iml" afterPath="$PROJECT_DIR$/evaluator_plugin/xpath1_plugin/xpath1_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/menubar/MenuBarPluginIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/menubar/MenuBarPluginIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/PluginResolverUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/PluginResolverUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/i18n_plugin/i18n_plugin.iml" afterPath="$PROJECT_DIR$/i18n_plugin/i18n_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/pom.xml" afterPath="$PROJECT_DIR$/evaluator_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ExitActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ExitActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/jxsltdoc_plugin/pom.xml" afterPath="$PROJECT_DIR$/gendoc_plugin/jxsltdoc_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/icons_plugin/java_icons_plugin/java_icons_plugin.iml" afterPath="$PROJECT_DIR$/icons_plugin/java_icons_plugin/java_icons_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/dtd_plugin/pom.xml" afterPath="$PROJECT_DIR$/lexer_plugin/dtd_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/codecompletion_plugin.iml" afterPath="$PROJECT_DIR$/codecompletion_plugin/codecompletion_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentTabContainer.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentTabContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/stx_plugin/stx_plugin.iml" afterPath="$PROJECT_DIR$/scenario_plugin/stx_plugin/stx_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/perspectives_plugin/xmlperspective_plugin/xmlperspective_plugin.iml" afterPath="$PROJECT_DIR$/perspectives_plugin/xmlperspective_plugin/xmlperspective_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusFileConstantsIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusFileConstantsIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/mimes/MimeDescriptor.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/mimes/MimeDescriptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/saxon8_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scenario_plugin/saxon8_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluator_plugin/xquery_plugin/pom.xml" afterPath="$PROJECT_DIR$/evaluator_plugin/xquery_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ViewOutlineWindowActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/ViewOutlineWindowActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/popupcontext/PopupContextPluginImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/popupcontext/PopupContextPluginImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/GUIUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/GUIUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/xml_indentation_plugin/src/main/java/net/sf/xpontus/plugins/indentation/xml/XMLIndentationPluginImpl.java" afterPath="$PROJECT_DIR$/indentation_plugin/xml_indentation_plugin/src/main/java/net/sf/xpontus/plugins/indentation/xml/XMLIndentationPluginImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/ProgressMonitorHandler.java" afterPath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/ProgressMonitorHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/TokenInfo.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/syntax/TokenInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scenario_plugin/stx_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/scenario_plugin/stx_plugin/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/ModificationHandler.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/ModificationHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/xml_indentation_plugin/pom.xml" afterPath="$PROJECT_DIR$/indentation_plugin/xml_indentation_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gendoc_plugin/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/gendoc_plugin/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/DOMAddLines.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/DOMAddLines.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/src/main/java/net/sf/xpontus/plugins/outline/html/HtmlTreeBuilder.java" afterPath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/src/main/java/net/sf/xpontus/plugins/outline/html/HtmlTreeBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/PluginResolverUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/PluginResolverUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/gendoc/DocumentationPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/gendoc/DocumentationPlugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveAllActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveAllActionImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/NullEntityResolver.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/NullEntityResolver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusUIManagerConstantsIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusUIManagerConstantsIF.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XMLCommentActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XMLCommentActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/i18n_plugin/pom.xml" afterPath="$PROJECT_DIR$/i18n_plugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioModel.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/CompletionWindow.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/CompletionWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexer_plugin/html_lexer_plugin/pom.xml" afterPath="$PROJECT_DIR$/lexer_plugin/html_lexer_plugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CheckXMLActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CheckXMLActionImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus.iws" afterPath="$PROJECT_DIR$/xpontus.iws" />
     </list>
     <ignored path="xpontus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -361,10 +92,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="template.xsd" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xsd">
+      <file leaf-file-name="xpontus.properties" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="0" selection-start="1964" selection-end="1964" vertical-scroll-proportion="1.5215517">
+            <state line="270" column="58" selection-start="11410" selection-end="11410" vertical-scroll-proportion="0.81914896">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NullEntityResolver.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/NullEntityResolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="51" column="87" selection-start="1644" selection-end="1644" vertical-scroll-proportion="0.5483871">
               <folding />
             </state>
           </provider>
@@ -373,8 +113,30 @@
       <file leaf-file-name="TemplatesDialog.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/TemplatesDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="26" selection-start="2517" selection-end="2532" vertical-scroll-proportion="0.035051547">
+            <state line="124" column="43" selection-start="3971" selection-end="3971" vertical-scroll-proportion="0.93887943">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.xsl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xsl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="87" selection-start="79" selection-end="79" vertical-scroll-proportion="0.11971831">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DocumentContainer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="276" column="64" selection-start="9575" selection-end="9575" vertical-scroll-proportion="0.41165757">
+              <folding>
+                <element signature="docComment;method#getStatusBar#0;class#DocumentContainer#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -382,32 +144,7 @@
       <file leaf-file-name="SpringIOCModuleImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/ioc/SpringIOCModuleImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="27" selection-start="30" selection-end="30" vertical-scroll-proportion="0.035051547">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#SpringIOCModuleImpl#0" expanded="true" />
-                <element signature="docComment;method#SpringIOCModuleImpl#0;class#SpringIOCModuleImpl#0" expanded="true" />
-                <element signature="docComment;method#initializeXMLBeans#0;class#SpringIOCModuleImpl#0" expanded="true" />
-                <element signature="docComment;method#getBean#0;class#SpringIOCModuleImpl#0" expanded="true" />
-                <element signature="docComment;method#initializePropertiesBeans#0;class#SpringIOCModuleImpl#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="template.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="19" selection-start="137" selection-end="137" vertical-scroll-proportion="0.31941545">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="xpontus.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="70" selection-start="424" selection-end="424" vertical-scroll-proportion="0.035051547">
+            <state line="74" column="0" selection-start="2610" selection-end="2610" vertical-scroll-proportion="0.8947368">
               <folding />
             </state>
           </provider>
@@ -416,47 +153,13 @@
       <file leaf-file-name="XPontusRunner.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="238" column="21" selection-start="9308" selection-end="9308" vertical-scroll-proportion="0.035051547">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="template.fo" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.fo">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="8" selection-start="312" selection-end="312" vertical-scroll-proportion="0.53235906">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="template.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="77" selection-end="77" vertical-scroll-proportion="0.2246696">
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="HtmlPreview">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="docbook.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/docbook.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="160" selection-end="237" vertical-scroll-proportion="0.073275864">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/build.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="39" selection-end="39" vertical-scroll-proportion="0.035490606">
-              <folding />
+            <state line="213" column="32" selection-start="8163" selection-end="8163" vertical-scroll-proportion="0.71949">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;method#createMenuExtension#0;class#XPontusRunner#0" expanded="true" />
+                <element signature="docComment;method#createToolbarExtension#0;class#XPontusRunner#0" expanded="true" />
+                <element signature="docComment;method#main#0;class#XPontusRunner#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -592,6 +295,18 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
@@ -603,25 +318,6 @@
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
       <envs />
       <method>
         <option name="Make" value="true" />
@@ -656,24 +352,27 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
     </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
@@ -716,6 +415,13 @@
           </MavenRunnerParameters>
         </option>
       </MavenSettings>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="Maven.xpontus_core [exec:java]" />
@@ -783,18 +489,18 @@
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="9" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="10" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32943925" order="11" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943925" order="11" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
-      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15328467" order="4" />
+      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15571776" order="4" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="5" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31224656" order="0" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2546634" order="0" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="12" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979724" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="13" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24649532" order="2" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24649532" order="2" />
       <window_info id="Maven Runner Output" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3259346" order="14" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="5" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
@@ -810,7 +516,7 @@
     <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="preparing the 1.0.0.2 release" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean up" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -822,6 +528,7 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="preparing the 1.0.0.2 release" />
+    <MESSAGE value="clean up" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -862,49 +569,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/IDocumentContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="32" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.25976232">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;method#setupFromTemplate#0;class#IDocumentContainer#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CreateNewFileActionImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="56" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.37521222">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentTabContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="412" column="16" selection-start="16603" selection-end="16603" vertical-scroll-proportion="-0.022648083">
-          <folding>
-            <element signature="docComment;method#createEditorForTemplate#0;class#DocumentTabContainer#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/OpenActionImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="26" selection-start="2055" selection-end="2055" vertical-scroll-proportion="0.98132426">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;method#OpenActionImpl#0;class#OpenActionImpl#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="221" column="81" selection-start="7450" selection-end="7476" vertical-scroll-proportion="3.5749128">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.rng">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="2" selection-start="2" selection-end="2" vertical-scroll-proportion="0.0">
@@ -912,30 +576,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xsd">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="70" selection-start="424" selection-end="424" vertical-scroll-proportion="0.035051547">
+        <state line="58" column="0" selection-start="1964" selection-end="1964" vertical-scroll-proportion="0.8982188">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/AboutDialogView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="238" column="21" selection-start="9308" selection-end="9308" vertical-scroll-proportion="0.035051547">
+        <state line="84" column="94" selection-start="2663" selection-end="2746" vertical-scroll-proportion="0.8031359">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="19" selection-start="137" selection-end="137" vertical-scroll-proportion="0.2693662">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/gendoc/DocumentationPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="79" selection-start="2655" selection-end="2655" vertical-scroll-proportion="1.0967742">
+          <folding>
+            <element signature="docComment;class#DocumentationPlugin#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.fo">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="8" selection-start="312" selection-end="312" vertical-scroll-proportion="0.53235906">
+        <state line="15" column="8" selection-start="312" selection-end="312" vertical-scroll-proportion="0.44894367">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="77" selection-end="77" vertical-scroll-proportion="0.2246696">
+        <state line="6" column="0" selection-start="77" selection-end="77" vertical-scroll-proportion="0.1878453">
           <folding />
         </state>
       </provider>
@@ -945,49 +625,72 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/docbook.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="160" selection-end="237" vertical-scroll-proportion="0.073275864">
+        <state line="2" column="0" selection-start="160" selection-end="237" vertical-scroll-proportion="0.059859157">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="39" selection-end="39" vertical-scroll-proportion="0.035490606">
+        <state line="1" column="0" selection-start="39" selection-end="39" vertical-scroll-proportion="0.029929578">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xsd">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="0" selection-start="1964" selection-end="1964" vertical-scroll-proportion="1.5215517">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/TemplatesDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="26" selection-start="2517" selection-end="2532" vertical-scroll-proportion="0.035051547">
-          <folding />
+        <state line="213" column="32" selection-start="8163" selection-end="8163" vertical-scroll-proportion="0.71949">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;method#createMenuExtension#0;class#XPontusRunner#0" expanded="true" />
+            <element signature="docComment;method#createToolbarExtension#0;class#XPontusRunner#0" expanded="true" />
+            <element signature="docComment;method#main#0;class#XPontusRunner#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/ioc/SpringIOCModuleImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="27" selection-start="30" selection-end="30" vertical-scroll-proportion="0.035051547">
+        <state line="74" column="0" selection-start="2610" selection-end="2610" vertical-scroll-proportion="0.8947368">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/NullEntityResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="87" selection-start="1644" selection-end="1644" vertical-scroll-proportion="0.5483871">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="87" selection-start="79" selection-end="79" vertical-scroll-proportion="0.11971831">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="276" column="64" selection-start="9575" selection-end="9575" vertical-scroll-proportion="0.41165757">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#SpringIOCModuleImpl#0" expanded="true" />
-            <element signature="docComment;method#SpringIOCModuleImpl#0;class#SpringIOCModuleImpl#0" expanded="true" />
-            <element signature="docComment;method#initializeXMLBeans#0;class#SpringIOCModuleImpl#0" expanded="true" />
-            <element signature="docComment;method#getBean#0;class#SpringIOCModuleImpl#0" expanded="true" />
-            <element signature="docComment;method#initializePropertiesBeans#0;class#SpringIOCModuleImpl#0" expanded="true" />
+            <element signature="docComment;method#getStatusBar#0;class#DocumentContainer#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/TemplatesDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="19" selection-start="137" selection-end="137" vertical-scroll-proportion="0.31941545">
+        <state line="124" column="43" selection-start="3971" selection-end="3971" vertical-scroll-proportion="0.93887943">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="270" column="58" selection-start="11410" selection-end="11410" vertical-scroll-proportion="0.81914896">
           <folding />
         </state>
       </provider>
