@@ -46,9 +46,9 @@ public class ThemePlugin extends XPontusPlugin {
     public static final String PLUGIN_IDENTIFIER = "plugin.core.themes";
     public static final String PLUGIN_CATEGORY = "Look";
 
-    /**
-     * Initialize the default IOC Container
-     * @throws java.lang.Exception
+    
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
     public void init() throws Exception {
         Map installedThemes = new HashMap();
@@ -78,9 +78,15 @@ public class ThemePlugin extends XPontusPlugin {
             installedThemes);
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
     }
 }

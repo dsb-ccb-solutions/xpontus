@@ -33,11 +33,15 @@ import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
 
 /**
  * Action to show or hide the messages window
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ViewMessagesWindowActionImpl extends AbstractXPontusActionImpl {
     public static final String BEAN_ALIAS = "action.viewmessageswindow";
 
+    /**
+     * @return
+     */
     public Dockable getFirstDockedConsole() {
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                               .getConsole();
@@ -57,6 +61,9 @@ public class ViewMessagesWindowActionImpl extends AbstractXPontusActionImpl {
         return dc;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.XPontusActionIF#execute()
+     */
     public void execute() {
         DockingDesktop desktop = DefaultXPontusWindowImpl.getInstance()
                                                          .getDesktop();

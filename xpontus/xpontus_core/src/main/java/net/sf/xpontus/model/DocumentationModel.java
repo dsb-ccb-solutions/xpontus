@@ -1,6 +1,6 @@
 /*
  *
- *
+ * DocumentationModel.java
  *
  * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
@@ -25,7 +25,8 @@ import java.beans.PropertyChangeSupport;
 
 
 /**
- *
+ * The documentation generation model
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DocumentationModel {
@@ -38,149 +39,152 @@ public class DocumentationModel {
     private String footer = "";
     private String css = "";
 
+    /**
+     * The default constructor
+     */
     public DocumentationModel() {
         this.pcs = new PropertyChangeSupport(this);
     }
 
     /**
-     *
-     * @param x
+     * Adds a new PropertyChangeListener
+     * @param x  a PropertyChangeListener
      */
     public void addPropertyChangeListener(PropertyChangeListener x) {
         pcs.addPropertyChangeListener(x);
     }
 
     /**
-     *
-     * @param x
+     * Removes a new PropertyChangeListener
+     * @param x  a PropertyChangeListener
      */
     public void removePropertyChangeListener(PropertyChangeListener x) {
         pcs.removePropertyChangeListener(x);
     }
 
     /**
-     *
-     * @return
+     * Returns the css stylesheet path
+     * @return the css stylesheet path
      */
     public String getCss() {
         return css;
     }
 
     /**
-     *
-     * @param newValue
+     * Set the css stylesheet path
+     * @param newCss  the css stylesheet path
      */
-    public void setCss(String newValue) {
+    public void setCss(String newCss) {
         String oldValue = this.css;
-        this.css = newValue;
-        pcs.firePropertyChange("css", oldValue, newValue);
+        this.css = newCss;
+        pcs.firePropertyChange("css", oldValue, newCss);
     }
 
     /**
-     *
-     * @return
+     * Returns the footer text
+     * @return The footer text
      */
     public String getFooter() {
         return footer;
     }
 
     /**
-     *
-     * @param newValue
+     * Sets the footer text
+     * @param newFooter the footer text
      */
-    public void setFooter(String newValue) {
+    public void setFooter(String newFooter) {
         String oldValue = this.footer;
-        this.footer = newValue;
-        pcs.firePropertyChange("footer", oldValue, newValue);
+        this.footer = newFooter;
+        pcs.firePropertyChange("footer", oldValue, newFooter);
     }
 
     /**
-     *
-     * @return
+     * Returns the header
+     * @return  the header
      */
     public String getHeader() {
         return header;
     }
 
     /**
-     *
-     * @param newValue
+     * Sets the header
+     * @param newHeader The header
      */
-    public void setHeader(String newValue) {
+    public void setHeader(String newHeader) {
         String oldValue = this.header;
-        this.header = newValue;
-        pcs.firePropertyChange("header", oldValue, newValue);
+        this.header = newHeader;
+        pcs.firePropertyChange("header", oldValue, newHeader);
     }
 
     /**
-     *
-     * @return
+     * Returns the input file
+     * @return the input file
      */
     public String getInput() {
         return input;
     }
 
     /**
-     *
-     * @param newValue
+     * Sets the input file path
+     * @param newInput The input files path
      */
-    public void setInput(String newValue) {
+    public void setInput(String newInput) {
         String oldValue = this.input;
-        this.input = newValue;
-        pcs.firePropertyChange("input", oldValue, newValue);
+        this.input = newInput;
+        pcs.firePropertyChange("input", oldValue, newInput);
     }
 
     /**
-     *
-     * @return
+     * Returns the output directory
+     * @return the output directory
      */
     public String getOutput() {
         return output;
     }
 
     /**
-     *
-     * @param newValue
+     * Sets the ouput directory
+     * @param newOutput The output path
      */
-    public void setOutput(String newValue) {
+    public void setOutput(String newOutput) {
         String oldValue = this.output;
-        this.output = newValue;
-        pcs.firePropertyChange("output", oldValue, newValue);
+        this.output = newOutput;
+        pcs.firePropertyChange("output", oldValue, newOutput);
     }
 
     /**
-     *
-     * @return
+     * Returns the documentation title
+     * @return the documentation title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     *
-     * @param newValue
+     * Sets the documentation title
+     * @param newTitle The documentation title
      */
-    public void setTitle(String newValue) {
+    public void setTitle(String newTitle) {
         String oldValue = this.title;
-        this.title = newValue;
-        pcs.firePropertyChange("title", oldValue, newValue);
+        this.title = newTitle;
+        pcs.firePropertyChange("title", oldValue, newTitle);
     }
 
     /**
-     *
-     * @return
+     * Returns the documentation type
+     * @return the documentation ttype
      */
     public String getType() {
         return type;
     }
 
     /**
-     *
-     * @param newValue
+     * Sets the documentation type
+     * @param newType the documentation type
      */
-    public void setType(String newValue) {
+    public void setType(String newType) {
         String oldValue = this.type;
-        this.type = newValue;
-        pcs.firePropertyChange("type", oldValue, newValue);
+        this.type = newType;
+        pcs.firePropertyChange("type", oldValue, newType);
     }
 }

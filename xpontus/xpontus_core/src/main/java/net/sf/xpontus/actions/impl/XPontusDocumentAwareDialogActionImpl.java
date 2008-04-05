@@ -35,6 +35,9 @@ public class XPontusDocumentAwareDialogActionImpl
         registerComponent();
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.DocumentAwareComponentIF#onNotify(net.sf.xpontus.utils.DocumentContainerChangeEvent)
+     */
     public void onNotify(DocumentContainerChangeEvent evt) {
         if (evt.getSource() == null) {
             setEnabled(false);
@@ -43,6 +46,9 @@ public class XPontusDocumentAwareDialogActionImpl
         }
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.DocumentAwareComponentIF#registerComponent()
+     */
     public void registerComponent() {
         DocumentAwareComponentHolder.getInstance().register(this);
     }

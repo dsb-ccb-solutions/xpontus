@@ -1,5 +1,5 @@
 /*
- *
+ * SpringIOCModuleImpl.java
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
@@ -31,6 +31,7 @@ import org.springframework.core.io.ClassPathResource;
 
 /**
  * Spring Framework IOC Container implementation
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class SpringIOCModuleImpl implements IOCPluginIF {

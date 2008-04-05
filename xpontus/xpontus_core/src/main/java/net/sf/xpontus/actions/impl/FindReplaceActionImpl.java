@@ -37,7 +37,8 @@ import javax.swing.text.JTextComponent;
 
 
 /**
- * Class description
+ * Find/replace dialog
+ * @version 0.0.1
  * @author SOAP GUI, Yves Zoundi
  */
 public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {

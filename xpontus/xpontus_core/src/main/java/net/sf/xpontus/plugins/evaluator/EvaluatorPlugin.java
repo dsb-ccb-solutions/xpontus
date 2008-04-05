@@ -44,16 +44,24 @@ public class EvaluatorPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "evaluatorpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.evaluator";
     public static final String PLUGIN_CATEGORY = "Evaluator";
-    private Map engines = new HashMap();
+    private Map<String, Object> engines;
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
+    	 engines = new HashMap<String, Object>();
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
+    	engines.clear();
     }
 
     private void addEngine(EvaluatorPluginIF m_plugin, ClassLoader loader) {
-        Hashtable t = new Hashtable();
+        Hashtable<String, Object> t = new Hashtable<String, Object>();
 
         t.put(XPontusConstantsIF.CLASS_LOADER, loader);
         t.put(XPontusConstantsIF.OBJECT_CLASSNAME, m_plugin.getClass().getName());
@@ -61,6 +69,9 @@ public class EvaluatorPlugin extends XPontusPlugin {
         engines.put(m_plugin.getName(), t);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();

@@ -24,7 +24,7 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 
 /**
- *
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public interface DocumentAwareComponentIF {

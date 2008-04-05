@@ -21,14 +21,30 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.ibm.icu.text.CharsetDetector;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Hashtable;
+import java.util.Map;
 
-import com.jidesoft.swing.Searchable;
-import com.jidesoft.swing.SearchableBar;
-import com.jidesoft.swing.SearchableUtils;
-
-import com.vlsolutions.swing.docking.*;
-import com.vlsolutions.swing.docking.DockKey;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JEditorPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.JTextComponent;
 
 import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusConstantsIF;
@@ -52,33 +68,15 @@ import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.KeyEvent;
-
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import java.util.Hashtable;
-import java.util.Map;
-
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JEditorPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.KeyStroke;
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.event.UndoableEditListener;
-import javax.swing.text.DefaultEditorKit;
-import javax.swing.text.JTextComponent;
+import com.ibm.icu.text.CharsetDetector;
+import com.jidesoft.swing.Searchable;
+import com.jidesoft.swing.SearchableBar;
+import com.jidesoft.swing.SearchableUtils;
+import com.vlsolutions.swing.docking.DockKey;
+import com.vlsolutions.swing.docking.Dockable;
+import com.vlsolutions.swing.docking.DockableActionCustomizer;
+import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.docking.TabbedContainerActions;
 
 
 /**
@@ -246,6 +244,53 @@ public class DocumentContainer implements IDocumentContainer {
         }
     }
 
+
+     public void setupFromTemplate(String templateFileName, String templatePath) {
+        documentPanel.add(new DefaultQuickToolbarPluginImpl().getComponent(),
+            BorderLayout.NORTH);
+
+        String mm = MimeTypesProvider.getInstance().getMimeType(templateFileName);
+
+        editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
+
+        editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, null);
+
+        editor.setUI(new XPontusEditorUI(editor, templateFileName));
+
+        SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
+        doc.setLoading(true);
+
+        key = new DockKey("Untitled" + this.hashCode() + "",
+                "Untitled" + this.hashCode() + "");
+
+        try {
+            CharsetDetector detector = new CharsetDetector();
+            InputStream is = getClass()
+                                 .getResourceAsStream(templatePath);
+            detector.setText(new BufferedInputStream(is));
+
+            try {
+                editor.read(detector.detect().getReader(), null);
+            } catch (Exception ioe) {
+                editor.read(new InputStreamReader(is), null);
+            }
+
+            XPontusUndoManager _undo = new XPontusUndoManager();
+            editor.putClientProperty(XPontusConstantsIF.UNDO_MANAGER, _undo);
+
+            editor.getDocument().addUndoableEditListener(new UndoableEditListener() {
+                    public void undoableEditHappened(UndoableEditEvent event) {
+                        ((XPontusUndoManager) editor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER)).addEdit(event.getEdit());
+                    }
+                });
+
+            editor.putClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED,
+                Boolean.FALSE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      *
      * @param file
@@ -307,7 +352,14 @@ public class DocumentContainer implements IDocumentContainer {
         ////////////////////////////////
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
 
-        editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo);
+        editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo); 
+        
+        try{
+        	editor.putClientProperty(XPontusFileConstantsIF.FILE_LAST_MODIFIED_DATE, "" + fo.getContent().getLastModifiedTime());
+        }
+        catch(Exception err){
+        	
+        }
 
         editor.setUI(new XPontusEditorUI(editor, ext));
 
@@ -396,6 +448,7 @@ public class DocumentContainer implements IDocumentContainer {
         customizer.setSingleDockableTitleBarPopUpCustomizer(true);
         customizer.setTabSelectorPopUpCustomizer(true);
         key.setActionCustomizer(customizer);
+        System.out.println("Customizer set...");
     }
 
     /**

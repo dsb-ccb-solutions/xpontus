@@ -13,6 +13,9 @@ public class XPathResultDescriptor {
     public String value;
     public boolean lineInfo = false;
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
         return value;
     }

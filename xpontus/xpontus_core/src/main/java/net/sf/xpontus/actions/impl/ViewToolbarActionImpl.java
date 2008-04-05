@@ -31,12 +31,16 @@ import javax.swing.JFrame;
 
 
 /**
- *
+ * Action to show/hide the toolbar
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ViewToolbarActionImpl extends AbstractXPontusActionImpl {
     public static final String BEAN_ALIAS = "action.viewtoolbar";
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.XPontusActionIF#execute()
+     */
     public void execute() {
         JFrame frame = (JFrame) DefaultXPontusWindowImpl.getInstance()
                                                         .getDisplayComponent();

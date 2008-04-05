@@ -39,7 +39,8 @@ import net.sf.xpontus.controllers.impl.XPontusRunner;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 /**
- *
+ * Class which allows a single instance of the application to be called
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class XPontusServerManager {
@@ -51,13 +52,16 @@ public class XPontusServerManager {
     private static String theme = null;
     private static Log logger = LogFactory.getLog(XPontusServerManager.class);
 
+    /**
+     * Constructor XPontusServerManager creates a new XPontusServerManager instance.
+     */
     public XPontusServerManager() {
     }
 
     /**
      * Cause the calling thread to sleep some time.
      *
-     * @param millis time in milliseconds
+     * @param delay time in milliseconds
      */
     private static void sleep(long delay) {
         try {
@@ -66,6 +70,12 @@ public class XPontusServerManager {
         }
     }
 
+    /**
+     * Open a socket
+     *
+     * @param args of type String[]
+     * @return boolean
+     */
     public static boolean attach(String[] args) {
         try {
             Socket socket = new Socket("localhost", PORT);
@@ -125,6 +135,11 @@ public class XPontusServerManager {
         return true;
     }
 
+    /**
+     * Entry point
+     *
+     * @param args of type String[]
+     */
     public static void main(String[] args) {
         attach(args, true);
     }
@@ -191,6 +206,11 @@ public class XPontusServerManager {
         }
     }
 
+    /**
+     * Method openFiles ...
+     *
+     * @param args of type String[]
+     */
     private static void openFiles(final String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
 

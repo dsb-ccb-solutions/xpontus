@@ -6,23 +6,35 @@ package net.sf.xpontus.plugins.scenarios;
 
 
 /**
- *
- * @author Propriétaire
+ * @version 0.0.1
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DetachableScenarioModelConverter {
     private DetachableScenarioModel model;
 
+    /**
+     * 
+     */
     public DetachableScenarioModelConverter() {
     }
 
+    /**
+     * @param model
+     */
     public DetachableScenarioModelConverter(DetachableScenarioModel model) {
         this.model = model;
     }
 
+    /**
+     * @return
+     */
     public DetachableScenarioModel getModel() {
         return model;
     }
 
+    /**
+     * @param model
+     */
     public void setModel(DetachableScenarioModel model) {
         this.model = model;
     }

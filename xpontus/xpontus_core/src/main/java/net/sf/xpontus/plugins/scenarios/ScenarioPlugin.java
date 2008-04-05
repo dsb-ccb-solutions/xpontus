@@ -45,9 +45,15 @@ public class ScenarioPlugin extends XPontusPlugin {
     public static final String PLUGIN_IDENTIFIER = "plugin.core.scenarios";
     public static final String PLUGIN_CATEGORY = "Transformation";
 
+    /**
+     * 
+     */
     public ScenarioPlugin() {
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
@@ -72,9 +78,15 @@ public class ScenarioPlugin extends XPontusPlugin {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
     }
 }

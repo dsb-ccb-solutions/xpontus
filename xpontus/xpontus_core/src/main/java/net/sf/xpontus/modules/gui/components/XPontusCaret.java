@@ -53,14 +53,17 @@ public class XPontusCaret extends DefaultCaret {
         return painter;
     }
 
-    /**
-     *
-     * @param evt
+    
+    /* (non-Javadoc)
+     * @see javax.swing.text.DefaultCaret#focusLost(java.awt.event.FocusEvent)
      */
     public void focusLost(FocusEvent evt) {
     }
 
     class MyHighlightPainter extends DefaultHighlightPainter {
+        /**
+         * @param color
+         */
         public MyHighlightPainter(java.awt.Color color) {
             super(color);
         }

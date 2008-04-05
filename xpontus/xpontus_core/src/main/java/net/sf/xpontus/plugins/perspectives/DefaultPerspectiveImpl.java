@@ -30,14 +30,23 @@ import net.sf.xpontus.modules.gui.components.IDocumentContainer;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DefaultPerspectiveImpl implements PerspectivePluginIF {
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.perspectives.PerspectivePluginIF#getContentType()
+     */
     public String getContentType() {
         return "text/plain";
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.perspectives.PerspectivePluginIF#getName()
+     */
     public String getName() {
         return "DEFAULT";
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.perspectives.PerspectivePluginIF#createDocumentContainer()
+     */
     public IDocumentContainer createDocumentContainer() {
         return new DocumentContainer();
     }

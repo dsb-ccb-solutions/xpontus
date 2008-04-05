@@ -6,8 +6,8 @@ package net.sf.xpontus.utils;
 
 
 /**
- *
- * @author mrcheeks
+ * @version 0.0.1
+ * @author Yves Zoundi
  */
 import java.awt.GridBagConstraints;
 
@@ -107,7 +107,7 @@ public class StringGridBagConstraints extends GridBagConstraints {
     /**
      * Utility method to load the specified constraints into the constraints
      * object.
-     * @param paramString
+     * @param constraints
      * @param c
      */
     public static void parseParams(String constraints, GridBagConstraints c) {

@@ -32,6 +32,9 @@ import javax.swing.Action;
  * @author Yves Zoundi
  */
 public interface MenuBarPluginIF {
+    /**
+     * @return
+     */
     public List<String> getMenuNames();
 
     /**

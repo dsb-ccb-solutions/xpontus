@@ -59,8 +59,9 @@ public class ScenarioExecutionController {
         view.setVisible(false);
     }
 
+    
     /**
-     *
+     * 
      */
     public void execute() {
         if (view.getScenarioListModel().getSize() == 0) {

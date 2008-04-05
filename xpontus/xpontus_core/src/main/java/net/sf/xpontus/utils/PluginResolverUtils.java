@@ -4,24 +4,21 @@
  */
 package net.sf.xpontus.utils;
 
-import net.sf.xpontus.plugins.SimplePluginDescriptor;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import java.beans.PropertyDescriptor;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
-
 import java.io.InputStream;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import net.sf.xpontus.plugins.SimplePluginDescriptor;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -39,7 +36,7 @@ public class PluginResolverUtils {
             dbf.setValidating(false);
 
             DocumentBuilder db = dbf.newDocumentBuilder();
-            db.setEntityResolver(NullEntityResolver.getInstance());
+            db.setEntityResolver(NullEntityResolver.createInstance());
 
             Document doc = db.parse(is);
 

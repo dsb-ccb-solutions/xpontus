@@ -46,11 +46,14 @@ public class OutlinePlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "outlinepluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.outline";
     public static final String PLUGIN_CATEGORY = "Outline";
-    private Hashtable outliners;
+    private Hashtable<String, Object> outliners;
 
     public OutlinePlugin() {
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_OUTLINE_ENGINES,
             outliners);
@@ -75,18 +78,28 @@ public class OutlinePlugin extends XPontusPlugin {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
-        outliners = new Hashtable();
+        outliners = new Hashtable<String, Object>();
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
         outliners.clear();
     }
 
+    /**
+     * @param m_outliner
+     * @param loader
+     */
     private void initExtension(OutlinePluginIF m_outliner, ClassLoader loader) {
         String m_class = m_outliner.getClass().getName();
         String m_mime = m_outliner.getContentType();
-        Hashtable v = new Hashtable();
+        Hashtable<String, Object> v = new Hashtable<String, Object>();
         v.put(XPontusConstantsIF.OBJECT_CLASSNAME, m_class);
         v.put(XPontusConstantsIF.CLASS_LOADER, loader);
         outliners.put(m_mime, v);

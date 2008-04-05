@@ -20,39 +20,33 @@
  */
 package net.sf.xpontus.plugins.evaluator.xpath2;
 
-import net.sf.saxon.Configuration;
-import net.sf.saxon.dom.NodeOverNodeInfo;
-import net.sf.saxon.om.NodeInfo;
-import net.sf.saxon.xpath.NamespaceContextImpl;
-import net.sf.saxon.xpath.StandaloneContext;
-import net.sf.saxon.xpath.XPathEvaluator;
-
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.plugins.evaluator.DOMAddLines;
-import net.sf.xpontus.plugins.evaluator.EvaluatorPluginIF;
-import net.sf.xpontus.utils.NamespaceResolverHandler;
-
-import org.apache.xerces.parsers.SAXParser;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import org.xml.sax.InputSource;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.text.JTextComponent;
-
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
+
+import net.sf.saxon.Configuration;
+import net.sf.saxon.dom.NodeOverNodeInfo;
+import net.sf.saxon.om.NodeInfo;
+import net.sf.saxon.xpath.NamespaceContextImpl;
+import net.sf.saxon.xpath.StandaloneContext;
+import net.sf.saxon.xpath.XPathEvaluator;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.plugins.evaluator.DOMAddLines;
+import net.sf.xpontus.plugins.evaluator.EvaluatorPluginIF;
+import net.sf.xpontus.utils.NamespaceResolverHandler;
+
+import org.apache.xerces.parsers.SAXParser;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 
 /**

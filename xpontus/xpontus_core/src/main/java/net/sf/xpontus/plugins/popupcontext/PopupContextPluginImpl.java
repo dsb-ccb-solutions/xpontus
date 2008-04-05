@@ -6,8 +6,8 @@ package net.sf.xpontus.plugins.popupcontext;
 
 
 /**
- *
- * @author Propriétaire
+ * @version 0.0.1
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public interface PopupContextPluginImpl {
 }

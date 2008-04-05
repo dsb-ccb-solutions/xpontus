@@ -21,10 +21,6 @@
  */
 package net.sf.xpontus.plugins.completion;
 
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.utils.XPontusComponentsUtils;
-
-import java.awt.Component;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -35,14 +31,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.AbstractListModel;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JWindow;
@@ -52,6 +45,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
+
+import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 
 /**

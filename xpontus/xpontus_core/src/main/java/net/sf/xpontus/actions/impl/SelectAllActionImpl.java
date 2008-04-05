@@ -26,15 +26,20 @@ import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 
 
 /**
- *
+ * Class to select all the text of a document
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class SelectAllActionImpl extends DefaultDocumentAwareActionImpl {
+    /**
+     * 
+     */
     public static final String BEAN_ALIAS = "action.selectall";
+ 
 
-    public SelectAllActionImpl() {
-    }
-
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     public void run() {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();

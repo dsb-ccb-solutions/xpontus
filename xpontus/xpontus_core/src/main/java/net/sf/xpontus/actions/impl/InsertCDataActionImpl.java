@@ -40,8 +40,7 @@ public class InsertCDataActionImpl extends DefaultDocumentAwareActionImpl {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
 
-        JTextComponent editor = dtc.getCurrentEditor();
-        Document doc = editor.getDocument();
+        JTextComponent editor = dtc.getCurrentEditor(); 
         int pos = editor.getSelectionStart();
 
         try {

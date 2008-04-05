@@ -40,6 +40,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  * Document modification handler
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class ModificationHandler implements DocumentListener, CaretListener {
@@ -116,28 +117,27 @@ public class ModificationHandler implements DocumentListener, CaretListener {
     public void changedUpdate(DocumentEvent e) {
     }
 
-    /**
-     * implements DocumentListener *
-     * @param e
+    
+    /* (non-Javadoc)
+     * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
      */
     public void insertUpdate(DocumentEvent e) {
         setModified(true);
     }
 
-    /**
-     * implements DocumentListener
-     * @param e
+     
+    /* (non-Javadoc)
+     * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
      */
     public void removeUpdate(DocumentEvent e) {
         setModified(true);
     }
 
-    /**
-     *
-     * @param e
+     
+    /* (non-Javadoc)
+     * @see javax.swing.event.CaretListener#caretUpdate(javax.swing.event.CaretEvent)
      */
-    public void caretUpdate(CaretEvent e) {
-        final CaretEvent evt = e;
+    public void caretUpdate(CaretEvent e) { 
 
         JTextComponent jtc = editor.getEditorComponent();
         Object locked = jtc.getClientProperty(XPontusFileConstantsIF.FILE_LOCKED);

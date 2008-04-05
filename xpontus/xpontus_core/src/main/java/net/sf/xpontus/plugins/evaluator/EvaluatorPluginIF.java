@@ -26,7 +26,15 @@ package net.sf.xpontus.plugins.evaluator;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public interface EvaluatorPluginIF {
+    /**
+     * @return
+     */
     String getName();
 
+    /**
+     * @param expression
+     * @return
+     * @throws Exception
+     */
     public Object[] handle(String expression) throws Exception;
 }

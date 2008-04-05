@@ -24,17 +24,29 @@
 package net.sf.xpontus.plugins.indentation.xml;
 
 import com.ibm.icu.text.CharsetDetector;
+import com.ibm.icu.text.CharsetMatch;
 
 import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.indentation.IndentationPluginIF;
+import net.sf.xpontus.utils.NullEntityResolver;
 
-import java.io.StringWriter;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 
-import java.util.Vector;
+import org.w3c.dom.Document;
+
+import org.xml.sax.InputSource;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.Reader;
 
 import javax.swing.text.JTextComponent;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 
 /**
@@ -42,8 +54,6 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi
  */
 public class XMLIndentationPluginImpl implements IndentationPluginIF {
-    private static final IndentingTransformerImpl TRANSFORMER = new IndentingTransformerImpl();
-
     public XMLIndentationPluginImpl() {
     }
 
@@ -61,12 +71,12 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
                                                      .getCurrentEditor();
 
         CharsetDetector chd = new CharsetDetector();
+        byte[] buf = jtc.getText().getBytes();
+        chd.setText(new ByteArrayInputStream(buf));
 
-        //        byte[] buf = jtc.getText().getBytes();
-        //        chd.setText(new ByteArrayInputStream(buf));
-        //
-        //        CharsetMatch match = chd.detect();
-        //        Reader reader = match.getReader();
+        CharsetMatch match = chd.detect();
+        Reader reader = match.getReader();
+
         String omitCommentsOption = (String) XPontusConfig.getValue(XMLIndentationPreferencesConstantsIF.class.getName() +
                 "$" +
                 XMLIndentationPreferencesConstantsIF.OMIT_COMMENTS_OPTION);
@@ -83,17 +93,39 @@ public class XMLIndentationPluginImpl implements IndentationPluginIF {
                 XMLIndentationPreferencesConstantsIF.PRESERVE_SPACE_OPTION);
 
         try {
-            StringWriter m_writer = new StringWriter();
-            TRANSFORMER.indentXml(jtc.getText(), m_writer, 4, false,
-                new Vector());
+            DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
+            fact.setValidating(false);
 
-            byte[] b = m_writer.toString().getBytes();
+            DocumentBuilder builder = fact.newDocumentBuilder();
+            builder.setEntityResolver(NullEntityResolver.createInstance());
+
+            InputSource src = new InputSource(reader);
+            Document doc = builder.parse(src);
+
+            OutputFormat formatter = new OutputFormat();
+
+            formatter.setOmitXMLDeclaration(Boolean.getBoolean(
+                    omitXmlDeclaration));
+            formatter.setOmitDocumentType(Boolean.getBoolean(omitDoctypeOption));
+            formatter.setPreserveSpace(Boolean.getBoolean(preserveSpaceOption));
+            formatter.setOmitComments(Boolean.getBoolean(omitCommentsOption));
+
+            formatter.setIndenting(true);
+
+            ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            XMLSerializer serializer = new XMLSerializer(out, formatter);
+            serializer.serialize(doc);
+
+            byte[] b = out.toByteArray();
 
             if (b.length > 0) {
                 jtc.getDocument().remove(0, jtc.getDocument().getLength());
-                chd = new CharsetDetector();
-                chd.setText(b);
-                jtc.read(chd.detect().getReader(), null);
+
+                InputStream newIs = new ByteArrayInputStream(b);
+                chd.setText(newIs);
+                match = chd.detect();
+                jtc.read(match.getReader(), match.getName());
+            } else {
             }
         } catch (Exception e) {
             throw e;

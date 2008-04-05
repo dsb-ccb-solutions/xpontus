@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <artifactId>validation_plugin</artifactId>
     <groupId>net.sf.xpontus.plugins.validation</groupId>
@@ -9,7 +9,7 @@
   <groupId>net.sf.xpontus.plugins.validation.batchvalidation</groupId>
   <artifactId>batchvalidation_plugin</artifactId>
   <name>Batch Validation</name>
-  <version>1.0.0-pre1</version> 
+  <version>1.0.0-pre1</version>  
   <description>Plugin to validate a set of XML files</description>
   <dependencies>
     <dependency>
@@ -44,54 +44,12 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>RELEASE</version>
                 <configuration>
+                    <encoding>iso-8859-1</encoding>
                     <source>1.5</source>
-                    <target>1.5</target>
+                    <target>1.5</target>   
                 </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>RELEASE</version>
-                <configuration>
-                    <encoding>US-ASCII</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>RELEASE</version>
-                <configuration>
-                    <encoding>US-ASCII</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>RELEASE</version>
-                <configuration>
-                    <encoding>UTF-16</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>RELEASE</version>
-                <configuration>
-                    <encoding>UTF-16</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>RELEASE</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>RELEASE</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
+            </plugin> 
         </plugins>  
     </build>    
 </project>

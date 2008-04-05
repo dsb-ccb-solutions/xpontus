@@ -26,6 +26,7 @@ import javax.swing.SwingUtilities;
 
 /**
  * Event handling with threading support
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public abstract class XPontusThreadedActionImpl
@@ -33,9 +34,9 @@ public abstract class XPontusThreadedActionImpl
     /** Creates a new instance of XPontusThreadedActionImpl */
     public XPontusThreadedActionImpl() {
     }
-
-    /**
-     * Handle the event in a thread
+ 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.XPontusActionIF#execute()
      */
     public void execute() {
         SwingUtilities.invokeLater(this);

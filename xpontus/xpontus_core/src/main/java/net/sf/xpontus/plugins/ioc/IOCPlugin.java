@@ -69,31 +69,7 @@ public class IOCPlugin extends XPontusPlugin {
      * Initialize the default IOC Container
      * @throws java.lang.Exception
      */
-    public void init() throws Exception {
-        //        PluginManager manager = getManager();
-        //        PluginRegistry registry = manager.getRegistry();
-        //        ExtensionPoint iocPluginExtPoint = registry.getExtensionPoint(getDescriptor()
-        //                                                                          .getId(),
-        //                EXTENSION_POINT_NAME);
-        //
-        //        Collection plugins = iocPluginExtPoint.getConnectedExtensions();
-        //
-        //        for (Iterator it = plugins.iterator(); it.hasNext();) {
-        //            Extension ext = (Extension) it.next();
-        //            PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
-        //            ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
-        //            String className = ext.getParameter("class").valueAsString();
-        //            Class cl = classLoader.loadClass(className);
-        //            IOCPluginIF plugin = (IOCPluginIF) cl.newInstance();
-        //            setContainer(plugin);
-        //        }
-        //
-        //        ClassLoader c = Thread.currentThread().getContextClassLoader();
-        //
-        //        if (container != null) {
-        //            container.initializePropertiesBeans("/net/sf/xpontus/configuration/xpontus.properties",
-        //                c);
-        //        }
+    public void init() throws Exception { 
         setContainer(new SpringIOCModuleImpl());
         container.initializePropertiesBeans("/net/sf/xpontus/configuration/xpontus.properties",
             this.getClass().getClassLoader());

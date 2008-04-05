@@ -55,13 +55,22 @@ public class ScenarioManagerController {
         setView(view);
     }
 
+    /**
+     *
+     */
     public ScenarioManagerController() {
     }
 
+    /**
+     * @return
+     */
     public ScenarioManagerView getView() {
         return view;
     }
 
+    /**
+     * @param view
+     */
     public void setView(ScenarioManagerView view) {
         this.view = view;
     }
@@ -154,6 +163,9 @@ public class ScenarioManagerController {
         showEditorDialog();
     }
 
+    /**
+     * Close the dialog
+     */
     public void closeWindow() {
         view.setVisible(false);
     }

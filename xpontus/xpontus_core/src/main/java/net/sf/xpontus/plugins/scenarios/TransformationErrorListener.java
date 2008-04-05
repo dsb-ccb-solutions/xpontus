@@ -4,12 +4,10 @@
  */
 package net.sf.xpontus.plugins.scenarios;
 
-import org.apache.commons.lang.text.StrBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
+
+import org.apache.commons.lang.text.StrBuilder;
 
 
 /**
@@ -46,12 +44,18 @@ public class TransformationErrorListener implements ErrorListener {
         return warnings.toString();
     }
 
-    //
+    
+    /**
+     * @param e
+     */
     private void report(TransformerException e) {
         errors.append(e.getMessageAndLocation());
         errors.appendNewLine();
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.transform.ErrorListener#warning(javax.xml.transform.TransformerException)
+     */
     public void warning(TransformerException e) throws TransformerException {
         if (!hasWarnings) {
             hasWarnings = true;
@@ -61,10 +65,16 @@ public class TransformationErrorListener implements ErrorListener {
         warnings.appendNewLine();
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.transform.ErrorListener#error(javax.xml.transform.TransformerException)
+     */
     public void error(TransformerException e) throws TransformerException {
         report(e);
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.transform.ErrorListener#fatalError(javax.xml.transform.TransformerException)
+     */
     public void fatalError(TransformerException e) throws TransformerException {
         report(e);
     }

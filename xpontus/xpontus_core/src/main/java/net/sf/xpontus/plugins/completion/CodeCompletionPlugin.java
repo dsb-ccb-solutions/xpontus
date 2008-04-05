@@ -48,9 +48,15 @@ public class CodeCompletionPlugin extends XPontusPlugin {
     public static final String PLUGIN_CATEGORY = "Completion";
     private Hashtable engines;
 
+    /**
+     * 
+     */
     public CodeCompletionPlugin() {
     }
 
+    /**
+     * @param plugin
+     */
     public void initExtension(CodeCompletionIF plugin) {
         String mimeType = plugin.getMimeType();
         String m_className = plugin.getClass().getName();
@@ -65,6 +71,9 @@ public class CodeCompletionPlugin extends XPontusPlugin {
         engines.put(mimeType, m_map);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_COMPLETION_ENGINES,
             engines);
@@ -89,10 +98,16 @@ public class CodeCompletionPlugin extends XPontusPlugin {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
         engines = new Hashtable();
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
         engines.clear();
     }

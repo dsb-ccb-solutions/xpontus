@@ -170,15 +170,15 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="commons-lang:commons-lang:2.3">
+      <library name="commons-lang:commons-lang:2.4">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -274,15 +274,15 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="com.jidesoft:jide-oss:2.2.1.11">
+      <library name="com.jidesoft:jide-oss:2.2.2.02">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.1.11/jide-oss-2.2.1.11.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.2.02/jide-oss-2.2.2.02.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.1.11/jide-oss-2.2.1.11-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.2.02/jide-oss-2.2.2.02-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.1.11/jide-oss-2.2.1.11-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/com/jidesoft/jide-oss/2.2.2.02/jide-oss-2.2.2.02-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -300,123 +300,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="xpath2_plugin" exported="" />
-    <orderEntry type="module-library" exported="">
-      <library name="net.sf.saxon:saxon:8.7">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon/8.7/saxon-8.7.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon/8.7/saxon-8.7-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon/8.7/saxon-8.7-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="net.sf.saxon:saxon-xom:8.7">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon-xom/8.7/saxon-xom-8.7.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon-xom/8.7/saxon-xom-8.7-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon-xom/8.7/saxon-xom-8.7-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="xom:xom:1.1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/xom/xom/1.1/xom-1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/xom/xom/1.1/xom-1.1-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/xom/xom/1.1/xom-1.1-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="xerces:xmlParserAPIs:2.6.2">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="jaxen:jaxen:1.1-beta-8">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/jaxen/jaxen/1.1-beta-8/jaxen-1.1-beta-8.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/jaxen/jaxen/1.1-beta-8/jaxen-1.1-beta-8-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/jaxen/jaxen/1.1-beta-8/jaxen-1.1-beta-8-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="dom4j:dom4j:1.6.1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="jdom:jdom:1.0">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/jdom/jdom/1.0/jdom-1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/jdom/jdom/1.0/jdom-1.0-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/jdom/jdom/1.0/jdom-1.0-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="net.sf.saxon:saxon-xpath:8.7">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon-xpath/8.7/saxon-xpath-8.7.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon-xpath/8.7/saxon-xpath-8.7-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon-xpath/8.7/saxon-xpath-8.7-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="net.sf.saxon:saxon-dom:8.7">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon-dom/8.7/saxon-dom-8.7.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon-dom/8.7/saxon-dom-8.7-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/sf/saxon/saxon-dom/8.7/saxon-dom-8.7-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntryProperties />
   </component>
 </module>

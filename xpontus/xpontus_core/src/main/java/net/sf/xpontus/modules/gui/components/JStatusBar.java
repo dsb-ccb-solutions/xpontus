@@ -100,10 +100,16 @@ public class JStatusBar extends javax.swing.JPanel {
         this.jLabel1.setText(message);
     }
 
+    /**
+     * @param lineInfo
+     */
     public void updateLineInfo(String lineInfo) {
         lineLabel.setText(lineInfo);
     }
 
+    /**
+     * @param message
+     */
     public void setMessageWithTip(String message) {
         int taille = message.length();
         int pos = message.lastIndexOf(File.separator);

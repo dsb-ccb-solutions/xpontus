@@ -33,7 +33,7 @@ public interface XPontusFileConstantsIF {
     String FILE_MOFIFIED = "FILE_MODIFIED";
 
     /**
-     *
+     * The file object property
      */
     String FILE_OBJECT = "FILE_OBJECT";
 

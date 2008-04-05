@@ -35,9 +35,15 @@ import javax.swing.text.JTextComponent;
 public class XMLCommentActionImpl extends DefaultDocumentAwareActionImpl {
     public static final String BEAN_ALIAS = "action.commentxml";
 
+    /**
+     * 
+     */
     public XMLCommentActionImpl() {
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     public void run() {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();

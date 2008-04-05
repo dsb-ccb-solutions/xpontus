@@ -65,6 +65,14 @@ public interface IDocumentContainer extends Dockable {
     public void setup(java.io.File url);
 
     /**
+     * Method setupFromTemplate ...
+     *
+     * @param templateFileName
+     * @param templatePath
+     */
+    public void setupFromTemplate(String templateFileName, String templatePath);
+
+    /**
      *
      */
     public void setup();

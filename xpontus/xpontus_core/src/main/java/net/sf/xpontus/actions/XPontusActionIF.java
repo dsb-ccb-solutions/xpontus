@@ -24,6 +24,7 @@ package net.sf.xpontus.actions;
 
 /**
  * Interface for XPontus actions handlers
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public interface XPontusActionIF {

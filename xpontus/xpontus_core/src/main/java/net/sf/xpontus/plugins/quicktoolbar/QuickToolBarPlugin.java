@@ -44,16 +44,19 @@ import java.util.Map;
 /**
  * Quick Toolbar plugin
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class QuickToolBarPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "quicktoolbarpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.quicktoolbar";
-    private Map quicktoolbars;
+    private Map<String, Object> quicktoolbars;
 
     public QuickToolBarPlugin() {
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
@@ -80,10 +83,16 @@ public class QuickToolBarPlugin extends XPontusPlugin {
             quicktoolbars);
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
-        quicktoolbars = new HashMap();
+        quicktoolbars = new HashMap<String, Object>();
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
         quicktoolbars.clear();
     }
@@ -91,7 +100,7 @@ public class QuickToolBarPlugin extends XPontusPlugin {
     private void initExtension(QuickToolBarPluginIF mPlugin) {
         String mm = mPlugin.getMimeType();
 
-        Hashtable t = new Hashtable();
+        Hashtable<String, Object> t = new Hashtable<String, Object>();
         t.put(XPontusConstantsIF.CLASS_LOADER,
             mPlugin.getClass().getClassLoader());
         t.put(XPontusConstantsIF.OBJECT_CLASSNAME, mPlugin.getClass().getName());

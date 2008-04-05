@@ -63,6 +63,9 @@ public class ToolBarPlugin extends XPontusPlugin {
     private int x_pos = 0;
     private int y_pos = 0;
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStart()
+     */
     protected void doStart() throws Exception {
         String confValue = XPontusConfig.getValue("xpontus.ToolbarIcons")
                                         .toString();
@@ -80,6 +83,9 @@ public class ToolBarPlugin extends XPontusPlugin {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.java.plugin.Plugin#doStop()
+     */
     protected void doStop() throws Exception {
     }
 
@@ -175,6 +181,9 @@ public class ToolBarPlugin extends XPontusPlugin {
         }
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.plugins.XPontusPlugin#init()
+     */
     public void init() throws Exception {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
@@ -195,10 +204,16 @@ public class ToolBarPlugin extends XPontusPlugin {
         }
     }
 
+    /**
+     * 
+     */
     private void incrementPositions() {
         y_pos++;
     }
 
+    /**
+     * 
+     */
     private void resetToolBarMarkers() {
         x_pos++;
         y_pos = 0;

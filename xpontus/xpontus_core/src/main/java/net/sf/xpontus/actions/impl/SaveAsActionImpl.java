@@ -43,9 +43,16 @@ import org.apache.commons.vfs.provider.local.LocalFile;
 
 import java.awt.Toolkit;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -116,7 +123,21 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
             }
         }
     }
+    
+    private static final Pattern ENCODING_PATTERN = Pattern.compile("(?<=encoding=\")[^\"]*(?=\")");
 
+    private String getEncoding(String xml) throws IOException {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(xml.getBytes())));
+            String prolog = reader.readLine();
+            Matcher matcher = ENCODING_PATTERN.matcher(prolog);
+            return matcher.find()? matcher.group(): "";
+        } finally {
+            if (reader != null)
+                reader.close();
+        }
+    }
     /**
      *
      * @param fo
@@ -138,9 +159,25 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
 
         FileHistoryList.addFile(fo.getName().getURI());
 
-        final byte[] b = editor.getText().getBytes();
-        bos.write(b);
+        String encoding = "UTF-8";
+        
+        String m_encoding = getEncoding(editor.getText());
+        
+        if(!m_encoding.trim().equals("")){
+        	encoding = m_encoding;
+        }
+
+        OutputStreamWriter m_writer = new OutputStreamWriter(bos, encoding);
+        
+        m_writer.write(editor.getText());
+        
+        //bos.write(editor.getText().getBytes());
+        m_writer.flush();
+        
+        m_writer.close();
+
         bos.flush();
+
         bos.close();
 
         String m_ext = FilenameUtils.getExtension(fo.getName().getBaseName());
@@ -182,7 +219,7 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
                         fo.getName().getBaseName()));
 
                 CharsetDetector detector = new CharsetDetector();
-                detector.setText(b);
+                detector.setText(editor.getText().getBytes());
 
                 if (m_ext != null) {
                     Document doc = editor.getDocument();
@@ -195,8 +232,7 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
                             m_ext.endsWith("htm")) {
                         doc.putProperty("BUILTIN_COMPLETION", "HTML");
                     }
-                }
-
+                } 
                 handler = new ModificationHandler(container);
                 editor.read(detector.detect().getReader(), null);
                 handler.setModified(false);

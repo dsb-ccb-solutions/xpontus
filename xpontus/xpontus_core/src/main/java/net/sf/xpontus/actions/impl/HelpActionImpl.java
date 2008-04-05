@@ -30,6 +30,7 @@ import java.awt.RenderingHints;
 
 /**
  * Action to display the help dialog
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class HelpActionImpl extends AbstractXPontusActionImpl {
@@ -77,20 +78,7 @@ public class HelpActionImpl extends AbstractXPontusActionImpl {
                 }
             };
 
-        broker.setFont(label.getFont());
-
-        //        java.util.List li = new java.util.ArrayList();
-        //
-        //        java.util.Enumeration _e = broker.getHelpSet().getLocalMap().getAllIDs();
-        //
-        //        while (_e.hasMoreElements()) {
-        //            String elem = _e.nextElement().toString();
-        //            li.add(elem);
-        //        }
-        //
-        //        java.util.Collections.sort(li);
-        //
-        //        String firstId = li.get(0).toString();
+        broker.setFont(label.getFont()); 
         broker.setCurrentID("id2475596");
 
         helpListener = new javax.help.CSH.DisplayHelpFromSource(broker);

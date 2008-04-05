@@ -25,15 +25,21 @@ import net.sf.xpontus.utils.DocumentAwareComponentHolder;
 
 
 /**
- *
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public abstract class XPontusDocumentAwareThreadedActionImpl
     extends XPontusThreadedActionImpl implements DocumentAwareComponentIF {
+    /**
+     * 
+     */
     public XPontusDocumentAwareThreadedActionImpl() {
         registerComponent();
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.DocumentAwareComponentIF#registerComponent()
+     */
     public void registerComponent() {
         DocumentAwareComponentHolder.getInstance().register(this);
     }

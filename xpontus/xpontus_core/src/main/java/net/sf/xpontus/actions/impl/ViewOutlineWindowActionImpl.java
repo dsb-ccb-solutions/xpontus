@@ -31,7 +31,8 @@ import net.sf.xpontus.modules.gui.components.OutlineViewDockable;
 
 
 /**
- *
+ * Show or hide the outline window
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ViewOutlineWindowActionImpl extends AbstractXPontusActionImpl {

@@ -115,6 +115,9 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
         return root;
     }
 
+    /**
+     * @param root
+     */
     public void updateAll(DefaultMutableTreeNode root) {
         this.root = root;
         model = new DefaultTreeModel(root);
@@ -124,6 +127,10 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
         expandAllNodes();
     }
 
+    /**
+     * @param line
+     * @param column
+     */
     private void gotoLine(int line, int column) {
         System.out.println("Line:" + line + ",Column:" + column);
 

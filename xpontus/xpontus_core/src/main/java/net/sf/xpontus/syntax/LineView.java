@@ -1,21 +1,36 @@
+/*
+ * LineView.java
+ *
+ * Created on 4-Aug-2007, 10:18:31 AM
+ *
+ *
+ * Copyright (C) 2005-2008 Yves Zoundi
+ *
+ * This library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ */
 package net.sf.xpontus.syntax;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.SizeSequence;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -24,6 +39,12 @@ import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
 
 
+/**
+ * The line numbering component
+ *
+ * @author Yves Zoundi
+ * Created on Apr 5, 2008
+ */
 public class LineView extends JComponent {
     // This is for the border to the right of the line numbers.
     // There's probably a UIDefaults value that could be used for this.
@@ -182,17 +203,20 @@ public class LineView extends JComponent {
         }
     }
 
-    /**
-     *
-     * @return
-     */
-    public Dimension getPreferredSize() {
+     /**
+      * Method getPreferredSize returns the preferredSize of this LineView object.
+      *
+      * @return the preferredSize (type Dimension) of this LineView object.
+      */
+     public Dimension getPreferredSize() {
         return new Dimension(componentWidth, text.getHeight());
     }
 
     /**
+     * Method setFont sets the font of this LineView object.
      *
-     * @param font
+     * @param font the font of this LineView object.
+     *
      */
     public void setFont(Font font) {
         super.setFont(font);
@@ -287,7 +311,7 @@ public class LineView extends JComponent {
          * @param evt
          */
         public void changedUpdate(DocumentEvent evt) {
-            //      update(evt);
+             
         }
 
         /**

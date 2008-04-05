@@ -28,20 +28,29 @@ import javax.swing.undo.UndoableEdit;
 
 
 /**
- *
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class XPontusUndoManager extends CompoundEdit {
     private int m_IdxAdd = 0;
 
+    /* (non-Javadoc)
+     * @see javax.swing.undo.CompoundEdit#getUndoPresentationName()
+     */
     public String getUndoPresentationName() {
         return ((UndoableEdit) edits.elementAt(m_IdxAdd - 1)).getPresentationName();
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.undo.CompoundEdit#getRedoPresentationName()
+     */
     public String getRedoPresentationName() {
         return ((UndoableEdit) edits.elementAt(m_IdxAdd)).getPresentationName();
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.undo.CompoundEdit#addEdit(javax.swing.undo.UndoableEdit)
+     */
     public boolean addEdit(UndoableEdit anEdit) {
         if (edits.size() > m_IdxAdd) {
             edits.setElementAt(anEdit, m_IdxAdd++);
@@ -57,6 +66,9 @@ public class XPontusUndoManager extends CompoundEdit {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.undo.CompoundEdit#canUndo()
+     */
     public synchronized boolean canUndo() {
         if (m_IdxAdd > 0) {
             UndoableEdit edit = (UndoableEdit) edits.elementAt(m_IdxAdd - 1);
@@ -67,6 +79,9 @@ public class XPontusUndoManager extends CompoundEdit {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.undo.CompoundEdit#canRedo()
+     */
     public synchronized boolean canRedo() {
         if (edits.size() > m_IdxAdd) {
             UndoableEdit edit = (UndoableEdit) edits.elementAt(m_IdxAdd);
@@ -77,10 +92,16 @@ public class XPontusUndoManager extends CompoundEdit {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.undo.CompoundEdit#undo()
+     */
     public synchronized void undo() throws CannotUndoException {
         ((UndoableEdit) edits.elementAt(--m_IdxAdd)).undo();
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.undo.CompoundEdit#redo()
+     */
     public synchronized void redo() throws CannotRedoException {
         ((UndoableEdit) edits.elementAt(m_IdxAdd++)).redo();
     }

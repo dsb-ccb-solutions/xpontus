@@ -32,6 +32,7 @@ import javax.swing.SwingUtilities;
 
 /**
  * Event handler which display a dialog on top of a main window
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
@@ -47,10 +48,16 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
     public XPontusDialogActionImpl() {
     }
 
+    /**
+     * @return
+     */
     public ClassLoader getWindowClassLoader() {
         return windowClassLoader;
     }
 
+    /**
+     * @param windowClassLoader
+     */
     public void setWindowClassLoader(ClassLoader windowClassLoader) {
         this.windowClassLoader = windowClassLoader;
     }
@@ -65,6 +72,9 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
         SwingUtilities.invokeLater(this);
     }
 
+    /**
+     * 
+     */
     private void initComponents() {
         if (dialog == null) {
             try {
@@ -82,8 +92,9 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
         }
     }
 
-    /**
-     * Implementation of <code>java.lang.Runnable</code> interface
+    
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
      */
     public void run() {
         dialog.setVisible(true);
