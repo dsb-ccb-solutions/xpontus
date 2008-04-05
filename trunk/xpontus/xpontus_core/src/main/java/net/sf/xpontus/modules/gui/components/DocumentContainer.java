@@ -21,30 +21,13 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.KeyEvent;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Hashtable;
-import java.util.Map;
+import com.ibm.icu.text.CharsetDetector;
 
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JEditorPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.KeyStroke;
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.event.UndoableEditListener;
-import javax.swing.text.JTextComponent;
+import com.jidesoft.swing.Searchable;
+import com.jidesoft.swing.SearchableBar;
+import com.jidesoft.swing.SearchableUtils;
+
+import com.vlsolutions.swing.docking.*;
 
 import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusConstantsIF;
@@ -68,15 +51,18 @@ import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
 
-import com.ibm.icu.text.CharsetDetector;
-import com.jidesoft.swing.Searchable;
-import com.jidesoft.swing.SearchableBar;
-import com.jidesoft.swing.SearchableUtils;
-import com.vlsolutions.swing.docking.DockKey;
-import com.vlsolutions.swing.docking.Dockable;
-import com.vlsolutions.swing.docking.DockableActionCustomizer;
-import com.vlsolutions.swing.docking.DockingDesktop;
-import com.vlsolutions.swing.docking.TabbedContainerActions;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+
+import java.io.*;
+
+import java.util.Hashtable;
+import java.util.Map;
+
+import javax.swing.*;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.JTextComponent;
 
 
 /**
@@ -189,8 +175,7 @@ public class DocumentContainer implements IDocumentContainer {
      * @param url
      */
     public void setup(java.net.URL url) {
-        try { 
-            
+        try {
             FileObject fo = VFS.getManager().resolveFile(url.toExternalForm());
             setup(fo, url.toExternalForm(), null);
         } catch (IOException ex) {
@@ -244,8 +229,7 @@ public class DocumentContainer implements IDocumentContainer {
         }
     }
 
-
-     public void setupFromTemplate(String templateFileName, String templatePath) {
+    public void setupFromTemplate(String templateFileName, String templatePath) {
         documentPanel.add(new DefaultQuickToolbarPluginImpl().getComponent(),
             BorderLayout.NORTH);
 
@@ -265,8 +249,7 @@ public class DocumentContainer implements IDocumentContainer {
 
         try {
             CharsetDetector detector = new CharsetDetector();
-            InputStream is = getClass()
-                                 .getResourceAsStream(templatePath);
+            InputStream is = getClass().getResourceAsStream(templatePath);
             detector.setText(new BufferedInputStream(is));
 
             try {
@@ -288,6 +271,20 @@ public class DocumentContainer implements IDocumentContainer {
                 Boolean.FALSE);
 
             editor.setCaretPosition(0);
+
+            String m_ext = templateFileName.substring(templateFileName.indexOf(".") + 1); 
+
+            if (m_ext != null) {
+                m_ext = m_ext.toLowerCase();
+                if (m_ext.endsWith("xsl") || (m_ext.endsWith("xslt"))) {
+                    doc.putProperty("BUILTIN_COMPLETION", "XSL");
+                    System.out.println("xsl completion!!!!!!!!!!!!!!!!!!!!!!!!");
+                } else if (m_ext.endsWith("xsd")) {
+                    doc.putProperty("BUILTIN_COMPLETION", "XSD");
+                } else if (m_ext.endsWith("html") || m_ext.endsWith("htm")) {
+                    doc.putProperty("BUILTIN_COMPLETION", "HTML");
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -354,13 +351,12 @@ public class DocumentContainer implements IDocumentContainer {
         ////////////////////////////////
         editor.putClientProperty(XPontusConstantsIF.CONTENT_TYPE, mm);
 
-        editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo); 
-        
-        try{
-        	editor.putClientProperty(XPontusFileConstantsIF.FILE_LAST_MODIFIED_DATE, "" + fo.getContent().getLastModifiedTime());
-        }
-        catch(Exception err){
-        	
+        editor.putClientProperty(XPontusConstantsIF.FILE_OBJECT, fo);
+
+        try {
+            editor.putClientProperty(XPontusFileConstantsIF.FILE_LAST_MODIFIED_DATE,
+                "" + fo.getContent().getLastModifiedTime());
+        } catch (Exception err) {
         }
 
         editor.setUI(new XPontusEditorUI(editor, ext));
@@ -368,7 +364,7 @@ public class DocumentContainer implements IDocumentContainer {
         SyntaxDocument doc = (SyntaxDocument) editor.getDocument();
 
         if (m_ext != null) {
-            if (m_ext.endsWith("xsl") || (m_ext.endsWith("xslt")) ){
+            if (m_ext.endsWith("xsl") || (m_ext.endsWith("xslt"))) {
                 doc.putProperty("BUILTIN_COMPLETION", "XSL");
             } else if (m_ext.endsWith("xsd")) {
                 doc.putProperty("BUILTIN_COMPLETION", "XSD");

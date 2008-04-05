@@ -16,20 +16,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/GUIUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/GUIUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/indentation_plugin/xml_indentation_plugin/src/main/java/net/sf/xpontus/plugins/indentation/xml/XMLIndentationPluginImpl.java" afterPath="$PROJECT_DIR$/indentation_plugin/xml_indentation_plugin/src/main/java/net/sf/xpontus/plugins/indentation/xml/XMLIndentationPluginImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/DOMAddLines.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/DOMAddLines.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/src/main/java/net/sf/xpontus/plugins/outline/html/HtmlTreeBuilder.java" afterPath="$PROJECT_DIR$/outline_plugin/htmloutline_plugin/src/main/java/net/sf/xpontus/plugins/outline/html/HtmlTreeBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/PluginResolverUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/PluginResolverUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/gendoc/DocumentationPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/gendoc/DocumentationPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveAllActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveAllActionImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/NullEntityResolver.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/NullEntityResolver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CheckXMLActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CheckXMLActionImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus.iws" afterPath="$PROJECT_DIR$/xpontus.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusWindowImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusWindowImpl.java" />
     </list>
     <ignored path="xpontus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -92,7 +82,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="xpontus.properties" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="xpontus.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state line="270" column="58" selection-start="11410" selection-end="11410" vertical-scroll-proportion="0.81914896">
@@ -113,7 +103,7 @@
       <file leaf-file-name="TemplatesDialog.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/TemplatesDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="124" column="43" selection-start="3971" selection-end="3971" vertical-scroll-proportion="0.93887943">
+            <state line="169" column="63" selection-start="5446" selection-end="5446" vertical-scroll-proportion="0.6213922">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -133,10 +123,21 @@
       <file leaf-file-name="DocumentContainer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="276" column="64" selection-start="9575" selection-end="9575" vertical-scroll-proportion="0.41165757">
+            <state line="274" column="90" selection-start="9573" selection-end="9573" vertical-scroll-proportion="0.39526412">
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="docComment;method#getStatusBar#0;class#DocumentContainer#0" expanded="true" />
+                <element signature="docComment;method#setup#2;class#DocumentContainer#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="54" selection-start="173" selection-end="173" vertical-scroll-proportion="0.32922536">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -150,16 +151,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="XPontusRunner.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="XPontusRunner.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="213" column="32" selection-start="8163" selection-end="8163" vertical-scroll-proportion="0.71949">
+            <state line="174" column="68" selection-start="6362" selection-end="6362" vertical-scroll-proportion="0.7559199">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;method#createMenuExtension#0;class#XPontusRunner#0" expanded="true" />
                 <element signature="docComment;method#createToolbarExtension#0;class#XPontusRunner#0" expanded="true" />
                 <element signature="docComment;method#main#0;class#XPontusRunner#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DefaultXPontusWindowImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusWindowImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="199" column="90" selection-start="5401" selection-end="5401" vertical-scroll-proportion="-0.41666666">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -569,13 +579,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.rng">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="2" selection-start="2" selection-end="2" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xsd">
       <provider selected="true" editor-type-id="text-editor">
         <state line="58" column="0" selection-start="1964" selection-end="1964" vertical-scroll-proportion="0.8982188">
@@ -586,13 +589,6 @@
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/AboutDialogView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="84" column="94" selection-start="2663" selection-end="2746" vertical-scroll-proportion="0.8031359">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="19" selection-start="137" selection-end="137" vertical-scroll-proportion="0.2693662">
           <folding />
         </state>
       </provider>
@@ -637,18 +633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="213" column="32" selection-start="8163" selection-end="8163" vertical-scroll-proportion="0.71949">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;method#createMenuExtension#0;class#XPontusRunner#0" expanded="true" />
-            <element signature="docComment;method#createToolbarExtension#0;class#XPontusRunner#0" expanded="true" />
-            <element signature="docComment;method#main#0;class#XPontusRunner#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/ioc/SpringIOCModuleImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="0" selection-start="2610" selection-end="2610" vertical-scroll-proportion="0.8947368">
@@ -670,28 +654,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="276" column="64" selection-start="9575" selection-end="9575" vertical-scroll-proportion="0.41165757">
-          <folding>
-            <element signature="docComment;method#getStatusBar#0;class#DocumentContainer#0" expanded="true" />
-          </folding>
+        <state line="270" column="58" selection-start="11410" selection-end="11410" vertical-scroll-proportion="0.81914896">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/templates/template.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="54" selection-start="173" selection-end="173" vertical-scroll-proportion="0.32922536">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/TemplatesDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="43" selection-start="3971" selection-end="3971" vertical-scroll-proportion="0.93887943">
+        <state line="169" column="63" selection-start="5446" selection-end="5446" vertical-scroll-proportion="0.6213922">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="270" column="58" selection-start="11410" selection-end="11410" vertical-scroll-proportion="0.81914896">
+        <state line="274" column="90" selection-start="9573" selection-end="9573" vertical-scroll-proportion="0.39526412">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;method#getStatusBar#0;class#DocumentContainer#0" expanded="true" />
+            <element signature="docComment;method#setup#2;class#DocumentContainer#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusWindowImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="199" column="90" selection-start="5401" selection-end="5401" vertical-scroll-proportion="-0.41666666">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="174" column="68" selection-start="6362" selection-end="6362" vertical-scroll-proportion="0.7559199">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;method#createMenuExtension#0;class#XPontusRunner#0" expanded="true" />
+            <element signature="docComment;method#createToolbarExtension#0;class#XPontusRunner#0" expanded="true" />
+            <element signature="docComment;method#main#0;class#XPontusRunner#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

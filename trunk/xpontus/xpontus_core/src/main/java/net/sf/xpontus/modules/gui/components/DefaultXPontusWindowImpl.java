@@ -68,6 +68,7 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         super();
 
         frame = new JFrame();
+ 
 
         URL logoURL = getClass().getResource("/net/sf/xpontus/icons/icone.png");
         frame.setIconImage(Toolkit.getDefaultToolkit().createImage(logoURL));
@@ -200,7 +201,11 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
 
         tabContainer = new DocumentTabContainer(desktop);
 
+        menubar.setBackground(frame.getBackground());
+        
         frame.setJMenuBar(menubar);
+
+        menubar.getParent().setBackground(menubar.getBackground());
 
         frame.getContentPane().add(desktop, BorderLayout.CENTER);
         frame.getContentPane().add(toolbar, BorderLayout.NORTH);
