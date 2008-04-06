@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   :
+    Created on :
+    Author     :
+    Description:
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <ref name="album"/>
+  </start>
+  <define name="album">
+    <element name="album">
+      <optional>
+        <attribute name="id">
+          <data type="token"/>
+        </attribute>
+      </optional>
+      <element name="title">
+        <data type="token"/>
+      </element>
+      <element name="artist">
+        <data type="token"/>
+      </element>
+      <element name="manufacturer">
+        <data type="token"/>
+      </element>
+      <element name="release">
+        <data type="int"/>
+      </element>
+      <element name="format">
+        <data type="token"/>
+      </element>
+      <element name="condition">
+        <data type="token"/>
+      </element>
+      <optional>
+        <element name="comments">
+          <data type="token"/>
+        </element>
+      </optional>
+    </element>
+  </define>
+</grammar>

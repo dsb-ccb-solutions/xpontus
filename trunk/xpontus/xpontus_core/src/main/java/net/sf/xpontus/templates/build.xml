@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   :
+    Created on :
+    Author     :
+    Description:
+
+-->
+<project name="changeme" default="all" basedir=".">
+    <target name="all">
+        <echo>calling all target</echo>
+        <!-- TODO define script. See http://ant.apache.org/ -->
+    </target>
+</project>
