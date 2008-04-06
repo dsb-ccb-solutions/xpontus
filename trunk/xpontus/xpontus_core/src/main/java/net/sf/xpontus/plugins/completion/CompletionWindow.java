@@ -1,5 +1,5 @@
 /*
- *
+ * CompletionWindow.java
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
  *
  */
 package net.sf.xpontus.plugins.completion;
@@ -38,7 +37,8 @@ import javax.swing.text.JTextComponent;
 
 
 /**
- *
+ * @version 0.0.2
+ * Code completion window
  * @author Yves Zoundi
  */
 public class CompletionWindow extends JWindow implements KeyListener,
@@ -64,6 +64,11 @@ public class CompletionWindow extends JWindow implements KeyListener,
         return model;
     }
 
+    /**
+     * Single instance of this class
+     *
+     * @return the single instance of this class
+     */
     public static CompletionWindow getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new CompletionWindow();
@@ -87,14 +92,26 @@ public class CompletionWindow extends JWindow implements KeyListener,
     private void initComponents() {
         model = new CompletionListModel();
 
+        // create a new completion list
         list = new JList(model);
 
+        // single element selection is allowed
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // we need to close the completion window when the focus is lost
         list.addFocusListener(this);
+
         list.addListSelectionListener(this);
+
+        // when the user double-click on a completion element we need to insert it
         list.addMouseListener(this);
+
+        // when the user press ENTER on a completion element we need to insert it
         list.addKeyListener(this);
+
         list.getInputMap().clear();
+
+        // the list must grab the focus when the completion window is shown
         list.setFocusable(true);
 
         scroll = new JScrollPane(list);
@@ -331,8 +348,11 @@ public class CompletionWindow extends JWindow implements KeyListener,
 
             // must ensure the object implements comparable
             Arrays.sort(sort);
+
+            // remove the existing completion elements
             data.clear();
 
+            // add the new completion elements
             for (int i = 0; i < sort.length; i++) {
                 data.add(sort[i].toString());
             }
