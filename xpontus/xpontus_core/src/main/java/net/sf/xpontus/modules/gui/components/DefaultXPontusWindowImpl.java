@@ -92,10 +92,20 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         initComponents();
     }
 
+    /**
+     * Method getOutline returns the outline of this DefaultXPontusWindowImpl object.
+     *
+     * @return the outline (type OutlineViewDockable) of this DefaultXPontusWindowImpl object.
+     */
     public OutlineViewDockable getOutline() {
         return (OutlineViewDockable) outlineDockable;
     }
 
+    /**
+     * Method getStatusBar returns the statusBar of this DefaultXPontusWindowImpl object.
+     *
+     * @return the statusBar (type JStatusBar) of this DefaultXPontusWindowImpl object.
+     */
     public JStatusBar getStatusBar() {
         return statusbar;
     }
@@ -108,11 +118,12 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
         return menubar;
     }
 
-    /**
-     *
-     * @return
-     */
-    public ToolBarContainer getToolBar() {
+     /**
+      * Method getToolBar returns the toolBar of this DefaultXPontusWindowImpl object.
+      *
+      * @return the toolBar (type ToolBarContainer) of this DefaultXPontusWindowImpl object.
+      */
+     public ToolBarContainer getToolBar() {
         return toolbar;
     }
 
@@ -199,9 +210,7 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
                 (Dockable) console.getDockables().get(i), i);
         }
 
-        tabContainer = new DocumentTabContainer(desktop);
-
-        menubar.setBackground(frame.getBackground());
+        tabContainer = new DocumentTabContainer(desktop); 
         
         frame.setJMenuBar(menubar);
 
