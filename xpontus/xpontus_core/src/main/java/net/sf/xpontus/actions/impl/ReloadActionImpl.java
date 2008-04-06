@@ -134,11 +134,8 @@ public class ReloadActionImpl extends DefaultDocumentAwareActionImpl {
                 if (rep == JOptionPane.NO_OPTION) {
                     return;
                 }
-            }
+            } 
 
-            // le system de documentation insertion de pages blanches et de nomencalture de documents et destertion de tous es autres aspects. 
-            /*
-            */
             FileObject fFile = (FileObject) (filePath);
 
             if (!fFile.exists()) {
@@ -159,7 +156,9 @@ public class ReloadActionImpl extends DefaultDocumentAwareActionImpl {
             chd.setText(newIs);
             editor.read(chd.detect().getReader(), null);
 
+            editor.setCaretPosition(0);
             editor.grabFocus();
+            
             handler.setModified(false);
         } catch (Exception ex) {
             Toolkit.getDefaultToolkit().beep();

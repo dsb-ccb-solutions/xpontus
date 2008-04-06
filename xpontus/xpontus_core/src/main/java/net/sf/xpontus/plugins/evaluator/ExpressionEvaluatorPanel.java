@@ -150,13 +150,13 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
                 String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME).toString();
                 try {
                     EvaluatorPluginIF plugin = (EvaluatorPluginIF) Class.forName(classname, true, loader).newInstance();
-                    Object[] li = plugin.handle(getExpression());
+                    XPathResultDescriptor[] li = plugin.handle(getExpression());
                     XPathResultsDockable dockable = (XPathResultsDockable) DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(XPathResultsDockable.DOCKABLE_ID);
                     if (li != null) {
                         container.getStatusBar().setMessage("Expression evaluation finished...");
-                        NodeList nl = (NodeList) li[0];
-                        DOMAddLines dm = (DOMAddLines) li[1];
-                        dockable.setResultsModel(new XPathResultsTableModel(nl, dm));
+                        /*NodeList nl = (NodeList) li[0];
+                        DOMAddLines dm = (DOMAddLines) li[1];     */
+                        dockable.setResultsModel(new XPathResultsTableModel(li));
                         DefaultXPontusWindowImpl.getInstance().getConsole().setFocus(XPathResultsDockable.DOCKABLE_ID);
                     } else {
                         container.getStatusBar().setMessage("No results for expression....");
@@ -164,6 +164,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
                         DefaultXPontusWindowImpl.getInstance().getConsole().setFocus(MessagesWindowDockable.DOCKABLE_ID);
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     container.getStatusBar().setMessage("Error evaluating expression...");
                     DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(MessagesWindowDockable.DOCKABLE_ID).println("No results");
                     DefaultXPontusWindowImpl.getInstance().getConsole().getDockableById(MessagesWindowDockable.DOCKABLE_ID).println("Error:\n" + e.getMessage(), OutputDockable.RED_STYLE);

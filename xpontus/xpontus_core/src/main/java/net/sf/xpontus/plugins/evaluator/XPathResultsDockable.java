@@ -72,9 +72,9 @@ public class XPathResultsDockable extends OutputDockable {
                             XPathResultDescriptor xrd = (XPathResultDescriptor) xpathResultsTable.getValueAt(selectedRow,
                                     0);
 
-                            if (xrd.lineInfo) {
-                                String s = xrd.value;
-                                String[] lineinfo = s.split(",")[0].split(":");
+                            if (xrd.hasLineInfo()) {
+                                String s = xrd.getValue();
+                                String[] lineinfo = new String[]{xrd.getLine() + "" , xrd.getColumn() + ""};
                                 gotoLine(lineinfo);
                             }
                         }

@@ -23,19 +23,9 @@ package net.sf.xpontus.plugins.evaluator;
 import net.sf.xpontus.utils.NullEntityResolver;
 
 import org.apache.xerces.parsers.DOMParser;
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.NamespaceContext;
-import org.apache.xerces.xni.QName;
-import org.apache.xerces.xni.XMLAttributes;
-import org.apache.xerces.xni.XMLLocator;
-import org.apache.xerces.xni.XMLString;
-import org.apache.xerces.xni.XNIException;
+import org.apache.xerces.xni.*;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 
 import org.xml.sax.InputSource;
 
@@ -75,6 +65,26 @@ public class DOMAddLines extends DOMParser {
             System.err.println("except" + e);
         }
     } // constructor
+
+    public int getLineNumber(Node node) {
+        String lineRowColumn = (String) ((Node) node).getUserData("startLine");
+
+        if (lineRowColumn == null) {
+            return -1;
+        } else {
+            return Integer.parseInt(lineRowColumn);
+        }
+    }
+
+    public int getColumnNumber(Node node) {
+        String lineRowColumn = (String) ((Node) node).getUserData("startColumn");
+
+        if (lineRowColumn == null) {
+            return -1;
+        } else {
+            return Integer.parseInt(lineRowColumn);
+        }
+    }
 
     public String getLineInfo(Node node) {
         String lineRowColumn = (String) ((Node) node).getUserData("startLine");

@@ -20,14 +20,6 @@
  */
 package net.sf.xpontus.plugins.evaluator;
 
-import org.apache.commons.lang.text.StrBuilder;
-
-import org.apache.xerces.dom.ElementImpl;
-
-import org.w3c.dom.CharacterData;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import javax.swing.table.AbstractTableModel;
 
 
@@ -44,53 +36,24 @@ public class XPathResultsTableModel extends AbstractTableModel {
     private int numRows;
 
     /**
-     * @param rows
-     * @param locator
+     * Constructor XPathResultsTableModel creates a new XPathResultsTableModel instance.
+     *
+     * @param results of type XPathResultDescriptor[]
      */
-    public XPathResultsTableModel(NodeList rows, DOMAddLines locator) {
+    public XPathResultsTableModel(XPathResultDescriptor[] results) {
         columns[0] = "Results";
 
-        final int nbResults = rows.getLength();
+        final int nbResults = results.length;
+
         data = new Object[nbResults][nbResults];
         numRows = nbResults;
         this.mRows = new Object[nbResults];
 
         for (int i = 0; i < mRows.length; i++) {
-            final Node element = (Node) rows.item(i);
-
-            XPathResultDescriptor res = new XPathResultDescriptor();
-
-            if (element instanceof ElementImpl) {
-                StringBuffer buff = new StringBuffer();
-                buff.append(locator.getLineInfo(element) + ",");
-                buff.append(element.getNodeName());
-                res.lineInfo = true;
-                res.value = buff.toString();
-            } else if (element instanceof CharacterData) {
-                CharacterData ti = (CharacterData) element;
-                StrBuilder buff = new StrBuilder();
-                buff.append(ti.getData());
-
-                int taille = buff.length();
-                String texte = buff.toString();
-
-                if (taille > 15) {
-                    texte = texte.substring(0, 15) +
-                        " [REST OF THE TEXT OMITTED]";
-                }
-
-                res.value = "Text Content:" + texte +
-                    " Location not available";
-                res.lineInfo = false;
-            } else {
-                res.lineInfo = false;
-                res.value = element.getNodeValue();
-            }
+            XPathResultDescriptor res = results[i];
 
             data[i][0] = res;
         }
-        
-        
     }
 
     /* (non-Javadoc)
