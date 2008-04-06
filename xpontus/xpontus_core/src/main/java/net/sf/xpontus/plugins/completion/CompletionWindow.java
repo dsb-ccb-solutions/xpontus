@@ -21,32 +21,20 @@
  */
 package net.sf.xpontus.plugins.completion;
 
-import java.awt.Frame;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import net.sf.xpontus.utils.XPontusComponentsUtils;
+
+import java.awt.*;
+import java.awt.event.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.swing.AbstractListModel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JWindow;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
-
-import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 
 /**
@@ -98,23 +86,36 @@ public class CompletionWindow extends JWindow implements KeyListener,
 
     private void initComponents() {
         model = new CompletionListModel();
+
         list = new JList(model);
+
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.addFocusListener(this);
         list.addListSelectionListener(this);
         list.addMouseListener(this);
-        scroll = new JScrollPane(list);
-        getContentPane().add(scroll);
-        setSize(350, 120);
         list.addKeyListener(this);
         list.getInputMap().clear();
+        list.setFocusable(true);
+
+        scroll = new JScrollPane(list);
+
         scroll.getInputMap().clear();
+
+        getContentPane().add(scroll);
+
+        setSize(350, 120);
+
         this.maxHeight = (int) Toolkit.getDefaultToolkit().getScreenSize()
                                       .getHeight();
-        list.setFocusable(true);
+
         this.setFocusable(true);
     }
 
+    /**
+     * Show the completion window
+     *
+     * @param jtc The text editor component
+     */
     public void showWindow(JTextComponent jtc) {
         this.jtc = jtc;
         list.setVisibleRowCount(7);
@@ -159,10 +160,29 @@ public class CompletionWindow extends JWindow implements KeyListener,
         int diff = (position + 1) - pos;
 
         if (diff > 0) {
-            m_selection = m_selection.substring(position - pos + 1);
-        }
+            boolean goodCompletion = false;
 
-        insertText(m_selection, true);
+            try {
+                String text_diff = jtc.getDocument().getText(position, diff);
+                String completion_diff = m_selection.substring(0, diff);
+
+                if (text_diff.equals(completion_diff)) {
+                    goodCompletion = true;
+                }
+            } catch (Exception e) {
+            }
+
+            // check if we need to correct some text already entered
+
+            // if the first letters entered are identitical to the selected item insert directly
+            if (goodCompletion) {
+                m_selection = m_selection.substring(position - pos + 1);
+                insertText(m_selection, true);
+            } else {
+                // else correct the entered text and insert the completion
+                insertAndFixText(pos, diff, m_selection, true);
+            }
+        }
     }
 
     public void keyPressed(KeyEvent e) {
@@ -198,6 +218,23 @@ public class CompletionWindow extends JWindow implements KeyListener,
         }
     }
 
+    private void insertAndFixText(int startOffset, int len, String completion,
+        boolean dispose) {
+        try {
+            // remove the text which has already been entered
+            jtc.getDocument().remove(startOffset - 1, len);
+
+            // insert the completion
+            jtc.getDocument().insertString(pos - 1, completion, null);
+
+            // close the completion window
+            if (dispose) {
+                closeWindow();
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
     private void insertText(String ch, boolean dispose) {
         try {
             jtc.getDocument().insertString(jtc.getCaretPosition(), ch, null);
@@ -209,6 +246,12 @@ public class CompletionWindow extends JWindow implements KeyListener,
         }
     }
 
+    /**
+     * Select a completion element as the user press a key
+     *
+     * @param ch of type char
+     * @return int
+     */
     public int lookup(char ch) {
         int index = -1;
 
