@@ -92,7 +92,7 @@ public class DocumentTabContainer {
                     if (selectedDockable == null) {
                         DefaultXPontusWindowImpl.getInstance().getOutline()
                                                 .updateAll(new DefaultMutableTreeNode());
-                        System.out.println("no document selection");
+                       // System.out.println("no document selection");
 
                         return;
                     }
@@ -114,9 +114,9 @@ public class DocumentTabContainer {
                             newSelection = true;
                         } else if (previousSelection.getDockKey()
                                                         .equals(selectedDockable.getDockKey())) {
-                            System.out.println("same document selection");
+                           // System.out.println("same document selection");
                         } else {
-                            System.out.println("new document selection");
+                           // System.out.println("new document selection");
                             newSelection = true;
                             previousSelection = selectedDockable;
                         }

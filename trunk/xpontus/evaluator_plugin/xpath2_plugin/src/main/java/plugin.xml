@@ -1,6 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 2.0" "http://jpf.sourceforge.net/plugin_1_0.dtd">
-<plugin id="plugin.evaluator.xpath2" version="0.0.2" class="net.sf.xpontus.plugins.evaluator.xpath2.XPath2EvaluatorPlugin">      
+<plugin id="plugin.evaluator.xpath2" version="0.0.2" vendor="Yves Zoundi" class="net.sf.xpontus.plugins.evaluator.xpath2.XPath2EvaluatorPlugin">
+     <attributes>
+        <attribute id = "Category" value="Evaluation"/>
+        <attribute id = "Built-in" value = "false"/>
+        <attribute id="Homepage" value = "http://xpontus.sourceforge.net/index.html"/>
+        <attribute id="Description" value = "XPath2 query evaluator plugin"/>
+        <attribute id = "DisplayName" value = "XPath query evaluator plugin"/>
+        <attribute id = "License" value = "http://www.gnu.org/licenses/gpl-2.0.txt"/>
+        <attribute id = "date" value = "26-02-2008"/>
+    </attributes>
     <requires>
         <import plugin-id="plugin.core.evaluator" />
     </requires>

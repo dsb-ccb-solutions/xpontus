@@ -36,5 +36,5 @@ public interface EvaluatorPluginIF {
      * @return
      * @throws Exception
      */
-    public Object[] handle(String expression) throws Exception;
+    public XPathResultDescriptor[] handle(String expression) throws Exception;
 }

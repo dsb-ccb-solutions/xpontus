@@ -26,13 +26,20 @@ import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.evaluator.CustomNamespaceContext;
 import net.sf.xpontus.plugins.evaluator.DOMAddLines;
 import net.sf.xpontus.plugins.evaluator.EvaluatorPluginIF;
+import net.sf.xpontus.plugins.evaluator.XPathResultDescriptor;
 import net.sf.xpontus.utils.NamespaceResolverHandler;
 
+import org.apache.commons.lang.text.StrBuilder;
+
+import org.apache.xerces.dom.ElementImpl;
 import org.apache.xerces.parsers.SAXParser;
 
 import org.apache.xpath.XPathAPI;
+import org.apache.xpath.objects.XObject;
 
+import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import org.xml.sax.InputSource;
@@ -61,7 +68,8 @@ public class XPath1EvaluatorPluginImpl implements EvaluatorPluginIF {
         return "XPATH 1.0";
     }
 
-    public Object[] handle(String expression) throws Exception {
+    public XPathResultDescriptor[] handle(String expression)
+        throws Exception {
         JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
                                                      .getDocumentTabContainer()
                                                      .getCurrentEditor();
@@ -102,8 +110,59 @@ public class XPath1EvaluatorPluginImpl implements EvaluatorPluginIF {
 
         JAXPPrefixResolver resolver = new JAXPPrefixResolver(nsc);
 
-        NodeList nodeList = api.eval(doc, expression, resolver).nodelist();
+        XObject xObject = api.eval(doc, expression, resolver);
 
-        return new Object[] { nodeList, da };
+        if (xObject == null) {
+            return new XPathResultDescriptor[0];
+        }
+
+        if (xObject.getType() == XObject.CLASS_NODESET) {
+            NodeList nodeList = xObject.nodelist();
+
+            XPathResultDescriptor[] results = new XPathResultDescriptor[nodeList.getLength()];
+
+            for (int i = 0; i < results.length; i++) {
+                Node m_node = nodeList.item(i);
+
+                String m_text = null;
+
+                if (m_node instanceof ElementImpl) {
+                    m_text = m_node.getNodeName();
+                } else if (m_node instanceof CharacterData) {
+                    CharacterData ti = (CharacterData) m_node;
+                    StrBuilder buff = new StrBuilder();
+                    buff.append(ti.getData());
+
+                    int taille = buff.length();
+                    m_text = buff.toString();
+
+                    if (taille > 15) {
+                        m_text = m_text.substring(0, 15) +
+                            " [REST OF THE TEXT OMITTED]";
+                    }
+                } else {
+                    m_text = m_node.getNodeValue();
+                }
+
+                XPathResultDescriptor desc = new XPathResultDescriptor(m_text);
+                int m_line = da.getLineNumber(m_node);
+                int m_column = da.getColumnNumber(m_node);
+
+                if (m_line != -1) {
+                    desc.setLineInfo(true);
+                    desc.setLine(m_line);
+                    desc.setColumn(m_column);
+                }
+
+                results[i] = desc;
+            }
+
+            return results;
+        } else {
+            XPathResultDescriptor desc = new XPathResultDescriptor(xObject.xstr()
+                                                                          .toString());
+
+            return new XPathResultDescriptor[] { desc };
+        }
     }
 }

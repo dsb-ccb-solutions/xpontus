@@ -4,12 +4,11 @@ import org.java.plugin.Plugin;
 
 
 /**
- * Hello world!
+ * XPath 2.0 plugin
  *
  */
 public class XPath2EvaluatorPlugin extends Plugin {
     protected void doStart() throws Exception {
-        System.out.println("init xpath2");
     }
 
     protected void doStop() throws Exception {
