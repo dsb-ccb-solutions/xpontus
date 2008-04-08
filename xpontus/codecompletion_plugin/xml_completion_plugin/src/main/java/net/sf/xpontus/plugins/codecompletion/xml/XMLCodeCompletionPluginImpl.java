@@ -64,8 +64,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
     }
 
     protected TagInfo getTagInfo(String name) {
-      //  System.out.println("name to complete:" + name);
-
+        //  System.out.println("name to complete:" + name);
         TagInfo info = null;
 
         List li = null;
@@ -75,8 +74,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
         if (nsTagListMap.size() > 0) {
             isSchemaCompletion = true;
 
-       //     System.out.println("completion map size:" + nsTagListMap.size());
-
+            //     System.out.println("completion map size:" + nsTagListMap.size());
             Object defaultNS = nsTagListMap.keySet().iterator().next();
             String namespace = StringUtils.substringBefore(name, ":");
             Iterator it = nsTagListMap.keySet().iterator();
@@ -95,7 +93,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
                 li = (List) nsTagListMap.get(defaultNS);
             }
 
-           // System.out.println("completion schema size:" + li.size());
+            // System.out.println("completion schema size:" + li.size());
         } else {
             li = tagList;
         }
@@ -103,7 +101,8 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
         if (isSchemaCompletion) {
             if (name.indexOf(":") != -1) {
                 name = StringUtils.substringAfterLast(name, ":");
-              //  System.out.println("New name:" + name);
+
+                //  System.out.println("New name:" + name);
             }
         }
 
@@ -126,13 +125,12 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
         final List emptyList = new ArrayList();
 
         if (tagInfo == null) {
-           // System.out.println("Tag info is null");
-
+            // System.out.println("Tag info is null");
             return emptyList;
         } else {
-           // System.out.println("Tag info is not null");
-          //  System.out.println("tag Info name:" + tagInfo.getTagName());
-          //  System.out.println("Kids:" + tagInfo.getChildTagNames().length);
+            // System.out.println("Tag info is not null");
+            //  System.out.println("tag Info name:" + tagInfo.getTagName());
+            //  System.out.println("Kids:" + tagInfo.getChildTagNames().length);
         }
 
         List completionListData = Arrays.asList(tagInfo.getChildTagNames());
@@ -313,29 +311,23 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
         try {
             if (dtdLocation != null) {
                 logger.info("Using dtd location to build completion database");
-               // System.out.println("dtdLocation:" + dtdLocation);
+                // System.out.println("dtdLocation:" + dtdLocation);
                 setCompletionParser(new DTDCompletionParser());
 
-               // java.net.URL url = new java.net.URL(dtdLocation);
-              //  java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
-
+                // java.net.URL url = new java.net.URL(dtdLocation);
+                //  java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
                 updateAssistInfo(null, dtdLocation, null);
             } else if (schemaLocation != null) {
                 logger.info(
                     "Using schema location to build completion database");
                 setCompletionParser(new XSDCompletionParser());
 
-               // java.net.URL url = new java.net.URL(schemaLocation);
-               // java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
+                // java.net.URL url = new java.net.URL(schemaLocation);
+                // java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
                 updateAssistInfo(null, schemaLocation, null);
             }
         } catch (Exception err) {
-            err.printStackTrace();
-
-            if (err instanceof java.net.UnknownHostException) {
-            } else {
-                logger.fatal(err.getMessage());
-            }
+            logger.fatal(err, err);
         }
     }
 

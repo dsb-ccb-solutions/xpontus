@@ -1,5 +1,5 @@
 /*
- *
+ * DTDCompletionParser.java
  *
  *
  * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
@@ -49,7 +49,8 @@ import java.util.Vector;
 
 
 /**
- *
+ * DTD based code completion provider
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DTDCompletionParser implements ICompletionParser {
@@ -105,11 +106,18 @@ public class DTDCompletionParser implements ICompletionParser {
         try {
             URL parserURL = null;
 
+             
             if (new File(uri).exists()) {
                 parserURL = new File(uri).toURL();
-            } else {
+            }
+
+
+
+            else {
                 parserURL = new URL(uri);
             }
+
+
 
             DTDParser parser = null;
 
