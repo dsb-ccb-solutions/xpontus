@@ -231,6 +231,8 @@ public class SaveAsActionImpl extends SimpleDocumentAwareActionImpl {
                     } else if (m_ext.toLowerCase().endsWith("html") ||
                             m_ext.endsWith("htm")) {
                         doc.putProperty("BUILTIN_COMPLETION", "HTML");
+                    }   else if (m_ext.toLowerCase().endsWith("rng") ) {
+                        doc.putProperty("BUILTIN_COMPLETION", "RELAXNG");
                     }
                 } 
                 handler = new ModificationHandler(container);

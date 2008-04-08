@@ -272,10 +272,12 @@ public class DocumentContainer implements IDocumentContainer {
 
             editor.setCaretPosition(0);
 
-            String m_ext = templateFileName.substring(templateFileName.indexOf(".") + 1); 
+            String m_ext = templateFileName.substring(templateFileName.indexOf(
+                        ".") + 1);
 
             if (m_ext != null) {
                 m_ext = m_ext.toLowerCase();
+
                 if (m_ext.endsWith("xsl") || (m_ext.endsWith("xslt"))) {
                     doc.putProperty("BUILTIN_COMPLETION", "XSL");
                     System.out.println("xsl completion!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -283,6 +285,8 @@ public class DocumentContainer implements IDocumentContainer {
                     doc.putProperty("BUILTIN_COMPLETION", "XSD");
                 } else if (m_ext.endsWith("html") || m_ext.endsWith("htm")) {
                     doc.putProperty("BUILTIN_COMPLETION", "HTML");
+                } else if (m_ext.toLowerCase().endsWith("rng")) {
+                    doc.putProperty("BUILTIN_COMPLETION", "RELAXNG");
                 }
             }
         } catch (Exception e) {
@@ -370,6 +374,8 @@ public class DocumentContainer implements IDocumentContainer {
                 doc.putProperty("BUILTIN_COMPLETION", "XSD");
             } else if (m_ext.endsWith("html") || m_ext.endsWith("htm")) {
                 doc.putProperty("BUILTIN_COMPLETION", "HTML");
+            } else if (m_ext.toLowerCase().endsWith("rng")) {
+                doc.putProperty("BUILTIN_COMPLETION", "RELAXNG");
             }
         }
 
@@ -445,8 +451,7 @@ public class DocumentContainer implements IDocumentContainer {
 
         customizer.setSingleDockableTitleBarPopUpCustomizer(true);
         customizer.setTabSelectorPopUpCustomizer(true);
-        key.setActionCustomizer(customizer);
-        System.out.println("Customizer set...");
+        key.setActionCustomizer(customizer); 
     }
 
     /**

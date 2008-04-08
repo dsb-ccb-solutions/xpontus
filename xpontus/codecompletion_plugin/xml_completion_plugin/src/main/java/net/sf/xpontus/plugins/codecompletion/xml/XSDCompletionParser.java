@@ -20,139 +20,136 @@
  */
 package net.sf.xpontus.plugins.codecompletion.xml;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.apache.xerces.impl.xs.SchemaGrammar;
+import org.apache.xerces.impl.xs.XMLSchemaLoader;
+import org.apache.xerces.xni.parser.XMLInputSource;
+import org.apache.xerces.xs.*;
+
+import java.io.InputStreamReader;
 import java.io.Reader;
+
+import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.dynvocation.lib.xsd4j.XSDAttribute;
-import org.dynvocation.lib.xsd4j.XSDElement;
-import org.dynvocation.lib.xsd4j.XSDParser;
-import org.dynvocation.lib.xsd4j.XSDSchema;
-import org.dynvocation.lib.xsd4j.XSDSequence;
-import org.dynvocation.lib.xsd4j.XSDType;
 
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
-public class XSDCompletionParser implements ICompletionParser
-{
+public class XSDCompletionParser implements ICompletionParser {
     private Log logger = LogFactory.getLog(XSDCompletionParser.class);
-    private List tagList = new Vector();
+    private List tagList = new ArrayList();
     private Map nsTagListMap = new HashMap();
 
-    /** Creates a new instance of XSDCompletionParser */
-    public XSDCompletionParser()
-    {
+    /** Creates a new instance of XMLSchemaCompletionParser */
+    public XSDCompletionParser() {
     }
 
-    public void init(List tagList, Map nsTagListMap)
-    {
+    public void init(List tagList, Map nsTagListMap) {
         this.tagList = tagList;
         this.nsTagListMap = nsTagListMap;
     }
 
-    /**
-     *
-     * @param pubid
-     * @param uri
-     * @param in
-     */
-    public void updateCompletionInfo(String pubid, String uri, Reader in)
-    {
-        try
-        {
-            XSDSchema schema = new XSDParser().parseSchemaFile(uri,
-                    XSDParser.PARSER_FLAT);
+    public void updateCompletionInfo(String pubid, String uri, Reader in) {
+        try {
+            String[] schemas = uri.split("[ \t\n\r]+");
 
-            List<XSDElement> elements = schema.getElements();
+            for (String schema : schemas) {
+                if (schema.indexOf(".xsd") != -1) {
 
-            // clear at first
-            String targetNS = schema.getTargetNamespace();
+                    Reader m_reader = new InputStreamReader(new URL(schema).openStream());
+                    SchemaGrammar grammer = (SchemaGrammar) new XMLSchemaLoader().loadGrammar(new XMLInputSource(
+                                null, null, null, m_reader, null));
 
-            if (targetNS == null)
-            {
-                targetNS = "DEFAULT_PREFIX_MAPPING";
+                    // clear at first
+                    String targetNS = grammer.getTargetNamespace();
+                    // System.out.println("Target Namespace:" + targetNS);
+                    nsTagListMap.put(targetNS, new ArrayList());
+
+                    List tagList = (List) nsTagListMap.get(targetNS);
+                    
+                    XSNamedMap map = grammer.getComponents(XSConstants.ELEMENT_DECLARATION);
+
+                    for (int i = 0; i < map.getLength(); i++) {
+                        XSElementDeclaration element = (XSElementDeclaration) map.item(i);
+                        parseXSDElement(tagList, element);
+                    }
+                }
             }
-
-            List m_list = new ArrayList();
-
-            nsTagListMap.put(targetNS, m_list);
-
-            List<XSDElement> topElements = schema.getElements();
-
-            traverse(m_list, elements, null);
-        }
-        catch (Exception err)
-        {
+        } catch (Exception ex) {
         }
     }
 
-    public static void traverse(List tags, List<XSDElement> elements,
-        TagInfo parent)
-    {
-        if (elements == null)
-        {
-            return;
+    private void parseXSDElement(List tagList, XSElementDeclaration element) {
+        TagInfo tagInfo = new TagInfo(element.getName(), true);
+
+        if (!tagList.contains(tagInfo)) {
+            tagList.add(tagInfo);
+
+            // System.out.println("Adding :" + tagInfo.getTagName());
         }
 
-        for (Object o : elements)
-        {
-            XSDElement element = (XSDElement) o;
+        XSTypeDefinition type = element.getTypeDefinition();
 
-            String tagName = element.getName().getLocalPart();
-            TagInfo tag = new TagInfo(tagName, true);
+        if (type instanceof XSComplexTypeDefinition) {
+            XSParticle particle = ((XSComplexTypeDefinition) type).getParticle();
 
-            if (!tags.contains(tag))
-            {
-                tags.add(tag);
-                System.out.println("Adding tag:" + tagName);
+            if (particle != null) {
+                XSTerm term = particle.getTerm();
+
+                if (term instanceof XSElementDeclaration) {
+                    parseXSDElement(tagList, (XSElementDeclaration) term);
+
+                    XSElementDeclaration m_declaration = (XSElementDeclaration) term;
+                    tagInfo.addChildTagName(m_declaration.getName());
+
+                    // System.out.println("Adding tag:" + m_declaration.getName() + " to parent:" + tagInfo.getTagName() );
+                }
+
+                if (term instanceof XSModelGroup) {
+                    parseXSModelGroup(tagInfo, tagList, (XSModelGroup) term);
+                }
             }
 
-            if (parent != null)
-            {
-                parent.addChildTagName(tagName);
-            } 
+            XSObjectList attrs = ((XSComplexTypeDefinition) type).getAttributeUses();
 
-            XSDType m_type = element.getType();
+            for (int i = 0; i < attrs.getLength(); i++) {
+                XSAttributeUse attrUse = (XSAttributeUse) attrs.item(i);
+                XSAttributeDeclaration attr = attrUse.getAttrDeclaration();
 
-            if (m_type != null)
-            {
-                if (m_type.getAttributes() != null)
-                {
-                    List<XSDAttribute> attributes = m_type.getAttributes();
-                    traverseAttributes(tag, attributes);
-                }
-
-                XSDSequence m_sequence = m_type.getSequence();
-
-                if (m_sequence != null)
-                {
-                    System.out.println("recursion....");
-                    traverse(tags, m_sequence.getElements(), tag);
-                }
+                AttributeInfo attrInfo = new AttributeInfo(attr.getName(),
+                        true, AttributeInfo.NONE, attrUse.getRequired());
+                tagInfo.addAttributeInfo(attrInfo);
             }
         }
     }
 
-    public static void traverseAttributes(TagInfo tagInfo,
-        List<XSDAttribute> attributes)
-    {
-        if (attributes == null)
-        {
-            return;
-        }
+    private void parseXSModelGroup(TagInfo tagInfo, List tagList,
+        XSModelGroup term) {
+        XSObjectList list = ((XSModelGroup) term).getParticles();
 
-        for (XSDAttribute attribute : attributes)
-        {
-            String m_name = attribute.getName().getLocalPart();
-            tagInfo.addAttributeInfo(new AttributeInfo(m_name, true));
+        for (int i = 0; i < list.getLength(); i++) {
+            XSObject obj = list.item(i);
+
+            if (obj instanceof XSParticle) {
+                XSTerm term2 = ((XSParticle) obj).getTerm();
+
+                if (term2 instanceof XSElementDeclaration) {
+                    parseXSDElement(tagList, (XSElementDeclaration) term2);
+                    tagInfo.addChildTagName(((XSElementDeclaration) term2).getName());
+
+                    // System.out.println("Adding tag:" + ((XSElementDeclaration) term2).getName() + " to parent:" + tagInfo.getTagName() );
+                } else if (term2 instanceof XSModelGroup) {
+                    parseXSModelGroup(tagInfo, tagList, (XSModelGroup) term2);
+                }
+            }
         }
     }
 }

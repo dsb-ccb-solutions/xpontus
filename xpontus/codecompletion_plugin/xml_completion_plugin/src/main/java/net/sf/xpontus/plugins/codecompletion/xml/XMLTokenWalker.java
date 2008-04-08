@@ -156,7 +156,7 @@ public class XMLTokenWalker {
     public int[] getTokenNodeOffset(TokenNode n) {
         Element element = doc.getDefaultRootElement();
 
-        System.out.println("walking:" + n.toString());
+      //  System.out.println("walking:" + n.toString());
         printToken(n);
         
         // we need to remove some info from here
@@ -184,13 +184,13 @@ public class XMLTokenWalker {
     }
 
     private boolean isBestMatch(TokenNode tn) {
-        System.out.println("=================================");
-        System.out.println("Evaluating token:" + tn.toString());
+    //    System.out.println("=================================");
+    //    System.out.println("Evaluating token:" + tn.toString());
 
         printToken(tn);
 
         int[] offsets = getTokenNodeOffset(tn);
-        System.out.println("Interval:" + offsets[0] + "," + offsets[1]);
+       // System.out.println("Interval:" + offsets[0] + "," + offsets[1]);
 
         IntRange m_range = new IntRange(offsets[0], offsets[1]);
 

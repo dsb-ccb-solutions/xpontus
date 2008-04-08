@@ -311,20 +311,7 @@
           <root url="jar://$MODULE_DIR$/../../../../.m2/repository/dtdparser/dtdparser/1.21/dtdparser-1.21-sources.jar!/" />
         </SOURCES>
       </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="net.dynvocation.selfip:xsd4j:0.3">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/dynvocation/selfip/xsd4j/0.3/xsd4j-0.3.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/dynvocation/selfip/xsd4j/0.3/xsd4j-0.3-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../.m2/repository/net/dynvocation/selfip/xsd4j/0.3/xsd4j-0.3-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
+    </orderEntry> 
     <orderEntryProperties />
   </component>
 </module>

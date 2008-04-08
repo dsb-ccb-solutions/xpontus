@@ -91,40 +91,20 @@ public class CompletionWindow extends JWindow implements KeyListener,
 
     private void initComponents() {
         model = new CompletionListModel();
-
-        // create a new completion list
         list = new JList(model);
-
-        // single element selection is allowed
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        // we need to close the completion window when the focus is lost
         list.addFocusListener(this);
-
         list.addListSelectionListener(this);
-
-        // when the user double-click on a completion element we need to insert it
         list.addMouseListener(this);
-
-        // when the user press ENTER on a completion element we need to insert it
-        list.addKeyListener(this);
-
-        list.getInputMap().clear();
-
-        // the list must grab the focus when the completion window is shown
-        list.setFocusable(true);
-
         scroll = new JScrollPane(list);
-
-        scroll.getInputMap().clear();
-
         getContentPane().add(scroll);
-
         setSize(350, 120);
-
+        list.addKeyListener(this);
+        list.getInputMap().clear();
+        scroll.getInputMap().clear();
         this.maxHeight = (int) Toolkit.getDefaultToolkit().getScreenSize()
                                       .getHeight();
-
+        list.setFocusable(true);
         this.setFocusable(true);
     }
 
@@ -175,30 +155,35 @@ public class CompletionWindow extends JWindow implements KeyListener,
         int position = jtc.getCaretPosition();
 
         int diff = (position + 1) - pos;
+        boolean goodCompletion = false;
 
         if (diff > 0) {
-            boolean goodCompletion = false;
-
             try {
                 String text_diff = jtc.getDocument().getText(position, diff);
-                String completion_diff = m_selection.substring(0, diff);
 
-                if (text_diff.equals(completion_diff)) {
-                    goodCompletion = true;
+                if (m_selection.length() < diff) {
+                    goodCompletion = false;
+                } else {
+                    String completion_diff = m_selection.substring(0, diff);
+
+                    if (text_diff.equals(completion_diff)) {
+                        goodCompletion = true;
+                    }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
 
-            // check if we need to correct some text already entered
+        // check if we need to correct some text already entered
 
-            // if the first letters entered are identitical to the selected item insert directly
-            if (goodCompletion) {
-                m_selection = m_selection.substring(position - pos + 1);
-                insertText(m_selection, true);
-            } else {
-                // else correct the entered text and insert the completion
-                insertAndFixText(pos, diff, m_selection, true);
-            }
+        // if the first letters entered are identitical to the selected item insert directly
+        if (goodCompletion) {
+            m_selection = m_selection.substring(position - pos + 1);
+            insertText(m_selection, true);
+        } else {
+            // else correct the entered text and insert the completion
+            insertAndFixText(pos, diff, m_selection, true);
         }
     }
 
@@ -235,6 +220,14 @@ public class CompletionWindow extends JWindow implements KeyListener,
         }
     }
 
+    /**
+     * Remove the text the user was typing and insert the completion item
+     *
+     * @param startOffset The position where the user triggered code completion
+     * @param len of type The amount of the text to remove
+     * @param completion The completion item to insert
+     * @param dispose close the completion window
+     */
     private void insertAndFixText(int startOffset, int len, String completion,
         boolean dispose) {
         try {
@@ -252,6 +245,12 @@ public class CompletionWindow extends JWindow implements KeyListener,
         }
     }
 
+    /**
+     * insert some text in the editor component
+     *
+     * @param ch the string to insert
+     * @param dispose close the completion window
+     */
     private void insertText(String ch, boolean dispose) {
         try {
             jtc.getDocument().insertString(jtc.getCaretPosition(), ch, null);
@@ -343,8 +342,13 @@ public class CompletionWindow extends JWindow implements KeyListener,
             return data.size();
         }
 
-        public void updateData(Collection liste) {
-            Object[] sort = liste.toArray();
+        /**
+         * Update the completion list items
+         *
+         * @param completionItems a collection of completion items
+         */
+        public void updateData(Collection completionItems) {
+            Object[] sort = completionItems.toArray();
 
             // must ensure the object implements comparable
             Arrays.sort(sort);
@@ -357,6 +361,7 @@ public class CompletionWindow extends JWindow implements KeyListener,
                 data.add(sort[i].toString());
             }
 
+            // notify the list the content has been updated
             fireContentsChanged(list, 0, sort.length);
 
             list.revalidate();
