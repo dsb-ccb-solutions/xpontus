@@ -65,7 +65,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 
 /**
- *
+ * Editor container
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class DocumentTabContainer {
@@ -80,7 +81,7 @@ public class DocumentTabContainer {
     private Dockable previousSelection;
 
     /** Creates a new instance of EditorTabContainer
-     * @param desktop
+     * @param m_desktop
      */
     public DocumentTabContainer(final DockingDesktop m_desktop) {
         this.desktop = m_desktop;

@@ -1,5 +1,5 @@
 /*
- *
+ * XSDCompletionParser.java
  *
  *
  * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
@@ -40,7 +40,8 @@ import java.util.Map;
 
 
 /**
- *
+ * Schema based code completion provider
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class XSDCompletionParser implements ICompletionParser {
@@ -63,7 +64,6 @@ public class XSDCompletionParser implements ICompletionParser {
 
             for (String schema : schemas) {
                 if (schema.indexOf(".xsd") != -1) {
-
                     Reader m_reader = new InputStreamReader(new URL(schema).openStream());
                     SchemaGrammar grammer = (SchemaGrammar) new XMLSchemaLoader().loadGrammar(new XMLInputSource(
                                 null, null, null, m_reader, null));
@@ -74,7 +74,7 @@ public class XSDCompletionParser implements ICompletionParser {
                     nsTagListMap.put(targetNS, new ArrayList());
 
                     List tagList = (List) nsTagListMap.get(targetNS);
-                    
+
                     XSNamedMap map = grammer.getComponents(XSConstants.ELEMENT_DECLARATION);
 
                     for (int i = 0; i < map.getLength(); i++) {

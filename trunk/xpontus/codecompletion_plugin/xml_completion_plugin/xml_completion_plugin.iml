@@ -311,7 +311,7 @@
           <root url="jar://$MODULE_DIR$/../../../../.m2/repository/dtdparser/dtdparser/1.21/dtdparser-1.21-sources.jar!/" />
         </SOURCES>
       </library>
-    </orderEntry> 
+    </orderEntry>
     <orderEntryProperties />
   </component>
 </module>
