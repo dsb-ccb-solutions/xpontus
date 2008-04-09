@@ -16,12 +16,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDCompletionParser.java" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDCompletionParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentTabContainer.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentTabContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XMLCodeCompletionPluginImpl.java" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XMLCodeCompletionPluginImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/events/TabChangedEvent.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/events/TabChangedEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/XPathResultDescriptor.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/evaluator/XPathResultDescriptor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusPluginManager.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusPluginManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusTopComponentImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusTopComponentImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/GotoLineView.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/GotoLineView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/MemoryComboBox.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/MemoryComboBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/ImageButton.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/ImageButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusUndoManager.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusUndoManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/model/ObservableModel.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/model/ObservableModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/GotoLineController.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/GotoLineController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusMimeConstantsIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusMimeConstantsIF.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/IDocumentContainer.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/IDocumentContainer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/MessagesWindowDockable.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/MessagesWindowDockable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/XPontusConfig.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/XPontusConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/DocumentationController.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/DocumentationController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/actions/ActionPlugin.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/actions/ActionPlugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/configuration/xpontus.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/model/CaretPosition.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/model/CaretPosition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/ProgressMonitorHandler.java" afterPath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/ProgressMonitorHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/actions/ActionPluginIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/actions/ActionPluginIF.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/JideDockTabbedPane.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/JideDockTabbedPane.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusWindowImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DefaultXPontusWindowImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationAction.java" afterPath="$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/model/ConfigurationModel.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/model/ConfigurationModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/parsers/TokenNode.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/parsers/TokenNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/events/TabChangeEventListener.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/events/TabChangeEventListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusUIManagerConstantsIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusUIManagerConstantsIF.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus.iws" afterPath="$PROJECT_DIR$/xpontus.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/xml_completion_plugin.iml" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/xml_completion_plugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/DTDCompletionParser.java" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/DTDCompletionParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/CompletionWindow.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/CompletionWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/ContentAssistWindow.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/ContentAssistWindow.java" />
     </list>
     <ignored path="xpontus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -84,20 +108,94 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DocumentContainer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
+      <file leaf-file-name="XPontusPlugin.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/XPontusPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="13" selection-start="2469" selection-end="2469" vertical-scroll-proportion="0.2">
+            <state line="30" column="22" selection-start="1004" selection-end="1004" vertical-scroll-proportion="0.20731707">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DocumentTabContainer.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentTabContainer.java">
+      <file leaf-file-name="PropertiesHolder.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/properties/PropertiesHolder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="19" selection-start="2756" selection-end="2756" vertical-scroll-proportion="0.19495799">
+            <state line="31" column="13" selection-start="968" selection-end="968" vertical-scroll-proportion="0.20731707">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PropertiesModuleIF.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/properties/PropertiesModuleIF.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="17" selection-start="927" selection-end="927" vertical-scroll-proportion="0.15205725">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BatchValidationAction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="27" selection-start="33" selection-end="33" vertical-scroll-proportion="0.05923345">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BatchValidationController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="61" column="13" selection-start="2213" selection-end="2213" vertical-scroll-proportion="0.21288015">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BatchValidationErrorHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationErrorHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="6" selection-start="1115" selection-end="1115" vertical-scroll-proportion="0.20731707">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BatchValidationPlugin.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationPlugin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="13" selection-start="981" selection-end="981" vertical-scroll-proportion="0.20731707">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BatchValidationPluginImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationPluginImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="13" selection-start="1278" selection-end="1278" vertical-scroll-proportion="0.33275262">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProgressMonitorHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/ProgressMonitorHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="118" column="0" selection-start="3662" selection-end="3663" vertical-scroll-proportion="0.82229966">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WildcardFileSelector.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/WildcardFileSelector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="34" column="13" selection-start="1145" selection-end="1145" vertical-scroll-proportion="-0.06620209">
+              <folding>
+                <element signature="docComment;class#WildcardFileSelector#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -142,6 +240,778 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="xpontus" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\properties" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins\help" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins\gendoc" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins\evaluator" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins\editor" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins\console" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins\completion" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\plugins\actions" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\parsers" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\modules\gui\components" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\model" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\mimes" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\events" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\controllers" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\controllers" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\controllers\impl" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\constants" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\configuration" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main\java\net\sf\xpontus\actions" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:C:\Users\mrcheeks\EclipseProjects\xpontus\xpontus_core\src\main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
     </subPane>
@@ -233,6 +1103,77 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myCoreSettings">
+          <MavenCoreSettings>
+            <option name="checksumPolicy" value="fail" />
+            <option name="failureBehavior" value="fail-fast" />
+            <option name="localRepository" value="" />
+            <option name="mavenHome" value="" />
+            <option name="mavenSettingsFile" value="" />
+            <option name="nonRecursive" value="false" />
+            <option name="pluginUpdatePolicy" value="false" />
+            <option name="produceExceptionErrorMessages" value="false" />
+            <option name="usePluginRegistry" value="false" />
+            <option name="workOffline" value="false" />
+          </MavenCoreSettings>
+        </option>
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="jreName" value="1.6" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="runMavenInBackground" value="false" />
+            <option name="skipTests" value="true" />
+            <option name="syncAfterBuild" value="true" />
+            <option name="useMavenEmbedder" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="pomPath" value="" />
+            <option name="profiles">
+              <set />
+            </option>
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
@@ -278,13 +1219,6 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -296,70 +1230,6 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
-    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
-      <MavenSettings>
-        <option name="myCoreSettings">
-          <MavenCoreSettings>
-            <option name="checksumPolicy" value="fail" />
-            <option name="failureBehavior" value="fail-fast" />
-            <option name="localRepository" value="" />
-            <option name="mavenHome" value="" />
-            <option name="mavenSettingsFile" value="" />
-            <option name="nonRecursive" value="false" />
-            <option name="pluginUpdatePolicy" value="false" />
-            <option name="produceExceptionErrorMessages" value="false" />
-            <option name="usePluginRegistry" value="false" />
-            <option name="workOffline" value="false" />
-          </MavenCoreSettings>
-        </option>
-        <option name="myRunnerSettings">
-          <MavenRunnerSettings>
-            <option name="jreName" value="1.6" />
-            <option name="mavenProperties">
-              <map />
-            </option>
-            <option name="runMavenInBackground" value="false" />
-            <option name="skipTests" value="true" />
-            <option name="syncAfterBuild" value="true" />
-            <option name="useMavenEmbedder" value="false" />
-            <option name="vmOptions" value="" />
-          </MavenRunnerSettings>
-        </option>
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="goals">
-              <list />
-            </option>
-            <option name="pomPath" value="" />
-            <option name="profiles">
-              <set />
-            </option>
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <method>
-        <option name="Make" value="true" />
-      </method>
     </configuration>
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="Maven.xpontus_core [exec:java]" />
@@ -433,7 +1303,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27608874" order="4" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="5" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23089564" order="0" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3360723" order="0" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="12" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979724" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
@@ -511,127 +1381,117 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/CreateNewFileActionImpl.java">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/gendoc/IDocumentationPluginIF.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="57" selection-start="1414" selection-end="1414" vertical-scroll-proportion="0.39323843">
+        <state line="29" column="17" selection-start="993" selection-end="993" vertical-scroll-proportion="0.20731707">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/IDocumentContainer.java">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/help/HelpModuleIF.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="16" selection-start="1663" selection-end="1663" vertical-scroll-proportion="0.7712665">
+        <state line="28" column="17" selection-start="1007" selection-end="1007" vertical-scroll-proportion="0.14808363">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/TemplatesDialog.java">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/help/DefaultHelpModuleImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="173" column="41" selection-start="5745" selection-end="5745" vertical-scroll-proportion="1.1833649">
+        <state line="28" column="13" selection-start="927" selection-end="927" vertical-scroll-proportion="0.14808363">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/xml_completion_plugin.iml">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/validation/ValidationModuleIF.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="43" selection-start="383" selection-end="383" vertical-scroll-proportion="-0.13144329">
+        <state line="28" column="13" selection-start="929" selection-end="929" vertical-scroll-proportion="0.14808363">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SaveAsActionImpl.java">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/validation/ValidationPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="234" column="70" selection-start="8351" selection-end="8358" vertical-scroll-proportion="0.5726351">
+        <state line="30" column="13" selection-start="973" selection-end="973" vertical-scroll-proportion="0.20731707">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XMLTokenWalker.java">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/plugins.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="178" column="92" selection-start="5382" selection-end="5382" vertical-scroll-proportion="0.2820946">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XMLCodeCompletionPluginImpl.java">
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/XPontusPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="313" column="0" selection-start="10029" selection-end="10029" vertical-scroll-proportion="0.33277026">
+        <state line="30" column="22" selection-start="1004" selection-end="1004" vertical-scroll-proportion="0.20731707">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/properties/PropertiesHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="13" selection-start="968" selection-end="968" vertical-scroll-proportion="0.20731707">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/properties/PropertiesModuleIF.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="17" selection-start="927" selection-end="927" vertical-scroll-proportion="0.15205725">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="27" selection-start="33" selection-end="33" vertical-scroll-proportion="0.05923345">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="13" selection-start="2213" selection-end="2213" vertical-scroll-proportion="0.21288015">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationErrorHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="6" selection-start="1115" selection-end="1115" vertical-scroll-proportion="0.20731707">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="13" selection-start="981" selection-end="981" vertical-scroll-proportion="0.20731707">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationPluginImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="13" selection-start="1278" selection-end="1278" vertical-scroll-proportion="0.33275262">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/ProgressMonitorHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="118" column="0" selection-start="3662" selection-end="3663" vertical-scroll-proportion="0.82229966">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/WildcardFileSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="13" selection-start="1145" selection-end="1145" vertical-scroll-proportion="-0.06620209">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#XMLCodeCompletionPluginImpl#0" expanded="true" />
-            <element signature="docComment;method#XMLCodeCompletionPluginImpl#0;class#XMLCodeCompletionPluginImpl#0" expanded="true" />
-            <element signature="docComment;method#setCompletionParser#0;class#XMLCodeCompletionPluginImpl#0" expanded="true" />
+            <element signature="docComment;class#WildcardFileSelector#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/DTDCompletionParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="12" selection-start="1563" selection-end="1568" vertical-scroll-proportion="0.3445946">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;method#DTDCompletionParser#0;class#DTDCompletionParser#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/ICompletionParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="17" selection-start="1026" selection-end="1026" vertical-scroll-proportion="0.20101352">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="22" selection-start="1327" selection-end="1327" vertical-scroll-proportion="0.2967626">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/plugin.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="21" selection-start="1252" selection-end="1252" vertical-scroll-proportion="0.67266184">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDCompletionParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="25" selection-start="3391" selection-end="3391" vertical-scroll-proportion="0.41247833">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#XSDCompletionParser#0" expanded="true" />
-            <element signature="docComment;method#XSDCompletionParser#0;class#XSDCompletionParser#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/completion/CompletionWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="347" column="66" selection-start="10263" selection-end="10263" vertical-scroll-proportion="0.4831081">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/xsd.xsd">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="32" selection-start="2031" selection-end="2031" vertical-scroll-proportion="0.03057554">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="13" selection-start="2469" selection-end="2469" vertical-scroll-proportion="0.2">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentTabContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="19" selection-start="2756" selection-end="2756" vertical-scroll-proportion="0.19495799">
-          <folding />
         </state>
       </provider>
     </entry>

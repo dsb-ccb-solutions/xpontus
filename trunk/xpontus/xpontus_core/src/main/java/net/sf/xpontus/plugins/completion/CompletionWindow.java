@@ -60,6 +60,11 @@ public class CompletionWindow extends JWindow implements KeyListener,
         initComponents();
     }
 
+    /**
+     * Method getCompletionListModel returns the completionListModel of this CompletionWindow object.
+     *
+     * @return the completionListModel (type CompletionListModel) of this CompletionWindow object.
+     */
     public CompletionListModel getCompletionListModel() {
         return model;
     }

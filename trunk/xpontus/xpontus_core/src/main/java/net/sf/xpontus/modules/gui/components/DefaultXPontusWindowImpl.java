@@ -47,6 +47,7 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
 
 /**
  * The default main component of XPontus XML Editor
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {

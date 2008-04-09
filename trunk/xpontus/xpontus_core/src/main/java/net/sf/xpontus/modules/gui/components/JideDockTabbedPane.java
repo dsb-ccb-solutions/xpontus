@@ -1,5 +1,5 @@
 /*
- *
+ * JideDockTabbedPane.java
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
@@ -78,7 +78,7 @@ import com.vlsolutions.swing.tabbedpane.SmartIconJButton;
 
 
 /**
- *
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class JideDockTabbedPane extends JideTabbedPane implements DockDropReceiver,

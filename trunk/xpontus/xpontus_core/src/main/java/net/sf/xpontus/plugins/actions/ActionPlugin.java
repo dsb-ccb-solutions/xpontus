@@ -38,6 +38,7 @@ import java.util.Iterator;
 
 /**
  * Plugin to plug actions to the menubar, the toolbar or the editor popup menu
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public class ActionPlugin extends XPontusPlugin {

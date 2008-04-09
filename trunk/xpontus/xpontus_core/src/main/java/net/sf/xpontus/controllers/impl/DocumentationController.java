@@ -1,6 +1,5 @@
 /*
- *
- *
+ * DocumentationController.java
  *
  * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
