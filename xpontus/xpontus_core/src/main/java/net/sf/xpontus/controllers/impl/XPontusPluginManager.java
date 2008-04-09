@@ -1,5 +1,5 @@
 /*
- * DefaultXPontusControllerImpl.java
+ * XPontusPluginManager.java
  *
  * Created on May 26, 2007, 8:11 AM
  *

@@ -1,5 +1,5 @@
 /*
- *
+ * XPontusUndoManager.java
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *

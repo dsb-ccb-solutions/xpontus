@@ -28,6 +28,7 @@ import net.sf.xpontus.plugins.toolbar.ToolBarPluginIF;
 
 /**
  * Plugin interface for actions
+ * @version 0.0.1
  * @author Yves Zoundi <yveszoundi AT users DOT sf DOT net>
  */
 public interface ActionPluginIF extends MenuBarPluginIF, ToolBarPluginIF,

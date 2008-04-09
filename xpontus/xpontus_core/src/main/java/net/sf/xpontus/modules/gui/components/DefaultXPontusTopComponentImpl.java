@@ -23,7 +23,7 @@ package net.sf.xpontus.modules.gui.components;
 
 
 /**
- *
+ * @version 0.0.1
  * @author Yves Zoundi
  */
 public abstract class DefaultXPontusTopComponentImpl
