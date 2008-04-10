@@ -118,7 +118,7 @@ public class DocumentContainer implements IDocumentContainer {
         Searchable searchable = SearchableUtils.installSearchable(editor);
         searchable.setRepeats(true);
         this._textAreaSearchableBar = SearchableBar.install(searchable,
-                KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK),
+                KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK),
                 new SearchableBar.Installer() {
                     public void openSearchBar(SearchableBar searchableBar) {
                         bottomPanel.add(searchableBar, BorderLayout.NORTH);
