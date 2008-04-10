@@ -14,6 +14,7 @@
 package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+import net.sf.xpontus.modules.gui.components.SearchFormView;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import java.awt.BorderLayout;
@@ -56,13 +57,22 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
     private JComboBox replaceCombo;
     private JCheckBox wrapCheck;
 
+    private SearchFormView m_view;
+
     public FindReplaceActionImpl() {
     }
 
     public void run() {
-        show();
+        show2();
     }
 
+    private void show2(){
+        if(m_view == null){
+            m_view = new SearchFormView();
+        }
+        m_view.setLocationRelativeTo(DefaultXPontusWindowImpl.getInstance().getDisplayComponent());
+        m_view.setVisible(true);
+    }
     public void show() {
         if (dialog == null) {
             buildDialog();

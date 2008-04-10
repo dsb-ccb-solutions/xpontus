@@ -24,9 +24,9 @@ package net.sf.xpontus.utils;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.XPontusTopComponentIF;
 
-import java.awt.Component;
+import java.awt.*;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 
 /**

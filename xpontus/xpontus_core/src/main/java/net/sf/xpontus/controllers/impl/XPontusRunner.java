@@ -62,6 +62,7 @@ import org.java.plugin.PluginManager;
 import java.io.File;
 
 import java.util.*;
+import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
@@ -137,6 +138,14 @@ public class XPontusRunner {
             };
 
         return toolbar;
+    }
+
+    private static final Action createDisabledAction(String text){
+                               Action a = new AbstractAction(text){
+                                    public void actionPerformed(ActionEvent e){}
+                               }   ;
+        a.setEnabled(false);
+        return a;
     }
 
     /**
@@ -297,6 +306,28 @@ public class XPontusRunner {
                 MenuBarPluginIF viewMenuExt = createMenuExtension(XPontusMenuConstantsIF.VIEW_MENU_ID,
                         viewActionsList);
 
+                MenuBarPluginIF bindingsMenuExt = new MenuBarPluginIF() {
+                        public List getMenuNames() {
+                            return Arrays.asList(new String[] {
+                                    XPontusMenuConstantsIF.KEYBINDINGS_MENU_ID
+                                });
+                        }
+
+                        public Map getActionMap() {
+                            Map m = new HashMap();
+                            String id = XPontusMenuConstantsIF.KEYBINDINGS_MENU_ID;
+                            List li = new Vector();
+
+                            li.add(createDisabledAction("Quick Search(Firefox style) - Control+Q"));
+                            li.add(createDisabledAction("Next document - Control+PageUp"));
+                            li.add(createDisabledAction("Previous document - Control+PageDown")); 
+
+                            m.put(id, li);
+
+                            return m;
+                        }
+                    };
+
                 MenuBarPluginIF toolMenuExt = new MenuBarPluginIF() {
                         public List getMenuNames() {
                             return Arrays.asList(new String[] {
@@ -331,6 +362,7 @@ public class XPontusRunner {
                         helpActionsList);
 
                 menubarPlugin.initExtension(fileMenuExt);
+                menubarPlugin.initExtension(bindingsMenuExt);
                 menubarPlugin.initExtension(helpMenuExt);
                 menubarPlugin.initExtension(toolMenuExt);
                 menubarPlugin.initExtension(optionsMenuExt);
