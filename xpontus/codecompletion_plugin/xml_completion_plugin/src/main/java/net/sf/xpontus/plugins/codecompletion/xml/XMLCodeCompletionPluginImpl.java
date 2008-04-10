@@ -76,24 +76,29 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
             //     System.out.println("completion map size:" + nsTagListMap.size());
             Object defaultNS = nsTagListMap.keySet().iterator().next();
-            String namespace = StringUtils.substringBefore(name, ":");
-            Iterator it = nsTagListMap.keySet().iterator();
 
-            while (it.hasNext()) {
-                Object o = it.next();
+            // check for a namespace prefix
+            if (name.indexOf(":") != -1) {
+                String namespace = StringUtils.substringBefore(name, ":");
+                Iterator it = nsTagListMap.keySet().iterator();
 
-                if (o != null) {
-                    if (o.toString().equals(namespace)) {
-                        li = (List) nsTagListMap.get(o);
+                // loop to find the completion list for the target prefix
+                while (it.hasNext()) {
+                    Object o = it.next();
+
+                    if (o != null) {
+                        if (o.toString().equals(namespace)) {
+                            li = (List) nsTagListMap.get(o);
+                        }
                     }
                 }
-            }
 
-            if (li == null) {
+                if (li == null) {
+                    li = (List) nsTagListMap.get(defaultNS);
+                }
+            } else {
                 li = (List) nsTagListMap.get(defaultNS);
             }
-
-            // System.out.println("completion schema size:" + li.size());
         } else {
             li = tagList;
         }
@@ -125,12 +130,7 @@ public class XMLCodeCompletionPluginImpl implements CodeCompletionIF {
         final List emptyList = new ArrayList();
 
         if (tagInfo == null) {
-            // System.out.println("Tag info is null");
             return emptyList;
-        } else {
-            // System.out.println("Tag info is not null");
-            //  System.out.println("tag Info name:" + tagInfo.getTagName());
-            //  System.out.println("Kids:" + tagInfo.getChildTagNames().length);
         }
 
         List completionListData = Arrays.asList(tagInfo.getChildTagNames());

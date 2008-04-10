@@ -16,14 +16,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/FindFormController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/FindReplaceActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/FindReplaceActionImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusThreadedActionImpl.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusThreadedActionImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDCompletionParser.java" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDCompletionParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XMLCodeCompletionPluginImpl.java" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XMLCodeCompletionPluginImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDEntityResolver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus.iws" afterPath="$PROJECT_DIR$/xpontus.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusMenuConstantsIF.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusMenuConstantsIF.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/SearchFormView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java" afterPath="$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java" />
     </list>
     <ignored path="xpontus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,82 +83,98 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FindReplaceActionImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/FindReplaceActionImpl.java">
+      <file leaf-file-name="ScenarioModel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="352" column="24" selection-start="12097" selection-end="12101" vertical-scroll-proportion="0.7536232">
+            <state line="23" column="40" selection-start="849" selection-end="881" vertical-scroll-proportion="0.032945737">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchFormView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/SearchFormView.java">
+      <file leaf-file-name="LexerPlugin.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/lexer/LexerPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="151" column="10" selection-start="4709" selection-end="4709" vertical-scroll-proportion="1.7391304">
+            <state line="21" column="36" selection-start="841" selection-end="869" vertical-scroll-proportion="-1.8323354">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="docComment;class#SearchFormView#0" expanded="true" />
-                <element signature="docComment;method#SearchFormView#0;class#SearchFormView#0" expanded="true" />
-                <element signature="docComment;method#setVisible#0;class#SearchFormView#0" expanded="true" />
-                <element signature="docComment;method#getFindString#0;class#SearchFormView#0" expanded="true" />
-                <element signature="docComment;method#getReplaceString#0;class#SearchFormView#0" expanded="true" />
-                <element signature="docComment;method#isMatchCase#0;class#SearchFormView#0" expanded="true" />
-                <element signature="docComment;method#isDownDirection#0;class#SearchFormView#0" expanded="true" />
-                <element signature="docComment;method#initComponents#0;class#SearchFormView#0" expanded="true" />
+                <element signature="docComment;class#LexerPlugin#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="XPontusMenuConstantsIF.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusMenuConstantsIF.java">
+      <file leaf-file-name="SimpleValidationActionImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SimpleValidationActionImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="77" selection-start="2125" selection-end="2125" vertical-scroll-proportion="0.8040541">
+            <state line="55" column="41" selection-start="1873" selection-end="1873" vertical-scroll-proportion="-0.13572854">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="XPontusRunner.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java">
+      <file leaf-file-name="XSDCompletionParser.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDCompletionParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="320" column="85" selection-start="12982" selection-end="12982" vertical-scroll-proportion="0.35875216">
-              <folding>
-                <element signature="docComment;method#main#0;class#XPontusRunner#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DocumentContainer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="120" column="52" selection-start="4190" selection-end="4190" vertical-scroll-proportion="0.41247833">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AboutDialogView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/AboutDialogView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="93" selection-start="2662" selection-end="2746" vertical-scroll-proportion="0.6187175">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FindFormController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/FindFormController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="152" column="64" selection-start="5126" selection-end="5126" vertical-scroll-proportion="0.5574324">
+            <state line="75" column="87" selection-start="2578" selection-end="2578" vertical-scroll-proportion="0.31736526">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="docComment;class#FindFormController#0" expanded="true" />
-                <element signature="docComment;method#FindFormController#0;class#FindFormController#0" expanded="true" />
-                <element signature="docComment;method#replaceAll#0;class#FindFormController#0" expanded="true" />
+                <element signature="docComment;class#XSDCompletionParser#0" expanded="true" />
+                <element signature="docComment;method#XSDCompletionParser#0;class#XSDCompletionParser#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XMLCodeCompletionPluginImpl.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XMLCodeCompletionPluginImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="238" column="44" selection-start="7599" selection-end="7599" vertical-scroll-proportion="0.5768463">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#XMLCodeCompletionPluginImpl#0" expanded="true" />
+                <element signature="docComment;method#XMLCodeCompletionPluginImpl#0;class#XMLCodeCompletionPluginImpl#0" expanded="true" />
+                <element signature="docComment;method#setCompletionParser#0;class#XMLCodeCompletionPluginImpl#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XSDEntityResolver.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDEntityResolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="0" selection-start="1411" selection-end="1411" vertical-scroll-proportion="1.3352714">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#XSDEntityResolver#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="xml.xsd" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/xml.xsd">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XPontusDocumentAwareThreadedActionImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusDocumentAwareThreadedActionImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="31" selection-start="1147" selection-end="1147" vertical-scroll-proportion="0.27145708">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XPontusThreadedActionImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusThreadedActionImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="43" column="18" selection-start="1447" selection-end="1447" vertical-scroll-proportion="0.625969">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -169,10 +182,8 @@
       <file leaf-file-name="XPontusComponentsUtils.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.22804055">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="29" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.033932135">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -308,13 +319,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -336,6 +340,41 @@
       <method>
         <option name="Make" value="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
@@ -379,22 +418,6 @@
         </option>
       </MavenSettings>
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -423,18 +446,6 @@
       <method>
         <option name="Make" value="true" />
       </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="Maven.xpontus_core [exec:java]" />
@@ -498,23 +509,23 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="6" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943925" order="1" />
+      <window_info id="Maven Runner Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33214286" order="14" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39901477" order="3" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="9" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949877" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="10" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17380953" order="11" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297619" order="7" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
-      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27608874" order="4" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39934266" order="0" />
+      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18816763" order="4" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="5" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33525062" order="0" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26294166" order="0" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="12" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979724" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="13" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22857143" order="2" />
-      <window_info id="Maven Runner Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33214286" order="14" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2761905" order="2" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="5" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
@@ -586,135 +597,129 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/properties/PropertiesModuleIF.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="17" selection-start="927" selection-end="927" vertical-scroll-proportion="0.15205725">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="27" selection-start="33" selection-end="33" vertical-scroll-proportion="0.05923345">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="13" selection-start="2213" selection-end="2213" vertical-scroll-proportion="0.030411448">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationErrorHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="6" selection-start="1115" selection-end="1115" vertical-scroll-proportion="0.029616725">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="13" selection-start="981" selection-end="981" vertical-scroll-proportion="0.20731707">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/BatchValidationPluginImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="13" selection-start="1278" selection-end="1278" vertical-scroll-proportion="0.20209059">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/ProgressMonitorHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="0" selection-start="3662" selection-end="3663" vertical-scroll-proportion="1.238676">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation_plugin/batchvalidation_plugin/src/main/java/net/sf/xpontus/plugins/validation/batchvalidation/WildcardFileSelector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="13" selection-start="1145" selection-end="1145" vertical-scroll-proportion="0.3118467">
-          <folding>
-            <element signature="docComment;class#WildcardFileSelector#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.22804055">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/AboutDialogView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="93" selection-start="2662" selection-end="2746" vertical-scroll-proportion="0.6187175">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="52" selection-start="4190" selection-end="4190" vertical-scroll-proportion="0.41247833">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/FindFormController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="64" selection-start="5126" selection-end="5126" vertical-scroll-proportion="0.5574324">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#FindFormController#0" expanded="true" />
-            <element signature="docComment;method#FindFormController#0;class#FindFormController#0" expanded="true" />
-            <element signature="docComment;method#replaceAll#0;class#FindFormController#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/FindReplaceActionImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="352" column="24" selection-start="12097" selection-end="12101" vertical-scroll-proportion="0.7536232">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/SearchFormView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="151" column="10" selection-start="4709" selection-end="4709" vertical-scroll-proportion="1.7391304">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#SearchFormView#0" expanded="true" />
-            <element signature="docComment;method#SearchFormView#0;class#SearchFormView#0" expanded="true" />
-            <element signature="docComment;method#setVisible#0;class#SearchFormView#0" expanded="true" />
-            <element signature="docComment;method#getFindString#0;class#SearchFormView#0" expanded="true" />
-            <element signature="docComment;method#getReplaceString#0;class#SearchFormView#0" expanded="true" />
-            <element signature="docComment;method#isMatchCase#0;class#SearchFormView#0" expanded="true" />
-            <element signature="docComment;method#isDownDirection#0;class#SearchFormView#0" expanded="true" />
-            <element signature="docComment;method#initComponents#0;class#SearchFormView#0" expanded="true" />
-          </folding>
+        <state line="151" column="10" selection-start="4709" selection-end="4709" vertical-scroll-proportion="0.029462738">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/constants/XPontusMenuConstantsIF.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="77" selection-start="2125" selection-end="2125" vertical-scroll-proportion="0.8040541">
+        <state line="85" column="77" selection-start="2125" selection-end="2125" vertical-scroll-proportion="1.1148648">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/XPontusRunner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="320" column="85" selection-start="12982" selection-end="12982" vertical-scroll-proportion="0.35875216">
+        <state line="332" column="11" selection-start="13456" selection-end="13456" vertical-scroll-proportion="0.029462738">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/DocumentContainer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="120" column="52" selection-start="4190" selection-end="4190" vertical-scroll-proportion="0.0327553">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/modules/gui/components/AboutDialogView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="93" selection-start="2662" selection-end="2746" vertical-scroll-proportion="0.0327553">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/controllers/impl/FindFormController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="152" column="64" selection-start="5126" selection-end="5126" vertical-scroll-proportion="0.021491783">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/utils/XPontusComponentsUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.033932135">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/scenarios/ScenarioModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="40" selection-start="849" selection-end="881" vertical-scroll-proportion="0.032945737">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusDocumentAwareThreadedActionImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="31" selection-start="1147" selection-end="1147" vertical-scroll-proportion="0.27145708">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/XPontusThreadedActionImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="18" selection-start="1447" selection-end="1447" vertical-scroll-proportion="0.625969">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/plugins/lexer/LexerPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="36" selection-start="841" selection-end="869" vertical-scroll-proportion="-1.8323354">
           <folding>
-            <element signature="docComment;method#main#0;class#XPontusRunner#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#LexerPlugin#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpontus_core/src/main/java/net/sf/xpontus/actions/impl/SimpleValidationActionImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="41" selection-start="1873" selection-end="1873" vertical-scroll-proportion="-0.13572854">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/xml.xsd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDEntityResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="0" selection-start="1411" selection-end="1411" vertical-scroll-proportion="1.3352714">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#XSDEntityResolver#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XSDCompletionParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="87" selection-start="2578" selection-end="2578" vertical-scroll-proportion="0.31736526">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#XSDCompletionParser#0" expanded="true" />
+            <element signature="docComment;method#XSDCompletionParser#0;class#XSDCompletionParser#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codecompletion_plugin/xml_completion_plugin/src/main/java/net/sf/xpontus/plugins/codecompletion/xml/XMLCodeCompletionPluginImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="238" column="44" selection-start="7599" selection-end="7599" vertical-scroll-proportion="0.5768463">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#XMLCodeCompletionPluginImpl#0" expanded="true" />
+            <element signature="docComment;method#XMLCodeCompletionPluginImpl#0;class#XMLCodeCompletionPluginImpl#0" expanded="true" />
+            <element signature="docComment;method#setCompletionParser#0;class#XMLCodeCompletionPluginImpl#0" expanded="true" />
           </folding>
         </state>
       </provider>
