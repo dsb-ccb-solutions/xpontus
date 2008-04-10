@@ -64,10 +64,24 @@ public class XSDCompletionParser implements ICompletionParser {
 
             for (String schema : schemas) {
                 if (schema.indexOf(".xsd") != -1) {
+                    String base = null;
+
+                    if (schema.indexOf("\\") == -1) {
+                        base = schema.substring(0, schema.lastIndexOf("/"));
+                    } else {
+                        base = schema.substring(0, schema.lastIndexOf("\\"));
+                    }
+
+                    final String baseid = base;
                     Reader m_reader = new InputStreamReader(new URL(schema).openStream());
-                    SchemaGrammar grammer = (SchemaGrammar) new XMLSchemaLoader().loadGrammar(new XMLInputSource(
+                    XMLSchemaLoader xsLoader = new XMLSchemaLoader();
+
+                    xsLoader.setEntityResolver(new XSDEntityResolver(baseid));
+
+                    SchemaGrammar grammer = (SchemaGrammar) xsLoader.loadGrammar(new XMLInputSource(
                                 null, null, null, m_reader, null));
 
+                    //  SchemaGrammar grammer = (SchemaGrammar) xsLoader.loadURI(schema);
                     // clear at first
                     String targetNS = grammer.getTargetNamespace();
                     // System.out.println("Target Namespace:" + targetNS);

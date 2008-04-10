@@ -39,6 +39,8 @@ public abstract class XPontusThreadedActionImpl
      * @see net.sf.xpontus.actions.XPontusActionIF#execute()
      */
     public void execute() {
-        SwingUtilities.invokeLater(this);
+        Thread t = new Thread(this);
+        t.setPriority(Thread.MIN_PRIORITY);
+        t.start();
     }
 }
