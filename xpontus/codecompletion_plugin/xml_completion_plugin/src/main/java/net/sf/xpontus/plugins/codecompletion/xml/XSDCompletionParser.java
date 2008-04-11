@@ -23,10 +23,13 @@ package net.sf.xpontus.plugins.codecompletion.xml;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.apache.xerces.impl.Constants;
 import org.apache.xerces.impl.xs.SchemaGrammar;
 import org.apache.xerces.impl.xs.XMLSchemaLoader;
 import org.apache.xerces.xni.parser.XMLInputSource;
 import org.apache.xerces.xs.*;
+
+import org.w3c.dom.DOMConfiguration;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -45,6 +48,8 @@ import java.util.Map;
  * @author Yves Zoundi
  */
 public class XSDCompletionParser implements ICompletionParser {
+    protected static final String CONTINUE_AFTER_FATAL_ERROR = Constants.XERCES_FEATURE_PREFIX +
+        Constants.CONTINUE_AFTER_FATAL_ERROR_FEATURE;
     private Log logger = LogFactory.getLog(XSDCompletionParser.class);
     private List tagList = new ArrayList();
     private Map nsTagListMap = new HashMap();
@@ -74,9 +79,11 @@ public class XSDCompletionParser implements ICompletionParser {
 
                     final String baseid = base;
                     Reader m_reader = new InputStreamReader(new URL(schema).openStream());
-                    XMLSchemaLoader xsLoader = new XMLSchemaLoader();
+                    XMLSchemaLoader xsLoader = new XMLSchemaLoader();  
 
-                    xsLoader.setEntityResolver(new XSDEntityResolver(baseid));
+                    xsLoader.setFeature(CONTINUE_AFTER_FATAL_ERROR, true);
+
+                    xsLoader.setEntityResolver(new XSDEntityResolver(baseid)); 
 
                     SchemaGrammar grammer = (SchemaGrammar) xsLoader.loadGrammar(new XMLInputSource(
                                 null, null, null, m_reader, null));
@@ -95,9 +102,12 @@ public class XSDCompletionParser implements ICompletionParser {
                         XSElementDeclaration element = (XSElementDeclaration) map.item(i);
                         parseXSDElement(tagList, element);
                     }
+
+
                 }
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
