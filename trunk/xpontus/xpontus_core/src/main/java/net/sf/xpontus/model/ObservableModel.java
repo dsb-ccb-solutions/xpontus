@@ -28,21 +28,27 @@ import java.io.Serializable;
 import java.util.Observable;
 
 
+
 /**
  *
- * @author Propriétaire
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ObservableModel extends Observable implements Serializable {
+public class ObservableModel extends Observable implements Serializable
+{
+    private static final long serialVersionUID = 7845775544968691744L;
+
     /**
-     * default constructor
-     */
-    public ObservableModel() {
+    * default constructor
+    */
+    public ObservableModel()
+    {
     }
 
     /**
      * notify the observers that the model has changed
      */
-    protected void updateView() {
+    protected void updateView()
+    {
         setChanged();
         notifyObservers();
     }

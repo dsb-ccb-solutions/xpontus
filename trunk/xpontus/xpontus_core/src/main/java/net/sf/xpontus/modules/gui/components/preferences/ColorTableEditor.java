@@ -1,6 +1,4 @@
-/*
- *
- *
+/* 
  * Copyright (C) 2005-2008 Yves Zoundi
  *
  * This library is free software; you can redistribute it and/or modify
@@ -15,9 +13,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA. 
  */
 package net.sf.xpontus.modules.gui.components.preferences;
 
@@ -39,14 +35,17 @@ import javax.swing.table.TableCellEditor;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ColorTableEditor extends AbstractCellEditor
-    implements TableCellEditor, ActionListener {
+    implements TableCellEditor, ActionListener
+{
+    private static final long serialVersionUID = -2082186534997580736L;
     protected static final String EDIT = "edit";
     Color currentColor;
     JButton button;
     JColorChooser colorChooser;
     JDialog dialog;
 
-    public ColorTableEditor() {
+    public ColorTableEditor()
+    {
         //Set up the editor (from the table's point of view),
         //which is a button.
         //This button brings up the color chooser dialog,
@@ -67,8 +66,10 @@ public class ColorTableEditor extends AbstractCellEditor
      * Handles events from the editor button and from
      * the dialog's OK button.
      */
-    public void actionPerformed(ActionEvent e) {
-        if (EDIT.equals(e.getActionCommand())) {
+    public void actionPerformed(ActionEvent e)
+    {
+        if (EDIT.equals(e.getActionCommand()))
+        {
             //The user has clicked the cell, so
             //bring up the dialog.
             button.setBackground(currentColor);
@@ -77,19 +78,23 @@ public class ColorTableEditor extends AbstractCellEditor
 
             //Make the renderer reappear.
             fireEditingStopped();
-        } else { //User pressed dialog's "OK" button.
+        }
+        else
+        { //User pressed dialog's "OK" button.
             currentColor = colorChooser.getColor();
         }
     }
 
     //Implement the one CellEditor method that AbstractCellEditor doesn't.
-    public Object getCellEditorValue() {
+    public Object getCellEditorValue()
+    {
         return currentColor;
     }
 
     //Implement the one method defined by TableCellEditor.
     public Component getTableCellEditorComponent(JTable table, Object value,
-        boolean isSelected, int row, int column) {
+        boolean isSelected, int row, int column)
+    {
         currentColor = (Color) value;
 
         return button;

@@ -34,14 +34,16 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.InputStreamReader;
 import java.io.Reader;
 
+import java.net.URL;
+
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -57,9 +59,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
+public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF
+{
     private Log logger = LogFactory.getLog(HTMLCodeCompletionPluginImpl.class);
-    private List tagList = new Vector();
+    private List<TagInfo> tagList = new ArrayList<TagInfo>();
     private boolean isDTDCompletion = false;
     private Map nsTagListMap = new HashMap();
     private String completionInformation;
@@ -68,102 +71,107 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
     // interface to parse DTD or completion and store the completion information
     private ICompletionParser completionParser = new DTDCompletionParser();
-    private JTextComponent jtc;
+    private JTextComponent editor;
 
     /**
      * The constructor without DTD / XSD.
      */
-    public HTMLCodeCompletionPluginImpl() {
+    public HTMLCodeCompletionPluginImpl()
+    {
     }
 
-    protected TagInfo getTagInfo(String name) {
+    protected TagInfo getTagInfo(String name)
+    {
         name = name.toLowerCase();
-        
-        TagInfo info = null;
 
-        for (int i = 0; i < tagList.size(); i++) {
-            info = (TagInfo) tagList.get(i);
-
-            if (info.getTagName().equals(name)) {
-                break;
+        for (TagInfo info : tagList)
+        {
+            if (info.getTagName().equals(name))
+            {
+                return info;
             }
         }
 
-        return info;
+        return null;
     }
 
-    public synchronized List getTagsCompletionList(String tagName) {
-        System.out.println("Trying to get code completion for tag:" + tagName);
-
+    public synchronized List getTagsCompletionList(String tagName)
+    {
         TagInfo tagInfo = getTagInfo(tagName.toLowerCase());
 
-        final List emptyList = new ArrayList();
-
-        if (tagInfo == null) {
-            System.out.println("Cannot get tagInfo");
-
-            return emptyList;
+        if (tagInfo == null)
+        {
+            return Collections.EMPTY_LIST;
         }
 
-        List completionListData = Arrays.asList(tagInfo.getChildTagNames());
-        System.out.println("Got " + completionListData.size() +
-            " completions for " + tagName);
-
-        return completionListData;
+        return tagInfo.getChildTagNames();
     }
 
-    public synchronized List getAttributesCompletionList(String tagName) {
-        List completionList = tagList;
-
+    public synchronized List getAttributesCompletionList(String tagName)
+    {
         TagInfo tagInfo = getTagInfo(tagName);
 
-        final List emptyList = new ArrayList();
-
-        if (tagInfo == null) {
-            return emptyList;
+        if (tagInfo == null)
+        {
+            return Collections.EMPTY_LIST;
         }
 
-        if (tagInfo.getAttributeInfo() != null) {
-            return Arrays.asList(tagInfo.getAttributeInfo());
-        } else {
-            return emptyList;
+        if (tagInfo.getAttributeInfo() != null)
+        {
+            return tagInfo.getAttributeInfo();
+        }
+        else
+        {
+            return Collections.EMPTY_LIST;
         }
     }
 
-    public synchronized List getCompletionList(String trigger, int offset) {
+    public synchronized List getCompletionList(String trigger, int offset)
+    {
         List completionList = tagList;
 
-        SyntaxDocument syntaxDocument = (SyntaxDocument) jtc.getDocument();
+        SyntaxDocument syntaxDocument = (SyntaxDocument) editor.getDocument();
 
-        if (trigger.equals(">")) {
+        if (trigger.equals(">"))
+        {
             completeEndTag(offset, trigger, null);
 
             return null;
-        } else {
+        }
+        else
+        {
             // check for attributes completion
-            if (trigger.equals(" ")) {
-                try {
+            if (trigger.equals(" "))
+            {
+                try
+                {
                     String t = syntaxDocument.getText(0, offset);
 
-                    if (isInsideTag(t, offset)) {
+                    if (isInsideTag(t, offset))
+                    {
                         int openAngle = t.lastIndexOf("<");
                         String insideTag = StringUtils.substringBefore(t.substring(openAngle +
                                     1, t.length()), " ");
 
                         return getAttributesCompletionList(insideTag);
                     }
-                } catch (Exception err) {
+                }
+                catch (Exception err)
+                {
                 }
             }
+
             // check for elements completion
-            else if (trigger.equals("<")) {
+            else if (trigger.equals("<"))
+            {
                 int line = syntaxDocument.getDefaultRootElement()
                                          .getElementIndex(offset);
-                Element element = Utilities.getParagraphElement(jtc, offset);
+                Element element = Utilities.getParagraphElement(editor, offset);
                 int column = offset - element.getStartOffset();
                 Object o = syntaxDocument.getProperty(XPontusConstantsIF.OUTLINE_INFO);
 
-                if (o != null) {
+                if (o != null)
+                {
                     DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
                     walker.setPositionInformation(syntaxDocument, offset, line,
                         column);
@@ -171,10 +179,12 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
 
                     TokenNode tn = walker.getNearestTokenNode();
 
-                    if (tn != null) {
+                    if (tn != null)
+                    {
                         return getTagsCompletionList(tn.toString());
                     }
-                    else{
+                    else
+                    {
                         return tagList;
                     }
                 }
@@ -185,21 +195,32 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
     }
 
     //{{{ isInsideTag() method
-    public boolean isInsideTag(String text, int pos) {
+    public boolean isInsideTag(String text, int pos)
+    {
         int start = text.lastIndexOf('<', pos);
         int end = text.lastIndexOf('>', pos);
 
-        if (start > -1) {
-            if (end == -1) {
+        if (start > -1)
+        {
+            if (end == -1)
+            {
                 return true;
-            } else if (end < start) {
+            }
+            else if (end < start)
+            {
                 return true;
-            } else {
+            }
+            else
+            {
                 return false;
             }
-        } else if (end > -1) {
+        }
+        else if (end > -1)
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     } //}}}
@@ -208,11 +229,16 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
      *
      * @param completionParser
      */
-    public void setCompletionParser(ICompletionParser completionParser) {
-        if (completionParser == null) {
+    public void setCompletionParser(ICompletionParser completionParser)
+    {
+        if (completionParser == null)
+        {
             this.completionParser = completionParser;
-        } else {
-            if (!(this.completionParser.getClass() == completionParser.getClass())) {
+        }
+        else
+        {
+            if (!(this.completionParser.getClass() == completionParser.getClass()))
+            {
                 this.completionParser = completionParser;
             }
         }
@@ -221,13 +247,17 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
     }
 
     public void updateAssistInfo(final String pubid, final String uri,
-        final Reader r) {
+        final Reader r)
+    {
         if ((completionInformation == null) ||
-                !(completionInformation.equals(uri))) {
+                !(completionInformation.equals(uri)))
+        {
             completionInformation = uri;
 
-            Thread t = new Thread() {
-                    public void run() {
+            Thread t = new Thread()
+                {
+                    public void run()
+                    {
                         tagList.clear();
                         completionParser.init(tagList, nsTagListMap);
                         completionParser.updateCompletionInfo(pubid, uri, r);
@@ -239,20 +269,23 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
         }
     }
 
-    public boolean isTrigger(String str) {
+    public boolean isTrigger(String str)
+    {
         return str.equals("<") || str.equals(">") || str.equals(" ");
     }
 
-    public String getMimeType() {
+    public String getMimeType()
+    {
         return "text/html";
     }
 
-    public String getFileMode() {
+    public String getFileMode()
+    {
         return "HTML";
     }
 
-    public void init(final javax.swing.text.Document doc) {
-        System.out.println("Running code completion...");
+    public void init(final javax.swing.text.Document doc)
+    {
         this.doc = doc;
 
         String dtdLocation = null;
@@ -263,64 +296,82 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
         Object mDtd = mDoc.getProperty(XPontusConstantsIF.PARSER_DATA_DTD_COMPLETION_INFO);
         Object mXsd = mDoc.getProperty(XPontusConstantsIF.PARSER_DATA_SCHEMA_COMPLETION_INFO);
 
-        if (mDtd != null) {
-            System.out.println("Got dtd completion... from outline");
+        if (mDtd != null)
+        {
             dtdLocation = mDtd.toString();
         }
 
-        if (mXsd != null) {
+        if (mXsd != null)
+        {
             schemaLocation = mXsd.toString();
         }
 
         Object o = doc.getProperty("BUILTIN_COMPLETION");
 
-        if (o != null) {
-            if (o.equals("HTML")) {
+        if (o != null)
+        {
+            if (o.equals("HTML"))
+            {
                 dtdLocation = getClass().getResource("xhtml.dtd")
                                   .toExternalForm();
             }
         }
 
-        try {
-            if (dtdLocation != null) {
-                logger.info("Using dtd location to build completion database");
+        try
+        {
+            if (dtdLocation != null)
+            {
+                if (logger.isDebugEnabled())
+                {
+                    logger.debug("Using dtd to build completion database");
+                }
+
                 setCompletionParser(new DTDCompletionParser());
 
-                java.net.URL url = new java.net.URL(dtdLocation);
-                java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
+                URL url = new java.net.URL(dtdLocation);
+                Reader dtdReader = new InputStreamReader(url.openStream());
 
                 updateAssistInfo(null, dtdLocation, dtdReader);
-            } else if (schemaLocation != null) {
-                logger.info(
-                    "Using schema location to build completion database");
+            }
+            else if (schemaLocation != null)
+            {
+                if (logger.isDebugEnabled())
+                {
+                    logger.debug("Using schema  to build completion database");
+                }
+
                 setCompletionParser(new XSDCompletionParser());
 
-                java.net.URL url = new java.net.URL(schemaLocation);
-                java.io.Reader dtdReader = new java.io.InputStreamReader(url.openStream());
+                URL url = new java.net.URL(schemaLocation);
+                Reader dtdReader = new InputStreamReader(url.openStream());
                 updateAssistInfo(null, schemaLocation, dtdReader);
             }
-        } catch (Exception err) {
-            if (err instanceof java.net.UnknownHostException) {
-            } else {
-                logger.fatal(err.getMessage());
+        }
+        catch (Exception err)
+        {
+            if (logger.isDebugEnabled())
+            {
+                logger.debug(err.getMessage(), err);
             }
         }
     }
 
-    public void completeEndTag(int off, String str, AttributeSet set) {
-        final String insertString = new String(str);
+    public void completeEndTag(int off, String str, AttributeSet set)
+    {
+        final Document doc = editor.getDocument();
 
-        final Document doc = jtc.getDocument();
-
-        int dot = jtc.getCaret().getDot();
+        int dot = editor.getCaret().getDot();
 
         String endTag = new String(str);
 
         String text = null;
 
-        try {
+        try
+        {
             text = doc.getText(0, off);
-        } catch (BadLocationException ex) {
+        }
+        catch (BadLocationException ex)
+        {
             ex.printStackTrace();
         }
 
@@ -331,69 +382,57 @@ public class HTMLCodeCompletionPluginImpl implements CodeCompletionIF {
         // and
         // if the start-tag has not got an end-tag already.
         if ((startTag > 0) && (startTag > prefEndTag) &&
-                (startTag < (text.length() - 1))) {
+                (startTag < (text.length() - 1)))
+        {
             String tag = text.substring(startTag, text.length());
             char first = tag.charAt(1);
 
             if ((first != '/') && (first != '!') && (first != '?') &&
-                    !Character.isWhitespace(first)) {
+                    !Character.isWhitespace(first))
+            {
                 boolean finished = false;
                 char previous = tag.charAt(tag.length() - 1);
 
-                if ((previous != '/') && (previous != '-')) {
+                if ((previous != '/') && (previous != '-'))
+                {
                     endTag += ("</");
 
-                    for (int i = 1; (i < tag.length()) && !finished; i++) {
+                    for (int i = 1; (i < tag.length()) && !finished; i++)
+                    {
                         char ch = tag.charAt(i);
 
-                        if (!Character.isWhitespace(ch)) {
+                        if (!Character.isWhitespace(ch))
+                        {
                             endTag += (ch);
-                        } else {
+                        }
+                        else
+                        {
                             finished = true;
                         }
                     }
-
-                    //                    endTag += (">");
                 }
             }
         }
 
         str = endTag;
 
-        try {
-            if (str.equals(">")) {
+        try
+        {
+            if (str.equals(">"))
+            {
                 return;
             }
 
             doc.insertString(off, str, set);
-            jtc.getCaret().setDot(dot);
-        } catch (Exception ex) {
+            editor.getCaret().setDot(dot);
+        }
+        catch (Exception ex)
+        {
         }
     }
 
-    // Tries to find out if the line finishes with an element start
-    private boolean isStartElement(String line) {
-        boolean result = false;
-
-        int first = line.lastIndexOf("<");
-        int last = line.lastIndexOf(">");
-
-        if (last < first) { // In the Tag
-            result = true;
-        } else {
-            int firstEnd = line.lastIndexOf("</");
-            int lastEnd = line.lastIndexOf("/>");
-
-            // Last Tag is not an End Tag
-            if ((firstEnd != first) && ((lastEnd + 1) != last)) {
-                result = true;
-            }
-        }
-
-        return result;
-    }
-
-    public void setTextComponent(JTextComponent jtc) {
-        this.jtc = jtc;
+    public void setTextComponent(JTextComponent jtc)
+    {
+        this.editor = jtc;
     }
 }

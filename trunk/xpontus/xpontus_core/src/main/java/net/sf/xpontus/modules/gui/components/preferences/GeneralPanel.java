@@ -2,6 +2,22 @@
  * GeneralPanel.java
  *
  * Created on 27 janvier 2008, 18:31
+ * 
+ * Copyright (C) 2005-2008 Yves Zoundi
+ *
+ * This library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA. 
  */
 package net.sf.xpontus.modules.gui.components.preferences;
 
@@ -23,8 +39,9 @@ import net.sf.xpontus.utils.PropertiesConfigurationLoader;
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPanel, PreferencesPluginIF {
-
-    /** Creates new form GeneralPanel */
+ 
+	private static final long serialVersionUID = 2077742480990262224L;
+	/** Creates new form GeneralPanel */
     public GeneralPanel() {
         initComponents();
     }

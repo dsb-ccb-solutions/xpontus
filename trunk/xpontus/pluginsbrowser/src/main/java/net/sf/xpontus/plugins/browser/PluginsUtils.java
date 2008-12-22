@@ -266,11 +266,7 @@ public class PluginsUtils {
 
             Analyzer m_analyzer = new UTF8AccentRemoverAnalyzer();
             m_installedIndexWriter = new IndexWriter(m_installedFSDirectory,
-                    false, m_analyzer);
-
-            System.out.println("Adding :" + spd.getId());
-
-            System.out.println("---------------------------------");
+                    false, m_analyzer); 
 
             Document doc = new Document();
 
@@ -362,8 +358,7 @@ public class PluginsUtils {
             } else {
                 InputStream zipin = zipFile.getInputStream(entry);
                 String path = outdir +
-                        File.separator + entry.getName();
-                System.out.println("Extracting:" + path);
+                        File.separator + entry.getName(); 
                 BufferedOutputStream fileout = new BufferedOutputStream(new FileOutputStream(path));
 
                 while ((len = zipin.read(buffer)) >= 0) {

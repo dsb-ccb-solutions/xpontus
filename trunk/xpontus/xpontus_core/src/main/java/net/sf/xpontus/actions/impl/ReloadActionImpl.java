@@ -50,27 +50,33 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi<yveszoundi AT users DOT sf DOT net>
  * Class to reload a document
  */
-public class ReloadActionImpl extends DefaultDocumentAwareActionImpl {
-    /**
-     *
-     */
+public class ReloadActionImpl extends DefaultDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = -6189665290266013596L;
     public static final String BEAN_ALIAS = "action.reload";
     private TabChangeEventListener tce;
 
-    public ReloadActionImpl() {
+    public ReloadActionImpl()
+    {
         super();
-        tce = new TabChangeEventListener() {
-                    public void onTabChange(TabChangedEvent e) {
-                        if (e.getSource() != null) {
+        tce = new TabChangeEventListener()
+                {
+                    public void onTabChange(TabChangedEvent e)
+                    {
+                        if (e.getSource() != null)
+                        {
                             IDocumentContainer m_container = e.getSource();
                             JTextComponent jtc = m_container.getEditorComponent();
                             Object o = jtc.getClientProperty(XPontusFileConstantsIF.FILE_LAST_MODIFIED_DATE);
 
-                            try {
-                                if (o != null) {
+                            try
+                            {
+                                if (o != null)
+                                {
                                     FileObject fo = (FileObject) jtc.getClientProperty(XPontusFileConstantsIF.FILE_OBJECT);
 
-                                    if (!fo.exists()) {
+                                    if (!fo.exists())
+                                    {
                                         return;
                                     }
 
@@ -78,18 +84,23 @@ public class ReloadActionImpl extends DefaultDocumentAwareActionImpl {
                                                                      .getLastModifiedTime();
                                     long previousLastModifiedTime = Long.parseLong(o.toString());
 
-                                    if (currentLastModifiedTime != previousLastModifiedTime) {
+                                    if (currentLastModifiedTime != previousLastModifiedTime)
+                                    {
                                         int rep = JOptionPane.showConfirmDialog(XPontusComponentsUtils.getTopComponent()
                                                                                                       .getDisplayComponent(),
                                                 "The file has been modified. Reload the file(discarding any changes)?",
                                                 "", JOptionPane.YES_NO_OPTION);
 
-                                        if (rep == JOptionPane.YES_OPTION) {
+                                        if (rep == JOptionPane.YES_OPTION)
+                                        {
                                             run();
                                         }
                                     }
                                 }
-                            } catch (Exception err) {
+                            }
+                            catch (Exception err)
+                            {
+                                getLogger().error(err.getMessage(), err);
                             }
                         }
                     }
@@ -100,8 +111,10 @@ public class ReloadActionImpl extends DefaultDocumentAwareActionImpl {
     /* (non-Javadoc)
     * @see net.sf.xpontus.actions.XPontusActionIF#execute()
     */
-    public void run() {
-        try {
+    public void run()
+    {
+        try
+        {
             IDocumentContainer m_documentContainer = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                                   .getDocumentTabContainer()
                                                                                                   .getCurrentDockable();
@@ -110,7 +123,8 @@ public class ReloadActionImpl extends DefaultDocumentAwareActionImpl {
 
             Object filePath = editor.getClientProperty(XPontusFileConstantsIF.FILE_OBJECT);
 
-            if (filePath == null) {
+            if (filePath == null)
+            {
                 JOptionPane.showMessageDialog(XPontusComponentsUtils.getTopComponent()
                                                                     .getDisplayComponent(),
                     "Please save the file first!");
@@ -121,8 +135,9 @@ public class ReloadActionImpl extends DefaultDocumentAwareActionImpl {
             ModificationHandler handler = (ModificationHandler) editor.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);
 
             if (editor.getClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED)
-                          .equals(Boolean.TRUE)) {
-                StringBuffer buff = new StringBuffer();
+                          .equals(Boolean.TRUE))
+            {
+                StringBuilder buff = new StringBuilder();
                 buff.append("The file has been modified.\n");
                 buff.append("Do you want to discard all changes?");
                 buff.append("\n");
@@ -131,14 +146,16 @@ public class ReloadActionImpl extends DefaultDocumentAwareActionImpl {
                                                                               .getDisplayComponent(),
                         buff.toString(), "Warning", JOptionPane.YES_NO_OPTION);
 
-                if (rep == JOptionPane.NO_OPTION) {
+                if (rep == JOptionPane.NO_OPTION)
+                {
                     return;
                 }
-            } 
+            }
 
             FileObject fFile = (FileObject) (filePath);
 
-            if (!fFile.exists()) {
+            if (!fFile.exists())
+            {
                 JOptionPane.showMessageDialog(editor,
                     "The file still doesn't exist!");
 
@@ -158,9 +175,11 @@ public class ReloadActionImpl extends DefaultDocumentAwareActionImpl {
 
             editor.setCaretPosition(0);
             editor.grabFocus();
-            
+
             handler.setModified(false);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             Toolkit.getDefaultToolkit().beep();
         }
     }

@@ -46,59 +46,69 @@ import javax.swing.tree.DefaultTreeModel;
 
 
 /**
- * @version 0.0.1
- * @author Yves Zoundi
+ * Dockable for the outline view
+ * @version 0.0.2
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class OutlineViewDockable extends JScrollPane implements Dockable {
+public class OutlineViewDockable extends JScrollPane implements Dockable
+{
+    private static final long serialVersionUID = 3603419421712967424L;
+    private static final Dimension OUTLINE_SIZE = new Dimension(250, 200);
     private DockKey key = new DockKey("Outline ");
-    private DefaultTreeModel model;
-    private DefaultMutableTreeNode root;
+    private DefaultTreeModel outlineTreeModel;
+    private DefaultMutableTreeNode outlineRootNode;
     private JScrollPane scrollPane;
-    private JTree mTree;
+    private JTree outlineTree;
 
     /**
-     *
+     * Constructor
      */
-    public OutlineViewDockable() {
-        root = new DefaultMutableTreeNode("Document");
-        model = new DefaultTreeModel(root);
+    public OutlineViewDockable()
+    {
+        outlineRootNode = new DefaultMutableTreeNode("Document");
+        outlineTreeModel = new DefaultTreeModel(outlineRootNode);
 
-        mTree = new JTree(model);
-        mTree.setRootVisible(false);
-        scrollPane = new JScrollPane(mTree);
+        outlineTree = new JTree(outlineTreeModel);
+        outlineTree.setRootVisible(false);
+        scrollPane = new JScrollPane(outlineTree);
 
         key.setResizeWeight(0.2f);
         key.setDockGroup(new DockGroup("Outline"));
 
-        Dimension dim = new Dimension(250, 200);
-        scrollPane.setPreferredSize(dim);
-        scrollPane.setMinimumSize(dim);
+        scrollPane.setPreferredSize(OUTLINE_SIZE);
+        scrollPane.setMinimumSize(OUTLINE_SIZE);
+
         this.getViewport().add(scrollPane);
 
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
 
-        URL m_url = getClass().getResource("/net/sf/xpontus/icons/Element.png");
+        URL iconURL = getClass().getResource("/net/sf/xpontus/icons/Element.png");
 
-        final ImageIcon leafIcon = new ImageIcon(m_url);
+        final ImageIcon leafIcon = new ImageIcon(iconURL);
 
         renderer.setLeafIcon(leafIcon);
         renderer.setOpenIcon(leafIcon);
         renderer.setClosedIcon(leafIcon);
         renderer.setIcon(leafIcon);
 
-        mTree.setCellRenderer(renderer);
+        outlineTree.setCellRenderer(renderer);
 
         // tree selection listener
-        mTree.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    if (e.getClickCount() == 2) {
-                        DefaultMutableTreeNode node = (DefaultMutableTreeNode) mTree.getLastSelectedPathComponent();
+        outlineTree.addMouseListener(new MouseAdapter()
+            {
+                public void mouseClicked(MouseEvent e)
+                {
+                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) outlineTree.getLastSelectedPathComponent();
 
-                        if (node == null) {
-                            return;
-                        }
+                    if (node == null)
+                    {
+                        return;
+                    }
 
-                        if (node instanceof TokenNode) {
+                    if (e.getClickCount() == 1)
+                    {
+                        if (node instanceof TokenNode)
+                        {
                             TokenNode nodeInfo = (TokenNode) node;
                             gotoLine(nodeInfo.line, nodeInfo.column);
                         }
@@ -111,19 +121,21 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
      *
      * @return
      */
-    public DefaultMutableTreeNode getRootNode() {
-        return root;
+    public DefaultMutableTreeNode getRootNode()
+    {
+        return outlineRootNode;
     }
 
     /**
-     * @param root
+     * @param rootNode
      */
-    public void updateAll(DefaultMutableTreeNode root) {
-        this.root = root;
-        model = new DefaultTreeModel(root);
-        mTree.setModel(model);
-        mTree.revalidate();
-        mTree.repaint();
+    public void updateAll(DefaultMutableTreeNode rootNode)
+    {
+        this.outlineRootNode = rootNode;
+        outlineTreeModel = new DefaultTreeModel(rootNode);
+        outlineTree.setModel(outlineTreeModel);
+        outlineTree.revalidate();
+        outlineTree.repaint();
         expandAllNodes();
     }
 
@@ -131,16 +143,16 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
      * @param line
      * @param column
      */
-    private void gotoLine(int line, int column) {
-        System.out.println("Line:" + line + ",Column:" + column);
+    private void gotoLine(int line, int column)
+    {
+        JTextComponent textEditor = DefaultXPontusWindowImpl.getInstance()
+                                                            .getDocumentTabContainer()
+                                                            .getCurrentEditor();
 
-        JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
-                                                     .getDocumentTabContainer()
-                                                     .getCurrentEditor();
+        Element element = textEditor.getDocument().getDefaultRootElement();
 
-        Element element = jtc.getDocument().getDefaultRootElement();
-
-        if (element.getElement(line) == null) {
+        if (element.getElement(line) == null)
+        {
             XPontusComponentsUtils.showErrorMessage(
                 "element location not found");
 
@@ -155,36 +167,41 @@ public class OutlineViewDockable extends JScrollPane implements Dockable {
 
         int tokenOffset = lineOffset + column;
 
-        jtc.grabFocus();
+        textEditor.grabFocus();
 
-        jtc.setCaretPosition(tokenOffset);
+        textEditor.setCaretPosition(tokenOffset);
     }
 
     /**
      *
      * @return
      */
-    public DefaultTreeModel getTreeModel() {
-        return model;
+    public DefaultTreeModel getTreeModel()
+    {
+        return outlineTreeModel;
     }
 
-    public void expandAllNodes() {
-        for (int i = 0; i < mTree.getRowCount(); i++) {
-            mTree.expandRow(i);
+    public void expandAllNodes()
+    {
+        for (int i = 0; i < outlineTree.getRowCount(); i++)
+        {
+            outlineTree.expandRow(i);
         }
     }
 
     /** implement Dockable
      * @return
      */
-    public DockKey getDockKey() {
+    public DockKey getDockKey()
+    {
         return key;
     }
 
     /** implement Dockable
      * @return
      */
-    public Component getComponent() {
+    public Component getComponent()
+    {
         return scrollPane;
     }
 }

@@ -38,11 +38,13 @@ import javax.swing.KeyStroke;
 
 /**
  * Base class for xpontus actions handlers
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public abstract class AbstractXPontusActionImpl extends AbstractAction
-    implements XPontusActionIF {
-    private Log log = LogFactory.getLog(AbstractXPontusActionImpl.class);
+    implements XPontusActionIF
+{
+    private static final long serialVersionUID = 5322489591504438775L;
+    private Log log = LogFactory.getLog(getClass().getName());
     private ActionEvent event;
     private String name;
     private String actionCommand;
@@ -54,14 +56,16 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
     /**
      * Creates a new instance of AbstractXPontusActionImpl
      */
-    public AbstractXPontusActionImpl() {
+    public AbstractXPontusActionImpl()
+    {
     }
 
     /**
      * Return a logger
      * @return A logger
      */
-    public Log getLogger() {
+    public Log getLogger()
+    {
         return log;
     }
 
@@ -69,7 +73,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Returns the action's name
      * @return The name of the action
      */
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
@@ -77,12 +82,15 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Set the action's name
      * @param name the action's name
      */
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
 
         String i18nName = this.name;
 
-        if (isI18nEnabled.booleanValue()) {
+        if (isI18nEnabled.booleanValue())
+        {
+            // TODO not implemented
         }
 
         this.putValue(Action.NAME, i18nName);
@@ -92,7 +100,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Returns the id of the action
      * @return The id of the action
      */
-    public String getActionCommand() {
+    public String getActionCommand()
+    {
         return actionCommand;
     }
 
@@ -100,7 +109,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Set the id of the action
      * @param actionCommand The id of the action
      */
-    public void setActionCommand(String actionCommand) {
+    public void setActionCommand(String actionCommand)
+    {
         this.actionCommand = actionCommand;
         this.putValue(Action.ACTION_COMMAND_KEY, actionCommand);
     }
@@ -109,7 +119,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Returns the description of the action
      * @return The description of the action
      */
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
@@ -117,13 +128,15 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Set the description of the action
      * @param description The description of the action
      */
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
 
         String i18nDescription = description;
 
-        if (isI18nEnabled.booleanValue()) {
-            i18nDescription = null;
+        if (isI18nEnabled.booleanValue())
+        {
+            // TODO not implemented
         }
 
         this.putValue(Action.SHORT_DESCRIPTION, i18nDescription);
@@ -133,7 +146,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Returns the keyboard shortcut of the action
      * @return The keyboard shortcut of the action
      */
-    public String getAccelerator() {
+    public String getAccelerator()
+    {
         return accelerator;
     }
 
@@ -141,7 +155,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Set the keyboard shortcut of the action
      * @param accelerator The keyboard shortcut of the action
      */
-    public void setAccelerator(String accelerator) {
+    public void setAccelerator(String accelerator)
+    {
         this.accelerator = accelerator;
         this.putValue(Action.ACCELERATOR_KEY,
             KeyStroke.getKeyStroke(accelerator));
@@ -151,7 +166,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Returns the path of the icon of this action
      * @return The path of the icon of this action
      */
-    public String getIcon() {
+    public String getIcon()
+    {
         return icon;
     }
 
@@ -159,7 +175,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Set the path of the icon of this action
      * @param icon The path of the icon of this action
      */
-    public void setIcon(String icon) {
+    public void setIcon(String icon)
+    {
         this.icon = icon;
 
         URL url = getClass().getResource(icon);
@@ -171,7 +188,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      *
      * @return
      */
-    public Boolean getIsI18nEnabled() {
+    public Boolean getIsI18nEnabled()
+    {
         return isI18nEnabled;
     }
 
@@ -179,7 +197,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      *
      * @param isI18nEnabled
      */
-    public void setIsI18nEnabled(Boolean isI18nEnabled) {
+    public void setIsI18nEnabled(Boolean isI18nEnabled)
+    {
         this.isI18nEnabled = isI18nEnabled;
     }
 
@@ -187,7 +206,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Event handling
      * @param e the event firing up this action
      */
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         setEvent(e);
         execute();
     }
@@ -196,7 +216,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Returns the event firing up this action
      * @return The event firing up this action
      */
-    public ActionEvent getEvent() {
+    public ActionEvent getEvent()
+    {
         return event;
     }
 
@@ -204,7 +225,8 @@ public abstract class AbstractXPontusActionImpl extends AbstractAction
      * Set the event firing up this action
      * @param event The event firing up this action
      */
-    public void setEvent(ActionEvent event) {
+    public void setEvent(ActionEvent event)
+    {
         this.event = event;
     }
 }

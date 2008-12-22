@@ -5,39 +5,25 @@
         <author email="yveszoundi.AT.users.DOT.sf.DOT.net">Yves Zoundi</author>
         <title>Screenshots</title>    
     </properties>  
-    <head> <style type="text/css" media="all"> 
-            @import url("thumbnailviewer.css"); 
-        </style> 
-        <script src="thumbnailviewer.js" type="text/javascript">
-            
-            /***********************************************
-            * Image Thumbnail Viewer Script- © Dynamic Drive (www.dynamicdrive.com)
-            * This notice must stay intact for legal use.
-            * Visit http://www.dynamicdrive.com/ for full source code
-            ***********************************************/
-            
-    </script></head>
+   
     <body> 
         <section name = "XPontus XML Editor screenshots">
-            <subsection name="Current version screenshot - stable release">
-                <p><a href="images/current.png" rel="thumbnail"><img src="images/current.png" style="width: 150px; height: 150px" /></a></p>
+		 <subsection name="Windows screenshot">
+                <p><a href="images/winshot.png" ><img src="images/winshot.png"  /></a></p>
             </subsection>
-            
-            <subsection name="Daily screenshot(upcoming release)">
-                <p><a href="images/daily.png" rel="thumbnail"><img src="images/daily.png" style="width: 150px; height: 150px" /></a></p>
+			
+            <subsection name="Linux screenshot">
+                <p><a href="images/current.png" ><img src="images/current.png"  /></a></p>
             </subsection>
+             
             
-            <subsection name="Mac OS Screenshot(Upcoming release)">
-                <p><a href="images/macos.png" rel="thumbnail"><img src="images/macos.png" style="width: 150px; height: 150px" /></a></p>
+            <subsection name="Mac OS Screenshot">
+                <p><a href="images/macos.png" ><img src="images/macos.png"  /></a></p>
             </subsection>
+             
             
-            
-            <subsection name="Linux Screenshot(Upcoming release)">
-                <p><a href="images/linux.png" rel="thumbnail"><img src="images/linux.png" style="width: 150px; height: 150px" /></a></p>
-            </subsection>
-            
-            <subsection name="FREEBSD Screenshot(Upcoming release)">
-                <p><a href="images/freebsd.png" rel="thumbnail"><img src="images/freebsd.png" style="width: 150px; height: 150px" /></a></p>
+            <subsection name="FREEBSD Screenshot">
+                <p><a href="images/freebsd.png" ><img src="images/freebsd.png"  /></a></p>
             </subsection>
         </section>   
     </body>

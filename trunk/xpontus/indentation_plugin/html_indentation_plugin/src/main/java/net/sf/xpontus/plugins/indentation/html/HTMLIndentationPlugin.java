@@ -4,7 +4,7 @@
  * Created on Aug 13, 2007, 7:21:39 PM
  *
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -41,8 +41,7 @@ import java.util.Properties;
 
 
 /**
- *
- *
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class HTMLIndentationPlugin extends Plugin {
     static File configfile = null;

@@ -6,7 +6,7 @@
 	<groupId>net.sf.xpontus</groupId>
 	<artifactId>xpontus_core</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0-pre1</version>
+	<version>1.0.0.2</version>
 	<name>Core</name>
 	<description>
 		This is the core API of XPontus XML Editor. It's a set of
@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>net.sf.xpontus</groupId>
 		<artifactId>xpontus</artifactId>
-		<version>1.0.0-pre1</version>
+		<version>1.0.0.2</version>
 	</parent>
 	<repositories>
 		<repository>
@@ -230,7 +230,7 @@
 		<dependency>
 			<groupId>com.jidesoft</groupId>
 			<artifactId>jide-oss</artifactId>
-			<version>2.2.2.02</version>
+			<version>2.4.6</version> 
 			<scope>compile</scope>
 			<exclusions>
 				<exclusion>
@@ -273,26 +273,10 @@
 	</issueManagement>
 	<developers>
 		<developer>
-			<id>mrcheeks</id>
+			<id>yveszoundi</id>
 			<name>Yves Zoundi</name>
 			<roles>
 				<role>Developer,Project manager</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>mohadib</id>
-			<name>Jason Davis</name>
-			<organization>OpenActive</organization>
-			<roles>
-				<role>Developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>delvinj</id>
-			<name>Daniel Johnson</name>
-			<organization>JEdit</organization>
-			<roles>
-				<role>Developer</role>
 			</roles>
 		</developer>
 	</developers>
@@ -343,7 +327,7 @@
 					<source>1.5</source>
 					<target>1.5</target>
 				</configuration>
-			</plugin>
+			</plugin> 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -362,11 +346,15 @@
 					<systemProperties>
 						<systemProperty>
 							<key>xpontusisjavawebstart</key>
+							<value>false</value>
+						</systemProperty>
+						<systemProperty>
+							<key>swing.aatext</key>
 							<value>true</value>
 						</systemProperty>
 					</systemProperties>
 				</configuration>
-			</plugin>
+			</plugin> 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>webstart-maven-plugin</artifactId>
@@ -408,6 +396,31 @@
 					<verbose>true</verbose>
 				</configuration>
 			</plugin>
+<plugin>
+        <artifactId>maven-assembly-plugin</artifactId> 
+        <configuration>
+          <descriptor>src/main/assembly/dep.xml</descriptor>
+        </configuration>
+      </plugin>
+ <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/alternateLocation</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
 		</plugins>
 	</build>
 	<properties>

@@ -34,14 +34,14 @@ import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
 import java.util.Hashtable;
-import java.util.Iterator;
 
 
 /**
  * The preferences plugin
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class PreferencesPlugin extends XPontusPlugin {
+public class PreferencesPlugin extends XPontusPlugin
+{
     /**
      *
      */
@@ -61,7 +61,8 @@ public class PreferencesPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_PREFERENCES_PANELS,
             settings);
 
@@ -71,17 +72,15 @@ public class PreferencesPlugin extends XPontusPlugin {
                                                                         .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = outlineExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = outlineExtPoint.getConnectedExtensions();
 
-        System.out.println("prefs:" + plugins.size());
-
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
 
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             PreferencesPluginIF pref = (PreferencesPluginIF) cl.newInstance();
             String id = pref.getPreferencesPanelComponent().getId();
             String category = pref.getPluginCategory();
@@ -100,14 +99,16 @@ public class PreferencesPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
+    protected void doStart() throws Exception
+    {
         settings = new Hashtable<String, Object>();
     }
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
         settings.clear();
     }
 }

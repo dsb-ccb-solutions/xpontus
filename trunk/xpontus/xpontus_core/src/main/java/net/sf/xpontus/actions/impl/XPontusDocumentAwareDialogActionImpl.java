@@ -30,18 +30,26 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class XPontusDocumentAwareDialogActionImpl
-    extends XPontusDialogActionImpl implements DocumentAwareComponentIF {
-    public XPontusDocumentAwareDialogActionImpl() {
+    extends XPontusDialogActionImpl implements DocumentAwareComponentIF
+{
+    private static final long serialVersionUID = -6519061118692898718L;
+
+    public XPontusDocumentAwareDialogActionImpl()
+    {
         registerComponent();
     }
 
     /* (non-Javadoc)
      * @see net.sf.xpontus.actions.DocumentAwareComponentIF#onNotify(net.sf.xpontus.utils.DocumentContainerChangeEvent)
      */
-    public void onNotify(DocumentContainerChangeEvent evt) {
-        if (evt.getSource() == null) {
+    public void onNotify(DocumentContainerChangeEvent evt)
+    {
+        if (evt.getSource() == null)
+        {
             setEnabled(false);
-        } else {
+        }
+        else
+        {
             setEnabled(true);
         }
     }
@@ -49,7 +57,8 @@ public class XPontusDocumentAwareDialogActionImpl
     /* (non-Javadoc)
      * @see net.sf.xpontus.actions.DocumentAwareComponentIF#registerComponent()
      */
-    public void registerComponent() {
+    public void registerComponent()
+    {
         DocumentAwareComponentHolder.getInstance().register(this);
     }
 }

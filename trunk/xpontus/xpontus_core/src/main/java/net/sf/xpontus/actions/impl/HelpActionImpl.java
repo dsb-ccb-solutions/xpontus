@@ -3,7 +3,7 @@
  *
  * Created on Sep 2, 2007, 10:04:58 AM
  *
- * Copyright (C) 2005-2007 Yves Zoundi
+ * Copyright (C) 2005-2007 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -23,69 +23,49 @@ package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.utils.HelperUtils;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.event.ActionListener;
+
+import java.net.URL;
+
+import javax.help.CSH;
+import javax.help.HelpBroker;
 
 
 /**
  * Action to display the help dialog
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class HelpActionImpl extends AbstractXPontusActionImpl {
+public class HelpActionImpl extends AbstractXPontusActionImpl
+{
+    private static final long serialVersionUID = -8866719178970983293L;
     public static final String BEAN_ALIAS = "action.help";
-    private java.awt.event.ActionListener helpListener;
-    private javax.help.HelpBroker broker;
+    private ActionListener helpListener;
+    private HelpBroker broker;
 
     /** Creates a new instance of HelpAction */
-    public HelpActionImpl() {
+    public HelpActionImpl()
+    {
     }
 
-    private void init() {
+    private void init()
+    {
         HelperUtils utils;
         utils = new HelperUtils();
 
         String helpset = "/net/sf/xpontus/help/jhelpset.hs";
-        java.net.URL url = getClass().getResource(helpset);
+        URL url = getClass().getResource(helpset);
         utils.setHelpURL(url);
         broker = utils.getHelpBroker();
-
-        javax.swing.JComponent label = new javax.swing.JLabel() {
-                java.util.HashMap map;
-
-                private void setup() {
-                    map = new java.util.HashMap();
-                    map.put(RenderingHints.KEY_TEXT_ANTIALIASING,
-                        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-                    map.put(RenderingHints.KEY_DITHERING,
-                        RenderingHints.VALUE_DITHER_ENABLE);
-                    map.put(RenderingHints.KEY_FRACTIONALMETRICS,
-                        RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-                }
-
-                public void paintComponent(Graphics g) {
-                    Graphics2D g2d = (Graphics2D) g;
-
-                    if (map == null) {
-                        setup();
-                    }
-
-                    RenderingHints hints = new RenderingHints(map);
-                    g2d.setRenderingHints(hints);
-
-                    super.paint(g2d);
-                }
-            };
-
-        broker.setFont(label.getFont()); 
         broker.setCurrentID("id2475596");
 
-        helpListener = new javax.help.CSH.DisplayHelpFromSource(broker);
+        helpListener = new CSH.DisplayHelpFromSource(broker);
     }
 
-    public void execute() {
-        if (broker == null) {
+    public void execute()
+    {
+        if (broker == null)
+        {
             init();
         }
 

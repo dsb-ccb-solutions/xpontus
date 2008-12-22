@@ -3,7 +3,7 @@
  *
  * Created on July 1, 2007, 1:31 PM
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -34,21 +34,21 @@ import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
 import java.util.Hashtable;
-import java.util.Iterator;
 
 
 /**
  *
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class IndentationPlugin extends XPontusPlugin {
+public class IndentationPlugin extends XPontusPlugin
+{
     public static final String EXTENSION_POINT_NAME = "indentationpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.indentation";
     public static final String PLUGIN_CATEGORY = "Indentation";
     private Hashtable<Object, Object> indenters;
 
-    /** Creates a new instance of IndentationModule */
-    public IndentationPlugin() {
+    public IndentationPlugin()
+    {
     }
 
     /**
@@ -56,7 +56,8 @@ public class IndentationPlugin extends XPontusPlugin {
      * @param classLoader
      */
     public void initExtension(IndentationPluginIF plugin,
-        ClassLoader classLoader) {
+        ClassLoader classLoader)
+    {
         String mimeType = plugin.getMimeType();
         String name = plugin.getName();
         String m_className = plugin.getClass().getName();
@@ -67,16 +68,14 @@ public class IndentationPlugin extends XPontusPlugin {
         m_map.put(XPontusConstantsIF.CLASS_LOADER, classLoader);
         m_map.put(XPontusConstantsIF.CONTENT_TYPE, mimeType);
         m_map.put(XPontusConstantsIF.OBJECT_CLASSNAME, m_className);
-
-        System.out.println("mimetype:" + mimeType);
-        System.out.println("indenter:" + name);
         indenters.put(mimeType, m_map);
     }
 
     /* (non-Javadoc)
      * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_INDENTATION_ENGINES,
             indenters);
 
@@ -86,15 +85,15 @@ public class IndentationPlugin extends XPontusPlugin {
                                                                             .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = indentationExtPoint.getConnectedExtensions();
+        Collection<Extension> extensions = indentationExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : extensions)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
 
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             IndentationPluginIF mIndentationPlugin = (IndentationPluginIF) cl.newInstance();
             initExtension(mIndentationPlugin, classLoader);
         }
@@ -103,14 +102,16 @@ public class IndentationPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
-    	 indenters = new Hashtable<Object, Object>();
+    protected void doStart() throws Exception
+    {
+        indenters = new Hashtable<Object, Object>();
     }
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
         indenters.clear();
     }
 }

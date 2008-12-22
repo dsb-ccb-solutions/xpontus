@@ -28,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import java.awt.Component;
 
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 
@@ -240,7 +241,7 @@ public class ScenarioEditorController {
         model = (javax.swing.table.DefaultTableModel) view.getParamsTable()
                                                           .getModel();
 
-        java.util.Hashtable table = new java.util.Hashtable();
+        Hashtable<String, String>table = new Hashtable<String, String>();
 
         for (int i = 0; i < model.getRowCount(); i++) {
             String cle = model.getValueAt(i, 0).toString();

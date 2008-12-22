@@ -3,13 +3,13 @@
   <parent>
     <artifactId>codecompletion_plugin</artifactId>
     <groupId>net.sf.xpontus.plugins.codecompletion</groupId>
-    <version>1.0-0-pre1</version>
+    <version>1.0.0.2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.codecompletion.html</groupId>
   <artifactId>html_completion_plugin</artifactId>
   <name>HTML Completion</name>
-  <version>1.0-SNAPSHOT</version> 
+  <version>1.0.0.2</version> 
   <description>XPontus HTML completion plugin</description>
   <dependencies>
     <dependency>
@@ -19,12 +19,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-            <groupId>net.sf.xpontus.plugins.completion</groupId>
+            <groupId>net.sf.xpontus.plugins.codecompletion.xml</groupId>
             <artifactId>xml_completion_plugin</artifactId>
-            <version>1.0-0-pre1</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
-    
   </dependencies>  
   <build>
         <resources>

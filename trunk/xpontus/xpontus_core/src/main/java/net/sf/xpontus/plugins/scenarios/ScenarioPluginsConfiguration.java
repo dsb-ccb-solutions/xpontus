@@ -31,6 +31,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
  *
@@ -42,6 +45,7 @@ public class ScenarioPluginsConfiguration {
     private List outputTypes = new Vector();
     private Map enginesMap = new HashMap();
     private List engines = new Vector();
+    private static final Log LOG = LogFactory.getLog(ScenarioPluginsConfiguration.class);
 
     private ScenarioPluginsConfiguration() {
     }
@@ -81,15 +85,11 @@ public class ScenarioPluginsConfiguration {
             ScenarioPluginIF plugin = (ScenarioPluginIF) m_loader.loadClass(m_name)
                                                                  .newInstance();
 
-            System.out.println("retrieved plugin called:" + name);
-
-            System.out.println("Plugin not null:" +
-                (plugin.getClass().getName()));
-
+            LOG.debug("retrieved plugin called:" + name); 
             return plugin;
         } catch (Exception e) {
-            System.out.println("Exception while retrieving plugin");
-            e.printStackTrace();
+            LOG.error("Exception while retrieving plugin");
+            LOG.error(e.getMessage(), e);
 
             return null;
         }

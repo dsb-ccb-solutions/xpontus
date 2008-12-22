@@ -30,42 +30,34 @@ import java.io.StringReader;
 
 
 /**
- * A simple entity resolver which does absolutely nothing :-0
+ * A simple entity resolver which does absolutely nothing
  * It allows a fast verification of an XML Document without resolving entities
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class NullEntityResolver implements EntityResolver {
-    private static NullEntityResolver INSTANCE;
-    private final InputSource m_source;
+public class NullEntityResolver implements EntityResolver
+{
+    private static final NullEntityResolver INSTANCE = new NullEntityResolver();
+    private final InputSource _source;
 
-    private NullEntityResolver() {
-        m_source = new InputSource();
+    private NullEntityResolver()
+    {
+        _source = new InputSource();
     }
 
-    /**
-     *
-     * @return a new instance of this class
-     */
-    public static NullEntityResolver getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new NullEntityResolver();
-        }
-
+    /**  @return a new instance of this class  */
+    public static NullEntityResolver getInstance()
+    {
         return INSTANCE;
     }
 
-    /**
-     * 
-     * @param publicId
-     * @param systemId
-     * @return
-     * @throws SAXException
-     * @throws IOException
+    /* (non-Javadoc)
+     * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
      */
     public InputSource resolveEntity(String publicId, String systemId)
-        throws SAXException, IOException {
-        m_source.setCharacterStream(new StringReader(""));
+        throws SAXException, IOException
+    {
+        _source.setCharacterStream(new StringReader(""));
 
-        return m_source;
+        return _source;
     }
 }

@@ -31,8 +31,11 @@ import javax.swing.text.JTextComponent;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class EditorUtilities {
-    private EditorUtilities() {
+public class EditorUtilities
+{
+    private EditorUtilities()
+    {
+    	throw new AssertionError();
     }
 
     /**
@@ -40,7 +43,8 @@ public class EditorUtilities {
      * @param jtc
      * @return
      */
-    public static CaretPosition getCaretPosition(JTextComponent jtc) {
+    public static CaretPosition getCaretPosition(JTextComponent jtc)
+    {
         int caretPosition = jtc.getCaretPosition();
         Element root = jtc.getDocument().getDefaultRootElement();
         int line = root.getElementIndex(caretPosition);

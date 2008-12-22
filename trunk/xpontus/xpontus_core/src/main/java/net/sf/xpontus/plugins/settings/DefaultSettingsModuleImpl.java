@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.swing.UIManager;
 
@@ -41,7 +43,6 @@ import net.sf.xpontus.modules.gui.components.JideDockTabbedPane;
 import net.sf.xpontus.plugins.scenarios.ScenarioListModel;
 import net.sf.xpontus.properties.PropertiesHolder;
 import net.sf.xpontus.utils.FileHistoryList;
-import net.sf.xpontus.utils.GUIUtils;
 import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 import org.apache.commons.io.FilenameUtils;
@@ -58,7 +59,8 @@ import com.vlsolutions.swing.docking.TabbedDockableContainer;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class DefaultSettingsModuleImpl implements SettingsModuleIF {
+public class DefaultSettingsModuleImpl implements SettingsModuleIF
+{
     public static final String ROLE = DefaultSettingsModuleImpl.class.getName() +
         ".ROLE";
     private static DefaultSettingsModuleImpl INSTANCE;
@@ -68,7 +70,8 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
     private String dbFile;
 
     /** Creates a new instance of DefaultSettingsModuleImpl */
-    private DefaultSettingsModuleImpl() {
+    private DefaultSettingsModuleImpl()
+    {
         dbFile = XPontusConstantsIF.XPONTUS_DATABASE_FILE.getAbsolutePath();
         start();
     }
@@ -77,16 +80,20 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
      *
      * @return
      */
-    public static DefaultSettingsModuleImpl getInstance() {
-        if (INSTANCE == null) {
+    public static DefaultSettingsModuleImpl getInstance()
+    {
+        if (INSTANCE == null)
+        {
             INSTANCE = new DefaultSettingsModuleImpl();
         }
 
         return INSTANCE;
     }
 
-    public void init() {
-        File[] configsDirectories = {
+    public void init()
+    {
+        File[] configsDirectories = 
+            {
                 XPontusConstantsIF.XPONTUS_PLUGINS_DATA_DIR,
                 XPontusConstantsIF.XPONTUS_PREFERENCES_DIR,
                 XPontusConstantsIF.XPONTUS_DATABASE_CONFIG_DIR,
@@ -94,32 +101,39 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
                 XPontusConstantsIF.XPONTUS_CACHE_DIR
             };
 
-        for (int i = 0; i < configsDirectories.length; i++) {
-            if (!configsDirectories[i].exists()) {
+        for (int i = 0; i < configsDirectories.length; i++)
+        {
+            if (!configsDirectories[i].exists())
+            {
                 configsDirectories[i].mkdirs();
             }
         }
 
-        String[] locations = {
+        String[] locations = 
+            {
                 "/net/sf/xpontus/configuration/editorPanel.properties",
                 "/net/sf/xpontus/configuration/general.properties",
                 "/net/sf/xpontus/configuration/mimetypes.properties"
             };
 
-        try {
-            for (String loc : locations) {
+        try
+        {
+            for (String loc : locations)
+            {
                 String outName = FilenameUtils.getName(loc);
                 File output = new File(XPontusConstantsIF.XPONTUS_PREFERENCES_DIR,
                         outName);
 
-                if (!output.exists()) {
-                    if (loc.equals(locations[0])) {
+                if (!output.exists())
+                {
+                    if (loc.equals(locations[0]))
+                    {
                         Properties hackProps = new Properties();
                         InputStream is = getClass().getResourceAsStream(loc);
-                        hackProps.load(is); 
+                        hackProps.load(is);
 
                         Font hackFont = UIManager.getFont("EditorPane.font");
-                        StrBuilder strFont = new StrBuilder(); 
+                        StrBuilder strFont = new StrBuilder();
 
                         strFont.append(hackFont.getFamily() + "," +
                             hackFont.getStyle() + "," + hackFont.getSize());
@@ -129,7 +143,9 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
                         hackProps.store(out, null);
                         out.close();
                         is.close();
-                    } else {
+                    }
+                    else
+                    {
                         InputStream is = getClass().getResourceAsStream(loc);
 
                         OutputStream out = new FileOutputStream(output);
@@ -139,21 +155,23 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
                     }
                 }
 
-                if (!outName.equals("mimetypes.properties")) {
+                if (!outName.equals("mimetypes.properties"))
+                {
                     Properties m_properties = PropertiesConfigurationLoader.load(output);
                     Iterator it = m_properties.keySet().iterator();
 
-                    while (it.hasNext()) {
+                    while (it.hasNext())
+                    {
                         Object m_key = it.next();
                         Object m_value = m_properties.get(m_key);
-                        System.out.println("cle:" + m_key + ",value:" +
-                            m_value);
 
                         XPontusConfig.put(m_key, m_value);
                     }
                 }
             }
-        } catch (Exception err) {
+        }
+        catch (Exception err)
+        {
             err.printStackTrace();
         }
 
@@ -167,9 +185,6 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
         Font m_font = new Font(family, style, size);
 
         XPontusConfig.put("EditorPane.Font", m_font);
-        System.out.println("Default font:" +
-            GUIUtils.fontToString(
-                (Font) XPontusConfig.getValue("EditorPane.Font")));
 
         Map map = new HashMap();
         map.put(ROLE, this);
@@ -182,15 +197,18 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
         initDefaultSettings();
     }
 
-    public void start() {
+    public void start()
+    {
         ScenarioListModel slm = new ScenarioListModel();
 
-        if (!slm.getFileToSaveTo().exists()) {
+        if (!slm.getFileToSaveTo().exists())
+        {
             slm.save();
         }
     }
 
-    public void shutdown() {
+    public void shutdown()
+    {
         FileHistoryList.save();
     }
 
@@ -198,7 +216,8 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
      *
      * @param bean
      */
-    public void save(ConfigurationModel bean) {
+    public void save(ConfigurationModel bean)
+    {
         bean.save();
     }
 
@@ -207,30 +226,33 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF {
      * @param beanClass
      * @return
      */
-    public Object load(ConfigurationModel bean) {
+    public Object load(ConfigurationModel bean)
+    {
         return bean.load();
     }
 
     /**
-     * 
+     *
      */
-    private void initDefaultSettings() {
+    private void initDefaultSettings()
+    {
         Properties props = null;
 
         props = PropertiesConfigurationLoader.load(XPontusConstantsIF.GENERAL_PREFERENCES_FILE);
 
-        Iterator it = props.keySet().iterator();
+        Set<Entry<Object, Object>> propSet = props.entrySet();
 
-        while (it.hasNext()) {
-            Object key = it.next();
-            Object value = props.get(key);
-            UIManager.put(key, value);
+        for (Entry<Object, Object> entry : propSet)
+        {
+            UIManager.put(entry.getKey(), entry.getValue());
         }
     }
 
-    public class XPontusDockableContainerFactory
-        extends DefaultDockableContainerFactory {
-        public TabbedDockableContainer createTabbedDockableContainer() {
+    private static class XPontusDockableContainerFactory
+        extends DefaultDockableContainerFactory
+    {
+        public TabbedDockableContainer createTabbedDockableContainer()
+        {
             return new JideDockTabbedPane();
         }
     }

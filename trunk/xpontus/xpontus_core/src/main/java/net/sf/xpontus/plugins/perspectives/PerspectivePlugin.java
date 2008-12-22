@@ -33,7 +33,6 @@ import org.java.plugin.registry.PluginRegistry;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -41,7 +40,8 @@ import java.util.List;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class PerspectivePlugin extends XPontusPlugin {
+public class PerspectivePlugin extends XPontusPlugin
+{
     /**
      * The extension point interface of this plugin
      */
@@ -63,7 +63,8 @@ public class PerspectivePlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_PERSPECTIVES,
             availablePerspectives);
 
@@ -73,33 +74,34 @@ public class PerspectivePlugin extends XPontusPlugin {
                                                                         .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = outlineExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = outlineExtPoint.getConnectedExtensions();
 
         // register the default perspective
         initExtension(new DefaultPerspectiveImpl());
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
 
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             PerspectivePluginIF m_perspective = (PerspectivePluginIF) cl.newInstance();
             initExtension(m_perspective);
         }
     }
 
     // register a perspective
-    private void initExtension(PerspectivePluginIF m_perspective) {
-        System.out.println("Perspective:" + m_perspective.getName());
+    private void initExtension(PerspectivePluginIF m_perspective)
+    {
         availablePerspectives.add(m_perspective);
     }
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
+    protected void doStart() throws Exception
+    {
         // create a new hashtable to store registered perspectives 
         availablePerspectives = new ArrayList<PerspectivePluginIF>();
     }
@@ -107,7 +109,8 @@ public class PerspectivePlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
         // clear the registered perspectives and free resources
         availablePerspectives.clear();
     }

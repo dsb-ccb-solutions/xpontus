@@ -32,22 +32,27 @@ import javax.swing.text.JTextComponent;
 /**
  * Action to repeat changes
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class RedoActionImpl extends DefaultDocumentAwareActionImpl {
+public class RedoActionImpl extends DefaultDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = 1879299172309797756L;
     public static final String BEAN_ALIAS = "action.redo";
 
-    public RedoActionImpl() {
+    public RedoActionImpl()
+    {
     }
 
-    public void run() {
-        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                           .getDocumentTabContainer();
-        JTextComponent jtc = dtc.getCurrentEditor();
-        XPontusUndoManager redo = (XPontusUndoManager) jtc.getClientProperty(XPontusConstantsIF.UNDO_MANAGER);
+    public void run()
+    {
+        DocumentTabContainer documentTabContainer = DefaultXPontusWindowImpl.getInstance()
+                                                                            .getDocumentTabContainer();
+        JTextComponent textEditor = documentTabContainer.getCurrentEditor();
+        XPontusUndoManager undoManager = (XPontusUndoManager) textEditor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER);
 
-        if (redo.canRedo()) {
-            redo.redo();
+        if (undoManager.canRedo())
+        {
+            undoManager.redo();
         }
     }
 }

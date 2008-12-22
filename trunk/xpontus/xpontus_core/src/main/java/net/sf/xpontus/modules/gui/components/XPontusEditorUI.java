@@ -3,7 +3,7 @@
  *
  * Created on July 1, 2007, 7:02 PM
  *
- * Copyright (C) 2005-2007 Yves Zoundi
+ * Copyright (C) 2005-2007 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -30,27 +30,29 @@ import javax.swing.text.JTextComponent;
 
 /**
  *
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @version 0.0.2
  */
-public class XPontusEditorUI extends BasicEditorPaneUI {
-    private final String ext;
-    private final EditorKit kit;
+public class XPontusEditorUI extends BasicEditorPaneUI
+{
+    private final EditorKit editorKit;
 
     /** Creates a new instance of XPontusEditorUI
-     * @param jtc The text component
-     * @param ext The filename extension
+     * @param editor The text component
+     * @param fileExtension The filename extension
      */
-    public XPontusEditorUI(JTextComponent jtc, String ext) {
-        this.ext = ext;
-        kit = new SyntaxEditorkit(jtc, ext);
+    public XPontusEditorUI(JTextComponent editor, String fileExtension)
+    {
+        editorKit = new SyntaxEditorkit(editor, fileExtension);
     }
 
     /**
      * Returns The editorkit to use for this text component
-     * @param jtc The text component
+     * @param editor The text component
      * @return The editorkit to use for this text component
      */
-    public EditorKit getEditorKit(JTextComponent jtc) {
-        return kit;
+    public EditorKit getEditorKit(JTextComponent editor)
+    {
+        return editorKit;
     }
 }

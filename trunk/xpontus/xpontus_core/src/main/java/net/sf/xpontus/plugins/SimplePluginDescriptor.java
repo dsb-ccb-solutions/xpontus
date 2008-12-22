@@ -28,7 +28,8 @@ import org.apache.commons.lang.text.StrBuilder;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class SimplePluginDescriptor {
+public class SimplePluginDescriptor
+{
     private String author;
     private String version;
     private String homepage;
@@ -44,233 +45,263 @@ public class SimplePluginDescriptor {
     private String contributors;
     private String dependencies;
 
-    public SimplePluginDescriptor() {
+    public SimplePluginDescriptor()
+    {
     }
 
     /**
      * @return
      */
-    public String getDependencies() {
+    public String getDependencies()
+    {
         return dependencies;
     }
 
     /**
      * @param dependencies
      */
-    public void setDependencies(String dependencies) {
+    public void setDependencies(String dependencies)
+    {
         this.dependencies = dependencies;
     }
 
-    public void print() {
-        StrBuilder str = new StrBuilder();
-        str.append("Id:" + id);
-        str.appendNewLine();
-        str.append("Builtin:" + builtin);
-        str.appendNewLine();
-        str.append("Category:" + category);
-        str.appendNewLine();
-        str.append("DisplayName:" + displayname);
-        str.appendNewLine();
-        str.append("Description:" + description);
-        str.appendNewLine();
-        str.append("Version:" + version);
-        str.appendNewLine();
-        str.append("License:" + license);
-        str.appendNewLine();
-        str.append("Author:" + author);
-        str.appendNewLine();
-        str.append("Date:" + date);
-        str.appendNewLine();
-        str.append("Homepage:" + homepage);
+    public void print()
+    {
+        StrBuilder str = new StrBuilder("Id:").append(id).appendNewLine()
+                                              .append("Builtin:").append(builtin)
+                                              .appendNewLine()
+                                              .append("Category:")
+                                              .append(category).appendNewLine()
+                                              .append("DisplayName:")
+                                              .append(displayname)
+                                              .appendNewLine()
+                                              .append("Description:")
+                                              .append(description)
+                                              .appendNewLine().append("Version:")
+                                              .append(version).appendNewLine()
+                                              .append("License:").append(license)
+                                              .appendNewLine().append("Author:")
+                                              .append(author).appendNewLine()
+                                              .append("Date:").append(date)
+                                              .appendNewLine()
+                                              .append("Homepage:")
+                                              .append(homepage);
         System.out.println(str.toString());
     }
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
-    public String toString() {
+    public String toString()
+    {
         return id;
     }
 
     /**
      * @return
      */
-    public String getPackagename() {
+    public String getPackagename()
+    {
         return packagename;
     }
 
     /**
      * @param packagename
      */
-    public void setPackagename(String packagename) {
+    public void setPackagename(String packagename)
+    {
         this.packagename = packagename;
     }
 
     /**
      * @return
      */
-    public String getArchive() {
+    public String getArchive()
+    {
         return archive;
     }
 
     /**
      * @param archive
      */
-    public void setArchive(String archive) {
+    public void setArchive(String archive)
+    {
         this.archive = archive;
     }
 
     /**
      * @return
      */
-    public String getContributors() {
+    public String getContributors()
+    {
         return contributors;
     }
 
     /**
      * @param contributors
      */
-    public void setContributors(String contributors) {
+    public void setContributors(String contributors)
+    {
         this.contributors = contributors;
     }
 
     /**
      * @return
      */
-    public String getDate() {
+    public String getDate()
+    {
         return date;
     }
 
     /**
      * @param date
      */
-    public void setDate(String date) {
+    public void setDate(String date)
+    {
         this.date = date;
     }
 
     /**
      * @return
      */
-    public String getLicense() {
+    public String getLicense()
+    {
         return license;
     }
 
     /**
      * @param license
      */
-    public void setLicense(String license) {
+    public void setLicense(String license)
+    {
         this.license = license;
     }
 
     /**
      * @return
      */
-    public String getAuthor() {
+    public String getAuthor()
+    {
         return author;
     }
 
     /**
      * @param author
      */
-    public void setAuthor(String author) {
+    public void setAuthor(String author)
+    {
         this.author = author;
     }
 
     /**
      * @return
      */
-    public String getBuiltin() {
+    public String getBuiltin()
+    {
         return builtin;
     }
 
     /**
      * @param builtin
      */
-    public void setBuiltin(String builtin) {
+    public void setBuiltin(String builtin)
+    {
         this.builtin = builtin;
     }
 
     /**
      * @return
      */
-    public String getCategory() {
+    public String getCategory()
+    {
         return category;
     }
 
     /**
      * @param category
      */
-    public void setCategory(String category) {
+    public void setCategory(String category)
+    {
         this.category = category;
     }
 
     /**
      * @return
      */
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
     /**
      * @param description
      */
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
     /**
      * @return
      */
-    public String getDisplayname() {
+    public String getDisplayname()
+    {
         return displayname;
     }
 
     /**
      * @param displayname
      */
-    public void setDisplayname(String displayname) {
+    public void setDisplayname(String displayname)
+    {
         this.displayname = displayname;
     }
 
     /**
      * @return
      */
-    public String getHomepage() {
+    public String getHomepage()
+    {
         return homepage;
     }
 
     /**
      * @param homepage
      */
-    public void setHomepage(String homepage) {
+    public void setHomepage(String homepage)
+    {
         this.homepage = homepage;
     }
 
     /**
      * @return
      */
-    public String getId() {
+    public String getId()
+    {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(String id) {
+    public void setId(String id)
+    {
         this.id = id;
     }
 
     /**
      * @return
      */
-    public String getVersion() {
+    public String getVersion()
+    {
         return version;
     }
 
     /**
      * @param version
      */
-    public void setVersion(String version) {
+    public void setVersion(String version)
+    {
         this.version = version;
     }
 }

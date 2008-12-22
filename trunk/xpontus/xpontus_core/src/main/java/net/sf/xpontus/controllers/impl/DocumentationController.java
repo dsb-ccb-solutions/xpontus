@@ -172,7 +172,7 @@ public class DocumentationController {
                         return null;
                     }
 
-                    Hashtable t = (Hashtable) DocConfiguration.getInstane()
+                    Hashtable<?,?> t = (Hashtable<?,?>) DocConfiguration.getInstane()
                                                               .getEngines().get(type);
                     ClassLoader loader = (ClassLoader) t.get(XPontusConstantsIF.CLASS_LOADER);
                     String classname = t.get(XPontusConstantsIF.OBJECT_CLASSNAME)

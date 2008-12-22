@@ -29,10 +29,12 @@ import java.util.Map;
  *
  * @author Yves Zoundi
  */
-public class PropertiesHolder {
-    private static Map properties = new HashMap();
+public class PropertiesHolder
+{
+    private static final Map<String, Object> properties = new HashMap<String, Object>();
 
-    private PropertiesHolder() {
+    private PropertiesHolder()
+    {
     }
 
     /**
@@ -40,7 +42,8 @@ public class PropertiesHolder {
      * @param propertiesAlias
      * @param object
      */
-    public static void registerProperty(String propertiesAlias, Object object) {
+    public static void registerProperty(String propertiesAlias, Object object)
+    {
         properties.put(propertiesAlias, object);
     }
 
@@ -49,7 +52,8 @@ public class PropertiesHolder {
      * @param propertiesAlias
      * @return
      */
-    public static Object getPropertyValue(String propertiesAlias) {
+    public static Object getPropertyValue(String propertiesAlias)
+    {
         return properties.get(propertiesAlias);
     }
 }

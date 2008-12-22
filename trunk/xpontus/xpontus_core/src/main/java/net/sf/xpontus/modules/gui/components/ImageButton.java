@@ -1,7 +1,7 @@
 /*
  * ImageButton.java
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -33,17 +33,21 @@ import javax.swing.JButton;
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
- */ 
-public class ImageButton extends JButton {
+ */
+public class ImageButton extends JButton
+{
+    private static final long serialVersionUID = 3962743587853548916L;
     Dimension fixedSize = null;
 
     /**
      * @param icon
      */
-    public ImageButton(Icon icon) {
+    public ImageButton(Icon icon)
+    {
         super(icon);
 
-        if (icon != null) {
+        if (icon != null)
+        {
             fixedSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
         }
 
@@ -58,12 +62,14 @@ public class ImageButton extends JButton {
     /**
      * @param action
      */
-    public ImageButton(Action action) {
+    public ImageButton(Action action)
+    {
         super(action);
 
         Icon icon = getIcon();
 
-        if (icon != null) {
+        if (icon != null)
+        {
             fixedSize = new Dimension(icon.getIconWidth(), icon.getIconHeight());
         }
     }
@@ -71,10 +77,14 @@ public class ImageButton extends JButton {
     /* (non-Javadoc)
      * @see javax.swing.JComponent#getMinimumSize()
      */
-    public Dimension getMinimumSize() {
-        if (fixedSize == null) {
+    public Dimension getMinimumSize()
+    {
+        if (fixedSize == null)
+        {
             return super.getMinimumSize();
-        } else {
+        }
+        else
+        {
             return fixedSize;
         }
     }
@@ -82,10 +92,14 @@ public class ImageButton extends JButton {
     /* (non-Javadoc)
      * @see javax.swing.JComponent#getMaximumSize()
      */
-    public Dimension getMaximumSize() {
-        if (fixedSize == null) {
+    public Dimension getMaximumSize()
+    {
+        if (fixedSize == null)
+        {
             return super.getMaximumSize();
-        } else {
+        }
+        else
+        {
             return fixedSize;
         }
     }
@@ -93,10 +107,14 @@ public class ImageButton extends JButton {
     /* (non-Javadoc)
      * @see javax.swing.JComponent#getPreferredSize()
      */
-    public Dimension getPreferredSize() {
-        if (fixedSize == null) {
+    public Dimension getPreferredSize()
+    {
+        if (fixedSize == null)
+        {
             return super.getPreferredSize();
-        } else {
+        }
+        else
+        {
             return fixedSize;
         }
     }

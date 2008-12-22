@@ -73,7 +73,6 @@ public class XPathResultsDockable extends OutputDockable {
                                     0);
 
                             if (xrd.hasLineInfo()) {
-                                String s = xrd.getValue();
                                 String[] lineinfo = new String[]{xrd.getLine() + "" , xrd.getColumn() + ""};
                                 gotoLine(lineinfo);
                             }

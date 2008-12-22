@@ -3,8 +3,7 @@
  *
  * Created on 29-Jul-2007, 5:49:38 PM
  *
- *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -40,25 +39,32 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 
 
 /**
  * XML Lexer plugin
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XMLLexerPlugin extends Plugin {
+public class XMLLexerPlugin extends Plugin
+{
     static File configfile = null;
     String packageName = getClass().getPackage().getName();
     File confdir = new File(XPontusConfigurationConstantsIF.XPONTUS_PREFERENCES_DIR,
             packageName);
 
-    public XMLLexerPlugin() {
+    public XMLLexerPlugin()
+    {
     }
 
-    protected void doStart() throws Exception {
-        try {
-            if (!confdir.exists()) {
+    protected void doStart() throws Exception
+    {
+        try
+        {
+            if (!confdir.exists())
+            {
                 confdir.mkdirs();
             }
 
@@ -66,7 +72,8 @@ public class XMLLexerPlugin extends Plugin {
 
             Properties props = new Properties();
 
-            if (!configfile.exists()) {
+            if (!configfile.exists())
+            {
                 OutputStream bos = FileUtils.openOutputStream(configfile);
 
                 props.put(XMLLexerPreferencesConstantsIF.class.getName() + "$" +
@@ -91,35 +98,37 @@ public class XMLLexerPlugin extends Plugin {
 
                 PropertiesConfigurationLoader.save(configfile, props);
 
-                Iterator it = props.keySet().iterator();
+                Set<Entry<Object, Object>> properties = props.entrySet();
 
-                while (it.hasNext()) {
-                    Object m_key = it.next();
-                    String m_value = (String) props.get(m_key);
-                    Color c = ColorUtils.stringToColor(m_value);
-                    XPontusConfig.put(m_key, c);
+                for (Entry<Object, Object> entry : properties)
+                {
+                    XPontusConfig.put(entry.getKey(),
+                        ColorUtils.stringToColor(entry.getValue().toString()));
                 }
-            } else {
+            }
+            else
+            {
                 InputStream fis = FileUtils.openInputStream(configfile);
                 props.load(fis);
                 IOUtils.closeQuietly(fis);
 
-                Iterator it = props.keySet().iterator();
+                Set<Entry<Object, Object>> properties = props.entrySet();
 
-                while (it.hasNext()) {
-                    Object m_key = it.next();
-                    String m_value = (String) props.get(m_key);
-
-                    Color c = ColorUtils.stringToColor(m_value);
-                    XPontusConfig.put(m_key, c);
+                for (Entry<Object, Object> entry : properties)
+                {
+                    XPontusConfig.put(entry.getKey(),
+                        ColorUtils.stringToColor(entry.getValue().toString()));
                 }
             }
-        } catch (Exception err) {
+        }
+        catch (Exception err)
+        {
             log.error("Error loading HTML lexer settings");
             log.error(err.getMessage());
         }
     }
 
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
     }
 }

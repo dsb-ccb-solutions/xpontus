@@ -1,7 +1,4 @@
 /*
- *
- *
- *
  * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
@@ -32,7 +29,6 @@ import org.java.plugin.registry.PluginRegistry;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 
 
@@ -40,7 +36,8 @@ import java.util.Map;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class EvaluatorPlugin extends XPontusPlugin {
+public class EvaluatorPlugin extends XPontusPlugin
+{
     public static final String EXTENSION_POINT_NAME = "evaluatorpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.evaluator";
     public static final String PLUGIN_CATEGORY = "Evaluator";
@@ -49,18 +46,21 @@ public class EvaluatorPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
-    	 engines = new HashMap<String, Object>();
+    protected void doStart() throws Exception
+    {
+        engines = new HashMap<String, Object>();
     }
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
-    	engines.clear();
+    protected void doStop() throws Exception
+    {
+        engines.clear();
     }
 
-    private void addEngine(EvaluatorPluginIF m_plugin, ClassLoader loader) {
+    private void addEngine(EvaluatorPluginIF m_plugin, ClassLoader loader)
+    {
         Hashtable<String, Object> t = new Hashtable<String, Object>();
 
         t.put(XPontusConstantsIF.CLASS_LOADER, loader);
@@ -72,23 +72,24 @@ public class EvaluatorPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
         ExtensionPoint scenarioPluginExtPoint = registry.getExtensionPoint(getDescriptor()
                                                                                .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = scenarioPluginExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = scenarioPluginExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             String className = ext.getParameter("class").valueAsString();
 
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
 
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             EvaluatorPluginIF m_plugin = (EvaluatorPluginIF) cl.newInstance();
             addEngine(m_plugin, classLoader);
         }

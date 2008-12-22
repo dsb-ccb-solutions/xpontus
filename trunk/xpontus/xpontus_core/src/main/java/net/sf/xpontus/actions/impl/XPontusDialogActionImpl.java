@@ -23,9 +23,6 @@ package net.sf.xpontus.actions.impl;
 
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
@@ -36,36 +33,41 @@ import javax.swing.SwingUtilities;
  * @author Yves Zoundi
  */
 public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
-    implements Runnable {
+    implements Runnable
+{
+    private static final long serialVersionUID = 4908836882982352448L;
     private String dialogClassName;
     private ClassLoader windowClassLoader;
     private JDialog dialog;
-    private Log log = LogFactory.getLog(XPontusDialogActionImpl.class);
 
     /**
      * Creates a new instance of XPontusDialogActionImpl
      */
-    public XPontusDialogActionImpl() {
+    public XPontusDialogActionImpl()
+    {
     }
 
     /**
      * @return
      */
-    public ClassLoader getWindowClassLoader() {
+    public ClassLoader getWindowClassLoader()
+    {
         return windowClassLoader;
     }
 
     /**
      * @param windowClassLoader
      */
-    public void setWindowClassLoader(ClassLoader windowClassLoader) {
+    public void setWindowClassLoader(ClassLoader windowClassLoader)
+    {
         this.windowClassLoader = windowClassLoader;
     }
 
     /**
      * Create a dialog and display it
      */
-    public void execute() {
+    public void execute()
+    {
         initComponents();
         dialog.setLocationRelativeTo(DefaultXPontusWindowImpl.getInstance()
                                                              .getDisplayComponent());
@@ -73,30 +75,37 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
     }
 
     /**
-     * 
+     *
      */
-    private void initComponents() {
-        if (dialog == null) {
-            try {
-                if (windowClassLoader != null) {
+    private void initComponents()
+    {
+        if (dialog == null)
+        {
+            try
+            {
+                if (windowClassLoader != null)
+                {
                     dialog = (JDialog) Class.forName(dialogClassName, true,
                             windowClassLoader).newInstance();
-                } else {
+                }
+                else
+                {
                     dialog = (JDialog) Class.forName(dialogClassName)
                                             .newInstance();
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                log.error(ex.getMessage());
+            }
+            catch (Exception ex)
+            {
+                getLogger().error(ex.getMessage(), ex);
             }
         }
     }
 
-    
     /* (non-Javadoc)
      * @see java.lang.Runnable#run()
      */
-    public void run() {
+    public void run()
+    {
         dialog.setVisible(true);
     }
 
@@ -104,7 +113,8 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
      * Returns the class name of the dialog to create
      * @return The class name of the dialog to create
      */
-    public String getDialogClassName() {
+    public String getDialogClassName()
+    {
         return dialogClassName;
     }
 
@@ -112,7 +122,8 @@ public class XPontusDialogActionImpl extends AbstractXPontusActionImpl
      * The class name of the dialog to create
      * @param dialogClassName The dialog class name
      */
-    public void setDialogClassName(String dialogClassName) {
+    public void setDialogClassName(String dialogClassName)
+    {
         this.dialogClassName = dialogClassName;
     }
 }

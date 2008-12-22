@@ -1,5 +1,4 @@
-/*
- *
+/* 
  *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
@@ -15,9 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA. 
  */
 package net.sf.xpontus.modules.gui.components.preferences;
 
@@ -28,28 +25,35 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ColorTableModel extends AbstractTableModel {
-    private final String[] columnNames;
+public class ColorTableModel extends AbstractTableModel
+{ 
+	private static final long serialVersionUID = -3065385023594023077L;
+	private final String[] columnNames;
     private final Object[][] data;
 
-    public ColorTableModel(Object[][] data, String[] columnNames) {
+    public ColorTableModel(Object[][] data, String[] columnNames)
+    {
         this.columnNames = columnNames;
         this.data = data;
     }
 
-    public int getColumnCount() {
+    public int getColumnCount()
+    {
         return columnNames.length;
     }
 
-    public int getRowCount() {
+    public int getRowCount()
+    {
         return data.length;
     }
 
-    public String getColumnName(int col) {
+    public String getColumnName(int col)
+    {
         return columnNames[col];
     }
 
-    public Object getValueAt(int row, int col) {
+    public Object getValueAt(int row, int col)
+    {
         return data[row][col];
     }
 
@@ -59,21 +63,27 @@ public class ColorTableModel extends AbstractTableModel {
      * then the last column would contain text ("true"/"false"),
      * rather than a check box.
      */
-    public Class getColumnClass(int c) {
+    public Class getColumnClass(int c)
+    {
         return getValueAt(0, c).getClass();
     }
 
-    public boolean isCellEditable(int row, int col) {
+    public boolean isCellEditable(int row, int col)
+    {
         //Note that the data/cell address is constant,
         //no matter where the cell appears onscreen.
-        if (col < 1) {
+        if (col < 1)
+        {
             return false;
-        } else {
+        }
+        else
+        {
             return true;
         }
     }
 
-    public void setValueAt(Object value, int row, int col) {
+    public void setValueAt(Object value, int row, int col)
+    {
         data[row][col] = value;
         fireTableCellUpdated(row, col);
     }

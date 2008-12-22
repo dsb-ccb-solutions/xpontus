@@ -22,6 +22,9 @@ package net.sf.xpontus.actions.impl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 
@@ -32,35 +35,44 @@ import javax.swing.text.JTextComponent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  * @version 0.0.1
  */
-public class XMLCommentActionImpl extends DefaultDocumentAwareActionImpl {
+public class XMLCommentActionImpl extends DefaultDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = -4942031030182221024L;
     public static final String BEAN_ALIAS = "action.commentxml";
+    private static final Log LOG = LogFactory.getLog(XMLCommentActionImpl.class);
 
     /**
-     * 
+     *
      */
-    public XMLCommentActionImpl() {
+    public XMLCommentActionImpl()
+    {
     }
 
     /* (non-Javadoc)
      * @see java.lang.Runnable#run()
      */
-    public void run() {
-        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                           .getDocumentTabContainer();
+    public void run()
+    {
+        DocumentTabContainer documentTabContainer = DefaultXPontusWindowImpl.getInstance()
+                                                                            .getDocumentTabContainer();
 
-        JTextComponent editor = dtc.getCurrentEditor();
+        JTextComponent editor = documentTabContainer.getCurrentEditor();
         Document doc = editor.getDocument();
-        int debut = editor.getSelectionStart();
-        int end = editor.getSelectionEnd();
+        int selectionStart = editor.getSelectionStart();
+        int selectionEnd = editor.getSelectionEnd();
 
-        try {
-            doc.insertString(end, " -->", null);
-            doc.insertString(debut, "<!-- ", null);
-            editor.setCaretPosition(end + " -->".length() + "<!-- ".length());
+        try
+        {
+            doc.insertString(selectionEnd, " -->", null);
+            doc.insertString(selectionStart, "<!-- ", null);
+            editor.setCaretPosition(selectionEnd + " -->".length() +
+                "<!-- ".length());
             editor.requestFocus();
             editor.grabFocus();
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            LOG.warn(e.getMessage(), e);
         }
     }
 }

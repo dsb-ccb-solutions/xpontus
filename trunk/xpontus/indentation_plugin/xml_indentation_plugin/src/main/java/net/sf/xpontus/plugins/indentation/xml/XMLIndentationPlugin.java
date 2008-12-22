@@ -98,8 +98,6 @@ public class XMLIndentationPlugin extends Plugin {
             while (it.hasNext()) {
                 Object m_key = it.next();
                 Object m_value = props.get(m_key);
-                System.out.println("xmlkey:" + m_key);
-                System.out.println("xmlvalue:" + m_value);
                 XPontusConfig.put(m_key, m_value);
             }
         } catch (Exception err) {

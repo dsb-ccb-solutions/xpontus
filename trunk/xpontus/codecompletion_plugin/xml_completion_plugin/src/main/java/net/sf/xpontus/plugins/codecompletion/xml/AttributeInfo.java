@@ -1,7 +1,4 @@
 /*
- *
- *
- *
  * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
@@ -21,13 +18,16 @@
 package net.sf.xpontus.plugins.codecompletion.xml;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class AttributeInfo implements Comparable{
+public class AttributeInfo implements Comparable<AttributeInfo>
+{
     public static final int NONE = 0;
     public static final int ALIGN = 1;
     public static final int VALIGN = 2;
@@ -38,7 +38,7 @@ public class AttributeInfo implements Comparable{
     private boolean hasValue;
     private int attributeType;
     private boolean required = false;
-    private ArrayList values = new ArrayList();
+    private List<String> values = new ArrayList<String>();
 
     /**
      * The constructor.
@@ -46,7 +46,8 @@ public class AttributeInfo implements Comparable{
      * @param attributeName attribute name
      * @param hasValue      this attribute has value or not
      */
-    public AttributeInfo(String attributeName, boolean hasValue) {
+    public AttributeInfo(String attributeName, boolean hasValue)
+    {
         this(attributeName, hasValue, NONE);
     }
 
@@ -58,7 +59,8 @@ public class AttributeInfo implements Comparable{
      * @param attributeType attribute type
      */
     public AttributeInfo(String attributeName, boolean hasValue,
-        int attributeType) {
+        int attributeType)
+    {
         this(attributeName, hasValue, attributeType, false);
     }
 
@@ -71,42 +73,51 @@ public class AttributeInfo implements Comparable{
      * @param required      this attribute is required or not
      */
     public AttributeInfo(String attributeName, boolean hasValue,
-        int attributeType, boolean required) {
+        int attributeType, boolean required)
+    {
         this.attributeName = attributeName;
         this.hasValue = hasValue;
         this.attributeType = attributeType;
         this.required = required;
     }
 
-    public int getAttributeType() {
+    public int getAttributeType()
+    {
         return this.attributeType;
     }
 
-    public String getAttributeName() {
+    public String getAttributeName()
+    {
         return this.attributeName;
     }
 
-    public boolean hasValue() {
+    public boolean hasValue()
+    {
         return this.hasValue;
     }
 
-    public boolean isRequired() {
+    public boolean isRequired()
+    {
         return this.required;
     }
 
-    public void addValue(String value) {
+    public void addValue(String value)
+    {
         this.values.add(value);
     }
 
-    public String toString() {
+    public String toString()
+    {
         return this.attributeName;
     }
 
-    public String[] getValues() {
-        return (String[]) this.values.toArray(new String[this.values.size()]);
+    public List<String> getValues()
+    {
+        return Collections.unmodifiableList(values);
     }
 
-    public int compareTo(Object o) {
-       return attributeName.compareTo(o.toString());
+    public int compareTo(AttributeInfo attributeInfo)
+    {
+        return attributeName.compareTo(attributeInfo.getAttributeName());
     }
 }

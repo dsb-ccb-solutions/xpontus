@@ -38,11 +38,14 @@ import javax.swing.text.JTextComponent;
 
 
 /**
- * Find/replace dialog
+ * Find/replace dialog (Unused)
  * @version 0.0.1
- * @author SOAP GUI, Yves Zoundi
+ * @author SOAP GUI, Yves Zoundi <yveszoundi at users dot sf dot net>
+ * 
  */
-public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
+public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = -679377056630905245L;
     private JTextComponent target;
     private JDialog dialog;
     private JCheckBox caseCheck;
@@ -56,25 +59,33 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
     private JComboBox findCombo;
     private JComboBox replaceCombo;
     private JCheckBox wrapCheck;
-
     private SearchFormView m_view;
 
-    public FindReplaceActionImpl() {
+    public FindReplaceActionImpl()
+    {
     }
 
-    public void run() {
+    public void run()
+    {
         show2();
     }
 
-    private void show2(){
-        if(m_view == null){
+    private void show2()
+    {
+        if (m_view == null)
+        {
             m_view = new SearchFormView();
         }
-        m_view.setLocationRelativeTo(DefaultXPontusWindowImpl.getInstance().getDisplayComponent());
+
+        m_view.setLocationRelativeTo(DefaultXPontusWindowImpl.getInstance()
+                                                             .getDisplayComponent());
         m_view.setVisible(true);
     }
-    public void show() {
-        if (dialog == null) {
+
+    public void show()
+    {
+        if (dialog == null)
+        {
             buildDialog();
         }
 
@@ -89,18 +100,21 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
                                                 .getDisplayComponent();
         dialog.setLocationRelativeTo(f);
         dialog.setVisible(true);
-        
-        if(target.getSelectedText()!=null){
-            if(!target.getSelectedText().trim().equals("")){
+
+        if (target.getSelectedText() != null)
+        {
+            if (!target.getSelectedText().trim().equals(""))
+            {
                 findCombo.getEditor().setItem(target.getSelectedText());
             }
         }
-        
+
         findCombo.getEditor().selectAll();
         findCombo.requestFocus();
     }
 
-    private void buildDialog() {
+    private void buildDialog()
+    {
         dialog = new JDialog((Frame) XPontusComponentsUtils.getTopComponent()
                                                            .getDisplayComponent(),
                 "Find / Replace", false);
@@ -195,24 +209,30 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
         dialog.getRootPane().setDefaultButton(findButton);
     }
 
-    private int findNext(int pos, String txt, String value) {
+    private int findNext(int pos, String txt, String value)
+    {
         int ix = forwardButton.isSelected() ? txt.indexOf(value, pos + 1)
                                             : txt.lastIndexOf(value, pos - 1);
 
-        if (wholeWordCheck.isSelected()) {
+        if (wholeWordCheck.isSelected())
+        {
             while (((ix != -1) &&
                     ((ix > 0) && Character.isLetterOrDigit(txt.charAt(ix - 1)))) ||
                     ((ix < (txt.length() - value.length() - 1)) &&
-                    Character.isLetterOrDigit(txt.charAt(ix + value.length())))) {
+                    Character.isLetterOrDigit(txt.charAt(ix + value.length()))))
+            {
                 ix = findNext(ix, txt, value);
             }
         }
 
-        if ((ix == -1) && wrapCheck.isSelected()) {
-            if (forwardButton.isSelected() && (pos > 0)) {
+        if ((ix == -1) && wrapCheck.isSelected())
+        {
+            if (forwardButton.isSelected() && (pos > 0))
+            {
                 return findNext(0, txt, value);
-            } else if (backwardButton.isSelected() &&
-                    (pos < (txt.length() - 1))) {
+            }
+            else if (backwardButton.isSelected() && (pos < (txt.length() - 1)))
+            {
                 return findNext(txt.length() - 1, txt, value);
             }
         }
@@ -220,16 +240,22 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
         return ix;
     }
 
-    private class FindAction extends AbstractAction {
-        public FindAction() {
+    private class FindAction extends AbstractAction
+    {
+        private static final long serialVersionUID = 6119275100006266333L;
+
+        public FindAction()
+        {
             super("Find");
         }
 
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e)
+        {
             int pos = target.getCaretPosition();
             int selstart = target.getSelectionStart();
 
-            if ((selstart < pos) && (selstart != -1)) {
+            if ((selstart < pos) && (selstart != -1))
+            {
                 pos = selstart;
             }
 
@@ -237,23 +263,28 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
 
             String value = findCombo.getSelectedItem().toString();
 
-            if ((value.length() == 0) || (pos == txt.length())) {
+            if ((value.length() == 0) || (pos == txt.length()))
+            {
                 return;
             }
 
-            if (!caseCheck.isSelected()) {
+            if (!caseCheck.isSelected())
+            {
                 value = value.toUpperCase();
                 txt = txt.toUpperCase();
             }
 
             int ix = findNext(pos, txt, value);
 
-            if (ix != -1) {
+            if (ix != -1)
+            {
                 target.grabFocus();
                 target.select(ix, ix + value.length());
 
-                for (int c = 0; c < findCombo.getItemCount(); c++) {
-                    if (findCombo.getItemAt(c).equals(value)) {
+                for (int c = 0; c < findCombo.getItemCount(); c++)
+                {
+                    if (findCombo.getItemAt(c).equals(value))
+                    {
                         findCombo.removeItem(c);
 
                         break;
@@ -261,19 +292,27 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
                 }
 
                 findCombo.insertItemAt(value, 0);
-            } else {
+            }
+            else
+            {
                 Toolkit.getDefaultToolkit().beep();
             }
         }
     }
 
-    private class ReplaceAction extends AbstractAction {
-        public ReplaceAction() {
+    private class ReplaceAction extends AbstractAction
+    {
+        private static final long serialVersionUID = -8766403165089665561L;
+
+        public ReplaceAction()
+        {
             super("Replace");
         }
 
-        public void actionPerformed(ActionEvent e) {
-            if (target.getSelectedText() == null) {
+        public void actionPerformed(ActionEvent e)
+        {
+            if (target.getSelectedText() == null)
+            {
                 return;
             }
 
@@ -283,8 +322,10 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
             target.grabFocus();
             target.select(ix + value.length(), ix);
 
-            for (int c = 0; c < replaceCombo.getItemCount(); c++) {
-                if (replaceCombo.getItemAt(c).equals(value)) {
+            for (int c = 0; c < replaceCombo.getItemCount(); c++)
+            {
+                if (replaceCombo.getItemAt(c).equals(value))
+                {
                     replaceCombo.removeItem(c);
 
                     break;
@@ -295,31 +336,41 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
         }
     }
 
-    private class ReplaceAllAction extends AbstractAction {
-        public ReplaceAllAction() {
+    private class ReplaceAllAction extends AbstractAction
+    {
+        private static final long serialVersionUID = 4312876915074536782L;
+
+        public ReplaceAllAction()
+        {
             super("Replace All");
         }
 
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e)
+        {
             int pos = target.getCaretPosition();
             String txt = target.getText();
 
             String value = findCombo.getSelectedItem().toString();
 
-            if ((value.length() == 0) || (txt.length() == 0)) {
+            if ((value.length() == 0) || (txt.length() == 0))
+            {
                 return;
             }
 
             String newValue = replaceCombo.getSelectedItem().toString();
 
-            if (!caseCheck.isSelected()) {
-                if (newValue.equalsIgnoreCase(value)) {
+            if (!caseCheck.isSelected())
+            {
+                if (newValue.equalsIgnoreCase(value))
+                {
                     return;
                 }
 
                 value = value.toUpperCase();
                 txt = txt.toUpperCase();
-            } else if (newValue.equals(value)) {
+            }
+            else if (newValue.equals(value))
+            {
                 return;
             }
 
@@ -328,7 +379,8 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
             int valueInNewValueIx = (!caseCheck.isSelected())
                 ? newValue.toUpperCase().indexOf(value) : newValue.indexOf(value);
 
-            while (ix != -1) {
+            while (ix != -1)
+            {
                 System.out.println("found match at " + ix + ", " + firstIx +
                     ", " + valueInNewValueIx);
                 target.select(ix + value.length(), ix);
@@ -338,32 +390,40 @@ public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl {
                 target.select(ix + newValue.length(), ix);
 
                 // adjust firstix 
-                if (ix < firstIx) {
+                if (ix < firstIx)
+                {
                     firstIx += (newValue.length() - value.length());
                 }
 
                 txt = target.getText();
 
-                if (!caseCheck.isSelected()) {
+                if (!caseCheck.isSelected())
+                {
                     txt = txt.toUpperCase();
                 }
 
                 ix = findNext(ix + newValue.length(), txt, value);
 
                 if (wrapCheck.isSelected() && (valueInNewValueIx != -1) &&
-                        (ix == (firstIx + valueInNewValueIx))) {
+                        (ix == (firstIx + valueInNewValueIx)))
+                {
                     break;
                 }
             }
         }
     }
 
-    private class CloseAction extends AbstractAction {
-        public CloseAction() {
+    private class CloseAction extends AbstractAction
+    {
+        private static final long serialVersionUID = -8353890537642010316L;
+
+        public CloseAction()
+        {
             super("Close");
         }
 
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e)
+        {
             dialog.setVisible(false);
         }
     }

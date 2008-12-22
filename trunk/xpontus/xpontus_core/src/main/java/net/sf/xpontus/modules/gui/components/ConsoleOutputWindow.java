@@ -43,22 +43,17 @@ import javax.swing.text.JTextComponent;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class ConsoleOutputWindow {
-    /**
-     *
-     */
+public class ConsoleOutputWindow
+{
     static public final int MESSAGES_WINDOW = 0;
-
-    /**
-     *
-     */
     static public final int XPATH_WINDOW = 1;
     private DockGroup group = new DockGroup("outputWindow");
     private final DockKey outputKey = new DockKey("Output");
     private ListOrderedMap dockables = new ListOrderedMap();
 
     /** Creates a new instance of OutputWindow */
-    public ConsoleOutputWindow() {
+    public ConsoleOutputWindow()
+    {
         initComponents();
     }
 
@@ -66,11 +61,13 @@ public class ConsoleOutputWindow {
      *
      * @return
      */
-    public List getDockables() {
+    public List getDockables()
+    {
         return dockables.valueList();
     }
 
-    public void addDockable(OutputDockable dockable) {
+    public void addDockable(OutputDockable dockable)
+    {
         dockable.getDockKey().setDockGroup(group);
         dockables.put(dockable.getId(), dockable);
     }
@@ -78,7 +75,8 @@ public class ConsoleOutputWindow {
     /**
      *
      */
-    private void initComponents() {
+    private void initComponents()
+    {
         OutputDockable d = new MessagesWindowDockable();
         JScrollPane sp = (JScrollPane) d.getComponent();
         JTextComponent jtc = (JTextComponent) sp.getViewport().getComponent(0);
@@ -87,18 +85,21 @@ public class ConsoleOutputWindow {
         addDockable(new XPathResultsDockable());
     }
 
-    public OutputDockable getDockableById(String dockableID) {
+    public OutputDockable getDockableById(String dockableID)
+    {
         return (OutputDockable) dockables.get(dockableID);
     }
 
     /**
      * @param dockableID
      */
-    public void setFocus(String dockableID) {
+    public void setFocus(String dockableID)
+    {
         Dockable dockable = (Dockable) dockables.get(dockableID);
         TabbedDockableContainer container = DockingUtilities.findTabbedDockableContainer(dockable);
 
-        if (container != null) {
+        if (container != null)
+        {
             container.setSelectedDockable(dockable);
             dockable.getComponent().requestFocus();
         }
@@ -108,7 +109,8 @@ public class ConsoleOutputWindow {
      *
      * @return
      */
-    public DockKey getDockKey() {
+    public DockKey getDockKey()
+    {
         return outputKey;
     }
 }

@@ -28,11 +28,18 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public abstract class DefaultDocumentAwareActionImpl
-    extends XPontusDocumentAwareThreadedActionImpl {
-    public void onNotify(DocumentContainerChangeEvent evt) {
-        if (evt.getSource() == null) {
+    extends XPontusDocumentAwareThreadedActionImpl
+{
+    private static final long serialVersionUID = 8566511523937440808L;
+
+    public void onNotify(DocumentContainerChangeEvent evt)
+    {
+        if (evt.getSource() == null)
+        {
             setEnabled(false);
-        } else {
+        }
+        else
+        {
             setEnabled(true);
         }
     }

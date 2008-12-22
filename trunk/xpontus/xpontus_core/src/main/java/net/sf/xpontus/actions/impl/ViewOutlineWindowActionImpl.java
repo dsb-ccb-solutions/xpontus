@@ -35,10 +35,13 @@ import net.sf.xpontus.modules.gui.components.OutlineViewDockable;
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ViewOutlineWindowActionImpl extends AbstractXPontusActionImpl {
+public class ViewOutlineWindowActionImpl extends AbstractXPontusActionImpl
+{
+    private static final long serialVersionUID = -2394284480216205619L;
     public static final String BEAN_ALIAS = "action.viewoutlinewindow";
 
-    public void execute() {
+    public void execute()
+    {
         OutlineViewDockable dockable = DefaultXPontusWindowImpl.getInstance()
                                                                .getOutline();
 
@@ -51,21 +54,26 @@ public class ViewOutlineWindowActionImpl extends AbstractXPontusActionImpl {
                                                          .getDocumentTabContainer()
                                                          .getCurrentDockable();
 
-        if (rightDockable == null) {
+        if (rightDockable == null)
+        {
             rightDockable = DefaultXPontusWindowImpl.getInstance()
                                                     .getDefaultPane();
         }
 
-        if (state == DockableState.STATE_CLOSED) {
+        if (state == DockableState.STATE_CLOSED)
+        {
             setName("Hide outline");
 
-            if (rightDockable.getDockKey().getDockableState() == DockableState.STATE_MAXIMIZED) {
+            if (rightDockable.getDockKey().getDockableState() == DockableState.STATE_MAXIMIZED)
+            {
                 desktop.restore(rightDockable);
             }
 
             desktop.split(rightDockable, dockable, DockingConstants.SPLIT_LEFT);
             dockable.getDockKey().setDockableState(DockableState.STATE_DOCKED);
-        } else {
+        }
+        else
+        {
             setName("Show outline");
             desktop.close(dockable);
             dockable.getDockKey().setDockableState(DockableState.STATE_CLOSED);

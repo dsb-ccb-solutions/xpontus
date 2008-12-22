@@ -59,6 +59,8 @@ public class DefaultThemeModuleImpl implements ThemePluginIF {
      * @see net.sf.xpontus.plugins.themes.ThemePluginIF#getPropertiesToSet()
      */
     public Properties getPropertiesToSet() {
-        return null;
+        return EMPTY_PROPERTIES;
     }
+    
+    private static final Properties EMPTY_PROPERTIES = new Properties();
 }

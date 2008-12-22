@@ -47,7 +47,7 @@ public interface XPontusConfigurationConstantsIF {
     /**
      * The settings directory for this version
      */
-    File XPONTUS_HOME_DIR = new File(XPONTUS_HOME_DIR1, "1.0.0.1");
+    File XPONTUS_HOME_DIR = new File(XPONTUS_HOME_DIR1, XPontusConstantsIF.APPLICATION_VERSION);
 
     /**
      * The Lucene directory to search plugins

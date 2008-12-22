@@ -39,35 +39,42 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.SwingUtilities;
 
 
 /**
  * Plugin for the menubar entries
  * @author Yves Zoundi
  */
-public class MenuBarPlugin extends XPontusPlugin {
+public class MenuBarPlugin extends XPontusPlugin
+{
     public static final String EXTENSION_POINT_NAME = "menubarpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.menubar";
     public static final String PLUGIN_CATEGORY = "Menubar";
     private boolean newmenu = false;
     private boolean textOnly = false;
     private Map<String, Object> menuMap;
+    private final JMenuBar menubar = DefaultXPontusWindowImpl.getInstance()
+                                                             .getMenuBar();
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
-        menuMap = new HashMap<String, Object>();
+    protected void doStart() throws Exception
+    {
+        menuMap = new ConcurrentHashMap<String, Object>();
 
         String confValue = XPontusConfig.getValue("xpontus.MenuBarLookAndFeel")
                                         .toString();
 
-        if (confValue.equals("Text only")) {
+        if (confValue.equals("Text only"))
+        {
             textOnly = true;
         }
     }
@@ -75,7 +82,8 @@ public class MenuBarPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
         menuMap.clear();
     }
 
@@ -84,21 +92,29 @@ public class MenuBarPlugin extends XPontusPlugin {
      * @param menu_key  The menu key
      * @return A menu
      */
-    public JMenu getOrCreateMenu(String menu_key) {
+    public JMenu getOrCreateMenu(String menu_key)
+    {
         newmenu = false;
 
         JMenu menu = null;
 
-        if (!menuMap.containsKey(menu_key)) {
+        if (!menuMap.containsKey(menu_key))
+        {
             menu = new JMenu();
 
-            JMenuBar menubar = DefaultXPontusWindowImpl.getInstance()
-                                                       .getMenuBar();
-            menubar.add(menu);
             newmenu = true;
             menuMap.put(menu_key, menu);
-        } else {
+        }
+        else
+        {
             menu = (JMenu) menuMap.get(menu_key);
+        }
+
+        if (newmenu)
+        {
+            menubar.add(menu);
+            menubar.revalidate();
+            menubar.repaint();
         }
 
         return menu;
@@ -108,27 +124,32 @@ public class MenuBarPlugin extends XPontusPlugin {
      *
      * @param ext
      */
-    public void initExtension(MenuBarPluginIF ext) {
+    public void initExtension(MenuBarPluginIF ext)
+    {
         JMenu menu = null;
 
         Map<String, List<Action>> map = ext.getActionMap();
 
         Iterator<String> m_iterator = map.keySet().iterator();
 
-        for (int pos = 0; m_iterator.hasNext(); pos++) {
+        for (int pos = 0; m_iterator.hasNext(); pos++)
+        {
             String m_MenuKey = m_iterator.next();
             menu = getOrCreateMenu(m_MenuKey);
 
-            if (newmenu) {
+            if (newmenu)
+            {
                 menu.setText(ext.getMenuNames().get(pos).toString());
             }
 
             List<Action> actions = map.get(m_MenuKey);
 
-            for (int j = 0; j < actions.size(); j++) {
+            for (int j = 0; j < actions.size(); j++)
+            {
                 JMenuItem m_item = menu.add(actions.get(j));
 
-                if (textOnly) {
+                if (textOnly)
+                {
                     m_item.setIcon(null);
                 }
             }
@@ -138,11 +159,13 @@ public class MenuBarPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
-    public void init() throws Exception {
-        JMenu menu = null;
+    public void init() throws Exception
+    {
+        final int menuCount = XPontusMenuConstantsIF.MENU_IDS.length;
 
-        for (int i = 0; i < XPontusMenuConstantsIF.MENU_IDS.length; i++) {
-            menu = getOrCreateMenu(XPontusMenuConstantsIF.MENU_IDS[i]);
+        for (int i = 0; i < menuCount; i++)
+        {
+            JMenu menu = getOrCreateMenu(XPontusMenuConstantsIF.MENU_IDS[i]);
             menu.setText(XPontusMenuConstantsIF.MENU_TITLES[i]);
         }
 
@@ -152,15 +175,15 @@ public class MenuBarPlugin extends XPontusPlugin {
                                                                           .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = iocPluginExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = iocPluginExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
 
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             MenuBarPluginIF mPlugin = (MenuBarPluginIF) cl.newInstance();
 
             initExtension(mPlugin);

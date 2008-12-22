@@ -21,8 +21,8 @@
  */
 package net.sf.xpontus.server;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import net.sf.xpontus.controllers.impl.XPontusRunner;
+import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,29 +33,29 @@ import java.io.OutputStreamWriter;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import net.sf.xpontus.controllers.impl.XPontusRunner;
-import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
+
 
 /**
  * Class which allows a single instance of the application to be called
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class XPontusServerManager {
-
+public class XPontusServerManager
+{
     public static final int PORT = 9876;
     private static final String EOT = ".";
+
     /** The server socket instance. */
     private static ServerSocket server;
-    private static String theme = null;
-    private static Log logger = LogFactory.getLog(XPontusServerManager.class);
 
     /**
      * Constructor XPontusServerManager creates a new XPontusServerManager instance.
      */
-    public XPontusServerManager() {
+    public XPontusServerManager()
+    {
     }
 
     /**
@@ -63,10 +63,14 @@ public class XPontusServerManager {
      *
      * @param delay time in milliseconds
      */
-    private static void sleep(long delay) {
-        try {
+    private static void sleep(long delay)
+    {
+        try
+        {
             Thread.sleep(delay);
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e)
+        {
         }
     }
 
@@ -76,13 +80,16 @@ public class XPontusServerManager {
      * @param args of type String[]
      * @return boolean
      */
-    public static boolean attach(String[] args) {
-        try {
+    public static boolean attach(String[] args)
+    {
+        try
+        {
             Socket socket = new Socket("localhost", PORT);
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
-                    socket.getOutputStream()));
+                        socket.getOutputStream()));
 
-            for (int i = 0; i < args.length; i++) {
+            for (int i = 0; i < args.length; i++)
+            {
                 out.write((new File(args[i])).getAbsolutePath());
                 out.newLine();
             }
@@ -94,7 +101,9 @@ public class XPontusServerManager {
             socket.close();
 
             return true;
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             //            e.printStackTrace();
             //            System.out.println("Error in attach function ");
             return false;
@@ -115,16 +124,24 @@ public class XPontusServerManager {
      *                otherwise which means that a new server was started if
      *                <code>startServerIfNeeded</code> is set to true or that .
      */
-    public static boolean attach(String[] args, boolean startServerIfNeeded) {
-        if (!attach(args)) {
-            if (startServerIfNeeded) {
+    public static boolean attach(final String[] args,
+        boolean startServerIfNeeded)
+    {
+        if (!attach(args))
+        {
+            if (startServerIfNeeded)
+            {
                 System.err.println(
-                        "XPontus Server not yet started - starting now ...");
+                    "XPontus Server not yet started - starting now ...");
 
-                try {
+                try
+                {
                     XPontusRunner.main(args);
+
                     listen();
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                 }
             }
 
@@ -140,7 +157,8 @@ public class XPontusServerManager {
      *
      * @param args of type String[]
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         attach(args, true);
     }
 
@@ -153,52 +171,68 @@ public class XPontusServerManager {
      * The lines are interpreted as file names and finally forwarded to the
      * editor for opening.
      */
-    private static void listen() {
-        try {
-            if (server != null) {
+    private static void listen()
+    {
+        try
+        {
+            if (server != null)
+            {
                 System.err.println("WARNING: Server already running");
-            } else {
+            }
+            else
+            {
                 server = new ServerSocket(PORT);
 
-                do {
+                do
+                {
                     Socket socket = server.accept();
                     BufferedReader in = new BufferedReader(new InputStreamReader(
-                            socket.getInputStream()));
+                                socket.getInputStream()));
 
-                    while (!socket.isClosed() && !socket.isInputShutdown()) {
+                    while (!socket.isClosed() && !socket.isInputShutdown())
+                    {
                         sleep(100);
 
-                        if (!in.ready()) {
+                        if (!in.ready())
+                        {
                             continue;
                         }
 
-                        try {
+                        try
+                        {
                             String line = in.readLine();
 
-                            if (EOT.equals(line)) {
+                            if (EOT.equals(line))
+                            {
                                 break;
                             }
 
-                            openFiles(new String[]{line});
-
-                        //                            INSTANCE.getPane()
-                        //                                    .createEditorFromFile(new File(line));
-                        } catch (RuntimeException e) {
+                            openFiles(new String[] { line });
+                        }
+                        catch (RuntimeException e)
+                        {
                             e.printStackTrace();
                         }
                     }
-                    
-                    JFrame f = (JFrame) DefaultXPontusWindowImpl.getInstance().getDisplayComponent();
-                     // show the editor frame
+
+                    JFrame f = (JFrame) DefaultXPontusWindowImpl.getInstance()
+                                                                .getDisplayComponent();
+                    // show the editor frame
                     f.setExtendedState(JFrame.NORMAL);
                     f.toFront();
                     f.setVisible(true);
-                } while (true);
+                }
+                while (true);
             }
-        } catch (Exception e) {
-            try {
+        }
+        catch (Exception e)
+        {
+            try
+            {
                 server.close();
-            } catch (IOException x) {
+            }
+            catch (IOException x)
+            {
             }
 
             server = null;
@@ -211,25 +245,35 @@ public class XPontusServerManager {
      *
      * @param args of type String[]
      */
-    private static void openFiles(final String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+    private static void openFiles(final String[] args)
+    {
+        SwingUtilities.invokeLater(new Runnable()
+            {
+                public void run()
+                {
+                    if (args != null)
+                    {
+                        for (int i = 0; i < args.length; i++)
+                        {
+                            String fileName = args[i];
 
-            public void run() {
-                if (args != null) {
-                    for (int i = 0; i < args.length; i++) {
-                        String fileName = args[i];
-                        try {
-                            File f = new File(fileName);
-                            if (f.exists()) {
-                                DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().createEditorFromFile(f);
+                            try
+                            {
+                                File f = new File(fileName);
+
+                                if (f.exists())
+                                {
+                                    DefaultXPontusWindowImpl.getInstance()
+                                                            .getDocumentTabContainer()
+                                                            .createEditorFromFile(f);
+                                }
                             }
-                        } catch (Exception e) {
-
+                            catch (Exception e)
+                            {
+                            }
                         }
                     }
                 }
-            }
-        });
-
+            });
     }
 }

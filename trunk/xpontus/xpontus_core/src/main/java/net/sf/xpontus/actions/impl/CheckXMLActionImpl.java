@@ -22,13 +22,7 @@
  */
 package net.sf.xpontus.actions.impl;
 
-import java.awt.Toolkit;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.Reader;
-
-import javax.swing.text.JTextComponent;
+import com.ibm.icu.text.CharsetDetector;
 
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.modules.gui.components.ConsoleOutputWindow;
@@ -40,18 +34,31 @@ import net.sf.xpontus.utils.NullEntityResolver;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.text.StrBuilder;
+
 import org.apache.xerces.parsers.SAXParser;
+
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
-import com.ibm.icu.text.CharsetDetector;
+import java.awt.Toolkit;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.Reader;
+
+import javax.swing.text.JTextComponent;
 
 
 /**
  * Check if the XML document is well-formed
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
+public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = -2940668985339704365L;
+
     /** Namespaces feature id (http://xml.org/sax/features/namespaces). */
     protected static final String NAMESPACES_FEATURE_ID = "http://xml.org/sax/features/namespaces";
 
@@ -86,24 +93,27 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
     protected static final String XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID = "http://apache.org/xml/features/xinclude/fixup-language";
     public static final String BEAN_ALIAS = "action.checkxml";
 
-    public CheckXMLActionImpl() {
+    public CheckXMLActionImpl()
+    {
     }
 
-    public void run() {
-        JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
-                                                     .getDocumentTabContainer()
-                                                     .getCurrentEditor();
+    public void run()
+    {
+        JTextComponent textComponent = DefaultXPontusWindowImpl.getInstance()
+                                                               .getDocumentTabContainer()
+                                                               .getCurrentEditor();
 
-        Object contentType = jtc.getClientProperty(XPontusConstantsIF.CONTENT_TYPE);
+        Object contentType = textComponent.getClientProperty(XPontusConstantsIF.CONTENT_TYPE);
 
-        if (contentType == null) {
+        if (contentType == null)
+        {
             return;
         }
 
-        if (!contentType.equals("text/xml")) {
+        if (!contentType.equals("text/xml"))
+        {
             XPontusComponentsUtils.showInformationMessage(
                 "The document is not an XML document \nor is not registered as one");
-            ;
 
             return;
         }
@@ -117,15 +127,16 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
                                                                                     .getDocumentTabContainer()
                                                                                     .getCurrentDockable();
 
-        try {
+        try
+        {
             // read the document
-            CharsetDetector d = new CharsetDetector();
+            CharsetDetector detector = new CharsetDetector();
 
             InputStream is = new BufferedInputStream(new ByteArrayInputStream(
-                        jtc.getText().getBytes()));
-            d.setText(is);
+                        textComponent.getText().getBytes()));
+            detector.setText(is);
 
-            Reader m_reader = d.detect().getReader();
+            Reader m_reader = detector.detect().getReader();
 
             SAXParser parser = new SAXParser();
 
@@ -145,19 +156,26 @@ public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl {
 
             container.getStatusBar().setMessage("The document is well formed");
             odk.println("The document is well formed");
-        } catch (Exception e) {
-            StringBuffer err = new StringBuffer();
+        }
+        catch (Exception e)
+        {
+            StrBuilder err = new StrBuilder();
 
-            if (e instanceof SAXParseException) {
+            if (e instanceof SAXParseException)
+            {
                 SAXParseException spe = (SAXParseException) e;
-                err.append("Error at line:" + spe.getLineNumber() + ",column:" +
-                    spe.getColumnNumber() + "\n");
+                err.append("Error at line:").append(spe.getLineNumber())
+                   .append(",column:").append(spe.getColumnNumber())
+                   .appendNewLine();
             }
 
+            err.append(e.getMessage());
+
             container.getStatusBar().setMessage("Document not well formed");
-            odk.println(err.toString() + e.getMessage(),
-                OutputDockable.RED_STYLE);
-        } finally {
+            odk.println(err.toString(), OutputDockable.RED_STYLE);
+        }
+        finally
+        {
             Toolkit.getDefaultToolkit().beep();
             console.setFocus(MessagesWindowDockable.DOCKABLE_ID);
         }

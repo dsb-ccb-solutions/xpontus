@@ -1,7 +1,6 @@
 /*
  *
- *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -23,188 +22,104 @@ package net.sf.xpontus.plugins.codecompletion.xml;
 
 import net.sf.xpontus.parsers.TokenNode;
 
+import org.apache.commons.lang.math.IntRange;
 
 import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.tree.DefaultMutableTreeNode;
-import net.sf.xpontus.constants.XPontusConstantsIF;
-import org.apache.commons.lang.math.IntRange;
-import org.apache.commons.lang.text.StrBuilder;
+
 
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XMLTokenWalker {
-
-    private int column;
+public class XMLTokenWalker
+{
+    private static final int LOWER_BOUND_INDEX = 0;
+    private static final int HIGHER_BOUND_INDEX = 1;
     private int offset = 0;
-    private int line;
     private TokenNode nearestTokenNode;
     private Document doc;
 
-    public TokenNode getNearestTokenNode() {
-//        if (nearestTokenNode == null) {
-//            Object o = doc.getProperty(XPontusConstantsIF.OUTLINE_INFO);
-//
-//            if (o != null) {
-//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
-//                if (node.getChildCount() > 0) {
-//                    nearestTokenNode = (TokenNode)node.getChildAt(0);
-//                }
-//            }  
-//        } 
-
-//        return nearestTokenNode;
-
-
-//    }
-//
-//        System.out.println("CompletionToken:" + nearestTokenNode.toString());
-//
-//        if (nearestTokenNode.endLine != -1) {
-//            System.out.println("endLine of token:" + nearestTokenNode.endLine);
-//
-//            if (nearestTokenNode.endLine < line) {
-//                TreeNode parent = nearestTokenNode.getParent();
-//
-//                if (parent instanceof TokenNode) {
-//                    nearestTokenNode = (TokenNode) parent;
-//                }
-//            }
-//        } else {
-//            System.out.println("No end information");
-//        }
+    public TokenNode getNearestTokenNode()
+    {
         return nearestTokenNode;
     }
 
     public void setPositionInformation(Document doc, int offset, int lineInfo,
-            int columnInfo) {
-        this.line = lineInfo + 1;
+        int columnInfo)
+    {
         this.offset = offset;
-        this.column = columnInfo + 2;
         this.doc = doc;
-
-        System.out.println("Offset:" + offset + ",Line max is:" + this.line +
-                "," + this.column);
-        nearestTokenNode =
-                null;
     }
 
-    public void walk(DefaultMutableTreeNode n) {
-        int total = n.getChildCount();
+    public void walk(DefaultMutableTreeNode treeNode)
+    {
+        final int treeNodeChildCount = treeNode.getChildCount();
+        int[] offsets = {  };
 
-        for (int i = 0; i <
-                total; i++) {
-            TokenNode tn = (TokenNode) n.getChildAt(i);
-            int offsets[] = getTokenNodeOffset(tn);
-            
-            if(offsets[0] > (offset)){
+        TokenNode tokenNode = null;
+
+        for (int i = 0; i < treeNodeChildCount; i++)
+        {
+            tokenNode = (TokenNode) treeNode.getChildAt(i);
+            offsets = getTokenNodeOffset(tokenNode);
+
+            if (offsets[LOWER_BOUND_INDEX] > (offset))
+            {
                 break;
             }
-            
-            if (nearestTokenNode != null) {
-                    if (isBestMatch(tn)) {
-                        nearestTokenNode = tn;
-                    }
 
-                } else {
-                    nearestTokenNode = tn;
+            if (nearestTokenNode != null)
+            {
+                if (isBestMatch(tokenNode))
+                {
+                    nearestTokenNode = tokenNode;
                 }
-            
-//            int tokenLine = tn.line;
-//            int tokenColumn = tn.column;
-//
-//            if (tokenLine > line) {
-//                System.out.println("ligne depassee :" + tokenLine);
-//
-//                break;
-//            }
-//
-//            if ((tokenLine == line) && (tokenColumn > column)) {
-//                break;
-//            }
+            }
+            else
+            {
+                nearestTokenNode = tokenNode;
+            }
 
-//            if ((tokenLine < line) ||
-//                    ((tokenLine == line) && (tokenColumn < column))) {
-//                if (nearestTokenNode != null) {
-//                    if (isBestMatch(tn)) {
-//                        nearestTokenNode = tn;
-//                    }
-//
-//                } else {
-//                    nearestTokenNode = tn;
-//                }
-//
-//            }
-
-            walk(tn);
+            walk(tokenNode);
         }
-
     }
 
-    public void printToken(TokenNode n) {
-        StrBuilder sb = new StrBuilder();
-        sb.append("image:" + n.toString());
-        sb.append(",startLine:" + n.line);
-        sb.append(",startColumn:" + n.column);
-        sb.append(",endLine:" + n.endLine);
-        sb.append(",endColumn:" + n.endColumn);
-        System.out.println(sb.toString());
-    }
-
-    public int[] getTokenNodeOffset(TokenNode n) {
+    public int[] getTokenNodeOffset(TokenNode tokenNode)
+    {
         Element element = doc.getDefaultRootElement();
 
-      //  System.out.println("walking:" + n.toString());
-        printToken(n);
-        
         // we need to remove some info from here
-        int m_line = n.line - 1;
-        int m_column = n.column - 1;
+        int tokenLineNumber = tokenNode.line - 1;
+        int tokenColumnNumber = tokenNode.column - 1;
 
         int[] offsets = new int[2];
 
-        int lineOffset = element.getElement(m_line).getStartOffset();
-        offsets[0] = lineOffset + m_column - 1;
+        int lineOffset = element.getElement(tokenLineNumber).getStartOffset();
+        offsets[LOWER_BOUND_INDEX] = (lineOffset + tokenColumnNumber) - 1;
 
-        if (n.endLine == -1) {
-            offsets[1] = offsets[0];
-        } else {
-            int lineOffset2 = element.getElement(n.endLine - 1).getStartOffset();
-            offsets[1] = lineOffset2 + m_column;
+        if (tokenNode.endLine == -1)
+        {
+            offsets[HIGHER_BOUND_INDEX] = offsets[LOWER_BOUND_INDEX];
+        }
+        else
+        {
+            int lineOffset2 = element.getElement(tokenNode.endLine - 1)
+                                     .getStartOffset();
+            offsets[HIGHER_BOUND_INDEX] = lineOffset2 + tokenColumnNumber;
         }
 
         return offsets;
     }
 
-    public boolean isInInterVall(int[] pos) {
-        
-        return offset > pos[0] && offset < pos[1];
-    }
-
-    private boolean isBestMatch(TokenNode tn) {
-    //    System.out.println("=================================");
-    //    System.out.println("Evaluating token:" + tn.toString());
-
-        printToken(tn);
-
+    private boolean isBestMatch(TokenNode tn)
+    {
         int[] offsets = getTokenNodeOffset(tn);
-       // System.out.println("Interval:" + offsets[0] + "," + offsets[1]);
 
-        IntRange m_range = new IntRange(offsets[0], offsets[1]);
+        IntRange m_range = new IntRange(offsets[LOWER_BOUND_INDEX],
+                offsets[HIGHER_BOUND_INDEX]);
 
         return m_range.containsInteger(offset);
-//        System.out.println("Current interval:" + offsets[0] + "," + offsets[1]);
-//        
-//        int[] offsets2 = getTokenNodeOffset(nearestTokenNode);
-//        
-//        if(isInInterVall(offsets) && isInInterVall(offsets2)){
-//            int diff = offsets[1] - offsets[0];
-//            int diff2 = offsets2[1] - offsets2[0];
-//            return diff < diff2;
-//        }
-//
-//        return (offset > offsets[0]) && (offset < offsets[1]);
     }
 }

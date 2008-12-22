@@ -1,7 +1,5 @@
 /*
- *
- *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -39,12 +37,13 @@ import javax.swing.event.PopupMenuListener;
 
 
 /**
- *
+ * Handle recent files list
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class RecentFilesActionImpl extends AbstractXPontusActionImpl
     implements PopupMenuListener {
-    public static final String BEAN_ALIAS = "action.recentfiles";
+    private static final long serialVersionUID = -6965029772049347227L;
+	public static final String BEAN_ALIAS = "action.recentfiles";
     private JMenu menu;
 
     public RecentFilesActionImpl(JMenu menu) {
@@ -97,6 +96,7 @@ public class RecentFilesActionImpl extends AbstractXPontusActionImpl
                     fo = null;
                 }
             } catch (Exception err) {
+            	getLogger().error(err.getMessage(), err);
             }
 
             if ((fo == null)) {

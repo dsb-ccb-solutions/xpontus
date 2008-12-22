@@ -3,7 +3,7 @@
  *
  * Created on 24 avril 2007, 15:20
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -21,51 +21,52 @@
  */
 package net.sf.xpontus.utils;
 
-import com.ibm.icu.text.CharsetDetector;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-
-import org.apache.xerces.util.XMLCatalogResolver;
-
-import org.w3c.dom.Document;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.helpers.DefaultHandler;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.io.Reader;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.xerces.util.XMLCatalogResolver;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.helpers.DefaultHandler;
+
+import com.ibm.icu.text.CharsetDetector;
+
 
 /**
  * Utility class for XML documents
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XMLUtils {
-    private static XMLUtils INSTANCE;
+public class XMLUtils
+{
     private XMLCatalogResolver xmlCatalogResolver;
 
     /** Creates a new instance of XMLUtils */
-    private XMLUtils() {
+    private XMLUtils()
+    {
     }
 
-    public InputSource resolveURI(String uri) {
-        try {
+    public InputSource resolveURI(String uri)
+    {
+        try
+        {
             InputSource src = new InputSource(xmlCatalogResolver.resolveURI(uri));
 
-            if (src == null) {
+            if (src == null)
+            {
             }
 
             return src;
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return null;
         }
     }
@@ -77,17 +78,14 @@ public class XMLUtils {
      * @throws java.lang.Exception parsing exception
      */
     public static Document createDomDocument(String text)
-        throws Exception {
+        throws Exception
+    {
         DocumentBuilder db = DocumentBuilderFactory.newInstance()
                                                    .newDocumentBuilder();
         CharsetDetector detector = new CharsetDetector();
-        byte[] b = IOUtils.toByteArray(text);
-        detector.setText(b);
+        detector.setText(text.getBytes());
 
-        Reader reader = detector.detect().getReader();
-        Document doc = db.parse(new InputSource(reader));
-
-        return doc;
+        return db.parse(new InputSource(detector.detect().getReader()));
     }
 
     /**
@@ -97,7 +95,8 @@ public class XMLUtils {
      * @throws java.lang.Exception a parsing exception
      */
     public static Document createDomDocument(File xmlFile)
-        throws Exception {
+        throws Exception
+    {
         DocumentBuilder db = DocumentBuilderFactory.newInstance()
                                                    .newDocumentBuilder();
         CharsetDetector detector = new CharsetDetector();
@@ -106,10 +105,7 @@ public class XMLUtils {
                     xmlFile));
         detector.setText(is);
 
-        Reader reader = detector.detect().getReader();
-        Document doc = db.parse(new InputSource(reader));
-
-        return doc;
+        return db.parse(new InputSource(detector.detect().getReader()));
     }
 
     /**
@@ -118,10 +114,9 @@ public class XMLUtils {
      * @throws java.lang.Exception
      * @return
      */
-    public static boolean isValid(String text) throws Exception {
+    public static boolean isValid(String text) throws Exception
+    {
         InputStream bis = new ByteArrayInputStream(text.getBytes());
-
-        IOUtils.closeQuietly(bis);
 
         return isValid(bis);
     }
@@ -131,15 +126,19 @@ public class XMLUtils {
      * @param is The input stream
      * @return whether or not the input stream is valid
      */
-    public static boolean isValid(InputStream is) {
+    public static boolean isValid(InputStream is)
+    {
         boolean valid = true;
 
-        try {
+        try
+        {
             SAXParserFactory spf = SAXParserFactory.newInstance();
             SAXParser saxParser = spf.newSAXParser();
 
             saxParser.parse(is, new DefaultHandler());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             valid = false;
         }
 

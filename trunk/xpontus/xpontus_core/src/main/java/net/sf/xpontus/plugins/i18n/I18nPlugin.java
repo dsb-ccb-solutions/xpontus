@@ -30,43 +30,47 @@ import org.java.plugin.registry.PluginDescriptor;
 import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 
 /**
  * The i18n plugin
  * @author Yves Zoundi
  */
-public class I18nPlugin extends XPontusPlugin {
+public class I18nPlugin extends XPontusPlugin
+{
     public static final String EXTENSION_POINT_NAME = "i18npluginif";
     public static final String PLUGIN_IDENTIFIER = "plugins.core.i18n";
     public static final String PLUGIN_CATEGORY = "I18n";
 
     /** Creates a new instance of I18nModule */
-    public I18nPlugin() {
+    public I18nPlugin()
+    {
     }
 
-    protected void doStart() throws Exception {
+    protected void doStart() throws Exception
+    {
     }
 
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
     }
 
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
         ExtensionPoint i18nPluginExtPoint = registry.getExtensionPoint(getDescriptor()
                                                                            .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = i18nPluginExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = i18nPluginExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             I18nPluginIF mPlugin = (I18nPluginIF) cl.newInstance();
         }
     }

@@ -21,28 +21,30 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.net.URL;
-
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.SwingUtilities;
+import com.vlsolutions.swing.docking.Dockable;
+import com.vlsolutions.swing.docking.DockingConstants;
+import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.toolbars.ToolBarContainer;
 
 import net.sf.xpontus.actions.impl.ExitActionImpl;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.plugins.ioc.IOCPlugin;
 import net.sf.xpontus.utils.GUIUtils;
 
+import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.text.StrBuilder;
 
-import com.vlsolutions.swing.docking.Dockable;
-import com.vlsolutions.swing.docking.DockingConstants;
-import com.vlsolutions.swing.docking.DockingDesktop;
-import com.vlsolutions.swing.toolbars.ToolBarContainer;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import java.net.URL;
+
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.plaf.basic.BasicMenuBarUI;
 
 
 /**
@@ -50,43 +52,43 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
+public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl
+{
     private static DefaultXPontusWindowImpl INSTANCE;
     private IOCPlugin iocContainer;
-    private JMenuBar menubar;
+    private final JMenuBar menubar = new JMenuBar();
     private DockingDesktop desktop;
     private JStatusBar statusbar;
     private ToolBarContainer toolbar;
     private DocumentTabContainer tabContainer;
     private Dockable outlineDockable;
-    private JFrame frame;
+    private final JFrame frame = new JFrame();
     private Dockable pane;
     private ConsoleOutputWindow console;
     private String WINDOW_TITLE;
 
     /** Creates a new instance of DefaultXPontusWindowImpl */
-    private DefaultXPontusWindowImpl() {
-        super();
+    private DefaultXPontusWindowImpl()
+    {
+        frame.setJMenuBar(menubar);
 
-        frame = new JFrame();
- 
-
-        URL logoURL = getClass().getResource("/net/sf/xpontus/icons/icone.png");
+        URL logoURL = getClass()
+                          .getResource("/net/sf/xpontus/icons/icone.png");
         frame.setIconImage(Toolkit.getDefaultToolkit().createImage(logoURL));
 
-        frame.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent arg0) {
+        frame.addWindowListener(new WindowAdapter()
+            {
+                public void windowClosing(WindowEvent arg0)
+                {
                     new ExitActionImpl().execute();
                 }
             });
-        frame.setFocusableWindowState(true);
-        frame.setFocusable(true);
 
         StrBuilder b = new StrBuilder();
 
         b.append(XPontusConstantsIF.APPLICATION_NAME);
         b.append(" ");
-        b.append(XPontusConstantsIF.APPLICATION_VERSION); 
+        b.append(XPontusConstantsIF.APPLICATION_VERSION);
         WINDOW_TITLE = b.toString();
 
         frame.setTitle(WINDOW_TITLE);
@@ -98,7 +100,8 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return the outline (type OutlineViewDockable) of this DefaultXPontusWindowImpl object.
      */
-    public OutlineViewDockable getOutline() {
+    public OutlineViewDockable getOutline()
+    {
         return (OutlineViewDockable) outlineDockable;
     }
 
@@ -107,7 +110,8 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return the statusBar (type JStatusBar) of this DefaultXPontusWindowImpl object.
      */
-    public JStatusBar getStatusBar() {
+    public JStatusBar getStatusBar()
+    {
         return statusbar;
     }
 
@@ -115,16 +119,18 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return
      */
-    public JMenuBar getMenuBar() {
+    public JMenuBar getMenuBar()
+    {
         return menubar;
     }
 
-     /**
-      * Method getToolBar returns the toolBar of this DefaultXPontusWindowImpl object.
-      *
-      * @return the toolBar (type ToolBarContainer) of this DefaultXPontusWindowImpl object.
-      */
-     public ToolBarContainer getToolBar() {
+    /**
+     * Method getToolBar returns the toolBar of this DefaultXPontusWindowImpl object.
+     *
+     * @return the toolBar (type ToolBarContainer) of this DefaultXPontusWindowImpl object.
+     */
+    public ToolBarContainer getToolBar()
+    {
         return toolbar;
     }
 
@@ -132,7 +138,8 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return
      */
-    public DocumentTabContainer getDocumentTabContainer() {
+    public DocumentTabContainer getDocumentTabContainer()
+    {
         return tabContainer;
     }
 
@@ -140,7 +147,8 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return
      */
-    public ConsoleOutputWindow getConsole() {
+    public ConsoleOutputWindow getConsole()
+    {
         return console;
     }
 
@@ -148,7 +156,8 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return
      */
-    public Dockable getDefaultPane() {
+    public Dockable getDefaultPane()
+    {
         return pane;
     }
 
@@ -156,7 +165,8 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return
      */
-    public DockingDesktop getDesktop() {
+    public DockingDesktop getDesktop()
+    {
         return desktop;
     }
 
@@ -164,21 +174,21 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return
      */
-    public static DefaultXPontusWindowImpl getInstance() {
-        if (INSTANCE == null) {
+    public static synchronized DefaultXPontusWindowImpl getInstance()
+    {
+        if (INSTANCE == null)
+        {
             INSTANCE = new DefaultXPontusWindowImpl();
         }
 
         return INSTANCE;
     }
 
-    private void initComponents() {
+    private void initComponents()
+    {
         desktop = new DockingDesktop();
 
         statusbar = new JStatusBar();
-
-        // create the menubar
-        menubar = new JMenuBar();  
 
         // create the toolbar
         toolbar = ToolBarContainer.createDefaultContainer(true, true, true, true);
@@ -199,23 +209,21 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
 
         final int total = console.getDockables().size();
 
-        for (int i = 0; i < total; i++) {
+        for (int i = 0; i < total; i++)
+        {
             desktop.registerDockable((Dockable) console.getDockables().get(i));
         }
 
         desktop.split(pane, (Dockable) console.getDockables().get(0),
             DockingConstants.SPLIT_BOTTOM);
 
-        for (int i = 1; i < total; i++) {
+        for (int i = 1; i < total; i++)
+        {
             desktop.createTab((Dockable) console.getDockables().get(i - 1),
                 (Dockable) console.getDockables().get(i), i);
         }
 
-        tabContainer = new DocumentTabContainer(desktop); 
-        
-        frame.setJMenuBar(menubar);
-
-        menubar.getParent().setBackground(menubar.getBackground());
+        tabContainer = new DocumentTabContainer(desktop);
 
         frame.getContentPane().add(desktop, BorderLayout.CENTER);
         frame.getContentPane().add(toolbar, BorderLayout.NORTH);
@@ -226,7 +234,8 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return
      */
-    public String getName() {
+    public String getName()
+    {
         return WINDOW_TITLE;
     }
 
@@ -234,38 +243,39 @@ public class DefaultXPontusWindowImpl extends DefaultXPontusTopComponentImpl {
      *
      * @return
      */
-    public Component getDisplayComponent() {
+    public Component getDisplayComponent()
+    {
         return frame;
     }
 
     /** activate xpontus window */
-    public void activateComponent() {    	
+    public void activateComponent()
+    {
+        if (SystemUtils.IS_OS_WINDOWS_VISTA)
+        {
+            menubar.setUI(new BasicMenuBarUI());
+        }
+
         frame.pack();
-        
-        menubar.revalidate();
-        
-        menubar.repaint();
 
         frame.setLocationRelativeTo(frame.getOwner());
 
-        SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    frame.setVisible(true);
-                    frame.toFront();
-                }
-            });
+        frame.setVisible(true);
     }
 
     /** deactivate the main window */
-    public void deactivateComponent() {
+    public void deactivateComponent()
+    {
         frame.setVisible(false);
     }
 
-    public IOCPlugin getIOCContainer() {
+    public IOCPlugin getIOCContainer()
+    {
         return this.iocContainer;
     }
 
-    public void setIOCContainer(IOCPlugin container) {
+    public void setIOCContainer(IOCPlugin container)
+    {
         this.iocContainer = container;
     }
 }

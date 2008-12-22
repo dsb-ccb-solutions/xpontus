@@ -37,7 +37,6 @@ import org.java.plugin.registry.PluginRegistry;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 
 
@@ -64,15 +63,14 @@ public class QuickToolBarPlugin extends XPontusPlugin {
                                                                           .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = iocPluginExtPoint.getConnectedExtensions();
+        Collection<Extension> extensions = iocPluginExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : extensions) { 
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
 
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             QuickToolBarPluginIF mPlugin = (QuickToolBarPluginIF) cl.newInstance();
 
             initExtension(mPlugin);

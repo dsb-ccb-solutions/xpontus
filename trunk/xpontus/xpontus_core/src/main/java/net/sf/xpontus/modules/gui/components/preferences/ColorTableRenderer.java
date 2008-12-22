@@ -1,7 +1,7 @@
 /*
  *
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -35,31 +35,41 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ColorTableRenderer extends JLabel implements TableCellRenderer {
+public class ColorTableRenderer extends JLabel implements TableCellRenderer
+{
+    private static final long serialVersionUID = -8694678876550665970L;
     Border unselectedBorder = null;
     Border selectedBorder = null;
     boolean isBordered = true;
 
-    public ColorTableRenderer(boolean isBordered) {
+    public ColorTableRenderer(boolean isBordered)
+    {
         this.isBordered = isBordered;
         setOpaque(true); //MUST do this for background to show up.
     }
 
     public Component getTableCellRendererComponent(JTable table, Object color,
-        boolean isSelected, boolean hasFocus, int row, int column) {
+        boolean isSelected, boolean hasFocus, int row, int column)
+    {
         Color newColor = (Color) color;
         setBackground(newColor);
 
-        if (isBordered) {
-            if (isSelected) {
-                if (selectedBorder == null) {
+        if (isBordered)
+        {
+            if (isSelected)
+            {
+                if (selectedBorder == null)
+                {
                     selectedBorder = BorderFactory.createMatteBorder(2, 5, 2,
                             5, table.getSelectionBackground());
                 }
 
                 setBorder(selectedBorder);
-            } else {
-                if (unselectedBorder == null) {
+            }
+            else
+            {
+                if (unselectedBorder == null)
+                {
                     unselectedBorder = BorderFactory.createMatteBorder(2, 5, 2,
                             5, table.getBackground());
                 }

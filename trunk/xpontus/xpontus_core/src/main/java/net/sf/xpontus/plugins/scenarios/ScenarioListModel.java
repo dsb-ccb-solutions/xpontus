@@ -10,6 +10,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.model.ConfigurationModel;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -28,21 +30,28 @@ import java.util.Vector;
  * the scenario list model
  * @author Yves Zoundi
  */
-public class ScenarioListModel extends ConfigurationModel {
+public class ScenarioListModel extends ConfigurationModel
+{
     private List scenarioList;
 
     /** Creates a new instance of ScenarioListModel */
-    public ScenarioListModel() {
+    public ScenarioListModel()
+    {
         scenarioList = new Vector();
     }
 
     /**
      * @return the destination file
      */
-    public File getFileToSaveTo() {
-        if(!XPontusConfigurationConstantsIF.XPONTUS_SCENARIOS_FILE.getParentFile().exists()){
-            XPontusConfigurationConstantsIF.XPONTUS_SCENARIOS_FILE.getParentFile().mkdirs();
+    public File getFileToSaveTo()
+    {
+        if (!XPontusConfigurationConstantsIF.XPONTUS_SCENARIOS_FILE.getParentFile()
+                                                                       .exists())
+        {
+            XPontusConfigurationConstantsIF.XPONTUS_SCENARIOS_FILE.getParentFile()
+                                                                  .mkdirs();
         }
+
         return XPontusConfigurationConstantsIF.XPONTUS_SCENARIOS_FILE;
     }
 
@@ -51,14 +60,33 @@ public class ScenarioListModel extends ConfigurationModel {
      *  save a configuration
      *
      */
-    public void save() {
-        try {
+    public void save()
+    {
+        OutputStream fos = null;
+        Writer writer = null;
+
+        try
+        {
             XStream xstream = new XStream(new DomDriver());
-            OutputStream fos = new FileOutputStream(getFileToSaveTo());
-            Writer writer = new OutputStreamWriter(fos, "UTF-8");
+            fos = new FileOutputStream(getFileToSaveTo());
+            writer = new OutputStreamWriter(fos, "UTF-8");
             xstream.toXML(scenarioList, writer);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             ex.printStackTrace();
+        }
+        finally
+        {
+            if (writer != null)
+            {
+                IOUtils.closeQuietly(writer);
+            }
+
+            if (fos != null)
+            {
+                IOUtils.closeQuietly(fos);
+            }
         }
     }
 
@@ -66,14 +94,18 @@ public class ScenarioListModel extends ConfigurationModel {
      * load a configuration
      * @return the deserialized object loaded from a file
      */
-    public void loadScenarios() {
-        try {
+    public void loadScenarios()
+    {
+        try
+        {
             XStream xstream = new XStream(new DomDriver());
             InputStream is = new FileInputStream(getFileToSaveTo());
             Reader reader = new InputStreamReader(is, "UTF-8");
 
             scenarioList = (List) xstream.fromXML(reader);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             ex.printStackTrace();
         }
     }
@@ -82,7 +114,8 @@ public class ScenarioListModel extends ConfigurationModel {
      *  get the scenario list
      * @return the scenario list
      */
-    public List getScenarioList() {
+    public List getScenarioList()
+    {
         return scenarioList;
     }
 
@@ -90,7 +123,8 @@ public class ScenarioListModel extends ConfigurationModel {
      * set the scenario list
      * @param scenarioList
      */
-    public void setScenarioList(List scenarioList) {
+    public void setScenarioList(List scenarioList)
+    {
         this.scenarioList = scenarioList;
     }
 }

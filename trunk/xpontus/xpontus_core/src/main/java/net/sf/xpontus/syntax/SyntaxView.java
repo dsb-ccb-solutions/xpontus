@@ -44,10 +44,12 @@ import javax.swing.text.*;
  *
  * @version $Id: SyntaxView.java,v 1.1.1.1 2005/12/08 01:34:34 yveszoundi Exp $
  */
-public class SyntaxView extends PlainView {
+public class SyntaxView extends PlainView
+{
     private final SyntaxDocument doc;
 
-    public SyntaxView(Element elem) {
+    public SyntaxView(Element elem)
+    {
         super(elem);
         doc = (SyntaxDocument) getDocument();
     }
@@ -59,13 +61,14 @@ public class SyntaxView extends PlainView {
      * @param x
      * @param y
      */
-    protected void drawLine(int lineIndex, Graphics g, int x, int y) {
-        JTextComponent editor = (JTextComponent) getContainer();
-        List tokens = doc.getTokenListForLine(lineIndex);
+    protected void drawLine(int lineIndex, Graphics g, int x, int y)
+    {
+        JTextComponent editor = (JTextComponent) getContainer(); 
+        List<Token> tokens = doc.getTokenListForLine(lineIndex);
         float nextX = x;
 
-        for (int i = 0; i < tokens.size(); i++) {
-            Token token = (Token) tokens.get(i);
+        for (Token token : tokens)
+        {
             nextX = paint(token, (Graphics2D) g, nextX, y, editor, this);
         }
     }
@@ -81,31 +84,91 @@ public class SyntaxView extends PlainView {
      * @return
      */
     public float paint(Token token, Graphics2D g, float x, float y,
-        JTextComponent editor, TabExpander e) {
+        JTextComponent editor, TabExpander e)
+    {
         MutableAttributeSet style = doc.getStyleForType(token.kind);
         g.setColor(StyleConstants.getForeground(style));
 
-        Font font = editor.getFont();
-
-        Map<TextAttribute, Object> atts = new HashMap<TextAttribute, Object>();
-
-        if (StyleConstants.isBold(style)) {
-            atts.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD);
-        }
-
-        if (StyleConstants.isUnderline(style)) {
-            atts.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-        }
-
-        if (StyleConstants.isItalic(style)) {
-            atts.put(TextAttribute.POSTURE, TextAttribute.POSTURE_OBLIQUE);
-        }
-
-        g.setFont(font.deriveFont(atts));
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        g.setFont(editor.getFont().deriveFont(getAttributes(style)));
 
         Segment seg = new Segment(token.image.toCharArray(), 0,
                 token.image.length());
 
         return Utilities.drawTabbedText(seg, (int) x, (int) y, g, e, 0);
+    }
+
+    protected Map<TextAttribute, Object> getAttributes(AttributeSet attrSet)
+    {
+        Map<TextAttribute, Object> attrMap = new HashMap<TextAttribute, Object>();
+
+        if (attrSet.isDefined(StyleConstants.FontFamily))
+        {
+            attrMap.put(TextAttribute.FAMILY,
+                StyleConstants.getFontFamily(attrSet));
+        }
+
+        if (attrSet.isDefined(StyleConstants.Bold))
+        {
+            attrMap.put(TextAttribute.WEIGHT,
+                StyleConstants.isBold(attrSet) ? TextAttribute.WEIGHT_BOLD
+                                               : TextAttribute.WEIGHT_REGULAR);
+        }
+
+        if (attrSet.isDefined(StyleConstants.Italic))
+        {
+            attrMap.put(TextAttribute.POSTURE,
+                StyleConstants.isItalic(attrSet)
+                ? TextAttribute.POSTURE_OBLIQUE : TextAttribute.POSTURE_REGULAR);
+        }
+
+        if (attrSet.isDefined(StyleConstants.Underline))
+        {
+            attrMap.put(TextAttribute.UNDERLINE,
+                StyleConstants.isUnderline(attrSet)
+                ? TextAttribute.UNDERLINE_ON : null);
+        }
+
+        if (attrSet.isDefined(StyleConstants.StrikeThrough))
+        {
+            attrMap.put(TextAttribute.STRIKETHROUGH,
+                StyleConstants.isStrikeThrough(attrSet)
+                ? TextAttribute.STRIKETHROUGH_ON : null);
+        }
+
+        if (attrSet.isDefined(StyleConstants.FontSize))
+        {
+            attrMap.put(TextAttribute.SIZE,
+                new Float(StyleConstants.getFontSize(attrSet)));
+        }
+
+        if (attrSet.isDefined(StyleConstants.Foreground))
+        {
+            attrMap.put(TextAttribute.FOREGROUND,
+                StyleConstants.getForeground(attrSet));
+        }
+
+        if (attrSet.isDefined(StyleConstants.Background))
+        {
+            attrMap.put(TextAttribute.BACKGROUND,
+                StyleConstants.getBackground(attrSet));
+        }
+
+        if (attrSet.isDefined(StyleConstants.Superscript) &&
+                !StyleConstants.isSubscript(attrSet))
+        {
+            attrMap.put(TextAttribute.SUPERSCRIPT,
+                TextAttribute.SUPERSCRIPT_SUPER);
+        }
+
+        if (attrSet.isDefined(StyleConstants.Subscript) &&
+                StyleConstants.isSubscript(attrSet))
+        {
+            attrMap.put(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUB);
+        }
+
+        return attrMap;
     }
 }

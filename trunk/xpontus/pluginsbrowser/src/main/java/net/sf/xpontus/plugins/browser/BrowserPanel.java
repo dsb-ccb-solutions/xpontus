@@ -58,8 +58,10 @@ import javax.swing.text.html.HTMLEditorKit;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class BrowserPanel extends JComponent {
-    private JScrollPane scrollPane;
+@SuppressWarnings("unchecked")
+public class BrowserPanel extends JComponent { 
+	private static final long serialVersionUID = 5795878856107242742L;
+	private JScrollPane scrollPane;
     private JSplitPane splitPane;
     private JTable table;
     private DefaultTableModel tableModel;
@@ -86,7 +88,7 @@ public class BrowserPanel extends JComponent {
         resolver.resolvePlugins();
 
         pluginsMap = resolver.getPluginDescriptorsMap();
-        currentMap = new HashMap(pluginsMap);
+        currentMap = new HashMap<String, SimplePluginDescriptor>(pluginsMap);
 
         java.util.Vector columns = new java.util.Vector(3);
 
@@ -100,7 +102,7 @@ public class BrowserPanel extends JComponent {
         for (Iterator<String> it = pluginsMap.keySet().iterator();
                 it.hasNext();) {
             Vector m_row = new Vector();
-            m_row.add(new Boolean(false));
+            m_row.add(Boolean.FALSE);
 
             SimplePluginDescriptor spd = pluginsMap.get(it.next());
             m_row.add(spd.getId());
@@ -190,8 +192,8 @@ public class BrowserPanel extends JComponent {
         reloadButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     resolver.reload();
-                    pluginsMap = new HashMap(resolver.getPluginDescriptorsMap());
-                    currentMap = new HashMap(pluginsMap);
+                    pluginsMap = new HashMap<String, SimplePluginDescriptor>(resolver.getPluginDescriptorsMap());
+                    currentMap = new HashMap<String, SimplePluginDescriptor>(pluginsMap);
                     reloadPluginsTable();
                 }
             });
@@ -312,10 +314,10 @@ public class BrowserPanel extends JComponent {
         for (Iterator<String> it = currentMap.keySet().iterator();
                 it.hasNext();) {
             SimplePluginDescriptor spd = currentMap.get(it.next());
+ 
+            Vector  m_row = new Vector ();
 
-            Vector m_row = new Vector();
-
-            m_row.add(new Boolean(false));
+            m_row.add(Boolean.FALSE);
             m_row.add(spd.getId());
             m_row.add(spd.getCategory());
             m_row.add(spd.getBuiltin());
@@ -333,6 +335,6 @@ public class BrowserPanel extends JComponent {
      * @return The initial number of plugins
      */
     public String getNbPlugins() {
-        return "" + currentMap.size();
+        return String.valueOf(currentMap.size());
     }
 }

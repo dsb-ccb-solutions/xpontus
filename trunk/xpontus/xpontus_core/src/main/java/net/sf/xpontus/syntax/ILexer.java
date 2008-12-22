@@ -54,5 +54,5 @@ public interface ILexer {
      * @param offs of type int
      * @return List
      */
-    public List getTokens(Segment seg, int initialTokenType, int offs);
+    public List<Token> getTokens(Segment seg, int initialTokenType, int offs);
 }

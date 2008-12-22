@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="XPontus"> 
-<!--   <skin>  
-    <groupId>org.apache.hivemind</groupId>  
-    <artifactId>maven-skin</artifactId>  
-    <version>2.0</version>  
- </skin>  -->
- <skin>  
-    <groupId>org.abstracthorizon</groupId>
-<artifactId>abstracthorizon</artifactId>
-<version>1.0-SNAPSHOT</version>
- </skin> 
- 
-    <bannerLeft>
-        <name>Sourceforge</name>
-        <alt>Sourceforge</alt>
-        <src>logos/sflogo.gif</src>
-        <href>http://sourceforge.net/</href>
-    </bannerLeft>
-
-    <bannerRight>
-        <src>logos/logo.png</src>
-    </bannerRight>
+<project name="XPontus">    
+  <publishDate format="dd MMM yyyy" position="left" />
    
+ <version position="left"/>
+  <bannerLeft>
+    <name>XPontus homepage</name>
+    <src>http://xpontus.sourceforge.net/images/logo.png</src>
+    <href>http://xpontus.sourceforge.net/index.html</href>
+  </bannerLeft> 
+   <poweredBy>
+    <logo name="Sourceforge" href="http://sourceforge.net/projects/xpontus"
+          img="http://sourceforge.net/sflogo.php?group_id=group_id=118253&amp;type=1"/>
+		   <logo name="JProfiler" href="http://www.ej-technologies.com/products/jprofiler/overview.html"
+          img="http://xpontus.sourceforge.net/images/jprofiler.png"/>
+		    <logo name="Intellij" href="http://www.jetbrains.com/idea/"
+          img="http://xpontus.sourceforge.net/images/logo_bw.gif"/>
+  </poweredBy>
+<skin>
+ 	   <groupId>net.sf.xpontus.skins</groupId>
+  <artifactId>xpontus-maven-skin</artifactId>
+  <version>1.0.0.2</version>
+ 	  </skin>
     <body> 
         <links>  
             <item name = "Project page Sourceforge" href="http://sourceforge.net/projects/xpontus"/>
             <item name = "XPontus Homepage" href="http://xpontus.sourceforge.net/index.html"/>
             <item name = "VFSJFileChooser" href="http://vfsjfilechooser.sourceforge.net/index.html"/>
-            <item name = "JXSLTDoc" href="http://jxsltdoc.sourceforge.net/"/>
-            <item name = "JHTMLCleaner" href="http://jhmlcleaner.berlios.de/"/> 
         </links>        
         <menu name="Index">
             <item name = "Introduction" href="index.html" /> 

@@ -3,7 +3,7 @@
  *
  * Created on 2007-08-13, 14:47:43
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -31,28 +31,33 @@ import javax.swing.text.JTextComponent;
 
 /**
  * Action to cancel changes
- * @version 0.0.1
- * @author Yves Zoundi
+ * @version 0.0.2
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class UndoActionImpl extends DefaultDocumentAwareActionImpl {
+public class UndoActionImpl extends DefaultDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = -1794997893980235937L;
     public static final String BEAN_ALIAS = "action.undo";
 
     /**
      * Default constructor
      */
-    public UndoActionImpl() {
+    public UndoActionImpl()
+    {
     }
 
     /* (non-Javadoc)
      * @see java.lang.Runnable#run()
      */
-    public void run() {
-        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                           .getDocumentTabContainer();
-        JTextComponent jtc = dtc.getCurrentEditor();
-        XPontusUndoManager undo = (XPontusUndoManager) jtc.getClientProperty(XPontusConstantsIF.UNDO_MANAGER);
+    public void run()
+    {
+        DocumentTabContainer documentTabContainer = DefaultXPontusWindowImpl.getInstance()
+                                                                            .getDocumentTabContainer();
+        JTextComponent textEditor = documentTabContainer.getCurrentEditor();
+        XPontusUndoManager undo = (XPontusUndoManager) textEditor.getClientProperty(XPontusConstantsIF.UNDO_MANAGER);
 
-        if (undo.canUndo()) {
+        if (undo.canUndo())
+        {
             undo.undo();
         }
     }
