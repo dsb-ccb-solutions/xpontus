@@ -41,29 +41,7 @@ public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements Docu
         if (mm.getSize() > 0) {
             this.engineList.setSelectedIndex(0);
         }
-        registerComponent();
-
-        java.awt.event.KeyAdapter adapter = new java.awt.event.KeyAdapter() {
-
-            public void keyPressed(java.awt.event.KeyEvent e) {
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-
-                    Object str = expressionList.getEditor().getItem();
-                    if (str == null) {
-                        return;
-                    }
-                    evaluateButtonActionPerformed(null);
-                }
-            }
-        };
-        expressionList.getEditor().getEditorComponent().addKeyListener(adapter);
-
-        expressionList.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent arg0) {
-
-            }
-        });
+        registerComponent(); 
     }
 
     public String getExpression() {
