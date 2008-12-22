@@ -1,7 +1,6 @@
 /*
  *
- *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -28,8 +27,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class PreferencesNode extends DefaultMutableTreeNode {
-    public PreferencesNode(Object arg0) {
-        super(arg0);
+public class PreferencesNode extends DefaultMutableTreeNode
+{
+    private static final long serialVersionUID = -1366194974143691182L;
+
+    public PreferencesNode(Object userObject)
+    {
+        super(userObject);
     }
 }

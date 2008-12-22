@@ -32,50 +32,55 @@ import org.java.plugin.registry.PluginRegistry;
 import java.awt.Component;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 
 /**
  *
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ConsolePlugin extends XPontusPlugin {
+public class ConsolePlugin extends XPontusPlugin
+{
     public static final String EXTENSION_POINT_NAME = "consolepluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.console";
     public static final String PLUGIN_CATEGORY = "Console";
 
-    public ConsolePlugin() {
+    public ConsolePlugin()
+    {
     }
 
-    protected void doStart() throws Exception {
+    protected void doStart() throws Exception
+    {
     }
 
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
     }
 
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
         ExtensionPoint consoleExtPoint = registry.getExtensionPoint(getDescriptor()
                                                                         .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = consoleExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = consoleExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
 
             String className = ext.getParameter("class").valueAsString();
 
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             ConsolePluginIF mConsolePlugin = (ConsolePluginIF) cl.newInstance();
             initExtension(mConsolePlugin);
         }
     }
 
-    private void initExtension(ConsolePluginIF mConsolePlugin) {
+    private void initExtension(ConsolePluginIF mConsolePlugin)
+    {
         String m_name = mConsolePlugin.getName();
         Component m_component = mConsolePlugin.getComponent();
     }

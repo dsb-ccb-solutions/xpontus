@@ -1,7 +1,7 @@
 /*
  *
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -35,33 +35,35 @@ import javax.swing.JFrame;
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ViewToolbarActionImpl extends AbstractXPontusActionImpl {
+public class ViewToolbarActionImpl extends AbstractXPontusActionImpl
+{
+    private static final long serialVersionUID = 6284202304212738387L;
     public static final String BEAN_ALIAS = "action.viewtoolbar";
 
     /* (non-Javadoc)
      * @see net.sf.xpontus.actions.XPontusActionIF#execute()
      */
-    public void execute() {
+    public void execute()
+    {
         JFrame frame = (JFrame) DefaultXPontusWindowImpl.getInstance()
                                                         .getDisplayComponent();
 
         ToolBarContainer m_toolbar = DefaultXPontusWindowImpl.getInstance()
                                                              .getToolBar();
 
-        if (m_toolbar.isShowing()) {
+        if (m_toolbar.isShowing())
+        {
             setName("Show toolbar");
             frame.getContentPane().remove(m_toolbar);
-
-            frame.validate();
-
-            frame.repaint();
-        } else {
+        }
+        else
+        {
             setName("Hide toolbar");
             frame.getContentPane().add(m_toolbar, BorderLayout.NORTH);
-
-            frame.validate();
-
-            frame.repaint();
         }
+
+        frame.validate();
+
+        frame.repaint();
     }
 }

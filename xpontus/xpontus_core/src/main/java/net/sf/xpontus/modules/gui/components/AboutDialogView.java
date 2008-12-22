@@ -36,8 +36,9 @@ import org.apache.commons.lang.text.StrBuilder;
  * @author  Owner
  */
 public class AboutDialogView extends javax.swing.JDialog {
-
-    /**
+ 
+	private static final long serialVersionUID = -7992945595735389301L;
+	/**
      * Creates new form AboutDialogView
      * @param parent
      * @param modal
@@ -95,7 +96,7 @@ public class AboutDialogView extends javax.swing.JDialog {
 
         sysinfoScrollPane = new javax.swing.JScrollPane();
         textPane = new javax.swing.JTextPane();
-        bottomPanel = new javax.swing.JPanel();
+        bottomPanel = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
         closeButton = new javax.swing.JButton();
         licenseScrollPane = new javax.swing.JScrollPane();
         sysinfoTA = new javax.swing.JTextArea();

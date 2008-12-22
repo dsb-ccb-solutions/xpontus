@@ -4,12 +4,12 @@
   <groupId>net.sf.xpontus.plugins.gendoc</groupId>
   <artifactId>gendoc_plugin</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0-pre1</version>
+  <version>1.0.0.2</version>
   <name>Documentation</name> 
   <parent>
         <groupId>net.sf.xpontus</groupId>
         <artifactId>xpontus</artifactId>
-        <version>1.0.0-pre1</version> 
+        <version>1.0.0.2</version> 
     </parent> 
   <description>Documentation generation for XML related files (XML Schema, DTD, XSLT)</description>
   <dependencies>
@@ -45,26 +45,10 @@
     </issueManagement>
     <developers>       
         <developer>
-            <id>mrcheeks</id>
+            <id>yveszoundi</id>
             <name>Yves Zoundi</name> 
             <roles>
                 <role>Developer,Project manager</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>mohadib</id>
-            <name>Jason Davis</name>
-            <organization>OpenActive</organization>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>delvinj</id>
-            <name>Daniel Johnson</name>
-            <organization>JEdit</organization>
-            <roles>
-                <role>Developer</role>
             </roles>
         </developer>
     </developers>

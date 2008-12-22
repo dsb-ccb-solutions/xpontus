@@ -21,6 +21,7 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import net.sf.xpontus.controllers.impl.XPontusPluginManager;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
@@ -31,41 +32,39 @@ import net.sf.xpontus.plugins.settings.DefaultSettingsModuleImpl;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class ExitActionImpl extends AbstractXPontusActionImpl {
+public class ExitActionImpl extends AbstractXPontusActionImpl
+{
+    private static final long serialVersionUID = 2414515927696392864L;
     public static final String BEAN_ALIAS = "action.exit";
 
     /** Creates a new instance of ExitActionImpl */
-    public ExitActionImpl() {
+    public ExitActionImpl()
+    {
         setName("Exit");
         setDescription("Terminate the program");
     }
 
-    // Terminate the program
-    public void execute() {
-        // terminate the program
+    /* (non-Javadoc)
+     * @see net.sf.xpontus.actions.XPontusActionIF#execute()
+     */
+    public void execute()
+    {
+        // get all opened documents
+        final IDocumentContainer[] editors = DefaultXPontusWindowImpl.getInstance()
+                                                                     .getDocumentTabContainer()
+                                                                     .getEditorsAsArray();
 
-        // exit without errors
-
-        /** TODO
-         * Add a queue for objects which needs to free resources
-         *
-         * The plugin manager must be shutdown
-         * The opened files must be closed and maybe saved
-         * The remote connections must be closed
-         *
-         * All the pending operations must terminate
-         *
-         */
-        
-        
-        // save all opened documents
-        final IDocumentContainer[] editors = DefaultXPontusWindowImpl.getInstance().getDocumentTabContainer().getEditorsAsArray();
-        for(IDocumentContainer editor : editors){
+        // close all documents
+        for (IDocumentContainer editor : editors)
+        {
             DefaultXPontusWindowImpl.getInstance().getDesktop().close(editor);
         }
-        
+
         // save settings 
         DefaultSettingsModuleImpl.getInstance().shutdown();
+
+        // shutdown the plugin manager
+        XPontusPluginManager.getPluginManager().shutdown();
 
         // terminate the application
         System.exit(0);

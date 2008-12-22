@@ -1,6 +1,4 @@
 /*
- *
- *
  * Copyright (C) 2005-2008 Yves Zoundi
  *
  * This library is free software; you can redistribute it and/or modify
@@ -16,12 +14,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- *
  */
 package net.sf.xpontus.modules.gui.components.preferences;
 
-import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -32,19 +27,20 @@ import javax.swing.tree.TreePath;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class PreferencesTreeListener implements TreeSelectionListener {
+public class PreferencesTreeListener implements TreeSelectionListener
+{
     /**
      *
      * @param e
      */
-    public void valueChanged(TreeSelectionEvent e) {
+    public void valueChanged(TreeSelectionEvent e)
+    {
         TreePath path = e.getNewLeadSelectionPath();
-
-        JTree tree = (JTree) e.getSource();
 
         // if there is no path, then there is nothing selected, so we need
         // to clear the table model... that's it!
-        if (path != null) {
+        if (path != null)
+        {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
         }
     }

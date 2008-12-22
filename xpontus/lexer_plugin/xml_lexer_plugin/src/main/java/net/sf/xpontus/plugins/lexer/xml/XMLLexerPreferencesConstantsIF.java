@@ -1,7 +1,7 @@
 /*
  *
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -26,23 +26,21 @@ package net.sf.xpontus.plugins.lexer.xml;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public interface XMLLexerPreferencesConstantsIF {
+public interface XMLLexerPreferencesConstantsIF
+{
     String STRING_PROPERTY = "STRING";
     String DECLARATION_PROPERTY = "XML_DECLARATIONS";
     String COMMENT_PROPERTY = "COMMENT";
     String TAGS_PROPERTY = "TAGS";
     String ATTRIBUTES_PROPERTY = "ATTRIBUTES";
-    String[] AVAILABLE_PROPERTIES = {
+    String[] AVAILABLE_PROPERTIES = 
+        {
             STRING_PROPERTY, DECLARATION_PROPERTY, COMMENT_PROPERTY,
             TAGS_PROPERTY, ATTRIBUTES_PROPERTY
         };
-    
     int STRING_COLOR_INDEX = 0;
     int DECLARATION_COLOR_INDEX = 1;
     int COMMENT_COLOR_INDEX = 2;
     int TAGS_COLOR_INDEX = 3;
     int ATTRIBUTES_COLOR_INDEX = 4;
-    
-    
-    
 }

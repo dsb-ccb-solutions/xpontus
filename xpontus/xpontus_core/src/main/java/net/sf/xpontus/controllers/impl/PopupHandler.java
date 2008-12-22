@@ -4,7 +4,7 @@
  * Created on 9-Aug-2007, 8:21:05 PM
  *
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -37,9 +37,10 @@ import javax.swing.text.JTextComponent;
 /**
  * Right click popup menu handler
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class PopupHandler extends MouseAdapter {
+public class PopupHandler extends MouseAdapter
+{
     private JTextComponent txt;
     private JPopupMenu popup = new JPopupMenu();
     private JMenuItem copyItem;
@@ -51,7 +52,8 @@ public class PopupHandler extends MouseAdapter {
     /**
      * Create a new instance of PopupListener
      */
-    public PopupHandler() {
+    public PopupHandler()
+    {
         // initialize the menu items of the popup menu
         clearItem = new JMenuItem("Clear");
         copyItem = new JMenuItem("Copy");
@@ -60,36 +62,46 @@ public class PopupHandler extends MouseAdapter {
         selectAllItem = new JMenuItem("Select all");
 
         // listener for the cut item
-        cutItem.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        cutItem.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
                     txt.cut();
                 }
             });
 
         // listener for the copy item
-        copyItem.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        copyItem.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
                     txt.copy();
                 }
             });
 
         // listener for the paste menu item
-        pasteItem.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        pasteItem.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
                     txt.paste();
                 }
             });
 
         // listener for the "clear" menu item
-        clearItem.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        clearItem.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
                     txt.setText("");
                 }
             });
 
         // listener for the "Select all" menu item
-        selectAllItem.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        selectAllItem.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
                     txt.selectAll();
                 }
             });
@@ -106,7 +118,8 @@ public class PopupHandler extends MouseAdapter {
      * Create a new instance of PopupListener
      * @param popup A popup menu
      */
-    public PopupHandler(JPopupMenu popup) {
+    public PopupHandler(JPopupMenu popup)
+    {
         setPopup(popup);
     }
 
@@ -114,8 +127,10 @@ public class PopupHandler extends MouseAdapter {
      * We only display the popup is right mouse button is clicked
      * @param e A mouse event
      */
-    public void mouseReleased(MouseEvent e) {
-        if (e.isPopupTrigger() || SwingUtilities.isRightMouseButton(e)) {
+    public void mouseReleased(MouseEvent e)
+    {
+        if (e.isPopupTrigger() || SwingUtilities.isRightMouseButton(e))
+        {
             txt = (JTextComponent) e.getSource();
 
             cutItem.setEnabled(txt.isEditable());
@@ -129,7 +144,8 @@ public class PopupHandler extends MouseAdapter {
      * Set the popup menu associated to this listener
      * @param popup The popup menu associated to this listener
      */
-    public void setPopup(JPopupMenu popup) {
+    public void setPopup(JPopupMenu popup)
+    {
         this.popup = popup;
     }
 
@@ -137,7 +153,8 @@ public class PopupHandler extends MouseAdapter {
     * Return the popup menu associated to this listener
      * @return The popup menu associated to this listener
      */
-    public JPopupMenu getPopup() {
+    public JPopupMenu getPopup()
+    {
         return popup;
     }
 }

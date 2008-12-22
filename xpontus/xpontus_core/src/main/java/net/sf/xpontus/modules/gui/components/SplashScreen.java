@@ -28,10 +28,10 @@ package net.sf.xpontus.modules.gui.components;
  * The application splash screen
  * @author  Yves Zoundi
  */
-public class SplashScreen extends javax.swing.JWindow {
+public class SplashScreen extends javax.swing.JWindow { 
      
-    
-    /** Creates new form BeanForm */
+	private static final long serialVersionUID = 8010165858107715243L;
+	/** Creates new form BeanForm */
     public SplashScreen() { 
         initComponents();
         pack();

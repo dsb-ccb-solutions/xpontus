@@ -20,6 +20,11 @@
  */
 package net.sf.xpontus.plugins.gendoc;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
 
@@ -28,12 +33,6 @@ import org.java.plugin.registry.Extension;
 import org.java.plugin.registry.ExtensionPoint;
 import org.java.plugin.registry.PluginDescriptor;
 import org.java.plugin.registry.PluginRegistry;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
 
 
 /**
@@ -71,14 +70,13 @@ public class DocumentationPlugin extends XPontusPlugin {
                                                                             .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = themePluginExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = themePluginExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins) {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             IDocumentationPluginIF mPlugin = (IDocumentationPluginIF) cl.newInstance();
             addEngine(mPlugin, classLoader);
         }

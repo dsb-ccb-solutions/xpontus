@@ -26,7 +26,7 @@ import com.vlsolutions.swing.toolbars.ToolBarContainer;
 import com.vlsolutions.swing.toolbars.ToolBarPanel;
 import com.vlsolutions.swing.toolbars.VLToolBar;
 
-import net.sf.xpontus.actions.impl.*;
+import net.sf.xpontus.actions.impl.RecentFilesActionImpl;
 import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.plugins.XPontusPlugin;
@@ -40,7 +40,6 @@ import org.java.plugin.registry.PluginRegistry;
 import java.awt.BorderLayout;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +51,8 @@ import javax.swing.JButton;
  * The toolbar plugin
  * @author Yves Zoundi
  */
-public class ToolBarPlugin extends XPontusPlugin {
+public class ToolBarPlugin extends XPontusPlugin
+{
     public static final String EXTENSION_POINT_NAME = "toolbarpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.toolbar";
     public static final String PLUGIN_CATEGORY = "Toolbar";
@@ -66,19 +66,26 @@ public class ToolBarPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
+    protected void doStart() throws Exception
+    {
         String confValue = XPontusConfig.getValue("xpontus.ToolbarIcons")
                                         .toString();
 
-        if (confValue.equals("Text only")) {
+        if (confValue.equals("Text only"))
+        {
             textOnly = true;
-        } else if (confValue.equals("Text and icons")) {
+        }
+        else if (confValue.equals("Text and icons"))
+        {
             textAndIcons = true;
-        } else if (confValue.equals("Icons only")) {
+        }
+        else if (confValue.equals("Icons only"))
+        {
             iconsOnly = true;
         }
 
-        if (iconsOnly) {
+        if (iconsOnly)
+        {
             MAX_TOOLBAR_PER_LINE = 4;
         }
     }
@@ -86,7 +93,8 @@ public class ToolBarPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
     }
 
     /**
@@ -94,16 +102,19 @@ public class ToolBarPlugin extends XPontusPlugin {
      * @param name The name of the toolbar
      * @return The toolbar found or <code>null</code>
      */
-    protected VLToolBar lookupToolBar(String name) {
+    protected VLToolBar lookupToolBar(String name)
+    {
         ToolBarContainer toolbar = DefaultXPontusWindowImpl.getInstance()
                                                            .getToolBar();
 
         List tbs = toolbar.getRegisteredToolBars();
 
-        for (int j = 0; j < tbs.size(); j++) {
+        for (int j = 0; j < tbs.size(); j++)
+        {
             VLToolBar tb = (VLToolBar) tbs.get(j);
 
-            if (tb.getName().equals(name)) {
+            if (tb.getName().equals(name))
+            {
                 return tb;
             }
         }
@@ -116,7 +127,8 @@ public class ToolBarPlugin extends XPontusPlugin {
      * @param name The name of the toolbar
      * @return The toolbar
      */
-    public VLToolBar getOrCreateToolBar(String name) {
+    public VLToolBar getOrCreateToolBar(String name)
+    {
         ToolBarContainer toolbar = DefaultXPontusWindowImpl.getInstance()
                                                            .getToolBar();
 
@@ -124,7 +136,8 @@ public class ToolBarPlugin extends XPontusPlugin {
 
         VLToolBar tb = null;
 
-        if (m_obj == null) {
+        if (m_obj == null)
+        {
             tb = new VLToolBar(name);
 
             tb.setRolloverBorderPainted(true);
@@ -133,7 +146,8 @@ public class ToolBarPlugin extends XPontusPlugin {
 
             ToolBarPanel tbPanel = toolbar.getToolBarPanelAt(BorderLayout.NORTH);
 
-            if (y_pos == MAX_TOOLBAR_PER_LINE) {
+            if (y_pos == MAX_TOOLBAR_PER_LINE)
+            {
                 resetToolBarMarkers();
             }
 
@@ -141,7 +155,9 @@ public class ToolBarPlugin extends XPontusPlugin {
             tbPanel.add(tb, tbc);
 
             incrementPositions();
-        } else {
+        }
+        else
+        {
             tb = (VLToolBar) m_obj;
         }
 
@@ -152,26 +168,33 @@ public class ToolBarPlugin extends XPontusPlugin {
      * Configure an extension
      * @param mPlugin  The extension to configure
      */
-    public void initExtension(ToolBarPluginIF mPlugin) {
+    public void initExtension(ToolBarPluginIF mPlugin)
+    {
         String[] tbNames = mPlugin.getToolBarNames();
         Map actions = mPlugin.getActions();
 
-        for (int i = 0; i < tbNames.length; i++) {
+        for (int i = 0; i < tbNames.length; i++)
+        {
             VLToolBar tb = getOrCreateToolBar(tbNames[i]);
             List tbActions = (List) actions.get(tbNames[i]);
 
-            for (int j = 0; j < tbActions.size(); j++) {
+            for (int j = 0; j < tbActions.size(); j++)
+            {
                 Action m_action = (Action) tbActions.get(j);
 
-                if (!m_action.getClass().getName().equals(RecentFilesActionImpl.class.getName())) {
+                if (!m_action.getClass().getName()
+                                 .equals(RecentFilesActionImpl.class.getName()))
+                {
                     JButton m_button = new JButton(m_action);
                     m_button.setBorder(null);
 
-                    if (iconsOnly) {
+                    if (iconsOnly)
+                    {
                         m_button.setText(null);
                     }
 
-                    if (textOnly) {
+                    if (textOnly)
+                    {
                         m_button.setIcon(null);
                     }
 
@@ -184,37 +207,40 @@ public class ToolBarPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
         ExtensionPoint toolbarPluginExtPoint = registry.getExtensionPoint(getDescriptor()
                                                                               .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = toolbarPluginExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = toolbarPluginExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             ToolBarPluginIF mPlugin = (ToolBarPluginIF) cl.newInstance();
             initExtension(mPlugin);
         }
     }
 
     /**
-     * 
+     *
      */
-    private void incrementPositions() {
+    private void incrementPositions()
+    {
         y_pos++;
     }
 
     /**
-     * 
+     *
      */
-    private void resetToolBarMarkers() {
+    private void resetToolBarMarkers()
+    {
         x_pos++;
         y_pos = 0;
     }

@@ -31,25 +31,34 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public abstract class SimpleDocumentAwareActionImpl
-    extends AbstractXPontusActionImpl implements DocumentAwareComponentIF {
-    public SimpleDocumentAwareActionImpl() {
+    extends AbstractXPontusActionImpl implements DocumentAwareComponentIF
+{
+    private static final long serialVersionUID = -3973128034943727585L;
+
+    public SimpleDocumentAwareActionImpl()
+    {
         registerComponent();
     }
 
     /* (non-Javadoc)
      * @see net.sf.xpontus.actions.DocumentAwareComponentIF#registerComponent()
      */
-    public void registerComponent() {
+    public void registerComponent()
+    {
         DocumentAwareComponentHolder.getInstance().register(this);
     }
 
     /* (non-Javadoc)
      * @see net.sf.xpontus.actions.DocumentAwareComponentIF#onNotify(net.sf.xpontus.utils.DocumentContainerChangeEvent)
      */
-    public void onNotify(DocumentContainerChangeEvent evt) {
-        if (evt.getSource() == null) {
+    public void onNotify(DocumentContainerChangeEvent evt)
+    {
+        if (evt.getSource() == null)
+        {
             setEnabled(false);
-        } else {
+        }
+        else
+        {
             setEnabled(true);
         }
     }

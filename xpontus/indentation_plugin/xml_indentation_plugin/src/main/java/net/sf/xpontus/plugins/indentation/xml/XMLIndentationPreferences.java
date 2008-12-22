@@ -88,10 +88,7 @@ public class XMLIndentationPreferences implements PreferencesPluginIF {
 
         props.put(XMLIndentationPreferencesConstantsIF.class.getName() + "$" +
             XMLIndentationPreferencesConstantsIF.PRESERVE_SPACE_OPTION,
-            preserveSpaceOptionP);
-
-        System.out.println("Properties size:" + props.size());
-        System.out.println("option:" + omitCommentsOptionP);
+            preserveSpaceOptionP); 
 
         Iterator it = props.keySet().iterator();
 

@@ -56,7 +56,9 @@ import javax.swing.text.html.HTMLEditorKit;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DownloadedPanel extends JComponent {
-    private JButton addPluginsButton;
+   
+	private static final long serialVersionUID = 4474103401141427454L;
+	private JButton addPluginsButton;
     private JButton installPluginsButton;
     private JSplitPane splitPane;
     private JTable pluginDetailsTable;

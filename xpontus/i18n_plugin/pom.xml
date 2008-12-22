@@ -3,13 +3,13 @@
   <parent>
     <artifactId>xpontus</artifactId>
     <groupId>net.sf.xpontus</groupId>
-    <version>1.0.0-pre1</version>
+    <version>1.0.0.2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.i18n</groupId>
   <artifactId>i18n_plugin</artifactId>
   <name>I18n</name>
-  <version>1.0.0-pre1</version> 
+  <version>1.0.0.2</version> 
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -20,7 +20,7 @@
     <dependency>
             <groupId>net.sf.xpontus</groupId>
             <artifactId>xpontus_core</artifactId>
-            <version>1.0.0-pre1</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
     
@@ -35,26 +35,10 @@
     </issueManagement>
     <developers>       
         <developer>
-            <id>mrcheeks</id>
+            <id>yveszoundi</id>
             <name>Yves Zoundi</name> 
             <roles>
                 <role>Developer,Project manager</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>mohadib</id>
-            <name>Jason Davis</name>
-            <organization>OpenActive</organization>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>delvinj</id>
-            <name>Daniel Johnson</name>
-            <organization>JEdit</organization>
-            <roles>
-                <role>Developer</role>
             </roles>
         </developer>
     </developers>

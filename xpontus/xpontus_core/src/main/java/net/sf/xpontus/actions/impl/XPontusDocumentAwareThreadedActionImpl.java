@@ -29,18 +29,26 @@ import net.sf.xpontus.utils.DocumentAwareComponentHolder;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public abstract class XPontusDocumentAwareThreadedActionImpl
-    extends XPontusThreadedActionImpl implements DocumentAwareComponentIF {
+    extends XPontusThreadedActionImpl implements DocumentAwareComponentIF
+{
     /**
-     * 
-     */
-    public XPontusDocumentAwareThreadedActionImpl() {
+         *
+         */
+    private static final long serialVersionUID = 5559304424038601249L;
+
+    /**
+    *
+    */
+    public XPontusDocumentAwareThreadedActionImpl()
+    {
         registerComponent();
     }
 
     /* (non-Javadoc)
      * @see net.sf.xpontus.actions.DocumentAwareComponentIF#registerComponent()
      */
-    public void registerComponent() {
+    public void registerComponent()
+    {
         DocumentAwareComponentHolder.getInstance().register(this);
     }
 }

@@ -21,18 +21,15 @@
  */
 package net.sf.xpontus.modules.gui.components;
 
-import com.sun.java.help.impl.SwingWorker;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import com.vlsolutions.swing.docking.DockGroup;
-import com.vlsolutions.swing.docking.Dockable;
-import com.vlsolutions.swing.docking.DockableState;
-import com.vlsolutions.swing.docking.DockingDesktop;
-import com.vlsolutions.swing.docking.DockingUtilities;
-import com.vlsolutions.swing.docking.TabbedDockableContainer;
-import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
-import com.vlsolutions.swing.docking.event.DockableSelectionListener;
-import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
-import com.vlsolutions.swing.docking.event.DockableStateWillChangeListener;
+import javax.swing.text.JTextComponent;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.sf.xpontus.actions.impl.SaveActionImpl;
 import net.sf.xpontus.actions.impl.ViewMessagesWindowActionImpl;
@@ -54,14 +51,17 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 import org.apache.commons.vfs.FileObject;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-
-import javax.swing.SwingUtilities;
-import javax.swing.text.JTextComponent;
-import javax.swing.tree.DefaultMutableTreeNode;
+import com.sun.java.help.impl.SwingWorker;
+import com.vlsolutions.swing.docking.DockGroup;
+import com.vlsolutions.swing.docking.Dockable;
+import com.vlsolutions.swing.docking.DockableState;
+import com.vlsolutions.swing.docking.DockingDesktop;
+import com.vlsolutions.swing.docking.DockingUtilities;
+import com.vlsolutions.swing.docking.TabbedDockableContainer;
+import com.vlsolutions.swing.docking.event.DockableSelectionEvent;
+import com.vlsolutions.swing.docking.event.DockableSelectionListener;
+import com.vlsolutions.swing.docking.event.DockableStateWillChangeEvent;
+import com.vlsolutions.swing.docking.event.DockableStateWillChangeListener;
 
 
 /**
@@ -69,9 +69,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class DocumentTabContainer {
+public class DocumentTabContainer
+{
     protected static DockGroup group = new DockGroup("Editors");
-    private static List<TabChangeEventListener> tabChangeListenersList = new ArrayList<TabChangeEventListener>();
+    private static List<TabChangeEventListener> tabChangeListenersList = new CopyOnWriteArrayList<TabChangeEventListener>();
+    private static final DefaultMutableTreeNode EMPTY_OUTLINE = new DefaultMutableTreeNode();
     private Vector<IDocumentContainer> editors = new Vector<IDocumentContainer>();
     private boolean actionsEnabled = false;
     private DockingDesktop desktop;
@@ -79,26 +81,31 @@ public class DocumentTabContainer {
     private boolean closeAccepted = false;
     private Dockable currentDockable;
     private Dockable previousSelection;
+    private ExecutorService executorSVC = Executors.newSingleThreadExecutor();
 
     /** Creates a new instance of EditorTabContainer
      * @param m_desktop
      */
-    public DocumentTabContainer(final DockingDesktop m_desktop) {
+    public DocumentTabContainer(final DockingDesktop m_desktop)
+    {
         this.desktop = m_desktop;
 
-        desktop.addDockableSelectionListener(new DockableSelectionListener() {
-                public void selectionChanged(DockableSelectionEvent e) {
+        desktop.addDockableSelectionListener(new DockableSelectionListener()
+            {
+                public void selectionChanged(DockableSelectionEvent e)
+                {
                     Dockable selectedDockable = e.getSelectedDockable();
 
-                    if (selectedDockable == null) {
+                    if (selectedDockable == null)
+                    {
                         DefaultXPontusWindowImpl.getInstance().getOutline()
-                                                .updateAll(new DefaultMutableTreeNode());
-                       // System.out.println("no document selection");
+                                                .updateAll(EMPTY_OUTLINE);
 
                         return;
                     }
 
-                    if (selectedDockable instanceof IDocumentContainer) {
+                    if (selectedDockable instanceof IDocumentContainer)
+                    {
                         IDocumentContainer container = (IDocumentContainer) selectedDockable;
                         container.getEditorComponent().grabFocus();
 
@@ -108,16 +115,19 @@ public class DocumentTabContainer {
 
                         currentEditor.setCaretPosition(currentEditor.getCaretPosition());
 
-                        boolean newSelection  = false;
-                        
-                        if (previousSelection == null) {
+                        boolean newSelection = false;
+
+                        if (previousSelection == null)
+                        {
                             previousSelection = selectedDockable;
                             newSelection = true;
-                        } else if (previousSelection.getDockKey()
-                                                        .equals(selectedDockable.getDockKey())) {
-                           // System.out.println("same document selection");
-                        } else {
-                           // System.out.println("new document selection");
+                        }
+                        else if (previousSelection.getDockKey()
+                                                      .equals(selectedDockable.getDockKey()))
+                        {
+                        }
+                        else
+                        {
                             newSelection = true;
                             previousSelection = selectedDockable;
                         }
@@ -125,25 +135,30 @@ public class DocumentTabContainer {
                         currentEditor.requestFocusInWindow();
                         currentEditor.requestFocus();
                         currentEditor.grabFocus();
-                        
-                        if(newSelection){
-                        	updateSelection(container);
+
+                        if (newSelection)
+                        {
+                            updateSelection(container);
                         }
                     }
                 }
             });
-        desktop.addDockableStateWillChangeListener(new DockableStateWillChangeListener() {
-                public boolean isAccepted() {
+        desktop.addDockableStateWillChangeListener(new DockableStateWillChangeListener()
+            {
+                public boolean isAccepted()
+                {
                     return closeAccepted;
                 }
 
                 public void dockableStateWillChange(
-                    DockableStateWillChangeEvent event) {
+                    DockableStateWillChangeEvent event)
+                {
                     DockableState current = event.getCurrentState();
 
                     if ((current != null) &&
                             (current.getDockable() instanceof IDocumentContainer) &&
-                            event.getFutureState().isClosed()) {
+                            event.getFutureState().isClosed())
+                    {
                         closeAccepted = true;
 
                         IDocumentContainer editor = (IDocumentContainer) current.getDockable();
@@ -154,8 +169,10 @@ public class DocumentTabContainer {
                         Object mh = editor.getEditorComponent()
                                           .getClientProperty(XPontusFileConstantsIF.FILE_MOFIFIED);
 
-                        if (mh != null) {
-                            if (mh.equals(Boolean.TRUE)) {
+                        if (mh != null)
+                        {
+                            if (mh.equals(Boolean.TRUE))
+                            {
                                 saveAction.saveDocument(editor.getDockKey()
                                                               .getTooltip());
                             }
@@ -163,7 +180,8 @@ public class DocumentTabContainer {
 
                         closeAccepted = true;
 
-                        if (editors.size() == 1) {
+                        if (editors.size() == 1)
+                        {
                             editor.getDockKey()
                                   .setDockableState(DockableState.STATE_CLOSED);
 
@@ -185,7 +203,9 @@ public class DocumentTabContainer {
 
                             currentDockable = null;
                             currentEditor = null;
-                        } else {
+                        }
+                        else
+                        {
                             DocumentAwareComponentHolder.getInstance()
                                                         .notifyComponents(new DocumentContainerChangeEvent(
                                     editor));
@@ -193,23 +213,29 @@ public class DocumentTabContainer {
                             editors.get(editors.size() - 1).getEditorComponent()
                                    .grabFocus();
                         }
-                    } else if ((current != null) &&
+                    }
+                    else if ((current != null) &&
                             (current.getDockable() instanceof OutlineViewDockable) &&
-                            event.getFutureState().isClosed()) {
+                            event.getFutureState().isClosed())
+                    {
                         IOCPlugin iocContainer = DefaultXPontusWindowImpl.getInstance()
                                                                          .getIOCContainer();
                         ViewOutlineWindowActionImpl m_action = (ViewOutlineWindowActionImpl) iocContainer.getBean(ViewOutlineWindowActionImpl.BEAN_ALIAS);
                         m_action.setName("Show outline");
-                    } else if ((current != null) &&
+                    }
+                    else if ((current != null) &&
                             (current.getDockable() instanceof MessagesWindowDockable) &&
-                            event.getFutureState().isClosed()) {
+                            event.getFutureState().isClosed())
+                    {
                         IOCPlugin iocContainer = DefaultXPontusWindowImpl.getInstance()
                                                                          .getIOCContainer();
                         ViewMessagesWindowActionImpl m_action = (ViewMessagesWindowActionImpl) iocContainer.getBean(ViewMessagesWindowActionImpl.BEAN_ALIAS);
                         m_action.setName("Show Messages window");
-                    } else if ((current != null) &&
+                    }
+                    else if ((current != null) &&
                             (current.getDockable() instanceof XPathResultsDockable) &&
-                            event.getFutureState().isClosed()) {
+                            event.getFutureState().isClosed())
+                    {
                         IOCPlugin iocContainer = DefaultXPontusWindowImpl.getInstance()
                                                                          .getIOCContainer();
                         ViewXPathWindowActionImpl m_action = (ViewXPathWindowActionImpl) iocContainer.getBean(ViewXPathWindowActionImpl.BEAN_ALIAS);
@@ -219,14 +245,18 @@ public class DocumentTabContainer {
             });
     }
 
-    private void updateSelection(final IDocumentContainer container) {
+    private void updateSelection(final IDocumentContainer container)
+    {
         SyntaxDocument m_doc = (SyntaxDocument) currentEditor.getDocument();
         Object o = m_doc.getProperty(XPontusConstantsIF.OUTLINE_INFO);
 
-        if (o != null) {
+        if (o != null)
+        {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
             DefaultXPontusWindowImpl.getInstance().getOutline().updateAll(node);
-        } else {
+        }
+        else
+        {
             DefaultXPontusWindowImpl.getInstance().getOutline()
                                     .updateAll(new DefaultMutableTreeNode());
         }
@@ -235,8 +265,10 @@ public class DocumentTabContainer {
                                     .notifyComponents(new DocumentContainerChangeEvent(
                 container));
 
-        SwingWorker worker = new SwingWorker() {
-                public Object construct() {
+        SwingWorker worker = new SwingWorker()
+            {
+                public Object construct()
+                {
                     fireTabChangeEvent(new TabChangedEvent(container));
 
                     return null;
@@ -247,7 +279,8 @@ public class DocumentTabContainer {
     }
 
     public static void addTabChangeEventListener(
-        TabChangeEventListener listener) {
+        TabChangeEventListener listener)
+    {
         tabChangeListenersList.add(listener);
     }
 
@@ -255,15 +288,18 @@ public class DocumentTabContainer {
      * @param listener
      */
     public static void removeTabChangeEventListener(
-        TabChangeEventListener listener) {
+        TabChangeEventListener listener)
+    {
         tabChangeListenersList.remove(listener);
     }
 
     /**
      * @param e
      */
-    protected void fireTabChangeEvent(final TabChangedEvent e) {
-        for (final TabChangeEventListener tce : tabChangeListenersList) {
+    protected void fireTabChangeEvent(final TabChangedEvent e)
+    {
+        for (final TabChangeEventListener tce : tabChangeListenersList)
+        {
             tce.onTabChange(e);
         }
     }
@@ -272,14 +308,16 @@ public class DocumentTabContainer {
      *
      * @return
      */
-    public Dockable getCurrentDockable() {
+    public synchronized Dockable getCurrentDockable()
+    {
         return currentDockable;
     }
 
     /**
      * @return
      */
-    public Iterator getEditorsAsIterator() {
+    public Iterator<IDocumentContainer> getEditorsAsIterator()
+    {
         return editors.iterator();
     }
 
@@ -287,7 +325,8 @@ public class DocumentTabContainer {
      *
      * @return
      */
-    public IDocumentContainer[] getEditorsAsArray() {
+    public IDocumentContainer[] getEditorsAsArray()
+    {
         IDocumentContainer[] editorsArray = new IDocumentContainer[editors.size()];
         editors.copyInto(editorsArray);
 
@@ -297,17 +336,20 @@ public class DocumentTabContainer {
     /**
     * @return
     */
-    public Vector getEditorsAsVector() {
+    public Vector<IDocumentContainer> getEditorsAsVector()
+    {
         return editors;
     }
 
     /**
      * @param editor
      */
-    public void setupEditor(IDocumentContainer editor) {
+    public void setupEditor(IDocumentContainer editor)
+    {
         DockingDesktop desk = DefaultXPontusWindowImpl.getInstance().getDesktop();
 
-        if (editors.size() == 0) {
+        if (editors.size() == 0)
+        {
             Dockable pane = DefaultXPontusWindowImpl.getInstance()
                                                     .getDefaultPane();
 
@@ -315,28 +357,36 @@ public class DocumentTabContainer {
 
             int lastState = pane.getDockKey().getDockableState();
 
-            if (lastState == DockableState.STATE_MAXIMIZED) {
+            if (lastState == DockableState.STATE_MAXIMIZED)
+            {
                 desk.restore(pane);
                 desk.replace(pane, editor);
                 editor.getDockKey().setDockableState(DockableState.STATE_DOCKED);
                 desk.maximize(editor);
-            } else {
+            }
+            else
+            {
                 desk.replace(pane, editor);
                 editor.getDockKey().setDockableState(DockableState.STATE_DOCKED);
             }
 
             editor.getEditorComponent().requestFocusInWindow();
-        } else {
+        }
+        else
+        {
             final int last = editors.size() - 1;
             Dockable lastDockable = (Dockable) editors.get(last);
             int lastState = lastDockable.getDockKey().getDockableState();
 
-            if (lastState == DockableState.STATE_MAXIMIZED) {
+            if (lastState == DockableState.STATE_MAXIMIZED)
+            {
                 desk.restore(lastDockable);
                 desk.createTab(lastDockable, editor, (last + 1), true);
                 editor.getDockKey().setDockableState(DockableState.STATE_DOCKED);
                 desk.maximize(editor);
-            } else {
+            }
+            else
+            {
                 desk.createTab(lastDockable, editor, (last + 1), true);
             }
 
@@ -348,7 +398,8 @@ public class DocumentTabContainer {
 
         editors.add(editor);
 
-        if (!actionsEnabled) {
+        if (!actionsEnabled)
+        {
             enableDocumentActions(true);
         }
 
@@ -364,39 +415,36 @@ public class DocumentTabContainer {
 
         CurrentLineHighlighter.install(currentEditor);
 
-        System.out.println("OUTLINE BEGIN CODE");
-
-        if (mDoc.getOutlinePlugin() != null) {
-            Thread m_worker = new Thread() {
-                    public void run() {
-                        System.out.println("Initial outline...");
+        if (mDoc.getOutlinePlugin() != null)
+        {
+            executorSVC.submit(new Runnable()
+                {
+                    public void run()
+                    {
                         mDoc.getOutlinePlugin().updateOutline(mDoc);
                     }
-                };
-
-            m_worker.setPriority(Thread.MIN_PRIORITY);
-            m_worker.start();
-        } else {
-            System.out.println("NO OUTLINE TO BUILD");
+                });
         }
 
-        if (mDoc.getCodeCompletion() != null) {
-            Thread m_worker = new Thread() {
-                    public void run() {
+        if (mDoc.getCodeCompletion() != null)
+        {
+            executorSVC.submit(new Runnable()
+                {
+                    public void run()
+                    {
                         mDoc.getCodeCompletion().init(mDoc);
                     }
-                };
-
-            m_worker.setPriority(Thread.MIN_PRIORITY);
-            SwingUtilities.invokeLater(m_worker);
+                });
         }
     }
 
     /**
      * @param file
      */
-    public void createEditorFromFile(java.io.File file) {
-        if (!file.exists()) {
+    public void createEditorFromFile(java.io.File file)
+    {
+        if (!file.exists())
+        {
             return;
         }
 
@@ -409,46 +457,57 @@ public class DocumentTabContainer {
     }
 
     /**
-     * @param fo
+     * @param fileObject
      */
-    public void createEditorFromFileObject(FileObject fo) {
-        try {
-            if (!fo.exists()) {
+    public void createEditorFromFileObject(FileObject fileObject)
+    {
+        try
+        {
+            if (!fileObject.exists())
+            {
                 return;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return;
         }
 
-        FileHistoryList.addFile(fo.getName().getURI());
+        FileHistoryList.addFile(fileObject.getName().getURI());
 
         IDocumentContainer[] openEditors = getEditorsAsArray();
         IDocumentContainer alreadyOpened = null;
 
-        for (IDocumentContainer dct : openEditors) {
-            Object obj = dct.getEditorComponent()
-                            .getClientProperty(XPontusConstantsIF.FILE_OBJECT);
+        for (IDocumentContainer dct : openEditors)
+        {
+            Object fileObjectProperty = dct.getEditorComponent()
+                                           .getClientProperty(XPontusConstantsIF.FILE_OBJECT);
 
-            if ((obj != null) && obj.equals(fo)) {
+            if ((fileObjectProperty != null) && fileObjectProperty.equals(fileObject))
+            {
                 alreadyOpened = dct;
 
                 break;
             }
         }
 
-        if (alreadyOpened != null) {
+        if (alreadyOpened != null)
+        {
             TabbedDockableContainer dockableContainer = DockingUtilities.findTabbedDockableContainer(alreadyOpened);
 
-            if (dockableContainer != null) {
+            if (dockableContainer != null)
+            {
                 dockableContainer.setSelectedDockable(alreadyOpened);
                 alreadyOpened.getEditorComponent().grabFocus();
             }
-        } else {
+        }
+        else
+        {
             String mimeType = MimeTypesProvider.getInstance()
-                                               .getMimeType(fo.getName()
+                                               .getMimeType(fileObject.getName()
                                                               .getBaseName());
             IDocumentContainer container = PerspectiveHelper.createPerspective(mimeType);
-            container.setup(fo);
+            container.setup(fileObject);
             container.completeSetup();
             setupEditor(container);
         }
@@ -457,7 +516,8 @@ public class DocumentTabContainer {
     /**
      *
      */
-    public void createEditorForNewFile() {
+    public void createEditorForNewFile()
+    {
         IDocumentContainer container = PerspectiveHelper.createPerspective(
                 "text/xml");
         container.setup();
@@ -465,14 +525,14 @@ public class DocumentTabContainer {
         setupEditor(container);
     }
 
-
-     /**
-      * Method createEditorForTemplate ...
-      *
-      * @param templateName of type String
-      * @param templatePath of type String
-      */
-     public void createEditorForTemplate(String templateName, String templatePath) {
+    /**
+     * Method createEditorForTemplate ...
+     *
+     * @param templateName of type String
+     * @param templatePath of type String
+     */
+    public void createEditorForTemplate(String templateName, String templatePath)
+    {
         IDocumentContainer container = PerspectiveHelper.createPerspective(
                 "text/xml");
         container.setupFromTemplate(templateName, templatePath);
@@ -483,7 +543,8 @@ public class DocumentTabContainer {
     /**
      * @param url
      */
-    public void createEditorFromURL(java.net.URL url) {
+    public void createEditorFromURL(java.net.URL url)
+    {
         IDocumentContainer container = PerspectiveHelper.createPerspective(url.toExternalForm());
         container.setup(url);
         container.completeSetup();
@@ -494,7 +555,8 @@ public class DocumentTabContainer {
      *
      * @param b
      */
-    public void enableDocumentActions(final boolean b) {
+    public void enableDocumentActions(final boolean b)
+    {
         actionsEnabled = b;
     }
 
@@ -502,7 +564,8 @@ public class DocumentTabContainer {
      *
      * @return
      */
-    public JTextComponent getCurrentEditor() {
+    public synchronized JTextComponent getCurrentEditor()
+    {
         return currentEditor;
     }
 }

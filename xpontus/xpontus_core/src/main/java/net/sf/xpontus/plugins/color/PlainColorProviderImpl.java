@@ -21,6 +21,9 @@ package net.sf.xpontus.plugins.color;
 
 import net.sf.xpontus.syntax.IColorProvider;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.text.MutableAttributeSet;
 
 
@@ -28,11 +31,13 @@ import javax.swing.text.MutableAttributeSet;
  *
  * @author Yves Zoundi
  */
-public class PlainColorProviderImpl implements IColorProvider {
-    protected java.util.Map styles = new java.util.HashMap();
+public class PlainColorProviderImpl implements IColorProvider
+{
+    protected Map<Integer, MutableAttributeSet> styles = new HashMap<Integer, MutableAttributeSet>();
 
     /** Creates a new instance of PlainColorProviderImpl */
-    public PlainColorProviderImpl() {
+    public PlainColorProviderImpl()
+    {
     }
 
     /**
@@ -40,8 +45,10 @@ public class PlainColorProviderImpl implements IColorProvider {
      * @param tokenIds
      * @param style
      */
-    public void addAll(int[] tokenIds, MutableAttributeSet style) {
-        for (int i = 0; i < tokenIds.length; i++) {
+    public void addAll(int[] tokenIds, MutableAttributeSet style)
+    {
+        for (int i = 0; i < tokenIds.length; i++)
+        {
             addStyle(tokenIds[i], style);
         }
     }
@@ -51,15 +58,17 @@ public class PlainColorProviderImpl implements IColorProvider {
      * @param tokenId
      * @param style
      */
-    public void addStyle(int tokenId, MutableAttributeSet style) {
-        this.styles.put(new Integer(tokenId), style);
+    public void addStyle(int tokenId, MutableAttributeSet style)
+    {
+        this.styles.put(Integer.valueOf(tokenId), style);
     }
 
     /**
      *
      * @return
      */
-    public java.util.Map getStyles() {
+    public Map<Integer, MutableAttributeSet> getStyles()
+    {
         return styles;
     }
 }

@@ -3,13 +3,13 @@
     <parent>
         <artifactId>gendoc_plugin</artifactId>
         <groupId>net.sf.xpontus.plugins.gendoc</groupId>
-        <version>1.0.0-pre1</version>
+        <version>1.0.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sf.plugins.gendoc.xsd</groupId>
     <artifactId>xsddoc_plugin</artifactId>
     <name>Schema documentation</name>
-    <version>1.0.0-pre1</version> 
+    <version>1.0.0.2</version> 
     <description>Documentation generator for XML Schemas</description>
     <dependencies>
         <dependency>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>net.sf.xpontus</groupId>
             <artifactId>xpontus_core</artifactId>
-            <version>1.0.0-pre1</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

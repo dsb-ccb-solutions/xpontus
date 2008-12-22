@@ -24,6 +24,7 @@ package net.sf.xpontus.plugins.browser;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.plugins.menubar.MenuBarPluginIF;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,7 @@ public class BrowserMenuBarPluginImpl implements MenuBarPluginIF {
 
     public List<String> getMenuNames() {
         if (menuNamesList == null) {
-            menuNamesList = new Vector<String>();
+            menuNamesList = new ArrayList<String>();
             menuNamesList.add(XPontusMenuConstantsIF.PLUGINS_MENU_ID);
         }
 
@@ -53,7 +54,7 @@ public class BrowserMenuBarPluginImpl implements MenuBarPluginIF {
     public Map<String, List<Action>> getActionMap() {
         if (actionsMap == null) {
             actionsMap = new HashMap<String, List<Action>>();
-            actionsList = new Vector<Action>();
+            actionsList = new ArrayList<Action>();
             actionsList.add(new XPontusBrowserPluginAction());
             actionsMap.put(getMenuNames().get(0), actionsList);
         }

@@ -1,7 +1,7 @@
 /*
  * GotoLineView.java
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -47,9 +47,12 @@ import javax.swing.WindowConstants;
 
 /**
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class GotoLineView extends JDialog {
+public class GotoLineView extends JDialog
+{
+    private static final long serialVersionUID = -5641277404373326844L;
+    private static final Integer ONE_INTEGER = Integer.valueOf(1);
     private JPanel bottomPanel;
     private JButton closeButton;
     private JLabel columnLabel;
@@ -66,29 +69,34 @@ public class GotoLineView extends JDialog {
      * @param parent
      * @param modal
      */
-    public GotoLineView(java.awt.Frame parent, boolean modal) {
+    public GotoLineView(java.awt.Frame parent, boolean modal)
+    {
         super(parent, modal);
         controller = new GotoLineController(this);
         initComponents();
 
-        this.lineNumberTF.setValue(new Integer(1));
-        this.columnNumberTF.setValue(new Integer(1));
+        this.lineNumberTF.setValue(ONE_INTEGER);
+        this.columnNumberTF.setValue(ONE_INTEGER);
     }
 
-    public GotoLineView() {
+    public GotoLineView()
+    {
         this((Frame) XPontusComponentsUtils.getTopComponent()
                                            .getDisplayComponent(), false);
     }
 
-    public int getLine() {
+    public int getLine()
+    {
         return Integer.parseInt(this.lineNumberTF.getValue().toString());
     }
 
-    public int getColumn() {
+    public int getColumn()
+    {
         return Integer.parseInt(this.columnNumberTF.getValue().toString());
     }
 
-    private void initComponents() {
+    private void initComponents()
+    {
         setLayout(new BorderLayout());
 
         detailsPanel = new JPanel(new GridBagLayout());
@@ -171,8 +179,10 @@ public class GotoLineView extends JDialog {
         add(compPanel, BorderLayout.CENTER);
         detailsPanel.setVisible(false);
 
-        detailsButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        detailsButton.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
                     detailsPanel.setVisible(!detailsPanel.isVisible());
                 }
             });

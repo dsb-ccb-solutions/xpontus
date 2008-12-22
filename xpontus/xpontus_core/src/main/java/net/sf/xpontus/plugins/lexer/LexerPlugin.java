@@ -21,6 +21,11 @@
  */
 package net.sf.xpontus.plugins.lexer;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 import net.sf.xpontus.constants.LexerPropertiesConstantsIF;
 import net.sf.xpontus.constants.XPontusPropertiesConstantsIF;
 import net.sf.xpontus.plugins.XPontusPlugin;
@@ -33,24 +38,20 @@ import org.java.plugin.registry.ExtensionPoint;
 import org.java.plugin.registry.PluginDescriptor;
 import org.java.plugin.registry.PluginRegistry;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
-
 
 /**
  * Lexer plugin for different file types
  * @author Yves Zoundi
  */
-public class LexerPlugin extends XPontusPlugin {
+public class LexerPlugin extends XPontusPlugin
+{
     public static final String EXTENSION_POINT_NAME = "lexerpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.lexer";
     public static final String PLUGIN_CATEGORY = "Lexer";
     private Map<String, Object> lexerMap;
 
-    public LexerPlugin() {
+    public LexerPlugin()
+    {
     }
 
     /**
@@ -59,7 +60,8 @@ public class LexerPlugin extends XPontusPlugin {
      * @param lexer
      * @param loader
      */
-    private void addLexer(LexerPluginIF lexer, ClassLoader loader) {
+    private void addLexer(LexerPluginIF lexer, ClassLoader loader)
+    {
         Hashtable<String, Object> t = new Hashtable<String, Object>();
 
         t.put(LexerPropertiesConstantsIF.CLASS_LOADER, loader);
@@ -72,11 +74,14 @@ public class LexerPlugin extends XPontusPlugin {
 
         lexerMap.put(lexer.getMimeType(), t);
 
-        String[] extensions = null;
+        String[] extensions = {};
 
-        try {
+        try
+        {
             extensions = lexer.getSupportedExtensions();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 
@@ -89,24 +94,25 @@ public class LexerPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
         ExtensionPoint themePluginExtPoint = registry.getExtensionPoint(getDescriptor()
                                                                             .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = themePluginExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = themePluginExtPoint.getConnectedExtensions();
 
         LexerPluginIF mPlugin = new PlainLexerModuleImpl();
         addLexer(mPlugin, mPlugin.getClass().getClassLoader());
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             mPlugin = (LexerPluginIF) cl.newInstance();
             addLexer(mPlugin, classLoader);
         }
@@ -118,14 +124,16 @@ public class LexerPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
+    protected void doStart() throws Exception
+    {
         lexerMap = new HashMap<String, Object>();
     }
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
         lexerMap.clear();
     }
 
@@ -134,13 +142,16 @@ public class LexerPlugin extends XPontusPlugin {
      * @param supportedExtensions
      * @return
      */
-    private String createMimeTypes(String mimeType, String[] supportedExtensions) {
-        StringBuffer sb = new StringBuffer(mimeType + " ");
+    private String createMimeTypes(String mimeType, String[] supportedExtensions)
+    {
+        StringBuilder sb = new StringBuilder(mimeType).append(" ");
 
-        for (int i = 0; i < supportedExtensions.length; i++) {
+        for (int i = 0; i < supportedExtensions.length; i++)
+        {
             sb.append(supportedExtensions[i]);
 
-            if (i != (supportedExtensions.length - 1)) {
+            if (i != (supportedExtensions.length - 1))
+            {
                 sb.append(" ");
             }
         }

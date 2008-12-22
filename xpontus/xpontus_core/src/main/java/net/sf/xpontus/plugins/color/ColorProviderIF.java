@@ -19,11 +19,16 @@
  */
 package net.sf.xpontus.plugins.color;
 
+import java.util.Map;
+
+import javax.swing.text.MutableAttributeSet;
+
 
 /**
  *
  * @author Yves Zoundi
  */
-public interface ColorProviderIF {
-    public java.util.Map getStyles();
+public interface ColorProviderIF
+{
+    public Map<Integer, MutableAttributeSet> getStyles();
 }

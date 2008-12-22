@@ -3,13 +3,13 @@
   <parent>
     <artifactId>scenario_plugin</artifactId>
     <groupId>net.sf.xpontus.plugins.scenario</groupId>
-    <version>1.0.0-pre1</version>
+    <version>1.0.0.2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.scenarios.saxon8</groupId>
   <artifactId>saxon8_plugin</artifactId>
   <name>Saxon 8.x transformer</name>
-  <version>1.0.0-pre1</version>
+  <version>1.0.0.2</version>
   <url>http://maven.apache.org</url>
   <description>Saxon 8.x transformation profile support</description>
   <dependencies>
@@ -22,7 +22,7 @@
     <dependency>
             <groupId>net.sf.xpontus</groupId>
             <artifactId>xpontus_core</artifactId>
-            <version>1.0.0-pre1</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
     <dependency>

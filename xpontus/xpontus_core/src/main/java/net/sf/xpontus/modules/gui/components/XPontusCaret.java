@@ -3,7 +3,7 @@
  *
  * Created on July 1, 2007, 7:03 PM
  *
- * Copyright (C) 2005-2007 Yves Zoundi
+ * Copyright (C) 2005-2007 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -23,6 +23,7 @@ package net.sf.xpontus.modules.gui.components;
 
 import net.sf.xpontus.configuration.XPontusConfig;
 
+import java.awt.Color;
 import java.awt.event.FocusEvent;
 
 import javax.swing.text.DefaultCaret;
@@ -32,40 +33,35 @@ import javax.swing.text.Highlighter.HighlightPainter;
 
 /**
  * A caret which always blinks
- * @version 0.0.1
- * @author Yves Zoundi
+ * @version 0.0.2
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XPontusCaret extends DefaultCaret {
+public class XPontusCaret extends DefaultCaret
+{
+    private static final long serialVersionUID = -4166779148286944701L;
     private HighlightPainter painter;
 
     /** Creates a new instance of XPontusCaret */
-    public XPontusCaret() {
+    public XPontusCaret()
+    {
         this.setBlinkRate(Integer.valueOf(XPontusConfig.getValue(
                     "cursorBlinkRate").toString()));
-        painter = new MyHighlightPainter(java.awt.Color.LIGHT_GRAY);
+        painter = new DefaultHighlightPainter(Color.LIGHT_GRAY);
     }
 
     /**
      *
      * @return
      */
-    protected HighlightPainter getSelectionPainter() {
+    protected HighlightPainter getSelectionPainter()
+    {
         return painter;
     }
 
-    
     /* (non-Javadoc)
      * @see javax.swing.text.DefaultCaret#focusLost(java.awt.event.FocusEvent)
      */
-    public void focusLost(FocusEvent evt) {
-    }
-
-    class MyHighlightPainter extends DefaultHighlightPainter {
-        /**
-         * @param color
-         */
-        public MyHighlightPainter(java.awt.Color color) {
-            super(color);
-        }
+    public void focusLost(FocusEvent evt)
+    {
     }
 }

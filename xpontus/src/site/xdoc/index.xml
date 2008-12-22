@@ -7,20 +7,15 @@
     </properties> 
     <body> 
         <section name ="Overview">
-            <p>XPontus XML Editor is a simple XML Editor oriented towards text editing. It can perform validation, XSL transformations(HTML, XML, PDF, SVG), schema/DTD generation, DTD/HTML/XSL completion, code formatting and much <a href="featureshtml">more</a>.
-            New brand new version is plugin based to solve some limitation issues.
-            XPontus aims to become "the" free alternative to
-            commercial XML IDES such as XMLSPy or Oxygen XML Editor, or Exchanger XML Editor without the "Entreprise features" for now.</p>        
-            <p>XPontus tries to provide you the features you would expect of a real XML IDE in a familiar and conviviable manner.</p> 
-        </section>
-        
-        <section name = "Latest news">
-            <p>The 1.0.0-pre1 version of XPontus will be out next week(17-03-2008).</p> 
-		<p><a href="http://xpontus.sf.net/snapshot">TRY OUT THE LATEST UPCOMING RELEASE SNAPSHOT HERE (Last updated 15/03/2008 05:45 AM)</a></p>
-		<p><strong><em>Changelog: The external schema validation is back as a plugin. Code completion is more reliable now(guessing the elements to suggest)</em></strong></p>
-		<p><span style="color:red">If you have issues with the Java Web Start snapshot, remove your .xpontus folder and download the <u>plugins.zip</u> file again</span>.</p>
-		<p>The Java Web Start snapshot is updated on a regular basis. So if you see that the application is trying to update, please redownload and install the plugins.zip file as mentionned in the snapshot download page(above).</p>
-		<p>A first draft of the <strong><a href="dev_guide.pdf">DEVELOPER GUIDE</a></strong> is on the way.</p>
+            <p>XPontus XML Editor is a simple XML Editor oriented towards text editing. It can perform <strong>validation</strong>(DTD, XML Schema, Relax NG, Batch XML validation), <strong>XSL transformations</strong>(HTML, XML, PDF, SVG), <strong>schema/DTD generation</strong>, XML/DTD/HTML/XSL  <strong> code completion</strong>, <strong>code formatting</strong> and <strong><a href="features.html">much more</a></strong>. The brand new version is now plugin based to solve some limitation issues.</p> 
+ 
+<p><a href="screenshots.html"><img src="images/screenshot-small.png" witdh="300" height="200" border="0" alt="Screenshots"/></a></p> 
+ 
+<p> 
+            XPontus aims to become the free alternative to
+            commercial XML IDES such as XMLSPy or Oxygen XML Editor, or Exchanger XML Editor without the Entreprise features for now. The application tries to provide you most of the features you would expect to see in a fully bloated XML IDE, in a familiar and conviviable manner.</p> 
+         
+    
         </section> 
         
         <section name = "Goals">
@@ -30,7 +25,5 @@
                 <li>Integrate easily into other applications requiring XML needs</li> 
             </ul>
         </section> 
-        
-        
     </body>
 </document>

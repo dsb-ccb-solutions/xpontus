@@ -29,37 +29,39 @@ import javax.swing.text.JTextComponent;
 /**
  * A class which show the completion window (CompletionWindow class should never called directly)
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ContentAssistWindow {
-    private static ContentAssistWindow INSTANCE;
+public class ContentAssistWindow
+{
+    private static final ContentAssistWindow INSTANCE = new ContentAssistWindow();
     private JTextComponent jtc;
     private int offset;
 
-    public ContentAssistWindow() {
+    public ContentAssistWindow()
+    {
     }
 
-    public static ContentAssistWindow getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new ContentAssistWindow();
-        }
-
+    public static ContentAssistWindow getInstance()
+    {
         return INSTANCE;
     }
 
     public void complete(final JTextComponent jtc,
         final CodeCompletionIF contentAssist, int off, final String str,
-        final AttributeSet set) {
+        final AttributeSet set)
+    {
         this.jtc = jtc;
         this.offset = off;
 
         List completionData = contentAssist.getCompletionList(str, off);
 
-        if (completionData == null) {
+        if (completionData == null)
+        {
             return;
         }
 
-        if (completionData.size() > 0) {
+        if (completionData.size() > 0)
+        {
             CompletionWindow window = CompletionWindow.getInstance();
             window.getCompletionListModel().updateData(completionData);
             window.showWindow(jtc);

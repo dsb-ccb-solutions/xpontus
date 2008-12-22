@@ -3,7 +3,7 @@
  *
  * Created on May 26, 2007, 8:11 AM
  *
- * Copyright (C) 2005-2007 Yves Zoundi
+ * Copyright (C) 2005-2007 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -42,6 +42,7 @@ import org.java.plugin.standard.StandardPluginLocation;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.io.InputStream;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -55,14 +56,14 @@ import java.util.Locale;
 
 /**
  * XPontus plugin manager
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  * @version 0.0.1
  */
 public class XPontusPluginManager implements XPontusControllerIF
 {
     private static String PLUGINS = "plugins";
     private static PluginManager manager;
-    private Log log = LogFactory.getLog(XPontusPluginManager.class);
+    private static final Log LOG = LogFactory.getLog(XPontusPluginManager.class);
 
     /**
      * The default constructor
@@ -71,7 +72,6 @@ public class XPontusPluginManager implements XPontusControllerIF
     public XPontusPluginManager() throws Exception
     {
         manager = ObjectFactory.newInstance().createManager();
-
         manager.publishPlugins(getBuiltinPluginLocations());
         manager.publishPlugins(getPluginLocations());
     }
@@ -79,7 +79,7 @@ public class XPontusPluginManager implements XPontusControllerIF
     /**
      * @return
      */
-    public static PluginManager getPluginManager()
+    public static synchronized PluginManager getPluginManager()
     {
         if (manager == null)
         {
@@ -95,13 +95,10 @@ public class XPontusPluginManager implements XPontusControllerIF
     public void startApplication()
     {
         PluginRegistry registry = manager.getRegistry();
-        Collection descriptors = registry.getPluginDescriptors();
-        Object[] descriptorsArray = descriptors.toArray();
+        Collection<PluginDescriptor> descriptors = registry.getPluginDescriptors();
 
-        for (int i = 0; i < descriptorsArray.length; i++)
+        for (PluginDescriptor descriptor : descriptors)
         {
-            PluginDescriptor descriptor = (PluginDescriptor) descriptorsArray[i];
-
             if (!manager.isPluginActivated(descriptor))
             {
                 try
@@ -110,14 +107,12 @@ public class XPontusPluginManager implements XPontusControllerIF
                 }
                 catch (PluginLifecycleException err)
                 {
-                    log.error("PluginLifecycleException", err);
-                    err.printStackTrace();
+                    LOG.error("PluginLifecycleException", err);
                 }
             }
         }
     }
 
-    
     /* (non-Javadoc)
      * @see net.sf.xpontus.controllers.XPontusControllerIF#stopApplication()
      */
@@ -126,13 +121,10 @@ public class XPontusPluginManager implements XPontusControllerIF
         XPontusComponentsUtils.getTopComponent().deactivateComponent();
 
         PluginRegistry registry = manager.getRegistry();
-        Collection descriptors = registry.getPluginDescriptors();
-        Object[] descriptorsArray = descriptors.toArray();
+        Collection<PluginDescriptor> descriptors = registry.getPluginDescriptors();
 
-        for (int i = 0; i < descriptorsArray.length; i++)
+        for (PluginDescriptor descriptor : descriptors)
         {
-            PluginDescriptor descriptor = (PluginDescriptor) descriptorsArray[i];
-
             if (manager.isPluginActivated(descriptor))
             {
                 try
@@ -141,7 +133,7 @@ public class XPontusPluginManager implements XPontusControllerIF
                 }
                 catch (Exception err)
                 {
-                    log.error("Exception", err);
+                    LOG.error(err.getMessage(), err);
                 }
             }
         }
@@ -149,7 +141,6 @@ public class XPontusPluginManager implements XPontusControllerIF
         manager.shutdown();
     }
 
-    
     /**
      * @param path
      * @return
@@ -192,12 +183,10 @@ public class XPontusPluginManager implements XPontusControllerIF
             return new PluginLocation[0];
         }
 
-        List locations = new ArrayList();
+        List<PluginLocation> locations = new ArrayList<PluginLocation>();
 
-        for (int i = 0; i < files.length; i++)
+        for (File file : files)
         {
-            File file = files[i];
-
             try
             {
                 PluginLocation loc = StandardPluginLocation.create(file);
@@ -206,14 +195,10 @@ public class XPontusPluginManager implements XPontusControllerIF
                 {
                     locations.add(loc);
                 }
-
-                log.info("Plugin: " + file + " -> " + loc);
-
-                // System.out.println(file + " -> " + loc);
             }
             catch (MalformedURLException err)
             {
-                log.error("MalformedURLException:" + err.getMessage());
+                LOG.error("MalformedURLException:" + err.getMessage(), err);
             }
         }
 
@@ -238,7 +223,8 @@ public class XPontusPluginManager implements XPontusControllerIF
         }
         catch (Exception e)
         {
-            System.out.println("context:" + context);
+            LOG.error("Unable to create plugin from context:" + context);
+            LOG.error(e.getMessage(), e);
         }
 
         return loc;
@@ -251,20 +237,20 @@ public class XPontusPluginManager implements XPontusControllerIF
     public PluginLocation[] getBuiltinPluginLocations()
     {
         java.lang.String conf = "/net/sf/xpontus/plugins/plugins.txt";
-        java.io.InputStream is = getClass().getResourceAsStream(conf);
 
+        InputStream is = null;
         LineIterator it = null;
 
-        List locations = new ArrayList();
+        List<PluginLocation> locations = new ArrayList<PluginLocation>();
 
         try
         {
+            is = getClass().getResourceAsStream(conf);
             it = IOUtils.lineIterator(is, "UTF-8");
 
             while (it.hasNext())
             {
                 String line = it.nextLine();
-                System.out.println("Location:" + line);
 
                 PluginLocation loc = getPluginLocation(line);
                 locations.add(loc);
@@ -272,13 +258,19 @@ public class XPontusPluginManager implements XPontusControllerIF
         }
         catch (IOException ex)
         {
-            ex.printStackTrace();
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage(), ex);
         }
         finally
         {
-            IOUtils.closeQuietly(is);
-            LineIterator.closeQuietly(it);
+            if (is != null)
+            {
+                IOUtils.closeQuietly(is);
+            }
+
+            if (it != null)
+            {
+                LineIterator.closeQuietly(it);
+            }
         }
 
         return (PluginLocation[]) locations.toArray(new PluginLocation[0]);
@@ -290,15 +282,12 @@ public class XPontusPluginManager implements XPontusControllerIF
      */
     public PluginLocation[] getPluginLocations()
     {
-        List locations = new ArrayList();
+        List<PluginLocation> locations = new ArrayList<PluginLocation>();
 
         String iswebstart = System.getProperty("xpontusisjavawebstart");
 
         if (iswebstart == null)
         {
-            System.out.println(
-                "Not in webstart mode trying to load the system plugins");
-
             try
             {
                 File systemPluginsDir = new File("plugins");
@@ -306,20 +295,13 @@ public class XPontusPluginManager implements XPontusControllerIF
                 if (systemPluginsDir.exists())
                 {
                     DefaultSettingsModuleImpl.XPONTUS_SYSTEM_PLUGIN_DIR = systemPluginsDir;
-                    System.out.println("Loading system plugins");
                     locations.addAll(Arrays.asList(getPluginLocations(
                                 systemPluginsDir)));
                 }
-                else
-                {
-                    System.out.println(
-                        "System plugins directory cannot be found in path :" +
-                        systemPluginsDir.getAbsolutePath());
-                }
             }
-            catch (Exception exe)
+            catch (Exception e)
             {
-                // ignore it for now
+                LOG.warn(e.getMessage(), e);
             }
         }
         else
@@ -328,7 +310,7 @@ public class XPontusPluginManager implements XPontusControllerIF
             File mainPluginsDir = XPontusConstantsIF.XPONTUS_PLUGINS_DIR;
 
             locations.addAll(Arrays.asList(getPluginLocations(mainPluginsDir)));
-        } 
+        }
 
         return (PluginLocation[]) locations.toArray(new PluginLocation[0]);
     }

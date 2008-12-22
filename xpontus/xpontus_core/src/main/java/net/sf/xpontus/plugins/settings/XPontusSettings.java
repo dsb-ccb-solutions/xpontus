@@ -13,14 +13,16 @@ import java.util.Map;
  *
  * @author Yves Zoundi
  */
-public class XPontusSettings {
+public class XPontusSettings
+{
     public static final String KEY = XPontusSettings.class.getName();
 
     /**
      *
      * @return
      */
-    public static SettingsModuleIF getDefault() {
+    public static SettingsModuleIF getDefault()
+    {
         return lookup(XPontusSettings.KEY);
     }
 
@@ -29,8 +31,9 @@ public class XPontusSettings {
      * @param role
      * @return
      */
-    public static SettingsModuleIF lookup(String role) {
-        Map map = (Map) PropertiesHolder.getPropertyValue(role);
+    public static SettingsModuleIF lookup(String role)
+    {
+        Map<?, ?> map = (Map<?, ?>) PropertiesHolder.getPropertyValue(role);
         SettingsModuleIF settings = (SettingsModuleIF) map.get(DefaultSettingsModuleImpl.ROLE);
 
         return settings;

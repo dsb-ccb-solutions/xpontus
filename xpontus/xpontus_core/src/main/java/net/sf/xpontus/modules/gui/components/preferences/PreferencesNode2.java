@@ -30,21 +30,26 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class PreferencesNode2 extends DefaultMutableTreeNode {
+public class PreferencesNode2 extends DefaultMutableTreeNode
+{
+    private static final long serialVersionUID = 7095699284936445164L;
     private final String id;
     private PreferencesPluginIF plugin;
 
-    public PreferencesNode2(Object arg0, String id) {
+    public PreferencesNode2(Object arg0, String id)
+    {
         super(arg0);
         this.id = id;
         this.plugin = (PreferencesPluginIF) arg0;
     }
 
-    public final String getId() {
+    public final String getId()
+    {
         return id;
     }
 
-    public String toString() {
+    public String toString()
+    {
         return plugin.getPreferencesPanelComponent().getTitle();
     }
 }

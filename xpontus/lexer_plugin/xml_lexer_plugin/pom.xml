@@ -3,13 +3,13 @@
   <parent>
     <artifactId>lexer_plugin</artifactId>
     <groupId>net.sf.xpontus.plugins</groupId>
-    <version>1.0.0-pre1</version>
+    <version>1.0.0.2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.xpontus.plugins.lexer</groupId>
   <artifactId>xml_lexer_plugin</artifactId>
   <name>XML lexer</name>
-  <version>1.0.0-pre1</version> 
+  <version>1.0.0.2</version> 
   <description>XML syntax highlighting</description>
   <dependencies>
     <dependency>
@@ -21,8 +21,29 @@
     <dependency>
             <groupId>net.sf.xpontus</groupId>
             <artifactId>xpontus_core</artifactId>
-            <version>1.0.0-pre1</version>
+            <version>1.0.0.2</version>
             <scope>compile</scope>
         </dependency>
   </dependencies>
+  <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>*/**.java</exclude>
+                    <exclude>*/**.form</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <encoding>iso-8859-1</encoding>
+                    <source>1.5</source>
+                    <target>1.5</target>   
+                </configuration>
+            </plugin> 
+        </plugins>  
+    </build>    
 </project>

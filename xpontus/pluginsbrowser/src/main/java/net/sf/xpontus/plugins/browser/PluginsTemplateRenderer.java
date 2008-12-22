@@ -1,7 +1,5 @@
 /*
- *
- *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -21,7 +19,10 @@
  */
 package net.sf.xpontus.plugins.browser;
 
+import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.plugins.SimplePluginDescriptor;
+
+import org.apache.commons.io.IOUtils;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -34,107 +35,157 @@ import java.io.Writer;
 
 import java.util.Iterator;
 import java.util.Map;
-import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
+import java.util.Map.Entry;
+import java.util.Set;
 
 
 /**
- *
+ * Velocity template renderer utility class
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class PluginsTemplateRenderer {
-    public PluginsTemplateRenderer() {
+public class PluginsTemplateRenderer
+{
+    private static final String TEMPLATE_VENDOR_KEY = "vendor";
+    private static final String TEMPLATE_DATE_KEY = "date";
+    private static final String TEMPLATE_ID_KEY = "id";
+    private static final String TEMPLATE_CATEGORY_KEY = "category";
+    private static final String TEMPLATE_DESCRIPTION_KEY = "description";
+    private static final String TEMPLATE_VERSION_KEY = "version";
+    private static final String TEMPLATE_LICENSE_KEY = "license";
+    private static final String TEMPLATE_DEPENDENCIES_KEY = "dependencies";
+    private static final String TEMPLATE_DISPLAYNAME_KEY = "displayname";
+    private static final String TEMPLATE_HOMEPAGE_KEY = "homepage";
+    private static final String TEMPLATE_BUILTIN_KEY = "built-in";
+
+    public PluginsTemplateRenderer()
+    {
     }
 
-    public String renderTemplate(Map<String, String> pluginInformation) {
-        try {
+    public String renderTemplate(Map<String, String> pluginInformation)
+    {
+        Writer writer = null;
+
+        try
+        {
             Context context = new VelocityContext();
 
-            Writer writer = new StringWriter();
+            writer = new StringWriter();
 
-            Iterator<String> it = pluginInformation.keySet().iterator();
+            Set<Entry<String, String>> pluginInfoSet = pluginInformation.entrySet();
 
-            while (it.hasNext()) {
-                String m_key = it.next();
-                String m_value = pluginInformation.get(m_key);
-                context.put(m_key, m_value);
+            for (Entry<String, String> entry : pluginInfoSet)
+            {
+                context.put(entry.getKey(), entry.getValue());
             }
 
-            if (!pluginInformation.containsKey("vendor")) {
-                context.put("vendor", "Yves Zoundi");
-            } else {
-                if (pluginInformation.get("vendor") == null) {
-                    context.put("vendor", "Yves Zoundi");
-                } else if (pluginInformation.get("vendor").trim().equals("")) {
-                    context.put("vendor", "Yves Zoundi");
+            if (!pluginInformation.containsKey(TEMPLATE_VENDOR_KEY))
+            {
+                context.put(TEMPLATE_VENDOR_KEY, "Yves Zoundi");
+            }
+            else
+            {
+                if (pluginInformation.get(TEMPLATE_VENDOR_KEY) == null)
+                {
+                    context.put(TEMPLATE_VENDOR_KEY, "Yves Zoundi");
+                }
+                else if (pluginInformation.get(TEMPLATE_VENDOR_KEY).trim()
+                                              .equals(""))
+                {
+                    context.put(TEMPLATE_VENDOR_KEY, "Yves Zoundi");
                 }
             }
 
-            InputStream is = getClass().getResourceAsStream("template.vm");
+            InputStream is = getClass()
+                                 .getResourceAsStream("template.vm");
             Velocity.evaluate(context, writer, "browser_template_renderer",
                 new InputStreamReader(is));
 
             return writer.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return null;
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+        finally
+        {
+            IOUtils.closeQuietly(writer);
         }
     }
 
-    public String renderTemplate(SimplePluginDescriptor spd) {
-        try {
+    public String renderTemplate(SimplePluginDescriptor spd)
+    {
+        Writer writer = null;
+
+        try
+        {
             Context context = new VelocityContext();
 
-            Writer writer = new StringWriter();
+            writer = new StringWriter();
 
             String vendor = spd.getAuthor();
 
-            if (vendor == null) {
+            if (vendor == null)
+            {
                 vendor = "Yves Zoundi";
             }
 
-            context.put("vendor", vendor);
-            context.put("date", spd.getDate());
-            context.put("built-in", spd.getBuiltin());
-            context.put("category", spd.getCategory());
-            context.put("description", spd.getDescription());
-            context.put("displayname", spd.getDisplayname());
-            context.put("homepage", spd.getHomepage());
-            context.put("id", spd.getId());
-            context.put("version", spd.getVersion());
-            context.put("license", spd.getLicense());
-            context.put("dependencies", spd.getDependencies());
+            context.put(TEMPLATE_VENDOR_KEY, vendor);
+            context.put(TEMPLATE_DATE_KEY, spd.getDate());
+            context.put(TEMPLATE_BUILTIN_KEY, spd.getBuiltin());
+            context.put(TEMPLATE_CATEGORY_KEY, spd.getCategory());
+            context.put(TEMPLATE_DESCRIPTION_KEY, spd.getDescription());
+            context.put(TEMPLATE_DISPLAYNAME_KEY, spd.getDisplayname());
+            context.put(TEMPLATE_HOMEPAGE_KEY, spd.getHomepage());
+            context.put(TEMPLATE_ID_KEY, spd.getId());
+            context.put(TEMPLATE_VERSION_KEY, spd.getVersion());
+            context.put(TEMPLATE_LICENSE_KEY, spd.getLicense());
+            context.put(TEMPLATE_DEPENDENCIES_KEY, spd.getDependencies());
 
             InputStream is = getClass().getResourceAsStream("template.vm");
+
             Velocity.evaluate(context, writer, "browser_template_renderer",
                 new InputStreamReader(is));
 
             return writer.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return null;
+        }
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
+        finally
+        {
+            IOUtils.closeQuietly(writer);
         }
     }
-    
-    
-    public String renderMissingFeatureTemplate() {
-        try {
+
+    public String renderMissingFeatureTemplate()
+    {
+        Writer writer = null;
+
+        try
+        {
             Context context = new VelocityContext();
 
-            Writer writer = new StringWriter();
- 
-            context.put("pluginsdir", XPontusConfigurationConstantsIF.XPONTUS_PLUGINS_DIR.getAbsolutePath());
+            writer = new StringWriter();
+
+            context.put("pluginsdir",
+                XPontusConfigurationConstantsIF.XPONTUS_PLUGINS_DIR.getAbsolutePath());
 
             InputStream is = getClass().getResourceAsStream("missing.vm");
             Velocity.evaluate(context, writer, "missing_template_renderer",
                 new InputStreamReader(is));
 
             return writer.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
 
             return null;
+        }
+        finally
+        {
+            IOUtils.closeQuietly(writer);
         }
     }
 }

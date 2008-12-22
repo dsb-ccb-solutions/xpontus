@@ -1,7 +1,5 @@
 /*
  *
- *
- *
  * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
@@ -21,64 +19,75 @@
 package net.sf.xpontus.plugins.codecompletion.xml;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
 
 
 /**
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class TagInfo implements Comparable{
+public class TagInfo implements Comparable<TagInfo>
+{
     public static final int NONE = 0;
     public static final int EVENT = 1;
     public static final int FORM = 2;
     private String tagName;
     private boolean hasBody;
-    private List attributes = new Vector();
-    private List children = new Vector();
+    private List<AttributeInfo> attributes = new ArrayList<AttributeInfo>();
+    private List<String> children = new ArrayList<String>();
 
+    
     /**
-     * RXgN^B
-     * @param tagName ^O?O
-     * @param hasBody qvf???
+     * @param tagName
+     * @param hasBody
      */
-    public TagInfo(String tagName, boolean hasBody) {
+    public TagInfo(String tagName, boolean hasBody)
+    {
         this.tagName = tagName;
         this.hasBody = hasBody;
     }
 
-    public String toString() {
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
         return tagName;
     }
 
+     
     /**
-     * ^O?O??B
      * @return
      */
-    public String getTagName() {
+    public String getTagName()
+    {
         return this.tagName;
     }
 
+    
     /**
-     * qvf?????B
      * @return
      */
-    public boolean hasBody() {
+    public boolean hasBody()
+    {
         return this.hasBody;
     }
 
+     
     /**
-     * ??B
      * @param attribute
      */
-    public void addAttributeInfo(AttributeInfo attribute) {
+    public void addAttributeInfo(AttributeInfo attribute)
+    {
         int i = 0;
 
-        for (; i < attributes.size(); i++) {
+        for (; i < attributes.size(); i++)
+        {
             AttributeInfo info = (AttributeInfo) attributes.get(i);
 
-            if (info.getAttributeName().compareTo(attribute.getAttributeName()) > 0) {
+            if (info.getAttributeName().compareTo(attribute.getAttributeName()) > 0)
+            {
                 break;
             }
         }
@@ -87,41 +96,41 @@ public class TagInfo implements Comparable{
     }
 
     /**
-     * S????B
-     * @param attribute
+     * @return
      */
-    public AttributeInfo[] getAttributeInfo() {
-        return (AttributeInfo[]) this.attributes.toArray(new AttributeInfo[this.attributes.size()]);
+    public List<AttributeInfo> getAttributeInfo()
+    {
+        return Collections.unmodifiableList(attributes);
     }
 
     /**
-     * K{???B
      * @return
      */
-    public AttributeInfo[] getRequiredAttributeInfo() {
-        ArrayList list = new ArrayList();
+    public List<AttributeInfo> getRequiredAttributeInfo()
+    {
+        List<AttributeInfo> requiredAttributesList = new ArrayList<AttributeInfo>();
 
-        for (int i = 0; i < attributes.size(); i++) {
-            AttributeInfo info = (AttributeInfo) attributes.get(i);
-
-            if (info.isRequired()) {
-                list.add(info);
+        for (AttributeInfo attributeInfo : attributes)
+        {
+            if (attributeInfo.isRequired())
+            {
+                requiredAttributesList.add(attributeInfo);
             }
         }
 
-        return (AttributeInfo[]) list.toArray(new AttributeInfo[list.size()]);
+        return requiredAttributesList;
     }
 
     /**
-     * w?O???B
      * @param name
      * @return
      */
-    public AttributeInfo getAttributeInfo(String name) {
-        for (int i = 0; i < attributes.size(); i++) {
-            AttributeInfo info = (AttributeInfo) attributes.get(i);
-
-            if (info.getAttributeName().equals(name)) {
+    public AttributeInfo getAttributeInfo(String name)
+    {
+        for (AttributeInfo info : attributes)
+        {
+            if (info.getAttributeName().equals(name))
+            {
                 return info;
             }
         }
@@ -130,24 +139,26 @@ public class TagInfo implements Comparable{
     }
 
     /**
-     * q^O?OZbg?B
-     *
-     * @param name q^O?O
+     * @param name
      */
-    public void addChildTagName(String name) {
+    public void addChildTagName(String name)
+    {
         children.add(name);
     }
 
     /**
-     * q^O?O??B
-     *
-     * @return q^O?OiStringzj
+     * @return
      */
-    public String[] getChildTagNames() {
-        return (String[]) children.toArray(new String[children.size()]);
+    public List<String> getChildTagNames()
+    {
+        return Collections.unmodifiableList(children);
     }
-    
-     public int compareTo(Object o) {
-       return tagName.compareTo(o.toString());
+
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    public int compareTo(TagInfo tagInfo)
+    {
+        return tagName.compareTo(tagInfo.getTagName());
     }
 }

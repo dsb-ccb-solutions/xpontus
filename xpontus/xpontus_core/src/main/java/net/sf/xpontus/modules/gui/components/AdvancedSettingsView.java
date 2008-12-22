@@ -136,18 +136,7 @@ public class AdvancedSettingsView extends javax.swing.JDialog {
                 }
             }
         }
-
-       
-
-//        Hashtable t = new Hashtable();
-//            t.put("category", category);
-//            t.put("id", id);
-//            t.put(XPontusConstantsIF.OBJECT_CLASSNAME, cl.getName());
-//            t.put(XPontusConstantsIF.CLASS_LOADER, classLoader);
-
-
-
-
+ 
         jSplitPane1.setLeftComponent(treeScrollPane);
         jSplitPane1.setRightComponent(panePanel);
 

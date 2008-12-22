@@ -3,7 +3,7 @@
  *
  * Created on 2007-08-08, 10:45:53
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -21,6 +21,8 @@
  */
 package net.sf.xpontus.utils;
 
+import org.apache.commons.collections.map.ListOrderedMap;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,130 +31,158 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.ConcurrentHashMap;
 
-import javax.activation.*;
-import org.apache.commons.collections.map.ListOrderedMap;
+import javax.activation.FileTypeMap;
+
 
 /**
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XPontusMimetypesFileTypeMap extends FileTypeMap {
-
+public class XPontusMimetypesFileTypeMap extends FileTypeMap
+{
     private static final String DEFAULT_TYPE = "text/plain";
-    private Hashtable contentTypesMap = new Hashtable();
-    private final Map types = new HashMap();
+    private final Map<String, List<String>> contentTypesMap = new ConcurrentHashMap<String, List<String>>();
+    private final Map<String, String> types = new ConcurrentHashMap<String, String>();
+    private ListOrderedMap mimetypesList = new ListOrderedMap();
 
-    public XPontusMimetypesFileTypeMap() {
+    public XPontusMimetypesFileTypeMap()
+    {
     }
 
     public XPontusMimetypesFileTypeMap(String mimeTypeFileName)
-            throws IOException {
+        throws IOException
+    {
         this();
 
         BufferedReader reader = new BufferedReader(new FileReader(
-                mimeTypeFileName));
+                    mimeTypeFileName));
 
-        try {
+        try
+        {
             String line;
 
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null)
+            {
                 addMimeTypes(line);
             }
 
             reader.close();
-        } catch (IOException e) {
-            try {
+        }
+        catch (IOException e)
+        {
+            try
+            {
                 reader.close();
-            } catch (IOException e1) {
-            // ignore to allow original cause through
+            }
+            catch (IOException e1)
+            {
+                // ignore to allow original cause through
             }
 
             throw e;
         }
     }
 
-    public XPontusMimetypesFileTypeMap(InputStream is) {
+    public XPontusMimetypesFileTypeMap(InputStream is)
+    {
         this();
 
-        try {
+        try
+        {
             loadStream(is);
-        } catch (IOException e) {
-        // ignore as the spec's signature says we can't throw IOException - doh!
+        }
+        catch (IOException e)
+        {
+            // ignore as the spec's signature says we can't throw IOException - doh!
         }
     }
 
-    public Hashtable getContentTypesMap() {
+    public Map<String, List<String>> getContentTypesMap()
+    {
         return contentTypesMap;
     }
 
-    public ListOrderedMap getTypes() {
+    public ListOrderedMap getTypes()
+    {
         return mimetypesList;
     }
 
-    private void loadStream(InputStream is) throws IOException {
+    private void loadStream(InputStream is) throws IOException
+    {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line;
 
-        while ((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null)
+        {
             addMimeTypes(line);
         }
     }
 
-    public synchronized void addMimeTypes(String mime_types) {
+    public synchronized void addMimeTypes(String mime_types)
+    {
         int hashPos = mime_types.indexOf('#');
 
-        if (hashPos != -1) {
+        if (hashPos != -1)
+        {
             mime_types = mime_types.substring(0, hashPos);
         }
 
         StringTokenizer tok = new StringTokenizer(mime_types);
 
-        if (!tok.hasMoreTokens()) {
+        if (!tok.hasMoreTokens())
+        {
             return;
         }
 
         String contentType = tok.nextToken();
 
-        while (tok.hasMoreTokens()) {
+        while (tok.hasMoreTokens())
+        {
             String fileType = tok.nextToken();
             types.put(fileType, contentType);
-            if(!mimetypesList.containsKey(contentType)){
-                mimetypesList.put(contentType, new ArrayList());
+
+            if (!mimetypesList.containsKey(contentType))
+            {
+                mimetypesList.put(contentType, new ArrayList<String>());
             }
-            List mli = (List) mimetypesList.get(contentType);
+
+            List<String> mli = (List<String>) mimetypesList.get(contentType);
             mli.add("*." + fileType);
-            
-            List li = new ArrayList();
 
-            if (!contentTypesMap.contains(contentType)) {
+            List<String> li = new ArrayList<String>();
+
+            if (!contentTypesMap.containsKey(contentType))
+            {
                 contentTypesMap.put(contentType, li);
-            } else {
-                li = (List) contentTypesMap.get(contentType);
+            }
+            else
+            {
+                li = contentTypesMap.get(contentType);
             }
 
-            if (!li.contains(fileType)) {
+            if (!li.contains(fileType))
+            {
                 li.add(fileType);
-
             }
         }
     }
-    
-    private ListOrderedMap mimetypesList = new ListOrderedMap();
 
-    public String getContentType(File f) {
+    public String getContentType(File f)
+    {
         return getContentType(f.getName());
     }
 
-    public synchronized String getContentType(String filename) {
+    public String getContentType(String filename)
+    {
         int index = filename.lastIndexOf('.');
 
-        if ((index == -1) || (index == (filename.length() - 1))) {
+        if ((index == -1) || (index == (filename.length() - 1)))
+        {
             return DEFAULT_TYPE;
         }
 

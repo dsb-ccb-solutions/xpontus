@@ -22,7 +22,6 @@ package net.sf.xpontus.plugins.evaluator.xpath2;
 
 import net.sf.saxon.Configuration;
 import net.sf.saxon.om.NodeInfo;
-import net.sf.saxon.tree.NodeImpl;
 import net.sf.saxon.xpath.NamespaceContextImpl;
 import net.sf.saxon.xpath.StandaloneContext;
 import net.sf.saxon.xpath.XPathEvaluator;
@@ -57,17 +56,22 @@ import javax.xml.transform.sax.SAXSource;
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XPath2EvaluatorPluginImpl implements EvaluatorPluginIF {
-    public XPath2EvaluatorPluginImpl() {
+public class XPath2EvaluatorPluginImpl implements EvaluatorPluginIF
+{
+	private static final String ENGINE_NAME = "XPATH 2.0";
+	
+    public XPath2EvaluatorPluginImpl()
+    {
     }
 
-    public String getName() {
-        return "XPATH 2.0";
+    public String getName()
+    {
+        return ENGINE_NAME;
     }
 
     public XPathResultDescriptor[] handle(String expression)
-        throws Exception { 
-        
+        throws Exception
+    {
         JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
                                                      .getDocumentTabContainer()
                                                      .getCurrentEditor();
@@ -102,7 +106,8 @@ public class XPath2EvaluatorPluginImpl implements EvaluatorPluginIF {
 
         Iterator it = nsMap.keySet().iterator();
 
-        while (it.hasNext()) {
+        while (it.hasNext())
+        {
             String key = it.next().toString();
             String val = nsMap.get(key).toString();
             std.declareNamespace(key, val);
@@ -118,17 +123,21 @@ public class XPath2EvaluatorPluginImpl implements EvaluatorPluginIF {
 
         XPathResultDescriptor[] results = new XPathResultDescriptor[list.size()];
 
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++)
+        {
             Object o = list.get(i);
             XPathResultDescriptor res = null;
 
-            if (o instanceof NodeInfo) {
+            if (o instanceof NodeInfo)
+            {
                 NodeInfo resultInfo = (NodeInfo) o;
                 res = new XPathResultDescriptor(resultInfo.getDisplayName());
                 res.setLineInfo(true);
                 res.setLine(resultInfo.getLineNumber() + 1);
                 res.setColumn(0);
-            } else {
+            }
+            else
+            {
                 res = new XPathResultDescriptor(o.toString());
             }
 

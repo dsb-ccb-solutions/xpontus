@@ -32,7 +32,6 @@ import org.java.plugin.registry.PluginDescriptor;
 import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 
 /**
@@ -61,17 +60,17 @@ public class ScenarioPlugin extends XPontusPlugin {
                                                                                .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = scenarioPluginExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = scenarioPluginExtPoint.getConnectedExtensions();
 
         ScenarioPluginsConfiguration.getInstance().addEngine(new DefaultScenarioPluginImpl(),
             this.getClass().getClassLoader());
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins) {
+            
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader loader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
-            Class cl = loader.loadClass(className);
+            Class<?> cl = loader.loadClass(className);
             ScenarioPluginIF m_plugin = (ScenarioPluginIF) cl.newInstance();
             ScenarioPluginsConfiguration.getInstance().addEngine(m_plugin,
                 loader);

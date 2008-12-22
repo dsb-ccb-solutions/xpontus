@@ -1,5 +1,5 @@
 /**
- * SyntaxEditorkit.java 
+ * SyntaxEditorkit.java
  *
  * Created on 4-Aug-2007, 10:18:31 AM
  *
@@ -39,7 +39,9 @@ import javax.swing.text.ViewFactory;
  * @author Yves Zoundi
  * Created on Apr 5, 2008
  */
-public class SyntaxEditorkit extends DefaultEditorKit implements ViewFactory {
+public class SyntaxEditorkit extends DefaultEditorKit implements ViewFactory
+{
+    private static final long serialVersionUID = -8774638508566771288L;
     private Document doc;
     private SyntaxSupport syntaxSupport;
 
@@ -49,7 +51,8 @@ public class SyntaxEditorkit extends DefaultEditorKit implements ViewFactory {
      * @param mode
      *
      */
-    public SyntaxEditorkit(JTextComponent editor, String mode) {
+    public SyntaxEditorkit(JTextComponent editor, String mode)
+    {
         editor.setCaretPosition(0);
         editor.setCaret(new XPontusCaret());
         this.syntaxSupport = SyntaxSupportFactory.getSyntax(mode);
@@ -65,7 +68,8 @@ public class SyntaxEditorkit extends DefaultEditorKit implements ViewFactory {
      * <code>ViewFactory</code>.
      * @return
      */
-    public ViewFactory getViewFactory() {
+    public ViewFactory getViewFactory()
+    {
         return this;
     }
 
@@ -77,11 +81,13 @@ public class SyntaxEditorkit extends DefaultEditorKit implements ViewFactory {
      * @param elem The element
      * @return a new SyntaxView for an element
      */
-    public View create(Element elem) {
+    public View create(Element elem)
+    {
         return new SyntaxView(elem);
     }
 
-     public Document createDefaultDocument() {
+    public Document createDefaultDocument()
+    {
         return doc;
     }
 }

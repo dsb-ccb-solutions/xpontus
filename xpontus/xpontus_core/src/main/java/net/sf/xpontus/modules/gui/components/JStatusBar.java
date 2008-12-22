@@ -3,7 +3,7 @@
  *
  * Created on February 14, 2006, 2:41 AM
  *
- * Copyright (C) 2005-2007 Yves Zoundi
+ * Copyright (C) 2005-2007 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -29,11 +29,12 @@ import javax.swing.JComponent;
 
 /**
  *
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class JStatusBar extends javax.swing.JPanel {
-
-    /** Creates new form JStatusBar */
+ 
+	private static final long serialVersionUID = 6436576142671759330L;
+	/** Creates new form JStatusBar */
     public JStatusBar() {
         initComponents();
         addComponents();

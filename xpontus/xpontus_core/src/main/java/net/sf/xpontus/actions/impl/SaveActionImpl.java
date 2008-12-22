@@ -3,7 +3,7 @@
  *
  * Created on June 30, 2007, 11:55 AM
  *
- *  Copyright (C) 2005-2007 Yves Zoundi
+ *  Copyright (C) 2005-2007 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  *  This library is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published
@@ -21,45 +21,57 @@
  */
 package net.sf.xpontus.actions.impl;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
+import javax.swing.text.JTextComponent;
+
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.controllers.impl.ModificationHandler;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.utils.FileHistoryList;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.provider.local.LocalFile;
-
-import java.io.*;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.swing.*;
-import javax.swing.text.JTextComponent;
 
 
 /**
  * Action to save a document
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
+public class SaveActionImpl extends SimpleDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = 1210327883708884071L;
     public static final String BEAN_ALIAS = "action.save";
     private static final Pattern ENCODING_PATTERN = Pattern.compile(
             "(?<=encoding=\")[^\"]*(?=\")");
 
     /** Creates a new instance of SaveActionImpl */
-    public SaveActionImpl() {
+    public SaveActionImpl()
+    {
     }
 
-    public void saveDocument(String title) {
+    public void saveDocument(String title)
+    {
         int rep = JOptionPane.showConfirmDialog(DefaultXPontusWindowImpl.getInstance()
                                                                         .getDisplayComponent(),
                 "The file " + title +
                 " has been modified. Do you want to save it?",
                 "Save document?", JOptionPane.YES_NO_OPTION);
 
-        if (rep == JOptionPane.YES_OPTION) {
+        if (rep == JOptionPane.YES_OPTION)
+        {
             execute();
         }
     }
@@ -67,8 +79,13 @@ public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
     /**
      *  Save the document
      */
-    public void execute() {
-        try {
+    public void execute()
+    {
+        OutputStream bos = null;
+        Writer m_writer = null;
+
+        try
+        {
             JTextComponent editor = DefaultXPontusWindowImpl.getInstance()
                                                             .getDocumentTabContainer()
                                                             .getCurrentEditor();
@@ -76,20 +93,24 @@ public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
             Object o = editor.getClientProperty(XPontusConstantsIF.FILE_OBJECT);
 
             // a new file with no recorded location
-            if (o == null) {
+            if (o == null)
+            {
                 new SaveAsActionImpl().execute();
             }
+
             // save existing file
-            else {
+            else
+            {
                 FileObject fo = (FileObject) o;
 
                 FileHistoryList.addFile(fo.getName().getURI());
 
-                OutputStream bos = null;
-
-                if (fo instanceof LocalFile) {
-                    bos = new FileOutputStream(fo.getName().getPath());
-                } else {
+                if (fo instanceof LocalFile)
+                {
+                    bos = new FileOutputStream(fo.getURL().getPath());
+                }
+                else
+                {
                     bos = fo.getContent().getOutputStream();
                 }
 
@@ -97,35 +118,44 @@ public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
 
                 String m_encoding = getEncoding(editor.getText());
 
-                if (!m_encoding.trim().equals("")) {
+                if (!m_encoding.trim().equals(""))
+                {
                     encoding = m_encoding;
                 }
 
-                OutputStreamWriter m_writer = new OutputStreamWriter(bos,
-                        encoding);
+                m_writer = new OutputStreamWriter(bos, encoding);
 
                 m_writer.write(editor.getText());
-
-                //bos.write(editor.getText().getBytes());
-                m_writer.flush();
-
-                m_writer.close();
-
-                bos.flush();
-
-                bos.close();
 
                 ModificationHandler handler = (ModificationHandler) editor.getClientProperty(XPontusConstantsIF.MODIFICATION_HANDLER);
                 handler.setModified(false);
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
+            getLogger().error("An error occured while trying to save the document");
+            getLogger().error(e.getMessage(), e);
+        }
+        finally
+        {
+            if (m_writer != null)
+            {
+                IOUtils.closeQuietly(m_writer);
+            }
+
+            if (bos != null)
+            {
+                IOUtils.closeQuietly(bos);
+            }
         }
     }
 
-    private String getEncoding(String xml) throws IOException {
+    private String getEncoding(String xml) throws IOException
+    {
         BufferedReader reader = null;
 
-        try {
+        try
+        {
             reader = new BufferedReader(new InputStreamReader(
                         new ByteArrayInputStream(xml.getBytes())));
 
@@ -133,9 +163,12 @@ public class SaveActionImpl extends SimpleDocumentAwareActionImpl {
             Matcher matcher = ENCODING_PATTERN.matcher(prolog);
 
             return matcher.find() ? matcher.group() : "";
-        } finally {
-            if (reader != null) {
-                reader.close();
+        }
+        finally
+        {
+            if (reader != null)
+            {
+                IOUtils.closeQuietly(reader);
             }
         }
     }

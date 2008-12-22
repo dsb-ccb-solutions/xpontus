@@ -23,7 +23,28 @@
  */
 package net.sf.xpontus.controllers.impl;
 
-import net.sf.xpontus.actions.impl.*;
+import net.sf.xpontus.actions.impl.AbstractXPontusActionImpl;
+import net.sf.xpontus.actions.impl.CheckXMLActionImpl;
+import net.sf.xpontus.actions.impl.CopyActionImpl;
+import net.sf.xpontus.actions.impl.CreateNewFileActionImpl;
+import net.sf.xpontus.actions.impl.CutActionImpl;
+import net.sf.xpontus.actions.impl.ExitActionImpl;
+import net.sf.xpontus.actions.impl.IndentContentActionImpl;
+import net.sf.xpontus.actions.impl.OpenActionImpl;
+import net.sf.xpontus.actions.impl.PasteActionImpl;
+import net.sf.xpontus.actions.impl.PrintActionImpl;
+import net.sf.xpontus.actions.impl.RecentFilesActionImpl;
+import net.sf.xpontus.actions.impl.RedoActionImpl;
+import net.sf.xpontus.actions.impl.ReloadActionImpl;
+import net.sf.xpontus.actions.impl.SaveActionImpl;
+import net.sf.xpontus.actions.impl.SaveAsActionImpl;
+import net.sf.xpontus.actions.impl.SelectAllActionImpl;
+import net.sf.xpontus.actions.impl.SimpleValidationActionImpl;
+import net.sf.xpontus.actions.impl.UndoActionImpl;
+import net.sf.xpontus.actions.impl.ViewMessagesWindowActionImpl;
+import net.sf.xpontus.actions.impl.ViewOutlineWindowActionImpl;
+import net.sf.xpontus.actions.impl.ViewToolbarActionImpl;
+import net.sf.xpontus.actions.impl.ViewXPathWindowActionImpl;
 import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusMenuConstantsIF;
 import net.sf.xpontus.constants.XPontusToolbarConstantsIF;
@@ -59,21 +80,33 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 import org.java.plugin.PluginManager;
 
-import java.io.File;
-
-import java.util.*;
 import java.awt.event.ActionEvent;
 
-import javax.swing.*;
+import java.io.File;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JMenu;
+import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 
 /**
  * Class which start the application
  * This class should not be called (XPontusServerManager is the launcher)
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XPontusRunner {
-    static {
+public class XPontusRunner
+{
+    static
+    {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         System.setSecurityManager(null);
         System.setProperty("javax.xml.transform.TransformerFactory",
@@ -88,9 +121,11 @@ public class XPontusRunner {
             "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
     }
 
-    static JWindow splash;
+    static volatile JWindow splash;
+    private static volatile boolean showSplash = true;
 
-    private XPontusRunner() {
+    private XPontusRunner()
+    {
     }
 
     /**
@@ -99,13 +134,17 @@ public class XPontusRunner {
      * @return
      */
     public static MenuBarPluginIF createMenuExtension(final String menu,
-        final Object[] actions) {
-        MenuBarPluginIF plugin = new MenuBarPluginIF() {
-                public List getMenuNames() {
+        final Object[] actions)
+    {
+        MenuBarPluginIF plugin = new MenuBarPluginIF()
+            {
+                public List getMenuNames()
+                {
                     return Arrays.asList(new String[] { menu });
                 }
 
-                public Map getActionMap() {
+                public Map getActionMap()
+                {
                     Map m = new HashMap();
                     m.put(menu, Arrays.asList(actions));
 
@@ -122,14 +161,18 @@ public class XPontusRunner {
      * @return
      */
     public static ToolBarPluginIF createToolbarExtension(final String tb,
-        final Object[] actions) {
+        final Object[] actions)
+    {
         // the toolbar extension
-        ToolBarPluginIF toolbar = new ToolBarPluginIF() {
-                public String[] getToolBarNames() {
+        ToolBarPluginIF toolbar = new ToolBarPluginIF()
+            {
+                public String[] getToolBarNames()
+                {
                     return new String[] { tb };
                 }
 
-                public Map getActions() {
+                public Map getActions()
+                {
                     Map m = new HashMap();
                     m.put(tb, Arrays.asList(actions));
 
@@ -140,11 +183,17 @@ public class XPontusRunner {
         return toolbar;
     }
 
-    private static final Action createDisabledAction(String text){
-                               Action a = new AbstractAction(text){
-                                    public void actionPerformed(ActionEvent e){}
-                               }   ;
+    private static final Action createDisabledAction(String text)
+    {
+        Action a = new AbstractAction(text)
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                }
+            };
+
         a.setEnabled(false);
+
         return a;
     }
 
@@ -153,23 +202,27 @@ public class XPontusRunner {
      * @param args  command line arguments
      * @throws java.lang.Exception An exception
      */
-    public static void main(final String[] args) {
-        try {
+    public static void main(final String[] args)
+    {
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
             // initialize the settings
             SettingsModuleIF settings = DefaultSettingsModuleImpl.getInstance();
             settings.init();
             settings.start();
 
-            //UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-            boolean showSplash = XPontusConfig.getValue(
+            showSplash = XPontusConfig.getValue(
                     "xpontus.showSplashScreenOnStartup").toString()
-                                              .equals("true");
+                                      .equals("true");
 
-            if (showSplash) {
-                SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
+            if (showSplash)
+            {
+                SwingUtilities.invokeLater(new Runnable()
+                    {
+                        public void run()
+                        {
                             splash = new SplashScreen();
                             splash.setLocationRelativeTo(splash.getOwner());
                             splash.setVisible(true);
@@ -183,7 +236,8 @@ public class XPontusRunner {
 
             final XPontusTopComponentIF window = DefaultXPontusWindowImpl.getInstance();
 
-            String[] identifiers = {
+            String[] pluginIdentifiers = 
+                {
                     IOCPlugin.PLUGIN_IDENTIFIER, ThemePlugin.PLUGIN_IDENTIFIER,
                     MenuBarPlugin.PLUGIN_IDENTIFIER,
                     LexerPlugin.PLUGIN_IDENTIFIER,
@@ -203,8 +257,9 @@ public class XPontusRunner {
             PluginManager manager = XPontusPluginManager.getPluginManager();
 
             // init plugins
-            for (int i = 0; i < identifiers.length; i++) {
-                XPontusPlugin plugin = (XPontusPlugin) manager.getPlugin(identifiers[i]);
+            for (String pluginIdentifier : pluginIdentifiers)
+            {
+                XPontusPlugin plugin = (XPontusPlugin) manager.getPlugin(pluginIdentifier);
                 plugin.init();
             }
 
@@ -217,22 +272,26 @@ public class XPontusRunner {
 
             DefaultXPontusWindowImpl.getInstance().setIOCContainer(iocPlugin);
 
-            if (iocPlugin.getContainer() != null) {
-                final String[] actions = {
+            if (iocPlugin.getContainer() != null)
+            {
+                final String[] actions = 
+                    {
                         CreateNewFileActionImpl.BEAN_ALIAS,
-                        "action.fromtemplate",
-                        OpenActionImpl.BEAN_ALIAS, ReloadActionImpl.BEAN_ALIAS,
-                        SaveActionImpl.BEAN_ALIAS, SaveAsActionImpl.BEAN_ALIAS,
-                        PrintActionImpl.BEAN_ALIAS, ExitActionImpl.BEAN_ALIAS
+                        "action.fromtemplate", OpenActionImpl.BEAN_ALIAS,
+                        ReloadActionImpl.BEAN_ALIAS, SaveActionImpl.BEAN_ALIAS,
+                        SaveAsActionImpl.BEAN_ALIAS, PrintActionImpl.BEAN_ALIAS,
+                        ExitActionImpl.BEAN_ALIAS
                     };
 
                 final Object[] actionsList = new Object[actions.length];
 
-                for (int j = 0; j < actions.length; j++) {
+                for (int j = 0; j < actions.length; j++)
+                {
                     actionsList[j] = iocPlugin.getBean(actions[j]);
                 }
 
-                final String[] viewActions = {
+                final String[] viewActions = 
+                    {
                         ViewToolbarActionImpl.BEAN_ALIAS,
                         ViewOutlineWindowActionImpl.BEAN_ALIAS,
                         ViewMessagesWindowActionImpl.BEAN_ALIAS,
@@ -240,11 +299,13 @@ public class XPontusRunner {
                     };
                 final Object[] viewActionsList = new Object[viewActions.length];
 
-                for (int i = 0; i < viewActions.length; i++) {
+                for (int i = 0; i < viewActions.length; i++)
+                {
                     viewActionsList[i] = iocPlugin.getBean(viewActions[i]);
                 }
 
-                final String[] editActions = {
+                final String[] editActions = 
+                    {
                         SelectAllActionImpl.BEAN_ALIAS,
                         CopyActionImpl.BEAN_ALIAS, CutActionImpl.BEAN_ALIAS,
                         PasteActionImpl.BEAN_ALIAS, UndoActionImpl.BEAN_ALIAS,
@@ -252,11 +313,13 @@ public class XPontusRunner {
                         "action.gotoline"
                     };
 
-                final Object[] validateActionsList = new Object[] {
+                final Object[] validateActionsList = new Object[]
+                    {
                         iocPlugin.getBean(SimpleValidationActionImpl.BEAN_ALIAS)
                     };
 
-                final String[] toolsActions = {
+                final String[] toolsActions = 
+                    {
                         CheckXMLActionImpl.BEAN_ALIAS,
                         IndentContentActionImpl.BEAN_ALIAS, "action.docgen"
                     };
@@ -264,32 +327,38 @@ public class XPontusRunner {
                 final String[] helpActions = { "action.about", "action.help" };
                 final Object[] helpActionsList = new Object[helpActions.length];
 
-                for (int i = 0; i < helpActions.length; i++) {
+                for (int i = 0; i < helpActions.length; i++)
+                {
                     helpActionsList[i] = iocPlugin.getBean(helpActions[i]);
                 }
 
-                final String[] scenariosActions = {
+                final String[] scenariosActions = 
+                    {
                         "action.scenariomanager", "action.scenariorunner"
                     };
                 final Object[] scenariosActionsList = new Object[scenariosActions.length];
 
-                for (int i = 0; i < scenariosActionsList.length; i++) {
+                for (int i = 0; i < scenariosActionsList.length; i++)
+                {
                     scenariosActionsList[i] = iocPlugin.getBean(scenariosActions[i]);
                 }
 
                 final Object[] toolsActionsList = new Object[toolsActions.length];
 
-                for (int i = 0; i < toolsActionsList.length; i++) {
+                for (int i = 0; i < toolsActionsList.length; i++)
+                {
                     toolsActionsList[i] = iocPlugin.getBean(toolsActions[i]);
                 }
 
                 final Object[] editActionsList = new Object[editActions.length];
 
-                for (int j = 0; j < editActions.length; j++) {
+                for (int j = 0; j < editActions.length; j++)
+                {
                     editActionsList[j] = iocPlugin.getBean(editActions[j]);
                 }
 
-                Object[] optionsActionsList = {
+                Object[] optionsActionsList = 
+                    {
                         iocPlugin.getBean("action.preferences")
                     };
 
@@ -306,21 +375,28 @@ public class XPontusRunner {
                 MenuBarPluginIF viewMenuExt = createMenuExtension(XPontusMenuConstantsIF.VIEW_MENU_ID,
                         viewActionsList);
 
-                MenuBarPluginIF bindingsMenuExt = new MenuBarPluginIF() {
-                        public List getMenuNames() {
-                            return Arrays.asList(new String[] {
+                MenuBarPluginIF bindingsMenuExt = new MenuBarPluginIF()
+                    {
+                        public List getMenuNames()
+                        {
+                            return Arrays.asList(new String[]
+                                {
                                     XPontusMenuConstantsIF.KEYBINDINGS_MENU_ID
                                 });
                         }
 
-                        public Map getActionMap() {
-                            Map m = new HashMap();
+                        public Map getActionMap()
+                        {
+                            Map<String, List<Action>> m = new HashMap<String, List<Action>>();
                             String id = XPontusMenuConstantsIF.KEYBINDINGS_MENU_ID;
-                            List li = new Vector();
+                            List<Action> li = new ArrayList<Action>();
 
-                            li.add(createDisabledAction("Quick Search(Firefox style) - Control+Q"));
-                            li.add(createDisabledAction("Next document - Control+PageUp"));
-                            li.add(createDisabledAction("Previous document - Control+PageDown")); 
+                            li.add(createDisabledAction(
+                                    "Quick Search (Firefox style) - Control+Q"));
+                            li.add(createDisabledAction(
+                                    "Next document - Control+PageUp"));
+                            li.add(createDisabledAction(
+                                    "Previous document - Control+PageDown"));
 
                             m.put(id, li);
 
@@ -328,28 +404,25 @@ public class XPontusRunner {
                         }
                     };
 
-                MenuBarPluginIF toolMenuExt = new MenuBarPluginIF() {
-                        public List getMenuNames() {
-                            return Arrays.asList(new String[] {
+                MenuBarPluginIF toolMenuExt = new MenuBarPluginIF()
+                    {
+                        public List getMenuNames()
+                        {
+                            return Arrays.asList(new String[]
+                                {
                                     XPontusMenuConstantsIF.TOOLS_MENU_ID
                                 });
                         }
 
-                        public Map getActionMap() {
-                            Map m = new HashMap();
+                        public Map getActionMap()
+                        {
+                            Map<String, List<Object>> m = new HashMap<String, List<Object>>();
                             String id = XPontusMenuConstantsIF.TOOLS_MENU_ID;
-                            List li = new Vector();
+                            List<Object> li = new ArrayList<Object>();
 
                             li.add(validateActionsList[0]);
-
-                            for (int j = 0; j < toolsActionsList.length; j++) {
-                                li.add(toolsActionsList[j]);
-                            }
-
-                            for (int j = 0; j < scenariosActionsList.length;
-                                    j++) {
-                                li.add(scenariosActionsList[j]);
-                            }
+                            li.addAll(Arrays.asList(toolsActionsList));
+                            li.addAll(Arrays.asList(scenariosActionsList));
 
                             m.put(id, li);
 
@@ -406,7 +479,8 @@ public class XPontusRunner {
                 toolbarPlugin.initExtension(scenariosToolbarExt);
 
                 if (EvaluatorPluginConfiguration.getInstance().getEngines()
-                                                    .size() > 0) {
+                                                    .size() > 0)
+                {
                     toolbarPlugin.getOrCreateToolBar("xpath")
                                  .add(new ExpressionEvaluatorPanel());
                 }
@@ -414,7 +488,8 @@ public class XPontusRunner {
                 ((XPontusPlugin) manager.getPlugin(ActionPlugin.PLUGIN_IDENTIFIER)).init();
             }
 
-            if (DocConfiguration.getInstane().getEnginesNames().length == 0) {
+            if (DocConfiguration.getInstane().getEnginesNames().length == 0)
+            {
                 Action m_action = (Action) iocPlugin.getBean("action.docgen");
                 m_action.setEnabled(false);
                 m_action.putValue(Action.SHORT_DESCRIPTION,
@@ -425,35 +500,50 @@ public class XPontusRunner {
                                         .notifyComponents(new DocumentContainerChangeEvent(
                     null));
 
-            if (showSplash) {
-                SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                            splash.dispose();
+            SwingUtilities.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        if (showSplash)
+                        {
+                            try
+                            {
+                                Thread.sleep(800);
+                                splash.dispose();
+                            }
+                            catch (Exception ex)
+                            {
+                                ex.printStackTrace();
+                            }
                         }
-                    });
-            }
 
-            window.activateComponent();
+                        window.activateComponent();
 
-            SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        if (args.length > 0) {
-                            for (String arg : args) {
-                                try {
+                        if (args.length > 0)
+                        {
+                            for (String arg : args)
+                            {
+                                try
+                                {
                                     File f = new File(arg);
 
-                                    if (f.exists()) {
+                                    if (f.exists())
+                                    {
                                         DefaultXPontusWindowImpl.getInstance()
                                                                 .getDocumentTabContainer()
                                                                 .createEditorFromFile(f);
                                     }
-                                } catch (Exception e) {
+                                }
+                                catch (Exception e)
+                                {
                                 }
                             }
                         }
                     }
                 });
-        } catch (Exception err) {
+        }
+        catch (Exception err)
+        {
             err.printStackTrace();
         }
     }

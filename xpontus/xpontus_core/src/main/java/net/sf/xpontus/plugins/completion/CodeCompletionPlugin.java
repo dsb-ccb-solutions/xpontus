@@ -3,7 +3,7 @@
  *
  * Created on 2007-08-08, 14:06:41
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -34,34 +34,36 @@ import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
 import java.util.Hashtable;
-import java.util.Iterator;
 
 
 /**
  * Plugin for code completion
- * @version 0.0.1
- * @author Yves Zoundi
+ * @version 0.0.2
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class CodeCompletionPlugin extends XPontusPlugin {
+public class CodeCompletionPlugin extends XPontusPlugin
+{
     public static final String EXTENSION_POINT_NAME = "completionpluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.completion";
     public static final String PLUGIN_CATEGORY = "Completion";
-    private Hashtable engines;
+    private Hashtable<String, Hashtable<String, Object>> engines;
 
     /**
-     * 
+     *
      */
-    public CodeCompletionPlugin() {
+    public CodeCompletionPlugin()
+    {
     }
 
     /**
      * @param plugin
      */
-    public void initExtension(CodeCompletionIF plugin) {
+    public void initExtension(CodeCompletionIF plugin)
+    {
         String mimeType = plugin.getMimeType();
         String m_className = plugin.getClass().getName();
 
-        Hashtable m_map = new Hashtable();
+        Hashtable<String, Object> m_map = new Hashtable<String, Object>();
 
         m_map.put(XPontusConstantsIF.CONTENT_TYPE, mimeType);
         m_map.put(XPontusConstantsIF.OBJECT_CLASSNAME, m_className);
@@ -74,7 +76,8 @@ public class CodeCompletionPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PropertiesHolder.registerProperty(XPontusPropertiesConstantsIF.XPONTUS_COMPLETION_ENGINES,
             engines);
 
@@ -84,15 +87,15 @@ public class CodeCompletionPlugin extends XPontusPlugin {
                                                                            .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = completionExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = completionExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
 
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             CodeCompletionIF completer = (CodeCompletionIF) cl.newInstance();
             initExtension(completer);
         }
@@ -101,14 +104,16 @@ public class CodeCompletionPlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
-        engines = new Hashtable();
+    protected void doStart() throws Exception
+    {
+        engines = new Hashtable<String, Hashtable<String, Object>>();
     }
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
         engines.clear();
     }
 }

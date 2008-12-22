@@ -31,34 +31,43 @@ import javax.swing.undo.UndoableEdit;
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XPontusUndoManager extends CompoundEdit {
+public class XPontusUndoManager extends CompoundEdit
+{
+    private static final long serialVersionUID = -1456867159752560978L;
     private int m_IdxAdd = 0;
 
     /* (non-Javadoc)
      * @see javax.swing.undo.CompoundEdit#getUndoPresentationName()
      */
-    public String getUndoPresentationName() {
+    public String getUndoPresentationName()
+    {
         return ((UndoableEdit) edits.elementAt(m_IdxAdd - 1)).getPresentationName();
     }
 
     /* (non-Javadoc)
      * @see javax.swing.undo.CompoundEdit#getRedoPresentationName()
      */
-    public String getRedoPresentationName() {
+    public String getRedoPresentationName()
+    {
         return ((UndoableEdit) edits.elementAt(m_IdxAdd)).getPresentationName();
     }
 
     /* (non-Javadoc)
      * @see javax.swing.undo.CompoundEdit#addEdit(javax.swing.undo.UndoableEdit)
      */
-    public boolean addEdit(UndoableEdit anEdit) {
-        if (edits.size() > m_IdxAdd) {
+    public boolean addEdit(UndoableEdit anEdit)
+    {
+        if (edits.size() > m_IdxAdd)
+        {
             edits.setElementAt(anEdit, m_IdxAdd++);
 
-            for (int i = m_IdxAdd; i < edits.size(); i++) {
+            for (int i = m_IdxAdd; i < edits.size(); i++)
+            {
                 edits.removeElementAt(i);
             }
-        } else {
+        }
+        else
+        {
             edits.addElement(anEdit);
             m_IdxAdd++;
         }
@@ -69,8 +78,10 @@ public class XPontusUndoManager extends CompoundEdit {
     /* (non-Javadoc)
      * @see javax.swing.undo.CompoundEdit#canUndo()
      */
-    public synchronized boolean canUndo() {
-        if (m_IdxAdd > 0) {
+    public synchronized boolean canUndo()
+    {
+        if (m_IdxAdd > 0)
+        {
             UndoableEdit edit = (UndoableEdit) edits.elementAt(m_IdxAdd - 1);
 
             return (edit != null) && edit.canUndo();
@@ -82,8 +93,10 @@ public class XPontusUndoManager extends CompoundEdit {
     /* (non-Javadoc)
      * @see javax.swing.undo.CompoundEdit#canRedo()
      */
-    public synchronized boolean canRedo() {
-        if (edits.size() > m_IdxAdd) {
+    public synchronized boolean canRedo()
+    {
+        if (edits.size() > m_IdxAdd)
+        {
             UndoableEdit edit = (UndoableEdit) edits.elementAt(m_IdxAdd);
 
             return (edit != null) && edit.canRedo();
@@ -95,14 +108,16 @@ public class XPontusUndoManager extends CompoundEdit {
     /* (non-Javadoc)
      * @see javax.swing.undo.CompoundEdit#undo()
      */
-    public synchronized void undo() throws CannotUndoException {
+    public synchronized void undo() throws CannotUndoException
+    {
         ((UndoableEdit) edits.elementAt(--m_IdxAdd)).undo();
     }
 
     /* (non-Javadoc)
      * @see javax.swing.undo.CompoundEdit#redo()
      */
-    public synchronized void redo() throws CannotRedoException {
+    public synchronized void redo() throws CannotRedoException
+    {
         ((UndoableEdit) edits.elementAt(m_IdxAdd++)).redo();
     }
 }

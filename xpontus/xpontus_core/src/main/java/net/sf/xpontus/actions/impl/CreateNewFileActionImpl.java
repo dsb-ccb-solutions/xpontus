@@ -1,7 +1,4 @@
 /*
- *
- *
- *
  * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
@@ -29,10 +26,13 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class CreateNewFileActionImpl extends XPontusThreadedActionImpl {
+public class CreateNewFileActionImpl extends XPontusThreadedActionImpl
+{
+    private static final long serialVersionUID = 2202474435462092609L;
     public static final String BEAN_ALIAS = "action.new";
 
-    public void run() {
+    public void run()
+    {
         DefaultXPontusWindowImpl window = (DefaultXPontusWindowImpl) XPontusComponentsUtils.getTopComponent();
 
         window.getDocumentTabContainer().createEditorForNewFile();

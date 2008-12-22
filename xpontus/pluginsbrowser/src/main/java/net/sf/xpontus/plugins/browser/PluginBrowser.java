@@ -42,7 +42,9 @@ import javax.swing.JTabbedPane;
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class PluginBrowser extends javax.swing.JDialog {
-    private JTabbedPane tabbedPane;
+    
+	private static final long serialVersionUID = -4870236691256218236L;
+	private JTabbedPane tabbedPane;
     private JComponent downloadedPanel;
     private BrowserPanel installedPanel;
     private BrowserPanel availablePanel;

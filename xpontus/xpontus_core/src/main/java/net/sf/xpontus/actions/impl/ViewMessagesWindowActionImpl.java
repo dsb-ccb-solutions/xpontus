@@ -36,22 +36,29 @@ import net.sf.xpontus.modules.gui.components.MessagesWindowDockable;
  * @version 0.0.1
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ViewMessagesWindowActionImpl extends AbstractXPontusActionImpl {
+public class ViewMessagesWindowActionImpl extends AbstractXPontusActionImpl
+{
+    private static final long serialVersionUID = -2334642905159364804L;
     public static final String BEAN_ALIAS = "action.viewmessageswindow";
 
     /**
      * @return
      */
-    public Dockable getFirstDockedConsole() {
+    public Dockable getFirstDockedConsole()
+    {
         ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                               .getConsole();
         Dockable dc = null;
+        Dockable dockable = null;
+        int state = -1;
 
-        for (int i = 0; i < console.getDockables().size(); i++) {
-            Dockable dockable = (Dockable) console.getDockables().get(i);
-            int state = dockable.getDockKey().getDockableState();
+        for (int i = 0; i < console.getDockables().size(); i++)
+        {
+            dockable = (Dockable) console.getDockables().get(i);
+            state = dockable.getDockKey().getDockableState();
 
-            if (state == DockableState.STATE_DOCKED) {
+            if (state == DockableState.STATE_DOCKED)
+            {
                 dc = dockable;
 
                 break;
@@ -64,7 +71,8 @@ public class ViewMessagesWindowActionImpl extends AbstractXPontusActionImpl {
     /* (non-Javadoc)
      * @see net.sf.xpontus.actions.XPontusActionIF#execute()
      */
-    public void execute() {
+    public void execute()
+    {
         DockingDesktop desktop = DefaultXPontusWindowImpl.getInstance()
                                                          .getDesktop();
 
@@ -79,27 +87,35 @@ public class ViewMessagesWindowActionImpl extends AbstractXPontusActionImpl {
                                                          .getDocumentTabContainer()
                                                          .getCurrentDockable();
 
-        if (rightDockable == null) {
+        if (rightDockable == null)
+        {
             rightDockable = DefaultXPontusWindowImpl.getInstance()
                                                     .getDefaultPane();
         }
 
-        if (state == DockableState.STATE_CLOSED) {
+        if (state == DockableState.STATE_CLOSED)
+        {
             setName("Hide Messages Window");
 
-            if (rightDockable.getDockKey().getDockableState() == DockableState.STATE_MAXIMIZED) {
+            if (rightDockable.getDockKey().getDockableState() == DockableState.STATE_MAXIMIZED)
+            {
                 desktop.restore(rightDockable);
             }
 
             Dockable firstDockable = getFirstDockedConsole();
 
-            if (firstDockable == null) {
+            if (firstDockable == null)
+            {
                 desktop.split(rightDockable, dockable,
                     DockingConstants.SPLIT_BOTTOM);
-            } else {
+            }
+            else
+            {
                 desktop.createTab(firstDockable, dockable, 0);
             }
-        } else {
+        }
+        else
+        {
             setName("Show Messages Window");
             desktop.close(dockable);
             dockable.getDockKey().setDockableState(DockableState.STATE_CLOSED);

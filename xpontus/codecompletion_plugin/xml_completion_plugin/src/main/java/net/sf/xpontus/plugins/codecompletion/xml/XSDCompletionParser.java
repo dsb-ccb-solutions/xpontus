@@ -27,9 +27,18 @@ import org.apache.xerces.impl.Constants;
 import org.apache.xerces.impl.xs.SchemaGrammar;
 import org.apache.xerces.impl.xs.XMLSchemaLoader;
 import org.apache.xerces.xni.parser.XMLInputSource;
-import org.apache.xerces.xs.*;
-
-import org.w3c.dom.DOMConfiguration;
+import org.apache.xerces.xs.XSAttributeDeclaration;
+import org.apache.xerces.xs.XSAttributeUse;
+import org.apache.xerces.xs.XSComplexTypeDefinition;
+import org.apache.xerces.xs.XSConstants;
+import org.apache.xerces.xs.XSElementDeclaration;
+import org.apache.xerces.xs.XSModelGroup;
+import org.apache.xerces.xs.XSNamedMap;
+import org.apache.xerces.xs.XSObject;
+import org.apache.xerces.xs.XSObjectList;
+import org.apache.xerces.xs.XSParticle;
+import org.apache.xerces.xs.XSTerm;
+import org.apache.xerces.xs.XSTypeDefinition;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -47,43 +56,53 @@ import java.util.Map;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class XSDCompletionParser implements ICompletionParser {
+public class XSDCompletionParser implements ICompletionParser
+{
     protected static final String CONTINUE_AFTER_FATAL_ERROR = Constants.XERCES_FEATURE_PREFIX +
         Constants.CONTINUE_AFTER_FATAL_ERROR_FEATURE;
-    private Log logger = LogFactory.getLog(XSDCompletionParser.class);
-    private List tagList = new ArrayList();
+    private static final Log LOG = LogFactory.getLog(XSDCompletionParser.class);
+    private List<TagInfo> tagList = new ArrayList<TagInfo>();
     private Map nsTagListMap = new HashMap();
 
     /** Creates a new instance of XMLSchemaCompletionParser */
-    public XSDCompletionParser() {
+    public XSDCompletionParser()
+    {
     }
 
-    public void init(List tagList, Map nsTagListMap) {
+    public void init(List tagList, Map nsTagListMap)
+    {
         this.tagList = tagList;
         this.nsTagListMap = nsTagListMap;
     }
 
-    public void updateCompletionInfo(String pubid, String uri, Reader in) {
-        try {
+    public void updateCompletionInfo(String pubid, String uri, Reader in)
+    {
+        try
+        {
             String[] schemas = uri.split("[ \t\n\r]+");
 
-            for (String schema : schemas) {
-                if (schema.indexOf(".xsd") != -1) {
+            for (String schema : schemas)
+            {
+                if (schema.indexOf(".xsd") != -1)
+                {
                     String base = null;
 
-                    if (schema.indexOf("\\") == -1) {
+                    if (schema.indexOf("\\") == -1)
+                    {
                         base = schema.substring(0, schema.lastIndexOf("/"));
-                    } else {
+                    }
+                    else
+                    {
                         base = schema.substring(0, schema.lastIndexOf("\\"));
                     }
 
                     final String baseid = base;
                     Reader m_reader = new InputStreamReader(new URL(schema).openStream());
-                    XMLSchemaLoader xsLoader = new XMLSchemaLoader();  
+                    XMLSchemaLoader xsLoader = new XMLSchemaLoader();
 
                     xsLoader.setFeature(CONTINUE_AFTER_FATAL_ERROR, true);
 
-                    xsLoader.setEntityResolver(new XSDEntityResolver(baseid)); 
+                    xsLoader.setEntityResolver(new XSDEntityResolver(baseid));
 
                     SchemaGrammar grammer = (SchemaGrammar) xsLoader.loadGrammar(new XMLInputSource(
                                 null, null, null, m_reader, null));
@@ -94,57 +113,70 @@ public class XSDCompletionParser implements ICompletionParser {
                     // System.out.println("Target Namespace:" + targetNS);
                     nsTagListMap.put(targetNS, new ArrayList());
 
-                    List tagList = (List) nsTagListMap.get(targetNS);
+                    List<TagInfo> tagList = (List<TagInfo>) nsTagListMap.get(targetNS);
 
                     XSNamedMap map = grammer.getComponents(XSConstants.ELEMENT_DECLARATION);
 
-                    for (int i = 0; i < map.getLength(); i++) {
+                    for (int i = 0; i < map.getLength(); i++)
+                    {
                         XSElementDeclaration element = (XSElementDeclaration) map.item(i);
                         parseXSDElement(tagList, element);
                     }
-
-
                 }
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        }
+        catch (Exception ex)
+        {
+            if (LOG.isDebugEnabled())
+            {
+                LOG.debug(ex.getMessage(), ex);
+            }
         }
     }
 
-    private void parseXSDElement(List tagList, XSElementDeclaration element) {
+    private void parseXSDElement(List<TagInfo> tagList,
+        XSElementDeclaration element)
+    {
         TagInfo tagInfo = new TagInfo(element.getName(), true);
 
-        if (!tagList.contains(tagInfo)) {
+        if (!tagList.contains(tagInfo))
+        {
             tagList.add(tagInfo);
 
-            // System.out.println("Adding :" + tagInfo.getTagName());
+            if (LOG.isDebugEnabled())
+            {
+                LOG.debug("Adding :" + tagInfo.getTagName());
+            }
         }
 
         XSTypeDefinition type = element.getTypeDefinition();
 
-        if (type instanceof XSComplexTypeDefinition) {
+        if (type instanceof XSComplexTypeDefinition)
+        {
             XSParticle particle = ((XSComplexTypeDefinition) type).getParticle();
 
-            if (particle != null) {
+            if (particle != null)
+            {
                 XSTerm term = particle.getTerm();
 
-                if (term instanceof XSElementDeclaration) {
+                if (term instanceof XSElementDeclaration)
+                {
                     parseXSDElement(tagList, (XSElementDeclaration) term);
 
                     XSElementDeclaration m_declaration = (XSElementDeclaration) term;
                     tagInfo.addChildTagName(m_declaration.getName());
-
-                    // System.out.println("Adding tag:" + m_declaration.getName() + " to parent:" + tagInfo.getTagName() );
                 }
 
-                if (term instanceof XSModelGroup) {
+                if (term instanceof XSModelGroup)
+                {
                     parseXSModelGroup(tagInfo, tagList, (XSModelGroup) term);
                 }
             }
 
             XSObjectList attrs = ((XSComplexTypeDefinition) type).getAttributeUses();
 
-            for (int i = 0; i < attrs.getLength(); i++) {
+            for (int i = 0; i < attrs.getLength(); i++)
+            {
                 XSAttributeUse attrUse = (XSAttributeUse) attrs.item(i);
                 XSAttributeDeclaration attr = attrUse.getAttrDeclaration();
 
@@ -155,22 +187,26 @@ public class XSDCompletionParser implements ICompletionParser {
         }
     }
 
-    private void parseXSModelGroup(TagInfo tagInfo, List tagList,
-        XSModelGroup term) {
+    private void parseXSModelGroup(TagInfo tagInfo, List<TagInfo> tagList,
+        XSModelGroup term)
+    {
         XSObjectList list = ((XSModelGroup) term).getParticles();
 
-        for (int i = 0; i < list.getLength(); i++) {
+        for (int i = 0; i < list.getLength(); i++)
+        {
             XSObject obj = list.item(i);
 
-            if (obj instanceof XSParticle) {
+            if (obj instanceof XSParticle)
+            {
                 XSTerm term2 = ((XSParticle) obj).getTerm();
 
-                if (term2 instanceof XSElementDeclaration) {
+                if (term2 instanceof XSElementDeclaration)
+                {
                     parseXSDElement(tagList, (XSElementDeclaration) term2);
                     tagInfo.addChildTagName(((XSElementDeclaration) term2).getName());
-
-                    // System.out.println("Adding tag:" + ((XSElementDeclaration) term2).getName() + " to parent:" + tagInfo.getTagName() );
-                } else if (term2 instanceof XSModelGroup) {
+                }
+                else if (term2 instanceof XSModelGroup)
+                {
                     parseXSModelGroup(tagInfo, tagList, (XSModelGroup) term2);
                 }
             }

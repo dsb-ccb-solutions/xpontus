@@ -261,7 +261,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
      * @return
      */
     public String getSupportedTypesAsString(String[] table) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < table.length; i++) {
             sb.append(table[i]);
@@ -281,7 +281,7 @@ public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
         boolean transformationMode) {
         log.info("Validating the model before execution");
 
-        StringBuffer errors = new StringBuffer();
+        StringBuilder errors = new StringBuilder();
 
         if (model.getOutput().trim().equals("")) {
             errors.append("The output file has not been specified\n");

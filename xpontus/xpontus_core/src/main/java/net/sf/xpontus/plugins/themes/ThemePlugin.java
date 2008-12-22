@@ -3,7 +3,7 @@
  *
  * Created on 26 avril 2007, 11:05
  *
- * Copyright (C) 2005-2007 Yves Zoundi
+ * Copyright (C) 2005-2007 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -33,25 +33,25 @@ import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 
 /**
  * Plugin for themes
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ThemePlugin extends XPontusPlugin {
+public class ThemePlugin extends XPontusPlugin
+{
     public static final String EXTENSION_POINT_NAME = "themepluginif";
     public static final String PLUGIN_IDENTIFIER = "plugin.core.themes";
     public static final String PLUGIN_CATEGORY = "Look";
 
-    
     /* (non-Javadoc)
      * @see net.sf.xpontus.plugins.XPontusPlugin#init()
      */
-    public void init() throws Exception {
-        Map installedThemes = new HashMap();
+    public void init() throws Exception
+    {
+        Map<String, ThemePluginIF> installedThemes = new HashMap<String, ThemePluginIF>();
 
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
@@ -59,17 +59,17 @@ public class ThemePlugin extends XPontusPlugin {
                                                                             .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = themePluginExtPoint.getConnectedExtensions();
+        Collection<Extension> plugins = themePluginExtPoint.getConnectedExtensions();
 
         ThemePluginIF mPlugin = new DefaultThemeModuleImpl();
         installedThemes.put(mPlugin.getAlias(), mPlugin);
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : plugins)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             mPlugin = (ThemePluginIF) cl.newInstance();
             installedThemes.put(mPlugin.getAlias(), mPlugin);
         }
@@ -81,12 +81,14 @@ public class ThemePlugin extends XPontusPlugin {
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
+    protected void doStart() throws Exception
+    {
     }
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
     }
 }

@@ -32,10 +32,12 @@ import javax.swing.JLabel;
 /**
  * The default pane to display when no document is opened
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class DefaultPane extends JLabel implements Dockable {
-    private DockKey key = new DockKey("Editor");
+    
+	private static final long serialVersionUID = 525566672625725883L;
+	private DockKey key = new DockKey("Editor");
 
     /** Creates a new instance of DefaultPane */
     public DefaultPane() {

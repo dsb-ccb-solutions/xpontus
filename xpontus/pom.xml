@@ -4,7 +4,7 @@
     <groupId>net.sf.xpontus</groupId>
     <artifactId>xpontus</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-pre1</version>
+    <version>1.0.0.2</version>
     <name>XPontus XML Editor</name>
     <description>XPontus XML Editor, A free java based XML Editor</description>
     <url>http://xpontus.sourceforge.net</url>
@@ -49,41 +49,6 @@
                 <role>Project manager</role>
             </roles>
         </developer>
-        <developer>
-            <id>mohadib</id>
-            <name>Jason Davis</name> 
-            <organizationUrl>http://openactive.org</organizationUrl>
-            <email>mohadib AT users DOT sf DOT net</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-         <developer>
-            <id>anktastic</id>
-            <name>Andres Kievsky</name> 
-            <organizationUrl>http://www.ank.com.ar</organizationUrl>
-            <email>anktastic AT users DOT sf DOT net</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>delvinj</id>
-            <name>Daniel Johnson</name> 
-            <email>delvinj AT users DOT sf DOT net</email> 
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-         <developer>
-            <id>r0bsf</id>
-            <name>Robert O'Connor</name> 
-            <organizationUrl>http://robbyoconnor.blogspot.com</organizationUrl>
-            <email>rob AT mybawx DOT org</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer> 
     </developers>
     <contributors>
         <contributor>

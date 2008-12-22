@@ -87,10 +87,9 @@ public class CurrentLineHighlighter {
             c.addCaretListener(caretListener);
             c.addMouseListener(mouseListener);
             c.addMouseMotionListener(mouseListener);
-            c.repaint();
-            System.out.println("Added highlighter");
+            c.repaint(); 
         } catch (BadLocationException ignore) {
-            System.out.println("Error installing highlighter");
+            
         }
     }
 

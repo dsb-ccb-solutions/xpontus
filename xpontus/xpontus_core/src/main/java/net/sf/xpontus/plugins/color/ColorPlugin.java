@@ -24,17 +24,17 @@ import org.java.plugin.Plugin;
 
 /**
  * A plugin for colors (syntax highlighting)
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class ColorPlugin extends Plugin {
     public ColorPlugin() {
     }
 
     protected void doStart() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+         
     }
 
     protected void doStop() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+         
     }
 }

@@ -40,44 +40,49 @@ import java.util.Map;
  * A class responsible for providing the right syntax coloring parser
  * @author Yves Zoundi
  */
-public class SyntaxSupportFactory {
-    private static Log log = LogFactory.getLog(SyntaxSupportFactory.class);
+public class SyntaxSupportFactory
+{
+    private static final Log LOG = LogFactory.getLog(SyntaxSupportFactory.class);
 
     /** Creates a new instance of SyntaxInfoFactory */
-    private SyntaxSupportFactory() {
+    private SyntaxSupportFactory()
+    {
     }
 
     /**
      * @param path
      * @return
      */
-    public static SyntaxSupport getSyntax(String path) {
+    public static SyntaxSupport getSyntax(String path)
+    {
         LexerPluginIF lexer = null;
         IColorProvider colorer = null;
 
         MimeTypesProvider p = MimeTypesProvider.getInstance();
-        Map map = (Map) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_LEXER_PROPERTY);
+        Map<?, ?> map = (Map<?, ?>) PropertiesHolder.getPropertyValue(XPontusPropertiesConstantsIF.XPONTUS_LEXER_PROPERTY);
 
         String mimeType = p.getMimeType(path);
 
-        System.out.println("syntaxSupport path:" + path);
-        System.out.println("syntax support mime type:" + mimeType);
-
-        try {
-            if (map.containsKey(mimeType)) {
-                Hashtable v = (Hashtable) map.get(mimeType);
+        try
+        {
+            if (map.containsKey(mimeType))
+            {
+                Hashtable<?, ?> v = (Hashtable<?, ?>) map.get(mimeType);
                 ClassLoader loader = (ClassLoader) v.get(LexerPropertiesConstantsIF.CLASS_LOADER);
                 String lexerClass = (String) v.get(LexerPropertiesConstantsIF.LEXER_CLASSNAME);
                 lexer = (LexerPluginIF) loader.loadClass(lexerClass)
                                               .newInstance();
                 colorer = lexer.getColorer();
-            } else {
+            }
+            else
+            {
                 lexer = new PlainLexerModuleImpl();
                 colorer = new PlainColorProviderImpl();
             }
-        } catch (Exception e) {
-            log.error("Error:" + SyntaxSupportFactory.class.getName() + "," +
-                e.getMessage());
+        }
+        catch (Exception e)
+        {
+            LOG.error(e.getMessage(), e);
             lexer = new PlainLexerModuleImpl();
             colorer = new PlainColorProviderImpl();
         }

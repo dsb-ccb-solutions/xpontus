@@ -30,6 +30,8 @@ import net.sf.xpontus.modules.gui.components.OutputDockable;
 import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 import net.sf.xpontus.utils.GrammarPoolHolder;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.util.SymbolTable;
 import org.apache.xerces.xni.grammars.XMLGrammarPool;
@@ -48,65 +50,74 @@ import javax.swing.text.JTextComponent;
 
 
 /**
- *
+ * Single document validation
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  * @version 0.0.1
  */
 public class SimpleValidationActionImpl
-    extends XPontusDocumentAwareThreadedActionImpl {
+    extends XPontusDocumentAwareThreadedActionImpl
+{
+    private static final long serialVersionUID = -6516772117153749764L;
     public static final String BEAN_ALIAS = "action.validate";
-    private SAXParser parser;
-    private ValidationHandler handler;
+    private static final String FEATURE_ENTITY_RESOLVER2 = "http://xml.org/sax/features/use-entity-resolver2";
+    private static final String FEATURE_VALIDATION_SCHEMA = "http://apache.org/xml/features/validation/schema";
+    private static final String FEATURE_VALIDATION = "http://xml.org/sax/features/validation";
+    private static final String FEATURE_NAMESPACES = "http://xml.org/sax/features/namespaces";
+    private static final String FEATURE_HONOUR_SCHEMALOCATIONS = "http://apache.org/xml/features/honour-all-schemaLocations";
+    private static final String FEATURE_VALIDATION_FULLSCHEMA_CHECK = "http://apache.org/xml/features/validation/schema-full-checking";
+    private static final String FEATURE_VALIDATION_DYNAMIC = "http://apache.org/xml/features/validation/dynamic";
+    private SAXParser saxParser;
+    private ValidationHandler validationHandler;
 
     /**
      *
      */
-    public SimpleValidationActionImpl() {
+    public SimpleValidationActionImpl()
+    {
     }
 
-    public void run() {
-        try {
-            JTextComponent jtc = DefaultXPontusWindowImpl.getInstance()
-                                                         .getDocumentTabContainer()
-                                                         .getCurrentEditor();
+    public void run()
+    {
+        try
+        {
+            JTextComponent textComponent = DefaultXPontusWindowImpl.getInstance()
+                                                                   .getDocumentTabContainer()
+                                                                   .getCurrentEditor();
 
             IDocumentContainer container = (IDocumentContainer) DefaultXPontusWindowImpl.getInstance()
                                                                                         .getDocumentTabContainer()
                                                                                         .getCurrentDockable();
             container.getStatusBar().setMessage("Validating document...");
 
-            InputStream is = new ByteArrayInputStream(jtc.getText().getBytes());
+            InputStream is = new ByteArrayInputStream(textComponent.getText()
+                                                                   .getBytes());
 
-            if (parser == null) {
+            if (saxParser == null)
+            {
                 SymbolTable table = GrammarPoolHolder.getInstance()
                                                      .getSymbolTable();
                 XMLGrammarPool pool = GrammarPoolHolder.getInstance()
                                                        .getGrammarPool();
-                parser = new SAXParser(table, pool);
+                saxParser = new SAXParser(table, pool);
 
-                parser.setFeature("http://xml.org/sax/features/use-entity-resolver2",
-                    true);
-                parser.setFeature("http://apache.org/xml/features/validation/schema",
-                    true);
-                parser.setFeature("http://xml.org/sax/features/validation", true);
-                parser.setFeature("http://xml.org/sax/features/namespaces", true);
-                parser.setFeature("http://apache.org/xml/features/honour-all-schemaLocations",
-                    true);
-                parser.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
-                    true);
-                parser.setFeature("http://apache.org/xml/features/validation/dynamic",
-                    true);
+                saxParser.setFeature(FEATURE_ENTITY_RESOLVER2, true);
+                saxParser.setFeature(FEATURE_VALIDATION_SCHEMA, true);
+                saxParser.setFeature(FEATURE_VALIDATION, true);
+                saxParser.setFeature(FEATURE_NAMESPACES, true);
+                saxParser.setFeature(FEATURE_HONOUR_SCHEMALOCATIONS, true);
+                saxParser.setFeature(FEATURE_VALIDATION_FULLSCHEMA_CHECK, true);
+                saxParser.setFeature(FEATURE_VALIDATION_DYNAMIC, true);
 
-                handler = new ValidationHandler();
-                parser.setErrorHandler(handler);
+                validationHandler = new ValidationHandler();
+                saxParser.setErrorHandler(validationHandler);
             }
 
-            handler.reset();
+            validationHandler.reset();
 
             CharsetDetector detector = new CharsetDetector();
             detector.setText(is);
 
-            parser.parse(new InputSource(detector.detect().getReader()));
+            saxParser.parse(new InputSource(detector.detect().getReader()));
 
             is.close();
 
@@ -115,24 +126,31 @@ public class SimpleValidationActionImpl
             OutputDockable odk = (OutputDockable) console.getDockables()
                                                          .get(ConsoleOutputWindow.MESSAGES_WINDOW);
 
-            if (handler.getErrors().length() == 0) {
+            if (validationHandler.getErrors().length() == 0)
+            {
                 container.getStatusBar().setMessage("Document is valid!");
                 odk.println("Document is valid!");
-            } else {
+            }
+            else
+            {
                 container.getStatusBar().setMessage("Document is invalid!");
-                odk.println("Document is invalid! " + handler.getErrors(),
-                    OutputDockable.RED_STYLE);
+                odk.println("Document is invalid! " +
+                    validationHandler.getErrors(), OutputDockable.RED_STYLE);
             }
-        } catch (Exception e) {
-            StringBuffer details = new StringBuffer();
+        }
+        catch (Exception e)
+        {
+            StrBuilder details = new StrBuilder();
 
-            if (e instanceof SAXParseException) {
-                SAXParseException err = (SAXParseException) e;
-                int column = err.getColumnNumber();
-                int line = err.getLineNumber();
-                details.append("Error occurred around line:" + line +
-                    ",column:" + column);
+            if (e instanceof SAXParseException)
+            {
+                SAXParseException sxpe = (SAXParseException) e;
+                details.append("Error occurred around line:")
+                       .append(sxpe.getLineNumber()).append(",column:")
+                       .append(sxpe.getColumnNumber()).appendNewLine();
             }
+
+            details.append(e.getMessage());
 
             ConsoleOutputWindow console = DefaultXPontusWindowImpl.getInstance()
                                                                   .getConsole();
@@ -143,50 +161,60 @@ public class SimpleValidationActionImpl
                                                                                         .getCurrentDockable();
             container.getStatusBar().setMessage("Document is invalid!");
 
-            String error = "" + details.toString() + "\n";
-
-            odk.println(error + e.getMessage(), OutputDockable.RED_STYLE);
-        } finally {
+            odk.println(details.toString(), OutputDockable.RED_STYLE);
+        }
+        finally
+        {
             Toolkit.getDefaultToolkit().beep();
         }
     }
 
-    public void onNotify(DocumentContainerChangeEvent evt) {
-        if (evt.getSource() == null) {
+    public void onNotify(DocumentContainerChangeEvent evt)
+    {
+        if (evt.getSource() == null)
+        {
             setEnabled(false);
-        } else {
+        }
+        else
+        {
             setEnabled(true);
         }
     }
 
-    public static class ValidationHandler implements ErrorHandler {
-        private StringBuffer errors = new StringBuffer();
+    public static class ValidationHandler implements ErrorHandler
+    {
+        private StrBuilder errors = new StrBuilder();
 
-        public String getErrors() {
+        public String getErrors()
+        {
             return errors.toString();
         }
 
-        public void reset() {
-            errors = new StringBuffer();
+        public void reset()
+        {
+            errors = new StrBuilder();
         }
 
-        public void warning(SAXParseException err) throws SAXException {
+        public void warning(SAXParseException err) throws SAXException
+        {
             reportError(err);
         }
 
-        private void reportError(SAXParseException err) {
-            int column = err.getColumnNumber();
-            int line = err.getLineNumber();
-            errors.append("\nError occurred around line:" + line + ",column:" +
-                column);
-            errors.append("\n" + err.getMessage() + "\n");
+        private void reportError(SAXParseException err)
+        {
+            errors.appendNewLine().append("Error occurred around line:")
+                  .append(err.getLineNumber()).append(",column:")
+                  .append(err.getColumnNumber()).appendNewLine()
+                  .append(err.getMessage()).appendNewLine();
         }
 
-        public void error(SAXParseException err) throws SAXException {
+        public void error(SAXParseException err) throws SAXException
+        {
             reportError(err);
         }
 
-        public void fatalError(SAXParseException err) throws SAXException {
+        public void fatalError(SAXParseException err) throws SAXException
+        {
             reportError(err);
         }
     }

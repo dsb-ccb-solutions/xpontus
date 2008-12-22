@@ -3,7 +3,7 @@
  *
  * Created on June 20, 2007, 9:36 AM
  *
- * Copyright (C) 2005-2007 Yves Zoundi
+ * Copyright (C) 2005-2007 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -29,7 +29,7 @@ import java.awt.Component;
 /**
  * Interface for XPontus main components (the main window to display)
  * This will allow to integrate xpontus code in other projects
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public interface XPontusTopComponentIF {
     /**

@@ -3,7 +3,7 @@
  *
  * Created on 24 avril 2007, 15:20
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -21,31 +21,34 @@
  */
 package net.sf.xpontus.events;
 
-import java.util.EventObject;
-
 import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
+import java.util.EventObject;
+
+
 /**
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  */
-public class TabChangedEvent extends EventObject{
+public class TabChangedEvent extends EventObject
+{
+    private static final long serialVersionUID = 8017004140893384773L;
+    private final IDocumentContainer documentContainer;
 
-	private final IDocumentContainer documentContainer;
+    /**
+     * @param documentContainer
+     */
+    public TabChangedEvent(final IDocumentContainer documentContainer)
+    {
+        super(documentContainer);
+        this.documentContainer = documentContainer;
+    }
 
-	/**
-	 * @param documentContainer
-	 */
-	public TabChangedEvent(final IDocumentContainer documentContainer) {
-		super(documentContainer);
-		this.documentContainer = documentContainer;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.util.EventObject#getSource()
-	 */
-	public IDocumentContainer getSource(){
-		return documentContainer;
-	}
-	
+    /* (non-Javadoc)
+     * @see java.util.EventObject#getSource()
+     */
+    public IDocumentContainer getSource()
+    {
+        return documentContainer;
+    }
 }

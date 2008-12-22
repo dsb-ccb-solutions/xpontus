@@ -1,7 +1,5 @@
 /*
- *
- *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -26,8 +24,11 @@ import com.ibm.icu.text.CharsetDetector;
 import net.sf.xpontus.constants.XPontusConstantsIF;
 import net.sf.xpontus.constants.XPontusMimeConstantsIF;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
-import net.sf.xpontus.modules.gui.components.OutlineViewDockable; 
+import net.sf.xpontus.modules.gui.components.OutlineViewDockable;
 import net.sf.xpontus.plugins.outline.OutlinePluginIF;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.Reader;
@@ -40,40 +41,48 @@ import javax.swing.text.Document;
  *
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class HTMLOutlinePluginImpl implements OutlinePluginIF {
+public class HTMLOutlinePluginImpl implements OutlinePluginIF
+{
+    private static final Log LOG = LogFactory.getLog(HTMLOutlinePluginImpl.class);
+
     /**
      * Returns the content type supported by this plugin implementation
      * @return
      */
-    public String getContentType() {
+    public String getContentType()
+    {
         return XPontusMimeConstantsIF.TEXT_HTML;
     }
 
-    public void updateOutline(Document doc) {
-        try {
+    public void updateOutline(final Document doc)
+    {
+        try
+        {
             byte[] b = doc.getText(0, doc.getLength()).getBytes();
             CharsetDetector detector = new CharsetDetector();
             detector.setText(new ByteArrayInputStream(b));
 
-            Reader m_reader = detector.detect().getReader();
+            Reader reader = detector.detect().getReader();
 
-            final HtmlTreeBuilder m_treeBuilder = new HtmlTreeBuilder(); 
-            m_treeBuilder.parse(m_reader);
+            final HtmlTreeBuilder treeBuilder = new HtmlTreeBuilder();
+            treeBuilder.parse(reader);
 
             final OutlineViewDockable outline = DefaultXPontusWindowImpl.getInstance()
                                                                         .getOutline();
 
-            final Document mDoc = doc;
-
-            SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        mDoc.putProperty(XPontusConstantsIF.OUTLINE_INFO,
-                            m_treeBuilder.getRootNode());
-                        outline.updateAll(m_treeBuilder.getRootNode());
+            SwingUtilities.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        doc.putProperty(XPontusConstantsIF.OUTLINE_INFO,
+                            treeBuilder.getRootNode());
+                        outline.updateAll(treeBuilder.getRootNode());
                     }
                 });
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            LOG.error(e.getMessage(), e);
         }
     }
 }

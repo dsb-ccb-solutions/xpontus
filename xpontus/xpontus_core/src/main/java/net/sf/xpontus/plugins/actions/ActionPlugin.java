@@ -33,15 +33,15 @@ import org.java.plugin.registry.PluginDescriptor;
 import org.java.plugin.registry.PluginRegistry;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 
 /**
  * Plugin to plug actions to the menubar, the toolbar or the editor popup menu
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class ActionPlugin extends XPontusPlugin {
+public class ActionPlugin extends XPontusPlugin
+{
     /**
      * The plugin id
      */
@@ -53,27 +53,32 @@ public class ActionPlugin extends XPontusPlugin {
      */
     public static final String EXTENSION_POINT_NAME = "actionpluginif";
 
-    public ActionPlugin() {
+    public ActionPlugin()
+    {
     }
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStart()
      */
-    protected void doStart() throws Exception {
+    protected void doStart() throws Exception
+    {
     }
 
     /* (non-Javadoc)
      * @see org.java.plugin.Plugin#doStop()
      */
-    protected void doStop() throws Exception {
+    protected void doStop() throws Exception
+    {
     }
 
     /**
      *
      * @param plugin
      */
-    public void initExtension(ActionPluginIF plugin) {
-        try {
+    public void initExtension(ActionPluginIF plugin)
+    {
+        try
+        {
             ToolBarPlugin toolbarPlugin = (ToolBarPlugin) getManager()
                                                               .getPlugin(ToolBarPlugin.PLUGIN_IDENTIFIER);
             MenuBarPlugin menubarPlugin = (MenuBarPlugin) getManager()
@@ -85,7 +90,9 @@ public class ActionPlugin extends XPontusPlugin {
             popupPlugin.initExtension(plugin);
 
             toolbarPlugin.initExtension(plugin);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             log.fatal(e.getMessage());
         }
     }
@@ -94,21 +101,22 @@ public class ActionPlugin extends XPontusPlugin {
     * Initialize the actions plugin
     * @throws java.lang.Exception
     */
-    public void init() throws Exception {
+    public void init() throws Exception
+    {
         PluginManager manager = getManager();
         PluginRegistry registry = manager.getRegistry();
         ExtensionPoint iocPluginExtPoint = registry.getExtensionPoint(getDescriptor()
                                                                           .getId(),
                 EXTENSION_POINT_NAME);
 
-        Collection plugins = iocPluginExtPoint.getConnectedExtensions();
+        Collection<Extension> extensions = iocPluginExtPoint.getConnectedExtensions();
 
-        for (Iterator it = plugins.iterator(); it.hasNext();) {
-            Extension ext = (Extension) it.next();
+        for (Extension ext : extensions)
+        {
             PluginDescriptor descriptor = ext.getDeclaringPluginDescriptor();
             ClassLoader classLoader = manager.getPluginClassLoader(descriptor);
             String className = ext.getParameter("class").valueAsString();
-            Class cl = classLoader.loadClass(className);
+            Class<?> cl = classLoader.loadClass(className);
             initExtension((ActionPluginIF) cl.newInstance());
         }
     }

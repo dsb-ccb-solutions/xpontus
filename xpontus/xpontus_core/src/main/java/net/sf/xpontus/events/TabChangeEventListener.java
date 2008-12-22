@@ -1,5 +1,5 @@
 /*
- * TabChangeEventListener.java
+ * TabChangeEventListener.java <yveszoundi at users dot sf dot net>
  *
  * Created on 9-Aug-2007, 8:21:05 PM
  *
@@ -25,10 +25,11 @@ package net.sf.xpontus.events;
 
 
 /**
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  */
-public interface TabChangeEventListener {
+public interface TabChangeEventListener
+{
     /**
      * @param e
      */

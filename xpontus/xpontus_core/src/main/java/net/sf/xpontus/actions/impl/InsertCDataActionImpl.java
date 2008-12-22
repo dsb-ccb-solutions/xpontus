@@ -21,35 +21,41 @@ package net.sf.xpontus.actions.impl;
 import net.sf.xpontus.modules.gui.components.DefaultXPontusWindowImpl;
 import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 
-import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 
 
 /**
  * Insert a CDATA section
  * @author Yves Zoundi <yveszoundi at users dot sf dot net>
- * @version 0.0.1
+ * @version 0.0.2
  */
-public class InsertCDataActionImpl extends DefaultDocumentAwareActionImpl {
+public class InsertCDataActionImpl extends DefaultDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = 462880528241084121L;
     public static final String BEAN_ALIAS = "action.insertcdata";
 
-    public InsertCDataActionImpl() {
+    public InsertCDataActionImpl()
+    {
     }
 
-    public void run() {
-        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                           .getDocumentTabContainer();
+    public void run()
+    {
+        DocumentTabContainer documentTabContainer = DefaultXPontusWindowImpl.getInstance()
+                                                                            .getDocumentTabContainer();
 
-        JTextComponent editor = dtc.getCurrentEditor(); 
-        int pos = editor.getSelectionStart();
+        JTextComponent textComponent = documentTabContainer.getCurrentEditor();
+        int pos = textComponent.getSelectionStart();
 
-        try {
-            editor.getDocument().insertString(pos, "<![CDATA[  ]]>", null);
-            editor.setCaretPosition(pos + 10);
-            editor.requestFocus();
-            editor.grabFocus();
-        } catch (Exception e) {
-            e.printStackTrace();
+        try
+        {
+            textComponent.getDocument().insertString(pos, "<![CDATA[  ]]>", null);
+            textComponent.setCaretPosition(pos + 10);
+            textComponent.requestFocus();
+            textComponent.grabFocus();
+        }
+        catch (Exception e)
+        {
+            getLogger().warn(e.getMessage(), e);
         }
     }
 }

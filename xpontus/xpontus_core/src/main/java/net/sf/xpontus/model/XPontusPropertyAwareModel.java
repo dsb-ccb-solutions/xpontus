@@ -27,7 +27,7 @@ import java.beans.PropertyChangeSupport;
 
 /**
  *
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class XPontusPropertyAwareModel {
     protected PropertyChangeSupport changeSupport;

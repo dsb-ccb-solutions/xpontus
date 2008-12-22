@@ -3,7 +3,7 @@
  *
  * Created on 2007-08-13, 14:51:09
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -28,15 +28,19 @@ import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 /**
  * Cut some text
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class CutActionImpl extends DefaultDocumentAwareActionImpl {
+public class CutActionImpl extends DefaultDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = 6649320702957782277L;
     public static final String BEAN_ALIAS = "action.cut";
 
-    public CutActionImpl() {
+    public CutActionImpl()
+    {
     }
 
-    public void run() {
+    public void run()
+    {
         DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
                                                            .getDocumentTabContainer();
         dtc.getCurrentEditor().cut();

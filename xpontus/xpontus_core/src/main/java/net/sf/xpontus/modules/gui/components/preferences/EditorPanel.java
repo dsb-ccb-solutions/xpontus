@@ -1,19 +1,35 @@
 /*
  * EditorPanel.java
  *
- * Created on 28 janvier 2008, 04:55
+ * Created on 28 January 2008, 04:55 
+ * 
+ * Copyright (C) 2005-2008 Yves Zoundi
+ *
+ * This library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA. 
  */
 package net.sf.xpontus.modules.gui.components.preferences;
 
-import com.l2fprod.common.swing.JFontChooser;
 import java.awt.Component;
 import java.awt.Font;
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.Iterator;
 import java.util.Properties;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
+
 import net.sf.xpontus.configuration.XPontusConfig;
 import net.sf.xpontus.constants.XPontusConfigurationConstantsIF;
 import net.sf.xpontus.plugins.preferences.PreferencesPluginIF;
@@ -21,13 +37,16 @@ import net.sf.xpontus.utils.GUIUtils;
 import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 import net.sf.xpontus.utils.XPontusComponentsUtils;
 
+import com.l2fprod.common.swing.JFontChooser;
+
 /**
  *
  * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
  */
 public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel, PreferencesPluginIF {
-
-    /**
+ 
+	private static final long serialVersionUID = 3030121601328024083L;
+	/**
      * 
      * @return
      */
@@ -37,10 +56,9 @@ public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel
 
     /** Creates new form EditorPanel */
     public EditorPanel() {
-        encodingModel = new DefaultComboBoxModel();
-        Iterator<String> it = Charset.availableCharsets().keySet().iterator();
-        while (it.hasNext()) {
-            encodingModel.addElement(it.next());
+        encodingModel = new DefaultComboBoxModel(); 
+        for (String charSet : Charset.availableCharsets().keySet()) {
+            encodingModel.addElement(charSet);
         }
         initComponents();
     }

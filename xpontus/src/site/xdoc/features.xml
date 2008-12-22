@@ -17,10 +17,10 @@
                 <p>For HTML files, an embedded DTD is used to create the code completion database.</p> 
             </subsection>
             <subsection name= "XPath support">
-                <p>XPath 1.0 plugin is shipped.</p>
+                <p>XPath 1.0 and 2.0 are supported.</p>
             </subsection>
             <subsection name= "Syntax highlighting">
-               <p>Syntax coloring is enabled for XML and HTML files</p>
+               <p>Syntax coloring is enabled for XML and HTML related files</p>
             </subsection>
             <subsection name = "XSL transformations">
                 <p>Like in the previous versions, XSL transformations are available(PDF, HTML, XML, SVG, TEXT).</p>

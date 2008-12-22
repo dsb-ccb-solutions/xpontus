@@ -1,7 +1,7 @@
 /*
  * ConfigurationModel.java
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -24,6 +24,10 @@ package net.sf.xpontus.model;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,11 +41,15 @@ import java.io.Writer;
 
 /**
  *
- * @author Propriétaire
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public abstract class ConfigurationModel {
+public abstract class ConfigurationModel
+{
+    private transient Log log = LogFactory.getLog(ConfigurationModel.class);
+
     /** Creates a new instance of ConfigurationModel */
-    public ConfigurationModel() {
+    public ConfigurationModel()
+    {
     }
 
     /**
@@ -55,14 +63,34 @@ public abstract class ConfigurationModel {
      *  save a configuration
      *
      */
-    public void save() {
-        try {
+    public void save()
+    {
+        OutputStream outputStream = null;
+
+        Writer writer = null;
+
+        try
+        {
             XStream xstream = new XStream(new DomDriver());
-            OutputStream fos = new FileOutputStream(getFileToSaveTo());
-            Writer writer = new OutputStreamWriter(fos, "UTF-8");
+            outputStream = new FileOutputStream(getFileToSaveTo());
+            writer = new OutputStreamWriter(outputStream, "UTF-8");
             xstream.toXML(this, writer);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        }
+        catch (Exception ex)
+        {
+            log.error(ex.getMessage(), ex);
+        }
+        finally
+        {
+            if (writer != null)
+            {
+                IOUtils.closeQuietly(writer);
+            }
+
+            if (outputStream != null)
+            {
+                IOUtils.closeQuietly(outputStream);
+            }
         }
     }
 
@@ -70,17 +98,36 @@ public abstract class ConfigurationModel {
      * load a configuration
      * @return the deserialized object loaded from a file
      */
-    public Object load() {
-        try {
+    public Object load()
+    {
+        InputStream inputStream = null;
+        Reader reader = null;
+
+        try
+        {
             XStream xstream = new XStream(new DomDriver());
-            InputStream is = new FileInputStream(getFileToSaveTo());
-            Reader reader = new InputStreamReader(is, "UTF-8");
+            inputStream = new FileInputStream(getFileToSaveTo());
+            reader = new InputStreamReader(inputStream, "UTF-8");
 
             return xstream.fromXML(reader);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        }
+        catch (Exception ex)
+        {
+            log.error(ex.getMessage(), ex);
 
             return null;
+        }
+        finally
+        {
+            if (reader != null)
+            {
+                IOUtils.closeQuietly(reader);
+            }
+
+            if (inputStream != null)
+            {
+                IOUtils.closeQuietly(inputStream);
+            }
         }
     }
 }

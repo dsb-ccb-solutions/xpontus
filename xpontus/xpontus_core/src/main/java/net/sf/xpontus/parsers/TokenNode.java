@@ -29,9 +29,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 0.0.1
  * @author Yves Zoundi
  */
-public class TokenNode extends DefaultMutableTreeNode {
-    public int line;
-    public int column;
+public class TokenNode extends DefaultMutableTreeNode
+{
+    private static final long serialVersionUID = -7966117448741500075L;
+    public int line = 0;
+    public int column = 0;
     public int endLine = -1;
     public int endColumn = -1;
 
@@ -40,7 +42,8 @@ public class TokenNode extends DefaultMutableTreeNode {
      * @param line
      * @param column
      */
-    public TokenNode(String aNode, int line, int column) {
+    public TokenNode(String aNode, int line, int column)
+    {
         this.setUserObject(aNode);
         this.line = line;
         this.column = column;

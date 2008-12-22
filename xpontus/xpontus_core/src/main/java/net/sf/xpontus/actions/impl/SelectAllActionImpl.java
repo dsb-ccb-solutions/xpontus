@@ -28,21 +28,20 @@ import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 /**
  * Class to select all the text of a document
  * @version 0.0.1
- * @author Yves Zoundi
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class SelectAllActionImpl extends DefaultDocumentAwareActionImpl {
-    /**
-     * 
-     */
+public class SelectAllActionImpl extends DefaultDocumentAwareActionImpl
+{
+    private static final long serialVersionUID = -7608246228283554716L;
     public static final String BEAN_ALIAS = "action.selectall";
- 
 
     /* (non-Javadoc)
      * @see java.lang.Runnable#run()
      */
-    public void run() {
-        DocumentTabContainer dtc = DefaultXPontusWindowImpl.getInstance()
-                                                           .getDocumentTabContainer();
-        dtc.getCurrentEditor().selectAll();
+    public void run()
+    {
+        DocumentTabContainer documentTabContainer = DefaultXPontusWindowImpl.getInstance()
+                                                                            .getDocumentTabContainer();
+        documentTabContainer.getCurrentEditor().selectAll();
     }
 }

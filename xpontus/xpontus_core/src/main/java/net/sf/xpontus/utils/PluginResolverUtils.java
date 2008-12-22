@@ -1,18 +1,25 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * PluginResolverUtils.java
+ *
+ * Copyright (C) 2005-2008 Yves Zoundi
+ *
+ * This library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ *
  */
 package net.sf.xpontus.utils;
-
-import java.beans.PropertyDescriptor;
-import java.beans.PropertyEditor;
-import java.beans.PropertyEditorManager;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.sf.xpontus.plugins.SimplePluginDescriptor;
 
@@ -20,18 +27,29 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.beans.PropertyDescriptor;
+
+import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+
 /**
  *
- * @author mrcheeks
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @version 0.0.1
  */
-public class PluginResolverUtils {
-
+public class PluginResolverUtils
+{
     private static PropertyDescriptor[] pd;
 
-    public static SimplePluginDescriptor resolvePlugins(InputStream is) {
+    public static SimplePluginDescriptor resolvePlugins(InputStream is)
+    {
         SimplePluginDescriptor spd = new SimplePluginDescriptor();
 
-        try {
+        try
+        {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             dbf.setValidating(false);
 
@@ -44,7 +62,8 @@ public class PluginResolverUtils {
 
             String version = root.getAttribute("version");
 
-            if (version != null) {
+            if (version != null)
+            {
                 spd.setVersion(version);
             }
 
@@ -63,12 +82,12 @@ public class PluginResolverUtils {
             Element requiresNode = (Element) root.getElementsByTagName(
                     "requires").item(0);
 
-            NodeList depsList = requiresNode.getElementsByTagName(
-                    "import");
+            NodeList depsList = requiresNode.getElementsByTagName("import");
 
             StringBuilder depBuilder = new StringBuilder();
 
-            for (int i = 0; i < depsList.getLength(); i++) {
+            for (int i = 0; i < depsList.getLength(); i++)
+            {
                 Element depNode = (Element) depsList.item(i);
                 String depValue = depNode.getAttribute("plugin-id");
                 depBuilder.append(depValue + "<br/>");
@@ -76,72 +95,64 @@ public class PluginResolverUtils {
 
             spd.setDependencies(depBuilder.toString());
 
-            for (int i = 0; i < attributesList.getLength(); i++) {
+            for (int i = 0; i < attributesList.getLength(); i++)
+            {
                 Element attributeNode = (Element) attributesList.item(i);
                 String attributeId = attributeNode.getAttribute("id");
                 String attributeValue = attributeNode.getAttribute("value");
 
-                if (attributeId.equals("Built-in")) {
+                if (attributeId.equals("Built-in"))
+                {
                     spd.setBuiltin(attributeValue);
-                } else if (attributeId.equals("Category")) {
+                }
+                else if (attributeId.equals("Category"))
+                {
                     spd.setCategory(attributeValue);
-                } else if (attributeId.equals("Homepage")) {
+                }
+                else if (attributeId.equals("Homepage"))
+                {
                     spd.setHomepage(attributeValue);
-                } else if (attributeId.equals("Description")) {
+                }
+                else if (attributeId.equals("Description"))
+                {
                     spd.setDescription(attributeValue);
-                } else if (attributeId.equals("DisplayName")) {
+                }
+                else if (attributeId.equals("DisplayName"))
+                {
                     spd.setDisplayname(attributeValue);
-                } else if (attributeId.equals("License")) {
+                }
+                else if (attributeId.equals("License"))
+                {
                     spd.setLicense(attributeValue);
-                } else if (attributeId.equals("date")) {
+                }
+                else if (attributeId.equals("date"))
+                {
                     spd.setDate(attributeValue);
                 }
             }
-
-
-        } catch (Exception err) {
+        }
+        catch (Exception err)
+        {
         }
 
-        if (spd.getLicense() == null) {
+        if (spd.getLicense() == null)
+        {
             spd.setLicense("UNKNOWN");
         }
 
         return spd;
     }
 
-    public static PropertyDescriptor findDescriptor(String property) {
-        for (PropertyDescriptor p : pd) {
-            if (p.getName().equals(property)) {
+    public static PropertyDescriptor findDescriptor(String property)
+    {
+        for (PropertyDescriptor p : pd)
+        {
+            if (p.getName().equals(property))
+            {
                 return p;
             }
         }
 
         return null;
-    }
-
-    private static void setProperty(Object bean, PropertyDescriptor p,
-            String value) {
-        Class propType = p.getPropertyType();
-
-        PropertyEditor editor = PropertyEditorManager.findEditor(propType);
-
-        // check the editor
-        if (editor == null) {
-            throw new IllegalArgumentException("Not found: " + propType);
-        }
-
-        Method setter = p.getWriteMethod();
-
-        editor.setAsText(value);
-
-        Object result = editor.getValue();
-
-        try {
-            setter.invoke(bean, new Object[]{result});
-        } catch (IllegalAccessException e) {
-            throw new SecurityException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

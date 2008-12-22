@@ -3,7 +3,7 @@
  *
  * Created on July 1, 2007, 10:51 AM
  *
- * Copyright (C) 2005-2008 Yves Zoundi
+ * Copyright (C) 2005-2008 Yves Zoundi <yveszoundi at users dot sf dot net>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -21,22 +21,33 @@
  */
 package net.sf.xpontus.configuration;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
  *
- * @author mrcheeks
+ * @author Yves Zoundi <yveszoundi at users dot sf dot net>
  */
-public class XPontusConfig {
-    private static final Map<Object, Object> configMap = new HashMap<Object, Object>();
+public class XPontusConfig
+{
+    private static final Map<Object, Object> configMap = new ConcurrentHashMap<Object, Object>();
 
-    public static void put(Object key, Object value) {
+    /**
+     * @param key
+     * @param value
+     */
+    public static void put(Object key, Object value)
+    {
         configMap.put(key, value);
     }
 
-    public static Object getValue(Object key) {
+    /**
+     * @param key
+     * @return
+     */
+    public static Object getValue(Object key)
+    {
         return configMap.get(key);
     }
 }

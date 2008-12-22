@@ -181,7 +181,7 @@ public class InstallDownloadedPluginsController {
         JOptionPane pane = new JOptionPane(sp, JOptionPane.PLAIN_MESSAGE, JOptionPane.YES_NO_OPTION, null, new Object[]{"Yes", "No"});
 
         JDialog dialog = pane.createDialog(frame, "License agreement");
-        dialog.show();
+        dialog.setVisible(true);
 
         Object selectedValue = pane.getValue();
 

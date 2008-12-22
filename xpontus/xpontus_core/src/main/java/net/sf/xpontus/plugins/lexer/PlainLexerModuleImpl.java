@@ -35,21 +35,25 @@ import javax.swing.text.Segment;
  * Plugin to provide a lexer for plain text files
  * @author Yves Zoundi
  */
-public class PlainLexerModuleImpl implements LexerPluginIF {
-    private List tokens = new ArrayList();
+public class PlainLexerModuleImpl implements LexerPluginIF
+{
+    private static final IColorProvider COLORER = new PlainColorProviderImpl();
+    private List<Token> tokens = new ArrayList<Token>();
     private String[] SUPPORTED_EXTENSIONS = { "txt", "texte", "text" };
 
     /**
      * Creates a new instance of PlainLexerModuleImpl
      */
-    public PlainLexerModuleImpl() {
+    public PlainLexerModuleImpl()
+    {
     }
 
     /**
      *
      * @return
      */
-    public String getMimeType() {
+    public String getMimeType()
+    {
         return "text/plain";
     }
 
@@ -57,7 +61,8 @@ public class PlainLexerModuleImpl implements LexerPluginIF {
      *
      * @return
      */
-    public String getName() {
+    public String getName()
+    {
         return "Plain lexer";
     }
 
@@ -65,7 +70,8 @@ public class PlainLexerModuleImpl implements LexerPluginIF {
      *
      * @return
      */
-    public String getDescription() {
+    public String getDescription()
+    {
         return "Plain text syntax analyzer";
     }
 
@@ -73,7 +79,8 @@ public class PlainLexerModuleImpl implements LexerPluginIF {
      *
      * @return
      */
-    public String getLexerClassName() {
+    public String getLexerClassName()
+    {
         return getClass().getName();
     }
 
@@ -83,7 +90,8 @@ public class PlainLexerModuleImpl implements LexerPluginIF {
       * @param initialTokenType
       * @return
       */
-    public int getLastTokenTypeOnLine(Segment text, int initialTokenType) {
+    public int getLastTokenTypeOnLine(Segment text, int initialTokenType)
+    {
         return DEFAULT_LEXER_STATE;
     }
 
@@ -94,22 +102,26 @@ public class PlainLexerModuleImpl implements LexerPluginIF {
      * @param offs
      * @return
      */
-    public List getTokens(Segment seg, int initialTokenType, int offs) {
+    public List<Token> getTokens(Segment seg, int initialTokenType, int offs)
+    {
         tokens.clear();
         tokens.add(new Token(seg.toString(), DEFAULT_LEXER_STATE));
 
-        if (tokens.size() == 0) {
+        if (tokens.size() == 0)
+        {
             tokens.add(new Token("", DEFAULT_LEXER_STATE));
         }
 
         return tokens;
     }
 
-    public IColorProvider getColorer() {
-        return new PlainColorProviderImpl();
+    public IColorProvider getColorer()
+    {
+        return COLORER;
     }
 
-    public String[] getSupportedExtensions() {
+    public String[] getSupportedExtensions()
+    {
         return SUPPORTED_EXTENSIONS;
     }
 }
