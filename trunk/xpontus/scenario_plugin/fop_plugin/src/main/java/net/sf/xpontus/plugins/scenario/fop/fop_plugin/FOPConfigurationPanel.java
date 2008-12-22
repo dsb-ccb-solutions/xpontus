@@ -71,10 +71,10 @@ public class FOPConfigurationPanel implements PreferencesPluginIF {
         String m_prop = FOPConfigurationPanel.class.getName() + "$" +
             FOPTransformationPluginImpl.FOP_CONFIG_FILE_PROPERTY;
 
-        if (configFile != null) {
-            props.put(m_prop, configFile);
-        }
-
+        if (configFile == null) {             
+			configFile="";
+		}
+	    props.put(m_prop, configFile);
         PropertiesConfigurationLoader.save(propertiesFile, props);
         XPontusConfig.put(m_prop, configFile);
     }
@@ -87,8 +87,7 @@ public class FOPConfigurationPanel implements PreferencesPluginIF {
         if (o == null) {
             configFile = null;
         } else {
-            configFile = o.toString();
-            fopSettingsTF.setText(configFile);
+            fopSettingsTF.setText("");
         }
     }
 
