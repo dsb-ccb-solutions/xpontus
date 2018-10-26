@@ -43,7 +43,8 @@
             <groupId>net.sf.jpf</groupId>
             <artifactId>jpf-tools</artifactId>
             <version>1.5</version>
-            <scope>compile</scope>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../provided/jpf-1.5.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>dom4j</groupId>

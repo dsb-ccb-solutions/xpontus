@@ -27,7 +27,8 @@
             <groupId>com.thaiopensource</groupId>
             <artifactId>trang</artifactId>
             <version>20030619</version>
-            <scope>compile</scope>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../provided/trang.jar</systemPath>
         </dependency>
   </dependencies> 
   <description>Plugin which allows conversion and/or generation of DTD, XML Schemas, XML files, Relax ng files</description>
