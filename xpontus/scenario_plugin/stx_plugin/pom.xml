@@ -28,7 +28,8 @@
             <groupId>net.sourceforge.joost</groupId>
             <artifactId>joost</artifactId>
             <version>20070718</version>
-            <scope>compile</scope>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../../provided/joost-20070718.jar</systemPath>
         </dependency>
   </dependencies>
 </project>
