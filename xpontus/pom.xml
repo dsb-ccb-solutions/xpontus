@@ -62,6 +62,7 @@
         </contributor>
     </contributors>
     <modules>
+        <module>install_lost_artefacts</module> 
         <module>xpontus_core</module> 
         <module>i18n_plugin</module>              
         <module>validation_plugin</module>
