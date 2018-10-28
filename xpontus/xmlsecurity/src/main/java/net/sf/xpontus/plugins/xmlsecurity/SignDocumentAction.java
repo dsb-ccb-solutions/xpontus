@@ -10,7 +10,7 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**
  *
- * @author Propriétaire
+ * @author Proprietary
  */
 public class SignDocumentAction extends XPontusThreadedActionImpl {
     public SignDocumentAction() {

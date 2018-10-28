@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  *
- * @author Propriétaire
+ * @author Proprietary
  */
 public class XMLSecurityPluginImpl implements ActionPluginIF {
     public List getMenuNames() {
