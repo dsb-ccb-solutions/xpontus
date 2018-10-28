@@ -13,7 +13,6 @@ import javax.xml.namespace.NamespaceContext;
 
 
 /**
- * <meta name="usage" content="general"/>
  * This class implements a Default PrefixResolver which
  * can be used to perform prefix-to-namespace lookup
  * for the XPath object.
