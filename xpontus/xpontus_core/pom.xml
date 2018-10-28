@@ -17,16 +17,6 @@
 		<artifactId>xpontus</artifactId>
 		<version>1.0.0.2</version>
 	</parent>
-	<repositories>
-		<repository>
-			<id>maven-javanet</id>
-			<url>http://download.java.net/maven/2</url>
-		</repository>
-		<repository>
-			<id>maven-xpontus-repository</id>
-			<url>http://xpontus.sourceforge.net/maven/repository</url>
-		</repository>
-	</repositories>
 	<profiles>
 		<profile>
 			<id>netbeans-public</id>
