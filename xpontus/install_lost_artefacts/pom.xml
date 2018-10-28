@@ -6,6 +6,12 @@
   <version>1.0</version> 
   <description>Install lost artefacts to local maven repo</description>
   
+  <parent>
+    <groupId>net.sf.xpontus</groupId>
+    <artifactId>xpontus</artifactId>
+    <version>1.0.0.2</version>
+  </parent>
+  
   <build>
       <plugins>
           <plugin>
