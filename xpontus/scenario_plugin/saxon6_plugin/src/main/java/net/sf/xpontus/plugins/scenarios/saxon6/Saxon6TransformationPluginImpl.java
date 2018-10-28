@@ -49,7 +49,7 @@ import javax.xml.transform.stream.StreamSource;
 
 /**
  *
- * @author Propriétaire
+ * @author Proprietary
  */
 public class Saxon6TransformationPluginImpl implements ScenarioPluginIF {
     public static final String SAXON6_TRANSFORMATION = "Output type (XML, HTML, Text)";

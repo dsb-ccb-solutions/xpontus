@@ -9,7 +9,7 @@ import org.java.plugin.Plugin;
 
 /**
  *
- * @author Propriétaire
+ * @author Proprietary
  */
 public class Saxon8TransformationPlugin extends Plugin {
     protected void doStart() throws Exception {

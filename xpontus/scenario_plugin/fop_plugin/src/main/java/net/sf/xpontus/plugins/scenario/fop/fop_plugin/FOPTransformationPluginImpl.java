@@ -54,7 +54,7 @@ import javax.xml.transform.stream.StreamSource;
 
 /**
  *
- * @author Propriétaire
+ * @author proprietary
  */
 public class FOPTransformationPluginImpl implements ScenarioPluginIF {
     public static final String FOP_CONFIG_FILE_PROPERTY = "FOP_CONFIG_FILE_PROPERTY";
