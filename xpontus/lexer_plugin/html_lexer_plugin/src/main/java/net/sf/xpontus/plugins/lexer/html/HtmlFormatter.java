@@ -34,14 +34,10 @@ import java.util.Set;
  * documents has been preprocessed by HtmlCollector (which matches up beginning
  * and end tags) and by HtmlScrubber (which formats tags in a consistent way).
  * In particular, HtmlScrubber should be invoked with the TRIM_SPACES option to
- * remove trailing spaces, which can confuse the formatting algorithm. <p/>
- * <P>
+ * remove trailing spaces, which can confuse the formatting algorithm. 
  * The right margin and indent increment can be specified as properties.
  *
  * @author Brian Goetz, Quiotix
- * @see com.quiotix.html.parser.HtmlVisitor
- * @see com.quiotix.html.parser.HtmlCollector
- * @see com.quiotix.html.parser.HtmlScrubber
  */
 public class HtmlFormatter extends HtmlVisitor {
     protected static Set tagsIndentBlock = new HashSet();
