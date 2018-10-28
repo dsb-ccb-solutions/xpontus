@@ -123,8 +123,7 @@
 			<groupId>com.vlsolutions</groupId>
 			<artifactId>vldocking</artifactId>
 			<version>2.1.4</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/../provided/vldocking-2.1.4.jar</systemPath>
+			<scope>compile</scope>			
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
@@ -175,18 +174,16 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>commons-vfs</groupId>
+			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-vfs</artifactId>
 			<version>1.1-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/../provided/commons-vfs-1.1-SNAPSHOT.jar</systemPath>
+			<scope>compile</scope>			
 		</dependency>
 		<dependency>
-			<groupId>commons-vfs</groupId>
-			<artifactId>commons-vfs-contrib</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-vfs-sandbox</artifactId>
 			<version>1.1-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/../provided/commons-vfs-contrib-1.1-SNAPSHOT.jar</systemPath>
+			<scope>compile</scope>			
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -246,8 +243,7 @@
 			<groupId>l2fprod-common</groupId>
 			<artifactId>l2fprod-common</artifactId>
 			<version>7.3-20070317</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/../provided/l2fprod-common-7.3-20070317.jar</systemPath>
+			<scope>compile</scope>			
 		</dependency>
 	</dependencies>
 	<reporting>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.xpontus.util</groupId>
+  <artifactId>install_lost_artefacts</artifactId>  
+  <version>1.0</version> 
+  <description>Install lost artefacts to local maven repo</description>
+  
+  <build>
+      <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-install-plugin</artifactId>
+            <version>3.0.0-M1</version>
+            <executions>
+                <execution>
+                  <id>inst1</id>
+                  <phase>compile</phase>
+                  <goals>
+                    <goal>install-file</goal>
+                  </goals>
+                  <configuration>
+                    <file>org.apache.commons/commons-vfs/commons-vfs-1.1-SNAPSHOT.jar</file>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-vfs</artifactId>
+                    <version>1.1-SNAPSHOT</version>       
+                    <pomFile>org.apache.commons/commons-vfs/pom.xml</pomFile>             
+                  </configuration>
+                </execution>
+                <!-- -->
+                <execution>
+                  <id>inst2</id>
+                  <phase>compile</phase>
+                  <goals>
+                    <goal>install-file</goal>
+                  </goals>
+                  <configuration>
+                    <file>org.apache.commons/commons-vfs-contrib/commons-vfs-contrib-1.1-SNAPSHOT.jar</file>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-vfs-sandbox</artifactId>
+                    <version>1.1-SNAPSHOT</version>       
+                    <pomFile>org.apache.commons/commons-vfs-contrib/pom.xml</pomFile>             
+                  </configuration>
+                </execution>
+                
+                <execution>
+                  <id>inst3</id>
+                  <phase>compile</phase>
+                  <goals>
+                    <goal>install-file</goal>
+                  </goals>
+                  <configuration>
+                    <file>com.vlsolutions/vldocking/vldocking-2.1.4.jar</file>
+                    <groupId>com.vlsolutions</groupId>
+                    <artifactId>vldocking</artifactId>
+                    <version>2.1.4</version>      
+                    <packaging>jar</packaging>                    
+                  </configuration>
+                </execution>
+                
+                <execution>
+                  <id>inst4</id>
+                  <phase>compile</phase>
+                  <goals>
+                    <goal>install-file</goal>
+                  </goals>
+                  <configuration>
+                    <file>l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317.jar</file>
+                    <groupId>l2fprod-common</groupId>
+                    <artifactId>l2fprod-common</artifactId>
+                    <version>7.3-20070317</version>      
+                    <packaging>jar</packaging>                    
+                  </configuration>
+                </execution>
+                
+                <execution>
+                  <id>inst5</id>
+                  <phase>compile</phase>
+                  <goals>
+                    <goal>install-file</goal>
+                  </goals>
+                  <configuration>
+                    <file>net.sourceforge.joost/joost/joost-20070718.jar</file>
+                    <groupId>net.sourceforge.joost</groupId>
+                    <artifactId>joost</artifactId>
+                    <version>20070718</version>      
+                    <packaging>jar</packaging>                    
+                  </configuration>
+                </execution>
+                
+                <execution>
+                  <id>inst6</id>
+                  <phase>compile</phase>
+                  <goals>
+                    <goal>install-file</goal>
+                  </goals>
+                  <configuration>
+                    <file>com.thaiopensource/trang/trang.jar</file>
+                    <groupId>com.thaiopensource</groupId>
+                    <artifactId>trang</artifactId>
+                    <version>20030619</version>      
+                    <packaging>jar</packaging>                    
+                  </configuration>
+                </execution>
+                
+                <execution>
+                  <id>inst7</id>
+                  <phase>compile</phase>
+                  <goals>
+                    <goal>install-file</goal>
+                  </goals>
+                  <configuration>
+                    <file>net.sf.jpf/jpf-tools/jpf-1.5.jar</file>
+                    <groupId>net.sf.jpf</groupId>
+                    <artifactId>jpf-tools</artifactId>
+                    <version>1.5</version>                          
+                  </configuration>
+                </execution>
+            </executions>
+          </plugin>
+      </plugins>
+  </build>
+</project>
