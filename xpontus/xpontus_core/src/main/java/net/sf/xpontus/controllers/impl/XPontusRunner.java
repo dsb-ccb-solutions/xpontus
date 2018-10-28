@@ -200,7 +200,6 @@ public class XPontusRunner
     /**
      * Application's entry point
      * @param args  command line arguments
-     * @throws java.lang.Exception An exception
      */
     public static void main(final String[] args)
     {

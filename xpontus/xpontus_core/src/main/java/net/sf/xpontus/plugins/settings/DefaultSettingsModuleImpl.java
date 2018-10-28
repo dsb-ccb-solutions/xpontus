@@ -223,7 +223,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF
 
     /**
      *
-     * @param beanClass
+     * @param bean
      * @return
      */
     public Object load(ConfigurationModel bean)

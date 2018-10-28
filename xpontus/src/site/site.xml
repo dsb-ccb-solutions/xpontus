@@ -44,8 +44,8 @@
         </menu>
         <menu name = "About me">
             <item name = "Who am I?" href = "aboutme.html" />
-            <item name = "My Blog" class = "newWindow" target = "_blank" href = "http://yveszoundi.blogspot.com"/>
-            <item name = "My resume" class = "newWindow"  target = "_blank" href = "resume.html"/>
+            <item name = "My Blog" target = "_blank" href = "http://yveszoundi.blogspot.com"/>
+            <item name = "My resume" target = "_blank" href = "resume.html"/>
         </menu>
         ${modules} 
     </body>

@@ -62,7 +62,6 @@ public interface ScenarioPluginIF {
     /**
      *
      * @param model
-     * @throws java.lang.Exception
      */
     void handleScenario(DetachableScenarioModel model);
 
@@ -70,7 +69,6 @@ public interface ScenarioPluginIF {
      *
      * @param model
      * @return
-     * @throws java.lang.Exception
      */
     public boolean isValidModel(DetachableScenarioModel model, boolean b);
 }

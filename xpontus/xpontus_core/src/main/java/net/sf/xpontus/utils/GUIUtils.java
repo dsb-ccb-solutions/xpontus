@@ -190,7 +190,7 @@ public class GUIUtils
     }
 
     /**
-     * This function calls Component.setFocusableWindowState (in java >= 1.4) to  keep GUI
+     * This function calls Component.setFocusableWindowState (in java {@literal >=} 1.4) to  keep GUI
      * consistent with java 1.3.x
      *
      * @param aObj TODO: DOCUMENT ME!

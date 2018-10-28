@@ -57,7 +57,7 @@ public class MimeDescriptor {
     /**
      * Method getFileTypes returns the fileTypes of this MimeDescriptor object.
      *
-     * @return the fileTypes (type List<String>) of this MimeDescriptor object.
+     * @return the fileTypes of this MimeDescriptor object.
      */
     public List<String> getFileTypes() {
         return fileTypes;

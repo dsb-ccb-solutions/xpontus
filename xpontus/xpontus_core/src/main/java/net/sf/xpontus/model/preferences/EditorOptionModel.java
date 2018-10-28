@@ -84,7 +84,7 @@ public class EditorOptionModel extends ConfigurationModel {
 
     /**
      *
-     * @param tabSize
+     * @param newValue 
      */
     public void setTabSize(Long newValue) {
         Long oldValue = tabSize;
