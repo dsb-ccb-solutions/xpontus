@@ -16,11 +16,11 @@
 		    <logo name="Intellij" href="http://www.jetbrains.com/idea/"
           img="http://xpontus.sourceforge.net/images/logo_bw.gif"/>
   </poweredBy>
-<skin>
+<!--<skin>
  	   <groupId>net.sf.xpontus.skins</groupId>
   <artifactId>xpontus-maven-skin</artifactId>
   <version>1.0.0.2</version>
- 	  </skin>
+ 	  </skin>-->
     <body> 
         <links>  
             <item name = "Project page Sourceforge" href="http://sourceforge.net/projects/xpontus"/>
