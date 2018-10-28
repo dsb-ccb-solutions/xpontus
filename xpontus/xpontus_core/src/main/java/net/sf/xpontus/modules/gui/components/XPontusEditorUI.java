@@ -30,7 +30,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.2
  */
 public class XPontusEditorUI extends BasicEditorPaneUI

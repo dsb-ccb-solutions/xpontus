@@ -47,7 +47,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  * @version 0.0.1
- * @author Yves Zoundi<yveszoundi AT users DOT sf DOT net>
+ * @author Yves Zoundi
  * Class to reload a document
  */
 public class ReloadActionImpl extends DefaultDocumentAwareActionImpl

@@ -57,7 +57,7 @@ import com.vlsolutions.swing.docking.TabbedDockableContainer;
 /**
  *
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DefaultSettingsModuleImpl implements SettingsModuleIF
 {
@@ -223,7 +223,7 @@ public class DefaultSettingsModuleImpl implements SettingsModuleIF
 
     /**
      *
-     * @param beanClass
+     * @param bean
      * @return
      */
     public Object load(ConfigurationModel bean)

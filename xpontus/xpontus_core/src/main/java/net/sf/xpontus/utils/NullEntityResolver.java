@@ -32,7 +32,7 @@ import java.io.StringReader;
 /**
  * A simple entity resolver which does absolutely nothing
  * It allows a fast verification of an XML Document without resolving entities
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class NullEntityResolver implements EntityResolver
 {

@@ -25,7 +25,7 @@ import javax.swing.tree.TreePath;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PreferencesTreeListener implements TreeSelectionListener
 {

@@ -40,7 +40,7 @@ import javax.swing.text.JTextComponent;
 /**
  * Find/replace dialog (Unused)
  * @version 0.0.1
- * @author SOAP GUI, Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author SOAP GUI, Yves Zoundi
  * 
  */
 public class FindReplaceActionImpl extends DefaultDocumentAwareActionImpl

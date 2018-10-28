@@ -25,7 +25,7 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XPathResultsTableModel extends AbstractTableModel {
     private static final long serialVersionUID = -7783523895240189020L;

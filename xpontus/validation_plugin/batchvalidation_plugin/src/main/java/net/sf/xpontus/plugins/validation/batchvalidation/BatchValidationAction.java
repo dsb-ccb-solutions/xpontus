@@ -26,7 +26,7 @@ import javax.swing.ImageIcon;
 
 /**
  * Action to display the batch validation dialog
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.1
  */
 public class BatchValidationAction extends XPontusDialogActionImpl {

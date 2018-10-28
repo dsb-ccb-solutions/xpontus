@@ -39,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
  *  It will be usefull to read and save some configurations
  * </p>
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PropertiesConfigurationLoader {
     private static Log log = LogFactory.getLog(PropertiesConfigurationLoader.class);

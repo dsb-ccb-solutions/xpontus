@@ -32,7 +32,7 @@ import javax.swing.text.JTextComponent;
 /**
  *
  * Comment text selection
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.1
  */
 public class XMLCommentActionImpl extends DefaultDocumentAwareActionImpl

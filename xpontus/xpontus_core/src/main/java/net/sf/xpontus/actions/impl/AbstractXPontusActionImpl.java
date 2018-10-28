@@ -38,7 +38,7 @@ import javax.swing.KeyStroke;
 
 /**
  * Base class for xpontus actions handlers
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public abstract class AbstractXPontusActionImpl extends AbstractAction
     implements XPontusActionIF

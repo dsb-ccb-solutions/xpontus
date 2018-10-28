@@ -24,7 +24,7 @@ package net.sf.xpontus.plugins.lexer.xml;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public interface XMLLexerPreferencesConstantsIF
 {

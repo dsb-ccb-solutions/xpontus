@@ -29,7 +29,7 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**
  *
- * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class BasicSettingsView extends javax.swing.JDialog {
 

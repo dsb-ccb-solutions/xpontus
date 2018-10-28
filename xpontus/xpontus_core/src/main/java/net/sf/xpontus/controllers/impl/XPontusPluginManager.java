@@ -56,7 +56,7 @@ import java.util.Locale;
 
 /**
  * XPontus plugin manager
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.1
  */
 public class XPontusPluginManager implements XPontusControllerIF

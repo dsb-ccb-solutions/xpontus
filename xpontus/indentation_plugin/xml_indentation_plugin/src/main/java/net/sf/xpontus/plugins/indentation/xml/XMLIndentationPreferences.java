@@ -46,7 +46,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XMLIndentationPreferences implements PreferencesPluginIF {
     private IPreferencesPanel panel;

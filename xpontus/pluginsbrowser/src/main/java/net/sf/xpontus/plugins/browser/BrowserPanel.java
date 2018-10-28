@@ -56,7 +56,7 @@ import javax.swing.text.html.HTMLEditorKit;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 @SuppressWarnings("unchecked")
 public class BrowserPanel extends JComponent { 

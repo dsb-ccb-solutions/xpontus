@@ -35,7 +35,7 @@ import javax.swing.text.MutableAttributeSet;
 
 /**
  *
- * @author Propriétaire
+ * @author proprietary
  */
 public class MessagesWindowDockable extends OutputDockable {
     public static final String DOCKABLE_ID = "DEFAULT_MESSAGES_WINDOW";

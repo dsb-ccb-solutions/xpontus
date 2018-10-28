@@ -7,7 +7,7 @@ package net.sf.xpontus.plugins.xmlsecurity;
 
 /**
  *
- * @author Propriétaire
+ * @author Proprietary
  */
 public class XMLSecurityPlugin {
 }

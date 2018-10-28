@@ -36,7 +36,7 @@ import java.awt.Toolkit;
 /**
  * Controller to handle scenario profile execution
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ScenarioExecutionController {
     public static final String CLOSE_METHOD = "closeWindow";

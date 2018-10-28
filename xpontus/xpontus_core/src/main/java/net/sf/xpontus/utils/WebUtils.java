@@ -19,7 +19,7 @@ import org.apache.commons.io.FileUtils;
 
 /**
  *
- * @author Propriétaire
+ * @author proprietary
  */
 public class WebUtils {
 

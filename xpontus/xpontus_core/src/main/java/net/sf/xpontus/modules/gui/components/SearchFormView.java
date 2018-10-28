@@ -32,7 +32,7 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**
  *
- * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class SearchFormView extends javax.swing.JDialog {
  

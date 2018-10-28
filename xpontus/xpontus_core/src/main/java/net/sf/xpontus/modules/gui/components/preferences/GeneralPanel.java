@@ -36,7 +36,7 @@ import net.sf.xpontus.utils.PropertiesConfigurationLoader;
 
 /**
  *
- * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class GeneralPanel extends javax.swing.JPanel implements IPreferencesPanel, PreferencesPluginIF {
  

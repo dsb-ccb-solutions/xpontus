@@ -42,7 +42,7 @@ import com.ibm.icu.text.CharsetDetector;
 
 /**
  * Utility class for XML documents
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XMLUtils
 {

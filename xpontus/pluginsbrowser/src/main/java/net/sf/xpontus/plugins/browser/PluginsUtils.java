@@ -64,7 +64,7 @@ import org.java.plugin.registry.PluginPrerequisite;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PluginsUtils {
 

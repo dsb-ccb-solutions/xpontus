@@ -39,7 +39,7 @@ import javax.swing.JTabbedPane;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PluginBrowser extends javax.swing.JDialog {
     

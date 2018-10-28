@@ -28,7 +28,7 @@ import javax.swing.SwingUtilities;
 /**
  * A drop down list with history support
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class MemoryComboBox extends JComboBox
 {

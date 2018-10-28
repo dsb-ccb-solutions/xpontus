@@ -48,7 +48,7 @@ import javax.xml.transform.stream.StreamSource;
 
 /**
  *
- * @author Propriétaire
+ * @author Proprietary
  */
 public class Saxon8TransformationPluginImpl implements ScenarioPluginIF {
     public static final String SAXON8_TRANSFORMATION = "Output type (XQUERY, XML, HTML, Text)";

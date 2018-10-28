@@ -30,7 +30,7 @@ import javax.swing.JEditorPane;
 
 /**
  * Action to print a document
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PrintActionImpl extends DefaultDocumentAwareActionImpl
 {

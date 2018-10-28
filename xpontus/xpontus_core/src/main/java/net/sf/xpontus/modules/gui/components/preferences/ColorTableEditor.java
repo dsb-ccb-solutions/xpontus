@@ -32,7 +32,7 @@ import javax.swing.table.TableCellEditor;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ColorTableEditor extends AbstractCellEditor
     implements TableCellEditor, ActionListener

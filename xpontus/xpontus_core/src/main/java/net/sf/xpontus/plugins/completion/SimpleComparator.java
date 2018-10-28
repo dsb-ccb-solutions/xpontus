@@ -26,7 +26,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class SimpleComparator implements Comparator {
     public int compare(Object o1, Object o2) {

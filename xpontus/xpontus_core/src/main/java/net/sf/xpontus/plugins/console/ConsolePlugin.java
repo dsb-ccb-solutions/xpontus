@@ -36,7 +36,7 @@ import java.util.Collection;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ConsolePlugin extends XPontusPlugin
 {

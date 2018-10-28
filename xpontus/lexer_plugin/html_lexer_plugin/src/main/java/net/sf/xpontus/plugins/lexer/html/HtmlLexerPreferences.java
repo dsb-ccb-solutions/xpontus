@@ -51,7 +51,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class HtmlLexerPreferences implements PreferencesPluginIF {
     private IPreferencesPanel panel;

@@ -29,7 +29,7 @@ import java.util.Map;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class UpgradesPluginResolver extends AbstractPluginsResolver {
     private Map<String, SimplePluginDescriptor> pluginsMap = new HashMap<String, SimplePluginDescriptor>();

@@ -101,7 +101,7 @@ import javax.swing.UIManager;
 /**
  * Class which start the application
  * This class should not be called (XPontusServerManager is the launcher)
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XPontusRunner
 {
@@ -200,7 +200,6 @@ public class XPontusRunner
     /**
      * Application's entry point
      * @param args  command line arguments
-     * @throws java.lang.Exception An exception
      */
     public static void main(final String[] args)
     {

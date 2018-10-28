@@ -37,7 +37,7 @@ import org.java.plugin.registry.PluginRegistry;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DocumentationPlugin extends XPontusPlugin {
     public static final String EXTENSION_POINT_NAME = "gendocpluginif";

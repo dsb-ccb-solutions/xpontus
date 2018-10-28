@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class TagInfo implements Comparable<TagInfo>
 {

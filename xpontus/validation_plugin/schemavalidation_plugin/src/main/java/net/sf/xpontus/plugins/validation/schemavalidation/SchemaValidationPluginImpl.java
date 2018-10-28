@@ -33,7 +33,7 @@ import net.sf.xpontus.plugins.actions.ActionPluginIF;
 
 /**
  * Schema validation plugin implementation
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.1
  */
 public class SchemaValidationPluginImpl implements ActionPluginIF {

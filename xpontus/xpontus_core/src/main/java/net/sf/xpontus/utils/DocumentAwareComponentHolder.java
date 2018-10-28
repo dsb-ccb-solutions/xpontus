@@ -30,7 +30,7 @@ import java.util.Vector;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DocumentAwareComponentHolder {
     private static DocumentAwareComponentHolder INSTANCE;

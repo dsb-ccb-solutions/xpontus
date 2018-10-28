@@ -48,7 +48,7 @@ import javax.swing.tree.DefaultTreeModel;
 /**
  * Dockable for the outline view
  * @version 0.0.2
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class OutlineViewDockable extends JScrollPane implements Dockable
 {

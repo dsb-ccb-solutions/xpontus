@@ -51,7 +51,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class FOPConfigurationPanel implements PreferencesPluginIF {
     private final String PLUGIN_CATEGORY = "Transformation";

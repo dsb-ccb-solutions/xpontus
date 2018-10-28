@@ -29,7 +29,7 @@ import javax.swing.JComponent;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class JStatusBar extends javax.swing.JPanel {
  

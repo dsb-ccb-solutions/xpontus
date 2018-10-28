@@ -29,7 +29,7 @@ import java.beans.PropertyChangeSupport;
  *
  * Model for the general preferences
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class GeneralOptionModel {
     private boolean showSplash = true;

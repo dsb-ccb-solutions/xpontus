@@ -29,7 +29,7 @@ import java.awt.Component;
 /**
  * Interface for XPontus main components (the main window to display)
  * This will allow to integrate xpontus code in other projects
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public interface XPontusTopComponentIF {
     /**

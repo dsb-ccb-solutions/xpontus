@@ -39,7 +39,7 @@ import javax.swing.text.JTextComponent;
 /**
  * @version 0.0.1
  * Action to open a document
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class OpenActionImpl extends XPontusThreadedActionImpl
 {

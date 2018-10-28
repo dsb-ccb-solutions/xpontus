@@ -28,7 +28,7 @@ import net.sf.xpontus.plugins.gendoc.IDocumentationPluginIF;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XSDDocPluginImpl implements IDocumentationPluginIF {
     public final String TYPE = "XML Schema";

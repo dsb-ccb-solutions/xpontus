@@ -28,7 +28,7 @@ import javax.swing.Icon;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class EditorPanelDialog extends AbstractDialogPage {
     /**

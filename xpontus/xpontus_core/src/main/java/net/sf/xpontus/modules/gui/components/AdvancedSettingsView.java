@@ -36,7 +36,7 @@ import org.java.plugin.registry.PluginDescriptor;
 
 /**
  *
- * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class AdvancedSettingsView extends javax.swing.JDialog {
 

@@ -48,7 +48,7 @@ import javax.xml.transform.stream.StreamSource;
 
 /**
  *
- * @author Propriétaire
+ * @author proprietary
  */
 public class STXTransformationPluginImpl implements ScenarioPluginIF {
     public static final String STX_TRANSFORMATION = "Output type (XML, HTML, Text)";

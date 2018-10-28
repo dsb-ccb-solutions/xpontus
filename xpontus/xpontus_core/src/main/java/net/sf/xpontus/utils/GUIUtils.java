@@ -56,7 +56,7 @@ import javax.swing.text.JTextComponent;
 /**
  * Hopefully his class will be doing lots of useful stuff
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class GUIUtils
 {
@@ -190,7 +190,7 @@ public class GUIUtils
     }
 
     /**
-     * This function calls Component.setFocusableWindowState (in java >= 1.4) to  keep GUI
+     * This function calls Component.setFocusableWindowState (in java {@literal >=} 1.4) to  keep GUI
      * consistent with java 1.3.x
      *
      * @param aObj TODO: DOCUMENT ME!

@@ -47,7 +47,6 @@ public class ScenarioEditorView extends javax.swing.JDialog implements Observer 
     /** 
      * Creates new form ScenarioEditorView 
      * @param parent 
-     * @param model 
      */
     public ScenarioEditorView(javax.swing.JDialog parent) {
         super(parent, true);

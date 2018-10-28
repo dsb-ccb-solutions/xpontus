@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Mime type descriptor
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class MimeDescriptor {
     private String mime;
@@ -57,7 +57,7 @@ public class MimeDescriptor {
     /**
      * Method getFileTypes returns the fileTypes of this MimeDescriptor object.
      *
-     * @return the fileTypes (type List<String>) of this MimeDescriptor object.
+     * @return the fileTypes of this MimeDescriptor object.
      */
     public List<String> getFileTypes() {
         return fileTypes;

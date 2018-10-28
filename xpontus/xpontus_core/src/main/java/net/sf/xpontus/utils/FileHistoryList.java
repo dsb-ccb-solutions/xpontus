@@ -45,7 +45,7 @@ import java.util.Vector;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class FileHistoryList {
     private static Vector<String> files = new Vector<String>();

@@ -61,7 +61,7 @@ import javax.swing.event.ChangeListener;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DockTabbedPane2 extends JideTabbedPane implements DockDropReceiver,
     DockableDragSource, TabbedDockableContainer {

@@ -32,7 +32,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ImageButton extends JButton
 {

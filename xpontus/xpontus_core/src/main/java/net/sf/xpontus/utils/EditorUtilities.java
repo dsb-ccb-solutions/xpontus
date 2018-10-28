@@ -29,7 +29,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class EditorUtilities
 {

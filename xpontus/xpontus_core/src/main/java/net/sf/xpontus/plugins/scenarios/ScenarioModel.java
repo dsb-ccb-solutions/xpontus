@@ -31,7 +31,7 @@ import java.util.Hashtable;
 /**
  * Scenario model for user transformations
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ScenarioModel extends ObservableModel {
     private String input = "";

@@ -41,7 +41,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XPathResultsDockable extends OutputDockable {
     public static final String DOCKABLE_ID = "XPATH_WINDOW";

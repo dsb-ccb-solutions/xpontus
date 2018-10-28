@@ -31,7 +31,7 @@ import java.io.File;
 /**
  * Some file configuration variables
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public interface XPontusConfigurationConstantsIF {
     /**

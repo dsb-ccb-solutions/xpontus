@@ -50,7 +50,7 @@ import javax.swing.JTextArea;
 
 /**
  * Default transformation previewer
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PreviewTextImpl implements PreviewPluginIF {
     public String getMimeType() {

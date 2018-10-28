@@ -91,8 +91,7 @@ public class ScenarioListModel extends ConfigurationModel
     }
 
     /**
-     * load a configuration
-     * @return the deserialized object loaded from a file
+     * load a configuration     
      */
     public void loadScenarios()
     {

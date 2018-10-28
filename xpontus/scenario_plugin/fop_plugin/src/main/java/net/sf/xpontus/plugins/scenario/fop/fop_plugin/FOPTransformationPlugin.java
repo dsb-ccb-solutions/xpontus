@@ -23,7 +23,7 @@ import java.util.Properties;
 
 /**
  *
- * @author Propriétaire
+ * @author proprietary
  */
 public class FOPTransformationPlugin extends Plugin {
     static File configfile = null;

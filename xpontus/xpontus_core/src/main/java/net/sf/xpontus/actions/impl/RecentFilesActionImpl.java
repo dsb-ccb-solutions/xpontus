@@ -38,7 +38,7 @@ import javax.swing.event.PopupMenuListener;
 
 /**
  * Handle recent files list
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class RecentFilesActionImpl extends AbstractXPontusActionImpl
     implements PopupMenuListener {

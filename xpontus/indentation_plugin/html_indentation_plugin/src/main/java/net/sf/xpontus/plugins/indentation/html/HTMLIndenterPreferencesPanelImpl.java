@@ -54,7 +54,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class HTMLIndenterPreferencesPanelImpl implements PreferencesPluginIF {
     private HTMLIndenterPrefComponent panel;
