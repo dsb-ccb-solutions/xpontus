@@ -35,7 +35,7 @@ import javax.swing.Action;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class BrowserMenuBarPluginImpl implements MenuBarPluginIF {
     private List<String> menuNamesList;

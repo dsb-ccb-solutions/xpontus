@@ -51,7 +51,7 @@ import javax.swing.border.TitledBorder;
 
 /**
  * Templates dialog
- * User: Yves Zoundi <yveszoundi at users dot sf dot net>
+ * User: Yves Zoundi
  * Date: Apr 5, 2008
  * Time: 1:59:18 PM
  */

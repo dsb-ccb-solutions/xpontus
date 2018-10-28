@@ -41,7 +41,7 @@ import java.util.Set;
 
 /**
  * Velocity template renderer utility class
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PluginsTemplateRenderer
 {

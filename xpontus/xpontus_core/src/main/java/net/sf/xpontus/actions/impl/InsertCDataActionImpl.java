@@ -26,7 +26,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  * Insert a CDATA section
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.2
  */
 public class InsertCDataActionImpl extends DefaultDocumentAwareActionImpl

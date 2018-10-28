@@ -29,7 +29,7 @@ import javax.swing.text.JTextComponent;
 /**
  * A class which show the completion window (CompletionWindow class should never called directly)
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ContentAssistWindow
 {

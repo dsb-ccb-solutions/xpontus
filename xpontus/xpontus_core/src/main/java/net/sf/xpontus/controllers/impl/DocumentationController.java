@@ -44,7 +44,7 @@ import javax.swing.JFileChooser;
 /**
  * @version 0.0.1
  * The controller for the documentation generator dialog
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DocumentationController {
     /**

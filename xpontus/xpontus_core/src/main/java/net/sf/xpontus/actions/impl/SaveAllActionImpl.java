@@ -27,7 +27,7 @@ import javax.swing.JFileChooser;
 /**
  * Action to save all opened documents
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class SaveAllActionImpl extends DefaultDocumentAwareActionImpl { 
 	private static final long serialVersionUID = 1215555331826767635L;

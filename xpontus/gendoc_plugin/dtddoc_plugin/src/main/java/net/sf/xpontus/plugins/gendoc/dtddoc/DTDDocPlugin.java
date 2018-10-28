@@ -25,7 +25,7 @@ import org.java.plugin.Plugin;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DTDDocPlugin extends Plugin {
     protected void doStart() throws Exception {

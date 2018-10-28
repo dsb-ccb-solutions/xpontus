@@ -32,7 +32,7 @@ import java.io.File;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class EditorOptionModel extends ConfigurationModel {
     private boolean showLineNumbers = true;

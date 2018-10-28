@@ -51,7 +51,7 @@ import javax.xml.transform.stream.StreamResult;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class CompletionUtils {
     private static final Log log = LogFactory.getLog(CompletionUtils.class);

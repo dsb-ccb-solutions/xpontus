@@ -17,7 +17,7 @@ import com.jgoodies.binding.beans.BeanAdapter;
 
 /**
  *
- * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class SchemaValidationView extends javax.swing.JDialog {
     

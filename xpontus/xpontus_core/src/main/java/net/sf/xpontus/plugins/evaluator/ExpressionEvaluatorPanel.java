@@ -24,7 +24,7 @@ import org.w3c.dom.NodeList;
 
 /**
  *
- * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ExpressionEvaluatorPanel extends javax.swing.JPanel implements DocumentAwareComponentIF {
 

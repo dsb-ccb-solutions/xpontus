@@ -59,7 +59,7 @@ import javax.xml.transform.stream.StreamSource;
 
 /**
  *
- * @author Yves Zoundi <yveszoundit at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DefaultScenarioPluginImpl implements ScenarioPluginIF {
     /**

@@ -47,7 +47,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XMLDocumentContainerImpl extends DocumentContainer {
     private JTabbedPane tabbedPane;

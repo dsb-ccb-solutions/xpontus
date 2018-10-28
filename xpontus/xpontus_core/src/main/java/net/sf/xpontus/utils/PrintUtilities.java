@@ -36,7 +36,7 @@ import javax.swing.text.View;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PrintUtilities implements Printable {
     int currentPage = -1;

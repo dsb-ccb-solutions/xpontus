@@ -38,7 +38,7 @@ import java.util.Hashtable;
 
 /**
  * The preferences plugin
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PreferencesPlugin extends XPontusPlugin
 {

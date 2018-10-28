@@ -38,7 +38,7 @@ import java.util.Hashtable;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class IndentationPlugin extends XPontusPlugin
 {

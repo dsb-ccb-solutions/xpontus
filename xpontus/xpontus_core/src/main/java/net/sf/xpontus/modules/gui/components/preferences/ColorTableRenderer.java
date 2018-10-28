@@ -33,7 +33,7 @@ import javax.swing.table.TableCellRenderer;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ColorTableRenderer extends JLabel implements TableCellRenderer
 {

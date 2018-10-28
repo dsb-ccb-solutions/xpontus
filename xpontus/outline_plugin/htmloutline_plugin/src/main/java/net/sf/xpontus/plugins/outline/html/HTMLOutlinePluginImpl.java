@@ -39,7 +39,7 @@ import javax.swing.text.Document;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class HTMLOutlinePluginImpl implements OutlinePluginIF
 {

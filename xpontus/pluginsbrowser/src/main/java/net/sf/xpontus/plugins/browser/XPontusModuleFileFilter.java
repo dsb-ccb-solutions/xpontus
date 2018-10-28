@@ -28,7 +28,7 @@ import javax.swing.filechooser.FileFilter;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XPontusModuleFileFilter extends FileFilter {
     public boolean accept(File f) {

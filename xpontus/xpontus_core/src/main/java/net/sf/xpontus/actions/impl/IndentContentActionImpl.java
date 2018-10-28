@@ -47,7 +47,7 @@ import javax.swing.text.JTextComponent;
 /**
  * Format a document
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class IndentContentActionImpl extends DefaultDocumentAwareActionImpl
 {

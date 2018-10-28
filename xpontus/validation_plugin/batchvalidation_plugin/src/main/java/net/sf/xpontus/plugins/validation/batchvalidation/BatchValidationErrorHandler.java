@@ -31,7 +31,7 @@ import org.xml.sax.SAXParseException;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 class BatchValidationErrorHandler implements ErrorHandler {
     private StrBuilder errors = new StrBuilder();

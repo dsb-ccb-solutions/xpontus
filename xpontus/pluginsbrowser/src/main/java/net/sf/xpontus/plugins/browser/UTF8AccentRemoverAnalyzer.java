@@ -30,7 +30,7 @@ import org.apache.lucene.analysis.standard.StandardTokenizer;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 import java.io.Reader;
 

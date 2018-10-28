@@ -56,7 +56,7 @@ import com.ibm.icu.text.CharsetDetector;
 
 /**
  * Controller for the Batch Validation dialog
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.1
  */
 public class BatchValidationController {

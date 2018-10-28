@@ -27,7 +27,7 @@ import net.sf.xpontus.modules.gui.components.IDocumentContainer;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DefaultPerspectiveImpl implements PerspectivePluginIF {
     /* (non-Javadoc)

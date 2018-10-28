@@ -41,7 +41,7 @@ import java.io.Writer;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public abstract class ConfigurationModel
 {

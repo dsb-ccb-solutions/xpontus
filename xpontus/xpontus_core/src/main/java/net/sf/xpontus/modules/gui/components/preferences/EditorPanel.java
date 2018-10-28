@@ -41,7 +41,7 @@ import com.l2fprod.common.swing.JFontChooser;
 
 /**
  *
- * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class EditorPanel extends javax.swing.JPanel implements IPreferencesPanel, PreferencesPluginIF {
  

@@ -32,7 +32,7 @@ import javax.swing.text.JTextComponent;
 /**
  * Action to cancel changes
  * @version 0.0.2
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class UndoActionImpl extends DefaultDocumentAwareActionImpl
 {

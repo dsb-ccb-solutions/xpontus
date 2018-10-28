@@ -23,7 +23,7 @@ package net.sf.xpontus.plugins.evaluator;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public interface EvaluatorPluginIF {
     /**

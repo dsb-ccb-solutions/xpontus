@@ -39,7 +39,7 @@ import java.util.Hashtable;
 /**
  * Plugin for code completion
  * @version 0.0.2
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class CodeCompletionPlugin extends XPontusPlugin
 {

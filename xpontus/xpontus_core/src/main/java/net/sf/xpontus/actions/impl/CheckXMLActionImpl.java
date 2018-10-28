@@ -53,7 +53,7 @@ import javax.swing.text.JTextComponent;
 
 /**
  * Check if the XML document is well-formed
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class CheckXMLActionImpl extends DefaultDocumentAwareActionImpl
 {

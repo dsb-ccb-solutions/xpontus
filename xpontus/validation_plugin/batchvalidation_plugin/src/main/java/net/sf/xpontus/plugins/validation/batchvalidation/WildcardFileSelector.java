@@ -30,7 +30,7 @@ import org.apache.commons.vfs.FileSelector;
 /**
  * @version 0.0.1
  * Wildcard file filter for VFS
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class WildcardFileSelector implements FileSelector {
     private boolean recursive;

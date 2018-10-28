@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  *
- * @author Yves Zoundi <yveszoundit at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ScenarioPluginsConfiguration {
     private static ScenarioPluginsConfiguration INSTANCE;

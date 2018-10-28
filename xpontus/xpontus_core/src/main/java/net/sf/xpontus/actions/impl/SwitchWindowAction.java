@@ -37,7 +37,7 @@ import javax.swing.AbstractAction;
 /**
  * Action to switch between tabs like Firefox (control Page Up - Control Page Down)
  * @version 0.0.2
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class SwitchWindowAction extends AbstractAction
 {

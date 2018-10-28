@@ -28,7 +28,7 @@ import net.sf.xpontus.plugins.perspectives.PerspectivePluginIF;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XMLPerspectivePluginImpl implements PerspectivePluginIF {
     public String getContentType() {

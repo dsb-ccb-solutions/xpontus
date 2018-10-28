@@ -30,7 +30,7 @@ import javax.swing.SpringLayout;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class SpringUtilities {
     /**

@@ -32,7 +32,7 @@ import net.sf.xpontus.utils.XPontusComponentsUtils;
 
 /**
  * Dialog class for batch validation
- * @author  Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.1
  */
 public class BatchValidationDialogView extends javax.swing.JDialog {

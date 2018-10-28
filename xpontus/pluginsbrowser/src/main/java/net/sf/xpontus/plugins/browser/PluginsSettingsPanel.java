@@ -40,7 +40,7 @@ import javax.swing.ListSelectionModel;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PluginsSettingsPanel extends JComponent {
     private JCheckBox checkForUpdatesOption;

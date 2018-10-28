@@ -24,7 +24,7 @@ import org.java.plugin.Plugin;
 
 /**
  * A plugin for colors (syntax highlighting)
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ColorPlugin extends Plugin {
     public ColorPlugin() {

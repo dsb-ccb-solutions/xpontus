@@ -41,7 +41,7 @@ import java.util.Properties;
 
 
 /**
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class HTMLIndentationPlugin extends Plugin {
     static File configfile = null;

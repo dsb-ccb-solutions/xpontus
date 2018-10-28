@@ -53,7 +53,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Code completion plugin for XML files
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.1
  */
 public class XMLCodeCompletionPluginImpl implements CodeCompletionIF

@@ -28,7 +28,7 @@ import net.sf.xpontus.modules.gui.components.DocumentTabContainer;
 /**
  * Action to paste some text into a document
  * @version 0.0.2
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PasteActionImpl extends DefaultDocumentAwareActionImpl {
     private static final long serialVersionUID = 7659195427989181033L;

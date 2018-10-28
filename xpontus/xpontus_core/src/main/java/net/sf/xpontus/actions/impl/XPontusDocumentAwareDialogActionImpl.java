@@ -27,7 +27,7 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XPontusDocumentAwareDialogActionImpl
     extends XPontusDialogActionImpl implements DocumentAwareComponentIF

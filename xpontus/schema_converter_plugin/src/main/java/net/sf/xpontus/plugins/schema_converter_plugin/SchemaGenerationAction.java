@@ -30,7 +30,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class SchemaGenerationAction extends XPontusDialogActionImpl {
     /**

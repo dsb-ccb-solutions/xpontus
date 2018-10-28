@@ -26,7 +26,7 @@ import org.apache.commons.lang.text.StrBuilder;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class SimplePluginDescriptor
 {

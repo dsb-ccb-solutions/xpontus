@@ -29,7 +29,7 @@ import javax.swing.undo.UndoableEdit;
 
 /**
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XPontusUndoManager extends CompoundEdit
 {

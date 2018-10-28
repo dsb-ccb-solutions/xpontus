@@ -25,7 +25,7 @@ package net.sf.xpontus.constants;
 /**
  * Mime type constants
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public interface XPontusMimeConstantsIF {
     /**

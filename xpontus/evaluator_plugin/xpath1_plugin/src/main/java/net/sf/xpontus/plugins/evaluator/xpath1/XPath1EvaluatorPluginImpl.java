@@ -58,7 +58,7 @@ import javax.xml.namespace.NamespaceContext;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XPath1EvaluatorPluginImpl implements EvaluatorPluginIF {
     public XPath1EvaluatorPluginImpl() {

@@ -25,7 +25,7 @@ import net.sf.xpontus.utils.DocumentContainerChangeEvent;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public abstract class DefaultDocumentAwareActionImpl
     extends XPontusDocumentAwareThreadedActionImpl

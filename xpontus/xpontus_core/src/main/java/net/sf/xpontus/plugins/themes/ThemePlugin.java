@@ -38,7 +38,7 @@ import java.util.Map;
 
 /**
  * Plugin for themes
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ThemePlugin extends XPontusPlugin
 {

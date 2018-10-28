@@ -24,7 +24,7 @@ package net.sf.xpontus.constants;
 
 /**
  * <p>Constants for properties than can be retrieved by using the
- * class </code>PropertiesHolder</code></p>
+ * class <code>PropertiesHolder</code></p>
  * @author Yves Zoundi
  */
 public interface XPontusPropertiesConstantsIF {

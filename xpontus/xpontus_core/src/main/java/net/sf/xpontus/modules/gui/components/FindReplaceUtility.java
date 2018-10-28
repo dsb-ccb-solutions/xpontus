@@ -58,7 +58,7 @@ import javax.swing.text.Segment;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public final class FindReplaceUtility {
     public static final String FIND_ACTION_COMMAND = "Find";

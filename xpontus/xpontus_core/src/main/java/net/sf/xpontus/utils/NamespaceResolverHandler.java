@@ -23,7 +23,7 @@ package net.sf.xpontus.utils;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;

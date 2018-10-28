@@ -29,7 +29,7 @@ import org.apache.lucene.analysis.TokenStream;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 
 public class UTF8AccentRemoverFilter extends TokenFilter {

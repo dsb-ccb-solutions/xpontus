@@ -39,7 +39,7 @@ import java.util.Map;
 
 /**
  * Plugin for transformation results preview
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class PreviewPlugin extends XPontusPlugin {
     /**

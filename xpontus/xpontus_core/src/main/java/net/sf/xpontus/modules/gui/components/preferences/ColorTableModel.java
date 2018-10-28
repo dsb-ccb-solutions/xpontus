@@ -23,7 +23,7 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ColorTableModel extends AbstractTableModel
 { 

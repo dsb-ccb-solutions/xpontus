@@ -31,7 +31,7 @@ import java.util.Observable;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class ObservableModel extends Observable implements Serializable
 {

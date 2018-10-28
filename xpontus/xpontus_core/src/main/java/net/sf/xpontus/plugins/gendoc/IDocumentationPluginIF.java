@@ -25,7 +25,7 @@ import net.sf.xpontus.model.DocumentationModel;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public interface IDocumentationPluginIF {
     /**

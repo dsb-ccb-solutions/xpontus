@@ -41,7 +41,7 @@ import javax.swing.text.Document;
 
 /**
  * XML Outline plugin implementation
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  * @version 0.0.2
  */
 public class XMLOutlinePluginImpl implements OutlinePluginIF

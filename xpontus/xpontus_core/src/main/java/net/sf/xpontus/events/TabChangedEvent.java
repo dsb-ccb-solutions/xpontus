@@ -27,7 +27,7 @@ import java.util.EventObject;
 
 
 /**
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  *
  */
 public class TabChangedEvent extends EventObject

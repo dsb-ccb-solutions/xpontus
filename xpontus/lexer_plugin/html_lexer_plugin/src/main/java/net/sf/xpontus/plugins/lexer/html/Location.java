@@ -24,7 +24,7 @@ package net.sf.xpontus.plugins.lexer.html;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class Location implements Comparable {
     public int line = 0;

@@ -53,7 +53,7 @@ import javax.swing.text.html.HTMLEditorKit;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DownloadedPanel extends JComponent {
    

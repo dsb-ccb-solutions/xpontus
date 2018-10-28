@@ -55,7 +55,7 @@ import javax.swing.text.JTextComponent;
 /**
  * @version 0.0.3
  * Code completion window
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class CompletionWindow extends JWindow implements KeyListener,
     ListSelectionListener, FocusListener, MouseListener

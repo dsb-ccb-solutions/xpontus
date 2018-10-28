@@ -54,7 +54,7 @@ import javax.xml.transform.sax.SAXSource;
 /**
  * XPath 2.0 engine
  * @version 0.0.1
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class XPath2EvaluatorPluginImpl implements EvaluatorPluginIF
 {

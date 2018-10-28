@@ -33,7 +33,7 @@ import java.util.Set;
 
 /**
  *
- * @author Yves Zoundi <yveszoundi at users dot sf dot net>
+ * @author Yves Zoundi
  */
 public class DTDDocPluginImpl implements IDocumentationPluginIF {
     public final String TYPE = "DTD";
